@@ -5,9 +5,6 @@ from django.shortcuts import render
 from .models import CodeSubmission
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Hello Delta, This is an online coding platform")
-
 def compile_code(request):
     if request.method == "POST":
         language = request.POST.get('language', 'java')  # Default to 'java' if not provided
