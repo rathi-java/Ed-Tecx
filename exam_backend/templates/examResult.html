@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block start %}
+<div class="container mt-5 text-center">
+    <h2 class="mb-4">Exam Results</h2>
+    <p class="fs-4">Exam: {{ exam.course.name }}</p>
+    <p class="fs-5">Score: <strong>{{ score }}%</strong></p>
+    <p class="fs-5">Correct Answers: <strong>{{ correct_answers }}</strong> out of <strong>{{ total_questions }}</strong></p>
+    <a href="/" class="btn btn-primary mt-4">Go to Home</a>
+</div>
+{% endblock %}

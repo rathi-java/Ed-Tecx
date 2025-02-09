@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice Page</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      padding: 20px;
+    } */
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .question-container {
+      background-color: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 600px;
+    }
+
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    pre {
+      background-color: #ede6e8;
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+    }
+
+    .options li {
+      margin: 10px 0;
+    }
+
+    .options button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      text-align: left;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .options button.correct {
+      background-color: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+
+    .options button.wrong {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+
+    .options button:hover:not(:disabled) {
+      background-color: #e0e0e0;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header"></div>
+  <h1>Practice Questions</h1>
+
+  <!-- Question 1 -->
+<div class="question-container" id="q1">
+    <div class="question">
+      1. What is the difference between HTML and XHTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. HTML is case-sensitive; XHTML is not</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. XHTML is stricter with syntax rules compared to HTML</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. XHTML does not support multimedia; HTML does</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Both are identical and interchangeable</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 2 -->
+  <div class="question-container" id="q2">
+    <div class="question">
+      2. Which tag is used to create a hyperlink in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. &lt;link&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">B. &lt;a&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. &lt;href&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. &lt;hyperlink&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 3 -->
+  <div class="question-container" id="q3">
+    <div class="question">
+      3. What does the `alt` attribute in the &lt;img&gt; tag do?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Sets the image size</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. Links the image to another page</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">C. Provides alternative text if the image cannot be displayed</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Aligns the image</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 4 -->
+  <div class="question-container" id="q4">
+    <div class="question">
+      4. Which HTML tag is used to define a table row?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">A. &lt;tr&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. &lt;td&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. &lt;table-row&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. &lt;row&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 5 -->
+  <div class="question-container" id="q5">
+    <div class="question">
+      5. What is the purpose of the &lt;head&gt; tag in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">A. To contain metadata, links to stylesheets, and scripts</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. To display content on the web page</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. To define the document body</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. To add navigation links</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 6 -->
+  <div class="question-container" id="q6">
+    <div class="question">
+      6. Which attribute is used to specify that an input field must be filled out before submitting the form?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">A. required</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B. placeholder</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. value</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. mandatory</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 7 -->
+  <div class="question-container" id="q7">
+    <div class="question">
+      7. What does the &lt;canvas&gt; tag in HTML5 do?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Embeds a video</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Plays audio files</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">C. Draws graphics using JavaScript</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Creates 3D objects</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 8 -->
+  <div class="question-container" id="q8">
+    <div class="question">
+      8. Which HTML tag is used to define an unordered list?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. &lt;ul&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. &lt;ol&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. &lt;li&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. &lt;list&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 9 -->
+  <div class="question-container" id="q9">
+    <div class="question">
+      9. How do you specify a comment in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. # This is a comment</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. &lt;!-- This is a comment --&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. // This is a comment</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. /* This is a comment */</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 10 -->
+  <div class="question-container" id="q10">
+    <div class="question">
+      10. Which attribute is used to open a link in a new tab?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. href="_blank"</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">B. target="_blank"</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. window="new"</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. rel="tab"</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 11 -->
+<div class="question-container" id="q11">
+    <div class="question">
+      11. What is the purpose of the `defer` attribute in the &lt;script&gt; tag?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A. It makes sure the script is executed after the HTML document is parsed</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. It allows the script to execute before the HTML document</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. It defers the loading of external resources</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. It is used to preload images</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 12 -->
+  <div class="question-container" id="q12">
+    <div class="question">
+      12. Which tag is used to define an input field in an HTML form?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A. &lt;input-field&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">B. &lt;input&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. &lt;textfield&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. &lt;form-input&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 13 -->
+  <div class="question-container" id="q13">
+    <div class="question">
+      13. What is the difference between &lt;div&gt; and &lt;span&gt; tags?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. &lt;div&gt; is an inline element, &lt;span&gt; is a block-level element</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Both &lt;div&gt; and &lt;span&gt; are block-level elements</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">C. &lt;div&gt; is a block-level element, &lt;span&gt; is an inline element</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. &lt;div&gt; and &lt;span&gt; have no difference</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 14 -->
+  <div class="question-container" id="q14">
+    <div class="question">
+      14. Which tag is used to display an image in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. &lt;pic&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. &lt;img&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. &lt;image&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. &lt;photo&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 15 -->
+  <div class="question-container" id="q15">
+    <div class="question">
+      15. How do you create a comment in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">A. &lt;!-- This is a comment --&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. &lt;comment&gt; This is a comment &lt;/comment&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. // This is a comment</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. &lt;# This is a comment &gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 16 -->
+  <div class="question-container" id="q16">
+    <div class="question">
+      16. Which HTML element is used to define the largest heading?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. &lt;head&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. &lt;h3&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">C. &lt;h1&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. &lt;heading&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 17 -->
+  <div class="question-container" id="q17">
+    <div class="question">
+      17. How do you define the background color of a webpage in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. &lt;body bgcolor="color"&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">B. &lt;body style="background-color: color;"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. &lt;html bgcolor="color"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. &lt;page background="color"&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 18 -->
+  <div class="question-container" id="q18">
+    <div class="question">
+      18. What is the correct syntax to add a link to an external CSS file in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. &lt;link rel="stylesheet" href="styles.css"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. &lt;style src="styles.css"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. &lt;css href="styles.css"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. &lt;import href="styles.css"&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 19 -->
+  <div class="question-container" id="q19">
+    <div class="question">
+      19. Which tag is used to create a line break in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. &lt;br&gt;&lt;/br&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">B. &lt;br&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. &lt;break&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. &lt;newline&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 20 -->
+  <div class="question-container" id="q20">
+    <div class="question">
+      20. What is the use of the &lt;meta&gt; tag in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">A. To provide metadata about the HTML document</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B. To add styles to the page</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. To define a section of the page</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. To include JavaScript functions</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">
+      21. What is the use of the &lt;form&gt; element in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A. To create an interactive form for user input</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. To define a section of the webpage</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. To add text content</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. To create hyperlinks</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 22 -->
+  <div class="question-container" id="q22">
+    <div class="question">
+      22. What is the correct syntax for adding a background image in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. &lt;image src="bg.jpg"&gt;</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. &lt;body background="bg.jpg"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. &lt;div style="background-image: url('bg.jpg')"&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. &lt;background-image src="bg.jpg"&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 23 -->
+  <div class="question-container" id="q23">
+    <div class="question">
+      23. How can you include JavaScript in an HTML document?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. By using the &lt;script&gt; tag</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. By using the &lt;javascript&gt; tag</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. By using the &lt;js&gt; tag</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. By using the &lt;code&gt; tag</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 24 -->
+  <div class="question-container" id="q24">
+    <div class="question">
+      24. What is the use of the `alt` attribute in the &lt;img&gt; tag?
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. To add a caption to the image</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. To provide alternative text when the image cannot be displayed</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. To add a border to the image</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. To define the image size</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 25 -->
+  <div class="question-container" id="q25">
+    <div class="question">
+      25. What is the purpose of the `target` attribute in a &lt;a&gt; (anchor) tag?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. It defines where the linked document will be opened (e.g., in a new tab)</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. It specifies the link type (internal or external)</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. It adds a tooltip to the link</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. It highlights the link</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 26 -->
+  <div class="question-container" id="q26">
+    <div class="question">
+      26. What is the purpose of the &lt;head&gt; tag in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. It contains meta-information about the HTML document, like title, charset, etc.</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. It defines the main content of the document</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. It is used to add styles</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. It displays the page footer</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 27 -->
+  <div class="question-container" id="q27">
+    <div class="question">
+      27. Which tag is used to define a table in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">A. &lt;table&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. &lt;tab&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. &lt;grid&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. &lt;tr&gt;</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 28 -->
+  <div class="question-container" id="q28">
+    <div class="question">
+      28. What is the difference between &lt;ol&gt; and &lt;ul&gt;?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A. &lt;ol&gt; creates an ordered list, &lt;ul&gt; creates an unordered list</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B. &lt;ol&gt; creates an unordered list, &lt;ul&gt; creates an ordered list</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. &lt;ol&gt; is used for navigation, &lt;ul&gt; is used for grouping</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. &lt;ol&gt; is for images, &lt;ul&gt; is for text</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 29 -->
+  <div class="question-container" id="q29">
+    <div class="question">
+      29. What is the purpose of the &lt;link&gt; tag in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. It links external resources such as CSS files</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. It links JavaScript files</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. It links internal content</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. It defines metadata for the page</button></li>
+    </ul>
+  </div>
+  
+  <!-- Question 30 -->
+  <div class="question-container" id="q30">
+    <div class="question">
+      30. How can you create a table row in HTML?
+    </div>
+    <ul class="options">
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A. &lt;tr&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. &lt;td&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. &lt;row&gt;</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. &lt;th&gt;</button></li>
+    </ul>
+  </div>
+  
+
+ 
+  <script>
+
+    function checkAnswer(button, questionId) {
+
+      const options = document.querySelectorAll(`#${questionId} .options button`);
+      options.forEach(option => option.disabled = true);
+
+
+      if (button.getAttribute('data-answer') === 'correct') {
+        button.classList.add('correct');
+      } else {
+        button.classList.add('wrong');
+
+        options.forEach(option => {
+          if (option.getAttribute('data-answer') === 'correct') {
+            option.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+
+
+  <!-- Footer (Dynamically Loaded) -->
+  <div id="footer"></div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

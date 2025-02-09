@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Practice Questions</title>
+  <link rel="stylesheet" href="{% static 'questions/style.css' %}">
+  <link rel="stylesheet" href="{% static 'questions/prism.css' %}">
+  <style>
+    /* * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      padding: 20px;
+    } */
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .question-container {
+      background-color: white;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 600px;
+    }
+
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    pre {
+      background-color: #ede6e8;
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+    }
+
+    .options li {
+      margin: 10px 0;
+    }
+
+    .options button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      text-align: left;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .options button.correct {
+      background-color: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+
+    .options button.wrong {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+
+    .options button:hover:not(:disabled) {
+      background-color: #e0e0e0;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .card-container {
+      margin-top: 20px;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      margin: 10px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 200px;
+      text-align: center;
+    }
+
+    .card-content h2 {
+      margin-bottom: 10px;
+    }
+
+    .card-content p {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>JavaScript Practice Questions</h1>
+    <div class="question-list">
+      <!-- Question 1 -->
+      <div class="question-container" id="q1">
+        <div class="question">
+          1. What is the difference between `var`, `let`, and `const` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">A. `var` is function-scoped, `let` and `const` are block-scoped; `const` cannot be reassigned</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">B. `let` and `const` are function-scoped, `var` is block-scoped</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. `const` is function-scoped, `let` and `var` are block-scoped</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. All three are function-scoped</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 2 -->
+      <div class="question-container" id="q2">
+        <div class="question">
+          2. What is a closure in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">A. A function that has access to its own scope, the outer function's scope, and the global scope</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. A function that cannot access the outer function's scope</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. A function that can only access the global scope</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. A type of function that only works within its scope</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 3 -->
+      <div class="question-container" id="q3">
+        <div class="question">
+          3. What is the purpose of `this` keyword in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A. It refers to the object that is currently executing the code</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. It refers to the global object</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. It refers to the function that is calling it</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. It refers to the variable holding the function</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 4 -->
+      <div class="question-container" id="q4">
+        <div class="question">
+          4. What is event delegation in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">A. The practice of using a single event listener to manage events for multiple elements</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. The practice of adding event listeners directly to each element</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. It refers to calling multiple event listeners at once</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. It refers to delegating events to external libraries</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 5 -->
+      <div class="question-container" id="q5">
+        <div class="question">
+          5. What is the difference between `null` and `undefined` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">A. `null` is an intentional assignment of no value, while `undefined` means a variable has been declared but not assigned a value</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. `null` is a primitive value, while `undefined` is an object</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. `null` is undefined, and `undefined` is used for variable declarations</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Both are used for representing empty arrays</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 6 -->
+      <div class="question-container" id="q6">
+        <div class="question">
+          6. What is the difference between `==` and `===` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">A. `==` compares values only, while `===` compares both value and type</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B. `==` compares both value and type, while `===` compares only values</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. `==` is used for strict comparison, while `===` is for loose comparison</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. There is no difference between `==` and `===`</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 7 -->
+      <div class="question-container" id="q7">
+        <div class="question">
+          7. What is a promise in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">A. A Promise is an object representing the eventual completion or failure of an asynchronous operation</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. A Promise is a synchronous function that waits for other functions</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. A Promise is a callback function</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. A Promise is used for error handling</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 8 -->
+      <div class="question-container" id="q8">
+        <div class="question">
+          8. What is the `bind()` method in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. It creates a new function that, when called, has its `this` value set to the provided value</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. It calls a function immediately and binds its arguments</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. It is used to bind the value of `this` in asynchronous operations</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. It modifies the current function to make it synchronous</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 9 -->
+      <div class="question-container" id="q9">
+        <div class="question">
+          9. What are JavaScript closures and why are they useful?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">A. Closures are functions that retain access to variables from their lexical scope, which is useful for data encapsulation and maintaining state</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">B. Closures are only useful in asynchronous programming</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Closures are global functions used to share variables between functions</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Closures are JavaScript functions with no scope limitations</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 10 -->
+      <div class="question-container" id="q10">
+        <div class="question">
+          10. How does JavaScript handle asynchronous code?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A. JavaScript uses callbacks, promises, and async/await for handling asynchronous operations</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. JavaScript handles asynchronous code using synchronous loops</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. JavaScript waits for all asynchronous operations to finish before proceeding</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. JavaScript does not support asynchronous code</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 11 -->
+      <div class="question-container" id="q11">
+        <div class="question">
+          11. What is the difference between synchronous and asynchronous code in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A. Synchronous code runs sequentially, while asynchronous code allows other code to run while waiting for a task to complete</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. Synchronous code runs in parallel, while asynchronous code runs one by one</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. Synchronous code is only used in event handling, while asynchronous code is used for regular functions</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. There is no difference between synchronous and asynchronous code</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 12 -->
+      <div class="question-container" id="q12">
+        <div class="question">
+          12. What is a JavaScript callback function? Give an example.
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. A callback function is a function passed into another function as an argument, which is executed later</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. A callback function is a function that is executed when an error occurs</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. A callback function is a function that automatically executes in the main thread</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. A callback function is a method used in object-oriented programming</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 13 -->
+      <div class="question-container" id="q13">
+        <div class="question">
+          13. What is the purpose of the `setTimeout()` function in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">A. It sets a timer that calls a function or evaluates an expression after a specified time interval</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. It sets an infinite loop until the time interval is reached</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. It suspends the execution of the entire program for the specified time</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. It initializes the event listener for user input</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 14 -->
+      <div class="question-container" id="q14">
+        <div class="question">
+          14. What is event bubbling in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">A. Event bubbling is the process where an event starts at the target element and bubbles up to its ancestors in the DOM tree</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. Event bubbling occurs when events are caught by all elements in the DOM tree</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Event bubbling is the process of removing events from the DOM after they are triggered</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Event bubbling is a mechanism to listen for multiple events on a single DOM element</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 15 -->
+      <div class="question-container" id="q15">
+        <div class="question">
+          15. What is the `apply()` method in JavaScript? How is it different from `call()`?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">A. `apply()` invokes a function with a given `this` value and arguments as an array, while `call()` invokes a function with a specified `this` value and arguments as individual arguments</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. `apply()` is used to assign properties to an object, while `call()` is used for function binding</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. `apply()` allows you to call a function once, while `call()` allows repeated function calls</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. `apply()` and `call()` are used for error handling in JavaScript</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 16 -->
+      <div class="question-container" id="q16">
+        <div class="question">
+          16. What are the differences between `localStorage`, `sessionStorage`, and `cookies` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A. `localStorage` stores data without expiration, `sessionStorage` stores data for the session, and `cookies` are used for server-side communication with an expiration date</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. `localStorage` and `sessionStorage` store data on the server, while cookies store data on the client-side</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. `sessionStorage` is persistent, while `localStorage` is temporary and `cookies` are used for error tracking</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. `localStorage` and `sessionStorage` are used for session management, while cookies are used for authentication</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 17 -->
+      <div class="question-container" id="q17">
+        <div class="question">
+          17. What is the difference between `forEach()` and `map()` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">A. `forEach()` executes a function on each element but returns undefined, while `map()` creates a new array with the results of calling the function on each element</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. `forEach()` and `map()` are identical in functionality</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. `map()` is used for iterating over an object, while `forEach()` is used for arrays</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. `forEach()` can return values, while `map()` cannot</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 18 -->
+      <div class="question-container" id="q18">
+        <div class="question">
+          18. What is the purpose of the `new` keyword in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. The `new` keyword creates a new instance of an object that is derived from a constructor function</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. The `new` keyword is used to create a new variable</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. The `new` keyword is used to assign a new scope to a function</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. The `new` keyword is used to bind a function to an object</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 19 -->
+      <div class="question-container" id="q19">
+        <div class="question">
+          19. What is hoisting in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A. Hoisting is JavaScript's behavior of moving declarations to the top of their containing scope before code execution</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. Hoisting refers to the behavior of executing functions before variables</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Hoisting only applies to functions, not variables</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Hoisting is the process of removing unused variables from memory</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 20 -->
+      <div class="question-container" id="q20">
+        <div class="question">
+          20. What is the `reduce()` function in JavaScript and how is it used?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">A. The `reduce()` function applies a function to an accumulator and each element in an array to reduce it to a single value</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B. The `reduce()` function is used to iterate through an array and apply transformations</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. The `reduce()` function is used to filter an array</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. The `reduce()` function only works with objects</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 21 -->
+      <div class="question-container" id="q21">
+        <div class="question">
+          21. What are Promises in JavaScript? How do they work?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A. Promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Promises are used for error handling in JavaScript</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. Promises are used for synchronizing the execution of code blocks in JavaScript</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. Promises are only used to handle HTTP requests in JavaScript</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 22 -->
+      <div class="question-container" id="q22">
+        <div class="question">
+          22. Explain the difference between `null` and `undefined` in JavaScript.
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">A. `null` is an intentional assignment of no value, while `undefined` is a variable that has been declared but not assigned a value</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">B. `null` is used for objects, while `undefined` is used for primitive types</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. `null` is a value, while `undefined` is not a value</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. There is no difference between `null` and `undefined`</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 23 -->
+      <div class="question-container" id="q23">
+        <div class="question">
+          23. What are closures in JavaScript and how are they used?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. A closure is a function that has access to its own scope, the scope of the outer function, and the global scope</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. A closure is a special function that can call other functions in its local scope</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. A closure is a type of object that holds multiple function references</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. A closure is used to escape the global scope in JavaScript</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 24 -->
+      <div class="question-container" id="q24">
+        <div class="question">
+          24. What is the `this` keyword in JavaScript, and how does its value get determined?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">A. The `this` keyword refers to the object from which the function was called and its value is determined by how the function is called</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. The `this` keyword is always the global object in JavaScript</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. The `this` keyword always refers to the parent object of the function</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. The `this` keyword is used to store the arguments passed to a function</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 25 -->
+      <div class="question-container" id="q25">
+        <div class="question">
+          25. What is the event loop in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. The event loop is a mechanism that allows JavaScript to execute code asynchronously by placing tasks in a queue and processing them one by one</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. The event loop is used to synchronize the execution of JavaScript code</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. The event loop processes synchronous code and asynchronous code in parallel</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. The event loop is a way to handle events in object-oriented programming</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 26 -->
+      <div class="question-container" id="q26">
+        <div class="question">
+          26. What is the difference between `let`, `var`, and `const` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. `let` and `const` are block-scoped, whereas `var` is function-scoped. `const` cannot be reassigned, whereas `let` and `var` can</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. `let` and `var` are used for declaring constants, while `const` is used for variables</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. `let` is used for objects, `var` for functions, and `const` for arrays</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. There is no difference between `let`, `var`, and `const`</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 27 -->
+      <div class="question-container" id="q27">
+        <div class="question">
+          27. What is the difference between `==` and `===` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">A. `==` compares values after type coercion, while `===` compares both values and types without coercion</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. `==` compares both values and types, while `===` compares values only</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. `==` is used for numerical comparisons, while `===` is used for string comparisons</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. There is no difference between `==` and `===`</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 28 -->
+      <div class="question-container" id="q28">
+        <div class="question">
+          28. What is the difference between `setTimeout()` and `setInterval()` in JavaScript?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A. `setTimeout()` executes a function once after a specified delay, while `setInterval()` executes a function repeatedly at a specified interval</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B. `setTimeout()` executes a function repeatedly, while `setInterval()` executes it once</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Both `setTimeout()` and `setInterval()` are used for handling asynchronous operations only</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. `setTimeout()` and `setInterval()` are used for synchronous operations</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 29 -->
+      <div class="question-container" id="q29">
+        <div class="question">
+          29. How can you handle errors in JavaScript? What are the methods available for error handling?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. Errors can be handled using `try...catch`, `throw`, and `finally`</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. Errors can only be handled using `catch` and `throw` statements</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Errors are automatically handled by JavaScript and cannot be manually handled</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. Errors are handled using `console.log()`</button></li>
+        </ul>
+      </div>
+      
+      <!-- Question 30 -->
+      <div class="question-container" id="q30">
+        <div class="question">
+          30. What is a `service worker` in JavaScript and why is it used?
+        </div>
+        <ul class="options">
+          <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A. A service worker is a script that runs in the background to manage caching and background sync for web apps</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. A service worker is used to handle asynchronous data from APIs</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. A service worker is used to optimize JavaScript execution speed</button></li>
+          <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. A service worker is used for error handling in JavaScript</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-container">
+    <div class="cards">
+      <a href="{% url 'django_practice' %}" class="card">
+        <div class="card-content">
+          <h2>Django</h2>
+          <p>Practice Django questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'js_practice' %}" class="card">
+        <div class="card-content">
+          <h2>JavaScript</h2>
+          <p>Practice JavaScript questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'html_practice' %}" class="card">
+        <div class="card-content">
+          <h2>HTML</h2>
+          <p>Practice HTML questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'css_practice' %}" class="card">
+        <div class="card-content">
+          <h2>CSS</h2>
+          <p>Practice CSS questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'cpp_practice' %}" class="card">
+        <div class="card-content">
+          <h2>C++</h2>
+          <p>Practice C++ questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'java_practice' %}" class="card">
+        <div class="card-content">
+          <h2>Java</h2>
+          <p>Practice Java questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'springboot_practice' %}" class="card">
+        <div class="card-content">
+          <h2>Spring Boot</h2>
+          <p>Practice Spring Boot questions</p>
+        </div>
+      </a>
+
+      <a href="{% url 'sdlc_practice' %}" class="card">
+        <div class="card-content">
+          <h2>SDLC</h2>
+          <p>Practice SDLC questions</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer (Dynamically Loaded) -->
+  <div id="footer"></div>
+
+  <script src="{% static 'questions/prism.js' %}"></script>
+  <script src="{% static 'questions/script.js' %}"></script>
+</body>
+
+</html>

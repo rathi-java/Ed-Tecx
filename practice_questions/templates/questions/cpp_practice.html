@@ -1,0 +1,604 @@
+{% extends 'headfooter/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    .page-title-cpp {
+        background: linear-gradient(90deg, #FFC400 0%, rgba(199, 193, 231, 0.1) 100%);
+        border-radius: 0 50px 0 50px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        padding-top: 30px;
+        padding-bottom: 25px;
+        padding-left: 89px;
+        margin: 50px auto;
+        max-width: 1400px;
+        width: 95%;
+        color: #ffffff;
+        position: relative;
+        overflow: hidden;
+        padding: 10px 20px;
+    }
+    
+    
+
+    .logo {
+        position: absolute;
+        right: 80px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 180px;
+        height: auto;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+        z-index: 1;
+    }
+
+    .page-title-cpp h1 {
+        text-align: left;
+        font-size: 2.8rem;
+        margin-bottom: 25px;
+        font-weight: 700;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        color: #fff;
+
+    }
+
+    .page-title-cpp h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        color: #0f0101a5;
+        text-align: left;
+    }
+
+    .page-title-cpp h2 {
+        font-size: 2.2rem;
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 12px 30px;
+        border-radius: 30px;
+        display: inline-block;
+        color: #e0f7fa;
+        text-align: left;
+        margin-left: 0;
+    }
+
+    .page-title-cpp .row .col-md-8 {
+        text-align: left;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1600px) {
+        .page-title-cpp {
+            max-width: 1300px;
+        }
+    }
+
+    @media (max-width: 1400px) {
+        .page-title-cpp {
+            max-width: 1200px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-title-cpp {
+            margin: 30px 2%;
+            padding: 30px;
+            width: 96%;
+        }
+        
+        .page-title-cpp h1 {
+            font-size: 2.2rem;
+        }
+        
+        .page-title-cpp h3 {
+            font-size: 1.3rem;
+        }
+        
+        .page-title-cpp .logo {
+            width: 120px;
+            right: 30px;
+        }
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+    }
+
+    /* Question Container */
+    .question-container {
+        background-color: white;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 1200px;
+    }
+
+    .question {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    pre {
+        background-color: #ede6e8;
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    .options {
+        list-style: none;
+        padding: 0;
+    }
+
+    .options li {
+        margin: 10px 0;
+    }
+
+    .options button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        text-align: left;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .options button.correct {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+    }
+
+    .options button.wrong {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+    }
+
+    .options button:hover:not(:disabled) {
+        background-color: #e0e0e0;
+    }
+
+    .result {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+</style>
+
+<div class="page-title-cpp">
+  <div class="row">
+      <div class="col-md-8">
+          <h1>C++ Practice Questions</h1>
+          <h3>
+              Topics Covered:<br>
+              C++ Variables, Datatype, Functions, Class, Loops
+          </h3>
+          <h2>30 Questions</h2>
+      </div>
+      <div class="col-md-4 text-center">
+          <img src="{% static 'questions/logo/cpp-icon.png' %}" alt="C++ Logo" class="logo">
+      </div>
+  </div>
+</div>
+
+<!-- Question 1 -->
+<div class="question-container" id="q1">
+    <div class="question">1. What is the output of the following cpp code: print(2**3)?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. 5</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. 8</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. 6</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. 9</button></li>
+    </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+    <div class="question">2. Which among the below options picks out negative numbers from the given list?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. [num for num&lt;0 in list]</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. [num&lt;0 in list]</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C. [num for num in list if num&lt;0]</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. [num in list for num&lt;0]</button></li>
+    </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+    <div class="question">3. What does the len() function do in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Returns the type of a variable</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. Returns the length of an object</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Returns the memory address</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Returns the content of an object</button></li>
+    </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+    <div class="question">4. Which of the following is a cpp tuple?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. [1, 2, 3]</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">B. (1, 2, 3)</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. {1, 2, 3}</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+    <div class="question">5. How do you create a cpp dictionary?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. []</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. ()</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. {}</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+    <div class="question">6. Which of the following cpp keywords is used for function definition?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">A. def</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B. func</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. define</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+    <div class="question">7. Which of the following function is used to create a new list by applying an expression to each item in an existing list?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">A. list comprehension</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. filter()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. map()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. reduce()</button></li>
+    </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+    <div class="question">8. Which of the following is not a cpp keyword?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A. pass</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. assert</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. lambda</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">D. eval</button></li>
+    </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+    <div class="question">9. What will be the output of the expression 3 ** 2 in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. 6</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. 9</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. 5</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+    <div class="question">10. Which of the following methods can be used to remove whitespace characters from the beginning and end of a string in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A. strip()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. split()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. join()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. trim()</button></li>
+    </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+    <div class="question">11. Which of the following cpp data types is immutable?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A. Tuple</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. List</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. Dictionary</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. Set</button></li>
+    </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+    <div class="question">12. What does the len() function return when applied to a dictionary?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. The number of keys in the dictionary</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. The number of values in the dictionary</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. The total length of all keys and values</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. The memory size of the dictionary</button></li>
+    </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+    <div class="question">13. Which of the following is not a valid way to create a cpp dictionary?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. {'key1': 'value1', 'key2': 'value2'}</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B. {'key1' => 'value1', 'key2' => 'value2'}</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. dict(key1='value1', key2='value2')</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. dict([('key1', 'value1'), ('key2', 'value2')])</button></li>
+    </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+    <div class="question">14. Which cpp statement is used to handle exceptions?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. if</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. try</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. for</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. while</button></li>
+    </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+    <div class="question">15. What is the output of print(type([1, 2, 3]))?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">A. &lt;class 'list'&gt;</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. &lt;class 'tuple'&gt;</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. &lt;class 'dict'&gt;</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. &lt;class 'set'&gt;</button></li>
+    </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+    <div class="question">16. Which cpp operator is used for exponentiation?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. *</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. /</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">C. **</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. ^</button></li>
+    </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+    <div class="question">17. What will be the output of the expression 5 // 2?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. 2.5</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">B. 2</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. 3</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+    <div class="question">18. Which cpp method is used to convert a string to lowercase?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">A. upper()</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">B. lower()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. capitalize()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. casefold()</button></li>
+    </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+    <div class="question">19. What is the correct syntax to open a file named "data.txt" in read mode?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. open("data.txt", "w")</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">B. open("data.txt", "r")</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. open("data.txt", "rw")</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. openfile("data.txt", "r")</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. Which of the following is not a valid data type in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. str</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. char</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. list</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. dict</button></li>
+    </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">21. Which of the following is used to define a block of code in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. Curly braces</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Parentheses</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. Semicolon</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">D. Indentation</button></li>
+    </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+    <div class="question">22. What is the output of len("Hello World!")?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. 11</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. 12</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. 13</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. 10</button></li>
+    </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+    <div class="question">23. What is the output of "cpp"[-1]?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. n</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. P</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. o</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. y</button></li>
+    </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+    <div class="question">24. What is the result of print(bool(0))?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">A. False</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. True</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. None</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. 0</button></li>
+    </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+    <div class="question">25. Which keyword is used to create a function in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A. function</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">B. def</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. func</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. create</button></li>
+    </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+    <div class="question">26. What is the output of the expression 2 ** 3?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A. 6</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">B. 8</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. 9</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. 12</button></li>
+    </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+    <div class="question">27. Which method is used to add an element to the end of a list in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. insert()</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B. append()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. add()</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. extend()</button></li>
+    </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+    <div class="question">28. What is the correct way to create a dictionary in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A. { "key": "value" }</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B. [ "key", "value" ]</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. ( "key", "value" )</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. { key, value }</button></li>
+    </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+    <div class="question">29. What will be the output of the code: print("Hello " + 5)?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. Hello5</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. Hello 5</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">C. TypeError</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+    <div class="question">30. Which of the following is not a valid loop in cpp?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. for</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. while</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C. do-while</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<script>
+  // Slider Animation
+  const track = document.querySelector('.slider-track');
+  const cards = document.querySelectorAll('.card');
+  const container = document.querySelector('.slider-container');
+  
+  // Clone first 6 cards for seamless looping
+  const cloneCount = 6;
+  for(let i = 0; i < cloneCount; i++) {
+      const clone = cards[i].cloneNode(true);
+      track.appendChild(clone);
+  }
+
+  // Calculate animation parameters
+  const cardWidth = cards[0].offsetWidth + 32; // Include margin
+  const totalOriginalWidth = cardWidth * cards.length;
+  let currentPosition = 0;
+  let animationFrame;
+
+  function animate() {
+      currentPosition += 1.5; // Adjust speed here
+      if(currentPosition >= totalOriginalWidth) {
+          currentPosition = 0;
+      }
+      track.style.transform = `translateX(-${currentPosition}px)`;
+      animationFrame = requestAnimationFrame(animate);
+  }
+
+  // Start animation
+  animate();
+
+  // Pause on hover
+  container.addEventListener('mouseenter', () => {
+      cancelAnimationFrame(animationFrame);
+  });
+  
+  container.addEventListener('mouseleave', () => {
+      animate();
+  });
+
+  // Reset position when window resizes
+  window.addEventListener('resize', () => {
+      currentPosition = 0;
+      track.style.transform = `translateX(0)`;
+  });
+
+  // Question Answer Checker
+  function checkAnswer(button, questionId) {
+      const selectedAnswer = button.getAttribute("data-answer");
+
+      // Disable all options for the question
+      const options = document.querySelectorAll(`#${questionId} .options button`);
+      options.forEach((option) => (option.disabled = true));
+
+      // Highlight the correct and wrong answers
+      options.forEach((option) => {
+          const answerType = option.getAttribute("data-answer");
+          if (answerType === "correct") {
+              option.classList.add("correct");
+          } else if (selectedAnswer !== "correct" && option === button) {
+              button.classList.add("wrong");
+          }
+      });
+
+      // Display result message
+      const resultDiv = document.querySelector(`#${questionId} .result`);
+      if (!resultDiv) {
+          const result = document.createElement("div");
+          result.classList.add("result");
+          result.textContent =
+              selectedAnswer === "correct" ? "Correct Answer!" : "Wrong Answer!";
+          document.querySelector(`#${questionId}`).appendChild(result);
+      }
+  }
+</script>
+
+{% endblock %}

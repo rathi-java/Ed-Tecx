@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="container mt-5">
+    <div class="card p-4 shadow-lg">
+        <div class="text-center mb-4">
+            <h2 class="display-4 font-weight-bold">ONLINE COMPILER</h2>
+            <p class="lead text-muted">Run your code instantly in Java or Python</p>
+        </div>
+
+        <!-- Language Selection and Run Button Section (Aligned horizontally) -->
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h5>Select Language</h5>
+                        <select name="language" id="language" class="form-control form-control-lg" required>
+                            <option value="java" {% if language == 'java' %}selected{% endif %}>Java</option>
+                            <option value="python" {% if language == 'python' %}selected{% endif %}>Python</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <h5>&nbsp;</h5>  <!-- Just to add some spacing -->
+                        <!-- Green Run Button aligned next to the language selection -->
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Run Code</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Input & Output Area -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <!-- Left Side (Code Input Area) -->
+                    <div class="form-group">
+                        <h5>Enter Code</h5>
+                        <textarea name="code" id="code" class="form-control" rows="15" required>{{ code }}</textarea>
+                    </div>
+
+                    <!-- User Input Area (for Java/Python input) -->
+                    <div class="form-group">
+                        <h5>Enter Input (if needed)</h5>
+                        <textarea name="input_data" id="input_data" class="form-control" rows="5" placeholder="Enter input if required by the code">{{ input_data }}</textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Right Side (Output Area) -->
+                    <div class="form-group">
+                        <h5>Output</h5>
+                        <pre class="bg-light p-3 rounded" style="min-height: 380px;">{{ output }}</pre>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for Tab Key Indentation -->
+<script>
+    document.getElementById('code').addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            e.preventDefault();  // Prevent the default tab behavior (focus change)
+            const cursorPosition = this.selectionStart; // Get current cursor position
+            const textBefore = this.value.substring(0, cursorPosition); // Text before the cursor
+            const textAfter = this.value.substring(cursorPosition); // Text after the cursor
+            
+            // Insert a tab (4 spaces) at the cursor position
+            this.value = textBefore + "    " + textAfter; // Using 4 spaces for a tab
+            this.selectionStart = this.selectionEnd = cursorPosition + 4; // Move the cursor to the new position
+        }
+    });
+</script>
+
+{% endblock %}
