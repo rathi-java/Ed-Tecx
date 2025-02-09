@@ -17,11 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from compiler.views import *
+from oauth.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
+    path('signup/', signup, name='signup'),
+    path('login/', user_login, name='login'),
+    path('logout/', logout_page, name='logout'),
     path('compiler/', compile_code, name='compile_code'),
     path('examportol/',include('examportol.urls')),
     path('placement_stories/',include('placement_stories.urls')),

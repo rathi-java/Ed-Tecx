@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'placement_stories',
     'demo_exam',
     'practice_question',
+    'oauth',
 ]
 
 MIDDLEWARE = [
