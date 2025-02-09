@@ -1,0 +1,107 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/instructions.css' %}">
+
+    <div class="container">
+        <h1>Examination Instructions</h1>
+        <p class="intro">Please read all the instructions below carefully before you begin the test. Failure to follow these guidelines may lead to disqualification or invalidation of your test.</p>
+
+        <div class="instructions">
+            <h2>General Guidelines</h2>
+            <ul>
+                <li>Ensure that your internet connection is stable throughout the duration of the test to avoid disruptions.</li>
+                <li>Do not refresh, close, or navigate away from the test window as this may result in the loss of your progress.</li>
+            </ul>
+        </div>
+
+        <div class="time-limit">
+            <h2>Time Limit</h2>
+            <p>The test is strictly time-bound, and you will have a total duration of <strong>60 minutes</strong> to complete all sections. Please ensure that you manage your time effectively and submit your responses before the deadline.</p>
+            <ul>
+                
+                <li>Once the timer reaches zero, the test will be automatically submitted.</li>
+                
+            </ul>
+        </div>
+
+        <div class="format">
+            <h2>Test Format</h2>
+            <ul>
+                <li>The test comprises different types of questions, including multiple-choice questions (MCQs), coding challenges, and descriptive written answers.</li>
+                <li>Some sections may have negative marking, so answer carefully and avoid guessing if unsure.</li>
+                <li>Ensure that you fully understand the question before selecting or submitting an answer.</li>
+            </ul>
+        </div>
+
+        <div class="submission">
+            <h2>Submission Guidelines</h2>
+            <ul>
+                <li>Click the <strong>"Submit Test"</strong> button once you have completed all questions.</li>
+                <li>Review all your answers before final submission, as you will not be allowed to modify them afterward.</li>
+                <li>Partial submissions are allowed, but once the test is submitted, it cannot be reopened.</li>
+            </ul>
+        </div>
+
+        <div class="technical">
+            <h2>Technical Requirements</h2>
+            <ul>
+                <li>For the best experience, use the latest version of a supported web browser such as Google Chrome, Mozilla Firefox, or Microsoft Edge.</li>
+                <li>Disable pop-up blockers to ensure all questions and prompts are displayed correctly.</li>
+                <li>Using a desktop or laptop is recommended over mobile devices for a smooth test-taking experience.</li>
+            </ul>
+        </div>
+
+        <div class="rules">
+            <h2>Rules & Violations</h2>
+            <ul>
+                <li>Strict monitoring is in place, and any form of cheating or suspicious behavior will lead to disqualification.</li>
+                <li>Sharing test questions, screenshots, or answers with others is strictly prohibited and may result in legal action.</li>
+                <li>Any attempt to manipulate the test platform or violate exam policies will be considered malpractice and will lead to severe consequences.</li>
+            </ul>
+        </div>
+
+        <div class="support">
+            <h2>Support</h2>
+            <p>If you face any technical difficulties, immediately contact the support team for assistance. Avoid closing the test window while waiting for help.</p>
+            <ul>
+                <li>Email: <a href="mailto:support@example.com">support@example.com</a></li>
+                <li>If you are disconnected, try to reconnect within 5 minutes, or inform the support team.</li>
+                <li>Technical assistance is available throughout the test duration for critical issues only.</li>
+            </ul>
+        </div>
+
+        <!-- Terms and Conditions Checkboxes -->
+        <div class="terms-and-conditions">
+            <label>
+                <input type="checkbox" id="accept-terms">
+                I accept the <a href="{% url 'terms' %}">Terms and Conditions</a>.
+            </label><br>
+
+            <label>
+                <input type="checkbox" id="accept-policy">
+                I accept the <a href="{% url 'privacy' %}">Privacy Policy</a>.
+            </label><br>
+        </div>
+<a href="{% url 'question_list' %}" >
+        <button class="start-btn" id="startTest" disabled>Start Test</button>
+    </a>
+    </div>
+{%block scripts%}
+    <script>
+        // Enable the "Start Test" button only when both checkboxes are checked
+        const startBtn = document.getElementById('startTest');
+        const termsCheckbox = document.getElementById('accept-terms');
+        const policyCheckbox = document.getElementById('accept-policy');
+
+        function toggleStartButton() {
+            if (termsCheckbox.checked && policyCheckbox.checked) {
+                startBtn.disabled = false;
+            } else {
+                startBtn.disabled = true;
+            }
+        }
+
+        // Add event listeners for both checkboxes
+        termsCheckbox.addEventListener('change', toggleStartButton);
+        policyCheckbox.addEventListener('change', toggleStartButton);
+    </script>
+{%endblock%}
