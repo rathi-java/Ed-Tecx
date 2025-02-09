@@ -1,6 +1,16 @@
-{% extends "compiler/base.html" %}
-{% block start %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Compiler</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" id="favicon" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
+</head>
+<body>
     <div class="header">
         <h1 class="h4 mb-0 d-flex align-items-center">
             NAVBAR
@@ -59,4 +69,6 @@
             </div>
         </form>
     </div>
-{% endblock %}
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

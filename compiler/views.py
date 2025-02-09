@@ -3,7 +3,7 @@ import os
 import re
 from django.shortcuts import render
 from .models import CodeSubmission
-from django.http import HttpResponse
+
 
 def compile_code(request):
     if request.method == "POST":
