@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ed Tech</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+  {% block head_extra %}{% endblock head_extra %}
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <img src="{% static 'assets/newsym.jpg.jpeg' %}" alt="Logo" class="headerlogo">
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div id="hamburger-menu"></div>
+      <ul class="nav-links" id="nav-links">
+        <div class="menu-header">
+          <img src="{% static 'assets/symbol1.jpeg' %}" alt="Footer Logo" class="menu-logo" />
+          <i class="fas fa-times" id="close-btn"></i>
+        </div>
+        <!-- Menu options -->
+        <li><a href="#">Solution</a></li>
+        <li><a href="#">Test Room</a></li>
+        <li><a href="#">Roadmap</a></li>
+        <li><a href="#">Career</a></li>
+        <li><a href="#">About Us</a></li>
+
+        <div class="nav-buttons">
+          <button class="login-btn">Login</button>
+          <button class="signup-btn">Sign Up</button>
+        </div>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}
+    <!-- Content will be inserted here by child templates -->
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <!-- Logo Section -->
+      <div class="footer-section logo-section">
+        <img src="{% static 'assets/symbol1.jpeg' %}" alt="Logo" class="footerlogo">
+        <!-- <p>Aadarneyi Foundation</p> -->
+      </div>
+
+      <!-- Useful Links Section -->
+      <div class="footer-section links-section">
+        <h3>Useful Links</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Donate Us</a></li>
+          <li><a href="#">Campaigns</a></li>
+          <li><a href="#">Blogs</a></li>
+          <li><a href="#">Feedback</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy and Policy</a></li>
+          <li><a href="#">Terms and conditions</a></li>
+          <li><a href="#">Login</a></li>
+        </ul>
+ 
+      </div>
+
+      <!-- Contact Section -->
+      <div class="footer-section contact-section">
+        <h3>Contact Us</h3>
+        <p style="color:#5d5d5d ;"><i class="fa fa-phone"></i> Phone</p>
+        <p> +91 9355065333</p>
+        <p style="color: #5d5d5d; ;"><i class="fa fa-envelope"></i> Email</p>
+        <p> contact@aadarneyi.org</p>
+        <p style="color: #5d5d5d;"><i class="fa fa-map-marker"></i> Address</p>
+        <div> G1, Plot No. A-61, <br></div>
+        <div>Sector-16, Noida, <br></div>
+        <div>UP-201301</div>
+      </div>
+
+      <!-- Subscribe Section -->
+      <div class="footer-section">
+        <h3 id="subsc">Subscribe Us</h3>
+        <form>
+          <input type="email" placeholder="Enter your email" required class="input" />
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyrights © 2025 Ed-Tech. All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/base.js' %}"></script>
+</body>
+</html>

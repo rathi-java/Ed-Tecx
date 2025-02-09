@@ -1,0 +1,13 @@
+{% extends 'placement_stories/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="admin-form">
+  <h2>Edit Placement Story</h2>
+  <form method="POST" enctype="multipart/form-data" class="form-container">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="Submit-btn">Save Changes</button>
+  </form>
+</div>
+{% endblock %}

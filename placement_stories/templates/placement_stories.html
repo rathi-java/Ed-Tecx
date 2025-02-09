@@ -1,0 +1,82 @@
+{% extends 'placement_stories/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem;"> <!-- optional top margin if needed -->
+  
+  <!-- Title Section from the front-end, but no separate <header> -->
+  <h1 style="padding: 10px;">Placement Stories</h1>
+
+  <!-- Loop through your paginated PlacementStories -->
+  {% for story in page_obj %}
+    <div class="placement-card">
+      <div class="card-content">
+        <!-- Profile Pic -->
+        {% if story.user_profile_pic %}
+          <img src="{{ story.user_profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+          <img src="{% static 'placement_stories/profile.jpg' %}" alt="Profile Picture" class="profile-pic">
+        {% endif %}
+
+        <div class="card-details">
+          <span class="company-badge">{{ story.company_name }} </span>
+          <p class="description">
+            <!-- Show part of description + 'Read more' link -->
+            {{ story.description|slice:":100" }}<span class="dots">...</span>
+            <a href="{% url 'story_detail' story_id=story.id %}" class="read-more-link">Read more</a>
+          </p>
+          <a href="{% url 'story_detail' story_id=story.id %}" class="know-more-btn">Know more</a>
+        </div>
+
+        <div class="student-info">
+          <p><strong>Name:</strong> {{ story.name }}</p>
+          <p><strong>Degree:</strong> {{ story.degree }}</p>
+          <p><strong>Branch:</strong> {{ story.branch }}</p>
+          <p><strong>Batch:</strong> {{ story.batch }}</p>
+        </div>
+
+        <!-- If superuser, show Edit/Delete -->
+        {% if user.is_superuser %}
+          <div class="admin-actions">
+            <a href="{% url 'edit_story' story_id=story.id %}" class="Submit-btn-admin">Edit</a>
+            <a href="{% url 'delete_story' story_id=story.id %}" class="Submit-btn-admin">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <!-- Pagination that matches the front-end style -->
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="prev-btn">Previous</a>
+    {% endif %}
+
+    <div class="page-numbers">
+      {% for num in page_obj.paginator.page_range %}
+        {% if num == page_obj.number %}
+          <a href="?page={{ num }}" class="active">{{ num }}</a>
+        {% else %}
+          <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="next-btn">Next</a>
+    {% endif %}
+  </div>
+
+  <!-- If superuser, show form for new story -->
+  {% if user.is_superuser and form %}
+    <div class="admin-form">
+      <h3>Add New Placement Story</h3>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="Submit-btn">Submit Story</button>
+      </form>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
