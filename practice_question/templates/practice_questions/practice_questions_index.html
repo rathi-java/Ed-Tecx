@@ -1,0 +1,74 @@
+<!-- {% extends "base.html" %} -->
+{% load static %}
+{% block title %}Practice Questions{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'practice_questions/css/practice_questions_index.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <a href="{% url 'python_practice' %}" class="card-link">
+        <div class="IT">
+            <div class="IT-top">
+                <i class="img">
+                    <img src="{% static 'practice_questions/assets/IT-icon.svg' %}" alt="IT Icon">
+                </i>
+            </div>
+            <div class="card-bottom">
+                <h2>IT</h2>
+                <div class="circle-button">
+                    <i class="arrow">></i>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="{% url 'finance_practice' %}" class="card-link">
+        <div class="Management">
+            <div class="Management-top">
+                <i class="img">
+                    <img src="{% static 'practice_questions/assets/Management-icon.svg' %}" alt="Management Icon">
+                </i>
+            </div>
+            <div class="card-bottom">
+                <h2>Management</h2>
+                <div class="circle-button">
+                    <i class="arrow">></i>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="{% url 'reasoning_practice' %}" class="card-link">
+        <div class="Aptitude">
+            <div class="Aptitude-top">
+                <i class="img">
+                    <img src="{% static 'practice_questions/assets/Aptitude-icon.svg' %}" alt="Aptitude Icon">
+                </i>
+            </div>
+            <div class="card-bottom">
+                <h2>Aptitude</h2>
+                <div class="circle-button">
+                    <i class="arrow">></i>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <a href="{% url 'coding_practice' %}" class="card-link">
+        <div class="Coding">
+            <div class="Coding-top">
+                <i class="img">
+                    <img src="{% static 'practice_questions/assets/Coding-icon.svg' %}" alt="Coding Icon">
+                </i>
+            </div>
+            <div class="card-bottom">
+                <h2>Coding</h2>
+                <div class="circle-button">
+                    <i class="arrow">></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+{% endblock %}

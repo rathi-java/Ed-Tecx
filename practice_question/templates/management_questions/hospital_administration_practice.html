@@ -1,0 +1,354 @@
+{% extends 'practice_questions/management_base.html' %}
+{% load static %}
+{% block title %}Finance Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<div class="page-title" style="--main-color: #2E0ACDB0;">
+    <div class="page-title-text">
+      <h1>Hospital administration Practice Questions</h1>
+      <h3>
+        Topics Covered:<br>
+        Bachelor of Business Administration-(BBA); Management Studies-(BMS)
+      </h3>
+      <h2>30 Questions</h2>
+    </div>
+    <img src="{% static 'practice_questions/logo/hospital_administration.png' %}" alt="Logo" class="logo">
+  </div>
+  
+  <h1 class="practice-questions-header">Practice Questions</h1>
+
+  <!-- Question 1 -->
+<div class="question-container" id="q1">
+    <div class="question">1. Which of the following is the primary objective of hospital administration?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. Maximizing profits</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. Providing quality patient care</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. Reducing staff salaries</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Increasing hospital size</button></li>
+    </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+    <div class="question">2. What is the role of a hospital administrator?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Managing hospital finances</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. Overseeing daily operations</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. Ensuring compliance with regulations</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">D. All of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+    <div class="question">3. Which department in a hospital is responsible for infection control?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Housekeeping</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. Nursing</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">C. Infection Control Committee</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Administration</button></li>
+    </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+    <div class="question">4. What is the full form of NABH?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. National Association of Better Healthcare</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">B. National Accreditation Board for Hospitals & Healthcare Providers</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. National Authority for Best Hospitals</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+    <div class="question">5. The primary goal of hospital management is to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Increase patient admissions</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">B. Provide cost-effective healthcare services</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. Reduce hospital staff</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Generate high revenue</button></li>
+    </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+    <div class="question">6. What is the first step in hospital planning?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. Infrastructure development</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. Feasibility study</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. Staff recruitment</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Equipment procurement</button></li>
+    </ul>
+</div>
+    
+    <!-- Question 7 -->
+    <div class="question-container" id="q7">
+        <div class="question">7. Which of the following is NOT a part of hospital organizational structure?</div>
+        <ul class="options">
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Board of Directors</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Medical Staff</button></li>
+            <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">C. Patients</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Administrative Staff</button></li>
+        </ul>
+    </div>
+    
+    <!-- Question 8 -->
+    <div class="question-container" id="q8">
+        <div class="question">8. Which department is responsible for managing hospital finances?</div>
+        <ul class="options">
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A. Housekeeping</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. Medical Records</button></li>
+            <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">C. Finance and Accounts</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Pharmacy</button></li>
+        </ul>
+    </div>
+
+    <!-- Question 9 -->
+    <div class="question-container" id="q9">
+        <div class="question">9. The process of patient admission includes:</div>
+        <ul class="options">
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. Registration</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">B. Medical history documentation</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Bed allocation</button></li>
+            <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">D. All of the above</button></li>
+        </ul>
+    </div>
+
+    <!-- Question 10 -->
+    <div class="question-container" id="q10">
+        <div class="question">10. What is the primary function of a hospital’s medical records department?</div>
+        <ul class="options">
+            <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A. Storing patient histories</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. Conducting medical research</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. Treating patients</button></li>
+            <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. Prescribing medication</button></li>
+        </ul>
+    </div>
+    
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+    <div class="question">11. Which organization sets standards for hospital accreditation in India?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A. NABH</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. WHO</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. FDA</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. NMC</button></li>
+    </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+    <div class="question">12. What does "TQM" stand for in hospital management?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. Total Quality Management</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. Time-Qualified Medical</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. Treatment Quality Management</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+    <div class="question">13. Which of the following is NOT a patient safety measure?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. Hand hygiene compliance</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Use of personal protective equipment (PPE)</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">C. Delayed reporting of test results</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Proper waste disposal</button></li>
+    </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+    <div class="question">14. What is the primary focus of hospital infection control programs?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Reducing medication errors</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. Preventing hospital-acquired infections</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Increasing bed occupancy</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Improving hospital revenue</button></li>
+    </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+    <div class="question">16. Which function is NOT part of hospital human resource management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. Staff recruitment</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. Employee training</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">C. Treating patients</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. Performance evaluation</button></li>
+    </ul>
+</div>
+
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+    <div class="question">15. A key element of quality healthcare is:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. Shorter hospital stays</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">B. Patient satisfaction</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. Expensive treatment</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. More staff than required</button></li>
+    </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+    <div class="question">17. What is the main purpose of staff training in hospitals?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. Increasing salaries</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">B. Improving job performance and patient care</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. Reducing hospital expenses</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. Hiring more staff</button></li>
+    </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+    <div class="question">18. Which of the following is a key factor in hospital staff retention?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">A. Poor working conditions</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">B. Competitive salaries and benefits</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. Lack of training</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. Limited career growth</button></li>
+    </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+    <div class="question">19. A nurse-patient ratio is important to ensure:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. Reduced staff workload</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">B. High-quality patient care</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Lower hospital costs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Minimum hospital expenses</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. Employee performance in hospitals is measured through:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. Patient feedback</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B. Appraisals and KPIs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. Training effectiveness</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">D. All of the above</button></li>
+    </ul>
+</div>
+
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">21. What is the main source of revenue for hospitals?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. Insurance claims</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Patient fees</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. Government funding</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">D. All of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+    <div class="question">22. Budgeting in hospital management helps in:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. Reducing patient care quality</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. Effective financial planning</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. Avoiding staff hiring</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. Delaying equipment purchase</button></li>
+    </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+    <div class="question">23. What is an essential factor in hospital cost management?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. Reducing unnecessary expenses</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. Increasing patient admissions</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. Hiring more staff than required</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. Delaying staff salaries</button></li>
+    </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+    <div class="question">24. Which of the following is an example of a fixed cost in a hospital?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. Medicine purchases</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. Staff salaries</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. Utility bills</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. All of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+    <div class="question">25. Operational efficiency in hospitals is improved by:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. Lean management practices</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. Overbooking patient appointments</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Reducing staff training</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Cutting down medical supplies</button></li>
+    </ul>
+</div>
+
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+    <div class="question">26. Which law regulates medical negligence cases in India?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A. Indian Penal Code (IPC)</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. Consumer Protection Act</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. Medical Council Act</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">D. All of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+    <div class="question">27. Which is NOT an ethical principle in hospital management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. Beneficence</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. Justice</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">C. Deception</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. Autonomy</button></li>
+    </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+    <div class="question">28. Patient confidentiality is protected under:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. Hospital policies only</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. Ethical guidelines and legal frameworks</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. The Right to Information Act</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+    <div class="question">29. Informed consent is required for:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. Every medical procedure</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. Minor treatments only</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Emergency procedures only</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. None of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+    <div class="question">30. What is medical malpractice?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A. Providing wrong treatment due to negligence</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. Charging extra fees from patients</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. Increasing hospital expenses</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. Treating more patients than required</button></li>
+    </ul>
+</div>
+
+{% endblock %}

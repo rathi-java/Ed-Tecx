@@ -1,0 +1,310 @@
+/*****************************************************
+ * 1) GLOBAL / RESETS
+ *****************************************************/
+/* Basic reset / global settings */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+/* Base font and body layout */
+body {
+  font-family: sans-serif;
+  min-height: 100vh;
+  /* We use padding-top so content is not hidden behind navbar */
+  padding-top: 120px;
+  background-color: #fff; /* or your preferred background */
+}
+
+
+/*****************************************************
+ * 2) NAVBAR & HEADERS
+ *****************************************************/
+/* Outer navbar container fixed at the top */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Stays above content */
+}
+
+/* Inner container for nav content: brand logo, links, buttons */
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  height: 70px;
+  margin: 0 auto;
+  padding: 0 20px; /* match footer for consistency */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand logo styling */
+.navbar-brand img {
+  height: 50px;
+  width: auto;
+  display: inline-block;
+}
+
+/*****************************************************
+ * 3) NAV LINKS
+ *****************************************************/
+/* Wrapper around the main nav links UL */
+.nav-links {
+  display: flex;
+}
+
+/* Unordered list for nav items */
+.nav-links ul {
+  list-style: none;
+  display: flex;
+  gap: 20px; /* spacing between links */
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual list items (some are dropdown parents) */
+.nav-links li {
+  position: relative;
+}
+
+/* The actual links (Solution, Test Room, etc.) */
+.nav-link {
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out, transform 0.2s;
+}
+
+.nav-link:hover {
+  color: #077bc3;
+  transform: scale(1.05);
+}
+
+/*****************************************************
+ * 4) DROPDOWN MENUS
+ *****************************************************/
+.dropdown-content {
+  display: none; /* hidden by default */
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Show dropdown on hover of parent element */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Dropdown items */
+.dropdown-content a {
+  display: block;
+  padding: 12px 16px;
+  color: black;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+/* On hover inside the dropdown */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/*****************************************************
+ * 5) BUTTONS (SIGN UP, LOG IN, LOG OUT)
+ *****************************************************/
+/* Each button container (signup, login, logout) */
+.signup,
+.login,
+.logout {
+  display: inline-block;
+  position: relative;
+}
+
+/* Overlapping effect between sign up & log in */
+.signup {
+  margin-left: 10px;
+  margin-right: -240px; /* overlap with .login */
+  z-index: 10;
+}
+.login {
+  margin-left: -20px; /* overlap with .signup */
+}
+
+/* All buttons share these base styles */
+button {
+  padding: 8px 24px;
+  width: 105px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Sign Up button */
+.signup button {
+  background-color: #1273b9;
+  color: white;
+  z-index: 2;
+}
+.signup button:hover {
+  background-color: #ec8a3f;
+}
+
+/* Log In button */
+.login button {
+  background-color: rgba(18, 115, 185, 0.11);
+  color: black;
+}
+.login button:hover {
+  background-color: #ec8a3f;
+  color: white;
+}
+
+/* Log Out button */
+.logout button {
+  margin-left: 10px;
+  background-color: rgba(18, 115, 185, 0.11);
+  color: black;
+  padding-left: 40%;
+}
+.logout button:hover {
+  background-color: #ec8a3f;
+  color: white;
+}
+
+
+/*****************************************************
+ * 6) FOOTER
+ *****************************************************/
+/* Footer container spans full width */
+.footer {
+  background-color: #d5e9f5;
+  width: 100%;
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* Match the nav’s container width/padding for consistent alignment */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  color: black;
+}
+
+/* Horizontal rule that splits footer sections */
+.border-light {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 1rem 0;
+}
+
+/*****************************************************
+ * 7) FOOTER GRID (ROW / COLS)
+ *****************************************************/
+/* Basic row using flex */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* center columns if they are narrower */
+}
+
+/* Four columns at wider viewports (md: ~768px). 25% width each. */
+.col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Spacing helpers */
+.mb-4 {
+  margin-bottom: 1rem;
+}
+.mt-1 {
+  margin-top: 0.5rem;
+}
+
+/* H3 headings in the footer */
+.footer h3 {
+  color: #077bc3;
+  margin-bottom: 1rem;
+}
+
+/* Unstyled lists for quick links, etc. */
+.list-unstyled {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/*****************************************************
+ * 8) FOOTER LINKS & SOCIAL ICONS
+ *****************************************************/
+.footer a {
+  color: black;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer a:hover {
+  color: #077bc3;
+}
+
+/* Social icons row (Facebook, Twitter, etc.) */
+.social-icons a {
+  font-size: 20px;
+  margin: 0 10px;
+  display: inline-block;
+  transition: transform 0.3s;
+}
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+/*****************************************************
+ * 9) SUBSCRIBE FORM
+ *****************************************************/
+.subscribe-form {
+  margin-top: 1rem;
+}
+.subscribe-form input {
+  border-radius: 20px;
+  padding: 10px;
+  width: 80%;
+  border: 2px solid black;
+  outline: none;
+}
+.subscribe-form button {
+  margin-top: 10px;
+  padding: 8px 24px;
+  border-radius: 20px;
+  border: 2px solid #1273b9;
+  background-color: white;
+  cursor: pointer;
+}
+.subscribe-form button:hover {
+  background-color: #ec8a3f;
+  color: white;
+}
+
+/*****************************************************
+ * 10) RESPONSIVE MEDIA QUERIES
+ *****************************************************/
+/* On smaller screens, columns go full width */
+@media (max-width: 768px) {
+  .col-md-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}

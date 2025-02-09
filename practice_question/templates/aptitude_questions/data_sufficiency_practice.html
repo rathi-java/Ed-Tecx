@@ -1,0 +1,532 @@
+{% extends 'practice_questions/aptitude_base.html' %}
+{% load static %}
+{% block title %}Data Sufficiency Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<!-- Page Title Section -->
+<div class="page-title" style="--main-color: #30D5C8B8;">
+  <div class="page-title-text">
+    <h1>Data Sufficiency Practice Questions</h1>
+    <h3>
+      Topics Covered:<br>
+      Statements with conditions
+      Questions requiring logical conclusions
+    </h3>
+    <h2>30 Questions</h2>
+  </div>
+  <img src="{% static 'practice_questions/logo/data_sufficiency.png' %}" alt="Data Sufficiency Icon" class="logo">
+</div>
+
+<h1 class="practice-questions-header">Data Sufficiency Practice Questions</h1>
+
+<!-- Question 1 -->
+<div class="question-container" id="q1">
+  <div class="question">
+    <p>1. Is x > y?</p>
+    <pre>
+Statement 1: x + y = 10
+Statement 2: x = 6
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+  <div class="question">
+    <p>2. Is the number divisible by 3?</p>
+    <pre>
+Statement 1: The number is even.
+Statement 2: The number is divisible by 9.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+  <div class="question">
+    <p>3. Is n an even number?</p>
+    <pre>
+Statement 1: n is divisible by 4.
+Statement 2: n is divisible by 2.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+  <div class="question">
+    <p>4. Is the number prime?</p>
+    <pre>
+Statement 1: The number is greater than 1.
+Statement 2: The number is divisible by 2.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+  <div class="question">
+    <p>5. What is the value of x?</p>
+    <pre>
+Statement 1: x + y = 12
+Statement 2: y = 7
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+  <div class="question">
+    <p>6. Is the triangle equilateral?</p>
+    <pre>
+Statement 1: All three sides of the triangle are equal.
+Statement 2: The triangle has three angles, each measuring 60 degrees.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+  <div class="question">
+    <p>7. What is the sum of a and b?</p>
+    <pre>
+Statement 1: a = b + 5
+Statement 2: b = 3
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+  <div class="question">
+    <p>8. What is the value of z?</p>
+    <pre>
+Statement 1: z = 3x + 2
+Statement 2: x = 4
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+  <div class="question">
+    <p>9. Is p > q?</p>
+    <pre>
+Statement 1: p + q = 10
+Statement 2: p = 6
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+  <div class="question">
+    <p>10. Is a > b?</p>
+    <pre>
+Statement 1: a = b + 2
+Statement 2: a is greater than 3
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+  <div class="question">
+    <p>11. Is the number divisible by 6?</p>
+    <pre>
+Statement 1: The number is divisible by 2.
+Statement 2: The number is divisible by 3.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+  <div class="question">
+    <p>12. What is the value of p + q?</p>
+    <pre>
+Statement 1: p = 10
+Statement 2: q = 5
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+  <div class="question">
+    <p>13. What is the average of a, b, and c?</p>
+    <pre>
+Statement 1: a + b + c = 18
+Statement 2: a = 6, b = 5, c = 7
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+  <div class="question">
+    <p>14. Is x > y?</p>
+    <pre>
+Statement 1: x + y = 15
+Statement 2: x = 10
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+  <div class="question">
+    <p>15. What is the total distance?</p>
+    <pre>
+Statement 1: The speed is 50 km/h.
+Statement 2: The time is 2 hours.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+  <div class="question">
+    <p>16. What is the area of the circle?</p>
+    <pre>
+Statement 1: The radius is 7 cm.
+Statement 2: The circumference is 44 cm.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+  <div class="question">
+    <p>17. Is the number a perfect square?</p>
+    <pre>
+Statement 1: The number is 64.
+Statement 2: The number is even.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+  <div class="question">
+    <p>18. What is the value of x?</p>
+    <pre>
+Statement 1: x + y = 20
+Statement 2: y = 10
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+  <div class="question">
+    <p>19. Is n an integer?</p>
+    <pre>
+Statement 1: n = 3/4
+Statement 2: n = 5
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+  <div class="question">
+    <p>20. Is x = y?</p>
+    <pre>
+Statement 1: x + y = 0
+Statement 2: x = -y
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+  <div class="question">
+    <p>21. What is the value of z?</p>
+    <pre>
+Statement 1: z = 3x + 5
+Statement 2: x = 2
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+  <div class="question">
+    <p>22. What is the total weight of the apples?</p>
+    <pre>
+Statement 1: The weight of one apple is 100 grams.
+Statement 2: There are 20 apples.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+  <div class="question">
+    <p>23. What is the profit in this transaction?</p>
+    <pre>
+Statement 1: The cost price is $200.
+Statement 2: The selling price is $250.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+  <div class="question">
+    <p>24. Is p > q?</p>
+    <pre>
+Statement 1: p + q = 20
+Statement 2: p = 12
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+  <div class="question">
+    <p>25. What is the number of employees in the company?</p>
+    <pre>
+Statement 1: The number of employees in the sales department is 25.
+Statement 2: The number of employees in the marketing department is 30.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+  <div class="question">
+    <p>26. What is the temperature in Celsius?</p>
+    <pre>
+Statement 1: The temperature is 100°F.
+Statement 2: The temperature is 50°C.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+  <div class="question">
+    <p>27. Is the number divisible by both 4 and 6?</p>
+    <pre>
+Statement 1: The number is divisible by 12.
+Statement 2: The number is divisible by 6.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+  <div class="question">
+    <p>28. What is the value of x?</p>
+    <pre>
+Statement 1: x = y + 5
+Statement 2: y = 3
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+  <div class="question">
+    <p>29. Is the square of a number even?</p>
+    <pre>
+Statement 1: The number is even.
+Statement 2: The number is odd.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+  <div class="question">
+    <p>30. Is the triangle isosceles?</p>
+    <pre>
+Statement 1: Two sides of the triangle are equal.
+Statement 2: The angles opposite the equal sides are also equal.
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A. Statement 1 alone is sufficient</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">B. Statement 2 alone is sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. Both statements together are sufficient</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. Both statements together are not sufficient</button></li>
+  </ul>
+</div>
+
+{% endblock %}

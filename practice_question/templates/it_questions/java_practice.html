@@ -1,0 +1,568 @@
+{% extends 'practice_questions/it_base.html' %}
+{% load static %}
+{% block title %}JAVA Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<div class="page-title" style="--main-color: #F18B31EB;">
+  <div class="page-title-text">
+    <h1>JAVA Practice Questions</h1>
+    <h3>
+      Topics Covered:<br>
+      JAVA Variables, Datatype, Functions, Class, Loops
+    </h3>
+    <h2>30 Questions</h2>
+  </div>
+  <img src="{% static 'practice_questions/logo/java.svg' %}" alt="cpp Logo" class="logo">
+</div>
+
+<h1 class="practice-questions-header">Practice Questions</h1>
+<!-- Question 1 -->
+<div class="question-container" id="q1">
+    <div class="question">
+        1. What will be the output of the following JAVA code?
+        <pre>
+        i = 1
+        while True:
+            if i % 3 == 0:
+                break
+            print(i)
+            i += 1
+        </pre>
+    </div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. 1 2 3</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. error</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. 1 2</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. None of the mention</button></li>
+    </ul>
+</div>
+  <!-- Question 2 -->
+<div class="question-container" id="q2">
+  <div class="question">2. Which of the following character is used to give single-line comments in cpp?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. //</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">B. #</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. !-</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. /*</button></li>
+  </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+  <div class="question">
+    3. What are the values of the following cpp expressions?
+    <pre>
+      2**(3**2) 
+      (2**3)**2
+      2**3**2
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A. 512, 64, 512</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. 512, 512, 512</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. 64, 512, 64</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. 64, 64, 64</button></li>
+  </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+  <div class="question">
+    4. What is the output of the below code?
+    <pre>
+      main_dict={}
+      def insert_item(item):
+         if item in main_dict:
+             main_dict[item] += 1
+         else:
+             main_dict[item] = 1
+      #Driver code
+      insert_item('Key1')
+      insert_item('Key2')
+      insert_item('Key2')
+      insert_item('Key3')
+      insert_item('Key1')
+      print (len(main_dict))
+  </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. 5</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. Runtime error</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. Duplicate Key Exception</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">D. 3</button></li>
+  </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+  <div class="question">5. Which among the below options picks out negative numbers from the given list.</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. [num for num<0 in list]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. [num<0 in list]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. [num for num in list if num<0]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. [num in list for num<0]</button></li>
+  </ul>
+</div>
+
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+  <div class="question">
+    6. What is the output of the below program?
+    <pre>
+      class Human(object):
+        def __init__(self, name):
+            self.human_name = name
+              
+        def getHumanName(self):
+            return self.human_name
+            
+        def isEmployee(self):
+            return False
+      
+      class IBEmployee(Human):
+        def __init__(self, name, emp_id): 
+            super(IBEmployee, self).__init__(name)
+            self.emp_id = emp_id
+              
+        def isEmployee(self):
+            return True
+              
+        def get_emp_id(self):
+            return self.emp_id
+      
+      # Driver code
+      employee = IBEmployee("Mr Employee", "IB007") 
+      print(employee.getHumanName(), employee.isEmployee(), employee.get_emp_id())  
+  </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. (None, True, 'IB007')</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. ('Mr Employee', True, 'IB007')</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. ("", False, 'IB007')</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Runtime error</button></li>
+  </ul>
+</div>
+
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+  <div class="question">7. time.time() in cpp returns?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Current time.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Current time in milliseconds.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. Current time in milliseconds since midnight, January 1, 1970.<0]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">D. Current time in milliseconds since midnight, January 1, 1970 GMT (the Unix time).</button></li>
+  </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+  <div class="question">
+    8. Which among the below options will correct the below error obtained while reading "sample_file.csv" in pandas?
+    <pre>
+      Traceback (most recent call last): File "&lt;input&gt;", line 10, in<module> UnicodeEncodeError:
+        'ascii' codec can't encode character.
+  </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. pd.read_csv("sample_file.csv", encoding='utf-8')</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. pd.read_csv("sample_file.csv", compression='gzip')</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. pd.read_csv("sample_file.csv", dialect='comma')</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. None of the above</button></li>
+  </ul>
+</div>
+
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+  <div class="question">9. Which of the following is untrue for cpp namespaces?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. cpp namespaces are implemented as a dictionary in cpp.</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. cpp namespaces have keys as addresses of the objects.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Lifecycle of a namespace depends upon the scope of the objects they are mapped to.<0]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Namespaces ensure that object names in a program are unique.</button></li>
+  </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+  <div class="question">10. Let func = lambda a, b : (a ** b), what is the output of func(float(10),20) ?    </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. 100000000000000000000</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">B. 1e+20</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. 100000000000000000000.0</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. 1.0e+20</button></li>
+  </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+  <div class="question">11. Which among the following options helps us to check whether a pandas dataframe is empty?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. df.emptyframe</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. df.blank</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. df.isempty</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">D. df.empty</button></li>
+  </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+  <div class="question">
+    12. What is the output of the below code?
+    <pre>
+      class X:
+          def __init__(self):
+              self.__num1 = 5
+              self.num2 = 2
+
+          def display_values(self):
+              print(self.__num1, self.num2)
+      class Y(X):
+          def __init__(self):
+              super().__init__()
+              self.__num1 = 1
+              self.num2 = 6 
+      obj = Y()
+      obj.display_values()
+  </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. 5 6</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. 1 2</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. 5 2</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. 1 6</button></li>
+  </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+  <div class="question">13. What is the difference between lists and tuples?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. List is a sequence data type, while tuple is not.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Tuples are mutable but lists are immutable.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Tuple is a sequence data type, while lists is not.</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">D. Lists are mutable but tuples are immutable.</button></li>
+  </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+  <div class="question">14. Which statement is false for __init__?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. __init__ is called manually on object creation.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. __init__ is a constructor method in cpp.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. All classes have a __init__ method associated with them.</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">D. __init__ allocates memory for objects.</button></li>
+  </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+  <div class="question">15. Let list1 = ['s', 'r', 'a', 's'] and list2 = ['a', 'a', 'n', 'h'], what is the output of ["".join([i, j]) for i, j in zip(list1, list2)]?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. ['s', 'a', 'r', 'a', 'a', 'n', 's', 'h']</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. ['s', 'r', 'a', 's', 'a', 'a', 'n', 'h']</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. ['sa', 'ra', 'an', 'sh']</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. ['sa', 'sa', 'sn', 'sh', 'ra', 'ra', 'rn', 'rh', 'aa', 'aa', 'an', 'ah', 'sa', 'sa', 'sn', 'sh']</button></li>
+  </ul>
+</div>
+
+   <!-- Question 16 -->
+   <div class="question-container" id="q16">
+    <div class="question">16. Which of the following is the function responsible for pickling?</div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. pickle.save()</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. pickle.store()</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. pickle.pickle()</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">D. pickle.dump()</button></li>
+    </ul>
+  </div>
+
+  <!-- Question 17 -->
+  <div class="question-container" id="q17">
+    <div class="question">17. How will you find the location of numbers which are multiples of 5 in a series?
+
+      <pre>
+        class X:
+            def __init__(self):
+                self.__num1 = 5
+                self.num2 = 2
+
+            def display_values(self):
+                print(self.__num1, self.num2)
+        class Y(X):
+            def __init__(self):
+                super().__init__()
+                self.__num1 = 1
+                self.num2 = 6 
+        obj = Y()
+        obj.display_values()
+    </pre>
+
+    </div>
+    <ul class="options">
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. np.search(series_data % 5)</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. np.find(series_data % 5 ==0)</button></li>
+      <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. np.argwhere(series_data % 5==0)</button></li>
+      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. np.locate(series_data % 5)</button></li>
+    </ul>
+  </div>
+
+  <!-- Question 15 -->
+<div class="question-container" id="q15">
+  <div class="question">15. Which of the following is a protected attribute?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. __sara__</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. __ansh</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. _sara_</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. ansh__</button></li>
+  </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+  <div class="question">
+    16. What is the output of the below code?
+    <pre>
+class Person:
+   def __init__(self, first_name, last_name):
+       self.first_name = first_name
+       self.last_name = last_name
+
+first_name = "XYZ"
+person = Person(first_name, "ABC")
+first_name = "LMN"
+person.last_name = "PQR"
+print(person.first_name, person.last_name)
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. XYZ ABC</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B. XYZ PQR</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. LMN ABC</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. LMN PQR</button></li>
+  </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+  <div class="question">
+    17. What is the output of the following statement "Hello World"[::-1]?
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. "Hello World"</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. "World Hello"</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. "dlroW olleH"</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. "olleH dlroW"</button></li>
+  </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+  <div class="question">
+    18. What is the output of the following program?
+    <pre>
+      class A(object):
+        def __init__(self, a):
+            self.num = a
+        def mul_two(self):
+            self.num *= 2
+      
+      class B(A):
+        def __init__(self, a):
+            X.__init__(self, a)
+        def mul_three(self):
+            self.num *= 3
+      
+      obj = B(4)
+      print(obj.num)
+      
+      obj.mul_two()
+      print(obj.num)
+      
+      obj.mul_three()
+      print(obj.num)
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. 4 8 24</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. 4 4 64</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. 4 8 64</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. None of the above</button></li>
+  </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+  <div class="question">
+    19. Suppose list1 = [3,4,5,2,1,0], what is list1 after list1.pop(1)?
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. list1 = [3,4,5,2,1]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. list1 = [3,4,5,2,0]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">C. list1 = [3,5,2,1,0]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. list1 = [3,4,5,2]</button></li>
+  </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+  <div class="question">20. Which of the following is used to create a virtual environment in cpp?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. pyvenv</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. virtualenv</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. envpy</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. pyenv</button></li>
+  </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+  <div class="question">21. What will be the output of the following cpp code snippet?
+    <pre>
+def add_items(x, items=[]):
+    items.append(x)
+    return items
+print(add_items(1))
+print(add_items(2))
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. [1] [1, 2]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. [1] [2]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">C. [1] [1, 2]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. [1] [2, 1]</button></li>
+  </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+  <div class="question">22. Which of the following is the correct way to create a function in cpp?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. func myFunction()</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. def myFunction():</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. function myFunction()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. create myFunction()</button></li>
+  </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+  <div class="question">23. What is the result of the expression 4 + 3 * 2?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">A. 14</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">B. 10</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. 24</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. 20</button></li>
+  </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+  <div class="question">24. Which of the following is true about cpp?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. cpp is a low-level programming language</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. cpp supports object-oriented programming</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. cpp does not support garbage collection</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. cpp is a statically typed language</button></li>
+  </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+  <div class="question">25. Which of the following data types is immutable in cpp?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. Tuple</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. List</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Dictionary</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Set</button></li>
+  </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+  <div class="question">26. What will the following cpp code output?
+    <pre>
+def test(x):
+    if x == 0:
+        return 0
+    return x + test(x - 1)
+print(test(5))
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. 15</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. 10</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. 5</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. 20</button></li>
+  </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+  <div class="question">27. What is the maximum possible length of an identifier in cpp?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. 63 characters</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. 79 characters</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">C. No fixed length</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. 255 characters</button></li>
+  </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+  <div class="question">
+    28. What is the output of the following cpp code?
+    <pre>
+    x = [i**2 for i in range(5)]
+    y = map(lambda a: a + 2, x)
+    print(list(y))
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. [0, 1, 4, 9, 16]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. [2, 3, 6, 11, 18]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. [2, 3, 6, 11, 18, 20]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Error</button></li>
+  </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+  <div class="question">
+    29. Which of the following cpp data types is mutable?
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. tuple</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B. list</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. string</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. int</button></li>
+  </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+  <div class="question">
+    30. What is the output of the following cpp code?
+    <pre>
+    def func(a, b=[]):
+        b.append(a)
+        return b
+
+    list1 = func(10)
+    list2 = func(20, [])
+    list3 = func(30)
+
+    print(list1, list2, list3)
+    </pre>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. [10] [20] [30]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">B. [10, 30] [20] [30]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. [10, 30] [20] [10, 30]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. [10, 30] [20] [10, 20, 30]</button></li>
+  </ul>
+</div>
+{% endblock %}

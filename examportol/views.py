@@ -132,3 +132,4 @@ def terms(request):
 # View to render privacy policy page
 def privacy(request):
     return render(request, 'instructions/Privacy.html')
+

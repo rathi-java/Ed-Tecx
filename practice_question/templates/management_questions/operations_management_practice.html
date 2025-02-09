@@ -1,0 +1,361 @@
+{% extends 'practice_questions/management_base.html' %}
+{% load static %}
+{% block title %}Finance Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<div class="page-title" style="--main-color: #30D5C8B8;">
+    <div class="page-title-text">
+      <h1>Operations management Practice Questions</h1>
+      <h3>
+        Topics Covered:<br>
+        Operations management; Business analytics; Managerial economics; Business statistics
+      </h3>
+      <h2>30 Questions</h2>
+    </div>
+    <img src="{% static 'practice_questions/logo/operations_management.png' %}" alt="Logo" class="logo">
+  </div>
+  
+  <h1 class="practice-questions-header">Practice Questions</h1>
+
+  <!-- Question 1 -->
+  <div class="question-container" id="q1">
+    <div class="question">1. Which of the following is NOT a key function of operations management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. Planning</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">B. Organizing</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">C. Marketing</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Controlling</button></li>
+    </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+    <div class="question">2. Operations management is primarily concerned with:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Managing financial resources</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">B. Producing goods and services efficiently</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. Employee motivation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. Customer relationship management</button></li>
+    </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+    <div class="question">3. Which of the following best describes the goal of operations management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Maximizing sales revenue</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. Minimizing operational costs while maintaining quality</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Hiring the best talent</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Expanding into global markets</button></li>
+    </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+    <div class="question">4. What is the first step in designing an operations strategy?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. Selecting suppliers</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. Analysing market trends</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">C. Identifying competitive priorities</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. Setting financial goals</button></li>
+    </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+    <div class="question">5. Which competitive priority focuses on the ability to quickly adapt to customer needs?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Cost</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. Quality</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. Flexibility</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Delivery speed</button></li>
+    </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+    <div class="question">6. Which of the following is NOT an element of operations strategy?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. Process selection</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B. Facility layout</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">C. Employee benefits program</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Supply chain management</button></li>
+    </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+    <div class="question">7. The production process that produces standardized products in large quantities is called:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Job production</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Batch production</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">C. Mass production</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Project production</button></li>
+    </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+    <div class="question">8. Which type of production system produces unique, one-time projects?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A. Continuous production</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">B. Job shop production</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. Assembly line production</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Mass production</button></li>
+    </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+    <div class="question">9. The process layout is best suited for:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. Mass production of a single product</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. Custom or small-batch production</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. High-speed automated manufacturing</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Products requiring continuous processing</button></li>
+    </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+    <div class="question">10. The key objective of supply chain management is to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. Increase costs and reduce efficiency</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. Maximize inventory levels</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">C. Streamline operations and reduce costs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. Focus only on internal production processes</button></li>
+    </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+    <div class="question">11. Just-In-Time (JIT) inventory management aims to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. Maintain large inventory stock</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. Produce goods in anticipation of demand</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">C. Reduce waste and improve efficiency</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. Eliminate suppliers from the production process</button></li>
+    </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+    <div class="question">12. Which of the following is NOT a key component of supply chain management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A. Supplier relationships</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. Production scheduling</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">C. Advertising strategy</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. Logistics and distribution</button></li>
+    </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+    <div class="question">13. Total Quality Management (TQM) emphasizes:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. Focusing only on top management decisions</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B. Continuous improvement and customer satisfaction</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Increasing production speed over quality</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Reducing employee involvement in quality control</button></li>
+    </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+    <div class="question">14. Six Sigma focuses on:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">A. Reducing process variation and defects</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. Increasing production without quality control</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Hiring more employees</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Improving marketing campaigns</button></li>
+    </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+    <div class="question">15. ISO 9001 certification is related to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. Environmental management</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. Financial accounting standards</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. Quality management systems</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. Employee performance appraisals</button></li>
+    </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+    <div class="question">16. Capacity planning helps businesses to:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A. Optimize workforce productivity</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. Reduce costs by eliminating all production resources</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. Increase product prices randomly</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. Ignore seasonal demand fluctuations</button></li>
+    </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+    <div class="question">17. What is the key objective of demand forecasting?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. Maximizing inventory levels</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">B. Estimating future demand for products or services</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. Reducing workforce involvement</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. Eliminating competition</button></li>
+    </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+    <div class="question">18. Which of the following is NOT a method of demand forecasting?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">A. Time series analysis</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. Regression analysis</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">C. Supply chain automation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. Market research</button></li>
+    </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+    <div class="question">19. Lean manufacturing focuses on:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A. Reducing waste and improving efficiency</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. Increasing employee workload</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Expanding marketing efforts</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Using more raw materials</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. The 5S methodology is associated with:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. Supply chain management</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. Workplace organization and efficiency</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. Advanced marketing strategies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. Leadership development</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. The 5S methodology is associated with:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. Supply chain management</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. Workplace organization and efficiency</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. Advanced marketing strategies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. Leadership development</button></li>
+    </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">21. Which of the following is NOT considered a type of waste in Lean?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. Overproduction</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Defects</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">C. Customer satisfaction</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. Excess inventory</button></li>
+    </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+    <div class="question">22. Which of the following technologies is widely used in smart manufacturing?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. Blockchain</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">B. Augmented Reality (AR)</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. Internet of Things (IoT)</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">D. All of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+    <div class="question">23. The role of automation in operations management is to:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. Increase efficiency and reduce manual errors</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. Replace all human workers</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. Reduce production capacity</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. Slow down processes</button></li>
+    </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+    <div class="question">24. Artificial Intelligence (AI) in operations helps with:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. Inventory optimization</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. Predictive maintenance</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. Demand forecasting</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">D. All of the above</button></li>
+    </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+    <div class="question">25. The Critical Path Method (CPM) is used to:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. Identify the longest sequence of dependent tasks</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. Manage inventory</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Automate customer service</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Improve product design</button></li>
+    </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+    <div class="question">26. The PERT (Program Evaluation and Review Technique) method is best suited for:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A. Routine production tasks</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">B. Projects with uncertain task durations</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. Simple scheduling of fixed processes</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. Retail store management</button></li>
+    </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+    <div class="question">27. Sustainable operations management focuses on:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">A. Reducing environmental impact</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. Ignoring regulations</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. Increasing waste disposal costs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. Maximizing production at any cost</button></li>
+    </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+    <div class="question">28. Ethical sourcing in supply chain management ensures that:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A. Products are made with fair labor practices</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B. Cost-cutting is prioritized over ethics</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Suppliers are ignored</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. There is no quality control</button></li>
+    </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+    <div class="question">29. Corporate social responsibility (CSR) in operations management involves:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. Promoting ethical and sustainable practices</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. Focusing only on profits</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Reducing quality standards</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. Eliminating stakeholder engagement</button></li>
+    </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+    <div class="question">30. Which of the following is NOT a benefit of green supply chain management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. Cost reduction</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. Improved brand reputation</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C. Increased pollution</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. Regulatory compliance</button></li>
+    </ul>
+</div>
+
+{% endblock %}

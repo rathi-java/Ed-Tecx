@@ -1,0 +1,351 @@
+{% extends 'practice_questions/management_base.html' %}
+{% load static %}
+{% block title %}Finance Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<div class="page-title" style="--main-color: #E708B7B0;">
+    <div class="page-title-text">
+      <h1>Strategic Management Practice Questions</h1>
+      <h3>
+        Topics Covered:<br>
+        developing and implementing plans. a company achieve its business objectives
+      </h3>
+      <h2>30 Questions</h2>
+    </div>
+    <img src="{% static 'practice_questions/logo/strategic_management.png' %}" alt="Logo" class="logo">
+  </div>
+  
+  <h1 class="practice-questions-header">Practice Questions</h1>
+
+  <!-- Question 1 -->
+  <div class="question-container" id="q1">
+    <div class="question">1. What is the primary goal of strategic management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. Maximizing short-term profits</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. Achieving a sustainable competitive advantage</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. Increasing operational costs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Reducing employee workload</button></li>
+    </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+    <div class="question">2. Which of the following is NOT a characteristic of strategic management?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Long-term focus</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. Adaptability to changes</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C. Random decision-making</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. Integration of various business functions</button></li>
+    </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+    <div class="question">3. The three major components of a strategy are:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Vision, Mission, and Goals</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. Analysis, Formulation, and Implementation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Profit, Revenue, and Market Share</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Leadership, Management, and Organization</button></li>
+    </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+    <div class="question">4. A company’s mission statement primarily describes:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. Its future aspirations</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">B. Its reasons for existence and purpose</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. The financial objectives for the year</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. Its target market</button></li>
+    </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+    <div class="question">5. The strategic vision of a company focuses on:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Past achievements</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. Current financial performance</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. The long-term direction of the company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Employee job descriptions</button></li>
+    </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+    <div class="question">6. SWOT analysis includes an evaluation of:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. Employees, Suppliers, Products, and Services</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. Strengths, Weaknesses, Opportunities, and Threats</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. Sales, Wages, Operations, and Targets</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Stocks, Wealth, Ownership, and Trade</button></li>
+    </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+    <div class="question">7. In Porter's Five Forces model, which of the following is NOT one of the five forces?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Bargaining power of suppliers</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Threat of new entrants</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">C. Bargaining power of employees</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Industry rivalry</button></li>
+    </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+    <div class="question">8. Which strategy is used when a company focuses on cost leadership?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A. Selling unique products at a premium price</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">B. Minimizing costs to offer competitive pricing</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. Expanding into unrelated industries</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Focusing on a niche market</button></li>
+    </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+    <div class="question">9. The BCG (Boston Consulting Group) Matrix classifies businesses into which four categories?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">A. Stars, Question Marks, Cash Cows, and Dogs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">B. Leaders, Challengers, Followers, and Niches</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Winners, Losers, Competitors, and Innovators</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Primary, Secondary, Tertiary, and Quaternary</button></li>
+    </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+    <div class="question">10. PESTEL analysis is used to evaluate which external factors?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A. Political, Economic, Social, Technological, Environmental, and Legal</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. Product, Employees, Suppliers, Technology, Energy, and Logistics</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. Public, Entrepreneurship, Strategy, Training, Economics, and Leadership</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. Profit, Efficiency, Sustainability, Taxation, Environment, and Leverage</button></li>
+    </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+    <div class="question">11. The process of formulating strategy involves:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. Only the top management</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">B. A collaborative approach involving multiple levels of management</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. Only the marketing department</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. Ignoring external factors</button></li>
+    </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+    <div class="question">12. A differentiation strategy focuses on:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A. Lowering costs to compete on price</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">B. Offering unique and high-quality products or services</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. Expanding to international markets</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. Merging with competitors</button></li>
+    </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+    <div class="question">13. Corporate strategy primarily deals with:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">A. The overall scope and direction of an organization</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. The day-to-day operational activities</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Individual employee performance</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Tactical pricing strategies</button></li>
+    </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+    <div class="question">14. The Ansoff Matrix is used for:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Market segmentation analysis</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. Growth strategy decisions</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Employee training and development</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Customer satisfaction measurement</button></li>
+    </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+    <div class="question">15. A blue ocean strategy aims to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. Compete in saturated markets</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">B. Create new demand in an uncontested market space</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. Reduce competition by cutting costs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. Focus on short-term financial gains</button></li>
+    </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+    <div class="question">16. Which key factor influences successful strategy implementation?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A. Employee commitment and organizational culture</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. Financial budgeting alone</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. Avoiding leadership involvement</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. Ignoring competitive dynamics</button></li>
+    </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+    <div class="question">17. Which leadership style is most effective for strategy implementation?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. Autocratic leadership</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. Transactional leadership</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. Transformational leadership</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. Passive leadership</button></li>
+    </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+    <div class="question">18. Which of the following is a challenge in strategy implementation?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. Lack of resources and poor communication</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. Strong organizational commitment</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. A clear strategic direction</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. High employee motivation</button></li>
+    </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+    <div class="question">19. Organizational structure plays a crucial role in:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A. Implementing strategies effectively</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. Reducing financial costs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Avoiding market competition</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Limiting employee growth</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. Which type of strategy involves adjusting existing strategies to meet changes in the external environment?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. Deliberate strategy</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. Emergent strategy</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. Static strategy</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. Defensive strategy</button></li>
+    </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">21. The final step in strategic management is:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A. Strategy evaluation and control</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Strategy formulation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. Market research</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. Cost reduction</button></li>
+    </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+    <div class="question">22. Key Performance Indicators (KPIs) are used for:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">A. Measuring strategy effectiveness</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">B. Employee hiring decisions</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. Determining competitor strategies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. Reducing marketing expenses</button></li>
+    </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+    <div class="question">23. Which type of control ensures that strategic objectives are achieved?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">A. Operational control</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">B. Strategic control</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. Tactical control</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. Financial control</button></li>
+    </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+    <div class="question">24. Which of the following is NOT a method of strategic evaluation?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. Benchmarking against industry leaders</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. Monitoring financial performance</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">C. Ignoring external market trends</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. Conducting regular strategy reviews</button></li>
+    </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+    <div class="question">25. A balanced scorecard measures performance using:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A. Only financial metrics</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">B. Financial and non-financial performance indicators</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Market share alone</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Competitor pricing data</button></li>
+    </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+    <div class="question">26. Digital transformation strategies focus on:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A. Increasing physical store locations</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">B. Leveraging technology for competitive advantage</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. Reducing internet usage</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. Avoiding AI and automation</button></li>
+    </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+    <div class="question">27. A sustainable strategy considers:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. Only economic benefits</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B. Social, environmental, and economic factors</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. Ignoring ethical concerns</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. Short-term financial gains</button></li>
+    </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+    <div class="question">28. Agile strategy refers to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. A rigid approach to strategic planning</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. A flexible and adaptive strategic approach</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Eliminating all long-term goals</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Using only traditional management techniques</button></li>
+    </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+    <div class="question">29. Corporate Social Responsibility (CSR) affects strategic management by:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. Improving company reputation and stakeholder trust</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. Reducing employee productivity</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Ignoring legal regulations</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. Focusing solely on profit maximization</button></li>
+    </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+    <div class="question">30. The future of strategic management includes trends such as:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A. AI-driven decision-making and sustainability</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. Reducing innovation in business strategies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. Avoiding risk management</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. Eliminating strategic planning processes</button></li>
+    </ul>
+</div>
+
+
+{% endblock %}

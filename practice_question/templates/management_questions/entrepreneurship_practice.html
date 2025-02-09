@@ -1,0 +1,350 @@
+{% extends 'practice_questions/management_base.html' %}
+{% load static %}
+{% block title %}Decision Making Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<div class="page-title" style="--main-color: #34C1BFB0;">
+    <div class="page-title-text">
+      <h1>Entrepreneurship Practice Questions</h1>
+      <h3>
+        Topics Covered:<br>
+        Entrepreneurship is the process of planning and launching a new business venture
+      </h3>
+      <h2>30 Questions</h2>
+    </div>
+    <img src="{% static 'practice_questions/logo/entrepreneurship.png' %}" alt="Logo" class="logo">
+  </div>
+  
+  <h1 class="practice-questions-header">Practice Questions</h1>
+
+   <!-- Question 1 -->
+   <div class="question-container" id="q1">
+    <div class="question">1. Who is known as the "Father of Modern Entrepreneurship"?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A) Peter Drucker</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B) Joseph Schumpeter</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C) David McClelland</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D) Richard Cantillon</button></li>
+    </ul>
+</div>
+
+ <!-- Question 2 -->
+ <div class="question-container" id="q2">
+    <div class="question">2. Which of the following is NOT a characteristic of an entrepreneur?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Risk-taking</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. Innovation</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C. Unwillingness to change</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. Leadership</button></li>
+    </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+    <div class="question">3. The process of creating something new with value is called:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Management</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. Entrepreneurship</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Innovation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Business Development</button></li>
+    </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+    <div class="question">4. Which type of entrepreneur focuses on social change rather than profit?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A) Serial Entrepreneur</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">B) Social Entrepreneur</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C) Lifestyle Entrepreneur</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D) Corporate Entrepreneur</button></li>
+    </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+    <div class="question">5. What is the primary objective of entrepreneurship?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A) Wealth maximization</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B) Job security</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C) Business expansion</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D) Risk avoidance</button></li>
+    </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+    <div class="question">6. The ability to take calculated risks is a characteristic of which type of entrepreneur?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A) Drone Entrepreneur</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B) Imitative Entrepreneur</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">C) Innovative Entrepreneur</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D) Fabian Entrepreneur</button></li>
+    </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+    <div class="question">7. Which of the following is NOT a phase of the entrepreneurial process?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A) Idea Generation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B) Opportunity Recognition</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C) Business Expansion</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">D) Economic Recession</button></li>
+    </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+    <div class="question">8. What is the full form of MVP in entrepreneurship?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A) Most Valuable Product</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">B) Minimum Viable Product</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C) Maximum Venture Potential</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D) Market Value Proposition</button></li>
+    </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+    <div class="question">9. Which of the following is an internal factor that influences entrepreneurship?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A) Government policies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">B) Access to capital</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">C) Motivation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D) Market competition</button></li>
+    </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+    <div class="question">10. Which theory suggests that entrepreneurship is driven by an individual’s need for achievement?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A) Economic Theory</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B) Sociological Theory</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">C) Psychological Theory</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D) Innovation Theory</button></li>
+    </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+    <div class="question">11. What does SWOT analysis stand for?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A) Strengths, Weaknesses, Opportunities, and Threats</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B) Strategic Work of Organization and Technology</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C) Smart Work on Organizational Techniques</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D) Small, Weak, Opposed, and Threatened</button></li>
+    </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+    <div class="question">12. A business plan is primarily created to:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A) Attract investors</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B) Predict the future</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C) Increase competition</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D) Reduce creativity</button></li>
+    </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+    <div class="question">13. What is Bootstrapping in entrepreneurship?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A) Seeking venture capital</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B) Funding a business with personal savings and revenue</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C) Relying on government subsidies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D) Partnering with a large corporation</button></li>
+    </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+    <div class="question">14. Which of the following is NOT a source of business finance?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A) Angel investors</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B) Bank loans</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C) Personal savings</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">D) Competitor funding</button></li>
+    </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+    <div class="question">15. A startup refers to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A) A small business that has been running for over 10 years</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">B) A new business with a scalable model</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C) A subsidiary of a large company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D) A government-backed enterprise</button></li>
+    </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+    <div class="question">16. What is the primary role of an incubator in entrepreneurship?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A) Providing funding</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B) Offering office space and mentorship</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C) Ensuring product sales</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D) Expanding the workforce</button></li>
+    </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+    <div class="question">17. Which financial statement shows the profits or losses of a business?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A) Balance Sheet</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B) Cash Flow Statement</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C) Income Statement</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D) Business Plan</button></li>
+    </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+    <div class="question">18. The break-even point in a business means:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A) No profit, no loss</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B) The business has shut down</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C) The business is making high profits</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D) The business has repaid all its debts</button></li>
+    </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+    <div class="question">19. The term “Angel Investor” refers to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A) A government-funded investor</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">B) An individual who invests in startups for equity</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C) A religious donor</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D) A financial institution</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. Which business structure provides limited liability to its owners?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A) Sole Proprietorship</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B) Partnership</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">C) Corporation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D) Unlimited Company</button></li>
+    </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">21. What is franchising in business?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A) Licensing a brand’s business model to another individual</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B) Merging two companies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C) Buying another company’s shares</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D) Creating a unique product for a niche market</button></li>
+    </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+    <div class="question">22. What is the first step in starting a business?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A) Hiring employees</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B) Developing a business idea</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C) Registering a company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D) Raising capital</button></li>
+    </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+    <div class="question">23. Which government body supports entrepreneurship in India?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A) NITI Aayog</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B) RBI</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C) SEBI</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D) TRAI</button></li>
+    </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+    <div class="question">24. What does a venture capitalist primarily invest in?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A) Real estate</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B) Startups with high growth potential</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C) Public sector companies</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D) Small-scale retailers</button></li>
+    </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+    <div class="question">25. Which of these is NOT an exit strategy for an entrepreneur?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A) Selling the business</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B) Merging with another company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C) Liquidating assets</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">D) Increasing business investment</button></li>
+    </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+    <div class="question">26. The concept of "Creative Destruction" in entrepreneurship was introduced by:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A) Peter Drucker</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">B) Joseph Schumpeter</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C) Adam Smith</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D) Karl Marx</button></li>
+    </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+    <div class="question">27. The risk-taking function of an entrepreneur is known as:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A) Strategic Planning</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B) Risk Management</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C) Business Analysis</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D) Economic Development</button></li>
+    </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+    <div class="question">28. Which of these is NOT an essential entrepreneurial skill?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A) Decision-making</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B) Negotiation</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">C) Technical expertise in all fields</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D) Leadership</button></li>
+    </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+    <div class="question">29. What is the meaning of a Unicorn Startup?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A) A startup worth more than $1 billion</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B) A startup that fails within a year</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C) A government-backed business</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D) A company that operates only in one country</button></li>
+    </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+    <div class="question">30. Which of the following is an advantage of entrepreneurship?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A) Fixed working hours</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B) High job security</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C) Independence and flexibility</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D) No financial risks</button></li>
+    </ul>
+</div>
+
+{% endblock %}

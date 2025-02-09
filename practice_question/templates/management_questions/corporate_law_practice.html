@@ -1,0 +1,351 @@
+{% extends 'practice_questions/management_base.html' %}
+{% load static %}
+{% block title %}Decision Making Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<div class="page-title" style="--main-color: #EA1115A6;">
+    <div class="page-title-text">
+      <h1>Corporate Law Practice Questions</h1>
+      <h3>
+        Topics Covered:<br>
+        Law, Engineering, Accountancy, Production, Marketing, Management Basic
+      </h3>
+      <h2>30 Questions</h2>
+    </div>
+    <img src="{% static 'practice_questions/logo/corporate_law.png' %}" alt="Logo" class="logo">
+  </div>
+  
+  <h1 class="practice-questions-header">Practice Questions</h1>
+
+  <!-- Question 1 -->
+<div class="question-container" id="q1">
+    <div class="question">1. What is the primary legislation governing companies in most jurisdictions?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. Contract Act</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. Companies Act</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. Partnership Act</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Banking Regulation Act</button></li>
+    </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+    <div class="question">2. Which of the following is not a type of company?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Private Limited Company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. Public Limited Company</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C. Proprietorship Company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. One Person Company</button></li>
+    </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+    <div class="question">3. A company is considered a legal entity separate from its owners. This concept is known as:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Ultra Vires Doctrine</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. Separate Legal Personality</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Corporate Veil</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Business Entity Doctrine</button></li>
+    </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+    <div class="question">4. The minimum number of directors required for a private company is:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. One</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">B. Two</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. Three</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. Five</button></li>
+    </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+    <div class="question">5. The doctrine that protects shareholders' personal assets from company liabilities is called:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Doctrine of Ultra Vires</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. Lifting of Corporate Veil</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. Limited Liability</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Perpetual Succession</button></li>
+    </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+    <div class="question">6. A Memorandum of Association (MoA) defines:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. Internal rules and regulations of the company</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. The company’s objectives and scope of operations</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. The financial position of the company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. The tax structure of the company</button></li>
+    </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+    <div class="question">7. The document that contains the internal regulations and management rules of a company is:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Memorandum of Association</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">B. Articles of Association</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. Prospectus</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Director’s Report</button></li>
+    </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+    <div class="question">8. Which body has the power to appoint the first directors of a company?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A. Shareholders</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. Board of Directors</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">C. Promoters</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Registrar of Companies</button></li>
+    </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+    <div class="question">9. The Annual General Meeting (AGM) of a company must be held within how many months from the end of the financial year?</div>
+    <ul class="options">
+        <li><button onclick="checkAnswer(this, 'q9')">A. 3 months</button></li>
+        <li><button onclick="checkAnswer(this, 'q9')">B. 6 months</button></li>
+        <li><button onclick="checkAnswer(this, 'q9')">C. 9 months</button></li>
+        <li><button onclick="checkAnswer(this, 'q9')">D. 12 months</button></li>
+    </ul>
+</div>
+    
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+    <div class="question">10. The statutory auditor of a company is appointed by:</div>
+    <ul class="options">
+        <li><button onclick="checkAnswer(this, 'q10')">A. Board of Directors</button></li>
+        <li><button onclick="checkAnswer(this, 'q10')">B. Shareholders</button></li>
+        <li><button onclick="checkAnswer(this, 'q10')">C. Government</button></li>
+        <li><button onclick="checkAnswer(this, 'q10')">D. Registrar of Companies</button></li>
+    </ul>
+</div>
+    
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+<div class="question">11. Equity shareholders are also known as:</div>
+    <ul class="options">
+        <li><button onclick="checkAnswer(this, 'q11')">A. Debenture holders</button></li>
+         <li><button onclick="checkAnswer(this, 'q11')">B. Owners of the company</button></li>
+         <li><button onclick="checkAnswer(this, 'q11')">C. Creditors</button></li>
+         <li><button onclick="checkAnswer(this, 'q11')">D. Preference shareholders</button></li>
+    </ul>
+</div>
+
+ <!-- Question 12 -->
+ <div class="question-container" id="q12">
+    <div class="question">12. The minimum paid-up capital requirement for a private limited company is:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A. ₹1 lakh</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. ₹5 lakh</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. ₹10 lakh</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">D. No minimum limit</button></li>
+    </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+    <div class="question">13. The portion of a company’s profits distributed among shareholders is called:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. Retained earnings</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Capital gains</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">C. Dividend</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Debenture</button></li>
+    </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+    <div class="question">14. A debenture is a type of:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Equity share</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. Loan instrument</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Preference share</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Fixed asset</button></li>
+    </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+    <div class="question">15. What is the maximum number of members in a private limited company?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. 50</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. 100</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. 200</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. Unlimited</button></li>
+    </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+    <div class="question">16. Which law is primarily responsible for corporate governance in India?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. SEBI Act</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B. Companies Act</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. Consumer Protection Act</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. Contract Act</button></li>
+    </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+    <div class="question">17. Which of the following committees is related to corporate governance?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. Narasimha Committee</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. J.J. Irani Committee</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. Kumar Mangalam Birla Committee</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. Kelkar Committee</button></li>
+    </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+    <div class="question">18. Independent Directors are appointed to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">A. Represent promoters’ interests</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">B. Strengthen corporate governance</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. Increase share price</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. Manage day-to-day operations</button></li>
+    </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+    <div class="question">19. The term whistleblowing in corporate law refers to:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A. Reporting financial frauds and unethical practices</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. Buying shares in bulk</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Making public announcements about mergers</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Declaring bankruptcy</button></li>
+    </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+    <div class="question">20. Corporate Social Responsibility (CSR) mandates that a company should spend at least what percentage of its net profit on social initiatives?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. 1%</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. 2%</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. 3%</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. 5%</button></li>
+    </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+    <div class="question">21. A merger occurs when:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. One company sells all its assets</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">B. Two or more companies combine into one</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. A company takes a loan from another company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. A company is liquidated</button></li>
+    </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+    <div class="question">22. A company that takes over another company is called a:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. Target company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">B. Holding company</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">C. Acquiring company</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. Subsidiary company</button></li>
+    </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+    <div class="question">23. The process of liquidating a company due to insolvency is called:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">A. Amalgamation</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. Reconstruction</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">C. Winding Up</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. Acquisition</button></li>
+    </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+    <div class="question">24. The body that regulates mergers and acquisitions in India is:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">A. SEBI</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. RBI</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. IRDA</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. Ministry of Finance</button></li>
+    </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+    <div class="question">25. A company is dissolved when:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A. It fails to pay taxes</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. It merges with another company</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">C. Its name is removed from the company register</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. It takes a bank loan</button></li>
+    </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+    <div class="question">26. Which of the following is a landmark case in corporate law?</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. Solomon v. Solomon & Co.</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. Donoghue v. Stevenson</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. Hadley v. Baxendale</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. Rylands v. Fletcher</button></li>
+    </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+    <div class="question">27. Insider trading refers to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. Selling company assets without permission</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B. Trading based on non-public, price-sensitive information</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. Manipulating stock prices</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. Buying all shares of a company</button></li>
+    </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+    <div class="question">28. Which authority regulates the stock market in India?</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. RBI</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. SEBI</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Ministry of Corporate Affairs</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. IRDA</button></li>
+    </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+    <div class="question">29. Ultra vires acts of a company are those that:</div>
+    <ul class="options">
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A. Are beyond its legal powers</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. Are within the company’s objectives</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Are done by the shareholders</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. Are approved by the government</button></li>
+    </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+    <div class="question">30. The primary responsibility of a company’s board of directors is to:</div>
+    <ul class="options">
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. Manage daily operations</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. Represent employee interests</button></li>
+        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C. Protect shareholder interests and ensure governance</button></li>
+        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. Approve government policies</button></li>
+    </ul>
+</div>
+
+    
+{% endblock %}

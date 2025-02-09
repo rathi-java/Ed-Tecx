@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}EdTech{% endblock %}</title>
+
+  <!-- Removed Bootstrap; only site-wide custom CSS + FontAwesome kit -->
+  <script
+    src="https://kit.fontawesome.com/a076d05399.js"
+    crossorigin="anonymous"
+  ></script>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="navbar-brand" href="#">
+        <img src="{% static 'assets/logo.png' %}" alt="EdTech Logo" height="50" />
+      </a>
+      <div class="nav-links" id="navbarNav">
+        <ul>
+          <li class="dropdown">
+            <a class="nav-link" href="#">
+              Solution <i class="fa-solid fa-caret-down"></i>
+            </a>
+            <div class="dropdown-content">
+              <a href="{% url 'compile_code' %}">Compiler</a>
+              <a href="{% url 'demo_question_list' %}">Demo Test</a>
+              <a href="{% url 'practice_questions' %}">Practice Questions</a>
+              <a href="{% url 'placement_stories' %}">Placement Stories</a>
+              <a href="https://www.readerclub.in/">Reader Club magazine</a>
+            </div>
+          </li>
+          <li><a class="nav-link" href="{% url 'instructions' %}">Test Room</a></li>
+          <li><a class="nav-link" href="#">Career</a></li>
+          <li><a class="nav-link" href="#">About Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Conditional Buttons -->
+      {% if user.is_authenticated %}
+        <!-- When logged in -->
+        <div class="logout">
+          <button>Log Out</button>
+        </div>
+      {% else %}
+        <!-- When logged out -->
+        <div class="signup">
+          <button>Sign Up</button>
+        </div>
+        <div class="login">
+          <button>Log In</button>
+        </div>
+      {% endif %}
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  {% block content %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Match the same width/padding as the nav-container -->
+    <div class="footer-container">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <img src="{% static 'assets/icon.png' %}" alt="Logo" height="50" />
+          <p class="mt-1">Innovating Education for a better tomorrow.</p>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h3>Quick Links</h3>
+          <ul class="list-unstyled">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Donate</a></li>
+            <li><a href="#">Campaigns</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">Feedback</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3 mb-4">
+          <h3>Contact Us</h3>
+          <p><i class="fa fa-phone"></i> +91 9355065333</p>
+          <p>
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:contact@aadarneyi.org">contact@aadarneyi.org</a>
+          </p>
+          <p><i class="fa fa-map-marker"></i> Noida, UP-201301</p>
+          <div class="social-icons mt-1">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h3>Subscribe</h3>
+          <form class="subscribe-form">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
+            <button type="submit" class="btn btn-custom">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <hr class="border-light" />
+      <p class="mt-1">&copy; 2025 EdTech. All rights reserved.</p>
+    </div>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

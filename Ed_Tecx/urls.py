@@ -25,5 +25,6 @@ urlpatterns = [
     path('compiler/', compile_code, name='compile_code'),
     path('examportol/',include('examportol.urls')),
     path('placement_stories/',include('placement_stories.urls')),
-    
+    path('demoexam/',include('demo_exam.urls')),
+    path('practice_questions/',include('practice_question.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

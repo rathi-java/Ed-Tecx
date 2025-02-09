@@ -1,7 +1,10 @@
-{% extends 'placement_stories/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+{% endblock %}
 <div class="container" style="margin-top: 2rem;"> <!-- optional top margin if needed -->
   
   <!-- Title Section from the front-end, but no separate <header> -->

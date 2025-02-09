@@ -1,0 +1,411 @@
+{% extends 'practice_questions/management_base.html' %}
+{% load static %}
+{% block title %}Finance Practice Questions{% endblock %}
+{% block cards_and_questions %}
+
+<!-- Page Title Section -->
+<div class="page-title" style="--main-color: #088EE7B0;">
+  <div class="page-title-text">
+    <h1>Finance Practice Questions</h1>
+    <h3>
+      Topics Covered:<br>
+      General Finance, Planning, Capital and Investment Decisions, Financial Risk, Corporate Funding 
+    </h3>
+    <h2>30 Questions</h2>
+  </div>
+  <img src="{% static 'practice_questions/logo/finance.png' %}" alt="Logo" class="logo">
+</div>
+
+<h1 class="practice-questions-header">Practice Questions</h1>
+
+<!-- Question 1 -->
+<div class="question-container" id="q1">
+  <div class="question">
+    <p>1. What is the primary goal of financial management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. Maximizing sales revenue</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. Maximizing shareholder wealth</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. Increasing employee salaries</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. Reducing product prices</button></li>
+  </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+  <div class="question">
+    <p>2. Which of the following is a key function of financial management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. Marketing strategy formulation</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. Human resource planning</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C. Investment and financing decisions</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. Software development</button></li>
+  </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+  <div class="question">
+    <p>3. Which financial statement shows a company’s financial position at a specific time?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. Income statement</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. Balance sheet</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. Cash flow statement</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. Budget report</button></li>
+  </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+  <div class="question">
+    <p>4. What is the purpose of financial budgeting in management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">A. To allocate financial resources efficiently</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. To monitor employee performance</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. To increase production volume</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. To promote company branding</button></li>
+  </ul>
+</div>
+
+<!-- Question 5 -->
+<div class="question-container" id="q5">
+  <div class="question">
+    <p>5. Which budgeting method requires justifying every expense from scratch?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Traditional budgeting</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">B. Zero-based budgeting</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. Incremental budgeting</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Fixed budgeting</button></li>
+  </ul>
+</div>
+
+<!-- Question 6 -->
+<div class="question-container" id="q6">
+  <div class="question">
+    <p>6. What is the key benefit of financial forecasting?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. Ensuring immediate profits</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. Helping businesses plan for future financial needs</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. Reducing the cost of production</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Eliminating financial risks</button></li>
+  </ul>
+</div>
+
+<!-- Question 7 -->
+<div class="question-container" id="q7">
+  <div class="question">
+    <p>7. What is working capital?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Total revenue of a company</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">B. The difference between current assets and current liabilities</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. Long-term investments made by a company</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. Shareholder dividends</button></li>
+  </ul>
+</div>
+
+<!-- Question 8 -->
+<div class="question-container" id="q8">
+  <div class="question">
+    <p>8. Which of the following is an example of equity financing?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A. Bank loan</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">B. Issuing company shares</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. Lease agreement</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Credit card financing</button></li>
+  </ul>
+</div>
+
+<!-- Question 9 -->
+<div class="question-container" id="q9">
+  <div class="question">
+    <p>9. What does a high debt-to-equity ratio indicate?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. The company has more equity financing than debt</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. The company has a high level of debt compared to equity</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. The company has more assets than liabilities</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. The company has no outstanding liabilities</button></li>
+  </ul>
+</div>
+
+<!-- Question 10 -->
+<div class="question-container" id="q10">
+  <div class="question">
+    <p>10. What is the purpose of a cost-benefit analysis in investment decisions?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A. To determine if the benefits of an investment outweigh its costs</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B. To minimize business taxes</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. To identify the cheapest investment options</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. To compare employee salaries with profits</button></li>
+  </ul>
+</div>
+
+<!-- Question 11 -->
+<div class="question-container" id="q11">
+  <div class="question">
+    <p>11. Which of the following is NOT a financial risk?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. Credit risk</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. Market risk</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">C. Brand reputation risk</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. Liquidity risk</button></li>
+  </ul>
+</div>
+
+<!-- Question 12 -->
+<div class="question-container" id="q12">
+  <div class="question">
+    <p>12. How do companies manage financial risks effectively?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A. By avoiding all risky investments</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">B. By diversifying their investments</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. By increasing debt levels</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. By focusing only on short-term profits</button></li>
+  </ul>
+</div>
+
+<!-- Question 13 -->
+<div class="question-container" id="q13">
+  <div class="question">
+    <p>13. What is the primary role of insurance in financial risk management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. To provide funds for business expansion</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B. To protect against unexpected financial losses</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. To increase shareholder wealth</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. To reduce tax liabilities</button></li>
+  </ul>
+</div>
+
+<!-- Question 14 -->
+<div class="question-container" id="q14">
+  <div class="question">
+    <p>14. Which of the following is a long-term source of financing?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Trade credit</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. Bank overdraft</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">C. Corporate bonds</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. Accounts payable</button></li>
+  </ul>
+</div>
+
+<!-- Question 15 -->
+<div class="question-container" id="q15">
+  <div class="question">
+    <p>15. What is the main advantage of venture capital financing?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">A. No interest payments are required</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. It allows small businesses to access large funds</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. It guarantees profits for the company</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. It has no risk of ownership dilution</button></li>
+  </ul>
+</div>
+
+<!-- Question 16 -->
+<div class="question-container" id="q16">
+  <div class="question">
+    <p>16. What is an Initial Public Offering (IPO)?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A. A company's first sale of shares to the public</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. A company's merger with another business</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. The purchase of company assets by private investors</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. A company's annual profit-sharing event</button></li>
+  </ul>
+</div>
+
+<!-- Question 17 -->
+<div class="question-container" id="q17">
+  <div class="question">
+    <p>17. What does a higher return on investment (ROI) indicate?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. The company is highly leveraged</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">B. The company is generating more profits from its investments</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. The company has higher expenses</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. The company is increasing employee salaries</button></li>
+  </ul>
+</div>
+
+<!-- Question 18 -->
+<div class="question-container" id="q18">
+  <div class="question">
+    <p>18. Which of the following ratios measures a company's profitability?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">A. Current ratio</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. Debt-to-equity ratio</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">C. Gross profit margin</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. Inventory turnover ratio</button></li>
+  </ul>
+</div>
+
+<!-- Question 19 -->
+<div class="question-container" id="q19">
+  <div class="question">
+    <p>19. What does financial benchmarking help a company do?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A. Compare its financial performance with industry standards</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. Increase its product prices</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C. Reduce employee salaries</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Expand into international markets</button></li>
+  </ul>
+</div>
+
+<!-- Question 20 -->
+<div class="question-container" id="q20">
+  <div class="question">
+    <p>20. How does FinTech (Financial Technology) improve financial management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. By increasing manual bookkeeping processes</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. By automating and improving financial transactions</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. By reducing the need for financial analysis</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. By eliminating the need for budgeting</button></li>
+  </ul>
+</div>
+
+<!-- Question 21 -->
+<div class="question-container" id="q21">
+  <div class="question">
+    <p>21. Which of the following financial statements shows a company’s profitability over a period of time?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. Balance sheet</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">B. Income statement</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. Cash flow statement</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. Statement of retained earnings</button></li>
+  </ul>
+</div>
+
+<!-- Question 22 -->
+<div class="question-container" id="q22">
+  <div class="question">
+    <p>22. What does liquidity refer to in financial management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">A. The ease of converting assets into cash</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">B. The amount of long-term investments a company holds</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. The overall profitability of a company</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. The rate at which employees are paid</button></li>
+  </ul>
+</div>
+
+<!-- Question 23 -->
+<div class="question-container" id="q23">
+  <div class="question">
+    <p>23. Which type of financing is repayable with interest over time?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">A. Equity financing</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">B. Debt financing</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. Retained earnings</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. Grants</button></li>
+  </ul>
+</div>
+
+<!-- Question 24 -->
+<div class="question-container" id="q24">
+  <div class="question">
+    <p>24. What is the main objective of working capital management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. To maximize long-term investments</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. To ensure a company has sufficient short-term assets to cover liabilities</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. To increase fixed assets</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. To expand into new markets</button></li>
+  </ul>
+</div>
+
+<!-- Question 25 -->
+<div class="question-container" id="q25">
+  <div class="question">
+    <p>25. What is capital budgeting used for in financial management?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A. Managing employee salaries</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">B. Making long-term investment decisions</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Tracking daily business expenses</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Reducing tax liabilities</button></li>
+  </ul>
+</div>
+
+<!-- Question 26 -->
+<div class="question-container" id="q26">
+  <div class="question">
+    <p>26. Which of the following is an example of non-current liabilities?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. Bank loan payable in 10 years</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. Accounts payable</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. Inventory purchases</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. Cash on hand</button></li>
+  </ul>
+</div>
+
+<!-- Question 27 -->
+<div class="question-container" id="q27">
+  <div class="question">
+    <p>27. What does the price-to-earnings (P/E) ratio measure?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. The company’s revenue growth</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B. The stock price relative to its earnings per share</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. The company’s total assets</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. The amount of dividends paid to shareholders</button></li>
+  </ul>
+</div>
+
+<!-- Question 28 -->
+<div class="question-container" id="q28">
+  <div class="question">
+    <p>28. What is a cash flow statement primarily used for?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. Measuring profitability</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. Tracking cash inflows and outflows</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Managing debt financing</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Calculating gross profit margin</button></li>
+  </ul>
+</div>
+
+<!-- Question 29 -->
+<div class="question-container" id="q29">
+  <div class="question">
+    <p>29. What is the primary function of financial controllers in a company?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. Marketing and branding</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B. Overseeing financial reporting and compliance</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. Hiring and managing employees</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. Expanding business operations</button></li>
+  </ul>
+</div>
+
+<!-- Question 30 -->
+<div class="question-container" id="q30">
+  <div class="question">
+    <p>30. What happens when a company’s current ratio is less than 1?</p>
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A. The company may struggle to pay its short-term liabilities</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. The company has more assets than liabilities</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. The company has no financial risks</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. The company is highly profitable</button></li>
+  </ul>
+</div>
+
+{% endblock %}
