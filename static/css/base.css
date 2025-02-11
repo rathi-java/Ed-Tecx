@@ -132,7 +132,7 @@ body {
 /* Overlapping effect between sign up & log in */
 .signup {
   margin-left: 10px;
-  margin-right: -240px; /* overlap with .login */
+  margin-right: -200px; /* overlap with .login */
   z-index: 10;
 }
 .login {
