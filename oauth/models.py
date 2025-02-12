@@ -8,7 +8,7 @@ class CollegesDb(models.Model):
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
 
-class StudentsDB(models.Model):
+class UsersDB(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=15, default="0000000000")
@@ -26,7 +26,7 @@ class StudentsDB(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.username:  # Only generate a username if it's not set
-            last_user = StudentsDB.objects.order_by('-id').first()
+            last_user = UsersDB.objects.order_by('-id').first()
             if last_user and last_user.username.startswith("USR"):
                 last_number = int(last_user.username[3:])  # Extract numeric part
                 new_id = f"USR{last_number + 1:05d}"  # Increment and format
