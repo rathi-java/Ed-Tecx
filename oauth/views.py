@@ -47,7 +47,7 @@ def signup(request):
             hashed_password = make_password(password)
 
             try:
-                new_user = StudentsDB.objects.create(
+                new_user = UsersDB.objects.create(
                     full_name=full_name,
                     email=email,
                     phone_number=phone_number,
@@ -82,12 +82,12 @@ def user_login(request):
 
         # Try to fetch the user using email, phone number, or username
         user = None
-        if StudentsDB.objects.filter(email=user_input).exists():
-            user = StudentsDB.objects.get(email=user_input)
-        elif StudentsDB.objects.filter(phone_number=user_input).exists():
-            user = StudentsDB.objects.get(phone_number=user_input)
-        elif StudentsDB.objects.filter(username=user_input).exists():
-            user = StudentsDB.objects.get(username=user_input)
+        if UsersDB.objects.filter(email=user_input).exists():
+            user = UsersDB.objects.get(email=user_input)
+        elif UsersDB.objects.filter(phone_number=user_input).exists():
+            user = UsersDB.objects.get(phone_number=user_input)
+        elif UsersDB.objects.filter(username=user_input).exists():
+            user = UsersDB.objects.get(username=user_input)
 
         if user and check_password(password, user.password):  # Check password
             # Set session for user login

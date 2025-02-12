@@ -27,4 +27,4 @@ class UserDBAdmin(admin.ModelAdmin):
 
 # Register the models and their custom admin classes
 admin.site.register(CollegesDb, CollegesDbAdmin)
-admin.site.register(StudentsDB, UserDBAdmin)
+admin.site.register(UsersDB, UserDBAdmin)
