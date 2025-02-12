@@ -1,20 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}EdTech{% endblock %}</title>
 
   <!-- Removed Bootstrap; only site-wide custom CSS + FontAwesome kit -->
-  <script
-    src="https://kit.fontawesome.com/a076d05399.js"
-    crossorigin="anonymous"
-  ></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
   {% block extra_css %}{% endblock %}
 </head>
+
 <body>
   <!-- Navigation Bar -->
   <nav class="navbar">
@@ -24,6 +23,7 @@
       </a>
       <div class="nav-links" id="navbarNav">
         <ul>
+          <li><a class="nav-link" href="/">Home</a></li>
           <li class="dropdown">
             <a class="nav-link" href="#">
               Solution <i class="fa-solid fa-caret-down"></i>
@@ -37,25 +37,25 @@
             </div>
           </li>
           <li><a class="nav-link" href="{% url 'instructions' %}">Test Room</a></li>
-          <li><a class="nav-link" href="#">Career</a></li>
+          <li><a class="nav-link" href="#">Roadmap</a></li>
           <li><a class="nav-link" href="#">About Us</a></li>
         </ul>
       </div>
 
-      <!-- Conditional Buttons -->
-      {% if user.is_authenticated %}
-        <!-- When logged in -->
-        <div class="logout">
-          <button>Log Out</button>
-        </div>
+      <!-- Conditional rendering of login or logout button -->
+      {% if request.session.user_id %}
+      <!-- When logged in -->
+      <div class="logout">
+        <a href="{% url 'logout' %}"><button>Log Out</button></a>
+      </div>
       {% else %}
-        <!-- When logged out -->
-        <div class="signup">
-          <button>Sign Up</button>
-        </div>
-        <div class="login">
-          <button>Log In</button>
-        </div>
+      <!-- When logged out -->
+      <div class="signup">
+        <a href="{% url 'signup' %}"><button>Sign Up</button></a>
+      </div>
+      <div class="login">
+        <a href="{% url 'login' %}"><button>Log In</button></a>
+      </div>
       {% endif %}
     </div>
   </nav>
@@ -101,12 +101,7 @@
         <div class="col-md-3">
           <h3>Subscribe</h3>
           <form class="subscribe-form">
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Enter your email"
-              required
-            />
+            <input type="email" class="form-control" placeholder="Enter your email" required />
             <button type="submit" class="btn btn-custom">Subscribe</button>
           </form>
         </div>
@@ -118,4 +113,5 @@
 
   {% block extra_js %}{% endblock %}
 </body>
+
 </html>

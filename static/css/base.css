@@ -97,6 +97,7 @@ body {
   min-width: 160px;
   box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
   z-index: 1;
+  
 }
 
 /* Show dropdown on hover of parent element */
@@ -108,7 +109,7 @@ body {
 .dropdown-content a {
   display: block;
   padding: 12px 16px;
-  color: black;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   transition: background-color 0.2s;
 }
@@ -116,6 +117,7 @@ body {
 /* On hover inside the dropdown */
 .dropdown-content a:hover {
   background-color: #f1f1f1;
+color:#ec8a3f !important;
 }
 
 /*****************************************************
@@ -132,7 +134,7 @@ body {
 /* Overlapping effect between sign up & log in */
 .signup {
   margin-left: 10px;
-  margin-right: -240px; /* overlap with .login */
+  margin-right: -200px; /* overlap with .login */
   z-index: 10;
 }
 .login {
