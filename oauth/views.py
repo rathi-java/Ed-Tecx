@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils.timezone import now
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 def logout_page(request):
     logout(request)  # This will clear the session
