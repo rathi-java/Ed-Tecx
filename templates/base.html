@@ -11,6 +11,16 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
+  <!-- CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/theme/dracula.min.css">
+
+  <!-- CodeMirror JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
+  <!-- Added CodeMirror mode for JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
 
   {% block extra_css %}{% endblock %}
 </head>
@@ -19,9 +29,11 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="nav-container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="/">
         <img src="{% static 'assets/logo.png' %}" alt="EdTech Logo" height="50" />
       </a>
+
+      <!-- Desktop Nav Links -->
       <div class="nav-links" id="navbarNav">
         <ul>
           <li><a class="nav-link" href="/">Home</a></li>
@@ -31,7 +43,8 @@
             </a>
             <div class="dropdown-content">
               <a href="{% url 'compile_code' %}">Compiler</a>
-              <a href="{% url 'demo_question_list' %}">Demo Test</a>
+              <a href="{% url 'practice_questions' %}">Demo Test</a>
+              <a href="{% url 'exam_home' %}">Exam Resisteration</a>
               <a href="{% url 'practice_questions' %}">Practice Questions</a>
               <a href="{% url 'placement_stories' %}">Placement Stories</a>
               <a href="https://www.readerclub.in/">Reader Club magazine</a>
@@ -42,32 +55,99 @@
           <li><a class="nav-link" href="#">About Us</a></li>
         </ul>
       </div>
-
       <!-- Conditional rendering of login or logout button -->
       {% if request.session.user_id %}
-      <!-- When logged in -->
-      <div class="logout">
-        <a href="{% url 'logout' %}"><button>Log Out</button></a>
+       <!-- Profile dropdown appears only if user is logged in -->
+       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
+        {% comment %} <i class="fa fa-user-circle"></i> {% endcomment %}
+        <img src="{% static 'assets/user.png' %}" alt="EdTech Logo" height="50" />
+        <div id="profile-menu" class="profile-dropdown-content">
+          <a href="#" onclick="showProfileInfo()"><i class="fas fa-user"></i> Profile</a>
+          <a href="#"><i class="fas fa-cog"></i> Settings</a>
+          <a href="#"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+          <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+          <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+
+          <!-- Info Links in a Row -->
+          <div class="profile-info-links">
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">About</a>
+            <a href="#">Career</a>
+            <a href="#">Blog</a>
+          </div>
+
+          <!-- Social Icons -->
+          <div class="profile-social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          </div>
+
+          <div class="profile-copyright">
+            &copy; 2025 Your Company. All rights reserved.
+          </div>
+        </div>
       </div>
       {% else %}
-      <!-- When logged out -->
       <div class="signup">
         <a href="{% url 'signup' %}"><button>Sign Up</button></a>
       </div>
       <div class="login">
-        <a href="{% url 'login' %}"><button>Log In</button></a>
+        <a href="{% url 'login' %}"><button>&nbsp;&nbsp;Log In</button></a>
       </div>
       {% endif %}
+
+
+      <!-- Hamburger Icon (for mobile only) -->
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
     </div>
   </nav>
 
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="close-btn" id="closeBtn">
+      <i class="fas fa-times"></i>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">Solution <i class="fa-solid fa-caret-down"></i></a>
+        <ul>
+          <li><a href="{% url 'compile_code' %}">Compiler</a></li>
+          <li><a href="{% url 'demo_question_list' %}">Demo Test</a></li>
+          <li><a href="{% url 'practice_questions' %}">Practice Questions</a></li>
+          <li><a href="{% url 'placement_stories' %}">Placement Stories</a></li>
+          <li><a href="{% url 'exam_home' %}">Exam Resisteration</a></li>
+          <li><a href="https://www.readerclub.in/">Reader Club magazine</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'instructions' %}">Test Room</a></li>
+      <li><a href="#">Roadmap</a></li>
+      <li><a href="#">About Us</a></li>
+      {% if request.session.user_id %}
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      <li><a href="{% url 'login' %}">Log In</a></li>
+      {% else %}
+      <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="#"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+      {% endif %}
+    </ul>
+  </div>
+
   <!-- Main Content -->
-  {% block content %}
-  {% endblock %}
+  <main class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
-    <!-- Match the same width/padding as the nav-container -->
     <div class="footer-container">
       <div class="row">
         <div class="col-md-3 mb-4">
@@ -87,8 +167,7 @@
         <div class="col-md-3 mb-4">
           <h3>Contact Us</h3>
           <p><i class="fa fa-phone"></i> +91 9355065333</p>
-          <p>
-            <i class="fa fa-envelope"></i>
+          <p><i class="fa fa-envelope"></i>
             <a href="mailto:contact@aadarneyi.org">contact@aadarneyi.org</a>
           </p>
           <p><i class="fa fa-map-marker"></i> Noida, UP-201301</p>
@@ -112,6 +191,39 @@
     </div>
   </footer>
 
+  <script>
+    // Mobile Sidebar
+    const hamburger = document.getElementById("hamburger");
+    const mobileSidebar = document.getElementById("mobileSidebar");
+    const closeBtn = document.getElementById("closeBtn");
+
+    hamburger.addEventListener("click", () => {
+      mobileSidebar.style.transform = "translateX(0)";
+    });
+    closeBtn.addEventListener("click", () => {
+      mobileSidebar.style.transform = "translateX(-100%)";
+    });
+
+    // Profile Dropdown
+    function toggleProfileDropdown(event) {
+      event.stopPropagation(); // so it doesn't close immediately
+      const menu = document.getElementById("profile-menu");
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+    // Hide dropdown if clicked outside
+    document.addEventListener("click", function (e) {
+      const dropdown = document.querySelector(".profile-dropdown");
+      if (!dropdown.contains(e.target)) {
+        document.getElementById("profile-menu").style.display = "none";
+      }
+    });
+
+    // Example "Profile" link action
+    function showProfileInfo() {
+      alert("Show user profile details here...");
+      // or redirect to a profile page
+    }
+  </script>
   {% block extra_js %}{% endblock %}
 </body>
 

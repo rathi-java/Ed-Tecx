@@ -32,4 +32,5 @@ urlpatterns = [
     path('placement_stories/',include('placement_stories.urls')),
     path('demoexam/',include('demo_exam.urls')),
     path('practice_questions/',include('practice_question.urls')),
+    path('exam_registration/',include('exam_registration.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
