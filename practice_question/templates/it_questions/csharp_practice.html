@@ -8,82 +8,102 @@
     <h1>C# Practice Questions</h1>
     <h3>
       Topics Covered:<br>
-      C# Variables, Datatype, Functions, Class, Loops
+      C# Variables, Data Types, Functions, Classes, Loops, LINQ, and more
     </h3>
     <h2>30 Questions</h2>
   </div>
-  <img src="{% static 'practice_questions/logo/csharp.svg' %}" alt="cpp Logo" class="logo">
+  <img src="{% static 'practice_questions/logo/csharp.svg' %}" alt="C# Logo" class="logo">
 </div>
 
 <h1 class="practice-questions-header">Practice Questions</h1>
+
 <!-- Question 1 -->
 <div class="question-container" id="q1">
-    <div class="question">
-        1. What will be the output of the following C# code?
-        <pre>
-        i = 1
-        while True:
-            if i % 3 == 0:
-                break
-            print(i)
-            i += 1
-        </pre>
-    </div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. 1 2 3</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. error</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. 1 2</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. None of the mention</button></li>
-    </ul>
-</div>
-  <!-- Question 2 -->
-<div class="question-container" id="q2">
-  <div class="question">2. Which of the following character is used to give single-line comments in cpp?</div>
+  <div class="question">
+    1. What will be the output of the following C# code?
+    <pre>
+using System;
+public class Program {
+    public static void Main() {
+        int i = 1;
+        while(true) {
+            if(i % 3 == 0)
+                break;
+            Console.Write(i + " ");
+            i++;
+        }
+    }
+}
+    </pre>
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. //</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">B. #</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. !-</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. /*</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. 1 2 3</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">B. error</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">C. 1 2</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. None of the above</button></li>
+  </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+  <div class="question">
+    2. Which symbol is used for single-line comments in C#?
+  </div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">A. //</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. #</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. /*</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. --</button></li>
   </ul>
 </div>
 
 <!-- Question 3 -->
 <div class="question-container" id="q3">
   <div class="question">
-    3. What are the values of the following cpp expressions?
+    3. What are the outputs of the following C# code snippet?
     <pre>
-      2**(3**2) 
-      (2**3)**2
-      2**3**2
+using System;
+public class Program {
+    public static void Main() {
+        Console.WriteLine(Math.Pow(2, Math.Pow(3, 2)));
+        Console.WriteLine(Math.Pow(Math.Pow(2, 3), 2));
+    }
+}
     </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A. 512, 64, 512</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. 512, 512, 512</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. 64, 512, 64</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. 64, 64, 64</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A. 512 and 64</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. 512 and 512</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. 64 and 512</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. 64 and 64</button></li>
   </ul>
 </div>
 
 <!-- Question 4 -->
 <div class="question-container" id="q4">
   <div class="question">
-    4. What is the output of the below code?
+    4. What is the output of the following C# code?
     <pre>
-      main_dict={}
-      def insert_item(item):
-         if item in main_dict:
-             main_dict[item] += 1
-         else:
-             main_dict[item] = 1
-      #Driver code
-      insert_item('Key1')
-      insert_item('Key2')
-      insert_item('Key2')
-      insert_item('Key3')
-      insert_item('Key1')
-      print (len(main_dict))
-  </pre>
+using System;
+using System.Collections.Generic;
+public class Program {
+    public static void Main() {
+        Dictionary<string, int> dict = new Dictionary<string, int>();
+        void InsertItem(string key) {
+            if(dict.ContainsKey(key))
+                dict[key]++;
+            else
+                dict[key] = 1;
+        }
+        InsertItem("Key1");
+        InsertItem("Key2");
+        InsertItem("Key2");
+        InsertItem("Key3");
+        InsertItem("Key1");
+        Console.WriteLine(dict.Count);
+    }
+}
+    </pre>
   </div>
   <ul class="options">
     <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. 5</button></li>
@@ -95,138 +115,145 @@
 
 <!-- Question 5 -->
 <div class="question-container" id="q5">
-  <div class="question">5. Which among the below options picks out negative numbers from the given list.</div>
+  <div class="question">
+    5. Which of the following lambda expressions correctly returns true for negative numbers in C#?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. [num for num<0 in list]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. [num<0 in list]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. [num for num in list if num<0]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. [num in list for num<0]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. x => x > 0</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">B. x => x < 0</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. x => x <= 0</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. x => x != 0</button></li>
   </ul>
 </div>
-
 
 <!-- Question 6 -->
 <div class="question-container" id="q6">
   <div class="question">
-    6. What is the output of the below program?
+    6. What is the output of the following C# code?
     <pre>
-      class Human(object):
-        def __init__(self, name):
-            self.human_name = name
-              
-        def getHumanName(self):
-            return self.human_name
-            
-        def isEmployee(self):
-            return False
-      
-      class IBEmployee(Human):
-        def __init__(self, name, emp_id): 
-            super(IBEmployee, self).__init__(name)
-            self.emp_id = emp_id
-              
-        def isEmployee(self):
-            return True
-              
-        def get_emp_id(self):
-            return self.emp_id
-      
-      # Driver code
-      employee = IBEmployee("Mr Employee", "IB007") 
-      print(employee.getHumanName(), employee.isEmployee(), employee.get_emp_id())  
-  </pre>
+using System;
+public class Human {
+    public string HumanName;
+    public Human(string name) { HumanName = name; }
+    public virtual bool IsEmployee() { return false; }
+}
+public class IBEmployee : Human {
+    public string EmpId;
+    public IBEmployee(string name, string id) : base(name) { EmpId = id; }
+    public override bool IsEmployee() { return true; }
+}
+public class Program {
+    public static void Main() {
+        IBEmployee employee = new IBEmployee("Mr Employee", "IB007");
+        Console.WriteLine(employee.HumanName + " " + employee.IsEmployee() + " " + employee.EmpId);
+    }
+}
+    </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. (None, True, 'IB007')</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. ('Mr Employee', True, 'IB007')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. ("", False, 'IB007')</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. (None, True, "IB007")</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. Mr Employee True IB007</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. ("" , False, "IB007")</button></li>
     <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Runtime error</button></li>
   </ul>
 </div>
 
-
 <!-- Question 7 -->
 <div class="question-container" id="q7">
-  <div class="question">7. time.time() in cpp returns?</div>
+  <div class="question">
+    7. Which property returns the current local date and time in C#?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Current time.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Current time in milliseconds.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. Current time in milliseconds since midnight, January 1, 1970.<0]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">D. Current time in milliseconds since midnight, January 1, 1970 GMT (the Unix time).</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">A. DateTime.Now</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. DateTime.UtcNow</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. DateTime.Today</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. DateTime.Current</button></li>
   </ul>
 </div>
 
 <!-- Question 8 -->
 <div class="question-container" id="q8">
   <div class="question">
-    8. Which among the below options will correct the below error obtained while reading "sample_file.csv" in pandas?
-    <pre>
-      Traceback (most recent call last): File "&lt;input&gt;", line 10, in<module> UnicodeEncodeError:
-        'ascii' codec can't encode character.
-  </pre>
+    8. Which method is used to read all lines from a text file in C#?
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. pd.read_csv("sample_file.csv", encoding='utf-8')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. pd.read_csv("sample_file.csv", compression='gzip')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. pd.read_csv("sample_file.csv", dialect='comma')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. None of the above</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. File.ReadAllLines()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. File.ReadAllText()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. File.ReadLines()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. File.OpenRead()</button></li>
   </ul>
 </div>
 
-
 <!-- Question 9 -->
 <div class="question-container" id="q9">
-  <div class="question">9. Which of the following is untrue for cpp namespaces?</div>
+  <div class="question">
+    9. Which of the following statements about C# namespaces is false?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. cpp namespaces are implemented as a dictionary in cpp.</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. cpp namespaces have keys as addresses of the objects.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Lifecycle of a namespace depends upon the scope of the objects they are mapped to.<0]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Namespaces ensure that object names in a program are unique.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. Namespaces help avoid naming conflicts.</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. Namespaces are implemented as static classes.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Namespaces can be nested.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Namespaces do not add runtime overhead.</button></li>
   </ul>
 </div>
 
 <!-- Question 10 -->
 <div class="question-container" id="q10">
-  <div class="question">10. Let func = lambda a, b : (a ** b), what is the output of func(float(10),20) ?    </div>
+  <div class="question">
+    10. Which of the following is the correct way to declare a lambda expression in C# that doubles its input?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. 100000000000000000000</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">B. 1e+20</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. 100000000000000000000.0</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. 1.0e+20</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. delegate(int x) { return x * 2; }</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">B. x => x * 2</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. (x) => { x * 2 }</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. lambda x: x * 2</button></li>
   </ul>
 </div>
 
 <!-- Question 11 -->
 <div class="question-container" id="q11">
-  <div class="question">11. Which among the following options helps us to check whether a pandas dataframe is empty?</div>
+  <div class="question">
+    11. How can you check if a List in C# is empty?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. df.emptyframe</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. df.blank</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. df.isempty</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">D. df.empty</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A. list.Count == 0</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. list.IsEmpty()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. list.Empty()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. list.Length == 0</button></li>
   </ul>
 </div>
 
 <!-- Question 12 -->
 <div class="question-container" id="q12">
   <div class="question">
-    12. What is the output of the below code?
+    12. What is the output of the following C# code?
     <pre>
-      class X:
-          def __init__(self):
-              self.__num1 = 5
-              self.num2 = 2
-
-          def display_values(self):
-              print(self.__num1, self.num2)
-      class Y(X):
-          def __init__(self):
-              super().__init__()
-              self.__num1 = 1
-              self.num2 = 6 
-      obj = Y()
-      obj.display_values()
-  </pre>
+using System;
+public class X {
+    private int num1;
+    public int num2;
+    public X() {
+        num1 = 5;
+        num2 = 2;
+    }
+    public void DisplayValues() {
+        Console.WriteLine(num1 + " " + num2);
+    }
+}
+public class Y : X {
+    private int num1;
+    public Y() : base() {
+        num1 = 1;
+        num2 = 6;
+    }
+}
+public class Program {
+    public static void Main() {
+        Y obj = new Y();
+        obj.DisplayValues();
+    }
+}
+    </pre>
   </div>
   <ul class="options">
     <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. 5 6</button></li>
@@ -238,219 +265,157 @@
 
 <!-- Question 13 -->
 <div class="question-container" id="q13">
-  <div class="question">13. What is the difference between lists and tuples?</div>
+  <div class="question">
+    13. What is the key difference between arrays and Lists in C#?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. List is a sequence data type, while tuple is not.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Tuples are mutable but lists are immutable.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Tuple is a sequence data type, while lists is not.</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">D. Lists are mutable but tuples are immutable.</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">A. Arrays are fixed-size, while Lists are dynamic.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Arrays are dynamic, while Lists are fixed-size.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Both are fixed-size.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Both are dynamic.</button></li>
   </ul>
 </div>
 
 <!-- Question 14 -->
 <div class="question-container" id="q14">
-  <div class="question">14. Which statement is false for __init__?</div>
+  <div class="question">
+    14. Which of the following statements about constructors in C# is false?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. __init__ is called manually on object creation.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. __init__ is a constructor method in cpp.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. All classes have a __init__ method associated with them.</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">D. __init__ allocates memory for objects.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Constructors have no return type.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. Constructors can be overloaded.</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">C. Constructors can be called directly like normal methods.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. A constructor is automatically called when an object is created.</button></li>
   </ul>
 </div>
 
 <!-- Question 15 -->
 <div class="question-container" id="q15">
-  <div class="question">15. Let list1 = ['s', 'r', 'a', 's'] and list2 = ['a', 'a', 'n', 'h'], what is the output of ["".join([i, j]) for i, j in zip(list1, list2)]?</div>
-  <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. ['s', 'a', 'r', 'a', 'a', 'n', 's', 'h']</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. ['s', 'r', 'a', 's', 'a', 'a', 'n', 'h']</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. ['sa', 'ra', 'an', 'sh']</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. ['sa', 'sa', 'sn', 'sh', 'ra', 'ra', 'rn', 'rh', 'aa', 'aa', 'an', 'ah', 'sa', 'sa', 'sn', 'sh']</button></li>
-  </ul>
-</div>
-
-   <!-- Question 16 -->
-   <div class="question-container" id="q16">
-    <div class="question">16. Which of the following is the function responsible for pickling?</div>
-    <ul class="options">
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. pickle.save()</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. pickle.store()</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. pickle.pickle()</button></li>
-      <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">D. pickle.dump()</button></li>
-    </ul>
+  <div class="question">
+    15. Given two arrays: <code>char[] list1 = {'s','r','a','s'}</code> and <code>char[] list2 = {'a','a','n','h'}</code>, what is the result of concatenating corresponding elements into a new array of strings?
   </div>
-
-  <!-- Question 17 -->
-  <div class="question-container" id="q17">
-    <div class="question">17. How will you find the location of numbers which are multiples of 5 in a series?
-
-      <pre>
-        class X:
-            def __init__(self):
-                self.__num1 = 5
-                self.num2 = 2
-
-            def display_values(self):
-                print(self.__num1, self.num2)
-        class Y(X):
-            def __init__(self):
-                super().__init__()
-                self.__num1 = 1
-                self.num2 = 6 
-        obj = Y()
-        obj.display_values()
-    </pre>
-
-    </div>
-    <ul class="options">
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. np.search(series_data % 5)</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. np.find(series_data % 5 ==0)</button></li>
-      <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. np.argwhere(series_data % 5==0)</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. np.locate(series_data % 5)</button></li>
-    </ul>
-  </div>
-
-  <!-- Question 15 -->
-<div class="question-container" id="q15">
-  <div class="question">15. Which of the following is a protected attribute?</div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. __sara__</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. __ansh</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. _sara_</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. ansh__</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. {"s", "a", "r", "a", "a", "n", "s", "h"}</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. {"s", "r", "a", "s", "a", "a", "n", "h"}</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. {"sa", "ra", "an", "sh"}</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. A longer concatenated sequence</button></li>
   </ul>
 </div>
 
 <!-- Question 16 -->
 <div class="question-container" id="q16">
   <div class="question">
-    16. What is the output of the below code?
-    <pre>
-class Person:
-   def __init__(self, first_name, last_name):
-       self.first_name = first_name
-       self.last_name = last_name
-
-first_name = "XYZ"
-person = Person(first_name, "ABC")
-first_name = "LMN"
-person.last_name = "PQR"
-print(person.first_name, person.last_name)
-    </pre>
+    16. Which namespace in .NET is used for XML serialization?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. XYZ ABC</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B. XYZ PQR</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. LMN ABC</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. LMN PQR</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A. System.Xml.Serialization</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. System.Runtime.Serialization</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. System.Text.Json</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. Newtonsoft.Json</button></li>
   </ul>
 </div>
 
 <!-- Question 17 -->
 <div class="question-container" id="q17">
   <div class="question">
-    17. What is the output of the following statement "Hello World"[::-1]?
+    17. Which LINQ method can be used to count the number of elements in a collection that satisfy a condition?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. "Hello World"</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. "World Hello"</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. "dlroW olleH"</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. "olleH dlroW"</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">A. Count(predicate)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. Where(predicate)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. Sum(predicate)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. Select(predicate)</button></li>
   </ul>
 </div>
 
 <!-- Question 18 -->
 <div class="question-container" id="q18">
   <div class="question">
-    18. What is the output of the following program?
+    18. What is the output of the following C# recursive method?
     <pre>
-      class A(object):
-        def __init__(self, a):
-            self.num = a
-        def mul_two(self):
-            self.num *= 2
-      
-      class B(A):
-        def __init__(self, a):
-            X.__init__(self, a)
-        def mul_three(self):
-            self.num *= 3
-      
-      obj = B(4)
-      print(obj.num)
-      
-      obj.mul_two()
-      print(obj.num)
-      
-      obj.mul_three()
-      print(obj.num)
+using System;
+public class Program {
+    public static int Test(int x) {
+        if (x == 0)
+            return 0;
+        return x + Test(x - 1);
+    }
+    public static void Main() {
+        Console.WriteLine(Test(5));
+    }
+}
     </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. 4 8 24</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. 4 4 64</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. 4 8 64</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. None of the above</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. 15</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. 10</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. 5</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. 20</button></li>
   </ul>
 </div>
 
 <!-- Question 19 -->
 <div class="question-container" id="q19">
   <div class="question">
-    19. Suppose list1 = [3,4,5,2,1,0], what is list1 after list1.pop(1)?
+    19. Given <code>List&lt;int&gt; list = new List&lt;int&gt; {3,4,5,2,1,0}</code>, what is the content of the list after executing <code>list.RemoveAt(1)</code>?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. list1 = [3,4,5,2,1]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. list1 = [3,4,5,2,0]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">C. list1 = [3,5,2,1,0]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. list1 = [3,4,5,2]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. {3,4,5,2,1}</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. {3,4,5,2,0}</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">C. {3,5,2,1,0}</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. {3,4,5,2}</button></li>
   </ul>
 </div>
 
 <!-- Question 20 -->
 <div class="question-container" id="q20">
-  <div class="question">20. Which of the following is used to create a virtual environment in cpp?</div>
+  <div class="question">
+    20. Which build tool is commonly used for C# projects?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. pyvenv</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. virtualenv</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. envpy</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. pyenv</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. virtualenv</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. MSBuild</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. CMake</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. npm</button></li>
   </ul>
 </div>
 
 <!-- Question 21 -->
 <div class="question-container" id="q21">
-  <div class="question">21. What will be the output of the following cpp code snippet?
+  <div class="question">
+    21. Which of the following is the correct syntax for defining a method with an optional parameter in C#?
     <pre>
-def add_items(x, items=[]):
-    items.append(x)
-    return items
-print(add_items(1))
-print(add_items(2))
+public void MyMethod(int x, int y = 0) {
+    // method body
+}
     </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. [1] [1, 2]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. [1] [2]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">C. [1] [1, 2]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. [1] [2, 1]</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A. void MyMethod(int x, int y = 0)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. void MyMethod(int x, int? y)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C. void MyMethod(int x, int y = null)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. void MyMethod(int x, int y)</button></li>
   </ul>
 </div>
 
 <!-- Question 22 -->
 <div class="question-container" id="q22">
-  <div class="question">22. Which of the following is the correct way to create a function in cpp?</div>
+  <div class="question">
+    22. Which of the following is the correct way to declare a method in C#?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. func myFunction()</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. def myFunction():</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. function myFunction()</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. create myFunction()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. func myFunction() { }</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. void myFunction() { }</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. function myFunction() { }</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. def myFunction():</button></li>
   </ul>
 </div>
 
 <!-- Question 23 -->
 <div class="question-container" id="q23">
-  <div class="question">23. What is the result of the expression 4 + 3 * 2?</div>
+  <div class="question">
+    23. What is the result of the expression <code>4 + 3 * 2</code> in C#?
+  </div>
   <ul class="options">
     <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">A. 14</button></li>
     <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">B. 10</button></li>
@@ -461,48 +426,62 @@ print(add_items(2))
 
 <!-- Question 24 -->
 <div class="question-container" id="q24">
-  <div class="question">24. Which of the following is true about cpp?</div>
+  <div class="question">
+    24. Which of the following is NOT a feature of C#?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. cpp is a low-level programming language</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. cpp supports object-oriented programming</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. cpp does not support garbage collection</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. cpp is a statically typed language</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. Object-oriented programming</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B. Automatic garbage collection</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">C. Pointer usage in safe code</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. Support for generics</button></li>
   </ul>
 </div>
 
 <!-- Question 25 -->
 <div class="question-container" id="q25">
-  <div class="question">25. Which of the following data types is immutable in cpp?</div>
+  <div class="question">
+    25. Which of the following data types is immutable in C#?
+  </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. Tuple</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. List</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Dictionary</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Set</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. String</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. List&lt;T&gt;</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Array</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Dictionary&lt;K,V&gt;</button></li>
   </ul>
 </div>
 
 <!-- Question 26 -->
 <div class="question-container" id="q26">
-  <div class="question">26. What will the following cpp code output?
+  <div class="question">
+    26. What will be the output of the following C# code that calculates the factorial recursively?
     <pre>
-def test(x):
-    if x == 0:
-        return 0
-    return x + test(x - 1)
-print(test(5))
+using System;
+public class Program {
+    public static int Factorial(int n) {
+        if(n <= 1)
+            return 1;
+        else
+            return n * Factorial(n - 1);
+    }
+    public static void Main() {
+        Console.WriteLine(Factorial(5));
+    }
+}
     </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. 15</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. 10</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. 5</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. 20</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A. 15</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. 24</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">C. 120</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. 720</button></li>
   </ul>
 </div>
 
 <!-- Question 27 -->
 <div class="question-container" id="q27">
-  <div class="question">27. What is the maximum possible length of an identifier in cpp?</div>
+  <div class="question">
+    27. What is the maximum possible length of an identifier in C#?
+  </div>
   <ul class="options">
     <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. 63 characters</button></li>
     <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. 79 characters</button></li>
@@ -514,17 +493,23 @@ print(test(5))
 <!-- Question 28 -->
 <div class="question-container" id="q28">
   <div class="question">
-    28. What is the output of the following cpp code?
+    28. What is the output of the following C# code using LINQ's Select method?
     <pre>
-    x = [i**2 for i in range(5)]
-    y = map(lambda a: a + 2, x)
-    print(list(y))
+using System;
+using System.Linq;
+public class Program {
+    public static void Main() {
+        int[] x = {0, 1, 4, 9, 16};
+        var y = x.Select(a => a + 2);
+        Console.WriteLine(string.Join(" ", y));
+    }
+}
     </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. [0, 1, 4, 9, 16]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. [2, 3, 6, 11, 18]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. [2, 3, 6, 11, 18, 20]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. 0 1 4 9 16</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. 2 3 6 11 18</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. 2 3 6 11 18 20</button></li>
     <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Error</button></li>
   </ul>
 </div>
@@ -532,37 +517,42 @@ print(test(5))
 <!-- Question 29 -->
 <div class="question-container" id="q29">
   <div class="question">
-    29. Which of the following cpp data types is mutable?
+    29. Which of the following variable declarations defines a mutable integer in C#?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. tuple</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B. list</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. string</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. int</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. const int x = 10;</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B. int x = 10;</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. readonly int x = 10;</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. static int x = 10;</button></li>
   </ul>
 </div>
 
 <!-- Question 30 -->
 <div class="question-container" id="q30">
   <div class="question">
-    30. What is the output of the following cpp code?
+    30. What will be the output of the following C# code that uses a static field?
     <pre>
-    def func(a, b=[]):
-        b.append(a)
-        return b
-
-    list1 = func(10)
-    list2 = func(20, [])
-    list3 = func(30)
-
-    print(list1, list2, list3)
+using System;
+public class Program {
+    static int count = 0;
+    public static void Increment() {
+        count++;
+        Console.Write(count + " ");
+    }
+    public static void Main() {
+        Increment();
+        Increment();
+        Increment();
+    }
+}
     </pre>
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. [10] [20] [30]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">B. [10, 30] [20] [30]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. [10, 30] [20] [10, 30]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. [10, 30] [20] [10, 20, 30]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. 0 0 0</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. 1 1 1</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C. 1 2 3</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. 3 3 3</button></li>
   </ul>
 </div>
+
 {% endblock %}

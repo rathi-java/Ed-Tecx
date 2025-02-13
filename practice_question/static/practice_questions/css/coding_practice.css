@@ -43,10 +43,15 @@
   * 3) HEADERS / TITLES
   *****************************************************/
  .practice-questions-header {
-   margin-left: 15.4%;
+   margin-top: 3%;
+   text-align: center;
  }
  
  .heading h2 {
    margin: 0;
    padding: 10px 0;
  } 
+
+ h2 {
+  color: #1273b9;
+ }

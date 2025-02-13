@@ -8,561 +8,403 @@
     <h1>DSA Practice Questions</h1>
     <h3>
       Topics Covered:<br>
-      DSA Variables, Datatype, Functions, Class, Loops
+      Data Structures &amp; Algorithms – Arrays, Linked Lists, Trees, Graphs, Sorting, Searching, Greedy, DP, and more
     </h3>
     <h2>30 Questions</h2>
   </div>
-  <img src="{% static 'practice_questions/logo/dsa.svg' %}" alt="cpp Logo" class="logo">
+  <img src="{% static 'practice_questions/logo/dsa.svg' %}" alt="DSA Logo" class="logo">
 </div>
 
 <h1 class="practice-questions-header">Practice Questions</h1>
+
 <!-- Question 1 -->
 <div class="question-container" id="q1">
-    <div class="question">
-        1. What will be the output of the following DSA code?
-        <pre>
-        i = 1
-        while True:
-            if i % 3 == 0:
-                break
-            print(i)
-            i += 1
-        </pre>
-    </div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">A. 1 2 3</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">B. error</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. 1 2</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. None of the mention</button></li>
-    </ul>
-</div>
-  <!-- Question 2 -->
-<div class="question-container" id="q2">
-  <div class="question">2. Which of the following character is used to give single-line comments in cpp?</div>
+  <div class="question">
+    1. What is the time complexity of accessing an element in an array by index?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. //</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">B. #</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">C. !-</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. /*</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">A. O(1)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">B. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C. O(log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. O(n²)</button></li>
+  </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+  <div class="question">
+    2. What is the worst-case time complexity of linear search in an unsorted array?
+  </div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A. O(1)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B. O(log n)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D. O(n²)</button></li>
   </ul>
 </div>
 
 <!-- Question 3 -->
 <div class="question-container" id="q3">
   <div class="question">
-    3. What are the values of the following cpp expressions?
-    <pre>
-      2**(3**2) 
-      (2**3)**2
-      2**3**2
-    </pre>
+    3. What is the worst-case time complexity of binary search in a sorted array?
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A. 512, 64, 512</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B. 512, 512, 512</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. 64, 512, 64</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. 64, 64, 64</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">A. O(1)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">B. O(log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D. O(n log n)</button></li>
   </ul>
 </div>
 
 <!-- Question 4 -->
 <div class="question-container" id="q4">
   <div class="question">
-    4. What is the output of the below code?
-    <pre>
-      main_dict={}
-      def insert_item(item):
-         if item in main_dict:
-             main_dict[item] += 1
-         else:
-             main_dict[item] = 1
-      #Driver code
-      insert_item('Key1')
-      insert_item('Key2')
-      insert_item('Key2')
-      insert_item('Key3')
-      insert_item('Key1')
-      print (len(main_dict))
-  </pre>
+    4. Which data structure follows the Last-In, First-Out (LIFO) principle?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. 5</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B. Runtime error</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. Duplicate Key Exception</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">D. 3</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">A. Queue</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">B. Stack</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C. Linked List</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D. Tree</button></li>
   </ul>
 </div>
 
 <!-- Question 5 -->
 <div class="question-container" id="q5">
-  <div class="question">5. Which among the below options picks out negative numbers from the given list.</div>
+  <div class="question">
+    5. Which data structure is typically used for breadth-first search in a graph?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. [num for num<0 in list]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B. [num<0 in list]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C. [num for num in list if num<0]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. [num in list for num<0]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Stack</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">B. Queue</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. Priority Queue</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Set</button></li>
   </ul>
 </div>
-
 
 <!-- Question 6 -->
 <div class="question-container" id="q6">
   <div class="question">
-    6. What is the output of the below program?
-    <pre>
-      class Human(object):
-        def __init__(self, name):
-            self.human_name = name
-              
-        def getHumanName(self):
-            return self.human_name
-            
-        def isEmployee(self):
-            return False
-      
-      class IBEmployee(Human):
-        def __init__(self, name, emp_id): 
-            super(IBEmployee, self).__init__(name)
-            self.emp_id = emp_id
-              
-        def isEmployee(self):
-            return True
-              
-        def get_emp_id(self):
-            return self.emp_id
-      
-      # Driver code
-      employee = IBEmployee("Mr Employee", "IB007") 
-      print(employee.getHumanName(), employee.isEmployee(), employee.get_emp_id())  
-  </pre>
+    6. What is the worst-case time complexity of quicksort (without randomized pivot selection)?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. (None, True, 'IB007')</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B. ('Mr Employee', True, 'IB007')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C. ("", False, 'IB007')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. Runtime error</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A. O(n log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B. O(n)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">C. O(n²)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D. O(log n)</button></li>
   </ul>
 </div>
 
-
 <!-- Question 7 -->
 <div class="question-container" id="q7">
-  <div class="question">7. time.time() in cpp returns?</div>
+  <div class="question">
+    7. What is the average-case time complexity of merge sort?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. Current time.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B. Current time in milliseconds.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. Current time in milliseconds since midnight, January 1, 1970.<0]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">D. Current time in milliseconds since midnight, January 1, 1970 GMT (the Unix time).</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">A. O(n²)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">B. O(n log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D. O(log n)</button></li>
   </ul>
 </div>
 
 <!-- Question 8 -->
 <div class="question-container" id="q8">
   <div class="question">
-    8. Which among the below options will correct the below error obtained while reading "sample_file.csv" in pandas?
-    <pre>
-      Traceback (most recent call last): File "&lt;input&gt;", line 10, in<module> UnicodeEncodeError:
-        'ascii' codec can't encode character.
-  </pre>
+    8. Which data structure is most efficiently used to implement a priority queue?
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. pd.read_csv("sample_file.csv", encoding='utf-8')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. pd.read_csv("sample_file.csv", compression='gzip')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. pd.read_csv("sample_file.csv", dialect='comma')</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. None of the above</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A. Binary Heap</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B. Array</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C. Linked List</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D. Stack</button></li>
   </ul>
 </div>
 
-
 <!-- Question 9 -->
 <div class="question-container" id="q9">
-  <div class="question">9. Which of the following is untrue for cpp namespaces?</div>
+  <div class="question">
+    9. What is the worst-case time complexity for inserting an element into a balanced binary search tree (e.g., AVL or Red-Black Tree)?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. cpp namespaces are implemented as a dictionary in cpp.</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. cpp namespaces have keys as addresses of the objects.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. Lifecycle of a namespace depends upon the scope of the objects they are mapped to.<0]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. Namespaces ensure that object names in a program are unique.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A. O(1)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B. O(log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D. O(n log n)</button></li>
   </ul>
 </div>
 
 <!-- Question 10 -->
 <div class="question-container" id="q10">
-  <div class="question">10. Let func = lambda a, b : (a ** b), what is the output of func(float(10),20) ?    </div>
+  <div class="question">
+    10. Which data structure offers constant average-time complexity for search, insertion, and deletion?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. 100000000000000000000</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">B. 1e+20</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. 100000000000000000000.0</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. 1.0e+20</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">A. Array</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">B. Hash Table</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C. Linked List</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D. Binary Search Tree</button></li>
   </ul>
 </div>
 
 <!-- Question 11 -->
 <div class="question-container" id="q11">
-  <div class="question">11. Which among the following options helps us to check whether a pandas dataframe is empty?</div>
+  <div class="question">
+    11. What is the space complexity of a recursive algorithm that uses O(n) stack space?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. df.emptyframe</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B. df.blank</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. df.isempty</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">D. df.empty</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A. O(1)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">B. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C. O(n²)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D. O(log n)</button></li>
   </ul>
 </div>
 
 <!-- Question 12 -->
 <div class="question-container" id="q12">
   <div class="question">
-    12. What is the output of the below code?
-    <pre>
-      class X:
-          def __init__(self):
-              self.__num1 = 5
-              self.num2 = 2
-
-          def display_values(self):
-              print(self.__num1, self.num2)
-      class Y(X):
-          def __init__(self):
-              super().__init__()
-              self.__num1 = 1
-              self.num2 = 6 
-      obj = Y()
-      obj.display_values()
-  </pre>
+    12. Which algorithm design paradigm involves breaking a problem into subproblems, solving them independently, and then combining their results?
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A. 5 6</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B. 1 2</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. 5 2</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. 1 6</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A. Greedy</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">B. Divide and Conquer</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C. Dynamic Programming</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D. Backtracking</button></li>
   </ul>
 </div>
 
 <!-- Question 13 -->
 <div class="question-container" id="q13">
-  <div class="question">13. What is the difference between lists and tuples?</div>
+  <div class="question">
+    13. Which algorithm is a classic example of a greedy strategy for data compression?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. List is a sequence data type, while tuple is not.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">B. Tuples are mutable but lists are immutable.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Tuple is a sequence data type, while lists is not.</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">D. Lists are mutable but tuples are immutable.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A. QuickSort</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B. Huffman Coding</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C. Merge Sort</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D. Dijkstra's Algorithm</button></li>
   </ul>
 </div>
 
 <!-- Question 14 -->
 <div class="question-container" id="q14">
-  <div class="question">14. Which statement is false for __init__?</div>
+  <div class="question">
+    14. What is the main difference between a singly linked list and a doubly linked list?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. __init__ is called manually on object creation.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B. __init__ is a constructor method in cpp.</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. All classes have a __init__ method associated with them.</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">D. __init__ allocates memory for objects.</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A. Singly linked lists are circular</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B. Doubly linked lists allow traversal in both directions</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C. Singly linked lists use more memory</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D. They are identical in functionality</button></li>
   </ul>
 </div>
 
 <!-- Question 15 -->
 <div class="question-container" id="q15">
-  <div class="question">15. Let list1 = ['s', 'r', 'a', 's'] and list2 = ['a', 'a', 'n', 'h'], what is the output of ["".join([i, j]) for i, j in zip(list1, list2)]?</div>
-  <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. ['s', 'a', 'r', 'a', 'a', 'n', 's', 'h']</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. ['s', 'r', 'a', 's', 'a', 'a', 'n', 'h']</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. ['sa', 'ra', 'an', 'sh']</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. ['sa', 'sa', 'sn', 'sh', 'ra', 'ra', 'rn', 'rh', 'aa', 'aa', 'an', 'ah', 'sa', 'sa', 'sn', 'sh']</button></li>
-  </ul>
-</div>
-
-   <!-- Question 16 -->
-   <div class="question-container" id="q16">
-    <div class="question">16. Which of the following is the function responsible for pickling?</div>
-    <ul class="options">
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. pickle.save()</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. pickle.store()</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. pickle.pickle()</button></li>
-      <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">D. pickle.dump()</button></li>
-    </ul>
+  <div class="question">
+    15. Which graph traversal algorithm uses a stack (either explicitly or via recursion)?
   </div>
-
-  <!-- Question 17 -->
-  <div class="question-container" id="q17">
-    <div class="question">17. How will you find the location of numbers which are multiples of 5 in a series?
-
-      <pre>
-        class X:
-            def __init__(self):
-                self.__num1 = 5
-                self.num2 = 2
-
-            def display_values(self):
-                print(self.__num1, self.num2)
-        class Y(X):
-            def __init__(self):
-                super().__init__()
-                self.__num1 = 1
-                self.num2 = 6 
-        obj = Y()
-        obj.display_values()
-    </pre>
-
-    </div>
-    <ul class="options">
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. np.search(series_data % 5)</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. np.find(series_data % 5 ==0)</button></li>
-      <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. np.argwhere(series_data % 5==0)</button></li>
-      <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D. np.locate(series_data % 5)</button></li>
-    </ul>
-  </div>
-
-  <!-- Question 15 -->
-<div class="question-container" id="q15">
-  <div class="question">15. Which of the following is a protected attribute?</div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. __sara__</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B. __ansh</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C. _sara_</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. ansh__</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A. Breadth-first search</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">B. Depth-first search</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C. Dijkstra's algorithm</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D. Prim's algorithm</button></li>
   </ul>
 </div>
 
 <!-- Question 16 -->
 <div class="question-container" id="q16">
   <div class="question">
-    16. What is the output of the below code?
-    <pre>
-class Person:
-   def __init__(self, first_name, last_name):
-       self.first_name = first_name
-       self.last_name = last_name
-
-first_name = "XYZ"
-person = Person(first_name, "ABC")
-first_name = "LMN"
-person.last_name = "PQR"
-print(person.first_name, person.last_name)
-    </pre>
+    16. What is the time complexity of finding the maximum element in an unsorted array?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. XYZ ABC</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B. XYZ PQR</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C. LMN ABC</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. LMN PQR</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A. O(1)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B. O(log n)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D. O(n²)</button></li>
   </ul>
 </div>
 
 <!-- Question 17 -->
 <div class="question-container" id="q17">
   <div class="question">
-    17. What is the output of the following statement "Hello World"[::-1]?
+    17. What is the key property of a binary heap?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">A. "Hello World"</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. "World Hello"</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">C. "dlroW olleH"</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. "olleH dlroW"</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">A. It is a complete binary tree that satisfies the heap property</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B. It is a balanced binary search tree</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C. It supports only insertion operations</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D. It is always sorted</button></li>
   </ul>
 </div>
 
 <!-- Question 18 -->
 <div class="question-container" id="q18">
   <div class="question">
-    18. What is the output of the following program?
-    <pre>
-      class A(object):
-        def __init__(self, a):
-            self.num = a
-        def mul_two(self):
-            self.num *= 2
-      
-      class B(A):
-        def __init__(self, a):
-            X.__init__(self, a)
-        def mul_three(self):
-            self.num *= 3
-      
-      obj = B(4)
-      print(obj.num)
-      
-      obj.mul_two()
-      print(obj.num)
-      
-      obj.mul_three()
-      print(obj.num)
-    </pre>
+    18. Which technique involves storing the results of expensive function calls for reuse?
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. 4 8 24</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. 4 4 64</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. 4 8 64</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. None of the above</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A. Memoization</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B. Recursion</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C. Backtracking</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D. Divide and Conquer</button></li>
   </ul>
 </div>
 
 <!-- Question 19 -->
 <div class="question-container" id="q19">
   <div class="question">
-    19. Suppose list1 = [3,4,5,2,1,0], what is list1 after list1.pop(1)?
+    19. Which sorting algorithm is known for its simplicity and has a worst-case time complexity of O(n²)?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. list1 = [3,4,5,2,1]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. list1 = [3,4,5,2,0]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">C. list1 = [3,5,2,1,0]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. list1 = [3,4,5,2]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">A. Merge Sort</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B. QuickSort</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">C. Bubble Sort</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D. Heap Sort</button></li>
   </ul>
 </div>
 
 <!-- Question 20 -->
 <div class="question-container" id="q20">
-  <div class="question">20. Which of the following is used to create a virtual environment in cpp?</div>
+  <div class="question">
+    20. What is the worst-case time complexity of heap sort?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">A. pyvenv</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">B. virtualenv</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. envpy</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. pyenv</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">A. O(n log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B. O(n²)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D. O(log n)</button></li>
   </ul>
 </div>
 
 <!-- Question 21 -->
 <div class="question-container" id="q21">
-  <div class="question">21. What will be the output of the following cpp code snippet?
-    <pre>
-def add_items(x, items=[]):
-    items.append(x)
-    return items
-print(add_items(1))
-print(add_items(2))
-    </pre>
+  <div class="question">
+    21. Which data structure is commonly used to represent a sparse matrix efficiently?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. [1] [1, 2]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. [1] [2]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">C. [1] [1, 2]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. [1] [2, 1]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A. Array</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B. Linked List</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">C. Compressed Sparse Row (CSR)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D. Hash Table</button></li>
   </ul>
 </div>
 
 <!-- Question 22 -->
 <div class="question-container" id="q22">
-  <div class="question">22. Which of the following is the correct way to create a function in cpp?</div>
+  <div class="question">
+    22. Which algorithm finds the shortest path in a weighted graph with non-negative weights?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. func myFunction()</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. def myFunction():</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. function myFunction()</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. create myFunction()</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A. Bellman-Ford</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B. Dijkstra's Algorithm</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C. Floyd-Warshall</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D. Prim's Algorithm</button></li>
   </ul>
 </div>
 
 <!-- Question 23 -->
 <div class="question-container" id="q23">
-  <div class="question">23. What is the result of the expression 4 + 3 * 2?</div>
+  <div class="question">
+    23. What is the time complexity of Kruskal's algorithm for finding a minimum spanning tree?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">A. 14</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">B. 10</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. 24</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. 20</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A. O(E log E)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B. O(V²)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C. O(V + E)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D. O(E²)</button></li>
   </ul>
 </div>
 
 <!-- Question 24 -->
 <div class="question-container" id="q24">
-  <div class="question">24. Which of the following is true about cpp?</div>
+  <div class="question">
+    24. Which data structure is commonly used to implement undo functionality in applications?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. cpp is a low-level programming language</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. cpp supports object-oriented programming</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. cpp does not support garbage collection</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. cpp is a statically typed language</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A. Queue</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B. Stack</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C. Linked List</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D. Tree</button></li>
   </ul>
 </div>
 
 <!-- Question 25 -->
 <div class="question-container" id="q25">
-  <div class="question">25. Which of the following data types is immutable in cpp?</div>
+  <div class="question">
+    25. What is an advantage of using a trie (prefix tree) for string storage?
+  </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A. Tuple</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B. List</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Dictionary</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Set</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A. Requires less memory than hash tables</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">B. Enables fast retrieval of strings with common prefixes</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C. Supports arbitrary keys</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D. Maintains sorted order automatically</button></li>
   </ul>
 </div>
 
 <!-- Question 26 -->
 <div class="question-container" id="q26">
-  <div class="question">26. What will the following cpp code output?
-    <pre>
-def test(x):
-    if x == 0:
-        return 0
-    return x + test(x - 1)
-print(test(5))
-    </pre>
+  <div class="question">
+    26. Which algorithmic technique is used to solve problems that exhibit overlapping subproblems and optimal substructure?
   </div>
   <ul class="options">
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A. 15</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. 10</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C. 5</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. 20</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A. Greedy</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B. Divide and Conquer</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">C. Dynamic Programming</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D. Backtracking</button></li>
   </ul>
 </div>
 
 <!-- Question 27 -->
 <div class="question-container" id="q27">
-  <div class="question">27. What is the maximum possible length of an identifier in cpp?</div>
+  <div class="question">
+    27. What is the worst-case time complexity of searching in a balanced binary search tree?
+  </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. 63 characters</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B. 79 characters</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">C. No fixed length</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. 255 characters</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A. O(1)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B. O(log n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D. O(n log n)</button></li>
   </ul>
 </div>
 
 <!-- Question 28 -->
 <div class="question-container" id="q28">
   <div class="question">
-    28. What is the output of the following cpp code?
-    <pre>
-    x = [i**2 for i in range(5)]
-    y = map(lambda a: a + 2, x)
-    print(list(y))
-    </pre>
+    28. Which algorithm can be used for cycle detection in a directed graph?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A. [0, 1, 4, 9, 16]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B. [2, 3, 6, 11, 18]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. [2, 3, 6, 11, 18, 20]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Error</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A. Depth-first search (using recursion stack)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B. Breadth-first search</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C. Dijkstra's algorithm</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D. Kruskal's algorithm</button></li>
   </ul>
 </div>
 
 <!-- Question 29 -->
 <div class="question-container" id="q29">
   <div class="question">
-    29. Which of the following cpp data types is mutable?
+    29. What is the space complexity of merge sort?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. tuple</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B. list</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C. string</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. int</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A. O(1)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B. O(log n)</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">C. O(n)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D. O(n²)</button></li>
   </ul>
 </div>
 
 <!-- Question 30 -->
 <div class="question-container" id="q30">
   <div class="question">
-    30. What is the output of the following cpp code?
-    <pre>
-    def func(a, b=[]):
-        b.append(a)
-        return b
-
-    list1 = func(10)
-    list2 = func(20, [])
-    list3 = func(30)
-
-    print(list1, list2, list3)
-    </pre>
+    30. Which algorithmic technique is typically used to solve the 0/1 knapsack problem?
   </div>
   <ul class="options">
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. [10] [20] [30]</button></li>
-    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">B. [10, 30] [20] [30]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C. [10, 30] [20] [10, 30]</button></li>
-    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. [10, 30] [20] [10, 20, 30]</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A. Greedy</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B. Divide and Conquer</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C. Dynamic Programming</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D. Backtracking</button></li>
   </ul>
 </div>
+
 {% endblock %}

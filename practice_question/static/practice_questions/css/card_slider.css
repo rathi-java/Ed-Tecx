@@ -2,8 +2,8 @@
  * 1) SLIDER WRAPPER & CONTAINER
  *****************************************************/
  .slider-wrapper {
-  margin-left: 15.4%;
-  width: 69.7%;
+  margin-left: 18%;
+  width: 64.6%;
   display: flex;
   align-items: center;
   position: relative;
@@ -21,19 +21,23 @@
 .cards-row {
   display: flex;
   gap: 1rem;
-  padding: 20px 0;
+  /* padding: 50px 0; */
+  padding-top: 25px;
+  /* padding-bottom: 0px; */
+  margin: 50px auto 24px auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* for Firefox */
+  
 }
 
 /* Hide scrollbar for WebKit browsers */
 .cards-row::-webkit-scrollbar {
   display: none;
 }
-body {
+/* body {
   padding-top: 7%;
-}
+} */
 
 /*****************************************************
  * 3) CARD LINKS & HOVER EFFECT
