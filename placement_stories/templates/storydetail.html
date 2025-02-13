@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/storyreview.css' %}">
+{% endblock  %}
+
+{% block content %}
+<div class="container" style="margin-top: 2rem;">
+
+  <!-- Title Section -->
+  <div class="title-section">
+    <h2>{{ story.company_name }} - Placement Story</h2>
+  </div>
+
+  <div class="placement-card detail-card">
+    {% if story.user_profile_pic %}
+      <img src="{{ story.user_profile_pic.url }}" alt="Profile Picture" class="profile-pic">
+    {% else %}
+      <img src="{% static 'placement_stories/profile.jpg' %}" alt="Profile Picture" class="profile-pic">
+    {% endif %}
+
+    <div class="card-details">
+      <p><strong>Name:</strong> {{ story.name }}</p>
+      <p><strong>Company:</strong> {{ story.company_name }}</p>
+      
+      {% if story.hand_written_review %}
+        <img src="{{ story.hand_written_review.url }}" 
+             alt="Hand Written Review" 
+             class="hand_written_review" 
+             style="border-radius: 30px;">
+      {% endif %}
+
+      <p><strong>Designation:</strong> {{ story.designation }}</p>
+      <p><strong>CTC:</strong> {{ story.package }}/Per month</p>
+      <p><strong>Degree:</strong> {{ story.degree }}</p>
+      <p><strong>Branch:</strong> {{ story.branch }}</p>
+      <p><strong>Batch:</strong> {{ story.batch }}</p>
+      <p><strong>Description:</strong></p>
+      <p class="description-full">
+        {{ story.description }}
+      </p>
+    </div>
+    <div style="text-align: center; margin-top: 1.5rem;">
+      <!-- Link to the previous URL stored in `prev_url`. If there's no referrer, it'll fall back to "/" -->
+      <a href="{{ prev_url }}" class="know-more-btn" style="margin: 10px auto;">Go Back</a>
+    </div>
+  </div>
+
+  <!-- "Go Back" Button -->
+
+</div>
+{% endblock %}

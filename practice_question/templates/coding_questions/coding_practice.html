@@ -1,0 +1,540 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Coding Practice Questions{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'practice_questions/css/coding_practice.css' %}">
+{% endblock %}
+{% block content %}
+
+<h1 class="practice-questions-header">Coding Practice Questions</h1>
+
+<div class="question-container" id="warmup">
+  <div class="question">
+    <table>
+      <!-- Warm-up Questions -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Warm-up Questions</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">Write a program to add two numbers?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">Write a function that takes a string and returns the string reversed?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">Write a function that prints the first n numbers of the Fibonacci sequence?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">Write a function that takes a number and returns the sum of its digits?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">Write a function that checks whether a given number is prime?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Tricky Questions -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Tricky Questions</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">Write a program to swap two numbers using bitwise XOR operator?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">Write a program to swap two numbers without using a third variable?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">Write a program to check even or odd without modulus and bitwise operator?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">Write a program to find the largest number in an array using a pointer?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">Write a program to print numbers from 1 to 100 without using loops?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Conditional Statements -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Conditional Statements</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to input a student's marks and print the corresponding grade:<br>
+          A for marks &ge; 90<br>
+          B for marks &ge; 70<br>
+          C for marks &ge; 50<br>
+          D for marks &ge; 35<br>
+          F for marks &lt; 35
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">Write a program to check if a number is a palindrome (reads the same backward and forward)?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">Write a program to check if a number is an Armstrong number?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">Check if a number is positive, negative, or zero?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">Check if a character is a vowel or consonant?</td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Loops (for, while, do-while) -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Loops (for, while, do-while)</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to print numbers from 1 to 100 using a loop.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to calculate the sum of all numbers from 1 to a given number N using a loop.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to print the multiplication table for a given number N (from 1 to 10).
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to print all even numbers from 1 to N using a loop.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to find the factorial of a number N using a loop.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Functions -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Functions</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to calculate the power of a number using a function (e.g., x^y).
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to find the maximum of two numbers using a function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to check if a number is prime using a function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to calculate the sum of digits of a number using a function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to reverse a string using a function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Recursion -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Recursion</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to calculate the factorial of a number using recursion.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to find the Fibonacci sequence up to N terms using recursion.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to find the sum of natural numbers up to N using recursion.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to reverse a number using recursion.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to check if a number is a palindrome using recursion.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Arrays -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Arrays</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to find the largest element in an array.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to find the smallest element in an array.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to reverse an array.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to calculate the sum of elements in an array.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to check if an array is sorted in ascending order.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Strings -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Strings</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to count the number of vowels in a string.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to find the length of a string without using the strlen() function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to reverse a string without using the strrev() function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to check if a string is a palindrome.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to concatenate two strings without using the strcat() function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Linked List -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Linked List</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to create a linked list and display all its elements.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to insert an element at the beginning of a linked list.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to delete an element from the linked list.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to reverse a linked list.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to find the length of a linked list.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- OOPs (Object-Oriented Programming) -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>OOPs (Object-Oriented Programming)</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to create a class to represent a rectangle and calculate its area and perimeter.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to demonstrate the use of constructor and destructor in a class.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to create a class with private and public members and access them using member functions.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to demonstrate inheritance by creating a derived class and calling a base class function.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to demonstrate polymorphism using function overloading.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Exception Handling -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Exception Handling</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to demonstrate try-catch block in C++ to handle an exception when dividing by zero.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to throw an exception if a user inputs a negative number for square root calculation.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to handle multiple exceptions for division and array index out-of-bound error.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to use a custom exception class to handle an invalid age input (age < 0).
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to handle exceptions using the `throw` keyword in C++ and display the exception message.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Regular Expressions -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Regular Expressions</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to check if a string matches a valid email address format using regular expressions.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to check if a string contains only numbers using regular expressions.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to validate a phone number using regular expressions (e.g., format: 123-456-7890).
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to replace all spaces in a string with underscores using regular expressions.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to extract all the words from a string using regular expressions.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+
+      <!-- Multi-threading -->
+      <tr>
+        <th colspan="3" class="heading">
+          <h2>Multi-threading</h2>
+        </th>
+      </tr>
+      <tr>
+        <td class="num">1</td>
+        <td class="question-text">
+          Write a program to create two threads, where one prints numbers from 1 to 10 and the other prints numbers from 11 to 20.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">2</td>
+        <td class="question-text">
+          Write a program to demonstrate the use of a mutex to avoid a race condition when accessing a shared variable between threads.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">3</td>
+        <td class="question-text">
+          Write a program to create a thread that prints "Hello from thread!" and another that prints "Hello from main thread!" using multi-threading.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">4</td>
+        <td class="question-text">
+          Write a program to implement a thread pool where multiple threads are used to process tasks concurrently.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+      <tr>
+        <td class="num">5</td>
+        <td class="question-text">
+          Write a program to demonstrate thread synchronization using `std::lock_guard` to safely modify a shared variable in a multi-threaded environment.
+        </td>
+        <td><a href="{% url 'compile_code' %}">Compile</a></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

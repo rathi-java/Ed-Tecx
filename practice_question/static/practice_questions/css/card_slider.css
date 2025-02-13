@@ -1,0 +1,208 @@
+/*****************************************************
+ * 1) SLIDER WRAPPER & CONTAINER
+ *****************************************************/
+ .slider-wrapper {
+  margin-left: 18%;
+  width: 64.6%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+/*****************************************************
+ * 2) SLIDER ROW (CARD STRIP)
+ *****************************************************/
+.cards-row {
+  display: flex;
+  gap: 1rem;
+  /* padding: 50px 0; */
+  padding-top: 25px;
+  /* padding-bottom: 0px; */
+  margin: 50px auto 24px auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* for Firefox */
+  
+}
+
+/* Hide scrollbar for WebKit browsers */
+.cards-row::-webkit-scrollbar {
+  display: none;
+}
+/* body {
+  padding-top: 7%;
+} */
+
+/*****************************************************
+ * 3) CARD LINKS & HOVER EFFECT
+ *****************************************************/
+.card-link {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.card-link:hover {
+  transform: scale(1.05);
+}
+
+/*****************************************************
+ * 4) CARD STYLES
+ *****************************************************/
+.card {
+  width: 267px;
+  height: 196px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 10px 0 -8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Top half of the card (colored area) */
+.upper-section {
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--upper-bg, #ccc); /* fallback color */
+}
+
+/* Icon in the top half, now properly centered */
+.upper-section img {
+  width: 50px;
+  height: auto;
+  margin-left: -150px;
+
+}
+
+/* Bottom half of the card (text area) */
+.lower-section {
+  height: 50%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* vertically center text */
+  text-align: left;
+  margin-top: -10px;
+}
+
+/* Title inside the bottom half */
+.card-title h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #000;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-left: 25px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+/* Description text */
+.card-description p {
+  font-size: 15px;
+  font-weight: 500;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 0 15px; /* match title’s left indent */
+}
+
+/* Add “</>” before the text */
+.card-description p::before {
+  content: "</>";
+  font-weight: lighter;
+  color: #000;
+  font-size: 15px;
+}
+
+/* Hover elevation & movement */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 15px -8px rgba(0, 0, 0, 0.2);
+}
+
+/*****************************************************
+ * 5) SLIDER ARROW BUTTONS
+ *****************************************************/
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #1273b9;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+  border: 2px solid #1273b9;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Left/Right arrow positioning */
+.left-arrow {
+  left: 10px;
+}
+.right-arrow {
+  right: 10px;
+}
+
+/* Hover effect for arrows */
+.slider-arrow:hover {
+  background-color: #ec8a3f;
+  border-color: #1273b9;
+}
+
+/*****************************************************
+ * 6) RESPONSIVE MEDIA QUERIES
+ *****************************************************/
+@media (max-width: 768px) {
+  .cards-row {
+    gap: 1rem;
+    padding: 10px 0;
+  }
+
+  .card {
+    width: 250px;
+    height: 180px;
+  }
+
+  /* Adjust the top and bottom sections proportionally */
+  .upper-section, .lower-section {
+    padding: 8px;
+  }
+
+  .card-title h1 {
+    font-size: 16px;
+    margin-left: 10px;
+  }
+
+  .card-description p {
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
+  /* Adjust the slider wrapper for narrower screens */
+  .slider-wrapper {
+    margin-left: 5%;
+    width: 90%;
+  }
+}

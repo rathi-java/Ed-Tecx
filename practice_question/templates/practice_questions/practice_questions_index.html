@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Practice Questions{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'practice_questions/css/practice_questions_index.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1 class="main-heading"></h1>
+
+    <div class="card-container">
+        <!-- Card 1: IT -->
+        <a href="{% url 'python_practice' %}" class="card-link">
+            <div class="info-card">
+                <div class="card-image it-bg">
+                    <img src="{% static 'practice_questions/assets/IT-icon.svg' %}" alt="IT">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">IT</h3>
+                    <p class="card-description">Master programming, cybersecurity, cloud computing, and data analytics with real-world scenarios.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 2: Management -->
+        <a href="{% url 'finance_practice' %}" class="card-link">
+            <div class="info-card">
+                <div class="card-image management-bg">
+                    <img src="{% static 'practice_questions/assets/Management-icon.svg' %}" alt="Management">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Management</h3>
+                    <p class="card-description">Develop leadership, strategic planning, and business decision-making skills with industry-relevant case studies.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 3: Aptitude -->
+        <a href="{% url 'reasoning_practice' %}" class="card-link">
+            <div class="info-card">
+                <div class="card-image aptitude-bg">
+                    <img src="{% static 'practice_questions/assets/Aptitude-icon.svg' %}" alt="Aptitude">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Aptitude</h3>
+                    <p class="card-description">Sharpen your logical reasoning, problem-solving, and quantitative skills for competitive exams and job placements.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 4: Coding -->
+        <a href="{% url 'coding_practice' %}" class="card-link">
+            <div class="info-card">
+                <div class="card-image coding-bg">
+                    <img src="{% static 'practice_questions/assets/Coding-icon.svg' %}" alt="Coding">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Coding</h3>
+                    <p class="card-description">Improve your programming skills with hands-on coding challenges in Python, Java, C++, and more.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="cta-container">
+        <a href="#" class="cta-btn">Explore new Opportunities →</a>
+    </div>      
+</div>
+{% endblock %}

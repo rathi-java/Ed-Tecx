@@ -1,0 +1,41 @@
+# Virtual Environment
+venv/
+env/
+
+# Byte-compiled / Optimized / Cached files
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.pyo
+
+# Django Migrations
+*/migrations/*
+!*/migrations/__init__.py  # Keep the __init__.py file
+
+# Logs and Debug Files
+*.log
+*.out
+*.err
+logs/
+debug.log
+
+# Environment Variables and Secrets
+.env
+*.env
+config/settings_local.py  # If you use separate settings for production
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS and Windows system files
+.DS_Store
+Thumbs.db
+
+# Docker and Deployment
+*.pid
+*.tar.gz
+*.zip

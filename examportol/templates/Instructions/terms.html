@@ -1,0 +1,59 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/instructions.css' %}">
+{% block content %}
+    <div class="container">
+        <h1>Terms and Conditions</h1>
+        <p class="intro">Please read these terms and conditions carefully before using our platform.</p>
+
+        <div class="section">
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing or using our services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use our platform.</p>
+        </div>
+
+        <div class="section">
+            <h2>2. Eligibility</h2>
+            <p>Users must be at least 18 years old or have parental consent to use this platform. By using the platform, you confirm that you meet these requirements.</p>
+        </div>
+
+        <div class="section">
+            <h2>3. User Responsibilities</h2>
+            <ul>
+                <li>You must provide accurate and up-to-date information.</li>
+                <li>Do not engage in fraudulent or harmful activities.</li>
+                <li>Respect the intellectual property rights of others.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>4. Prohibited Activities</h2>
+            <ul>
+                <li>Using the platform for illegal purposes.</li>
+                <li>Attempting to hack, exploit, or disrupt services.</li>
+                <li>Sharing or distributing unauthorized content.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>5. Privacy Policy</h2>
+            <p>Your privacy is important to us. Please review our <a href="Privacy.html">Privacy Policy</a> to understand how we collect, use, and protect your data.</p>
+        </div>
+
+        <div class="section">
+            <h2>6. Limitation of Liability</h2>
+            <p>We are not liable for any damages resulting from the use of our platform. Users assume full responsibility for their interactions and activities.</p>
+        </div>
+
+        <div class="section">
+            <h2>7. Modifications to Terms</h2>
+            <p>We reserve the right to modify these terms at any time. Continued use of the platform after updates constitutes acceptance of the new terms.</p>
+        </div>
+
+        <div class="section">
+            <h2>8. Contact Information</h2>
+            <p>If you have any questions regarding these terms, please contact us at <a href="akanshajoshi845@gmail.com">support@example.com</a>.</p>
+        </div>
+
+        <a href="{% url 'instructions' %}" class="back-btn">Back to Home</a>
+    </div>
+
+{% endblock content %}

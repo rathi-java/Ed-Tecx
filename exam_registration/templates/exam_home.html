@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/exam_home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<body>
+    <header class="header">Dream Career Portal</header>
+    <h1 class="title">Unlock Your Dream Career in IT & Management!</h1>
+
+    <div class="container">
+        <div class="text-box">
+            <p>Your dream career is just one step away!</p>
+            <p>Take our qualifying exam, prove your skills, and unlock exclusive internships and job opportunities at
+                top companies.</p>
+            <p>Get certified and stand out in the competitive job market!</p>
+
+            <div class="button-container">
+                <a href="{% url 'exam_register' %}" class="register-btn">
+                    <span>Register Now</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="image-box">
+            <img src="{% static 'images/vector1.jpg' %}"
+                alt="Illustration of a person standing with a large pencil next to a checklist labeled TEST on a laptop screen.">
+        </div>
+    </div>
+{% endblock %}

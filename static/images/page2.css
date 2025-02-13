@@ -1,0 +1,818 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    text-align: center;
+    background-color: #f0f0f0;
+    /* Grey background */
+}
+
+.examination-section {
+    width: 100%;
+    margin: auto;
+    padding: 3%;
+    background-color: #ffffff;
+    /* White section background */
+    border-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #0F5683;
+    margin-top: 20px;
+    font-family: 'Koh Santepheap';
+    font-size: 2rem;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+    padding: 3%;
+    gap: 20px;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+/* Left and Right Section Styling */
+.left,
+.right {
+    width: 48%;
+    text-align: left;
+}
+
+/* Vertical Divider */
+.divider {
+    width: 2px;
+    background-color: #ADD8E6;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+/* List Styling */
+.left h2 {
+    font-size: 1.5rem;
+    padding: 1%;
+}
+
+.left h3 {
+    color: #007bff;
+    font-size: 1.25rem;
+}
+
+.left ul {
+    list-style: none;
+    padding: 2%;
+}
+
+.left ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 2%;
+}
+
+.left ul li img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+/* Certification Box */
+.right h3 {
+    font-size: 1.25rem;
+    padding: 1%;
+    margin-left: 0;
+    text-align: center;
+}
+
+.box {
+    border: 3px solid #ffb6c1;
+    padding: 4%;
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    transform: skew(-5deg);
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 20px auto;
+}
+
+/* To make the inner content look straight (not skewed) */
+.box>* {
+    transform: skew(5deg);
+}
+
+.item {
+    text-align: center;
+}
+
+.item img {
+    width: 40px;
+    display: block;
+    margin: auto;
+}
+
+.item p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .left,
+    .right {
+        width: 100%;
+        text-align: center;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .left ul li {
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .left h2,
+    .right h3 {
+        font-size: 1.2rem;
+    }
+
+    .left h3 {
+        font-size: 1rem;
+    }
+
+    .box {
+        grid-template-columns: 1fr;
+        width: 90%;
+        padding: 5%;
+    }
+
+    .item p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .left h2,
+    .right h3 {
+        font-size: 1rem;
+    }
+
+    .left h3 {
+        font-size: 0.9rem;
+    }
+
+    .item img {
+        width: 35px;
+    }
+
+    .item p {
+        font-size: 0.8rem;
+    }
+}
+
+/* Container section2 */
+
+
+/* Section Styling */
+section {
+    width: 100%;
+    margin: 40px auto;
+    /* Creates a gap between sections */
+    padding: 40px;
+    background-color: #ffffff;
+    /* White background */
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensuring the gap remains grey */
+section+section {
+    margin-top: 60px;
+    /* Extra space between sections */
+}
+
+/* Headings */
+.main-heading {
+    color: #0F5683;
+    margin-top: 20px;
+    font-family: 'Koh Santepheap';
+    padding-bottom: 2%;
+    font-size: xx-large;
+}
+
+.sub-heading {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+    padding-bottom: 2%;
+}
+
+/* Card Container */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-bottom: 30px;
+  
+    
+}
+
+/* Card */
+.info-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background: white;
+    width:80%;
+   
+
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    border: 2px solid grey;
+}
+
+/* Image Section */
+.card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+
+}
+
+.card-image img {
+    width: 100px;
+}
+
+/* Gradient Backgrounds */
+.skill-bg {
+    background: linear-gradient(to top, #d8b6ff, #ffffff);
+    border: 4px solid #d8b6ff;
+}
+
+.mentorship-bg {
+    background: linear-gradient(to top, #ffe9a7, #ffffff);
+    border: 4px solid #ffe9a7;
+}
+
+.projects-bg {
+    background: linear-gradient(to top, #b6e3ff, #ffffff);
+    border: 4px solid #b6e3ff;
+}
+
+.networking-bg {
+    background: linear-gradient(to top, #c8f7c5, #ffffff);
+    border: 4px solid #c8f7c5;
+}
+
+/* Content Section */
+.card-content {
+    background: white;
+    padding: 20px;
+    height: 3%;
+}
+
+.card-title {
+    font-size: 18px;
+    color: #0a3d62;
+}
+
+.card-description {
+    font-size: 14px;
+    color: #555;
+}
+
+/* CTA Button */
+.cta-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+}
+
+.cta-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-btn {
+        width: 80%;
+    }
+}
+
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header */
+header {
+    background-color: white;
+    color: #0F5683;
+    text-align: center;
+    padding: 2rem 0;
+    position: relative;
+    z-index: 2;
+}
+
+header h1 {
+    color: #0F5683;
+    margin-top: 20px;
+    font-family: 'Koh Santepheap';
+    font-size: xx-large;
+}
+
+/* Footer */
+footer {
+    background-color: white;
+    color: black;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+footer p {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-size: 20px;
+}
+
+/* Study Material Section */
+.study_material {
+    width: 100%;
+    flex: 1;
+    position: relative;
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.background img {
+    width: 100%;
+    height: 10cm;
+    object-fit: cover;
+    display: block;
+}
+
+/* Card Styling */
+.card-containerr {
+    position: absolute;
+    top: 25%;
+    left: 6%;
+    background-color: rgba(255, 255, 255, 255);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    height: 10cm;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    transform: rotateY(40deg) translateX(-20px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-containerr h2 {
+    color: #009879;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-containerr p {
+    color: #555;
+    font-size: 20px;
+    text-align: center;
+}
+
+.button-containerr {
+    display: flex;
+    gap: 20px;
+}
+
+.button-containerr button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.show-all {
+    background-color: #009879;
+    color: white;
+}
+
+.show-all::before {
+    content: url('https://img.icons8.com/ios-filled/20/ffffff/visible.png');
+}
+
+.subscribe {
+    background-color: #FF6B00;
+    color: white;
+}
+
+.subscribe::before {
+    content: url('https://img.icons8.com/ios-filled/20/ffffff/subscribe.png');
+}
+
+.show-all:hover {
+    background-color: #007B65;
+}
+
+.subscribe:hover {
+    background-color: #CC5500;
+}
+
+/* Responsive Styles */
+@media (max-width: 1440px) {
+    .card-containerr {
+        width: 30%;
+        height: 50%;
+    }
+
+    .background img {
+        width: 100%;
+        height: 20%;
+    }
+
+    .card-containerr h2 {
+        font-size: 24px;
+    }
+
+    .card-containerr p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .card-containerr {
+        width: 40%;
+        height: 50%;
+    }
+
+    .background img {
+        width: 100%;
+        height: 20%;
+    }
+
+    .card-containerr h2 {
+        font-size: 24px;
+    }
+
+    .card-containerr p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1.5rem 0;
+    }
+
+    header h1 {
+        font-size: x-large;
+    }
+
+    .background img {
+        height: auto;
+    }
+
+    .card-containerr {
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%) rotateY(20deg);
+        width: 45%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .button-containerr {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .button-containerr button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: large;
+    }
+
+    footer p {
+        font-size: 16px;
+        padding-top: 10%;
+    }
+
+    .background img {
+        width: 100%;
+        height: 10cm;
+    }
+
+    .card-containerr {
+        top: 25%;
+        left: 50%;
+        transform: translateX(-50%) rotateY(10deg);
+        width: 50%;
+        padding: 15px;
+        height: auto;
+    }
+
+    .card-containerr h2 {
+        font-size: 20px;
+    }
+
+    .card-containerr p {
+        font-size: 16px;
+    }
+
+    .button-containerr {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    header h1 {
+        font-size: medium;
+    }
+
+    .card-containerr {
+        top: 30%;
+        left: 50%;
+        transform: translateX(-50%) rotateY(5deg);
+        width: 65%;
+    }
+
+    .card-containerr h2 {
+        font-size: 18px;
+    }
+
+    .card-containerr p {
+        font-size: 14px;
+    }
+
+    .button-containerr button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+}
+
+/*-------------------------------------------------------------------------------------------------------------*/
+
+/* Section Container */
+.app-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+/* Main Content Layout */
+.app-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Phone Mockup */
+.phone-mockup {
+    position: relative;
+    width: 250px;
+    height: 500px;
+    border-radius: 30px;
+    background: white;
+    box-shadow: 10px 27px 20px rgba(0, 0, 0, 0.2);
+    border: 4px solid black;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8%;
+}
+
+/* Phone Screen */
+.phone-screen {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: white;
+    padding: 20px;
+}
+
+.get-show {
+    position: absolute;
+    top: 1px;
+    /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    /* Make it look like a camera */
+    width: 80px;
+    /* Adjust the size */
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.phone-text {
+    font-size: 34px;
+    font-weight: bold;
+    text-align: left;
+    color: #077bc3;
+    font-family: 'Koh Santepheap';
+}
+
+.download-icon {
+    width: 200px;
+    margin: 20px 0;
+}
+
+.get-started {
+    background-color: #077bc3;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 20px;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.get-started:hover {
+    background-color: #0056b3;
+}
+
+/* App Info */
+.app-info {
+    max-width: 700px;
+    text-align: left;
+    margin-left: 0%;
+
+}
+
+.app-title {
+    font-size: 45px;
+    font-weight: bold;
+    text-align: left;
+    color: #077bc3;
+    font-family: 'Koh Santepheap';
+    margin-top: 1%;
+
+
+}
+
+.app-description {
+    margin-top:6%;
+    font-size: 20px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom:5% ;
+}
+
+/* Download Buttons */
+.download-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.download-btn img {
+    width: 16px;
+}
+
+/* Apple Button */
+.apple-btn {
+    background: #F1EDFF;
+    color: #9021F8;
+    font-size: 20px;
+}
+
+.apple-btn:hover {
+    
+    color: #F1EDFF;
+    background: #9021F8;
+}
+
+/* Android Button */
+.android-btn {
+ background: #FFF5E1;
+    color: #FC7615;
+
+    font-size: 20px;
+}
+
+.android-btn:hover {
+    color: #FFF5E1;
+    background: #FC7615;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .app-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .app-info {
+        text-align: center;
+    }
+
+    .download-buttons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .phone-mockup {
+        width: 200px;
+        height: 400px;
+    }
+
+    .phone-text {
+        font-size: 16px;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
