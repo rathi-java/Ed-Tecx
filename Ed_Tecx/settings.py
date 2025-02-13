@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compiler',
+    'exam_registration',
     'examportol',
     'placement_stories',
     'demo_exam',
     'practice_question',
     'oauth',
+    
 ]
 
 MIDDLEWARE = [

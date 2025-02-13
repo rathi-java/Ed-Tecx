@@ -1,27 +1,23 @@
 /*****************************************************
- * 1) GLOBAL / RESETS
+ * GLOBAL
  *****************************************************/
-/* Basic reset / global settings */
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-
-/* Base font and body layout */
-body {
+ body {
   font-family: sans-serif;
   min-height: 100vh;
-  /* We use padding-top so content is not hidden behind navbar */
-  padding-top: 120px;
-  background-color: #fff; /* or your preferred background */
+  padding-top: 48px; /* ensures navbar doesn't overlap content */
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
 }
 
+.main-content {
+  flex: 1;
+}
 
 /*****************************************************
- * 2) NAVBAR & HEADERS
+ * NAVBAR & HEADERS
  *****************************************************/
-/* Outer navbar container fixed at the top */
 .navbar {
   position: fixed;
   top: 0;
@@ -29,120 +25,91 @@ body {
   width: 100%;
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Stays above content */
+  z-index: 1000;
 }
-
-/* Inner container for nav content: brand logo, links, buttons */
 .nav-container {
-  width: 100%;
   max-width: 1200px;
   height: 70px;
   margin: 0 auto;
-  padding: 0 20px; /* match footer for consistency */
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-/* Brand logo styling */
 .navbar-brand img {
   height: 50px;
-  width: auto;
   display: inline-block;
 }
 
 /*****************************************************
- * 3) NAV LINKS
+ * NAV LINKS
  *****************************************************/
-/* Wrapper around the main nav links UL */
 .nav-links {
-  display: flex;
+  display: flex; /* visible on desktop */
+  margin-left: auto;
 }
-
-/* Unordered list for nav items */
 .nav-links ul {
   list-style: none;
   display: flex;
-  gap: 20px; /* spacing between links */
+  gap: 20px;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
 }
-
-/* Individual list items (some are dropdown parents) */
-.nav-links li {
-  position: relative;
-}
-
-/* The actual links (Solution, Test Room, etc.) */
 .nav-link {
   color: black;
   font-size: 18px;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.3s ease-in-out, transform 0.2s;
+  transition: color 0.3s ease, transform 0.2s;
+  padding-bottom: 25px;
 }
-
 .nav-link:hover {
   color: #077bc3;
   transform: scale(1.05);
 }
 
 /*****************************************************
- * 4) DROPDOWN MENUS
+ * DROPDOWN (the existing "Solution" dropdown)
  *****************************************************/
-.dropdown-content {
-  display: none; /* hidden by default */
+ .dropdown-content {
+  display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   z-index: 1;
-  
+  top: 100%; /* or adjust this value if needed */
+  border-top: 2px solid #1273b9;
 }
 
-/* Show dropdown on hover of parent element */
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
   display: block;
 }
-
-/* Dropdown items */
 .dropdown-content a {
   display: block;
   padding: 12px 16px;
-  color: rgb(0, 0, 0);
+  color: #000;
   text-decoration: none;
   transition: background-color 0.2s;
 }
-
-/* On hover inside the dropdown */
 .dropdown-content a:hover {
   background-color: #f1f1f1;
-color:#ec8a3f !important;
+  color: #ec8a3f !important;
 }
 
 /*****************************************************
- * 5) BUTTONS (SIGN UP, LOG IN, LOG OUT)
+ * BUTTONS: SIGNUP / LOGIN
  *****************************************************/
-/* Each button container (signup, login, logout) */
 .signup,
-.login,
-.logout {
-  display: inline-block;
-  position: relative;
-}
-
-/* Overlapping effect between sign up & log in */
-.signup {
-  margin-left: 10px;
-  margin-right: -200px; /* overlap with .login */
-  z-index: 10;
-}
 .login {
-  margin-left: -20px; /* overlap with .signup */
+  display: inline-block;
+  margin-left: 10px;
 }
-
-/* All buttons share these base styles */
-button {
+.signup button,
+.login button {
+  position: relative; /* Make z-index effective if needed */
   padding: 8px 24px;
   width: 105px;
   border-radius: 10px;
@@ -151,108 +118,160 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
-
-/* Sign Up button */
+/* Sign Up */
 .signup button {
   background-color: #1273b9;
   color: white;
-  z-index: 2;
+  margin-left: 35%;
+  z-index: 10;
 }
 .signup button:hover {
   background-color: #ec8a3f;
 }
-
-/* Log In button */
+/* Log In */
 .login button {
   background-color: rgba(18, 115, 185, 0.11);
   color: black;
+  text-align: right;
+  
 }
 .login button:hover {
   background-color: #ec8a3f;
   color: white;
 }
 
-/* Log Out button */
-.logout button {
-  margin-left: 10px;
-  background-color: rgba(18, 115, 185, 0.11);
+/*****************************************************
+ * NEW PROFILE DROPDOWN
+ *****************************************************/
+/* NEW PROFILE DROPDOWN */
+.profile-dropdown {
+  position: relative;        /* required for the absolute dropdown menu */
+  display: inline-block;
+  margin-left: auto;         /* This pushes it to the far right in a flex container */
+  cursor: pointer;
   color: black;
-  padding-left: 40%;
-}
-.logout button:hover {
-  background-color: #ec8a3f;
-  color: white;
+  font-size: 18px;
 }
 
+/* Profile Dropdown Menu */
+.profile-dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;                  /* Stick to the right edge */
+  background: white;
+  min-width: 240px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: left;
+  padding-bottom: 5px;
+}
+.profile-dropdown-content a {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  transition: background 0.3s;
+}
+.profile-dropdown-content a i {
+  margin-right: 10px;
+}
+.profile-dropdown-content a:hover {
+  background: #f1f1f1;
+}
+
+/* Profile info links and social icons */
+.profile-info-links {
+  font-size: 12px;
+  color: gray;
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  justify-content: center;
+}
+.profile-info-links a {
+  color: gray;
+  text-decoration: none;
+  padding: 2px 4px;
+}
+.profile-info-links a:hover {
+  text-decoration: underline;
+}
+
+.profile-social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fafafa;
+}
+.profile-social-icons a {
+  color: #077bc3;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+.profile-social-icons a:hover {
+  transform: scale(1.1);
+}
+
+.profile-copyright {
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+  padding: 5px;
+}
 
 /*****************************************************
- * 6) FOOTER
+ * FOOTER
  *****************************************************/
-/* Footer container spans full width */
 .footer {
   background-color: #d5e9f5;
   width: 100%;
   margin-top: 30px;
   text-align: center;
 }
-
-/* Match the nav’s container width/padding for consistent alignment */
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 50px 20px;
   color: black;
 }
-
-/* Horizontal rule that splits footer sections */
 .border-light {
   border: none;
   border-top: 1px solid #ccc;
   margin: 1rem 0;
 }
-
-/*****************************************************
- * 7) FOOTER GRID (ROW / COLS)
- *****************************************************/
-/* Basic row using flex */
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* center columns if they are narrower */
+  justify-content: center;
 }
-
-/* Four columns at wider viewports (md: ~768px). 25% width each. */
 .col-md-3 {
   flex: 0 0 25%;
   max-width: 25%;
   padding: 0 15px;
   box-sizing: border-box;
 }
-
-/* Spacing helpers */
 .mb-4 {
   margin-bottom: 1rem;
 }
 .mt-1 {
   margin-top: 0.5rem;
 }
-
-/* H3 headings in the footer */
 .footer h3 {
   color: #077bc3;
   margin-bottom: 1rem;
 }
-
-/* Unstyled lists for quick links, etc. */
 .list-unstyled {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
-/*****************************************************
- * 8) FOOTER LINKS & SOCIAL ICONS
- *****************************************************/
 .footer a {
   color: black;
   text-decoration: none;
@@ -261,8 +280,6 @@ button {
 .footer a:hover {
   color: #077bc3;
 }
-
-/* Social icons row (Facebook, Twitter, etc.) */
 .social-icons a {
   font-size: 20px;
   margin: 0 10px;
@@ -272,10 +289,6 @@ button {
 .social-icons a:hover {
   transform: scale(1.2);
 }
-
-/*****************************************************
- * 9) SUBSCRIBE FORM
- *****************************************************/
 .subscribe-form {
   margin-top: 1rem;
 }
@@ -300,13 +313,97 @@ button {
 }
 
 /*****************************************************
- * 10) RESPONSIVE MEDIA QUERIES
+ * HAMBURGER & MOBILE SIDEBAR
  *****************************************************/
-/* On smaller screens, columns go full width */
+/* Hide hamburger by default on large screens */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+/* Mobile Sidebar (hidden by default) */
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  max-width: 300px;
+  height: 100%;
+  background: #077BC3;
+  color: white;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 2000;
+  padding: 20px;
+}
+.mobile-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.mobile-sidebar ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.mobile-sidebar .close-btn {
+  text-align: right;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* On screens ≤ 768px, hide nav-links, show hamburger */
 @media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+  /* Footer columns become full width */
   .col-md-3 {
     flex: 0 0 100%;
     max-width: 100%;
     margin-bottom: 20px;
+  }
+}
+
+/* Additional breakpoints for smaller devices (optional) */
+@media (max-width: 425px) {
+  .navbar-brand img {
+    height: 40px;
+  }
+  .signup button,
+  .login button {
+    width: 90px;
+    font-size: 14px;
+  }
+  .subscribe-form input {
+    width: 75%;
+  }
+}
+@media (max-width: 375px) {
+  .navbar-brand img {
+    height: 35px;
+  }
+  .signup button,
+  .login button {
+    width: 85px;
+    font-size: 13px;
+  }
+  .subscribe-form input {
+    width: 70%;
+  }
+}
+@media (max-width: 320px) {
+  .navbar-brand img {
+    height: 30px;
+  }
+  .signup button,
+  .login button {
+    width: 80px;
+    font-size: 12px;
+  }
+  .subscribe-form input {
+    width: 65%;
   }
 }

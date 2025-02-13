@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/exam_register.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="form-container">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div>
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" name="username" readonly>
+                </div>
+                <div>
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" readonly>
+                </div>
+                <div>
+                    <label class="form-label">Select Domain</label>
+                    <select name="domain" id="domain" onchange="updateTopicOptions()">
+                        <option value="Select">Select</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label class="form-label">Select Subject</label>
+                    <select name="subject" id="subject">
+                        <option value="Select">Select</option>
+                        {% for subject in subjects %}
+                        <option value="{{ subject.id }}" data-category="{{ subject.subject_category.id }}">{{
+                            subject.subject_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="date" class="form-label">Select Date</label>
+                    <input type="date" id="date" name="date">
+                </div>
+
+                <div>
+                    <label class="form-label">Payment</label>
+                    <input type="text" class="payment" name="payment" value="INR 999" readonly>
+                </div>
+
+                <button type="submit" class="btn-register">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
