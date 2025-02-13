@@ -1,173 +1,216 @@
-* {
+/* All styles are scoped to .compiler-app so they won't interfere with other parts of your site */
+.compiler-app * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-.horizontal-divider {
+  }
+  
+  .compiler-app {
+    background: #f2f2f2;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  
+  /* Horizontal Divider */
+  .compiler-app .horizontal-divider {
     height: 5px;
-    background-color: #EDEDED;
+    background: linear-gradient(to right, #e0e0e0, #f7f7f7, #e0e0e0);
     cursor: row-resize;
-}
-
-.vertical-divider {
+    margin: 10px 0;
+    border-radius: 2px;
+  }
+  
+  /* Vertical Divider */
+  .compiler-app .vertical-divider {
     width: 5px;
-    background-color: #EDEDED;
+    background: linear-gradient(to bottom, #e0e0e0, #f7f7f7, #e0e0e0);
     cursor: col-resize;
     position: relative;
     z-index: 2;
-}
-
-/* body {
-    background: #EDEDED;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-} */
-
-.header {
-    background: #FFFFFF;
+    margin: 0 10px;
+    border-radius: 2px;
+  }
+  
+  /* Header */
+  .compiler-app .header {
+    background: #fff;
     color: #077BC3;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 1px;
-    font-size: 20px;
-    height: 70px;
+    margin: 5px 10px;
+    padding: 5px 15px;
+    font-size: 18px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: 5px;
-}
-
-.header img {
-    height: 40px;
-    margin-left: 10px;
-}
-
-.container {
-    flex: 1;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .compiler-app .header h1 {
+    font-weight: 500;
+  }
+  
+  .compiler-app .header img {
+    height: 30px;
+  }
+  
+  /* Toolbar */
+  .compiler-app .toolbar {
     display: flex;
-    flex-direction: column;
-    padding: 10px;
-    width: 100%;
-}
-
-.toolbar {
-    display: flex;
-    margin-top: 10px;
-    margin-bottom: 12px;
+    margin: 10px;
     justify-content: space-between;
     align-items: center;
-    background: #ffffff;
-    padding-left: 1px;
-    border-radius: 5px;
-}
-
-select {
-    padding: 10px;
-    background: white;
+    background: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Select Element */
+  .compiler-app .toolbar select {
+    padding: 8px 12px;
+    background: #fff;
     color: #077BC3;
     border: 1px solid #077BC3;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     outline: none;
-}
-
-select option {
-    background: white;
-    color: #077BC3;
-}
-
-button {
+    transition: border-color 0.3s ease;
+  }
+  
+  .compiler-app .toolbar select:hover {
+    border-color: #055a8c;
+  }
+  
+  /* Buttons */
+  .compiler-app button {
     background: transparent;
     border: none;
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-button:hover {
+    padding: 5px;
+  }
+  
+  .compiler-app button:hover {
     transform: scale(1.1);
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10%;
-}
-
-.button-group {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+  
+  /* Button Group */
+  .compiler-app .button-group {
     display: flex;
-    gap: 40px;
-}
-
-.editor-container {
+    gap: 15px;
+    align-items: center;
+  }
+  
+  /* Editor Container */
+  .compiler-app .editor-container {
     display: flex;
     flex: 1;
     gap: 10px;
-    margin-top: -8px;
-    width: 1600px;
-    height: 490px;
-}
-
-.code-area,
-.input-area {
-    flex: 1;
+    margin: 10px;
+    width: 100%;
+    height: 400px;
+    overflow: auto;
+  }
+  
+  /* Code & Input Areas */
+  .compiler-app .code-area,
+  .compiler-app .input-area {
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    background-color: #FFFFFF;
-    border-radius: 5px;
+    background-color: #fff;
+    border-radius: 8px;
     overflow: auto;
-}
-
-.code-area {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Code Area Specific */
+  .compiler-app .code-area {
     flex: 3;
-    margin-right: -18px;
-    background-color: #FFFFFF;
-}
-
-.input-area {
+    margin-right: -10px;
+  }
+  
+  /* Input Area Specific */
+  .compiler-app .input-area {
     flex: 1;
-    margin-left: -12px;
-    margin-right: -1px;
-    background-color: #FFFFFF;
-}
-
-#input {
-    height: 980px;
-}
-
-.CodeMirror {
+    margin-left: -10px;
+  }
+  
+  /* CodeMirror Editor Styling */
+  .compiler-app .CodeMirror {
     height: 100% !important;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.4;
     overflow-y: auto;
-    border-radius: 5px;
-}
-
-textarea {
+  }
+  
+  /* Textareas within Code and Input Areas */
+  .compiler-app .code-area textarea,
+  .compiler-app .input-area textarea {
     resize: none;
     outline: none;
-}
-
-textarea:focus {
-    border: 3px solid #077BC3;
-}
-
-.output-container {
-    height: 150px;
-    margin-top: -1px;
-    padding: 10px;
-    background: white;
-    border-radius: 5px;
-    overflow-y: auto;
-}
-
-pre {
-    background: white;
-    padding: 10px;
-    white-space: pre-wrap;
-    border-radius: 5px;
-    overflow-x: auto;
+    border: none;
+    padding: 8px;
     font-size: 14px;
-}
+    font-family: 'Courier New', monospace;
+  }
+  
+  .compiler-app .code-area textarea:focus,
+  .compiler-app .input-area textarea:focus {
+    border: 2px solid #077BC3;
+  }
+  
+  /* Output Container (Reduced height for a more relevant display) */
+  .compiler-app .output-container {
+    height: 100px;  /* Reduced height from previous 150px */
+    margin: 10px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Preformatted Text in Output */
+  .compiler-app .output-container pre {
+    background: transparent;
+    padding: 5px;
+    white-space: pre-wrap;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    margin: 0;
+  }
+  
+  /* Section Headings */
+  .compiler-app .code-area h3,
+  .compiler-app .input-area h3,
+  .compiler-app .output-container h3 {
+    padding: 8px;
+    background-color: #f9f9f9;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 16px;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .compiler-app .editor-container {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .compiler-app .code-area,
+    .compiler-app .input-area {
+      margin: 0;
+    }
+  
+    .compiler-app .vertical-divider {
+      display: none;
+    }
+  }

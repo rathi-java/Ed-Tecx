@@ -1,362 +1,351 @@
 {% extends 'practice_questions/management_base.html' %}
 {% load static %}
-{% block title %}Decision Making Practice Questions{% endblock %}
+{% block title %}Digital Marketing Practice Questions{% endblock %}
 {% block cards_and_questions %}
 
 <div class="page-title" style="--main-color: #FBE208B0;">
-    <div class="page-title-text">
-      <h1>Digital Marketing Practice Questions</h1>
-      <h3>
-        Topics Covered:<br>
-        Digital Marketing, Human Resources, Business Analysis, Entrepreneurship, Hospitality, IT
-      </h3>
-      <h2>30 Questions</h2>
-    </div>
-    <img src="{% static 'practice_questions/logo/digital_marketing.png' %}" alt="Logo" class="logo">
+  <div class="page-title-text">
+    <h1>Digital Marketing Practice Questions</h1>
+    <h3>
+      Topics Covered:<br>
+      SEO, PPC, Social Media, Content Marketing, Analytics, Email Marketing, & More
+    </h3>
+    <h2>30 Questions</h2>
   </div>
-  
-  <h1 class="practice-questions-header">Practice Questions</h1>
-
-     <!-- Question 1 -->
-     <div class="question-container" id="q1">
-        <div class="question">1. Digital marketing?</div>
-        <ul class="options">
-            <li><button onclick="checkAnswer(this, 'q1')">A) To increase offline sales</button></li>
-            <li><button onclick="checkAnswer(this, 'q1')">B) To enhance online presence and engagement</button></li>
-            <li><button onclick="checkAnswer(this, 'q1')">C) To eliminate traditional marketing</button></li>
-            <li><button onclick="checkAnswer(this, 'q1')">D) To reduce business costs</button></li>
-        </ul>
-    </div>
-    
-    <!-- Question 2 -->
-    <div class="question-container" id="q2">
-        <div class="question">2. Which of the following is NOT a component of digital marketing?</div>
-        <ul class="options">
-            <li><button onclick="checkAnswer(this, 'q2')">A) Search Engine Optimization (SEO)</button></li>
-            <li><button onclick="checkAnswer(this, 'q2')">B) Pay-Per-Click (PPC) Advertising</button></li>
-            <li><button onclick="checkAnswer(this, 'q2')">C) Supply Chain Management</button></li>
-            <li><button onclick="checkAnswer(this, 'q2')">D) Social Media Marketing</button></li>
-        </ul>
-    </div>
-    
-    <!-- Question 3 -->
-    <div class="question-container" id="q3">
-        <div class="question">3. Which platform is primarily used for professional networking and B2B marketing?</div>
-        <ul class="options">
-            <li><button onclick="checkAnswer(this, 'q3')">A) Instagram</button></li>
-            <li><button onclick="checkAnswer(this, 'q3')">B) LinkedIn</button></li>
-            <li><button onclick="checkAnswer(this, 'q3')">C) TikTok</button></li>
-            <li><button onclick="checkAnswer(this, 'q3')">D) Pinterest</button></li>
-        </ul>
-    </div>
-    
-    <!-- Question 4 -->
-    <div class="question-container" id="q4">
-        <div class="question">4. What does SEO stand for?</div>
-        <ul class="options">
-            <li><button onclick="checkAnswer(this, 'q4')">A) Search Engine Optimization</button></li>
-            <li><button onclick="checkAnswer(this, 'q4')">B) Social Engagement Online</button></li>
-            <li><button onclick="checkAnswer(this, 'q4')">C) Site Experience Optimization</button></li>
-            <li><button onclick="checkAnswer(this, 'q4')">D) Sales Enhancement Operation</button></li>
-        </ul>
-    </div>
-    
-    <!-- Question 5 -->
-<div class="question-container" id="q5">
-    <div class="question">5. What does ROI stand for in finance?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A. Return on Inventory</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">B. Return on Investment</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C. Revenue Over Income</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D. Risk of Insolvency</button></li>
-    </ul>
+  <img src="{% static 'practice_questions/logo/digital_marketing.png' %}" alt="Logo" class="logo">
 </div>
+  
+<h1 class="practice-questions-header">Practice Questions</h1>
+
+<!-- Question 1 -->
+<div class="question-container" id="q1">
+  <div class="question">1. What is digital marketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q1')">A) The use of digital channels to promote products and services</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">B) Traditional marketing via print and TV ads</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">C) Only social media advertising</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q1')">D) Direct mail campaigns</button></li>
+  </ul>
+</div>
+
+<!-- Question 2 -->
+<div class="question-container" id="q2">
+  <div class="question">2. Which of the following is NOT a digital marketing channel?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">A) Search Engine Optimization (SEO)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">B) Pay-Per-Click (PPC) Advertising</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q2')">C) Television Commercials</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q2')">D) Email Marketing</button></li>
+  </ul>
+</div>
+
+<!-- Question 3 -->
+<div class="question-container" id="q3">
+  <div class="question">3. What does SEO stand for?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q3')">A) Search Engine Optimization</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">B) Social Engagement Optimization</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">C) Site Evaluation Overview</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q3')">D) Sales Effectiveness Operation</button></li>
+  </ul>
+</div>
+
+<!-- Question 4 -->
+<div class="question-container" id="q4">
+  <div class="question">4. What is the primary benefit of PPC advertising?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q4')">A) It provides instant traffic</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">B) It’s completely free</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">C) It guarantees conversions</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q4')">D) It eliminates the need for SEO</button></li>
+  </ul>
+</div>
+
 
 <!-- Question 5 -->
 <div class="question-container" id="q5">
-    <div class="question">5. Which of these is an example of inbound marketing?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A) Cold calling potential customers</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">B) Displaying banner ads</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">C) Writing blog posts to attract traffic</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D) Sending unsolicited emails</button></li>
-    </ul>
+  <div class="question">5. What does ROI stand for in digital marketing?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">A) Return on Inventory</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q5')">B) Return on Investment</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">C) Revenue Over Income</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q5')">D) Reach of Influence</button></li>
+  </ul>
 </div>
 
 <!-- Question 6 -->
 <div class="question-container" id="q6">
-    <div class="question">6. What is Pay-Per-Click (PPC) advertising?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A) Paying influencers to promote products</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">B) Paying for each click on an advertisement</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">C) Paying per customer purchase</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D) Paying per view of a video</button></li>
-    </ul>
+  <div class="question">6. Which of the following is an example of inbound marketing?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">A) Cold calling potential customers</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">B) Displaying banner ads</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q6')">C) Creating blog content to attract visitors</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q6')">D) Telemarketing</button></li>
+  </ul>
 </div>
 
 <!-- Question 7 -->
 <div class="question-container" id="q7">
-    <div class="question">7. Which of the following tools is used for keyword research in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">A) Google Ads Keyword Planner</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B) Photoshop</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C) Excel</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D) LinkedIn</button></li>
-    </ul>
+  <div class="question">7. What is PPC advertising?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q7')">A) Paying per click on an ad</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">B) Paying per conversion</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">C) Paying per impression</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q7')">D) Paying per view</button></li>
+  </ul>
 </div>
 
 <!-- Question 8 -->
 <div class="question-container" id="q8">
-    <div class="question">8. What is a landing page in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">A) The homepage of a website</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">B) A web page created specifically for a marketing campaign</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C) A blog post with promotional content</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D) A website’s contact page</button></li>
-    </ul>
+  <div class="question">8. Which tool is most commonly used for keyword research?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q8')">A) Google Ads Keyword Planner</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">B) Google Analytics</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">C) Microsoft Excel</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q8')">D) Facebook Insights</button></li>
+  </ul>
 </div>
 
 <!-- Question 9 -->
 <div class="question-container" id="q9">
-    <div class="question">9. What is the role of a content marketing strategy?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A) To create viral social media ads</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B) To generate leads and build brand authority</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C) To increase traditional advertising expenses</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D) To replace email marketing</button></li>
-    </ul>
+  <div class="question">9. What is a landing page?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">A) The homepage of a website</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q9')">B) A dedicated page designed to convert visitors</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">C) A blog post</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q9')">D) A contact page</button></li>
+  </ul>
 </div>
 
 <!-- Question 10 -->
 <div class="question-container" id="q10">
-    <div class="question">10. What does CTR stand for in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A) Click-Through Rate</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B) Cost to Revenue</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C) Customer Target Ratio</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D) Conversion Tracking Report</button></li>
-    </ul>
+  <div class="question">10. Which metric measures the percentage of ad clicks relative to impressions?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q10')">A) Click-Through Rate (CTR)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">B) Bounce Rate</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">C) Conversion Rate</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q10')">D) Engagement Rate</button></li>
+  </ul>
 </div>
 
 <!-- Question 11 -->
 <div class="question-container" id="q11">
-    <div class="question">11. Which metric is commonly used to measure the success of email marketing campaigns?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">A) Bounce rate</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">B) Click-through rate (CTR)</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C) Number of social media shares</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D) Website loading speed</button></li>
-    </ul>
+  <div class="question">11. What is A/B testing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q11')">A) Comparing two versions of a webpage to see which performs better</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">B) Testing different keywords in ads</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">C) Evaluating email subject lines</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q11')">D) Assessing the quality of website images</button></li>
+  </ul>
 </div>
 
 <!-- Question 12 -->
 <div class="question-container" id="q12">
-    <div class="question">12. What is the main purpose of A/B testing in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">A) To compare two marketing strategies</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">B) To test website speed</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C) To analyze competitors' websites</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D) To create random marketing content</button></li>
-    </ul>
+  <div class="question">12. What is the primary purpose of Google Analytics?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">A) To design webpages</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q12')">B) To track and analyze website traffic</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">C) To create social media ads</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q12')">D) To build email lists</button></li>
+  </ul>
 </div>
 
 <!-- Question 13 -->
 <div class="question-container" id="q13">
-    <div class="question">13. What is Google Analytics used for?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A) Creating social media ads</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B) Tracking and analyzing website traffic</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C) Designing logos and graphics</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D) Sending bulk emails</button></li>
-    </ul>
+  <div class="question">13. Which social media platform is most effective for B2B marketing?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">A) Instagram</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q13')">B) LinkedIn</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">C) TikTok</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q13')">D) Snapchat</button></li>
+  </ul>
 </div>
 
 <!-- Question 14 -->
 <div class="question-container" id="q14">
-    <div class="question">14. What is a lead in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">A) A person interested in a company’s product or service</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">B) A social media follower</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C) A type of advertisement</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D) A blog post title</button></li>
-    </ul>
+  <div class="question">14. What is content marketing?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">A) Paying for ad placements</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q14')">B) Creating and sharing valuable content to attract an audience</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">C) Cold calling prospects</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q14')">D) Traditional print advertising</button></li>
+  </ul>
 </div>
 
 <!-- Question 15 -->
 <div class="question-container" id="q15">
-    <div class="question">15. What does CPC stand for?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">A) Cost Per Click</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B) Conversion Process Cycle</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">C) Customer Purchase Count</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D) Content Performance Check</button></li>
-    </ul>
+  <div class="question">15. Which metric is used to measure website engagement by tracking the average time spent on a site?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">A) Bounce Rate</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">B) Conversion Rate</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q15')">C) Average Session Duration</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q15')">D) Click-Through Rate (CTR)</button></li>
+  </ul>
 </div>
 
 <!-- Question 16 -->
 <div class="question-container" id="q16">
-    <div class="question">16. Which type of digital marketing focuses on creating and sharing valuable content?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">A) Affiliate marketing</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">B) Content marketing</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C) Direct marketing</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D) Email marketing</button></li>
-    </ul>
+  <div class="question">16. What does CPC stand for?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q16')">A) Cost Per Click</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">B) Customer Price Comparison</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">C) Conversion Process Cycle</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q16')">D) Clicks Per Customer</button></li>
+  </ul>
 </div>
 
 <!-- Question 17 -->
 <div class="question-container" id="q17">
-    <div class="question">17. What is a call-to-action (CTA) in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">A) A button or link prompting the user to take action</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B) A phone call made to customers</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C) A type of social media post</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D) A form of display advertising</button></li>
-    </ul>
+  <div class="question">17. What is social media marketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q17')">A) Using social platforms to promote products and engage with customers</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">B) Traditional advertising on TV and radio</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">C) Sending direct mail</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q17')">D) Cold calling prospects</button></li>
+  </ul>
 </div>
 
 <!-- Question 18 -->
 <div class="question-container" id="q18">
-    <div class="question">18. Which social media platform is most popular for influencer marketing?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">A) Twitter</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">B) Instagram</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C) LinkedIn</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D) Reddit</button></li>
-    </ul>
+  <div class="question">18. Which platform is best known for video marketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q18')">A) YouTube</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">B) LinkedIn</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">C) Pinterest</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q18')">D) Twitter</button></li>
+  </ul>
 </div>
 
 <!-- Question 19 -->
 <div class="question-container" id="q19">
-    <div class="question">19. What is the purpose of remarketing in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A) Targeting customers who have previously visited a website</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B) Creating new brand logos</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C) Posting on social media daily</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D) Generating new email lists</button></li>
-    </ul>
+  <div class="question">19. What is remarketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q19')">A) Targeting ads to users who previously visited your website</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">B) A new SEO strategy</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">C) A method of direct mail advertising</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q19')">D) An offline marketing tactic</button></li>
+  </ul>
 </div>
 
 <!-- Question 20 -->
 <div class="question-container" id="q20">
-    <div class="question">20. What does ROI stand for in digital marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">A) Return on Investment</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B) Rate of Interest</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C) Revenue on Internet</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D) Reach of Influence</button></li>
-    </ul>
+  <div class="question">20. Which of the following is a common digital marketing metric?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q20')">A) ROAS (Return on Ad Spend)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">B) Inventory turnover</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">C) Gross margin</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q20')">D) Debt-to-equity ratio</button></li>
+  </ul>
 </div>
 
 <!-- Question 21 -->
 <div class="question-container" id="q21">
-    <div class="question">21. What is an organic search result?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">A) A paid advertisement</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">B) A search engine result that appears naturally</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C) A promotional post on social media</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D) A type of email marketing</button></li>
-    </ul>
+  <div class="question">21. What does SERP stand for?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q21')">A) Search Engine Results Page</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">B) Social Engagement Ranking Process</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">C) Sales Email Response Program</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q21')">D) Site Efficiency Rating Page</button></li>
+  </ul>
 </div>
 
 <!-- Question 22 -->
 <div class="question-container" id="q22">
-    <div class="question">22. Which of the following is an example of earned media?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">A) Paid Facebook ads</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">B) Customer reviews and shares</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C) Google Ads campaign</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D) Direct mail marketing</button></li>
-    </ul>
+  <div class="question">22. What is the primary purpose of email marketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q22')">A) To reach and engage customers via email</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">B) To design website graphics</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">C) To optimize search rankings</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q22')">D) To conduct offline surveys</button></li>
+  </ul>
 </div>
 
 <!-- Question 23 -->
 <div class="question-container" id="q23">
-    <div class="question">23. What does bounce rate measure?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A) Percentage of visitors who leave a site without taking action</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B) Number of sales made in a month</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C) The effectiveness of paid ads</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D) Email response rate</button></li>
-    </ul>
+  <div class="question">23. What is influencer marketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q23')">A) Collaborating with influential individuals to promote products</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">B) Traditional TV advertising</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">C) Cold calling potential customers</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q23')">D) Door-to-door sales</button></li>
+  </ul>
 </div>
 
 <!-- Question 24 -->
 <div class="question-container" id="q24">
-    <div class="question">24. Which tool is commonly used for social media scheduling?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">A) Hootsuite</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">B) WordPress</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C) Shopify</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D) Canva</button></li>
-    </ul>
+  <div class="question">24. Which platform is best known for visual content marketing?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">A) Facebook</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q24')">B) Instagram</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">C) LinkedIn</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q24')">D) Twitter</button></li>
+  </ul>
 </div>
 
 <!-- Question 25 -->
 <div class="question-container" id="q25">
-    <div class="question">25. What is affiliate marketing?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">A) A system where businesses pay commissions for referred sales</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">B) A type of email marketing</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C) A customer referral program</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D) A content-sharing website</button></li>
-    </ul>
+  <div class="question">25. What is digital marketing automation?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">A) Manually updating website content</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q25')">B) Automating repetitive marketing tasks and campaigns</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">C) Creating social media graphics</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q25')">D) Conducting market research offline</button></li>
+  </ul>
 </div>
 
 <!-- Question 26 -->
 <div class="question-container" id="q26">
-    <div class="question">26. What is the first step in developing a digital marketing strategy?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">A) Posting ads on social media</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">B) Defining business goals and target audience</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C) Buying an expensive website domain</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D) Sending bulk emails</button></li>
-    </ul>
+  <div class="question">26. What is affiliate marketing?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q26')">A) A system where affiliates earn commissions for referred sales</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">B) A form of paid search advertising</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">C) A direct sales strategy</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q26')">D) An SEO technique</button></li>
+  </ul>
 </div>
 
 <!-- Question 27 -->
 <div class="question-container" id="q27">
-    <div class="question">27. Which type of digital marketing involves using personalized email campaigns?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">A) Social media marketing</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">B) Email marketing</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C) PPC advertising</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D) Content marketing</button></li>
-    </ul>
+  <div class="question">27. What is conversion rate optimization (CRO)?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q27')">A) Improving a website to increase the percentage of visitors who convert</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">B) Increasing the number of website visitors</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">C) Optimizing ad budgets</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q27')">D) Enhancing graphic design quality</button></li>
+  </ul>
 </div>
 
 <!-- Question 28 -->
 <div class="question-container" id="q28">
-    <div class="question">28. Which of these is NOT a social media advertising platform?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">A) Facebook Ads</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">B) Google Ads</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C) Instagram Ads</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D) Twitter Ads</button></li>
-    </ul>
+  <div class="question">28. What does CPM stand for?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q28')">A) Cost Per Impression</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">B) Cost Per Member</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">C) Conversion Per Minute</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q28')">D) Clicks Per Marketing</button></li>
+  </ul>
 </div>
 
 <!-- Question 29 -->
 <div class="question-container" id="q29">
-    <div class="question">29. What does SERP stand for?</div>
-    <ul class="options">
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">A) Search Engine Results Page</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">B) Social Engagement Ranking Process</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C) Sales and Email Retargeting Plan</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D) Site Enhancement and Ranking Program</button></li>
-    </ul>
+  <div class="question">29. What is programmatic advertising?</div>
+  <ul class="options">
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">A) Manual ad buying through traditional methods</button></li>
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q29')">B) Automated buying and selling of online ads</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">C) A content marketing strategy</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q29')">D) A social media campaign type</button></li>
+  </ul>
 </div>
 
 <!-- Question 30 -->
 <div class="question-container" id="q30">
-    <div class="question">30. What is the main purpose of Google Ads?</div>
-    <ul class="options">
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">A) To create blog content</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B) To track website visitors</button></li>
-        <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">C) To run paid advertisements on Google</button></li>
-        <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D) To manage customer feedback</button></li>
-    </ul>
+  <div class="question">30. Which metric best measures the efficiency of a digital advertising campaign?</div>
+  <ul class="options">
+    <li><button data-answer="correct" onclick="checkAnswer(this, 'q30')">A) Return on Investment (ROI)</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">B) Bounce Rate</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">C) Average Session Duration</button></li>
+    <li><button data-answer="wrong" onclick="checkAnswer(this, 'q30')">D) Page Views</button></li>
+  </ul>
 </div>
-
 
 {% endblock %}

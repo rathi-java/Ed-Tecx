@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function() {
   // Initialize CodeMirror on the code textarea
   const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
@@ -48,9 +47,12 @@ document.addEventListener("DOMContentLoaded", function() {
       const containerHeight = editorContainer.parentElement.offsetHeight;
       const offsetY = e.clientY - editorContainer.parentElement.getBoundingClientRect().top;
 
-      // Adjust height dynamically ensuring a minimum height
-      const topHeight = Math.max(50, offsetY);
-      const bottomHeight = Math.max(50, containerHeight - offsetY);
+      // Adjust height dynamically ensuring a minimum and maximum height
+      const minHeight = 100; // Minimum height in pixels
+      const maxHeight = containerHeight - minHeight; // Maximum height in pixels
+
+      const topHeight = Math.max(minHeight, Math.min(offsetY, maxHeight));
+      const bottomHeight = containerHeight - topHeight;
 
       editorContainer.style.height = `${topHeight}px`;
       outputContainer.style.height = `${bottomHeight}px`;
@@ -76,12 +78,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const logo = document.getElementById("logo");
 
     if (language === "java") {
-      logo.src = "images/java.png";
+      logo.src = "/static/images/java.png";
     } else if (language === "python") {
-      logo.src = "images/python.png";
+      logo.src = "/static/images/python.png";
+    } else if (language === "javascript") {
+      logo.src = "/static/images/javascript.png";
     }
   }
-
   // Set initial logo and update on language change
   changeLogo();
   document.getElementById("language").addEventListener("change", changeLogo);
