@@ -19,7 +19,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/clike/clike.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
-  <!-- Added CodeMirror mode for JavaScript -->
+  <!-- CodeMirror mode for JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
 
   {% block extra_css %}{% endblock %}
@@ -27,7 +27,10 @@
 
 <body>
   <!-- Navigation Bar -->
-  <nav class="navbar">
+  <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+       Add a conditional class to the nav, based on user session:
+  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+  <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
         <img src="{% static 'assets/logo.png' %}" alt="EdTech Logo" height="50" />
@@ -44,7 +47,7 @@
             <div class="dropdown-content">
               <a href="{% url 'compile_code' %}">Compiler</a>
               <a href="{% url 'practice_questions' %}">Demo Test</a>
-              <a href="{% url 'exam_home' %}">Exam Resisteration</a>
+              <a href="{% url 'exam_home' %}">Exam Registration</a>
               <a href="{% url 'practice_questions' %}">Practice Questions</a>
               <a href="{% url 'placement_stories' %}">Placement Stories</a>
               <a href="https://www.readerclub.in/">Reader Club magazine</a>
@@ -55,11 +58,11 @@
           <li><a class="nav-link" href="#">About Us</a></li>
         </ul>
       </div>
+
       <!-- Conditional rendering of login or logout button -->
       {% if request.session.user_id %}
-       <!-- Profile dropdown appears only if user is logged in -->
-       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
-        {% comment %} <i class="fa fa-user-circle"></i> {% endcomment %}
+      <!-- Profile dropdown appears only if user is logged in -->
+      <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
         <img src="{% static 'assets/user.png' %}" alt="EdTech Logo" height="50" />
         <div id="profile-menu" class="profile-dropdown-content">
           <a href="#" onclick="showProfileInfo()"><i class="fas fa-user"></i> Profile</a>
@@ -85,10 +88,9 @@
             <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
             <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
           </div>
-
-          <div class="profile-copyright">
+          {% comment %} <div class="profile-copyright">
             &copy; 2025 Your Company. All rights reserved.
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
       {% else %}
@@ -100,12 +102,10 @@
       </div>
       {% endif %}
 
-
       <!-- Hamburger Icon (for mobile only) -->
       <div class="hamburger" id="hamburger">
         <i class="fas fa-bars"></i>
       </div>
-    </div>
     </div>
   </nav>
 
@@ -210,8 +210,9 @@
       const menu = document.getElementById("profile-menu");
       menu.style.display = (menu.style.display === "block") ? "none" : "block";
     }
+
     // Hide dropdown if clicked outside
-    document.addEventListener("click", function (e) {
+    document.addEventListener("click", function(e) {
       const dropdown = document.querySelector(".profile-dropdown");
       if (!dropdown.contains(e.target)) {
         document.getElementById("profile-menu").style.display = "none";
