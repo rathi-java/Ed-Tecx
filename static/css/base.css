@@ -79,9 +79,9 @@
 
 /* Logged out: push nav-links to the right so the Sign Up & Log In 
    buttons sit on the right edge comfortably */
-.navbar.logged-out .nav-links {
+/* .navbar.logged-out .nav-links { */
   /* padding-left: 350px; */
-}
+/* } */
 
 /*****************************************************
  * DROPDOWN (the existing "Solution" dropdown)
