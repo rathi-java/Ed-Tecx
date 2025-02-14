@@ -14,7 +14,6 @@ Classes:
     QuestionAdmin -- Admin configuration for the Question model.
 """
 
-@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """
     Admin settings for the Category model.
@@ -25,8 +24,9 @@ class CategoryAdmin(admin.ModelAdmin):
     """
     list_display = ('category_code', 'category_name')
     search_fields = ('category_code', 'category_name')
+    list_filter = ('category_name',)
+    ordering = ('category_code',)
 
-@admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
     """
     Admin settings for the Subject model.
@@ -37,10 +37,10 @@ class SubjectAdmin(admin.ModelAdmin):
         list_filter (tuple): Fields available for filtering.
     """
     list_display = ('subject_code', 'subject_name', 'subject_category')
-    search_fields = ('subject_code', 'subject_name')
+    search_fields = ('subject_code', 'subject_name', 'subject_category__category_name')
     list_filter = ('subject_category',)
+    ordering = ('subject_code',)
 
-@admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     """
     Admin settings for the Question model.
@@ -51,8 +51,9 @@ class QuestionAdmin(admin.ModelAdmin):
         list_filter (tuple): Fields available for filtering.
     """
     list_display = ('question_code', 'question_text', 'question_subject')
-    search_fields = ('question_code', 'question_text')
+    search_fields = ('question_code', 'question_text', 'question_subject__subject_name')
     list_filter = ('question_subject',)
+    ordering = ('question_code',)
     
     def formatted_answers(self, obj):
         """Display answers in a readable format."""
@@ -60,4 +61,14 @@ class QuestionAdmin(admin.ModelAdmin):
     
     formatted_answers.allow_tags = True
     formatted_answers.short_description = "Answers"
-admin.site.register(ExamResult)
+
+class ExamResultAdmin(admin.ModelAdmin):
+    list_display = ('user', 'session_id', 'total_questions', 'correct_answers', 'score', 'submitted_at')
+    search_fields = ('user__username', 'session_id')
+    list_filter = ('submitted_at',)
+    ordering = ('-submitted_at',)
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Subject, SubjectAdmin)
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(ExamResult, ExamResultAdmin)

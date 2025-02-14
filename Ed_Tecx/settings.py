@@ -10,14 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-
-
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -29,7 +25,6 @@ SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -44,10 +39,9 @@ INSTALLED_APPS = [
     'exam_registration',
     'examportol',
     'placement_stories',
-    'demo_exam',
+    # 'demo_exam',
     'practice_question',
     'oauth',
-    
 ]
 
 MIDDLEWARE = [
@@ -80,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Ed_Tecx.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -90,7 +83,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -110,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -121,7 +112,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -138,3 +128,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Use the custom user model from the oauth app for authentication
+AUTH_USER_MODEL = 'oauth.UsersDB'
+
+# Use the custom authentication backend from the oauth app
+AUTHENTICATION_BACKENDS = [
+    'oauth.backends.CustomBackend',
+]

@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Category, Subject, Question, ExamResult
+
 import json
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils import timezone
 
 # View to manage questions (Add new questions and display existing ones)
 def manage_questions(request):
@@ -40,6 +43,7 @@ def manage_questions(request):
     })
 
 # View to display questions based on selected category and subject
+@login_required(login_url='/login/')
 def display_questions(request):
     category_id = request.GET.get('category')  # Get category filter from request
     subject_id = request.GET.get('subject')  # Get subject filter from request
@@ -69,57 +73,45 @@ def display_questions(request):
 
 # View to handle exam submission and calculate score
 def submit_exam(request):
-    if request.method == 'POST':  # If exam is submitted
-        submitted_answers = request.POST  # Get submitted answers
-        correct_answers = 0  # Counter for correct answers
-        results = []  # Store individual question results
+    if request.method == 'POST':
+        user = request.user
+        total_questions = 0
+        correct_answers = 0
+        submitted_answers = {}
 
-        total_questions = Question.objects.count()  # Get total number of questions in the exam
+        for question_id, selected_option in request.POST.items():
+            if question_id.startswith('question'):
+                total_questions += 1
+                question = Question.objects.get(id=int(question_id.replace('question', '')))
+                correct_option = question.answers.get('correct')
+                submitted_answers[question_id] = {
+                    'selected': selected_option,
+                    'correct': correct_option
+                }
+                if selected_option == correct_option:
+                    correct_answers += 1
 
-        for key, value in submitted_answers.items():  # Iterate through submitted answers
-            if key.startswith("question"):  # Identify question keys
-                question_id = key.replace("question", "")  # Extract question ID
-                question = Question.objects.get(id=question_id)  # Fetch question from DB
-                selected_option = value  # Get selected answer option
+        score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
 
-                answers = question.answers  # Get answer choices from question
-                correct_option = None
-
-                for option_key, option_data in answers.items():  # Find correct answer
-                    if option_data['is_correct']:
-                        correct_option = option_key
-
-                is_correct = selected_option == correct_option  # Check if selected answer is correct
-                if is_correct:
-                    correct_answers += 1  # Increment correct answer count
-
-                results.append({  # Store question result details
-                    "question": question.question_text,
-                    "selected_answer": answers.get(selected_option, {}).get("text", "Unknown"),
-                    "correct_answer": answers[correct_option]["text"] if correct_option else "Not found",
-                    "is_correct": is_correct,
-                })
-
-        score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0  # Calculate percentage score
-
-        # Save exam result in database
         ExamResult.objects.create(
-            score=score,
+            user=user,
             total_questions=total_questions,
             correct_answers=correct_answers,
-            submitted_answers=results,
+            score=score,
+            submitted_answers=submitted_answers,
+            submitted_at=timezone.now()
         )
 
-        return render(request, 'exam_results.html', {
-            'results': results,
-            'score': score
-        })  # Render exam results page
-    return redirect('display_questions')  # Redirect to display questions page if not POST
+        messages.success(request, f'Exam submitted successfully! Your score is {score:.2f}%')
+        return redirect('exam_results')
+
+    return render(request, 'examportol/submit_exam.html')
 
 # View to display user exam results
 def user_exam_results(request):
-    results = ExamResult.objects.order_by('-submitted_at')  # Get all exam results sorted by submission date
-    return render(request, 'user_results.html', {'results': results})  # Render user results page
+    # results = ExamResult.objects.order_by('-submitted_at')  # Get all exam results sorted by submission date
+    return render(request, 'user_results.html', )
+    # {'results': results})  # Render user results page
 
 # View to render exam instructions
 def instructions(request):

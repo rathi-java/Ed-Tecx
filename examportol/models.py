@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.conf import settings
 import uuid
 
 
@@ -56,7 +57,7 @@ class Question(models.Model):
 
 
 class ExamResult(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # Optional user
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Use custom user model
     session_id = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)  # Unique ID for guests
     total_questions = models.IntegerField(default=0)
     correct_answers = models.IntegerField(default=0)
