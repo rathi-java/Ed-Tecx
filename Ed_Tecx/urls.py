@@ -27,6 +27,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', user_login, name='login'),
     path('logout/', logout_page, name='logout'),
+    path('profile/', profile, name='profile'),
     path('compiler/', compile_code, name='compile_code'),
     path('examportol/',include('examportol.urls')),
     path('placement_stories/',include('placement_stories.urls')),

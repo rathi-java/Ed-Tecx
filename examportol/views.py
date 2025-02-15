@@ -43,7 +43,6 @@ def manage_questions(request):
     })
 
 # View to display questions based on selected category and subject
-@login_required(login_url='/login/')
 def display_questions(request):
     category_id = request.GET.get('category')
     subject_id = request.GET.get('subject')

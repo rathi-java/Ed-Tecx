@@ -3,14 +3,28 @@ from django.contrib import messages
 from .models import *
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
+from django.contrib.auth import logout
 from django.utils.timezone import now
-from django.contrib.auth import logout as auth_logout, login as auth_login
+
+def profile(request):
+    user_id = request.session.get('user_id')  # Fetch user_id from session
+    user = None
+
+    if user_id:
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            request.session.flush()  # Clear session if user not found
+            messages.error(request, "Session expired. Please login again.")
+            return redirect('/login/')
+
+    return render(request, 'profile.html', {'user': user})
 
 def home(request):
     return render(request, 'index.html')
 
 def logout_page(request):
-    auth_logout(request)  # This will clear the session
+    logout(request)  # This will clear the session
     messages.success(request, "You have been logged out successfully.")
     return redirect('/login/')
 
@@ -52,7 +66,7 @@ def signup(request):
                     email=email,
                     phone_number=phone_number,
                     password=hashed_password,
-                    college_name=college_name,
+                    college=college,
                     dob=dob,
                     referral_code=referral_code
                 )
@@ -90,14 +104,8 @@ def user_login(request):
             user = UsersDB.objects.get(username=user_input)
 
         if user and check_password(password, user.password):  # Check password
-            # Manually authenticate the user
-            user.backend = 'oauth.backends.CustomBackend'
-            auth_login(request, user)  # Log the user in
-
             # Set session for user login
             request.session['user_id'] = user.id
-            request.session['username'] = user.username
-            request.session['full_name'] = user.full_name
 
             # Update last login time
             user.last_login = now()

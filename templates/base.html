@@ -65,7 +65,7 @@
       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
         <img src="{% static 'assets/user.png' %}" alt="EdTech Logo" height="50" />
         <div id="profile-menu" class="profile-dropdown-content">
-          <a href="#" onclick="showProfileInfo()"><i class="fas fa-user"></i> Profile</a>
+          <a href="/profile/"><i class="fas fa-user"></i> Profile</a>
           <a href="#"><i class="fas fa-cog"></i> Settings</a>
           <a href="#"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
           <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
@@ -218,12 +218,6 @@
         document.getElementById("profile-menu").style.display = "none";
       }
     });
-
-    // Example "Profile" link action
-    function showProfileInfo() {
-      alert("Show user profile details here...");
-      // or redirect to a profile page
-    }
   </script>
   {% block extra_js %}{% endblock %}
 </body>
