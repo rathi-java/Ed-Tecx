@@ -129,10 +129,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Use the custom user model from the oauth app for authentication
-AUTH_USER_MODEL = 'oauth.UsersDB'
-
-# Use the custom authentication backend from the oauth app
-AUTHENTICATION_BACKENDS = [
-    'oauth.backends.CustomBackend',
-]
