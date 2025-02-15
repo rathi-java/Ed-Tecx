@@ -8,7 +8,7 @@
   <title>{% block title %}EdTech{% endblock %}</title>
 
   <!-- Removed Bootstrap; only site-wide custom CSS + FontAwesome kit -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
   <!-- CodeMirror CSS -->
@@ -21,6 +21,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
   <!-- CodeMirror mode for JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
+ 
+  <!-- Link to favicon.ico -->
+  <link rel="icon" type="image/x-icon" href="{% static 'images/fav.ico' %}?v=1">
 
   {% block extra_css %}{% endblock %}
 </head>
@@ -65,7 +68,7 @@
       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
         <img src="{% static 'assets/user.png' %}" alt="EdTech Logo" height="50" />
         <div id="profile-menu" class="profile-dropdown-content">
-          <a href="/profile/"><i class="fas fa-user"></i> Profile</a>
+          <a href="#" onclick="showProfileInfo()"><i class="fas fa-user"></i> Profile</a>
           <a href="#"><i class="fas fa-cog"></i> Settings</a>
           <a href="#"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
           <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
@@ -120,7 +123,7 @@
         <a href="#">Solution <i class="fa-solid fa-caret-down"></i></a>
         <ul>
           <li><a href="{% url 'compile_code' %}">Compiler</a></li>
-
+          <li><a href="{% url 'practice_questions' %}">Demo Test</a></li>
           <li><a href="{% url 'practice_questions' %}">Practice Questions</a></li>
           <li><a href="{% url 'placement_stories' %}">Placement Stories</a></li>
           <li><a href="{% url 'exam_home' %}">Exam Resisteration</a></li>
@@ -149,45 +152,64 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-container">
-      <div class="row">
-        <div class="col-md-3 mb-4">
-          <img src="{% static 'assets/icon.png' %}" alt="Logo" height="50" />
-          <p class="mt-1">Innovating Education for a better tomorrow.</p>
-        </div>
-        <div class="col-md-3 mb-4">
-          <h3>Quick Links</h3>
-          <ul class="list-unstyled">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Donate</a></li>
-            <li><a href="#">Campaigns</a></li>
-            <li><a href="#">Blogs</a></li>
-            <li><a href="#">Feedback</a></li>
+      <div class="footer-left">
+          <img src="{% static 'assets/icon_2.png' %}" alt="Icon" width="172" height="152">
+      </div>
+      <div class="footer-links">
+        <p class="footer-para">Useful Links</p>
+        <ul>
+          <li>About Us</li>
+          <li>Contact Us</li>
+          <li>Blogs</li>
+          <li>Career</li>
+          <li>Privacy Policy</li>
+          <li>Terms & Conditions</li>
+          <li>Child Policy</li>
+        </ul>
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Top Practice Ques</p>
+        <ul>
+          <li>IT</li>
+          <li>Management</li>
+          <li>Aptitude</li>
+          <li>Coding</li>
+        </ul>
+      </div>
+      <div class="footer-ccc">
+        <div class="footer-top">
+          <p class="footer-para">Online Compiler</p>
+          <ul class="footer-iii">
+            <div class="footer-iv">
+              <li>C++ Compiler</li>
+              <li>Java Compiler</li>
+            </div>
+            <div>
+              <div class="footer-i"><li>C Compiler</li></div>
+              <div class="footer-ii"><li>Python Compiler</li></div>
+            </div>
           </ul>
         </div>
-        <div class="col-md-3 mb-4">
-          <h3>Contact Us</h3>
-          <p><i class="fa fa-phone"></i> +91 9355065333</p>
-          <p><i class="fa fa-envelope"></i>
-            <a href="mailto:contact@aadarneyi.org">contact@aadarneyi.org</a>
-          </p>
-          <p><i class="fa fa-map-marker"></i> Noida, UP-201301</p>
-          <div class="social-icons mt-1">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
+        <div class="footer-down">
+          <p class="footer-para">Jobs & Opportunities</p>
+          <ul class="footer-iii">
+            <div class="footer-v">
+            <li>Popular Internships</li>
+            <li>Popular Jobs</li>
           </div>
-        </div>
-        <div class="col-md-3">
-          <h3>Subscribe</h3>
-          <form class="subscribe-form">
-            <input type="email" class="form-control" placeholder="Enter your email" required />
-            <button type="submit" class="btn btn-custom">Subscribe</button>
-          </form>
+          </ul>
         </div>
       </div>
-      <hr class="border-light" />
-      <p class="mt-1">&copy; 2025 EdTech. All rights reserved.</p>
+    </div>
+    <hr class="footer-line">
+    <div class="footer-base">
+      <p>© 2022 Readerclub. All rights reserved</p>
+      <div class="footer-logos">
+       <div class="fac"><img src="{% static 'assets/facebook.png' %}" alt="Facebook"></div>
+        <img src="{% static 'assets/instagram.png' %}" alt="Instagram">
+        <img src="{% static 'assets/twitter.png' %}" alt="Twitter">
+        <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn">
+      </div>
     </div>
   </footer>
 
@@ -218,6 +240,12 @@
         document.getElementById("profile-menu").style.display = "none";
       }
     });
+
+    // Example "Profile" link action
+    function showProfileInfo() {
+      alert("Show user profile details here...");
+      // or redirect to a profile page
+    }
   </script>
   {% block extra_js %}{% endblock %}
 </body>
