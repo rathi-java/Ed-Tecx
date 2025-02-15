@@ -7,7 +7,8 @@ class CollegesDb(models.Model):
 
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
-
+    
+#For login users
 class UsersDB(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
