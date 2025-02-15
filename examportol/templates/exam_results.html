@@ -1,6 +1,14 @@
 {% load static %}
+
 <h2>Exam Results</h2>
-<p>Your Score: {{ score }}%</p>
+<p>Your Score: {{ score|floatformat:2 }}%</p>
+
+{% if score >= 70 %}
+  <p>Congratulations! You qualify for a certificate.</p>
+  <a href="{% url 'generate_certificate' exam_result.id %}" class="btn">Generate Certificate</a>
+{% else %}
+  <p>Unfortunately, you did not qualify for a certificate.</p>
+{% endif %}
 
 <table border="1">
     <tr>
@@ -21,7 +29,6 @@
                 ❌
             {% endif %}
         </td>
-        
     </tr>
     {% endfor %}
 </table>

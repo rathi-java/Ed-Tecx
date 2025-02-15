@@ -8,29 +8,9 @@ class CollegesDb(models.Model):
 
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
-
-class UsersDBManager(BaseUserManager):
-    def create_user(self, email, full_name, phone_number, password=None, **extra_fields):
-        if not email:
-            raise ValueError("Email is required")
-        email = self.normalize_email(email)
-        user = self.model(
-            email=email,
-            full_name=full_name,
-            phone_number=phone_number,
-            **extra_fields
-        )
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, full_name, phone_number, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        return self.create_user(email, full_name, phone_number, password, **extra_fields)
-
-class UsersDB(AbstractBaseUser, PermissionsMixin):
+    
+#For login users
+class UsersDB(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=15, default="0000000000")
