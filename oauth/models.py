@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import date
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class CollegesDb(models.Model):
     college_name = models.CharField(max_length=255)
@@ -8,8 +7,7 @@ class CollegesDb(models.Model):
 
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
-    
-#For login users
+
 class UsersDB(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
@@ -20,14 +18,6 @@ class UsersDB(models.Model):
     referral_code = models.CharField(max_length=50, blank=True, null=True)
     username = models.CharField(max_length=10, unique=True, editable=False)
     last_login = models.DateTimeField(null=True, blank=True)  # Add last_login field
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name', 'phone_number']
-
-    objects = UsersDBManager()  # Set the custom manager
 
     def update_last_login(self):
         from django.utils import timezone
