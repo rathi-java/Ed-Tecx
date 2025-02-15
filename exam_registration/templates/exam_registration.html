@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="form-container">
-        <form method="POST" action="">
+        <form method="POST">
             {% csrf_token %}
             {% if user %}
             <div>
@@ -60,7 +60,7 @@
 
             <div>
                 <label class="form-label">Payment</label>
-                <input type="text" class="payment" name="payment" value="INR 999" readonly>
+                <input type="text" class="payment" name="payment" value="INR 999.00" readonly>
             </div>
 
             <button type="submit" class="btn-register">Register</button>
