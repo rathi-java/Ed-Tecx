@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Category, Subject, Question, ExamResult
-
-import json
+from .models import *
 from django.db.models import Count
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
+from oauth.models import UsersDB
 
 # View to manage questions (Add new questions and display existing ones)
 def manage_questions(request):
@@ -44,6 +42,16 @@ def manage_questions(request):
 
 # View to display questions based on selected category and subject
 def display_questions(request):
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            request.session.flush()  # Clear session if user not found
+            messages.error(request, "Session expired. Please login again.")
+            return redirect('/login/')
     category_id = request.GET.get('category')
     subject_id = request.GET.get('subject')
     
@@ -69,17 +77,10 @@ def display_questions(request):
         'subjects': subjects,
         'selected_category': int(category_id) if category_id else None,
         'selected_subject': int(subject_id) if subject_id else None,
+        'user': user,
     }
     
     return render(request, 'questions_display.html', context)
-
-# View to handle exam submission and calculate scorefrom django.shortcuts import render, redirect
-from .models import Category, Subject, Question, ExamResult
-import json
-from django.db.models import Count
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.utils import timezone
 
 # View to handle exam submission and calculate score
 def submit_exam(request):
