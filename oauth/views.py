@@ -66,7 +66,7 @@ def signup(request):
                     email=email,
                     phone_number=phone_number,
                     password=hashed_password,
-                    college=college,
+                    college_name=college,
                     dob=dob,
                     referral_code=referral_code
                 )
