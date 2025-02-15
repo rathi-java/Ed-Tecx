@@ -52,6 +52,15 @@ def signup(request):
                 messages.error(request, "Phone number must be at least 10 digits.")
                 return redirect('signup')
 
+            # Check if the email or phone number already exists
+            if UsersDB.objects.filter(email=email).exists():
+                messages.error(request, "This email is already registered.")
+                return redirect('signup')
+
+            if UsersDB.objects.filter(phone_number=phone_number).exists():
+                messages.error(request, "This phone number is already registered.")
+                return redirect('signup')
+
             try:
                 college = CollegesDb.objects.get(college_name=college_name)
             except CollegesDb.DoesNotExist:

@@ -11,7 +11,7 @@ class CollegesDb(models.Model):
 class UsersDB(models.Model):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
-    phone_number = models.CharField(max_length=15, default="0000000000")
+    phone_number = models.CharField(max_length=15, default="0000000000", unique=True)
     password = models.CharField(max_length=128)  # Updated max_length for password
     college_name = models.CharField(max_length=255, default="Unknown College")
     dob = models.DateField(default=date(2000, 1, 1))
