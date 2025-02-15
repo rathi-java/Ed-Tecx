@@ -1,21 +1,15 @@
-/* General Styling */
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    background-color: #f8f9fa;
-}
 
-.container {
+
+
+
+.placement-container {
     max-width: 1200px;
-    margin: 0 auto;
     padding: 0 15px;
+    margin-top: 5rem;
 }
 
-/* Header Styling */
-header {
-    padding: 30px 0;
-    text-align: center;
-}
+
+
 
 .logo h1 {
     font-size: 36px;
@@ -106,21 +100,22 @@ header {
     margin-top: 10px;
 }
 
+
+
 .student-info {
     background: linear-gradient(135deg, #ffffff, #f1f3f5);
-    padding: 20px;
+    padding: 2%;
     border-radius: 12px;
-    min-width: 250px;
-    max-width: 400px;
-    margin-top: 40px;
+
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 2px solid rgba(0, 0, 0, 0.15);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    transition: all 0.3s ease-in-out;
+
+    transition: all 0.3sease-in-out;
+
 }
 
 .student-info:hover {
@@ -326,18 +321,7 @@ header {
     background: orange; 
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  size: unset;
-}
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #ffffff;
-}
 
 /* Pagination Styles */
 .pagination {
