@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import Category, Subject, Question, ExamResult
+
 import json
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils import timezone
 
 # View to manage questions (Add new questions and display existing ones)
 def manage_questions(request):
@@ -40,22 +43,26 @@ def manage_questions(request):
     })
 
 # View to display questions based on selected category and subject
+@login_required(login_url='/login/')
 def display_questions(request):
-    category_id = request.GET.get('category')  # Get category filter from request
-    subject_id = request.GET.get('subject')  # Get subject filter from request
+    category_id = request.GET.get('category')
+    subject_id = request.GET.get('subject')
     
-    questions = Question.objects.select_related('question_subject', 'question_subject__subject_category')  # Query all questions
-    
-    if category_id:  # If category filter is applied
-        questions = questions.filter(question_subject__subject_category_id=category_id)
-    if subject_id:  # If subject filter is applied
-        questions = questions.filter(question_subject_id=subject_id)
-        
-    categories = Category.objects.annotate(question_count=Count('subjects__questions'))  # Count questions per category
-    subjects = Subject.objects.annotate(question_count=Count('questions'))  # Count questions per subject
+    questions = Question.objects.select_related('question_subject', 'question_subject__subject_category')
     
     if category_id:
-        subjects = subjects.filter(subject_category_id=category_id)  # Filter subjects by category
+        questions = questions.filter(question_subject__subject_category_id=category_id)
+    if subject_id:
+        questions = questions.filter(question_subject_id=subject_id)
+        
+    categories = Category.objects.annotate(question_count=Count('subjects__questions'))
+    subjects = Subject.objects.annotate(question_count=Count('questions'))
+    
+    if category_id:
+        subjects = subjects.filter(subject_category_id=category_id)
+    
+    # Store total number of exam questions in session
+    request.session['exam_total_questions'] = questions.count()
     
     context = {
         'questions': questions,
@@ -65,61 +72,117 @@ def display_questions(request):
         'selected_subject': int(subject_id) if subject_id else None,
     }
     
-    return render(request, 'questions_display.html', context)  # Render questions display page
+    return render(request, 'questions_display.html', context)
+
+# View to handle exam submission and calculate scorefrom django.shortcuts import render, redirect
+from .models import Category, Subject, Question, ExamResult
+import json
+from django.db.models import Count
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils import timezone
 
 # View to handle exam submission and calculate score
 def submit_exam(request):
-    if request.method == 'POST':  # If exam is submitted
-        submitted_answers = request.POST  # Get submitted answers
-        correct_answers = 0  # Counter for correct answers
-        results = []  # Store individual question results
+    if request.method == 'POST':
+        user = request.user
+        # Retrieve total number of exam questions from the session
+        total_questions = request.session.get('exam_total_questions', 0)
+        correct_answers = 0
+        submitted_answers = {}
 
-        total_questions = Question.objects.count()  # Get total number of questions in the exam
+        # Process only the answered questions from POST data
+        for key, selected_option in request.POST.items():
+            if key.startswith('question'):
+                try:
+                    # Extract the question id from keys like "question5"
+                    question_id = int(key.replace('question', ''))
+                    question = Question.objects.get(id=question_id)
+                except (ValueError, Question.DoesNotExist):
+                    continue
 
-        for key, value in submitted_answers.items():  # Iterate through submitted answers
-            if key.startswith("question"):  # Identify question keys
-                question_id = key.replace("question", "")  # Extract question ID
-                question = Question.objects.get(id=question_id)  # Fetch question from DB
-                selected_option = value  # Get selected answer option
+                # Debug: print submitted answer and available options
+                print(f"Question ID: {question_id}, Submitted: {selected_option}")
+                print("Available options:", question.answers)
 
-                answers = question.answers  # Get answer choices from question
-                correct_option = None
+                # Determine the correct answer key
+                correct_key = None
+                for option_key, option_value in question.answers.items():
+                    if option_value.get('is_correct'):
+                        correct_key = option_key
+                        break
 
-                for option_key, option_data in answers.items():  # Find correct answer
-                    if option_data['is_correct']:
-                        correct_option = option_key
+                # Save the answer details (for review or certificate generation)
+                submitted_answers[str(question_id)] = {
+                    'selected': selected_option,
+                    'correct': correct_key
+                }
 
-                is_correct = selected_option == correct_option  # Check if selected answer is correct
-                if is_correct:
-                    correct_answers += 1  # Increment correct answer count
+                # Count this question as correctly answered if it matches the correct option
+                if selected_option == correct_key:
+                    correct_answers += 1
 
-                results.append({  # Store question result details
-                    "question": question.question_text,
-                    "selected_answer": answers.get(selected_option, {}).get("text", "Unknown"),
-                    "correct_answer": answers[correct_option]["text"] if correct_option else "Not found",
-                    "is_correct": is_correct,
-                })
+        # Calculate score based on the total exam questions (not just the attempted ones)
+        score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
 
-        score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0  # Calculate percentage score
+        print(f"Total Questions: {total_questions}, Correct Answers: {correct_answers}, Score: {score}")
 
-        # Save exam result in database
+        # Save the exam result
         ExamResult.objects.create(
-            score=score,
+            user=user,
             total_questions=total_questions,
             correct_answers=correct_answers,
-            submitted_answers=results,
+            score=score,
+            submitted_answers=submitted_answers,
+            submitted_at=timezone.now()
         )
 
-        return render(request, 'exam_results.html', {
-            'results': results,
-            'score': score
-        })  # Render exam results page
-    return redirect('display_questions')  # Redirect to display questions page if not POST
+        messages.success(request, f'Exam submitted successfully! Your score is {score:.2f}%')
+        return redirect('exam_results')
+
+    return render(request, 'examportol/submit_exam.html')
+
 
 # View to display user exam results
 def user_exam_results(request):
-    results = ExamResult.objects.order_by('-submitted_at')  # Get all exam results sorted by submission date
-    return render(request, 'user_results.html', {'results': results})  # Render user results page
+    # Get the latest exam result for the current user
+    exam_result = ExamResult.objects.filter(user=request.user).order_by('-submitted_at').first()
+    
+    if exam_result:
+        score = exam_result.score
+        submitted_answers = exam_result.submitted_answers  # This is a dictionary
+        results = []
+        
+        # Transform the submitted_answers dictionary into a list of dictionaries for the template.
+        # Each key in submitted_answers is a question ID (as string) and its value is a dictionary.
+        for qid, answer in submitted_answers.items():
+            try:
+                question = Question.objects.get(id=int(qid))
+            except Question.DoesNotExist:
+                continue
+
+            # Determine if the answer was correct
+            is_correct = answer.get('selected') == answer.get('correct')
+            
+            # Create a result dictionary for this question.
+            result_item = {
+                'question': question.question_text,
+                'selected_answer': answer.get('selected'),
+                'correct_answer': answer.get('correct'),
+                'is_correct': is_correct,
+            }
+            results.append(result_item)
+    else:
+        score = 0
+        results = []
+        exam_result = None
+
+    # Pass score, exam_result, and results list to the template.
+    return render(request, 'exam_results.html', {
+        'score': score,
+        'exam_result': exam_result,
+        'results': results,
+    })
 
 # View to render exam instructions
 def instructions(request):
@@ -132,4 +195,17 @@ def terms(request):
 # View to render privacy policy page
 def privacy(request):
     return render(request, 'instructions/Privacy.html')
+def generate_certificate(request, exam_id):
+    try:
+        exam_result = ExamResult.objects.get(id=exam_id, user=request.user)
+    except ExamResult.DoesNotExist:
+        messages.error(request, "Exam result not found.")
+        return redirect('exam_results')
 
+    # Check if the score qualifies for a certificate (70% or above)
+    if exam_result.score < 70:
+        messages.error(request, "You are not eligible for a certificate as your score is below 70%.")
+        return redirect('exam_results')
+
+    # Render the certificate template with exam result details.
+    return render(request, 'certificate.html', {'exam_result': exam_result})

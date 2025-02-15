@@ -3,14 +3,14 @@ from django.contrib import messages
 from .models import *
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
-from django.contrib.auth import authenticate, login, logout
 from django.utils.timezone import now
+from django.contrib.auth import logout as auth_logout, login as auth_login
 
 def home(request):
     return render(request, 'index.html')
 
 def logout_page(request):
-    logout(request)  # This will clear the session
+    auth_logout(request)  # This will clear the session
     messages.success(request, "You have been logged out successfully.")
     return redirect('/login/')
 
@@ -90,6 +90,10 @@ def user_login(request):
             user = UsersDB.objects.get(username=user_input)
 
         if user and check_password(password, user.password):  # Check password
+            # Manually authenticate the user
+            user.backend = 'oauth.backends.CustomBackend'
+            auth_login(request, user)  # Log the user in
+
             # Set session for user login
             request.session['user_id'] = user.id
             request.session['username'] = user.username
