@@ -81,9 +81,9 @@
                 I accept the <a href="{% url 'privacy' %}">Privacy Policy</a>.
             </label><br>
         </div>
-<a href="{% url 'question_list' %}" >
-        <button class="start-btn" id="startTest" disabled>Start Test</button>
-    </a>
+        <a href="{% url 'question_list' %}?subject={{ subject_id }}">
+            <button class="start-btn" id="startTest" disabled>Start Test</button>
+        </a>
     </div>
 {%block scripts%}
     <script>

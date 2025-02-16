@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import uuid
-
+from oauth.models import UsersDB
 
 class Category(models.Model):
     category_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
@@ -57,7 +57,7 @@ class Question(models.Model):
 
 
 class ExamResult(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)  # Use custom user model   
+    user = models.ForeignKey(UsersDB, on_delete=models.CASCADE)  # Use custom user model   
     session_id = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)  # Unique ID for guests
     total_questions = models.IntegerField(default=0)
     correct_answers = models.IntegerField(default=0)

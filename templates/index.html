@@ -10,7 +10,203 @@
 
 
 
-    <!--section 2 for exam and skill development-->
+<!-- HERO SECTION -->
+<section class="hero-section">
+
+    <!-- LEFT COLUMN (Large White Card) -->
+    <div class="hero-left">
+      <!-- .left: Heading, Subheading, Banner Image -->
+      <div class="left">
+        <h1>From Campus to <br>Corporate</h1>
+        <p>We've Got You Covered</p>
+        <img 
+        src="{%static 'images/Group 3.png'%}" 
+
+          alt="Banner" 
+          id="banner">
+      </div>
+  
+      <!-- .right: "TOP CSE JOBS >>", Job Cards, Bottom Image -->
+      <div class="right">
+        <div class="top-right">
+          <h3 class="top-jobs-btn">
+            TOP CSE JOBS >>
+            <img src="https://via.placeholder.com/16?text=%3E%3E" alt=">>">
+          </h3>
+        </div>
+        <div class="job-cards">
+          <!-- CARD 1 -->
+          <div class="card card1">
+            <div class="card-head">
+              <div class="head-left">
+                <h4>Frontend Web Developer</h4>
+                <p>Microsoft</p>
+              </div>
+              <div class="micro-logo">
+                <img 
+                  src="https://via.placeholder.com/40?text=M" 
+                  alt="Microsoft Logo">
+              </div>
+            </div>
+            <hr>
+            <div class="para">
+              <p>📍Noida, Uttar Pradesh</p>
+              <p>💼2-3 years</p>
+              <p>💲5 LPA-7 LPA</p>
+            </div>
+            <ul class="card-skills">
+              <span>Key Skills</span>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JS</li>
+              <li>React JS</li>
+              <li>Node JS</li>
+            </ul>
+          </div>
+  
+          <!-- CARD 2 -->
+          <div class="card card2">
+            <div class="card-head">
+              <div class="head-left">
+                <h4>Frontend Web Developer</h4>
+                <p>Microsoft</p>
+              </div>
+              <div class="micro-logo">
+                <img 
+                  src="https://via.placeholder.com/40?text=M" 
+                  alt="Microsoft Logo">
+              </div>
+            </div>
+            <hr>
+            <div class="para">
+              <p>📍Noida, Uttar Pradesh</p>
+              <p>💼2-3 years</p>
+              <p>💲5 LPA-7 LPA</p>
+            </div>
+            <ul class="card-skills">
+              <span>Key Skills</span>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JS</li>
+              <li>React JS</li>
+              <li>Node JS</li>
+            </ul>
+          </div>
+        </div>
+  
+        <!-- Bottom Image -->
+        <div class="bottom-right">
+          <img 
+            src="https://via.placeholder.com/100x50?text=Arrow" 
+            alt="Group 18">
+        </div>
+      </div>
+    </div><!-- END .hero-left -->
+  
+    <!-- RIGHT COLUMN (Top Achievers Card) -->
+    <div class="hero-right">
+      <aside class="achievers">
+        <div class="top-achievers">
+          <h1>Top Achievers</h1>
+        </div>
+        <button class="category-btn">Software Development</button>
+        <div class="achiever-list">
+          <!-- Achiever Card 1 -->
+          <div class="achiever-card">
+            <div class="achiver-image">
+              <img 
+                src="https://via.placeholder.com/50?" 
+                alt="Achiever">
+            </div>
+            <div class="achiver-detail">
+              <p class="achiver-name"><b>Rishi Prakash</b></p>
+              <p class="achiver-comp">Microsoft</p>
+              <p class="achiver-post">Software Developer<br>💰 12 LPA</p>
+            </div>
+            <div class="achiver-badge">
+              <img 
+                src="https://via.placeholder.com/30?text=%E2%AD%90" 
+                alt="Badge">
+            </div>
+          </div>
+          <!-- Achiever Card 2 -->
+          <div class="achiever-card">
+            <div class="achiver-image">
+              <img 
+                src="https://via.placeholder.com/50?text=A2" 
+                alt="Achiever">
+            </div>
+            <div class="achiver-detail">
+              <p class="achiver-name"><b>Jane Smith</b></p>
+              <p class="achiver-comp">Amazon</p>
+              <p class="achiver-post">Data Analyst<br>💰 10 LPA</p>
+            </div>
+            <div class="achiver-badge">
+              <img 
+                src="https://via.placeholder.com/30?text=%E2%AD%90" 
+                alt="Badge">
+            </div>
+          </div>
+          <!-- Achiever Card 3 -->
+          <div class="achiever-card">
+            <div class="achiver-image">
+              <img 
+                src="https://via.placeholder.com/50?text=A3" 
+                alt="Achiever">
+            </div>
+            <div class="achiver-detail">
+              <p class="achiver-name"><b>Alex Johnson</b></p>
+              <p class="achiver-comp">Google</p>
+              <p class="achiver-post">Full Stack Dev<br>💰 15 LPA</p>
+            </div>
+            <div class="achiver-badge">
+              <img 
+                src="https://via.placeholder.com/30?text=%E2%AD%90" 
+                alt="Badge">
+            </div>
+          </div>
+          <!-- More dummy achievers... -->
+        </div>
+      </aside>
+    </div><!-- END .hero-right -->
+</section><!-- END .hero-section -->
+  
+  <!-- STATS ROW BELOW HERO -->
+  <div class="last-container">
+    <div class="stats">
+      <div class="active-circle"></div>
+      <span>1k+ Active Learners</span>
+      <div class="companies-circle"></div>
+      <span>100+ Companies Hiring</span>
+      <div class="courses-circle"></div>
+      <span>30+ Courses Offered</span>
+    </div>
+  </div>
+  
+  <script>
+    // OPTIONAL: Simple auto-scroll for .achiever-list
+    const scrollBox = document.querySelector('.achiever-list');
+    let scrollSpeed = 1;
+    let scrollInterval;
+    let direction = 1; // 1 = down, -1 = up
+  
+    function startScrolling() {
+      scrollInterval = setInterval(() => {
+        scrollBox.scrollTop += scrollSpeed * direction;
+        if (scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
+          direction = -1; // scroll up
+        } else if (scrollBox.scrollTop <= 0) {
+          direction = 1; // scroll down
+        }
+      }, 20);
+    }
+    function stopScrolling() {
+      clearInterval(scrollInterval);
+    }
+    scrollBox.addEventListener('mouseenter', stopScrolling);
+    scrollBox.addEventListener('mouseleave', startScrolling);
+    startScrolling();
+  </script>
     <section class="examination-section">
         <p class="section-heading">Examination & Skill Development</p>
 

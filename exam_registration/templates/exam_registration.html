@@ -34,23 +34,21 @@
             <div>
                 <label class="form-label">Select Domain</label>
                 <select name="domain" id="domain" onchange="updateTopicOptions()">
-                    <option value="Select">Select</option>
+                    <option value="">Select</option>
                     {% for category in categories %}
                     <option value="{{ category.id }}">{{ category.category_name }}</option>
                     {% endfor %}
                 </select>
-            </div>
-
-            <div>
-                <label class="form-label">Select Subject</label>
+                
                 <select name="subject" id="subject">
-                    <option value="Select">Select</option>
+                    <option value="">Select</option>
                     {% for subject in subjects %}
                     <option value="{{ subject.id }}" data-category="{{ subject.subject_category.id }}">
                         {{ subject.subject_name }}
                     </option>
                     {% endfor %}
                 </select>
+                
             </div>
 
             <div>
