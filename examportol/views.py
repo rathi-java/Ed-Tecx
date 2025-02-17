@@ -235,33 +235,26 @@ def user_exam_results(request):
 # View to render exam instructions
 def instructions(request):
     user_id = request.session.get('user_id')
-    user = None
-
-    if user_id:
-        try:
-            user = UsersDB.objects.get(id=user_id)
-        except UsersDB.DoesNotExist:
-            request.session.flush()  # Clear session if user not found
-            messages.error(request, "Session expired. Please login again.")
-            return redirect('/login/')
-    
-    # Check if user is None before proceeding
-    if user is None:
-        messages.error(request, "You are not logged in. Please login first.")
+    if not user_id:
+        messages.error(request, "You need to log in first.")
         return redirect('/login/')
 
-    subject_id = request.session.get('registered_subject')
-    subject_id = 1
+    try:
+        user = UsersDB.objects.get(id=user_id)
+    except UsersDB.DoesNotExist:
+        request.session.flush()
+        messages.error(request, "Session expired. Please log in again.")
+        return redirect('/login/')
 
-    # Check if the subject_id is valid before querying StudentsDB
-    if subject_id is None:
-        messages.error(request, "No subject registered. Please register for a subject.")
+    # Query the database for any exam registration for this user.
+    registration = StudentsDB.objects.filter(user=user).order_by('-id').first()
+
+    if not registration or not registration.subject:
+        messages.error(request, "You are not registered for this exam subject. Please register first.")
         return redirect('exam_register')
 
-    # Now you can safely access user.email and perform the query
-    if not StudentsDB.objects.filter(email=user.email, subject_id=subject_id).exists():
-        messages.error(request, "You are not registered for this exam subject. Please register first.")
-        return redirect('exam_register')  # Redirect to your registration page
+    # You could also let the user choose a subject if they are registered for multiple subjects.
+    subject_id = registration.subject.id
 
     return render(request, 'instructions/new.html', {'subject_id': subject_id})
 

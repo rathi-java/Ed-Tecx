@@ -3,7 +3,6 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/exam_register.css' %}">
 <style>
-    /* Add custom CSS for alert messages */
     .alert {
         padding: 10px;
         margin: 10px 0;
@@ -11,49 +10,34 @@
         font-size: 14px;
         color: #fff;
     }
-
-    .alert-success {
-        background-color: #4CAF50;
-    }
-
-    .alert-warning {
-        background-color: #FFC107;
-    }
-
-    .alert-error {
-        background-color: #F44336;
-    }
+    .alert-success { background-color: #4CAF50; }
+    .alert-warning { background-color: #FFC107; }
+    .alert-error { background-color: #F44336; }
 </style>
 {% endblock %}
 
 {% block content %}
-
 <div class="container">
     <div class="form-container">
         {% if user %}
         <form method="POST">
             {% csrf_token %}
-            
             <div>
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
             </div>
-
             <div>
                 <label for="full_name" class="form-label">Full Name</label>
                 <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" readonly>
             </div>
-
             <div>
                 <label for="email" class="form-label">Email</label>
                 <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
             </div>
-
             <div>
                 <label for="phone_number" class="form-label">Phone Number</label>
                 <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}" readonly>
             </div>
-
             <div>
                 <label class="form-label">Select Domain</label>
                 <select name="domain" id="domain" onchange="updateTopicOptions()">
@@ -62,7 +46,6 @@
                     <option value="{{ category.id }}">{{ category.category_name }}</option>
                     {% endfor %}
                 </select>
-
                 <label class="form-label">Select Subject</label>
                 <select name="subject" id="subject">
                     <option value="">Select</option>
@@ -72,22 +55,19 @@
                     </option>
                     {% endfor %}
                 </select>
-                
             </div>
             <div>
                 <label for="date" class="form-label">Select Date</label>
                 <input type="date" id="date" name="date">
             </div>
-
             <div>
                 <label class="form-label">Payment</label>
                 <input type="text" class="payment" name="payment" value="INR 999.00" readonly>
             </div>
-
             <button type="submit" class="btn-register">Register</button>
         </form>
         {% else %}
-        <p>Hi Guest, Login first then try to register for exam...!</p>
+        <p>Hi Guest, please log in before registering for an exam!</p>
         {% endif %}
     </div>
 </div>
@@ -103,5 +83,4 @@
 {% endif %}
 
 <script src="{% static 'js/script.js' %}"></script>
-
 {% endblock %}

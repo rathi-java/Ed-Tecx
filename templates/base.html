@@ -54,7 +54,7 @@
               <a href="https://www.readerclub.in/">Reader Club magazine</a>
             </div>
           </li>
-          <li><a class="nav-link" href="{% url 'instructions' %}">Test Room</a></li>
+          <li><a class="nav-link" href="{% url 'exam_home' %}">Test Room</a></li>
           <li><a class="nav-link" href="#">Roadmap</a></li>
           <li><a class="nav-link" href="#">About Us</a></li>
         </ul>
@@ -123,7 +123,7 @@
           <li><a href="https://www.readerclub.in/">Reader Club magazine</a></li>
         </ul>
       </li>
-      <li><a href="{% url 'instructions' %}">Test Room</a></li>
+      <li><a href="{% url 'exam_home' %}">Test Room</a></li>
       <li><a href="#">Roadmap</a></li>
       <li><a href="#">About Us</a></li>
       {% if request.session.user_id %}
@@ -377,14 +377,17 @@
       }
     }
 
-    function closeModal() {
-      document.getElementById('Modal').style.display = 'none';
-      // Remove the dynamically added login.css (optional)
-      const link = document.querySelector('link[href="{% static 'css/login.css' %}"]');
-      if (link) {
-        link.remove();
-      }
+  function closeModal() {
+    document.getElementById('Modal').style.display = 'none';
+
+    // Remove the dynamically added login.css (optional)
+    const link = document.querySelector(`link[href="{{ STATIC_URL }}css/login.css"]`);
+    if (link) {
+      link.remove();
     }
+  }
+
+
 
     // Switch between login and signup tabs
     function switchTab(tab) {
