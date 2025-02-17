@@ -91,6 +91,10 @@ body {
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+.question-container  {
+  display: block;
+  height: 650px;
+}
 
 /* ============================================
    Question Section Details
@@ -232,22 +236,6 @@ body {
   padding: 0.5rem 1rem;
 }
 
-/* ============================================
-   Calculator Overlay (Sidebar)
-   ============================================ */
-.sidebar-overlay {
-  position: absolute;             /* Relative to .sidebar */
-  top: 15%;
-  left: 65%;
-  width: 80%;
-  max-width: 300px;
-  background-color: rgba(255, 255, 255, 0.95);
-  display: none;                  /* Hidden by default, toggle via JavaScript */
-  z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 1rem;
-}
 
 /* ============================================
    Modal Content & Calculator Layout
@@ -463,5 +451,272 @@ body {
   }
   .calculator {
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+/* ============================================
+   Global Button Styles
+   ============================================ */
+   .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #3b82f6; /* Default blue */
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  
+  .btn:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+  }
+  
+  /* Button Variants */
+  .btn-orange {
+    background-color: #f97316;
+  }
+  
+  .btn-orange:hover {
+    background-color: #ea580c;
+  }
+  
+  .submit-btn {
+    background-color: #10b981; /* Green */
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .submit-btn:hover {
+    background-color: #059669;
+  }
+  
+  /* Navigation Buttons Container */
+  .nav-buttons {
+    display: flex;
+   
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Special button for calculator toggle */
+  .btn.calculator-toggle {
+    background-color: #6366f1; /* Indigo */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .btn.calculator-toggle:hover {
+    background-color: #4f46e5;
+  }
+  
+  /* Make sure buttons are consistent in the header controls */
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .header-controls .btn {
+    white-space: nowrap;
+  }
+  
+  /* Question indicator buttons in grid */
+  .question-indicator {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #d1d5db;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .question-indicator:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .nav-buttons {
+      flex-direction: column;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+    }
+    
+    .question-indicator {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.875rem;
+    }
+  }
+  /* ============================================
+   Calculator Overlay (Sidebar)
+   ============================================ */
+   .sidebar-overlay {
+    position: absolute;
+    top: 14%;
+    left: 56%;
+    width: 40%;
+    max-width: 90vw;
+    background-color: #ffffff;
+    display: none;
+    z-index: 1006;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    animation: fadeIn 0.3sease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Modal Content & Calculator Layout
+   ============================================ */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.close-btn {
+  color: #64748b;
+  font-weight: 700;
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0.25rem;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #ef4444;
+}
+
+.modal-divider {
+  margin: 0.5rem 0 1rem;
+  border: none;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ============================================
+   Calculator Layout
+   ============================================ */
+.calculator {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+}
+
+.display-container {
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.display {
+  width: 100%;
+  height: 3rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  text-align: right;
+  border: none;
+  background: transparent;
+  color: #1e293b;
+  font-family: monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+/* ============================================
+   Calculator Button Styles
+   ============================================ */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    width: 90%;
+    max-width: 280px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .button {
+    font-size: 0.875rem;
+    min-height: 2.5rem;
+  }
+  
+  .buttons {
+    gap: 0.3rem;
+  }
+}
+
+
+/* Responsive adjustments */
+@media (min-width: 1440px) {
+  .sidebar-overlay {
+      position: absolute;
+      top: 18%;
+      left: 56%;
+      width: 20%;
+      max-width: 90vw;
+      background-color: #ffffff;
+      display: none;
+      z-index: 1006;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      padding: 1rem;
+      animation: fadeIn 0.3sease;
   }
 }
