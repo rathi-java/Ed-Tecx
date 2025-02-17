@@ -2,15 +2,38 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/exam_register.css' %}">
+<style>
+    /* Add custom CSS for alert messages */
+    .alert {
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #fff;
+    }
+
+    .alert-success {
+        background-color: #4CAF50;
+    }
+
+    .alert-warning {
+        background-color: #FFC107;
+    }
+
+    .alert-error {
+        background-color: #F44336;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 
 <div class="container">
     <div class="form-container">
+        {% if user %}
         <form method="POST">
             {% csrf_token %}
-            {% if user %}
+            
             <div>
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
@@ -39,7 +62,8 @@
                     <option value="{{ category.id }}">{{ category.category_name }}</option>
                     {% endfor %}
                 </select>
-                
+
+                <label class="form-label">Select Subject</label>
                 <select name="subject" id="subject">
                     <option value="">Select</option>
                     {% for subject in subjects %}
@@ -50,7 +74,6 @@
                 </select>
                 
             </div>
-
             <div>
                 <label for="date" class="form-label">Select Date</label>
                 <input type="date" id="date" name="date">
@@ -62,13 +85,23 @@
             </div>
 
             <button type="submit" class="btn-register">Register</button>
-
-            {% else %}
-            <p>Hi Guest, Login first then try to register for exam...!</p>
-            {% endif %}
         </form>
+        {% else %}
+        <p>Hi Guest, Login first then try to register for exam...!</p>
+        {% endif %}
     </div>
 </div>
 
-    <script src="{% static 'js/script.js' %}"></script>
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-error{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<script src="{% static 'js/script.js' %}"></script>
+
 {% endblock %}

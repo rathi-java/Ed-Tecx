@@ -7,34 +7,58 @@ from oauth.models import UsersDB
 from exam_registration.models import StudentsDB
 
 # View to manage questions (Add new questions and display existing ones)
+from django.shortcuts import render, redirect
+from .models import Category, Subject, Question
+from django.http import JsonResponse
+
 def manage_questions(request):
-    if request.method == 'POST':  # If form is submitted
-        category_id = request.POST.get('category')  # Get category ID from form
-        subject_id = request.POST.get('subject')  # Get subject ID from form
-        question_text = request.POST.get('question_text')  # Get question text
-        correct_answer = request.POST.get('correct_answer')  # Get correct answer option
+    if request.method == 'POST':
+        # Check if a new category is added
+        new_category_name = request.POST.get('new_category')
+        new_subject_name = request.POST.get('new_subject')
+        selected_category_id = request.POST.get('category')
         
-        answers = {}  # Dictionary to store answer options
-        for letter in ['A', 'B', 'C', 'D']:  # Iterate over answer choices
-            option_text = request.POST.get(f'option_{letter}')  # Get option text
+        # Handle new category creation
+        if new_category_name:
+            category, created = Category.objects.get_or_create(category_name=new_category_name)
+            selected_category_id = category.id  # Assign new category ID
+        
+        # Handle new subject creation under the selected category
+        if new_subject_name and selected_category_id:
+            subject, created = Subject.objects.get_or_create(
+                subject_name=new_subject_name, 
+                subject_category_id=selected_category_id
+            )
+
+        # Proceed with adding a question
+        category_id = request.POST.get('category') or selected_category_id
+        subject_id = request.POST.get('subject') or (subject.id if new_subject_name else None)
+        question_text = request.POST.get('question_text')
+        correct_answer = request.POST.get('correct_answer')
+
+        answers = {}
+        for letter in ['A', 'B', 'C', 'D']:
+            option_text = request.POST.get(f'option_{letter}')
             if option_text:
                 answers[f'option_{letter}'] = {
-                    'text': option_text,  # Store option text
-                    'is_correct': letter == correct_answer  # Mark correct option
+                    'text': option_text,
+                    'is_correct': letter == correct_answer
                 }
-        
-        # Create a new question entry in the database
-        Question.objects.create(
-            question_text=question_text,
-            question_subject_id=subject_id,
-            answers=answers
-        )
-        return redirect('manage_questions')  # Redirect to manage questions page
-    
-    categories = Category.objects.all()  # Get all categories
-    subjects = Subject.objects.all()  # Get all subjects
-    questions = Question.objects.select_related('question_subject', 'question_subject__subject_category').all()  # Get all questions
-    
+
+        # Create a new question entry
+        if subject_id:
+            Question.objects.create(
+                question_text=question_text,
+                question_subject_id=subject_id,
+                answers=answers
+            )
+
+        return redirect('manage_questions')
+
+    categories = Category.objects.all()
+    subjects = Subject.objects.all()
+    questions = Question.objects.select_related('question_subject', 'question_subject__subject_category').all()
+
     return render(request, 'question_management.html', {
         'categories': categories,
         'subjects': subjects,
@@ -210,9 +234,35 @@ def user_exam_results(request):
 
 # View to render exam instructions
 def instructions(request):
-    subject_id = request.session.get('registered_subject')
-    return render(request, 'instructions/new.html', {'subject_id': subject_id})
+    user_id = request.session.get('user_id')
+    user = None
 
+    if user_id:
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            request.session.flush()  # Clear session if user not found
+            messages.error(request, "Session expired. Please login again.")
+            return redirect('/login/')
+    
+    # Check if user is None before proceeding
+    if user is None:
+        messages.error(request, "You are not logged in. Please login first.")
+        return redirect('/login/')
+
+    subject_id = request.session.get('registered_subject')
+
+    # Check if the subject_id is valid before querying StudentsDB
+    if subject_id is None:
+        messages.error(request, "No subject registered. Please register for a subject.")
+        return redirect('exam_register')
+
+    # Now you can safely access user.email and perform the query
+    if not StudentsDB.objects.filter(email=user.email, subject_id=subject_id).exists():
+        messages.error(request, "You are not registered for this exam subject. Please register first.")
+        return redirect('exam_register')  # Redirect to your registration page
+
+    return render(request, 'instructions/new.html', {'subject_id': subject_id})
 
 # View to render terms and conditions page
 def terms(request):

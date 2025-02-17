@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.conf import settings
 import uuid
 from oauth.models import UsersDB
+
 
 class Category(models.Model):
     category_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
@@ -11,7 +11,7 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if not self.category_code:
             last_category = Category.objects.order_by('-id').first()
-            new_id = (int(last_category.category_code[1:]) + 1) if last_category else 1
+            new_id = int(last_category.category_code[1:]) + 1 if last_category and last_category.category_code else 1
             self.category_code = f'C{new_id:04d}'
         super().save(*args, **kwargs)
 
@@ -29,7 +29,14 @@ class Subject(models.Model):
     def save(self, *args, **kwargs):
         if not self.subject_code and self.subject_category:
             last_subject = Subject.objects.filter(subject_category=self.subject_category).order_by('-id').first()
-            new_id = (int(last_subject.subject_code.split('-')[1][1:]) + 1) if last_subject else 1
+            if last_subject and last_subject.subject_code:
+                try:
+                    new_id = int(last_subject.subject_code.split('-S')[1]) + 1
+                except (IndexError, ValueError):
+                    new_id = 1
+            else:
+                new_id = 1
+
             self.subject_code = f'{self.subject_category.category_code}-S{new_id:04d}'
         super().save(*args, **kwargs)
 
@@ -48,7 +55,14 @@ class Question(models.Model):
     def save(self, *args, **kwargs):
         if not self.question_code and self.question_subject:
             last_question = Question.objects.filter(question_subject=self.question_subject).order_by('-id').first()
-            new_id = (int(last_question.question_code.split('-')[2][1:]) + 1) if last_question else 1
+            if last_question and last_question.question_code:
+                try:
+                    new_id = int(last_question.question_code.split('-Q')[1]) + 1
+                except (IndexError, ValueError):
+                    new_id = 1
+            else:
+                new_id = 1
+
             self.question_code = f'{self.question_subject.subject_code}-Q{new_id:04d}'
         super().save(*args, **kwargs)
 
