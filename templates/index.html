@@ -1,393 +1,361 @@
 {% extends 'base.html' %}
 {% load static %}
 
-    {% block title %}EdTech{% endblock %}
+{% block title %}EdTech{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
+
 {% block content %}
 
-
-
-<!-- HERO SECTION -->
+<!-- ====================== HERO SECTION ====================== -->
 <section class="hero-section">
-
-    <!-- LEFT COLUMN (Large White Card) -->
+  <div class="hero-container">
+    <!-- LEFT COLUMN -->
     <div class="hero-left">
-      <!-- .left: Heading, Subheading, Banner Image -->
-      <div class="left">
-        <h1>From Campus to <br>Corporate</h1>
-        <p>We've Got You Covered</p>
-        <img 
-        src="{%static 'images/Group 3.png'%}" 
+      <h1>From Campus to <br>Corporate</h1>
+      <p>We've Got You Covered</p>
+      <img src="{% static 'images/Group_3.png' %}" alt="Hero Girl" class="hero-image">
+    </div>
 
-          alt="Banner" 
-          id="banner">
-      </div>
-  
-      <!-- .right: "TOP CSE JOBS >>", Job Cards, Bottom Image -->
-      <div class="right">
-        <div class="top-right">
-          <h3 class="top-jobs-btn">
-            TOP CSE JOBS >>
-            <img src="https://via.placeholder.com/16?text=%3E%3E" alt=">>">
-          </h3>
-        </div>
-        <div class="job-cards">
-          <!-- CARD 1 -->
-          <div class="card card1">
-            <div class="card-head">
-              <div class="head-left">
-                <h4>Frontend Web Developer</h4>
-                <p>Microsoft</p>
-              </div>
-              <div class="micro-logo">
-                <img 
-                  src="https://via.placeholder.com/40?text=M" 
-                  alt="Microsoft Logo">
-              </div>
+    <!-- CENTER COLUMN -->
+    <div class="hero-center">
+      <button class="top-jobs-btn">
+        TOP CSE JOBS
+        <img src="{% static 'images/Fast Forward.png' %}" alt="arrow">
+      </button>
+
+      <div class="job-cards">
+        <!-- Card 1 -->
+        <div class="job-card">
+          <div class="card-head">
+            <div class="head-left">
+              <h4>Frontend Developer</h4>
+              <p>Microsoft</p>
             </div>
-            <hr>
-            <div class="para">
-              <p>📍Noida, Uttar Pradesh</p>
-              <p>💼2-3 years</p>
-              <p>💲5 LPA-7 LPA</p>
+            <div class="micro-logo">
+              <img src="{% static 'images/logo.png' %}" alt="Logo">
             </div>
-            <ul class="card-skills">
-              <span>Key Skills</span>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JS</li>
-              <li>React JS</li>
-              <li>Node JS</li>
-            </ul>
           </div>
-  
-          <!-- CARD 2 -->
-          <div class="card card2">
-            <div class="card-head">
-              <div class="head-left">
-                <h4>Frontend Web Developer</h4>
-                <p>Microsoft</p>
-              </div>
-              <div class="micro-logo">
-                <img 
-                  src="https://via.placeholder.com/40?text=M" 
-                  alt="Microsoft Logo">
-              </div>
-            </div>
-            <hr>
-            <div class="para">
-              <p>📍Noida, Uttar Pradesh</p>
-              <p>💼2-3 years</p>
-              <p>💲5 LPA-7 LPA</p>
-            </div>
-            <ul class="card-skills">
-              <span>Key Skills</span>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JS</li>
-              <li>React JS</li>
-              <li>Node JS</li>
-            </ul>
+          <hr>
+          <div class="para">
+            <p>📍 Noida, UP</p>
+            <p>💼 2-3 yrs</p>
+            <p>💲5-7 LPA</p>
           </div>
+          <ul class="card-skills">
+            <span>Key Skills</span>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JS</li>
+            <li>React</li>
+          </ul>
         </div>
-  
-        <!-- Bottom Image -->
-        <div class="bottom-right">
-          <img 
-            src="https://via.placeholder.com/100x50?text=Arrow" 
-            alt="Group 18">
+        <!-- Card 2 -->
+        <div class="job-card">
+          <div class="card-head">
+            <div class="head-left">
+              <h4>Backend Developer</h4>
+              <p>Microsoft</p>
+            </div>
+            <div class="micro-logo">
+              <img src="{% static 'images/logo.png' %}" alt="Logo">
+            </div>
+          </div>
+          <hr>
+          <div class="para">
+            <p>📍 Hyderabad, TG</p>
+            <p>💼 1-2 yrs</p>
+            <p>💲4-6 LPA</p>
+          </div>
+          <ul class="card-skills">
+            <span>Key Skills</span>
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>MongoDB</li>
+          </ul>
         </div>
       </div>
-    </div><!-- END .hero-left -->
-  
-    <!-- RIGHT COLUMN (Top Achievers Card) -->
-    <div class="hero-right">
-      <aside class="achievers">
-        <div class="top-achievers">
-          <h1>Top Achievers</h1>
+
+      <button class="explore-btn">Explore Jobs →</button>
+    </div>
+
+    <!-- RIGHT COLUMN (ASIDE) -->
+    <aside class="hero-right">
+      <h2 class="achievers-title">Top Achievers</h2>
+      <button class="category-btn">Software Development</button>
+
+      <!-- Auto-scroll list -->
+      <div class="achiever-list" id="achieverList">
+        <!-- Achiever 1 -->
+        <div class="achiever-card">
+          <div class="achiver-image">
+            <img src="{% static 'images/girl.png' %}" alt="Achiever">
+          </div>
+          <div class="achiver-detail">
+            <p class="achiver-name"><b>Rishi Prakash</b></p>
+            <p class="achiver-comp">Microsoft</p>
+            <p class="achiver-post">Software Developer<br>💰 12 LPA</p>
+          </div>
+          <div class="achiver-badge">
+            <img src="{% static 'images/badge.webp' %}" alt="Badge">
+          </div>
         </div>
-        <button class="category-btn">Software Development</button>
-        <div class="achiever-list">
-          <!-- Achiever Card 1 -->
-          <div class="achiever-card">
-            <div class="achiver-image">
-              <img 
-                src="https://via.placeholder.com/50?" 
-                alt="Achiever">
-            </div>
-            <div class="achiver-detail">
-              <p class="achiver-name"><b>Rishi Prakash</b></p>
-              <p class="achiver-comp">Microsoft</p>
-              <p class="achiver-post">Software Developer<br>💰 12 LPA</p>
-            </div>
-            <div class="achiver-badge">
-              <img 
-                src="https://via.placeholder.com/30?text=%E2%AD%90" 
-                alt="Badge">
-            </div>
+        <!-- Achiever 2 -->
+        <div class="achiever-card">
+          <div class="achiver-image">
+            <img src="{% static 'images/girl.png' %}" alt="Achiever">
           </div>
-          <!-- Achiever Card 2 -->
-          <div class="achiever-card">
-            <div class="achiver-image">
-              <img 
-                src="https://via.placeholder.com/50?text=A2" 
-                alt="Achiever">
-            </div>
-            <div class="achiver-detail">
-              <p class="achiver-name"><b>Jane Smith</b></p>
-              <p class="achiver-comp">Amazon</p>
-              <p class="achiver-post">Data Analyst<br>💰 10 LPA</p>
-            </div>
-            <div class="achiver-badge">
-              <img 
-                src="https://via.placeholder.com/30?text=%E2%AD%90" 
-                alt="Badge">
-            </div>
+          <div class="achiver-detail">
+            <p class="achiver-name"><b>Meera Roy</b></p>
+            <p class="achiver-comp">Amazon</p>
+            <p class="achiver-post">Data Engineer<br>💰 15 LPA</p>
           </div>
-          <!-- Achiever Card 3 -->
-          <div class="achiever-card">
-            <div class="achiver-image">
-              <img 
-                src="https://via.placeholder.com/50?text=A3" 
-                alt="Achiever">
-            </div>
-            <div class="achiver-detail">
-              <p class="achiver-name"><b>Alex Johnson</b></p>
-              <p class="achiver-comp">Google</p>
-              <p class="achiver-post">Full Stack Dev<br>💰 15 LPA</p>
-            </div>
-            <div class="achiver-badge">
-              <img 
-                src="https://via.placeholder.com/30?text=%E2%AD%90" 
-                alt="Badge">
-            </div>
+          <div class="achiver-badge">
+            <img src="{% static 'images/badge.webp' %}" alt="Badge">
           </div>
-          <!-- More dummy achievers... -->
         </div>
-      </aside>
-    </div><!-- END .hero-right -->
-</section><!-- END .hero-section -->
-  
-  <!-- STATS ROW BELOW HERO -->
-  <div class="last-container">
-    <div class="stats">
+        <!-- Achiever 3 -->
+        <div class="achiever-card">
+          <div class="achiver-image">
+            <img src="{% static 'images/girl.png' %}" alt="Achiever">
+          </div>
+          <div class="achiver-detail">
+            <p class="achiver-name"><b>Ankit Sharma</b></p>
+            <p class="achiver-comp">Google</p>
+            <p class="achiver-post">Cloud Specialist<br>💰 18 LPA</p>
+          </div>
+          <div class="achiver-badge">
+            <img src="{% static 'images/badge.webp' %}" alt="Badge">
+          </div>
+        </div>
+        <!-- Achiever 4 -->
+        <div class="achiever-card">
+          <div class="achiver-image">
+            <img src="{% static 'images/girl.png' %}" alt="Achiever">
+          </div>
+          <div class="achiver-detail">
+            <p class="achiver-name"><b>Priya Singh</b></p>
+            <p class="achiver-comp">Meta</p>
+            <p class="achiver-post">ML Engineer<br>💰 20 LPA</p>
+          </div>
+          <div class="achiver-badge">
+            <img src="{% static 'images/badge.webp' %}" alt="Badge">
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= STATS ROW (3 circles) ================= -->
+<section class="hero-stats-section">
+  <div class="stats">
+    <div class="stat-item">
       <div class="active-circle"></div>
       <span>1k+ Active Learners</span>
+    </div>
+    <div class="stat-item">
       <div class="companies-circle"></div>
       <span>100+ Companies Hiring</span>
+    </div>
+    <div class="stat-item">
       <div class="courses-circle"></div>
       <span>30+ Courses Offered</span>
     </div>
   </div>
-  
-  <script>
-    // OPTIONAL: Simple auto-scroll for .achiever-list
-    const scrollBox = document.querySelector('.achiever-list');
-    let scrollSpeed = 1;
+</section>
+
+<!-- Achievers auto-scroll script -->
+<script>
+  window.addEventListener('load', function() {
+    let achieverList = document.getElementById('achieverList');
+    let scrollSpeed = 1; 
     let scrollInterval;
-    let direction = 1; // 1 = down, -1 = up
-  
+    let direction = 1; // 1 => down, -1 => up
+
     function startScrolling() {
       scrollInterval = setInterval(() => {
-        scrollBox.scrollTop += scrollSpeed * direction;
-        if (scrollBox.scrollTop + scrollBox.clientHeight >= scrollBox.scrollHeight) {
-          direction = -1; // scroll up
-        } else if (scrollBox.scrollTop <= 0) {
-          direction = 1; // scroll down
+        achieverList.scrollTop += scrollSpeed * direction;
+        // If reached bottom, reverse direction
+        if (achieverList.scrollTop + achieverList.clientHeight >= achieverList.scrollHeight) {
+          direction = -1;
+        }
+        // If reached top, reverse direction
+        else if (achieverList.scrollTop <= 0) {
+          direction = 1;
         }
       }, 20);
     }
+
     function stopScrolling() {
       clearInterval(scrollInterval);
     }
-    scrollBox.addEventListener('mouseenter', stopScrolling);
-    scrollBox.addEventListener('mouseleave', startScrolling);
+
     startScrolling();
-  </script>
-    <section class="examination-section">
-        <p class="section-heading">Examination & Skill Development</p>
+    achieverList.addEventListener('mouseenter', stopScrolling);
+    achieverList.addEventListener('mouseleave', startScrolling);
+  });
+</script>
 
-        <div class="content">
-            <!-- Left Section -->
-            <div class="left">
-                <p>🚀Challenge Yourself with Our Online<br>&nbsp;&nbsp;&nbsp;&nbsp; Qualifying Exam</p>
-                <h3>What You Get:</h3>
-                <ul>
-                    <li>
-                        <img src="{% static 'images/certificate.png' %}" alt="Certificate">
-                        An industry-recognized certificate upon passing.
-                    </li>
-                    <li>
-                        <img src="{% static 'images/skills.png' %}" alt="Verified Skills">
-                        Opportunity to showcase your verified skills to potential employers.
-                    </li>
-                    <li>
-                        <img src="{% static 'images/web.png' %}" alt="Internships">
-                        Access to exclusive internships and job opportunities.
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Vertical Divider -->
-            <div class="divider"></div>
-
-            <!-- Right Section -->
-            <div class="right">
-                <p>Eg: Learn, Practice & Get Certified</p>
-                <div class="box">
-                    <div class="item">
-                        <img src="{% static 'images/programming.png' %}" alt="Programming">
-                        <p>Programming<br> Languages</p>
-                    </div>
-                    <div class="item">
-                        <img src="{% static 'images/web.png' %}" alt="Web Development">
-                        <p>Web<br> Development</p>
-                    </div>
-                    <div class="item">
-                        <img src="{% static 'images/data.png' %}" alt="Data Analytics">
-                        <p>Data<br> Analytics</p>
-                    </div>
-                    <div class="item">
-                        <img src="{% static 'images/core.png' %}" alt="Core Concepts">
-                        <p>Core<br> Concepts</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- Examination & Skill Development -->
+<section class="examination-section">
+  <p class="section-heading">Examination & Skill Development</p>
+  <div class="content">
+    <!-- Left Section -->
+    <div class="left">
+      <p>🚀Challenge Yourself with Our Online<br>&nbsp;&nbsp;&nbsp;&nbsp; Qualifying Exam</p>
+      <h3>What You Get:</h3>
+      <ul>
+        <li>
+          <img src="{% static 'images/certificate.png' %}" alt="Certificate">
+          An industry-recognized certificate upon passing.
+        </li>
+        <li>
+          <img src="{% static 'images/skills.png' %}" alt="Verified Skills">
+          Opportunity to showcase your verified skills to potential employers.
+        </li>
+        <li>
+          <img src="{% static 'images/web.png' %}" alt="Internships">
+          Access to exclusive internships and job opportunities.
+        </li>
+      </ul>
     </div>
-    </section>
-
-    <!--section 3 for cards -->
-
-    <section class="internship-section">
-        <h1 class="main-heading">Internship Program</h1>
-        <p class="sub-heading">Kickstart Your Career with Real-World Experience!</p>
-    
-        <div class="card-container">
-            <!-- Card 1 -->
-            <div class="info-card">
-                <div class="card-image skill-bg">
-                    <img src="{% static 'images/Vector1.png' %}" alt="Skill Development">
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Skill<br>Development</h3>
-                    <p class="card-description">Learn industry-relevant tools and techniques.</p>
-                </div>
-            </div>
-            
-    
-            <!-- Card 2 -->
-            <div class="info-card">
-                <div class="card-image mentorship-bg">
-                    <img src="{% static 'images/Vector2.png' %}" alt="1-1 Mentorship">
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">1-1<br> Mentorship</h3>
-                    <p class="card-description">Work alongside professionals who guide your growth.</p>
-                </div>
-            </div>
-    
-            <!-- Card 3 -->
-            <div class="info-card">
-                <div class="card-image projects-bg">
-                    <img src="{% static 'images/Vector3.png' %}" alt="Real Projects">
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Real<br> Projects</h3>
-                    <p class="card-description">Build a portfolio that sets you apart.</p>
-                </div>
-            </div>
-    
-            <!-- Card 4 -->
-            <div class="info-card">
-                <div class="card-image networking-bg">
-                    <img src="{% static 'images/Vector4.png' %}" alt="Networking Opportunities">
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Networking<br> Opportunities</h3>
-                    <p class="card-description">Connect with experts and like-minded peers.</p>
-                </div>
-            </div>
+    <!-- Vertical Divider -->
+    <div class="divider"></div>
+    <!-- Right Section -->
+    <div class="right">
+      <p>Eg: Learn, Practice & Get Certified</p>
+      <div class="box">
+        <div class="item">
+          <img src="{% static 'images/programming.png' %}" alt="Programming">
+          <p>Programming<br> Languages</p>
         </div>
-    
-        <button class="cta-btn">Explore Internship →</button>
-    </section>
-    
-
-
-    <!--section 3 for one card and bg image-->
-    <section class="study_material">
-        <header>
-            <h1>One Platform, Endless Resources!</h1>
-        </header>
-
-        <div class="background">
-            <img src="{% static 'images/sceince-hd.png' %}" alt="Background Image">
+        <div class="item">
+          <img src="{% static 'images/web.png' %}" alt="Web Development">
+          <p>Web<br> Development</p>
         </div>
-
-        <!-- Card Content -->
-        <div class="card-containerr" id="card">
-            <h2 id="subject">Science & Technology</h2>
-            <p>Most popular around the world<br>all for learning..</p>
-            <div class="button-containerr">
-                <button class="show-all" onclick="window.location.href='//www.readerclub.in/'">Show All</button>
-                <button class="subscribe" onclick="window.location.href='//www.readerclub.in/'">Subscribe</button>
-            </div>
+        <div class="item">
+          <img src="{% static 'images/data.png' %}" alt="Data Analytics">
+          <p>Data<br> Analytics</p>
         </div>
-
-        <!-- Script Content -->
-        <script>
-            const subjects = ['Science & Technology', 'Mathematics', 'History', 'Art & Design', 'Physics', 'Biology'];
-            let index = 0;
-
-            setInterval(() => {
-                index = (index + 1) % subjects.length;
-                document.getElementById('subject').innerText = subjects[index];
-            }, 3000);
-        </script>
-
-        <footer>
-            <p>Access magazines on every topic and ace your learning journey</p>
-        </footer>
-    </section>
-
-    <!--section 4 for download-->
-
-    <section class="app-section">
-        <div class="app-container">
-            <!-- Phone Mockup -->
-            <div class="phone-mockup">
-                <button class="get-show"></button>
-                <div class="phone-screen">
-                    <h2 class="phone-text">Download the <br> App now</h2>
-                    <img src="{% static 'images/download-icon.png' %}" alt="Download Icon" class="download-icon">
-                    <button class="get-started">Get Started</button>
-                </div>
-            </div>
-
-            <!-- App Info -->
-            <div class="app-info">
-                <h1 class="app-title">Download Our<br> App</h1>
-                <p class="app-description">
-                    Take your experience to the next level with our mobile app!<br><br>
-                    Stay connected, access features on the go, and enjoy seamless navigation 
-                    right from your smartphone—whether you’re learning new skills, 
-                    applying for internships, or exploring job opportunities.
-                </p>
-
-                <div class="download-buttons">
-                    <a href="#" class="download-btn apple-btn">
-                        <img src="{% static 'images/apple-icon.png' %}" alt="Apple"> Download Now
-                    </a>
-                    <a href="#" class="download-btn android-btn">
-                        <img src="{% static 'images/android-icon.png' %}" alt="Android"> Download Now
-                    </a>
-                </div>
-            </div>
+        <div class="item">
+          <img src="{% static 'images/core.png' %}" alt="Core Concepts">
+          <p>Core<br> Concepts</p>
         </div>
-    </section>
-    
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Internship Program -->
+<section class="internship-section">
+  <h1 class="main-heading">Internship Program</h1>
+  <p class="sub-heading">Kickstart Your Career with Real-World Experience!</p>
+  <div class="card-container">
+    <!-- Card 1 -->
+    <div class="info-card">
+      <div class="card-image skill-bg">
+        <img src="{% static 'images/Vector1.png' %}" alt="Skill Development">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">Skill<br>Development</h3>
+        <p class="card-description">Learn industry-relevant tools and techniques.</p>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="info-card">
+      <div class="card-image mentorship-bg">
+        <img src="{% static 'images/Vector2.png' %}" alt="1-1 Mentorship">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">1-1<br> Mentorship</h3>
+        <p class="card-description">Work alongside professionals who guide your growth.</p>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="info-card">
+      <div class="card-image projects-bg">
+        <img src="{% static 'images/Vector3.png' %}" alt="Real Projects">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">Real<br> Projects</h3>
+        <p class="card-description">Build a portfolio that sets you apart.</p>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="info-card">
+      <div class="card-image networking-bg">
+        <img src="{% static 'images/Vector4.png' %}" alt="Networking Opportunities">
+      </div>
+      <div class="card-content">
+        <h3 class="card-title">Networking<br> Opportunities</h3>
+        <p class="card-description">Connect with experts and like-minded peers.</p>
+      </div>
+    </div>
+  </div>
+  <button class="cta-btn">Explore Internship →</button>
+</section>
+
+<!-- One Platform, Endless Resources -->
+<section class="study_material">
+  <header>
+    <h1>One Platform, Endless Resources!</h1>
+  </header>
+  <div class="background">
+    <img src="{% static 'images/sceince-hd.png' %}" alt="Background Image">
+  </div>
+  <div class="card-containerr" id="card">
+    <h2 id="subject">Science & Technology</h2>
+    <p>Most popular around the world<br>all for learning..</p>
+    <div class="button-containerr">
+      <button class="show-all" onclick="window.location.href='//www.readerclub.in/'">Show All</button>
+      <button class="subscribe" onclick="window.location.href='//www.readerclub.in/'">Subscribe</button>
+    </div>
+  </div>
+  <script>
+    const subjects = ['Science & Technology', 'Mathematics', 'History', 'Art & Design', 'Physics', 'Biology'];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % subjects.length;
+      document.getElementById('subject').innerText = subjects[index];
+    }, 3000);
+  </script>
+  <footer>
+    <p>Access magazines on every topic and ace your learning journey</p>
+  </footer>
+</section>
+
+<!-- Download Our App -->
+<section class="app-section">
+  <div class="app-container">
+    <div class="phone-mockup">
+      <button class="get-show"></button>
+      <div class="phone-screen">
+        <h2 class="phone-text">Download the <br> App now</h2>
+        <img src="{% static 'images/download-icon.png' %}" alt="Download Icon" class="download-icon">
+        <button class="get-started">Get Started</button>
+      </div>
+    </div>
+    <div class="app-info">
+      <h1 class="app-title">Download Our<br> App</h1>
+      <p class="app-description">
+        Take your experience to the next level with our mobile app!<br><br>
+        Stay connected, access features on the go, and enjoy seamless navigation 
+        right from your smartphone—whether you’re learning new skills, 
+        applying for internships, or exploring job opportunities.
+      </p>
+      <div class="download-buttons">
+        <a href="#" class="download-btn apple-btn">
+          <img src="{% static 'images/apple-icon.png' %}" alt="Apple"> Download Now
+        </a>
+        <a href="#" class="download-btn android-btn">
+          <img src="{% static 'images/android-icon.png' %}" alt="Android"> Download Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
