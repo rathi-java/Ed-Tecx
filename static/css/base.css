@@ -132,22 +132,22 @@
   cursor: pointer;
 }
 /* Sign Up */
-.signup button {
+.login button {
   background-color: #1273b9;
   color: white;
-  margin-left: 35%;
+  margin-left: 25%;
   z-index: 10;
 }
-.signup button:hover {
+.login button:hover {
   background-color: #ec8a3f;
 }
 /* Log In */
-.login button {
+.signup button {
   background-color: rgba(18, 115, 185, 0.11);
   color: black;
   text-align: right;
 }
-.login button:hover {
+.signup button:hover {
   background-color: #ec8a3f;
   color: white;
 }
@@ -498,6 +498,10 @@
 
 /* On screens ≤ 768px, hide nav-links, show hamburger */
 @media (max-width: 768px) {
+  .signup,
+  .login {
+    display: none; /* Hide these buttons on mobile */
+  }
   .nav-links {
     display: none;
   }

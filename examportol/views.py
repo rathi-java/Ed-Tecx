@@ -251,6 +251,7 @@ def instructions(request):
         return redirect('/login/')
 
     subject_id = request.session.get('registered_subject')
+    subject_id = 1
 
     # Check if the subject_id is valid before querying StudentsDB
     if subject_id is None:

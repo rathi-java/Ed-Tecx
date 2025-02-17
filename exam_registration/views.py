@@ -47,9 +47,9 @@ def exam_register(request):
             return redirect("exam_register")
 
         # Check if the phone number is already registered
-        # if StudentsDB.objects.filter(phone_number=phone_number).exists():
-        #     messages.error(request, "This phone number is already registered.")
-        #     return redirect("exam_register")
+        if StudentsDB.objects.filter(phone_number=phone_number).exists():
+            messages.error(request, "This phone number is already registered.")
+            return redirect("exam_register")
 
         # Check if user has already registered with the same username and subject
         for subject_id in subject_ids:
