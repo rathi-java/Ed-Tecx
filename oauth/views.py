@@ -26,7 +26,7 @@ def home(request):
 def logout_page(request):
     logout(request)  # This will clear the session
     messages.success(request, "You have been logged out successfully.")
-    return redirect('/login/')
+    return redirect('/')
 
 def signup(request):
     if request.method == "POST":

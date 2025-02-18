@@ -5,6 +5,16 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<style>
+  /* Hide scrollbar but keep manual scrolling */
+  .achiever-list {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  .achiever-list::-webkit-scrollbar {
+    display: none;            /* Chrome/Safari */
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -40,9 +50,18 @@
           </div>
           <hr>
           <div class="para">
-            <p>📍 Noida, UP</p>
-            <p>💼 2-3 yrs</p>
-            <p>💲5-7 LPA</p>
+            <p>
+              <img src="{% static 'images/location.png' %}" alt="Location" width="19" height="18.3">
+              Noida, UP
+            </p>
+            <p>
+              <img src="{% static 'images/time.png' %}" alt="Time" width="19" height="18.3">
+              2-3 yrs
+            </p>
+            <p>
+              <img src="{% static 'images/package.png' %}" alt="Package" width="19" height="18.3">
+              5-7 LPA
+            </p>
           </div>
           <ul class="card-skills">
             <span>Key Skills</span>
@@ -65,9 +84,18 @@
           </div>
           <hr>
           <div class="para">
-            <p>📍 Hyderabad, TG</p>
-            <p>💼 1-2 yrs</p>
-            <p>💲4-6 LPA</p>
+            <p>
+              <img src="{% static 'images/location.png' %}" alt="Location" width="19" height="18.3">
+              Hyderabad, TG
+            </p>
+            <p>
+              <img src="{% static 'images/time.png' %}" alt="Time" width="19" height="18.3">
+              1-2 yrs
+            </p>
+            <p>
+              <img src="{% static 'images/package.png' %}" alt="Package" width="19" height="18.3">
+              4-6 LPA
+            </p>
           </div>
           <ul class="card-skills">
             <span>Key Skills</span>
@@ -83,10 +111,14 @@
 
     <!-- RIGHT COLUMN (ASIDE) -->
     <aside class="hero-right">
-      <h2 class="achievers-title">Top Achievers</h2>
+      <h2 class="achievers-title">
+        <img src="{% static 'images/trophy.png' %}" alt="Trophy" width="52" height="53"
+             style="vertical-align: middle; margin-right: 8px;">
+        Top Achievers
+      </h2>
       <button class="category-btn">Software Development</button>
 
-      <!-- Auto-scroll list -->
+      <!-- Infinitely scrolling list -->
       <div class="achiever-list" id="achieverList">
         <!-- Achiever 1 -->
         <div class="achiever-card">
@@ -167,41 +199,54 @@
   </div>
 </section>
 
-<!-- Achievers auto-scroll script -->
+<!-- Achievers infinite + auto scroll script -->
 <script>
-  window.addEventListener('load', function() {
-    let achieverList = document.getElementById('achieverList');
-    let scrollSpeed = 1; 
-    let scrollInterval;
-    let direction = 1; // 1 => down, -1 => up
+  document.addEventListener('DOMContentLoaded', function() {
+    const achieverList = document.getElementById('achieverList');
+    let scrollPos = 0;
+    const autoScrollSpeed = 0.75; // Adjust as desired
 
-    function startScrolling() {
-      scrollInterval = setInterval(() => {
-        achieverList.scrollTop += scrollSpeed * direction;
-        // If reached bottom, reverse direction
-        if (achieverList.scrollTop + achieverList.clientHeight >= achieverList.scrollHeight) {
-          direction = -1;
-        }
-        // If reached top, reverse direction
-        else if (achieverList.scrollTop <= 0) {
-          direction = 1;
-        }
-      }, 20);
+    // Store the original 4 Achiever cards
+    const baseCards = Array.from(achieverList.children);
+
+    // Clones the base cards & appends to the container
+    function addMoreCards() {
+      baseCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        achieverList.appendChild(clone);
+      });
     }
 
-    function stopScrolling() {
-      clearInterval(scrollInterval);
+    // Generate a bunch of extra cards at the start
+    addMoreCards(); 
+    addMoreCards();
+
+    // If near bottom, clone more
+    function checkBottom() {
+      if (achieverList.scrollTop + achieverList.clientHeight >= achieverList.scrollHeight - 50) {
+        addMoreCards();
+      }
     }
 
-    startScrolling();
-    achieverList.addEventListener('mouseenter', stopScrolling);
-    achieverList.addEventListener('mouseleave', startScrolling);
+    // Keep generating new cards if user manually scrolls
+    achieverList.addEventListener('scroll', () => {
+      checkBottom();
+      scrollPos = achieverList.scrollTop;
+    });
+
+    // Continuous auto-scroll
+    function animate() {
+      scrollPos += autoScrollSpeed;
+      achieverList.scrollTop = scrollPos;
+      checkBottom();
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
   });
 </script>
 
-<!-- Examination & Skill Development -->
- <!--section 2 for exam and skill development-->
- <section class="examination-section">
+<!-- Examination & Skill Development Section -->
+<section class="examination-section">
   <p class="section-heading">Examination & Skill Development</p>
 
   <div class="content">
@@ -251,11 +296,9 @@
           </div>
       </div>
   </div>
-</div>
 </section>
 
-<!--section 3 for cards -->
-
+<!-- Internship Program Section -->
 <section class="internship-section">
   <h1 class="main-heading">Internship Program</h1>
   <p class="sub-heading">Kickstart Your Career with Real-World Experience!</p>
@@ -309,9 +352,7 @@
   <button class="cta-btn">Explore Internship →</button>
 </section>
 
-
-
-<!--section 3 for one card and bg image-->
+<!-- Study Material Section -->
 <section class="study_material">
   <header>
       <h1 class="header-heading">One Platform, Endless Resources!</h1>
@@ -331,11 +372,10 @@
       </div>
   </div>
 
-  <!-- Script Content -->
+  <!-- Auto Subject Switcher -->
   <script>
       const subjects = ['Science & Technology', 'Mathematics', 'History', 'Art & Design', 'Physics', 'Biology'];
       let index = 0;
-
       setInterval(() => {
           index = (index + 1) % subjects.length;
           document.getElementById('subject').innerText = subjects[index];
@@ -347,47 +387,44 @@
   </footer>
 </section>
 
-<!--section 4 for faqs-->
+<!-- FAQ Section -->
 <section class="faq-section">
-<div class="breadcrumb">You are here: Home / FAQ</div>
-<div class="faqq-container">
-<h1 class="faq-title">Do You Have Questions?</h1>
-<p class="faq-subheading">We know things (or at least we pretend really well!)</p>
-<p class="faq-description">
-  Below, you'll find answers to some of the most common questions about online advertising.
-  Be sure to check out our <a href="#">Facebook & Google Advertising Guides & Academy</a> for more information.
-  If you still need assistance, just <a href="#">contact us!</a>
-</p>
-<div class="faq-image-section">
-  <img src="{% static 'images/image.png' %}" alt="FAQ Illustration" class="faq-image">
-</div>
-<div class="faq-content">
-  <div class="faq-category">
-      <h2 class="faq-category-title">Information & Technology FAQs</h2>
-      <ul class="faq-list">
-          <li><span class="faq-number"></span> <a href="#">What is Information Technology (IT)?</a></li>
-          <li><span class="faq-number"></span> <a href="#">What are the main branches of IT?</a></li>
-          <li><span class="faq-number"></span> <a href="#">What is the difference between hardware and software?</a></li>
-          <li><span class="faq-number"></span> <a href="#">What is an operating system (OS)?</a></li>
-      </ul>
+  <div class="breadcrumb">You are here: Home / FAQ</div>
+  <div class="faqq-container">
+    <h1 class="faq-title">Do You Have Questions?</h1>
+    <p class="faq-subheading">We know things (or at least we pretend really well!)</p>
+    <p class="faq-description">
+      Below, you'll find answers to some of the most common questions about online advertising.
+      Be sure to check out our <a href="#">Facebook & Google Advertising Guides & Academy</a> for more information.
+      If you still need assistance, just <a href="#">contact us!</a>
+    </p>
+    <div class="faq-image-section">
+      <img src="{% static 'images/image.png' %}" alt="FAQ Illustration" class="faq-image">
+    </div>
+    <div class="faq-content">
+      <div class="faq-category">
+          <h2 class="faq-category-title">Information & Technology FAQs</h2>
+          <ul class="faq-list">
+              <li><span class="faq-number"></span> <a href="#">What is Information Technology (IT)?</a></li>
+              <li><span class="faq-number"></span> <a href="#">What are the main branches of IT?</a></li>
+              <li><span class="faq-number"></span> <a href="#">What is the difference between hardware and software?</a></li>
+              <li><span class="faq-number"></span> <a href="#">What is an operating system (OS)?</a></li>
+          </ul>
+      </div>
+      <div class="faq-category">
+          <h2 class="faq-category-title">Management FAQs</h2>
+          <ul class="faq-list">
+              <li><span class="faq-number"></span> <a href="#">What is management?</a></li>
+              <li><span class="faq-number"></span> <a href="#">What are the main functions of management?</a></li>
+              <li><span class="faq-number"></span> <a href="#">What are the different levels of management?</a></li>
+              <li><span class="faq-number"></span> <a href="#">What is project management?</a></li>
+          </ul>
+      </div>
+    </div>
   </div>
-  <div class="faq-category">
-      <h2 class="faq-category-title">Management FAQs</h2>
-      <ul class="faq-list">
-          <li><span class="faq-number"></span> <a href="#">What is management?</a></li>
-          <li><span class="faq-number"></span> <a href="#">What are the main functions of management?</a></li>
-          <li><span class="faq-number"></span> <a href="#">What are the different levels of management?</a></li>
-          <li><span class="faq-number"></span> <a href="#">What is project management?</a></li>
-      </ul>
-  </div>
-</div>
-</div>
 </section>
 
-
-
-<!--section 5 for download-->
-
+<!-- Download App Section -->
 <section class="app-section">
   <div class="app-container">
       <!-- Phone Mockup -->

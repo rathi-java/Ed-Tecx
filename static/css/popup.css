@@ -1,0 +1,115 @@
+/* popup.css */
+
+/* Overlay styling with fade-in animation */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* On top of everything */
+    animation: fadeInOverlay 0.2s ease-out;
+}
+
+/* Main pop-up box styling */
+.popup-box {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 500px; /* Made bigger */
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    position: relative;
+    animation: scaleIn 0.25s ease-out;
+}
+
+/* Lock image styling */
+.popup-lock {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+/* Header styling with accent color */
+.popup-box h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #1273b9;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraph styling */
+.popup-box p {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* 
+   Button container: position relative, fixed width
+   so we can position buttons absolutely inside it.
+*/
+.popup-buttons {
+    position: relative;
+    margin: 1.5rem auto 0;  /* center horizontally if you like */
+    width: 200px;           /* adjust to your liking */
+    height: 48px;           /* enough to fit both buttons stacked horizontally */
+}
+
+/* Button base styling replicated from header buttons */
+.popup-buttons button {
+    position: absolute;  /* absolute so we can overlap them */
+    top: 0;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    width: 105px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Signup button: placed at left=0, lower z-index */
+.popup-buttons button.signup-btn {
+    left: 0;          /* anchored to left edge of .popup-buttons */
+    z-index: 1;       /* behind the login button if overlapped */
+    background-color: rgba(18, 115, 185, 0.11);
+    color: black;
+    text-align: center;
+    margin-left: 50%;
+}
+.popup-buttons button.signup-btn:hover {
+    background-color: #ec8a3f;
+    color: white;
+}
+
+/* Login button: placed slightly to the right, higher z-index */
+.popup-buttons button.login-btn {
+    left: 10px;       /* shift right by 50px so it partially overlaps signup */
+    z-index: 2;       /* on top of signup button visually */
+    background-color: #1273b9;
+    color: white;
+}
+.popup-buttons button.login-btn:hover {
+    background-color: #ec8a3f;
+}
+
+/* Fade-in animation for overlay */
+@keyframes fadeInOverlay {
+    from { background-color: rgba(0,0,0,0); }
+    to   { background-color: rgba(0,0,0,0.5); }
+}
+
+/* Scale-in animation for pop-up box */
+@keyframes scaleIn {
+    0%   { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1);   opacity: 1; }
+}

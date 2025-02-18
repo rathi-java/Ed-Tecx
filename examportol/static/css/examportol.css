@@ -160,8 +160,9 @@ body {
   background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-right: 1rem;
+  margin-right: -1rem;
   overflow-y: auto;
+  margin-left:-3rem;
 }
 
 .question-header {
@@ -195,7 +196,7 @@ body {
 }
 
 .question-text {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1.6;
   color: #1f2937;
   margin-bottom: 1rem;
@@ -231,19 +232,20 @@ body {
 
 .option-text {
   font-size: 1.1rem;
-  margin-left: 1rem;
+  margin-left: 0rem;
 }
 
 /* ============================================
    Sidebar Section
    ============================================ */
-.sidebar {
-  flex: 1;
-  position: relative;
-  background-color: #ffffff;
-  padding: 1rem;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+   .sidebar {
+    flex: 1;
+    position: relative;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-left: 0rem;
 }
 
 .stats-box {
