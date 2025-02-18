@@ -1,925 +1,417 @@
-/* Set base font size to 125% so that all rem units scale up */
-
-
-/* ============================================
-   Global Reset & Box Sizing
-   ============================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* ============================================
-   Base & Typography
-   ============================================ */
-
-/* ============================================
-   Timer
-   ============================================ */
-#timerDisplay {
-  font-size: 1.125rem; /* 18px at 125% base */
-  font-weight: 600;
-  margin-top: 20px;
-  color: red;
-}
-
-/* ============================================
-   Header Section
-   ============================================ */
-   .header {
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 0rem;
-    margin: 0rem;
-    margin-right: -2rem;
-}
-
-.exam-title {
-  font-size: 1.875rem; /* Increased from 1.5rem */
-  font-weight: 600;
-  color: #1d4ed8;
-}
-.welcome-text {
-  font-size: 1.09375rem; /* Increased from 0.875rem */
-  color: #2563eb;
-  margin-top: 0.25rem;
-}
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* ============================================
-   Main Layout
-   ============================================ */
-.main-container {
-  max-width: 1200px;
-  margin: 1rem auto;
-  padding: 0 1rem;
-}
-.content-wrapper {   margin: 0;
-  padding: 0;
-  margin-top: -4%;
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  align-items: flex-start;
-
- 
-}
-
-/* ============================================
-}
-
-/* Set base font size to 125% so that all rem units scale up */
-html {
-  font-size: 125%;
-}
-
-/* ============================================
-   Global Reset & Box Sizing
-   ============================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* ============================================
-   Base & Typography
-   ============================================ */
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
-  padding:0;
-  margin:0;
-}
-
-/* ============================================
-   Timer
-   ============================================ */
-#timerDisplay {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-top: 20px;
-  color: red;
-}
-
-/* ============================================
-   Header Section
-   ============================================ */
-
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.exam-title {
-  font-size: 1.875rem;
-  font-weight: 600;
-  color: #1d4ed8;
-}
-
-.welcome-text {
-  font-size: 1.09375rem;
-  color: #2563eb;
-  margin-top: 0.25rem;
-}
-
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-/* ============================================
-   Main Layout
-   ============================================ */
-.main-container {
-  max-width: 1200px;
-  margin: 1rem auto;
-  padding: 0 1rem;
-}
-
-.content-wrapper {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  align-items: flex-start;
-}
-
-/* ============================================
-   Question Container
-   ============================================ */
-   .question-container {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-    background-color: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-right: -1rem;
-    margin-left: -3rem;
-    height: 65vh; /* or 30vh, 50vh, 300px, etc. */
-    overflow-y: auto;
-    border: 1px solid #ddd;
+/* =============================
+   1. Global Reset & Base Styles
+   ============================= */
+   html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* So flex layout can fill entire viewport */
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    overflow: hidden;
     box-sizing: border-box;
   }
-
-.question-header {
-  background-color: #dbeafe;
-  padding: 0.5rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
-
-.question-title {
-  font-size: 1.40625rem;
-  font-weight: 600;
-}
-
-.question-content {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
-  height: calc(100% - 60px);
-  overflow:auto;
-}
-
-.question-text-section {
-  flex: 1;
-  padding-right: 2rem;
-  border-right: 2px solid #e5e7eb;
-}
-
-.question-options-section {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.question-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #1f2937;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #ccc;
-}
-
-/* ============================================
-   Options Styling
-   ============================================ */
-   .options-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow-y: scroll;
-    max-height: 86%;
-}
-
-.option-item {
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: #f8fafc;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-}
-
-.option-item:hover {
-  background-color: #e2e8f0;
-}
-
-.option-item input[type="radio"] {
-  margin-right: 0.5rem;
-}
-
-.option-text {
-  font-size: 1.1rem;
-  margin-left: 0rem;
-}
-
-/* ============================================
-   Sidebar Section
-   ============================================ */
-.sidebar {
-    flex: 1;
-    position: relative;
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-right: -8%;
-}
-
-.stats-box {
-  background-color: #dbeafe;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
-
-.stats-item {
-  margin-bottom: 0.5rem;
-}
-
-.stats-value {
-  font-weight: 600;
-}
-
-
-
-.question-indicator {
-  background-color: #d1d5db;
-  border: none;
-  border-radius: 50%;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.question-indicator.answered {
-  background-color: #22c55e;
-  color: #ffffff;
-}
-
-.question-indicator.current {
-  background-color: #3b82f6;
-  color: #ffffff;
-}
-
-.question-indicator.not-answered {
-  background-color: #a0a0a0;
-  color: #ffffff;
-}
-
-.question-indicator.marked-review {
-  background-color: #f97316;
-  color: #ffffff;
-}
-
-/* Legend */
-.legend {
-  display: flex;
-  justify-content: space-around;
-  font-size: 1.09375rem;
-  margin-bottom: 1rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.legend-dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-}
-
-.legend-dot.answered {
-  background-color: #22c55e;
-}
-
-.legend-dot.not-answered {
-  background-color: #a0a0a0;
-}
-
-.legend-dot.current {
-  background-color: #3b82f6;
-}
-
-.legend-dot.marked-review {
-  background-color: #f97316;
-}
-
-/* ============================================
-   Video & Submit Section
-   ============================================ */
-.video-section {
-  margin-top: 1rem;
-}
-
-#video {
-  width: 100%;
-  height: 12rem;
-  background-color: #e5e7eb;
-  border-radius: 4px;
-}
-
-.submit-btn {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-/* ============================================
-   Navigation Buttons
-   ============================================ */
   
-
-/* ============================================
-   Responsive Adjustments
-   ============================================ */
-@media (max-width: 768px) {
-  .question-content {
-    flex-direction: column;
-    gap: 1rem;
+  *, *::before, *::after {
+    box-sizing: inherit;
   }
-
-  .question-text-section {
-    border-right: none;
-    border-bottom: 2px solid #e5e7eb;
-    padding-right: 0;
-    padding-bottom: 1rem;
-  }
-
-  .content-wrapper {
-    flex-direction: column;
-  }
-
-
-  .question-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .nav-buttons {
-    flex-direction: column;
-  }
-}
-
-/* Removed duplicate styles and fixed syntax errors */
-/* ============================================
-   Sidebar Section
-   ============================================ */
-
-.stats-box {
-  background-color: #dbeafe;
-  padding: 1rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-}
-.stats-item {
-  margin-bottom: 0.5rem;
-}
-.stats-value {
-  font-weight: 600;
-}
-.question-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  overflow-y: auto;
-}
-.question-indicator {
-  background-color: #d1d5db;
-  border: none;
-  border-radius: 50%;
-  padding: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.question-indicator.answered {
-  background-color: #22c55e;
-  color: #ffffff;
-}
-.question-indicator.current {
-  background-color: #3b82f6;
-  color: #ffffff;
-}
-.question-indicator.not-answered {
-  background-color: #a0a0a0;
-  color: #ffffff;
-}
-.question-indicator.marked-review {
-  background-color: #f97316;
-  color: #ffffff;
-}
-
-/* Legend */
-.legend {
-  display: flex;
-  justify-content: space-around;
-  font-size: 1.09375rem; /* Increased from 0.875rem */
-  margin-bottom: 1rem;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.legend-dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-}
-.legend-dot.answered {
-  background-color: #22c55e;
-}
-.legend-dot.not-answered {
-  background-color: #a0a0a0;
-}
-.legend-dot.current {
-  background-color: #3b82f6;
-}
-.legend-dot.marked-review {
-  background-color: #f97316;
-}
-
-/* ============================================
-   Video & Submit Section
-   ============================================ */
-.video-section {
-  margin-top: 1rem;
-}
-#video {
-  width: 100%;
-  height: 12rem; /* 192px */
-  background-color: #e5e7eb;
-  border-radius: 4px;
-}
-.submit-btn {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-/* ============================================
-   Navigation Buttons
-   ============================================ */
-
-/* ============================================
-   Modal Content & Calculator Layout
-   ============================================ */
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.modal-title {
-  font-size: 1.40625rem;
-  font-weight: 600;
-  margin: 0;
-}
-.close-btn {
-  color: #ef4444;
-  font-weight: 700;
-  font-size: 1.5rem;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-.modal-divider {
-  margin: 0.5rem 0;
-  border: none;
-  border-top: 1px solid #e5e7eb;
-}
-
-/* ============================================
-   Calculator Layout
-   ============================================ */
-.calculator {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-top: 0.5rem;
-  background-color: #f8fafc;
-  border-radius: 8px;
-}
-.display-container {
-  padding: 0.5rem;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-.display {
-  width: 100%;
-  height: 3rem;
-  padding: 0 1rem;
-  font-size: 1.5rem;
-  text-align: right;
-  border: none;
-  background: transparent;
-  color: #1e293b;
-  font-family: monospace;
-}
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-}
-
-/* ============================================
-   Calculator Button Styles
-   ============================================ */
-.button {
-  padding: 0.75rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #ffffff;
-  color: #1e293b;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-/* Operation Buttons */
-.button[data-value="+"],
-.button[data-value="-"],
-.button[data-value="*"],
-.button[data-value="/"] {
-  background-color: #f1f5f9;
-  font-weight: bold;
-}
-.button[data-value="sin"],
-.button[data-value="cos"],
-.button[data-value="tan"],
-.button[data-value="log"],
-.button[data-value="ln"] {
-  grid-row: 1;
-  background-color: #e2e8f0;
-  font-size: 0.875rem;
-}
-.button[data-value="exp"],
-.button[data-value="sqrt"],
-.button[data-value="^"],
-.button[data-value="1/x"],
-.button[data-value="x^2"] {
-  grid-row: 2;
-  background-color: #e2e8f0;
-  font-size: 0.875rem;
-}
-/* Parentheses and Clear Buttons */
-.button[data-value="("] { grid-row: 3; grid-column: 1; }
-.button[data-value=")"] { grid-row: 3; grid-column: 2; }
-.button[data-value="AC"] { grid-row: 3; grid-column: 3; background-color: lightcoral; }
-.button[data-value="⌫"] { grid-row: 3; grid-column: 4 / span 2; }
-/* Number Pad */
-.button[data-value="7"] { grid-row: 4; grid-column: 1; }
-.button[data-value="8"] { grid-row: 4; grid-column: 2; }
-.button[data-value="9"] { grid-row: 4; grid-column: 3; }
-.button[data-value="/"] { grid-row: 4; grid-column: 4; }
-.button[data-value="*"] { grid-row: 4; grid-column: 5; }
-.button[data-value="4"] { grid-row: 5; grid-column: 1; }
-.button[data-value="5"] { grid-row: 5; grid-column: 2; }
-.button[data-value="6"] { grid-row: 5; grid-column: 3; }
-.button[data-value="-"] { grid-row: 5 / span 2; grid-column: 4; }
-.button[data-value="+"] {
-  grid-row: 5 / span 2;
-  grid-column: 5;
-}
-.button[data-value="1"] { grid-row: 6; grid-column: 1; }
-.button[data-value="2"] { grid-row: 6; grid-column: 2; }
-.button[data-value="3"] { grid-row: 6; grid-column: 3; }
-.button[data-value="="] {
-  grid-row: 7 / 8;
-  grid-column: 4;
-  grid-row-end: span 2;
-  grid-column-end: span 2;
-  background-color: lightgreen;
-  font-size: 0.875rem;
-}
-.button[data-value="0"] { grid-row: 7; grid-column: 1 / span 2; }
-.button[data-value="."] { grid-row: 7; grid-column: 3; }
-/* Hover and Active States for Buttons */
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.button:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* ============================================
-   Custom Radio Button for Options
-   ============================================ */
-.option span {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #1F2937;
-  background-color: #F3F4F6;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  display: inline-block;
-  margin-left: 0.625rem;
-  width: 100px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-.option input {
-  display: none;
-}
-.option span:hover {
-  background-color: #DBEAFE;
-}
-.option input:checked + span {
-  background-color: #3B82F6;
-  color: #ffffff;
-  font-weight: 600;
-}
-/* For large screens: Width between 1024px and 1399px, Fixed Height */
-@media (max-width: 1399px) and (min-width: 1024px) and (min-height: 600px) and (max-height: 900px) {
-  .question-container {
-    max-height: 95px;
-    min-height: 38rem;
-  }
-}
-
-/* For medium screens: Width between 768px and 1023px, Fixed Height */
-@media (max-width: 1023px) and (min-width: 768px) and (min-height: 500px) and (max-height: 799px) {
-  .question-container {
-    max-height: 51vh;
-    min-height: 51vh;
-  }
-}
-
-/* For small screens: Width below 768px, Fixed Height */
-@media (max-width: 767px) and (min-height: 400px) and (max-height: 600px) {
-  .question-container {
-    max-height: 40vh;
-    min-height: 40vh;
-  }
-}
-
-/* ============================================
-   Responsive Adjustments
-   ============================================ */
-@media (max-width: 768px) {
-  /* Adjust font sizes for readability on smaller screens */
-  body {
-    font-size: 0.875rem;
+  
+  /* =============================
+     2. Header
+     ============================= */
+  .header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
   }
   .header-container {
-    flex-direction: column;
-    gap: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
   }
   .exam-title {
-    font-size: 1.5rem;
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #1d4ed8;
   }
   .welcome-text {
-    font-size: 0.875rem;
+    font-size: 1.09375rem;
+    color: #2563eb;
   }
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  #timerDisplay {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: red;
+  }
+  
+  /* =============================
+     3. Main Container
+     ============================= */
+  /* Takes full remaining height after header */
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 80px); /* Approx header height (1rem top/bottom + your .header style) */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* =============================
+     4. Content Wrapper
+     ============================= */
   .content-wrapper {
-    flex-direction: column;
-  }
-  .sidebar,
-  .question-section,
-  .options-section {
-    width: 100%;
-  }
-  .question-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .nav-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .calculator {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-/* ============================================
-   Global Button Styles
-   ============================================ */
-.btn {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  background-color: #3b82f6; /* Default blue */
-  color: #ffffff;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-.btn:hover {
-  background-color: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-.btn:active {
-  transform: translateY(1px);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-.btn:focus {
-  outline: 2px solid #93c5fd;
-  outline-offset: 2px;
-}
-/* Button Variants */
-.btn-orange {
-  background-color: #f97316;
-}
-.btn-orange:hover {
-  background-color: #ea580c;
-}
-.submit-btn {
-  background-color: #10b981; /* Green */
-  font-weight: 600;
-  padding: 0.6rem 1.2rem;
-}
-.submit-btn:hover {
-  background-color: #059669;
-}
-/* Navigation Buttons Container */
-.nav-buttons {
+    flex: 1;             /* fill remaining vertical space */
     display: flex;
     gap: 1rem;
-    padding: 0.5rem 1rem;
-    margin-top: 29rem;
-    position: fixed;
-}
-/* Special button for calculator toggle */
-.btn.calculator-toggle {
-  background-color: #6366f1; /* Indigo */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.btn.calculator-toggle:hover {
-  background-color: #4f46e5;
-}
-/* Make sure buttons are consistent in the header controls */
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.header-controls .btn {
-  white-space: nowrap;
-}
-/* Question indicator buttons in grid */
-.question-indicator {
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: #d1d5db;
-  border: none;
-  border-radius: 50%;
-  padding: 0.5rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.question-indicator:hover {
-  transform: scale(1.1);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .nav-buttons {
-    flex-direction: column;
-  }
-  .btn {
-    width: 100%;
-    padding: 0.75rem;
-  }
-  .question-indicator {
-    width: 2rem;
-    height: 2rem;
-    font-size: 0.875rem;
-  }
-}
-/* ============================================
-   Calculator Overlay (Sidebar)
-   ============================================ */
-.sidebar-overlay {
-  position: absolute;
-  top: 14%;
-  left: 56%;
-  width: 25%;
-  max-width: 90vw;
-  background-color: #ffffff;
-  display: none;
-  z-index: 1006;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  padding: 1rem;
-  animation: fadeIn 0.3sease;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@media (min-width:1400px){
-  .sidebar-overlay {
-    position: absolute;
-    top: 15%;
-    left: 63%;
-    width: 22%;
-    max-width: 90vw;
-    background-color: #ffffff;
-    display: none;
-    z-index: 1006;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
+    align-items: stretch; /* both columns stretch to equal height */
     padding: 1rem;
-    animation: fadeIn 0.3sease;
-    
-}
-}
-/* ============================================
-   Modal Content & Calculator Layout
-   ============================================ */
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-.modal-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
-}
-.close-btn {
-  color: #64748b;
-  font-weight: 700;
-  font-size: 1.5rem;
-  border: none;
-  background: none;
-  cursor: pointer;
-  transition: color 0.2s ease;
-  padding: 0.25rem;
-  line-height: 1;
-}
-.close-btn:hover {
-  color: #ef4444;
-}
-.modal-divider {
-  margin: 0.5rem 0 1rem;
-  border: none;
-  border-top: 1px solid #e2e8f0;
-}
-.outer-contentwrapper{
-  margin:0px;
-  display:flex;
-  width:100%;
-}
-.main-heading{
+    overflow: hidden;     /* avoid unwanted scroll at the wrapper level */
+  }
+  
+  /* =============================
+     5. Question Section
+     ============================= */
+  .question-section {
+    flex: 2;             /* Larger portion for questions */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .question-container {
+    flex: 1;             /* Fill available space in question section */
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    max-height: 92%;
+    height:692px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow-y: auto;
+  }
+  
+  .main-heading {
     display: flex;
     justify-content: space-around;
     width: 100%;
+  }
+  .question-header {
+    background-color: #dbeafe;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  .question-title {
+    font-size: 1.40625rem;
+    font-weight: 600;
+  }
+  
+  /* Question Content */
+  .question-content {
+    display: flex;
+    gap: 2rem;
+    flex: 1;
+    overflow: auto;
+  }
+  .question-text-section {
+    flex: 1;
+    padding-right: 2rem;
+    border-right: 2px solid #e5e7eb;
+  }
+  .question-options-section {
+    flex: 1;
+    overflow-y: auto;
+  }
+  .question-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  /* Options */
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+  }
+  .option-item {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+  }
+  .option-item:hover {
+    background-color: #e2e8f0;
+  }
+  .option-item input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+  .option-text {
+    font-size: 1.1rem;
+  }
+  
+  /* Question Navigation Buttons */
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+  .nav-buttons button {
+    flex: 1;
+  }
+  
+  /* =============================
+     6. Sidebar
+     ============================= */
+  .sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #fff;
+    padding: 1rem;
+    max-height:92%;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: auto;
+  }
+  
+  /* Stats Box */
+  .stats-box {
+    background-color: #dbeafe;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+  .stats-item {
+    margin-bottom: 0.5rem;
+  }
+  .stats-value {
+    font-weight: 600;
+  }
+  
+  /* Question Grid */
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    min-height: 17%;
+    max-height: 17%;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
 }
+  .question-indicator {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #d1d5db;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .question-indicator:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .question-indicator.answered {
+    background-color: #22c55e;
+    color: #fff;
+  }
+  .question-indicator.current {
+    background-color: #3b82f6;
+    color: #fff;
+  }
+  .question-indicator.not-answered {
+    background-color: #a0a0a0;
+    color: #fff;
+  }
+  .question-indicator.marked-review {
+    background-color: #f97316;
+    color: #fff;
+  }
+  
+  /* Legend */
+  .legend {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.09375rem;
+    margin-bottom: 1rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .legend-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+  }
+  .legend-dot.answered {
+    background-color: #22c55e;
+  }
+  .legend-dot.not-answered {
+    background-color: #a0a0a0;
+  }
+  .legend-dot.current {
+    background-color: #3b82f6;
+  }
+  .legend-dot.marked-review {
+    background-color: #f97316;
+  }
+  
+  /* =============================
+     7. Video & Submit Section
+     ============================= */
+  /* Display video and submit button in the same row */
+.video-section {
+  display: flex;
+  flex-direction: column; /* Stack video and button */
+  align-items: center; /* Center the content */
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+#video {
+  width: 80%; /* Adjust width to keep it centered */
+  max-width: 600px;
+  height: auto;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  width: auto; /* Keep it same as other buttons */
+  padding: 0.75rem 1.5rem;
+  background-color: #10b981;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #059669;
+}
+
+  
+  /* =============================
+     8. Calculator Modal
+     ============================= */
+  .sidebar-overlay {
+    position: absolute;
+    top: 14%;
+    left: 56%;
+    width: 25%;
+    max-width: 90vw;
+    background-color: #fff;
+    display: none;
+    z-index: 1006;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* =============================
+     9. Global Button Styles
+     ============================= */
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #3b82f6;
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  .btn:focus {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+  }
+  .btn-orange {
+    background-color: #f97316;
+  }
+  .btn-orange:hover {
+    background-color: #ea580c;
+  }
+  
+  /* =============================
+     10. Responsive Adjustments
+     ============================= */
+  @media (max-width: 768px) {
+    .main-container {
+      height: auto; /* Let it grow naturally on smaller screens */
+    }
+    .content-wrapper {
+      flex-direction: column;
+      height: auto;
+      overflow: visible;
+    }
+    .question-section,
+    .sidebar {
+      flex: none;
+      width: 100%;
+      height: auto;
+    }
+    .question-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .video-section {
+      flex-direction: column;
+      align-items: center;
+    }
+    #video, .submit-btn {
+      max-width: 100%;
+      flex: none;
+      width: 100%;
+    }
+    .nav-buttons {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
