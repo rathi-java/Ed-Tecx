@@ -1,7 +1,5 @@
 /* Set base font size to 125% so that all rem units scale up */
-html {
-  font-size: 125%;
-}
+
 
 /* ============================================
    Global Reset & Box Sizing
@@ -15,13 +13,6 @@ html {
 /* ============================================
    Base & Typography
    ============================================ */
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
-}
 
 /* ============================================
    Timer
@@ -41,14 +32,7 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 1rem;
 }
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap; /* Wrap on smaller screens */
-}
+
 .exam-title {
   font-size: 1.875rem; /* Increased from 1.5rem */
   font-weight: 600;
@@ -79,64 +63,344 @@ body {
   padding: 1rem;
   align-items: flex-start;
 }
+/* ============================================
+}
+
+/* Set base font size to 125% so that all rem units scale up */
+html {
+  font-size: 125%;
+}
 
 /* ============================================
-   Question & Options Sections
+   Global Reset & Box Sizing
    ============================================ */
-.question-section,
-.options-section {
-  flex: 2; /* Approximately 66.66% width */
-  background-color: #ffffff;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================
+   Base & Typography
+   ============================================ */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ============================================
+   Timer
+   ============================================ */
+#timerDisplay {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 20px;
+  color: red;
+}
+
+/* ============================================
+   Header Section
+   ============================================ */
+
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.exam-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #1d4ed8;
+}
+
+.welcome-text {
+  font-size: 1.09375rem;
+  color: #2563eb;
+  margin-top: 0.25rem;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ============================================
+   Main Layout
+   ============================================ */
+.main-container {
+  max-width: 1200px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 1rem;
   padding: 1rem;
+  align-items: flex-start;
+}
+
+/* ============================================
+   Question Container
+   ============================================ */
+.question-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  background-color: #ffffff;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-.question-container  {
-  display: block;
-  height: 650px;
+  margin-right: 1rem;
+  overflow-y: auto;
 }
 
-/* ============================================
-   Question Section Details
-   ============================================ */
 .question-header {
   background-color: #dbeafe;
   padding: 0.5rem;
   border-radius: 4px;
   margin-bottom: 1rem;
 }
+
 .question-title {
-  font-size: 1.40625rem; /* Increased from 1.125rem */
+  font-size: 1.40625rem;
   font-weight: 600;
 }
+
 .question-content {
-  font-size: 1.40625rem;
-  margin-bottom: 1rem;
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  height: calc(100% - 60px);
 }
+
+.question-text-section {
+  flex: 1;
+  padding-right: 2rem;
+  border-right: 2px solid #e5e7eb;
+}
+
+.question-options-section {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.question-text {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ccc;
+}
+
+/* ============================================
+   Options Styling
+   ============================================ */
 .options-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
+
 .option-item {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  transition: background-color 0.3s ease;
   display: flex;
   align-items: center;
 }
+
+.option-item:hover {
+  background-color: #e2e8f0;
+}
+
 .option-item input[type="radio"] {
   margin-right: 0.5rem;
+}
+
+.option-text {
+  font-size: 1.1rem;
+  margin-left: 1rem;
 }
 
 /* ============================================
    Sidebar Section
    ============================================ */
 .sidebar {
-  flex: 1; /* Approximately 33.33% width */
-  position: relative; /* Positioning context for overlay */
+  flex: 1;
+  position: relative;
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
+.stats-box {
+  background-color: #dbeafe;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.stats-item {
+  margin-bottom: 0.5rem;
+}
+
+.stats-value {
+  font-weight: 600;
+}
+
+
+
+.question-indicator {
+  background-color: #d1d5db;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.question-indicator.answered {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+
+.question-indicator.current {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.question-indicator.not-answered {
+  background-color: #a0a0a0;
+  color: #ffffff;
+}
+
+.question-indicator.marked-review {
+  background-color: #f97316;
+  color: #ffffff;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.09375rem;
+  margin-bottom: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+}
+
+.legend-dot.answered {
+  background-color: #22c55e;
+}
+
+.legend-dot.not-answered {
+  background-color: #a0a0a0;
+}
+
+.legend-dot.current {
+  background-color: #3b82f6;
+}
+
+.legend-dot.marked-review {
+  background-color: #f97316;
+}
+
+/* ============================================
+   Video & Submit Section
+   ============================================ */
+.video-section {
+  margin-top: 1rem;
+}
+
+#video {
+  width: 100%;
+  height: 12rem;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   Navigation Buttons
+   ============================================ */
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+@media (max-width: 768px) {
+  .question-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .question-text-section {
+    border-right: none;
+    border-bottom: 2px solid #e5e7eb;
+    padding-right: 0;
+    padding-bottom: 1rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .question-container {
+    display: none; /* Initially hidden */
+    flex-direction: column;
+    max-height: 80vh; /* Limit height dynamically */
+    overflow-y: scroll; /* Enable scrolling */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+  .question-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .nav-buttons {
+    flex-direction: column;
+  }
+}
+
+/* Removed duplicate styles and fixed syntax errors */
+/* ============================================
+   Sidebar Section
+   ============================================ */
+
 .stats-box {
   background-color: #dbeafe;
   padding: 1rem;
@@ -154,6 +418,7 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: 0.5rem;
   margin-bottom: 1rem;
+  overflow-y: auto;
 }
 .question-indicator {
   background-color: #d1d5db;
@@ -236,7 +501,6 @@ body {
   padding: 0.5rem 1rem;
 }
 
-
 /* ============================================
    Modal Content & Calculator Layout
    ============================================ */
@@ -315,7 +579,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 /* Operation Buttons */
 .button[data-value="+"],
 .button[data-value="-"],
@@ -342,13 +605,11 @@ body {
   background-color: #e2e8f0;
   font-size: 0.875rem;
 }
-
 /* Parentheses and Clear Buttons */
 .button[data-value="("] { grid-row: 3; grid-column: 1; }
 .button[data-value=")"] { grid-row: 3; grid-column: 2; }
 .button[data-value="AC"] { grid-row: 3; grid-column: 3; background-color: lightcoral; }
 .button[data-value="⌫"] { grid-row: 3; grid-column: 4 / span 2; }
-
 /* Number Pad */
 .button[data-value="7"] { grid-row: 4; grid-column: 1; }
 .button[data-value="8"] { grid-row: 4; grid-column: 2; }
@@ -376,7 +637,6 @@ body {
 }
 .button[data-value="0"] { grid-row: 7; grid-column: 1 / span 2; }
 .button[data-value="."] { grid-row: 7; grid-column: 3; }
-
 /* Hover and Active States for Buttons */
 .button:hover {
   transform: translateY(-2px);
@@ -456,149 +716,130 @@ body {
 /* ============================================
    Global Button Styles
    ============================================ */
-   .btn {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: #3b82f6; /* Default blue */
-    color: #ffffff;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  .btn:hover {
-    background-color: #2563eb;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  
-  .btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-  }
-  
-  .btn:focus {
-    outline: 2px solid #93c5fd;
-    outline-offset: 2px;
-  }
-  
-  /* Button Variants */
-  .btn-orange {
-    background-color: #f97316;
-  }
-  
-  .btn-orange:hover {
-    background-color: #ea580c;
-  }
-  
-  .submit-btn {
-    background-color: #10b981; /* Green */
-    font-weight: 600;
-    padding: 0.6rem 1.2rem;
-  }
-  
-  .submit-btn:hover {
-    background-color: #059669;
-  }
-  
-  /* Navigation Buttons Container */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #3b82f6; /* Default blue */
+  color: #ffffff;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.btn:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+/* Button Variants */
+.btn-orange {
+  background-color: #f97316;
+}
+.btn-orange:hover {
+  background-color: #ea580c;
+}
+.submit-btn {
+  background-color: #10b981; /* Green */
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+}
+.submit-btn:hover {
+  background-color: #059669;
+}
+/* Navigation Buttons Container */
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+/* Special button for calculator toggle */
+.btn.calculator-toggle {
+  background-color: #6366f1; /* Indigo */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn.calculator-toggle:hover {
+  background-color: #4f46e5;
+}
+/* Make sure buttons are consistent in the header controls */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header-controls .btn {
+  white-space: nowrap;
+}
+/* Question indicator buttons in grid */
+.question-indicator {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #d1d5db;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.question-indicator:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .nav-buttons {
-    display: flex;
-   
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
+    flex-direction: column;
   }
-  
-  /* Special button for calculator toggle */
-  .btn.calculator-toggle {
-    background-color: #6366f1; /* Indigo */
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
   }
-  
-  .btn.calculator-toggle:hover {
-    background-color: #4f46e5;
-  }
-  
-  /* Make sure buttons are consistent in the header controls */
-  .header-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .header-controls .btn {
-    white-space: nowrap;
-  }
-  
-  /* Question indicator buttons in grid */
   .question-indicator {
-    width: 2.5rem;
-    height: 2.5rem;
-    background-color: #d1d5db;
-    border: none;
-    border-radius: 50%;
-    padding: 0.5rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
   }
-  
-  .question-indicator:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .nav-buttons {
-      flex-direction: column;
-    }
-    
-    .btn {
-      width: 100%;
-      padding: 0.75rem;
-    }
-    
-    .question-indicator {
-      width: 2rem;
-      height: 2rem;
-      font-size: 0.875rem;
-    }
-  }
-  /* ============================================
+}
+/* ============================================
    Calculator Overlay (Sidebar)
    ============================================ */
-   .sidebar-overlay {
-    position: absolute;
-    top: 14%;
-    left: 56%;
-    width: 40%;
-    max-width: 90vw;
-    background-color: #ffffff;
-    display: none;
-    z-index: 1006;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 1rem;
-    animation: fadeIn 0.3sease;
+.sidebar-overlay {
+  position: absolute;
+  top: 14%;
+  left: 56%;
+  width: 40%;
+  max-width: 90vw;
+  background-color: #ffffff;
+  display: none;
+  z-index: 1006;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  animation: fadeIn 0.3sease;
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 /* ============================================
    Modal Content & Calculator Layout
    ============================================ */
@@ -608,14 +849,12 @@ body {
   align-items: center;
   margin-bottom: 0.75rem;
 }
-
 .modal-title {
   font-size: 1.25rem;
   font-weight: 600;
   color: #1e293b;
   margin: 0;
 }
-
 .close-btn {
   color: #64748b;
   font-weight: 700;
@@ -627,96 +866,16 @@ body {
   padding: 0.25rem;
   line-height: 1;
 }
-
 .close-btn:hover {
   color: #ef4444;
 }
-
 .modal-divider {
   margin: 0.5rem 0 1rem;
   border: none;
   border-top: 1px solid #e2e8f0;
 }
-
-/* ============================================
-   Calculator Layout
-   ============================================ */
-.calculator {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  background-color: #f8fafc;
-  border-radius: 8px;
-  padding: 1rem;
-  border: 1px solid #e2e8f0;
-}
-
-.display-container {
-  background-color: #ffffff;
-  border-radius: 6px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.display {
-  width: 100%;
-  height: 3rem;
-  padding: 0.5rem 1rem;
-  font-size: 1.5rem;
-  text-align: right;
-  border: none;
-  background: transparent;
-  color: #1e293b;
-  font-family: monospace;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.5rem;
-}
-
-/* ============================================
-   Calculator Button Styles
-   ============================================ */
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .sidebar-overlay {
-    width: 90%;
-    max-width: 280px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .button {
-    font-size: 0.875rem;
-    min-height: 2.5rem;
-  }
-  
-  .buttons {
-    gap: 0.3rem;
-  }
-}
-
-
-/* Responsive adjustments */
-@media (min-width: 1440px) {
-  .sidebar-overlay {
-      position: absolute;
-      top: 18%;
-      left: 56%;
-      width: 20%;
-      max-width: 90vw;
-      background-color: #ffffff;
-      display: none;
-      z-index: 1006;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-      border-radius: 8px;
-      padding: 1rem;
-      animation: fadeIn 0.3sease;
-  }
+.outer-contentwrapper{
+  margin:0px;
+  display:flex;
+  width:100%;
 }

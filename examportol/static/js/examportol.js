@@ -13,12 +13,17 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(`Invalid index: ${index}`);
             return;
         }
+        
         document.querySelectorAll('.question-container').forEach((q, i) => {
-            q.style.display = (i === index) ? 'block' : 'none';
+            q.style.display = (i === index) ? 'flex' : 'none';
+            q.style.overflowY = "auto"; // Ensure scrolling is applied dynamically
+            q.style.maxHeight = "80vh"; // Maintain max height dynamically
         });
+    
         currentQuestionIndex = index;
         updateQuestionIndicators();
     }
+    
     window.showQuestion = showQuestion;
 
     function navigateQuestion(direction) {
