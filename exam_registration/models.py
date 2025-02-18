@@ -1,33 +1,37 @@
 from django.db import models
 from examportol.models import Category, Subject
-from oauth.models import UsersDB  # Import your custom user model
+from oauth.models import UsersDB
 import uuid
 
 class StudentsDB(models.Model):
-    # Link each exam registration to a user account
-    user = models.ForeignKey(UsersDB, on_delete=models.CASCADE, related_name="exam_registrations")
-    
-    # These fields can be a snapshot at registration time. 
-    # (Alternatively, you can remove them and always reference the user.)
+    user = models.ForeignKey(UsersDB, on_delete=models.CASCADE, related_name="students", null=True, blank=True)  # Allow null values temporarily
+    username = models.CharField(max_length=100)
+    studentId = models.CharField(max_length=50, unique=True, blank=True)  # Remove default
     full_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
-    
+    email = models.CharField(max_length=255, default="default@example.com")
+    phone_number = models.CharField(max_length=15)
     domain = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="students")
     subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True, blank=True, related_name="students")
-    
-    # If you want to store the registration date as provided (remove auto_now_add if needed)
-    date = models.DateField()  
     payment = models.CharField(max_length=20, default="INR 999")
-    
-    # Use a registration code (or similar) as a unique identifier for each exam registration.
-    registration_code = models.CharField(max_length=50, unique=True, editable=False)
-
-    def __str__(self):
-        return f"{self.registration_code} - {self.full_name}"
+    registration_code = models.CharField(max_length=50, unique=True, editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.registration_code:
-            self.registration_code = uuid.uuid4().hex
+        # Generate Student ID if not already assigned
+        if not self.studentId or self.studentId == "TEMP_STUDENT_ID":
+            last_student = StudentsDB.objects.order_by('-id').first()
+            if last_student and last_student.studentId.startswith("STD"):
+                last_number = int(last_student.studentId[3:])
+                new_id = f"STD{last_number + 1:05d}"
+            else:
+                new_id = "STD00001"
+            
+            self.studentId = new_id
+        
+        # Generate a unique registration code if not already assigned
+        if not self.registration_code or self.registration_code == "DEFAULT_REG_CODE":
+            self.registration_code = str(uuid.uuid4())[:12]
+
         super().save(*args, **kwargs)
 
+    def __str__(self):
+        return f"{self.studentId} - {self.full_name}"

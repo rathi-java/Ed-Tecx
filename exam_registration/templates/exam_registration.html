@@ -12,7 +12,7 @@
     }
     .alert-success { background-color: #4CAF50; }
     .alert-warning { background-color: #FFC107; }
-    .alert-error { background-color: #F44336; }
+    .alert-error { background-color:rgb(241, 83, 72); }
 </style>
 {% endblock %}
 
@@ -22,6 +22,15 @@
         {% if user %}
         <form method="POST">
             {% csrf_token %}
+            <div class="message-container">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
             <div>
                 <label for="username" class="form-label">Username</label>
                 <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
@@ -40,25 +49,19 @@
             </div>
             <div>
                 <label class="form-label">Select Domain</label>
-                <select name="domain" id="domain" onchange="updateTopicOptions()">
+                <select name="domain" id="domain" required>
                     <option value="">Select</option>
                     {% for category in categories %}
                     <option value="{{ category.id }}">{{ category.category_name }}</option>
                     {% endfor %}
                 </select>
                 <label class="form-label">Select Subject</label>
-                <select name="subject" id="subject">
+                <select name="subject" id="subject" required>
                     <option value="">Select</option>
                     {% for subject in subjects %}
-                    <option value="{{ subject.id }}" data-category="{{ subject.subject_category.id }}">
-                        {{ subject.subject_name }}
-                    </option>
+                    <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
                     {% endfor %}
                 </select>
-            </div>
-            <div>
-                <label for="date" class="form-label">Select Date</label>
-                <input type="date" id="date" name="date">
             </div>
             <div>
                 <label class="form-label">Payment</label>
@@ -71,16 +74,6 @@
         {% endif %}
     </div>
 </div>
-
-{% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-error{% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    </div>
-{% endif %}
 
 <script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

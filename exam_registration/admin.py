@@ -1,6 +1,10 @@
 from django.contrib import admin
 from .models import StudentsDB
 
-@admin.register(StudentsDB)
-class StudentAdmin(admin.ModelAdmin):
-    list_display = ('registration_code', 'full_name', 'email', 'phone_number', 'domain', 'subject', 'date', 'payment')
+class StudentsDBAdmin(admin.ModelAdmin):
+    list_display = ('studentId', 'full_name', 'email', 'phone_number', 'domain', 'subject', 'payment', 'registration_code')
+    search_fields = ('studentId', 'full_name', 'email', 'phone_number')
+    list_filter = ('domain', 'subject', 'payment')
+    readonly_fields = ('studentId', 'registration_code')
+
+admin.site.register(StudentsDB, StudentsDBAdmin)

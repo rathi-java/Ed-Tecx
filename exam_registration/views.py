@@ -25,59 +25,51 @@ def exam_register(request):
     subjects = Subject.objects.all()
 
     if request.method == "POST":
-        # Although the form shows username, full_name, email, and phone_number as read-only,
-        # we still retrieve them to use as a snapshot.
-        full_name = request.POST.get("full_name").strip()
-        email = request.POST.get("email").strip()
-        phone_number = request.POST.get("phone_number").strip()
+        full_name = request.POST.get("full_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        phone_number = request.POST.get("phone_number", "").strip()
         domain_id = request.POST.get("domain")
-        subject_ids = request.POST.getlist("subject")  # Allow multiple subjects
-        date_str = request.POST.get("date")
+        subject_id = request.POST.get("subject")
         payment = "INR 999.00"
 
-        # Check if all required fields are provided.
-        if not all([full_name, email, phone_number, domain_id, subject_ids, date_str]):
+        # Validate required fields
+        if not all([full_name, email, phone_number, domain_id, subject_id]):
             messages.error(request, "All fields are required.")
             return redirect("exam_register")
 
-        if domain_id == "Select" or not subject_ids:
-            messages.error(request, "Please select a valid domain and at least one subject.")
+        if domain_id == "" or subject_id == "":
+            messages.error(request, "Please select a valid domain and subject.")
             return redirect("exam_register")
 
-        # Check for phone number registration per subject for this user.
-        for subject_id in subject_ids:
-            if StudentsDB.objects.filter(phone_number=phone_number, subject_id=subject_id, user=user).exists():
-                messages.error(request, "This phone number is already registered for one of the selected subjects.")
-                return redirect("exam_register")
+        # Check if the user has already registered for the same domain-subject combination
+        if StudentsDB.objects.filter(user=user, domain_id=domain_id, subject_id=subject_id).exists():
+            messages.error(request, "Already registered for this domain and subject combination.")
+            return redirect("exam_register")
 
         try:
             domain = Category.objects.get(id=domain_id)
-            selected_subjects = Subject.objects.filter(id__in=subject_ids)
+            subject = Subject.objects.get(id=subject_id)
         except ObjectDoesNotExist:
             messages.error(request, "Invalid domain or subject selected.")
             return redirect("exam_register")
 
-        # Create an exam registration entry for each selected subject.
-        for subject in selected_subjects:
-            try:
-                StudentsDB.objects.create(
-                    user=user,
-                    full_name=full_name,
-                    email=email,
-                    phone_number=phone_number,
-                    domain=domain,
-                    subject=subject,
-                    date=date_str,  # Storing the provided date
-                    payment=payment
-                )
-            except Exception as e:
-                messages.error(request, f"An error occurred while registering: {str(e)}")
-                return redirect("exam_register")
+        try:
+            student = StudentsDB.objects.create(
+                user=user,
+                username=user.username,
+                full_name=full_name,
+                email=email,
+                phone_number=phone_number,
+                domain=domain,
+                subject=subject,
+                payment=payment
+            )
+            messages.success(request, f"Registration successful! Your Student ID is {student.studentId}.")
+            return redirect("exam_home")
+        except Exception as e:
+            messages.error(request, f"An error occurred while registering: {str(e)}")
+            return redirect("exam_register")
 
-        messages.success(request, "Registration successful!")
-        return redirect("exam_home")
-
-    # Render the form with the user's details and available categories/subjects.
     return render(request, "exam_registration.html", {"categories": categories, "subjects": subjects, "user": user})
 
 def exam_resisteration_success(request):
