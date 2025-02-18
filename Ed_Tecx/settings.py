@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     # 'demo_exam',
     'practice_question',
     'oauth',
+    'admin_portal',
+    'certificate_management',
+    'price',
+    
 ]
 
 MIDDLEWARE = [
@@ -68,6 +72,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'oauth.context_processors.college_list',
+                'oauth.context_processors.college_list',
+                'oauth.context_processors.current_user'
+
             ],
         },
     },

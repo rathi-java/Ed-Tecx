@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .certificate-status {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .pending { color: orange; }
+        .approved { color: green; }
+        .rejected { color: red; }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Profile Page</h1>
+
+    <div class="certificate-status">
+        <h2>Certificate Status</h2>
+        {% if certificates %}
+            {% for certificate in certificates %}
+                <p>Status: <span class="{{ certificate.status|lower }}">{{ certificate.status }}</span></p>
+                <p>Certificate: {{ certificate.certified_for }}</p>
+                <p>Unique ID: {{ certificate.unique_id }}</p>
+                <p>Created At: {{ certificate.created_at|date:"F d, Y" }}</p>
+
+                {% if certificate.status == 'Approved' or certificate.status == 'Ready to download' %}
+                    <a href="{% url 'view_certificate' certificate.id %}" class="btn">Download Certificate</a>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No certificate available.</p>
+        {% endif %}
+    </div>
+
+    <div class="exam-results">
+        <h2>Exam Results</h2>
+        {% if exam_result %}
+            <p>Score: {{ exam_result.score }}%</p>
+            <p>Total Questions: {{ exam_result.total_questions }}</p>
+            <p>Correct Answers: {{ exam_result.correct_answers }}</p>
+        {% else %}
+            <p>No exam results available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -27,10 +27,12 @@
 /* ============================================
    Header Section
    ============================================ */
-.header {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  padding: 1rem;
+   .header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0rem;
+    margin: 0rem;
+    margin-right: -2rem;
 }
 
 .exam-title {
@@ -57,12 +59,17 @@
   margin: 1rem auto;
   padding: 0 1rem;
 }
-.content-wrapper {
+.content-wrapper {   margin: 0;
+  padding: 0;
+  margin-top: -4%;
   display: flex;
   gap: 1rem;
   padding: 1rem;
   align-items: flex-start;
+
+ 
 }
+
 /* ============================================
 }
 
@@ -89,6 +96,8 @@ body {
   background-color: #f5f5f5;
   color: #333;
   line-height: 1.6;
+  padding:0;
+  margin:0;
 }
 
 /* ============================================
@@ -152,18 +161,21 @@ body {
 /* ============================================
    Question Container
    ============================================ */
-.question-container {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 1rem;
-  background-color: #ffffff;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-right: -1rem;
-  overflow-y: auto;
-  margin-left:-3rem;
-}
+   .question-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-right: -1rem;
+    margin-left: -3rem;
+    height: 65vh; /* or 30vh, 50vh, 300px, etc. */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
 
 .question-header {
   background-color: #dbeafe;
@@ -182,6 +194,7 @@ body {
   gap: 2rem;
   margin-top: 1rem;
   height: calc(100% - 60px);
+  overflow:auto;
 }
 
 .question-text-section {
@@ -207,10 +220,12 @@ body {
 /* ============================================
    Options Styling
    ============================================ */
-.options-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+   .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: scroll;
+    max-height: 86%;
 }
 
 .option-item {
@@ -238,14 +253,14 @@ body {
 /* ============================================
    Sidebar Section
    ============================================ */
-   .sidebar {
+.sidebar {
     flex: 1;
     position: relative;
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-left: 0rem;
+    margin-right: -8%;
 }
 
 .stats-box {
@@ -352,12 +367,7 @@ body {
 /* ============================================
    Navigation Buttons
    ============================================ */
-.nav-buttons {
-  display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
-}
+  
 
 /* ============================================
    Responsive Adjustments
@@ -379,15 +389,6 @@ body {
     flex-direction: column;
   }
 
-  .question-container {
-    display: none; /* Initially hidden */
-    flex-direction: column;
-    max-height: 80vh; /* Limit height dynamically */
-    overflow-y: scroll; /* Enable scrolling */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
   .question-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -497,11 +498,6 @@ body {
 /* ============================================
    Navigation Buttons
    ============================================ */
-.nav-buttons {
-  display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-}
 
 /* ============================================
    Modal Content & Calculator Layout
@@ -677,6 +673,29 @@ body {
   color: #ffffff;
   font-weight: 600;
 }
+/* For large screens: Width between 1024px and 1399px, Fixed Height */
+@media (max-width: 1399px) and (min-width: 1024px) and (min-height: 600px) and (max-height: 900px) {
+  .question-container {
+    max-height: 95px;
+    min-height: 38rem;
+  }
+}
+
+/* For medium screens: Width between 768px and 1023px, Fixed Height */
+@media (max-width: 1023px) and (min-width: 768px) and (min-height: 500px) and (max-height: 799px) {
+  .question-container {
+    max-height: 51vh;
+    min-height: 51vh;
+  }
+}
+
+/* For small screens: Width below 768px, Fixed Height */
+@media (max-width: 767px) and (min-height: 400px) and (max-height: 600px) {
+  .question-container {
+    max-height: 40vh;
+    min-height: 40vh;
+  }
+}
 
 /* ============================================
    Responsive Adjustments
@@ -763,10 +782,11 @@ body {
 }
 /* Navigation Buttons Container */
 .nav-buttons {
-  display: flex;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    margin-top: 29rem;
+    position: fixed;
 }
 /* Special button for calculator toggle */
 .btn.calculator-toggle {
@@ -828,7 +848,7 @@ body {
   position: absolute;
   top: 14%;
   left: 56%;
-  width: 40%;
+  width: 25%;
   max-width: 90vw;
   background-color: #ffffff;
   display: none;
@@ -841,6 +861,23 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@media (min-width:1400px){
+  .sidebar-overlay {
+    position: absolute;
+    top: 15%;
+    left: 63%;
+    width: 22%;
+    max-width: 90vw;
+    background-color: #ffffff;
+    display: none;
+    z-index: 1006;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    animation: fadeIn 0.3sease;
+    
+}
 }
 /* ============================================
    Modal Content & Calculator Layout
@@ -880,4 +917,9 @@ body {
   margin:0px;
   display:flex;
   width:100%;
+}
+.main-heading{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }

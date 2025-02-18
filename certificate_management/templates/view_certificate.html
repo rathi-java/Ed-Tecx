@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Certificate</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .certificate-container {
+    width: 900px;
+    height: 600px;
+    background: white !important; /* Force white background */
+    margin: 30px auto;
+    padding: 50px;
+    border: 20px solid rgb(85, 112, 165);
+    box-shadow: none !important; /* Remove unwanted shadows */
+    position: relative;
+}
+
+        .certificate-header {
+            font-size: 40px;
+            font-weight: bold;
+            color: #4a3828;
+            margin-bottom: 20px;
+        }
+
+        .certificate-content {
+            font-size: 22px;
+            color: #444;
+            margin: 10px 0;
+        }
+
+        .recipient-name {
+            font-size: 30px;
+            font-weight: bold;
+            color: #4a3828;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .certificate-footer {
+            font-size: 16px;
+            color: #555;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            text-align: center;
+        }
+
+        .signature img {
+            width: 200px;
+            display: block;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        .seal {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+        }
+
+        .seal img {
+            width: 120px;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: rgba(0, 0, 0, 0.05);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <body>
+        <div id="capture" class="certificate-container">
+            <div class="logo">
+                <img src="{{ static_url }}newsym.jpg.jpeg" alt="ReaderClub Logo">
+            </div>
+    
+            <h1 class="certificate-header">CERTIFICATE OF COMPLETION</h1>
+            
+            <p class="certificate-content">Presented to</p>
+            <p class="recipient-name">{{ certificate.name }}</p>
+            
+            <p class="certificate-content">For successfully completing</p>
+            <p class="certificate-content"><strong>{{ certificate.certified_for }}</strong></p>
+            
+            <p class="certificate-content">Issued on {{ certificate.created_at|date:"d F Y" }}<br>ID: {{ certificate.unique_id }}</p>
+    
+            <div class="seal">
+                <img src="{{ static_url }}seal.png" alt="Official Seal">
+            </div>
+    
+            <div class="signature">
+                <img src="{{ static_url }}signature.png" alt="Signature">
+                <p><strong>ReaderClub</strong></p>
+            </div>
+    
+            <div class="watermark">ReaderClub</div>
+        </div>
+    
+        <!-- Download as PNG Button -->
+        <button class="download-button" onclick="downloadAsPNG()">Download as PNG</button>
+    
+        <script>
+            function downloadAsPNG() {
+                let certificateElement = document.getElementById("capture");  // Make sure the div exists
+                if (!certificateElement) {
+                    console.error("Error: Certificate element not found.");
+                    return;
+                }
+    
+                html2canvas(certificateElement, {
+                    useCORS: true,
+                    allowTaint: true
+                }).then(canvas => {
+                    let link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/png');
+    
+                    // Get certificate ID from Django context
+                    let userId = "{{ certificate.unique_id }}";
+                    let fileName = userId ? `certificate_${userId}.png` : 'certificate.png';
+    
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }).catch(error => {
+                    console.error("Error generating PNG:", error);
+                });
+            }
+        </script>
+    </body>
+    

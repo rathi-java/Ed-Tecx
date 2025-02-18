@@ -34,17 +34,27 @@
             <div class="question-section">
                 {% for question in questions %}
                 <div class="question-container {% if not forloop.first %}hidden{% endif %}" data-question-id="{{ question.id }}">
-                    <div class="question-header">
+                  
+                  <div  class ="main-heading">  <div class="question-header">
                         <h2 class="question-title">Question {{ forloop.counter }}</h2>
                     </div>
+                    <div class="question-header">
+                        <h2 class="question-title">options</h2>
+                    </div>
+                    </div>
+                    
+                
                     <div class="question-content">
+                        
                         <!-- Question Text Section -->
                         <div class="question-text-section">
+                            
                             <p class="question-text">{{ question.question_text }}</p>
                         </div>
                         
                         <!-- Options Section -->
                         <div class="question-options-section">
+                       
                             <div class="options-container" data-question-id="{{ question.id }}">
                                 {% for key, option in question.answers.items %}
                                 <div class="option-item">
@@ -60,10 +70,23 @@
                             </div>
                         </div>
                     </div>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn" onclick="navigateQuestion('prev')">
+                            ← Previous
+                        </button>
+                        <button type="button" class="btn btn-orange" onclick="markForReview()">
+                            Mark for Review
+                        </button>
+                        <button type="button" class="btn" onclick="saveAndNext()">
+                            Save & Next →
+                        </button>
+                    </div>
                 </div>
                 {% endfor %}
+              
             </div>
 
+           
             <div class="sidebar">
                 <div class="stats-box">
                     <p class="stats-item">Total questions: <span class="stats-value">{{ questions|length }}</span></p>
@@ -102,17 +125,7 @@
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="nav-buttons">
-            <button type="button" class="btn" onclick="navigateQuestion('prev')">
-                ← Previous
-            </button>
-            <button type="button" class="btn btn-orange" onclick="markForReview()">
-                Mark for Review
-            </button>
-            <button type="button" class="btn" onclick="saveAndNext()">
-                Save & Next →
-            </button>
-        </div>
+      
     </form>
 
     <!-- Calculator Modal -->
@@ -125,7 +138,7 @@
             <hr class="modal-divider">
             <div id="calculator" class="calculator">
                 <div class="display-container">
-                    <input type="text" id="display" class="display" placeholder="0" readonly>
+                    <input type="text" id="display" class="display" placeholder="0" >
                 </div>
                 <div class="buttons">
                     <button class="button" data-value="sin">sin</button>

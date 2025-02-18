@@ -1,0 +1,144 @@
+.profile-container {
+    /* Center horizontally and add some top margin */
+    margin: 5% auto;
+    max-width: 900px;
+
+    font-family: Arial, sans-serif;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    /* Remove fixed height so content can grow as needed */
+    /* height: 800px; <-- removed */
+
+    /* Optional additional horizontal padding if desired */
+    padding-left: 5%; 
+    padding-right: 5%; 
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    background: purple;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.user-id {
+    font-size: 14px;
+    color: blue;
+}
+
+.edit-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto; /* pushes button to the far right */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.form-row {
+    display: flex;
+    gap: 150px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    flex: 1;
+    margin-bottom: 15px;
+    position: relative; /* Allows for absolute positioning of the icon */
+}
+
+.form-group label {
+    color: #222222;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group i {
+    position: absolute;
+    left: 10px; 
+    top: 70%; 
+    transform: translateY(-50%); 
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 8px 8px 30px; 
+    border: 1px solid #077bc3;
+    border-radius: 5px;
+    background: #F1FAFF;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-button,
+.cancel-button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 48%;
+}
+
+.save-button {
+    background: green;
+    color: white;
+    width: 150px;
+    margin-left: auto; /* push to the right if you want it at the end */
+    margin-right: 10px;
+}
+
+.cancel-button {
+    background: green;
+    color: white;
+    width: 100px;
+}
+
+.wave-profile {
+    width: 106%;
+    margin-left: -5%;
+    height: 100px;
+}
+
+.form-row .form-group:last-child {
+    flex: 0 0 45%; /* Example to reduce width of last field if needed */
+}

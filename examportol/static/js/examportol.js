@@ -16,10 +16,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.querySelectorAll('.question-container').forEach((q, i) => {
             q.style.display = (i === index) ? 'flex' : 'none';
-            q.style.overflowY = "auto"; // Ensure scrolling is applied dynamically
-            q.style.maxHeight = "80vh"; // Maintain max height dynamically
+            // q.style.maxHeight = "84vh";
+            // q.style.minHeight = "84vh";
+
+             // Maintain max height dynamically
         });
-    
+        document.querySelectorAll('.option-container').forEach((q,i) =>{
+            q.style.display = (i === index) ? 'flex' : 'none';
+            q.style.overflow = "auto";
+           
+
+        });
         currentQuestionIndex = index;
         updateQuestionIndicators();
     }
@@ -128,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const video = document.getElementById('video' );
                 if (video) video.srcObject = stream;
                 video.style.transform = "scaleX(-1)";
+
             })
             .catch(() => alert("Camera access denied. Please enable permissions."));
     }

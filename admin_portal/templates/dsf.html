@@ -1,0 +1,71 @@
+<!-- Manage Admin Section -->
+<div class="content current_page_action hidden" data-page-name="manage_admin">
+    <h3>&nbsp;Admin/Manage admin</h3>
+    <div class="container">
+        <div class="header">
+            <button class="add-button" onclick="openAdminForm()">Add +</button>
+        </div>
+
+        <!-- Table to Show Existing Admins -->
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Admin Name</th>
+                    <th>Email</th>
+                    <th>Admin ID</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                <tr>
+                    <td>{{ admin.Sno }}</td>
+                    <td>{{ admin.admin_name }}</td>
+                    <td>{{ admin.email }}</td>
+                    <td>{{ admin.admin_id }}</td>
+                    <td>{{ admin.phone }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Admin Section -->
+<div class="content current_page_action hidden" data-page-name="add_admin">
+    <h3>&nbsp;Admin/Add Admin</h3>
+    <div class="container">
+        <div class="title">Manage Admin</div>
+        <form method="POST" action="{% url 'add_admin' %}">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="admin-name">Admin Name</label>
+                    <input type="text" name="admin_name" id="admin-name" placeholder="Enter Admin name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                </div>
+                <div class="input-group">
+                    <label for="phone">Phone No.</label>
+                    <input type="text" name="phone" id="phone" placeholder="Enter phone no.">
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="admin-id">Admin ID</label>
+                <input type="text" name="admin_id" id="admin-id" placeholder="Enter Admin ID" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

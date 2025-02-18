@@ -24,8 +24,11 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{% static 'images/fav.ico' %}?v=1">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
+
   <!-- Optionally load FontAwesome icons (if needed) -->
-  <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+  {% comment %} <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> {% endcomment %}
 
   {% block extra_css %}
   {# You can include extra per-page CSS here if needed #}
@@ -98,6 +101,13 @@
 
           <li>
             <a class="nav-link" 
+               href="{% url 'price' %}" 
+               onclick="handleAuthCheck(event, '#')"
+            >Pricing</a>
+          </li>
+
+          <li>
+            <a class="nav-link" 
                href="#" 
                onclick="handleAuthCheck(event, '#')"
             >About Us</a>
@@ -111,7 +121,7 @@
       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
         <img src="{% static 'assets/user.png' %}" alt="User Profile" height="50" />
         <div id="profile-menu" class="profile-dropdown-content">
-          <a href="#" onclick="showProfileInfo()"><i class="fas fa-user"></i> Profile</a>
+          <a href="{% url 'profile' %}" ><i class="fas fa-user"></i> Profile</a>
           <a href="#"><i class="fas fa-cog"></i> Settings</a>
           <a href="#"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
           <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
@@ -132,6 +142,9 @@
             <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
           </div>
         </div>
+      </div>
+      <div class="hello-user">
+        <p>{{ logged_in_user.full_name }}</p>
       </div>
       {% else %}
       <!-- Sign Up & Log In Buttons -->
@@ -416,9 +429,9 @@
         if (profileMenu) profileMenu.style.display = "none";
       }
     });
-    function showProfileInfo() {
-      alert("Show user profile details here...");
-    }
+    {% comment %} function showProfileInfo() {
+      
+    } {% endcomment %}
 
     // =====================
     // POP-UP LOGIN/SIGNUP (Existing Modal)

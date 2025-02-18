@@ -21,6 +21,7 @@ from oauth.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from practice_question.views import demo_test
+from price.views import price
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,8 +36,11 @@ urlpatterns = [
     # path('demoexam/',include('demo_exam.urls')),
     path('practice_questions/',include('practice_question.urls')),
     path('exam_registration/',include('exam_registration.urls')),
+    path('dashboard/',include('admin_portal.urls')),
     
     #Demo Test
     path('demo_test/', demo_test, name="demo_test"),
+    path('certificate_management/',include('certificate_management.urls')),
+    path('price/', price ,name="price"),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

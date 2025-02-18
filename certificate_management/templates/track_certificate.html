@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Certificate</title>
+</head>
+<body>
+    <h2>Track Your Certificate</h2>
+    <form method="POST" action="{% url 'track_certificate' %}">
+        {% csrf_token %}
+        <label>Enter Certificate ID:</label>
+        <input type="text" name="unique_id" required>
+        <button type="submit">Check Status</button>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Enter Certificate ID:</label>
+            <input type="text" name="unique_id" required>
+            <button type="submit">Check Status</button>
+        </form>
+        
+        {% if certificate %}
+            <h3>Certificate Details</h3>
+            <p><strong>Name:</strong> {{ certificate.name }}</p>
+            <p><strong>Status:</strong> {{ certificate.status }}</p>
+        
+            {% if certificate.status == "Approved" %}
+                <a href="{% url 'view_certificate' certificate.id %}" class="button">View Certificate</a>
+            {% endif %}
+        {% endif %}
+        
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if certificate %}
+        <h3>Certificate Details</h3>
+        <p><strong>Name:</strong> {{ certificate.name }}</p>
+        <p><strong>Father's Name:</strong> {{ certificate.father_name }}</p>
+        <p><strong>Certified For:</strong> {{ certificate.certified_for }}</p>
+        <p><strong>Status:</strong> {{ certificate.status }}</p>
+
+        {% if certificate.status == "Approved" %}
+            <a href="{% url 'generate_certificate' certificate.unique_id %}">Download Certificate</a>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

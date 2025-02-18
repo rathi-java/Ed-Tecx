@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Requests</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { width: 80%; margin: 20px auto; background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #007bff; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .btn { padding: 8px 16px; margin-right: 5px; text-decoration: none; color: white; border-radius: 4px; }
+        .approve { background-color: green; }
+        .reject { background-color: red; }
+        .delete { background-color: #e74c3c; }
+        select, button { padding: 8px; border-radius: 4px; }
+        .bulk-actions { margin-bottom: 15px; }
+    </style>
+    <script>
+        function toggle(source) {
+            checkboxes = document.querySelectorAll('.cert-checkbox');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Certificate Requests</h2>
+        
+        <!-- Bulk Action Dropdown -->
+        <form method="post" action="{% url 'bulk_update_status' %}">
+            {% csrf_token %}
+            <div class="bulk-actions">
+                <input type="checkbox" id="select-all" onclick="toggle(this)"> Select All
+                <select name="bulk_action" id="bulk_action">
+                    <option value="none">Bulk Actions</option>
+                    <option value="Approved">Approve</option>
+                    <option value="Rejected">Reject</option>
+                    <option value="Delete">Delete</option>
+                </select>
+                <button type="submit" class="btn approve">Apply</button>
+            </div>
+
+            <table>
+                <tr>
+                    <th>Select</th>
+                    <th>Name</th>
+                    <th>Certificate For</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for certificate in certificates %}
+                <tr>
+                    <td><input type="checkbox" class="cert-checkbox" name="selected_certificates" value="{{ certificate.id }}"></td>
+                    <td>{{ certificate.name }}</td>
+                    <td>{{ certificate.certified_for }}</td>
+                    <td>{{ certificate.status }}</td>
+                    <td>
+                        <!-- Individual update form -->
+                        <form method="post" action="{% url 'update_certificate_status' certificate.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <select name="status" onchange="this.form.submit()">
+                                <option value="Pending" {% if certificate.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                <option value="Approved" {% if certificate.status == 'Approved' %}selected{% endif %}>Approved</option>
+                                <option value="Rejected" {% if certificate.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                            </select>
+                        </form>
+
+                        <!-- Individual delete button -->
+                        <form method="post" action="{% url 'delete_certificate' certificate.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn delete">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+</body>
+</html>

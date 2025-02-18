@@ -1,121 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | EdTech</title>
+{% extends "base.html" %}
+{% load static %}
 
-    <style>
-        /* General Page Styling */
-        body {
-            background-color: #f5f5f5;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+{% block title %}Edit Profile{% endblock %}
 
-        /* Main Container */
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
+{% block extra_css %}
+<!-- Reference your custom CSS for edit profile -->
+<link rel="stylesheet" href="{% static 'css/edit.css' %}">
+{% endblock %}
 
-        /* Back Arrow Styling */
-        .back-arrow {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            transition: color 0.3s ease;
-        }
+{% block content %}
+<section class="profile-section">
+  <div class="profile-container">
+    <h2><i class="material-icons"></i> Edit Profile</h2>
+    <hr>
 
-        .back-arrow:hover {
-            color: #e74c3c;
-        }
+    <div class="profile-card">
+      <div class="profile-header">
+        <!-- Convert avatar.png to static reference -->
+        <img src="{% static 'images/avatar.png' %}" alt="Avatar" class="avatar">
+        
+        <div class="user-info">
+          <!-- Example user data (read-only or dynamic) -->
+          <div class="username">{{ user.username }}</div>
+          <span class="user-id">USER{{ user.id }}</span>
+        </div>
 
-        .back-arrow::before {
-            content: "←";
-            font-size: 22px;
-            margin-right: 8px;
-        }
+        <!-- “Edit Details” button if you want to enable editing -->
+        <button class="edit-button">
+          <i class="material-icons">edit</i> Edit Details
+        </button>
+      </div>
 
-        /* Heading Styles */
-        .title {
-            text-align: center;
-            color: #2c3e50;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
+      <!-- Example of a form, or read-only fields. Adjust as needed. -->
+      <form method="POST" action="">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <i class="fas fa-user"></i>
+            <input type="text" value="{{ user.full_name }}" disabled>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <i class="fas fa-envelope"></i>
+            <input type="email" value="{{ user.email }}" disabled>
+          </div>
+        </div>
 
-        .sub-title {
-            text-align: center;
-            color: #27ae60;
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
+        <div class="form-row">
+          <div class="form-group">
+            <label>Password</label>
+            <i class="fas fa-lock"></i>
+            <!-- If you want to display masked password or an actual field for changing password -->
+            <input type="password" value="********" disabled>
+          </div>
+          <div class="form-group">
+            <label>Phone No.</label>
+            <i class="fas fa-phone"></i>
+            <input type="text" value="{{ user.phone_number }}" disabled>
+          </div>
+        </div>
 
-        /* Profile Info Styling */
-        .profile-info p {
-            font-size: 16px;
-            margin: 8px 0;
-            color: #333;
-        }
+        <div class="form-row">
+          <div class="form-group">
+            <label>Course</label>
+            <i class="fas fa-book"></i>
+            <!-- Example “course” if you store it in user’s profile or DB -->
+            <input type="text" value="BTech Computer Science" disabled>
+          </div>
+          <div class="form-group">
+            <label>College Name</label>
+            <i class="fas fa-university"></i>
+            <input type="text" value="{{ user.college_name }}" disabled>
+          </div>
+        </div>
 
-        .profile-info strong {
-            color: #2c3e50;
-        }
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <i class="fas fa-calendar-alt"></i>
+            <input type="text" value="{{ user.dob|date:'d-m-Y' }}" disabled>
+          </div>
+          <div class="form-group">
+            <label>Reference Code</label>
+            <i class="fas fa-hashtag"></i>
+            <input type="text" value="{{ user.referral_code|default:'N/A' }}" disabled>
+          </div>
+        </div>
 
-        /* Not Logged In Message */
-        .not-logged-in {
-            text-align: center;
-            color: #c0392b;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Last Login</label>
+            <i class="fas fa-clock"></i>
+            <input type="text" value="{{ user.last_login|date:'d-m-Y H:i'|default:'Never' }}" disabled>
+          </div>
+        </div>
 
-    <div class="container">
-        <!-- Back Arrow -->
-        <a href="/" class="back-arrow">Back</a>
+        <div class="buttons">
+          <!-- If you want to allow user to actually save or cancel changes -->
+          <button type="submit" class="save-button">Save Changes</button>
+          <button type="button" class="cancel-button">Cancel</button>
+        </div>
 
-        <h1 class="title">Welcome to EdTech</h1>
-
-        {% if user %}
-            <div class="profile-card">
-                <h2 class="sub-title">Logged-in User Details</h2>
-                <hr>
-
-                <div class="profile-info">
-                    <p><strong>👤 Username:</strong> {{ user.username }}</p>
-                    <p><strong>📛 Full Name:</strong> {{ user.full_name }}</p>
-                    <p><strong>📧 Email:</strong> {{ user.email }}</p>
-                    <p><strong>📞 Phone Number:</strong> {{ user.phone_number }}</p>
-                    <p><strong>🏫 College Name:</strong> {{ user.college_name }}</p>
-                    <p><strong>🎂 Date of Birth:</strong> {{ user.dob }}</p>
-                    <p><strong>🔗 Referral Code:</strong> {{ user.referral_code|default:"N/A" }}</p>
-                    <p><strong>🕒 Last Login:</strong> {{ user.last_login|default:"Never" }}</p>
-                </div>
-            </div>
-        {% else %}
-            <h2 class="not-logged-in">You are not logged in.</h2>
-        {% endif %}
+        <!-- wave.png as static reference -->
+        <img src="{% static 'images/wave.png' %}" alt="wave-profile" class="wave-profile">
+      </form>
     </div>
+  </div>
+</section>
+{% endblock content %}
 
-</body>
-</html>
+{% block extra_js %}
+<!-- If you need any JS for toggling "Edit Details" etc., place it here -->
+<script>
+  // Example: Toggle disabled state on inputs when "Edit Details" is clicked
+  document.querySelector('.edit-button')?.addEventListener('click', () => {
+    document.querySelectorAll('.form-group input').forEach(input => {
+      input.toggleAttribute('disabled');
+    });
+  });
+</script>
+{% endblock extra_js %}
