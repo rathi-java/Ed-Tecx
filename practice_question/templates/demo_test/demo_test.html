@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Demo Test{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'demo_test/css/question.css' %}">
+{% endblock %}
+{% block content %}
+  <div class="container">
+      <h1 class="main-heading"></h1>
+
+      <div class="card-container">
+          <!-- Card 1: IT -->
+          <a href="python_practice.html" class="card-link">
+              <div class="info-card">
+                  <div class="card-image-it-bg">
+                      <img src="{% static 'demo_test/images/itt.jpeg' %}" alt="IT">
+                  </div>
+                  <div class="card-content">
+                      <h3 class="card-title">Information Technology</h3>
+                      <p class="card-description">Master programming, cybersecurity, cloud computing, and data analytics with real-world scenarios.</p>
+                  </div>
+              </div>
+          </a>
+
+          <!-- Card 2: Management -->
+          <a href="finance_practice.html" class="card-link">
+              <div class="info-card">
+                  <div class="card-image-management-bg">
+                      <img src="{% static 'demo_test/images/iti.jpg' %}" alt="Management">
+                  </div>
+                  <div class="card-content">
+                      <h3 class="card-title">Management</h3>
+                      <p class="card-description">Develop leadership, strategic planning, and business decision-making skills with industry-relevant case studies.</p>
+                  </div>
+              </div>
+          </a>
+
+
+      <div class="cta-container">
+          <a href="#" class="cta-btn">Explore new Opportunities →</a>
+      </div>      
+  </div>
+{% endblock %}

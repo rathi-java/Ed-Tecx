@@ -1,4 +1,4 @@
-{% extends "examportol/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <style>
@@ -127,7 +127,9 @@
     margin-bottom: 1rem;
   }
 
-  .form-group input, .form-group textarea, .form-group select {
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
     font-size: 1rem;
     padding: 0.75rem;
     border-radius: 0.5rem;
@@ -155,49 +157,68 @@
     <h2 class="title">Add New Question</h2>
     <form method="POST" class="spacer">
       {% csrf_token %}
+      
+      <!-- New Category Input -->
       <div class="form-group">
-        <label class="block label">Category</label>
-        <select name="category" id="category" class="margin-top-small full-width border-rounded border-light-gray shadow-light" required>
-          <option value="">Select Category</option>
-          {% for category in categories %}
-          <option value="{{ category.id }}">{{ category.category_name }}</option>
-          {% endfor %}
-        </select>
+          <label class="block label">New Category (optional)</label>
+          <input type="text" name="new_category" id="new_category" placeholder="Enter new category (optional)">
       </div>
-
+  
+      <!-- Category Dropdown -->
       <div class="form-group">
-        <label class="block label">Subject</label>
-        <select name="subject" id="subject" class="margin-top-small full-width border-rounded border-light-gray shadow-light" required>
-          <option value="">Select Subject</option>
-          {% for subject in subjects %}
-          <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
-          {% endfor %}
-        </select>
+          <label class="block label">Select Category</label>
+          <select name="category" id="category" onchange="updateSubjectDropdown()">
+              <option value="">Select</option>
+              {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.category_name }}</option>
+              {% endfor %}
+          </select>
       </div>
-
+  
+      <!-- New Subject Input -->
       <div class="form-group">
-        <label class="block label">Question</label>
-        <textarea name="question_text" rows="4" class="margin-top-small full-width border-rounded border-light-gray shadow-light" required></textarea>
+          <label class="block label">New Subject (optional)</label>
+          <input type="text" name="new_subject" id="new_subject" placeholder="Enter new subject (optional)">
       </div>
-
+  
+      <!-- Subject Dropdown -->
+      <div class="form-group">
+          <label class="block label">Select Subject</label>
+          <select name="subject" id="subject">
+              <option value="">Select</option>
+              {% for subject in subjects %}
+              <option value="{{ subject.id }}" data-category="{{ subject.subject_category.id }}">
+                  {{ subject.subject_name }}
+              </option>
+              {% endfor %}
+          </select>
+      </div>
+  
+      <!-- Question Input -->
+      <div class="form-group">
+          <label class="block label">Question</label>
+          <textarea name="question_text" rows="4" required></textarea>
+      </div>
+  
+      <!-- Answer Options -->
       <div class="spacer-small">
-        <h3 class="label">Answer Options</h3>
-        {% for letter in "ABCD" %}
-        <div class="answer-option">
-          <input type="text" name="option_{{ letter }}" placeholder="Option {{ letter }}" 
-                 class="flex-1 border-rounded border-light-gray shadow-light">
-          <label class="flex-container align-center">
-            <input type="radio" name="correct_answer" value="{{ letter }}" required>
-            <span class="horizontal-spacer">Correct</span>
-          </label>
-        </div>
-        {% endfor %}
+          <h3 class="label">Answer Options</h3>
+          {% for letter in "ABCD" %}
+          <div class="answer-option">
+              <input type="text" name="option_{{ letter }}" placeholder="Option {{ letter }}">
+              <label>
+                  <input type="radio" name="correct_answer" value="{{ letter }}" required>
+                  Correct
+              </label>
+          </div>
+          {% endfor %}
       </div>
-
+  
       <button type="submit" class="full-width button">
-        Add Question
+          Add Question
       </button>
-    </form>
+  </form>
+  
   </div>
 
   <div class="background-white padding-large rounded shadow">
@@ -215,7 +236,7 @@
           {% endfor %}
         </div>
         <div class="margin-top-small text-muted">
-          {{ question.question_subject.subject_name }} | 
+          {{ question.question_subject.subject_name }} |
           {{ question.question_subject.subject_category.category_name }}
         </div>
       </div>
@@ -223,4 +244,39 @@
     </div>
   </div>
 </div>
+{% block scripts %}
+<script>
+  function updateTopicOptions() {
+    var domainSelect = document.getElementById("domain");
+    var subjectSelect = document.getElementById("subject");
+    var selectedCategory = domainSelect.value;
+
+    // Show only subjects related to the selected category
+    for (var i = 0; i < subjectSelect.options.length; i++) {
+      var option = subjectSelect.options[i];
+      var optionCategory = option.getAttribute("data-category");
+      if (optionCategory === selectedCategory || option.value === "Select") {
+        option.style.display = "block";
+      } else {
+        option.style.display = "none";
+      }
+    }
+
+    subjectSelect.value = "Select";
+  }
+  function updateSubjectDropdown() {
+    var categorySelect = document.getElementById("category");
+    var subjectSelect = document.getElementById("subject");
+    var selectedCategory = categorySelect.value;
+
+    for (var i = 0; i < subjectSelect.options.length; i++) {
+        var option = subjectSelect.options[i];
+        var optionCategory = option.getAttribute("data-category");
+        option.style.display = (optionCategory === selectedCategory || option.value === "") ? "block" : "none";
+    }
+
+    subjectSelect.value = "";
+}
+</script>
+{% endblock %}
 {% endblock %}

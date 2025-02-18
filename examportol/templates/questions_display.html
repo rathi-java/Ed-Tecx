@@ -10,7 +10,7 @@
     <div class="header">
         <div class="header-container">
             <div>
-                <h1 class="exam-title">Examination Name</h1>
+                <h1 class="exam-title">Examination: {{ subjectname }}</h1>
                 {% if user %}
                     <p class="welcome-text">Hi {{ user.full_name }}, Best of luck!</p>
                 {% else %}
@@ -19,8 +19,7 @@
             </div>
             
             <div class="header-controls">
-               <button type="button" class="btn" onclick="toggleCalculator()">Calculator</button>
-
+                <button type="button" class="btn" onclick="toggleCalculator()">Calculator</button>
                 <div id="timerDisplay">60m: 00s</div>
             </div>
         </div>
@@ -30,47 +29,41 @@
     <form id="examForm" method="POST" action="{% url 'submit_exam' %}" class="main-container">
         {% csrf_token %}
         <input type="hidden" id="totalQuestions" value="{{ questions|length }}">
-        
         <div class="content-wrapper">
             <!-- Question Section -->
-       <!-- Question Section -->
-<div class="question-section">
-    {% for question in questions %}
-    <div class="question-container {% if not forloop.first %}hidden{% endif %}" data-question-id="{{ question.id }}">
-        <div class="question-header">
-            <h2 class="question-title">Question {{ forloop.counter }}</h2>
-        </div>
-        <div class="question-content">
-            <p>{{ question.question_text }}</p>
-            <div class="options-container {% if not forloop.first %}hidden{% endif %}" data-question-id="{{ question.id }}">
-                {% for key, option in question.answers.items %}
-                <div class="option-item">
-                    <input type="radio" 
-                        name="question{{ question.id }}" 
-                        value="{{ key }}"
-                        data-question-id="{{ question.id }}"
-                        data-question-index="{{ forloop.parentloop.counter0 }}"
-                        onchange="updateQuestionStatus(this)">
-                    <span>{{ option.text }}</span>
+            <div class="question-section">
+                {% for question in questions %}
+                <div class="question-container {% if not forloop.first %}hidden{% endif %}" data-question-id="{{ question.id }}">
+                    <div class="question-header">
+                        <h2 class="question-title">Question {{ forloop.counter }}</h2>
+                    </div>
+                    <div class="question-content">
+                        <!-- Question Text Section -->
+                        <div class="question-text-section">
+                            <p class="question-text">{{ question.question_text }}</p>
+                        </div>
+                        
+                        <!-- Options Section -->
+                        <div class="question-options-section">
+                            <div class="options-container" data-question-id="{{ question.id }}">
+                                {% for key, option in question.answers.items %}
+                                <div class="option-item">
+                                    <input type="radio" 
+                                           name="question{{ question.id }}" 
+                                           value="{{ key }}"
+                                           data-question-id="{{ question.id }}"
+                                           data-question-index="{{ forloop.parentloop.counter0 }}"
+                                           onchange="updateQuestionStatus(this)">
+                                    <span class="option-text">{{ option.text }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
 
-<!-- Options Section -->
-<!-- <div class="options-section">
-    <div class="question-header">
-        <h2 class="question-title">Options</h2>
-    </div>
-    {% for question in questions %}
-  
-    {% endfor %}
-</div> -->
-
-            <!-- Sidebar Section -->
             <div class="sidebar">
                 <div class="stats-box">
                     <p class="stats-item">Total questions: <span class="stats-value">{{ questions|length }}</span></p>
@@ -80,10 +73,7 @@
 
                 <div class="question-grid">
                     {% for question in questions %}
-                    <button type="button"
-                        class="question-indicator"
-                        data-question-index="{{ forloop.counter0 }}"
-                        onclick="showQuestion(this)">
+                    <button type="button" class="question-indicator" data-question-index="{{ forloop.counter0 }}" onclick="showQuestion(this)">
                         {{ forloop.counter }}
                     </button>
                     {% endfor %}
@@ -106,11 +96,7 @@
 
                 <div class="video-section">
                     <video id="video" autoplay></video>
-                    <button type="submit" 
-                            class="btn submit-btn"
-                            onclick="return confirmSubmit()">
-                        Submit Test
-                    </button>
+                    <button type="submit" class="btn submit-btn" onclick="return confirmSubmit()">Submit Test</button>
                 </div>
             </div>
         </div>
@@ -179,6 +165,4 @@
 
     <script src="{% static 'js/examportol.js' %}" defer></script>
 
-
 {% endblock %}
-

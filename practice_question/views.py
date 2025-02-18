@@ -182,3 +182,6 @@ def coding_practice(request):
         return render(request, 'coding_questions/coding_practice.html')
     except TemplateDoesNotExist:
         raise Http404("Index page not found")
+
+def demo_test(request):
+    return render(request, 'demo_test/demo_test.html')        
