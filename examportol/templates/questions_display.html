@@ -1,3 +1,4 @@
+
 {% load static %}
 
 {% block extra_css %}
@@ -5,177 +6,182 @@
 {% endblock %}
 
 {% block content %}
+<!-- Header Section -->
+ <nav>
+<div class="nav">
+  Examination {{subjectname}}
+ 
+  
+</div>
+ </nav>
+ <div class="header">
+  {% if user %}
+  <div id="greetings">Hi {{user.full_name}}, Best of Luck!</div>
+  {% else %}
+  <div id="greetings">Hi taniya, Best of Luck!</div>
+{% endif %}
+<button type="button" class="btn" onclick="toggleCalculator()" id="btn">Calculator</button>
+<div id="timerDisplay">60m: 00s</div>
+    </div>
 
-    <!-- Header Section -->
-    <div class="header">
-        <div class="header-container">
-            <div>
-                <h1 class="exam-title">Examination: {{ subjectname }}</h1>
-                {% if user %}
-                    <p class="welcome-text">Hi {{ user.full_name }}, Best of luck!</p>
-                {% else %}
-                    <p class="welcome-text">Hi Guest, Best of luck!</p>
-                {% endif %}
+
+<!-- Main Content -->
+<form id="examForm" method="POST" action="{% url 'submit_exam' %}" class="main-container">
+  {% csrf_token %}
+  <input type="hidden" id="totalQuestions" value="{{ questions|length }}">
+
+  <div class="content-wrapper">
+    <!-- Question Section -->
+    <div class="question-section">
+      {% for question in questions %}
+      <div class="question-container {% if not forloop.first %}hidden{% endif %}"
+           data-question-id="{{ question.id }}">
+
+        <!-- Top row: "Question X" and "Options" -->
+        
+          <div class="question-header" id="question-header">
+            <h2 class="question-title">Question {{ forloop.counter }}</h2>
+          </div>
+          <div class="question-header" id ="options-header">
+            <h2 class="question-title">Options</h2>
+          </div>
+        
+
+        <!-- Question Content -->
+    
+          <!-- Left: Question text (and code snippet if any) -->
+          <div class="question-text-section">
+            <p class="question-text">{{ question.question_text }}</p>
+          </div>
+
+          <!-- Right: Options -->
+          <div class="question-options-section">
+            <div class="options-container" data-question-id="{{ question.id }}">
+              {% for key, option in question.answers.items %}
+              <div class="option-item">
+                <input type="radio"
+                       name="question{{ question.id }}"
+                       value="{{ key }}"
+                       data-question-id="{{ question.id }}"
+                       data-question-index="{{ forloop.parentloop.counter0 }}"
+                       onchange="updateQuestionStatus(this)">
+                <span class="option-text">{{ option.text }}</span>
+              </div>
+              {% endfor %}
             </div>
-            
-            <div class="header-controls">
-                <button type="button" class="btn" onclick="toggleCalculator()">Calculator</button>
-                <div id="timerDisplay">60m: 00s</div>
-            </div>
+          </div>
+       
+
+        <!-- Bottom Nav Buttons -->
+        <div class="nav-buttons">
+          <button type="button" class="btn" id="prevButton" onclick="navigateQuestion('prev')">← Previous</button>
+          <button type="button" class="btn btn-orange" id="markReviewButton" onclick="markForReview()">Mark for Review</button>
+          <button type="button" class="btn btn-orange" id="saveNextButton" onclick="saveAndNext()">Save & Next →</button>
         </div>
+        
+      </div>
+      {% endfor %}
     </div>
 
-    <!-- Main Content -->
-    <form id="examForm" method="POST" action="{% url 'submit_exam' %}" class="main-container">
-        {% csrf_token %}
-        <input type="hidden" id="totalQuestions" value="{{ questions|length }}">
-        <div class="content-wrapper">
-            <!-- Question Section -->
-            <div class="question-section">
-                {% for question in questions %}
-                <div class="question-container {% if not forloop.first %}hidden{% endif %}" data-question-id="{{ question.id }}">
-                  
-                  <div  class ="main-heading">  <div class="question-header">
-                        <h2 class="question-title">Question {{ forloop.counter }}</h2>
-                    </div>
-                    <div class="question-header">
-                        <h2 class="question-title">options</h2>
-                    </div>
-                    </div>
-                    
-                
-                    <div class="question-content">
-                        
-                        <!-- Question Text Section -->
-                        <div class="question-text-section">
-                            
-                            <p class="question-text">{{ question.question_text }}</p>
-                        </div>
-                        
-                        <!-- Options Section -->
-                        <div class="question-options-section">
-                       
-                            <div class="options-container" data-question-id="{{ question.id }}">
-                                {% for key, option in question.answers.items %}
-                                <div class="option-item">
-                                    <input type="radio" 
-                                           name="question{{ question.id }}" 
-                                           value="{{ key }}"
-                                           data-question-id="{{ question.id }}"
-                                           data-question-index="{{ forloop.parentloop.counter0 }}"
-                                           onchange="updateQuestionStatus(this)">
-                                    <span class="option-text">{{ option.text }}</span>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nav-buttons">
-                        <button type="button" class="btn" onclick="navigateQuestion('prev')">
-                            ← Previous
-                        </button>
-                        <button type="button" class="btn btn-orange" onclick="markForReview()">
-                            Mark for Review
-                        </button>
-                        <button type="button" class="btn" onclick="saveAndNext()">
-                            Save & Next →
-                        </button>
-                    </div>
-                </div>
-                {% endfor %}
-              
-            </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="stats-box">
+        <p class="stats-item">Total questions:
+          <span class="stats-value">{{ questions|length }}</span>
+        </p>
+        <p class="stats-item">Answered questions:
+          <span id="answeredCount" class="stats-value">0</span>
+        </p>
+        <p class="stats-item">Remaining questions:
+          <span id="remainingCount" class="stats-value">{{ questions|length }}</span>
+        </p>
+      </div>
 
-           
-            <div class="sidebar">
-                <div class="stats-box">
-                    <p class="stats-item">Total questions: <span class="stats-value">{{ questions|length }}</span></p>
-                    <p class="stats-item">Answered questions: <span id="answeredCount" class="stats-value">0</span></p>
-                    <p class="stats-item">Remaining questions: <span id="remainingCount" class="stats-value">{{ questions|length }}</span></p>
-                </div>
+      <div class="question-grid">
+        {% for question in questions %}
+        <button type="button" class="question-indicator"
+                data-question-index="{{ forloop.counter0 }}"
+                onclick="showQuestion(this)">
+          {{ forloop.counter }}
+        </button>
+        {% endfor %}
+      </div>
 
-                <div class="question-grid">
-                    {% for question in questions %}
-                    <button type="button" class="question-indicator" data-question-index="{{ forloop.counter0 }}" onclick="showQuestion(this)">
-                        {{ forloop.counter }}
-                    </button>
-                    {% endfor %}
-                </div>
-
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-dot answered"></div>
-                        <span>Answered</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot not-answered"></div>
-                        <span>Not Answered</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot current"></div>
-                        <span>Current</span>
-                    </div>
-                </div>
-
-                <div class="video-section">
-                    <video id="video" autoplay></video>
-                    <button type="submit" class="btn submit-btn" onclick="return confirmSubmit()">Submit Test</button>
-                </div>
-            </div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-dot answered"></div>
+          <span>Answered</span>
         </div>
-
-        <!-- Navigation Buttons -->
-      
-    </form>
-
-    <!-- Calculator Modal -->
-    <div id="calculatorModal" class="sidebar-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Calculator</h2>
-                <button onclick="closeCalculator()" class="close-btn">&times;</button>
-            </div>
-            <hr class="modal-divider">
-            <div id="calculator" class="calculator">
-                <div class="display-container">
-                    <input type="text" id="display" class="display" placeholder="0" >
-                </div>
-                <div class="buttons">
-                    <button class="button" data-value="sin">sin</button>
-                    <button class="button" data-value="cos">cos</button>
-                    <button class="button" data-value="tan">tan</button>
-                    <button class="button" data-value="sqrt">√</button>
-                    <button class="button" data-value="log">log</button>
-                    <button class="button" data-value="ln">ln</button>
-                    <button class="button" data-value="exp">exp</button>
-                    <button class="button" data-value="^">x^y</button>
-                    <button class="button" data-value="(">(</button>
-                    <button class="button" data-value=")">)</button>
-                    <button class="button" data-value="1/x">1/x</button>
-                    <button class="button" data-value="x^2">x²</button>
-                    <button class="button" data-value="7">7</button>
-                    <button class="button" data-value="8">8</button>
-                    <button class="button" data-value="9">9</button>
-                    <button class="button" data-value="/">÷</button>
-                    <button class="button" data-value="*">×</button>
-                    <button class="button" data-value="4">4</button>
-                    <button class="button" data-value="5">5</button>
-                    <button class="button" data-value="6">6</button>
-                    <button class="button" data-value="-">-</button>
-                    <button class="button" data-value="1">1</button>
-                    <button class="button" data-value="2">2</button>
-                    <button class="button" data-value="3">3</button>
-                    <button class="button" data-value="+">+</button>
-                    <button class="button" data-value="0">0</button>
-                    <button class="button" data-value=".">.</button>
-                    <button class="button" data-value="AC">AC</button>
-                    <button class="button" data-value="⌫" id="backspace">⌫</button>
-                    <button class="button equal" data-value="=">=</button>
-                </div>
-            </div>
+        <div class="legend-item">
+          <div class="legend-dot not-answered"></div>
+          <span>Not Answered</span>
         </div>
+        <div class="legend-item">
+          <div class="legend-dot current"></div>
+          <span>Current</span>
+        </div>
+      </div>
+
+      <!-- Optional: User photo at the bottom + Submit -->
+      <div class="video-section">
+        <video id="video" autoplay></video>
+       
     </div>
+      <button type="submit" class="btn submit-btn" onclick="return confirmSubmit()">
+        Submit Test
+      </button>
+    </div>
+  </div>
+</form>
 
-    <script src="{% static 'js/examportol.js' %}" defer></script>
+<!-- Calculator Modal -->
+<div id="calculatorModal" class="sidebar-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Calculator</h2>
+      <button onclick="closeCalculator()" class="close-btn">&times;</button>
+    </div>
+    <hr class="modal-divider">
+    <div id="calculator" class="calculator">
+      <div class="display-container">
+        <input type="text" id="display" class="display" placeholder="0" >
+      </div>
+      <div class="buttons">
+        <!-- Calculator buttons -->
+        <button class="button" data-value="sin">sin</button>
+        <button class="button" data-value="cos">cos</button>
+        <button class="button" data-value="tan">tan</button>
+        <button class="button" data-value="sqrt">√</button>
+        <button class="button" data-value="log">log</button>
+        <button class="button" data-value="ln">ln</button>
+        <button class="button" data-value="exp">exp</button>
+        <button class="button" data-value="^">x^y</button>
+        <button class="button" data-value="(">(</button>
+        <button class="button" data-value=")">)</button>
+        <button class="button" data-value="1/x">1/x</button>
+        <button class="button" data-value="x^2">x²</button>
+        <button class="button" data-value="7">7</button>
+        <button class="button" data-value="8">8</button>
+        <button class="button" data-value="9">9</button>
+        <button class="button" data-value="/">÷</button>
+        <button class="button" data-value="*">×</button>
+        <button class="button" data-value="4">4</button>
+        <button class="button" data-value="5">5</button>
+        <button class="button" data-value="6">6</button>
+        <button class="button" data-value="-">-</button>
+        <button class="button" data-value="1">1</button>
+        <button class="button" data-value="2">2</button>
+        <button class="button" data-value="3">3</button>
+        <button class="button" data-value="+">+</button>
+        <button class="button" data-value="0">0</button>
+        <button class="button" data-value=".">.</button>
+        <button class="button" data-value="AC">AC</button>
+        <button class="button" data-value="⌫" id="backspace">⌫</button>
+        <button class="button equal" data-value="=">=</button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script src="{% static 'js/examportol.js' %}" defer></script>
 {% endblock %}

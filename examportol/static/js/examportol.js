@@ -16,21 +16,50 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.querySelectorAll('.question-container').forEach((q, i) => {
             q.style.display = (i === index) ? 'flex' : 'none';
-            // q.style.maxHeight = "84vh";
-            // q.style.minHeight = "84vh";
-
-             // Maintain max height dynamically
         });
-        document.querySelectorAll('.option-container').forEach((q,i) =>{
+        document.querySelectorAll('.option-container').forEach((q, i) => {
             q.style.display = (i === index) ? 'flex' : 'none';
             q.style.overflow = "auto";
-           
-
         });
+        
         currentQuestionIndex = index;
         updateQuestionIndicators();
+        updateNavigationButtons();
+        updateMarkForReviewButton();
     }
     
+    function updateNavigationButtons() {
+        const prevButton = document.getElementById('prevButton');
+        const saveNextButton = document.getElementById('saveNextButton');
+        
+        // Handle Previous button visibility
+        if (currentQuestionIndex === 0) {
+            prevButton.style.display = 'none';
+        } else {
+            prevButton.style.display = 'block';
+        }
+        
+        // Handle Save & Next button text
+        if (currentQuestionIndex === totalQuestions - 1) {
+            saveNextButton.textContent = 'Save';
+        } else {
+            saveNextButton.textContent = 'Save & Next →';
+        }
+    }
+
+    function updateMarkForReviewButton() {
+        const markReviewButton = document.getElementById('markReviewButton');
+        if (reviewedQuestions.has(currentQuestionIndex)) {
+            markReviewButton.textContent = 'Unmark Review';
+            markReviewButton.classList.remove('btn-orange');
+            markReviewButton.classList.add('btn-normal');
+        } else {
+            markReviewButton.textContent = 'Mark for Review';
+            markReviewButton.classList.remove('btn-normal');
+            markReviewButton.classList.add('btn-orange');
+        }
+    }
+
     window.showQuestion = showQuestion;
 
     function navigateQuestion(direction) {
@@ -41,10 +70,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.navigateQuestion = navigateQuestion;
 
+    // Updated function: Do not store the radio selection on change.
+    // The radio response will only be stored when the Save & Next button is clicked.
     function updateQuestionStatus(input) {
-        answeredQuestions.add(parseInt(input.getAttribute('data-question-index'), 10));
-        updateQuestionIndicators();
-        updateCounts();
+        // Intentionally left empty.
     }
     window.updateQuestionStatus = updateQuestionStatus;
 
@@ -69,10 +98,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function markForReview() {
-        reviewedQuestions.add(currentQuestionIndex);
+        if (reviewedQuestions.has(currentQuestionIndex)) {
+            reviewedQuestions.delete(currentQuestionIndex);
+        } else {
+            reviewedQuestions.add(currentQuestionIndex);
+        }
         updateQuestionIndicators();
+        updateMarkForReviewButton();
+        // After marking for review, move to next question if not on the last question
+        if (currentQuestionIndex < totalQuestions - 1) {
+            navigateQuestion('next');
+        }
     }
     window.markForReview = markForReview;
+
+    // Updated saveAndNext function: The radio button response is stored only when Save & Next is clicked.
+    function saveAndNext() {
+        const selectedInput = document.querySelector(`.question-container:nth-child(${currentQuestionIndex + 1}) input[type=radio]:checked`);
+        if (selectedInput) {
+            answeredQuestions.add(currentQuestionIndex);
+            updateCounts();
+            updateQuestionIndicators();
+        }
+        
+        // Only navigate to next question if not on the last question
+        if (currentQuestionIndex < totalQuestions - 1) {
+            navigateQuestion('next');
+        }
+    }
+    window.saveAndNext = saveAndNext;
 
     function confirmSubmit() {
         return totalQuestions - answeredQuestions.size === 0 ||
@@ -80,16 +134,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.confirmSubmit = confirmSubmit;
 
-    function saveAndNext() {
-        const selectedInput = document.querySelector(`.question-container:nth-child(${currentQuestionIndex + 1}) input[type=radio]:checked`);
-        if (selectedInput) answeredQuestions.add(currentQuestionIndex);
-        updateCounts();
-        updateQuestionIndicators();
-        navigateQuestion('next');
-    }
-    window.saveAndNext = saveAndNext;
-
-    let timeLeft = 3600;
+    // Timer functionality
+    let timeLeft = 3600; // 60 minutes in seconds
     function updateTimer() {
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
@@ -102,48 +148,33 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("examForm").submit();
         }
     }
-    window.updateTimer = updateTimer;
 
-    // --- Toggle Calculator Functionality ---
-    // This function toggles the display of the calculator modal.
+    // Calculator functionality
     function toggleCalculator() {
         const calcModal = document.getElementById("calculatorModal");
-        // If the calculator is currently visible (display set to "flex"), hide it.
-        if (calcModal.style.display === "flex") {
-            calcModal.style.display = "none";
-        } else {
-            calcModal.style.display = "flex";
-        }
+        calcModal.style.display = calcModal.style.display === "flex" ? "none" : "flex";
     }
     window.toggleCalculator = toggleCalculator;
-
-    // You can still keep the following functions if needed.
-    function openCalculator() {
-        document.getElementById("calculatorModal").style.display = "flex";
-    }
-    window.openCalculator = openCalculator;
 
     function closeCalculator() {
         document.getElementById("calculatorModal").style.display = "none";
     }
     window.closeCalculator = closeCalculator;
-    // --- End Toggle Calculator Functionality ---
 
+    // Initialize video stream for webcam
     if (navigator.mediaDevices?.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
             .then(stream => {
-                const video = document.getElementById('video' );
-                if (video) video.srcObject = stream;
-                video.style.transform = "scaleX(-1)";
-
+                const video = document.getElementById('video');
+                if (video) {
+                    video.srcObject = stream;
+                    video.style.transform = "scaleX(-1)";
+                }
             })
             .catch(() => alert("Camera access denied. Please enable permissions."));
     }
 
-    showQuestion(0);
-    updateTimer();
-
-    // Calculator functionality
+    // Calculator implementation
     const display = document.getElementById('display');
     const buttons = document.querySelectorAll('.button');
     let currentExpression = '';
@@ -166,7 +197,6 @@ document.addEventListener('DOMContentLoaded', function() {
             case '=':
                 calculate();
                 break;
-            // For functions that need an argument, append the function name plus "("
             case 'sin':
             case 'cos':
             case 'tan':
@@ -175,15 +205,12 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'exp':
                 appendValue(value + '(');
                 break;
-            // For square root, display a unique symbol that we later convert
             case 'sqrt':
                 appendValue('√(');
                 break;
-            // For exponentiation, convert the caret into JavaScript’s "**"
             case '^':
                 appendValue('**');
                 break;
-            // For reciprocal and square, compute immediately
             case '1/x':
                 computeReciprocal();
                 break;
@@ -191,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 computeSquare();
                 break;
             default:
-                // For numbers, operators, parentheses, and dot
                 appendValue(value);
         }
     }
@@ -211,12 +237,10 @@ document.addEventListener('DOMContentLoaded', function() {
         display.value = currentExpression;
     }
 
-    // Convert degrees to radians (for trigonometric functions)
     function degreesToRadians(degrees) {
         return degrees * (Math.PI / 180);
     }
 
-    // Process a trigonometric function (sin, cos, tan) assuming the argument is in degrees
     function processTrigFunction(func, angle) {
         return Math[func](degreesToRadians(angle));
     }
@@ -224,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function calculate() {
         try {
             let processedExpression = currentExpression;
-            // Replace sin, cos, tan expressions by evaluating them (using degrees)
+            // Handle trigonometric functions
             processedExpression = processedExpression.replace(/sin\(([^)]+)\)/g, (match, angle) =>
                 processTrigFunction('sin', eval(angle))
             );
@@ -234,14 +258,13 @@ document.addEventListener('DOMContentLoaded', function() {
             processedExpression = processedExpression.replace(/tan\(([^)]+)\)/g, (match, angle) =>
                 processTrigFunction('tan', eval(angle))
             );
-            // Replace the display tokens with the proper Math functions
+            // Replace mathematical functions
             processedExpression = processedExpression.replace(/log\(/g, 'Math.log10(');
             processedExpression = processedExpression.replace(/ln\(/g, 'Math.log(');
             processedExpression = processedExpression.replace(/exp\(/g, 'Math.exp(');
+            processedExpression = processedExpression.replace(/√\(/g, 'Math.sqrt(');
             
-            // Evaluate the final expression
             const result = eval(processedExpression);
-            // Show an integer if possible, or round to 4 decimal places
             display.value = Number.isInteger(result) ? result : result.toFixed(4);
             currentExpression = display.value.toString();
         } catch (error) {
@@ -250,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Immediately compute the reciprocal (1/x) of the current evaluated expression
     function computeReciprocal() {
         try {
             const value = eval(currentExpression);
@@ -259,8 +281,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentExpression = '';
             } else {
                 const result = 1 / value;
-                display.value = result;
-                currentExpression = result.toString();
+                display.value = Number.isInteger(result) ? result : result.toFixed(4);
+                currentExpression = display.value.toString();
             }
         } catch (error) {
             display.value = 'Error';
@@ -268,16 +290,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Immediately compute the square (x²) of the current evaluated expression
     function computeSquare() {
         try {
             const value = eval(currentExpression);
             const result = value * value;
-            display.value = result;
-            currentExpression = result.toString();
+            display.value = Number.isInteger(result) ? result : result.toFixed(4);
+            currentExpression = display.value.toString();
         } catch (error) {
             display.value = 'Error';
             currentExpression = '';
         }
     }
+
+    // Initialize the exam
+    showQuestion(0);
+    updateTimer();
 });
