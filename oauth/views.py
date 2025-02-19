@@ -44,7 +44,6 @@ def update_profile(request):
         messages.error(request, "Invalid request method.")
         return redirect('profile')
 
-
 def profile(request):
     user_id = request.session.get('user_id')  # Fetch user_id from session
     user = None

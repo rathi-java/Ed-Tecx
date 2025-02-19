@@ -18,8 +18,7 @@ class UsersDB(models.Model):
     referral_code = models.CharField(max_length=50, blank=True, null=True)
     username = models.CharField(max_length=10, unique=True, editable=False)
     last_login = models.DateTimeField(null=True, blank=True)  # Add last_login field    
-    gender = models.CharField(max_length=10, default='male', null=True, blank=True)
-
+    gender = models.CharField(max_length=10, default='other', null=True, blank=True)
 
     def update_last_login(self):
         from django.utils import timezone
