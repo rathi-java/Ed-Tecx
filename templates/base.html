@@ -27,9 +27,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Optionally load FontAwesome icons (if needed) -->
-  {% comment %} <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> {% endcomment %}
-
   {% block extra_css %}
   {# You can include extra per-page CSS here if needed #}
   {% endblock %}
@@ -52,76 +49,42 @@
               Solution <i class="fa-solid fa-caret-down"></i>
             </a>
             <div class="dropdown-content">
-              <!-- If user is logged in, go directly; if not, show the 'Please Sign-In' pop-up -->
-              <a 
-                href="{% url 'compile_code' %}" 
-                onclick="handleAuthCheck(event, '{% url 'compile_code' %}')"
-              >Compiler</a>
-
-              <a 
-                href="{% url 'demo_test' %}" 
-                onclick="handleAuthCheck(event, '{% url 'demo_test' %}')"
-              >Demo Test</a>
-
-              <a 
-                href="{% url 'exam_home' %}" 
-                onclick="handleAuthCheck(event, '{% url 'exam_home' %}')"
-              >Exam Registration</a>
-
-              <a 
-                href="{% url 'practice_questions' %}" 
-                onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')"
-              >Practice Questions</a>
-
-              <a 
-                href="{% url 'placement_stories' %}" 
-                onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')"
-              >Placement Stories</a>
-
-              <a 
-                href="https://www.readerclub.in/"
-                onclick="handleAuthCheck(event, 'https://www.readerclub.in/')"
-              >Reader Club magazine</a>
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a>
+              <a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a>
+              <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a>
+              <a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a>
+              <a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a>
+              <a href="https://www.readerclub.in/" onclick="handleAuthCheck(event, 'https://www.readerclub.in/')">Reader Club magazine</a>
             </div>
           </li>
 
           <li>
-            <a class="nav-link" 
-               href="{% url 'exam_home' %}" 
-               onclick="handleAuthCheck(event, '{% url 'exam_home' %}')"
-            >Test Room</a>
+            <a class="nav-link" href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a>
           </li>
-
           <li>
-            <a class="nav-link" 
-               href="#" 
-               onclick="handleAuthCheck(event, '#')"
-            >Roadmap</a>
+            <a class="nav-link" href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a>
           </li>
-
           <li>
-            <a class="nav-link" 
-               href="{% url 'price' %}" 
-               onclick="handleAuthCheck(event, '#')"
-            >Pricing</a>
+            <a class="nav-link" href="{% url 'price' %}" onclick="handleAuthCheck(event, '#')">Pricing</a>
           </li>
-
           <li>
-            <a class="nav-link" 
-               href="#" 
-               onclick="handleAuthCheck(event, '#')"
-            >About Us</a>
+            <a class="nav-link" href="#" onclick="handleAuthCheck(event, '#')">About Us</a>
           </li>
         </ul>
       </div>
 
-      <!-- If user is logged in, show profile menu; otherwise, show Sign Up & Log In -->
       {% if request.session.user_id %}
-      <!-- Profile Dropdown -->
+      <!-- Profile Dropdown Container -->
       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
-        <img src="{% static 'assets/user.png' %}" alt="User Profile" height="50" />
+        <div class="avatar">
+          {% if logged_in_user and logged_in_user.full_name %}
+            {{ logged_in_user.full_name|slice:":1"|upper }}
+          {% else %}
+            ?
+          {% endif %}
+        </div>        
         <div id="profile-menu" class="profile-dropdown-content">
-          <a href="{% url 'profile' %}" ><i class="fas fa-user"></i> Profile</a>
+          <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
           <a href="#"><i class="fas fa-cog"></i> Settings</a>
           <a href="#"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
           <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
@@ -143,9 +106,10 @@
           </div>
         </div>
       </div>
-      <div class="hello-user">
-        <p>{{ logged_in_user.full_name }}</p>
-      </div>
+      <!-- Make username clickable too, toggling the same dropdown -->
+      {% comment %} <div class="hello-user" onclick="toggleProfileDropdown(event)">
+        <p>Hi {{ logged_in_user.full_name }} dahiya heello!</p>
+      </div> {% endcomment %}
       {% else %}
       <!-- Sign Up & Log In Buttons -->
       <div class="login">
@@ -185,11 +149,9 @@
       <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
       <li><a href="#" onclick="handleAuthCheck(event, '#')">About Us</a></li>
       {% if request.session.user_id %}
-      <!-- Logged in: show sign out or profile link in mobile view -->
       <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
       {% else %}
-      <!-- Logged out: show Sign Up & Log In in mobile view -->
       <li><button onclick="openModal('signup')">Sign Up</button></li>
       <li><button onclick="openModal('login')">Log In</button></li>
       {% endif %}
@@ -204,9 +166,10 @@
 
   <!-- Footer -->
   <footer class="footer">
+    <!-- First Row: main links -->
     <div class="footer-container">
       <div class="footer-left">
-        <img src="{% static 'assets/icon_2.png' %}" alt="Icon" width="172" height="152">
+        <img src="{% static 'assets/icon_2.png' %}" alt="Icon" width="220" height="220">
       </div>
       <div class="footer-links">
         <p class="footer-para">Useful Links</p>
@@ -254,34 +217,42 @@
         </div>
       </div>
     </div>
-    <hr class="footer-line">
-    <div class="footer-base">
-      <p>© 2022 Readerclub. All rights reserved</p>
-      <div class="footer-logos">
-        <div class="fac"><img src="{% static 'assets/facebook.png' %}" alt="Facebook"></div>
-        <img src="{% static 'assets/instagram.png' %}" alt="Instagram">
-        <img src="{% static 'assets/twitter.png' %}" alt="Twitter">
-        <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn">
+  
+    <!-- Second Row: HR + base row (copyright, social) -->
+    <div class="footer-container footer-column">
+      <hr class="footer-line">
+      <div class="footer-base">
+        <p>© 2022 Readerclub. All rights reserved</p>
+        <div class="footer-logos">
+          <div class="fac">
+            <img src="{% static 'assets/facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
+          </div>
+          <img src="{% static 'assets/instagram.png' %}" alt="Instagram" style="width: 30px; height: 30px;">
+          <img src="{% static 'assets/twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px;">
+          <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;">
+        </div>
       </div>
     </div>
   </footer>
-
+    
   <!-- ============== -->
   <!-- Existing Modal (Login/Signup) -->
   <!-- ============== -->
   <div id="Modal" class="modal" style="display: none;">
     <div class="container {% if modal_type == 'loginForm' %}login{% elif modal_type == 'signupForm' %}signup{% endif %}">
       <!-- Header -->
-      <div class="header">
+      <div class="header" style="margin-bottom:8px;">
         LOGIN<br>
         <small>Login to continue</small>
       </div>
 
       <!-- Tab Buttons -->
-      <div class="tabs">
+      <div class="tabs" style="margin-bottom: 10px;">
         <button id="loginTab" class="tab-button active" onclick="switchTab('login')">Login</button>
         <button id="signupTab" class="tab-button" onclick="switchTab('signup')">Signup</button>
       </div>
+
+      <!-- REMOVED the <div class="smokey-border"></div> -->
 
       <!-- Login Form -->
       <div id="loginForm" class="form-content">
@@ -388,12 +359,10 @@
   <!-- ========================= -->
   <div id="authPopUp" class="popup-overlay">
     <div class="popup-box">
-      <!-- Lock Icon -->
       <img src="{% static 'images/padlock.png' %}" alt="Lock" class="popup-lock">
       <h2>Please Sign-in to continue</h2>
       <p>You need to be logged in to access this page.</p>
       <div class="popup-buttons">
-        <!-- No server request; open the local modal directly -->
         <button class="login-btn" onclick="showLoginModal()">Login</button>
         <button class="signup-btn" onclick="showSignupModal()">Signup</button>
       </div>
@@ -429,12 +398,9 @@
         if (profileMenu) profileMenu.style.display = "none";
       }
     });
-    {% comment %} function showProfileInfo() {
-      
-    } {% endcomment %}
 
     // =====================
-    // POP-UP LOGIN/SIGNUP (Existing Modal)
+    // POP-UP LOGIN/SIGNUP
     // =====================
     function openModal(defaultTab = 'login') {
       document.getElementById('Modal').style.display = 'flex';
@@ -445,7 +411,6 @@
       document.getElementById('Modal').style.display = 'none';
     }
 
-    // Switch between login and signup tabs
     function switchTab(tab) {
       const loginTab = document.getElementById('loginTab');
       const signupTab = document.getElementById('signupTab');
@@ -468,7 +433,7 @@
       }
     }
 
-    // Close modal if clicked outside of it
+    // Close modal if clicked outside
     window.onclick = function(event) {
       const modal = document.getElementById('Modal');
       if (event.target === modal) {
@@ -479,18 +444,16 @@
     // =====================
     // SHOW "PLEASE SIGN-IN" POP-UP IF LOGGED OUT
     // =====================
-    const isLoggedIn = Boolean("{{ request.session.user_id|default_if_none:'' }}"); 
+    const isLoggedIn = Boolean("{{ request.session.user_id|default_if_none:'' }}");
 
     function handleAuthCheck(event, linkUrl) {
       if (!isLoggedIn) {
-        // User is NOT logged in
-        event.preventDefault();   // Stop normal link
-        document.getElementById('authPopUp').style.display = 'flex'; // Show sign-in pop-up
+        event.preventDefault();
+        document.getElementById('authPopUp').style.display = 'flex';
       }
-      // If user IS logged in, do nothing (allow default behavior)
     }
 
-    // Open the local login/signup modal without server hit
+    // Local login/signup modal
     function showLoginModal() {
       document.getElementById('authPopUp').style.display = 'none';
       openModal('login');
@@ -500,14 +463,14 @@
       openModal('signup');
     }
 
-    // Close the auth pop-up if the user clicks outside the pop-up-box
+    // Close the auth pop-up if user clicks outside
     document.getElementById('authPopUp').addEventListener('click', function(event) {
       if (event.target === this) {
         this.style.display = 'none';
       }
     });
 
-    // On page load, check for URL parameters to open modal if needed
+    // On page load, check for URL parameters
     window.addEventListener('DOMContentLoaded', function() {
       const urlParams = new URLSearchParams(window.location.search);
       const showModal = urlParams.get('showModal');
@@ -517,8 +480,6 @@
     });
   </script>
 
-  {% block extra_js %}
-  {# You can include any extra JS here #}
-  {% endblock %}
+  {% block extra_js %}{% endblock %}
 </body>
 </html>

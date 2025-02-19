@@ -4,105 +4,122 @@
 {% block title %}Edit Profile{% endblock %}
 
 {% block extra_css %}
-<!-- Reference your custom CSS for edit profile -->
-<link rel="stylesheet" href="{% static 'css/edit.css' %}">
+  <link rel="stylesheet" href="{% static 'css/edit.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <section class="profile-section">
   <div class="profile-container">
-    <h2><i class="material-icons"></i> Edit Profile</h2>
+    <h2>
+      <i class="material-icons">arrow_back</i>
+      Profile Details
+    </h2>
     <hr>
 
     <div class="profile-card">
       <div class="profile-header">
-        <!-- Convert avatar.png to static reference -->
-        <img src="{% static 'images/avatar.png' %}" alt="Avatar" class="avatar">
-        
-        <div class="user-info">
-          <!-- Example user data (read-only or dynamic) -->
-          <div class="username">{{ user.username }}</div>
-          <span class="user-id">USER{{ user.id }}</span>
+        <!-- Avatar -->
+        <div class="avatar">
+          {% if user and user.full_name %}
+            {{ user.full_name|slice:":1"|upper }}
+          {% else %}
+            ?
+          {% endif %}
         </div>
-
-        <!-- “Edit Details” button if you want to enable editing -->
-        <button class="edit-button">
-          <i class="material-icons"></i> Edit Details
-        </button>
+        <div class="user-info">
+          <span class="user-id">{{ user.username }}</span>
+        </div>
+        <!-- Edit Details button (always visible) -->
+        <button type="button" class="edit-button">Edit Details</button>
       </div>
 
-      <!-- Example of a form, or read-only fields. Adjust as needed. -->
-      <form method="POST" action="">
+      <!-- Form for profile details -->
+      <form method="POST" action="{% url 'update_profile' %}">
         {% csrf_token %}
+        <!-- FULL NAME & EMAIL -->
         <div class="form-row">
           <div class="form-group">
             <label>Full Name</label>
-            <i class="fas fa-user"></i>
-            <input type="text" value="{{ user.full_name }}" disabled>
+            <img src="{% static 'images/person.svg' %}" alt="Icon">
+            <input name="full_name" type="text" value="{{ user.full_name }}" disabled data-editable="true">
           </div>
           <div class="form-group">
             <label>Email Address</label>
-            <i class="fas fa-envelope"></i>
+            <img src="{% static 'images/email.svg' %}" alt="Icon">
             <input type="email" value="{{ user.email }}" disabled>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Password</label>
-            <i class="fas fa-lock"></i>
-            <!-- If you want to display masked password or an actual field for changing password -->
-            <input type="password" value="********" disabled>
-          </div>
-          <div class="form-group">
-            <label>Phone No.</label>
-            <i class="fas fa-phone"></i>
-            <input type="text" value="{{ user.phone_number }}" disabled>
-          </div>
-        </div>
-
+        <!-- COURSE & PHONE NUMBER -->
         <div class="form-row">
           <div class="form-group">
             <label>Course</label>
-            <i class="fas fa-book"></i>
-            <!-- Example “course” if you store it in user’s profile or DB -->
-            <input type="text" value="BTech Computer Science" disabled>
+            <img src="{% static 'images/study.svg' %}" alt="Icon">
+            <input name="course" type="text" value="{{ user.course|default:'BTech Computer Science' }}" disabled data-editable="true">
           </div>
           <div class="form-group">
-            <label>College Name</label>
-            <i class="fas fa-university"></i>
-            <input type="text" value="{{ user.college_name }}" disabled>
+            <label>Phone No.</label>
+            <img src="{% static 'images/call.svg' %}" alt="Icon">
+            <input type="text" value="{{ user.phone_number|default:'N/A' }}" disabled>
           </div>
         </div>
 
+        <!-- DATE OF BIRTH & COLLEGE NAME (dropdown) -->
         <div class="form-row">
           <div class="form-group">
             <label>Date of Birth</label>
-            <i class="fas fa-calendar-alt"></i>
-            <input type="text" value="{{ user.dob|date:'d-m-Y' }}" disabled>
+            <img src="{% static 'images/date.svg' %}" alt="Icon">
+            <input name="dob" type="date" value="{{ user.dob|date:'Y-m-d' }}" disabled data-editable="true">
           </div>
           <div class="form-group">
-            <label>Reference Code</label>
-            <i class="fas fa-hashtag"></i>
-            <input type="text" value="{{ user.referral_code|default:'N/A' }}" disabled>
+            <label>College Name</label>
+            <img src="{% static 'images/study.svg' %}" alt="Icon">
+            <!-- The select uses class "input" so it gets the same styling as other fields -->
+            <select name="college_name" class="input" disabled data-editable="true">
+              {% for college in colleges %}
+                <option value="{{ college.college_name }}" {% if user.college_name == college.college_name %}selected{% endif %}>
+                  {{ college.college_name }}
+                </option>
+              {% endfor %}
+            </select>
           </div>
         </div>
 
+        <!-- LAST LOGIN & REFERENCE CODE -->
         <div class="form-row">
           <div class="form-group">
             <label>Last Login</label>
-            <i class="fas fa-clock"></i>
+            <img src="{% static 'images/date.svg' %}" alt="Icon">
             <input type="text" value="{{ user.last_login|date:'d-m-Y H:i'|default:'Never' }}" disabled>
+          </div>
+          <div class="form-group">
+            <label>Reference Code</label>
+            <img src="{% static 'images/gift.svg' %}" alt="Icon">
+            <input type="text" value="{{ user.referral_code|default:'1111111' }}" disabled>
           </div>
         </div>
 
-        <div class="buttons">
-          <!-- If you want to allow user to actually save or cancel changes -->
+        <div class="form-group">
+          <label>Gender</label>
+          <i class="fas fa-venus-mars"></i>
+          <select name="gender" class="input" disabled data-editable="true">
+            <option value="male" {% if user.gender == "male" %}selected{% endif %}>Male</option>
+            <option value="female" {% if user.gender == "female" %}selected{% endif %}>Female</option>
+            <option value="other" {% if user.gender == "other" %}selected{% endif %}>Other</option>
+          </select>
+        </div>        
+                
+        
+
+        <!-- Save/Cancel Buttons (hidden by default) -->
+        <div class="buttons" id="action-buttons" style="display: none;">
           <button type="submit" class="save-button">Save Changes</button>
           <button type="button" class="cancel-button">Cancel</button>
         </div>
 
-        <!-- wave.png as static reference -->
+        <!-- Wave image -->
         <img src="{% static 'images/wave.png' %}" alt="wave-profile" class="wave-profile">
       </form>
     </div>
@@ -111,13 +128,26 @@
 {% endblock content %}
 
 {% block extra_js %}
-<!-- If you need any JS for toggling "Edit Details" etc., place it here -->
 <script>
-  // Example: Toggle disabled state on inputs when "Edit Details" is clicked
-  document.querySelector('.edit-button')?.addEventListener('click', () => {
-    document.querySelectorAll('.form-group input').forEach(input => {
-      input.toggleAttribute('disabled');
+  // Get references
+  const editBtn = document.querySelector('.edit-button');
+  const actionButtons = document.getElementById('action-buttons');
+  const editableFields = document.querySelectorAll('[data-editable="true"]');
+
+  // When "Edit Details" is clicked, enable editable fields and show buttons
+  editBtn.addEventListener('click', () => {
+    editableFields.forEach(field => {
+      field.removeAttribute('disabled');
     });
+    actionButtons.style.display = 'flex';
+  });
+
+  // When "Cancel" is clicked, disable the editable fields again and hide buttons
+  document.querySelector('.cancel-button').addEventListener('click', () => {
+    editableFields.forEach(field => {
+      field.setAttribute('disabled', true);
+    });
+    actionButtons.style.display = 'none';
   });
 </script>
 {% endblock extra_js %}

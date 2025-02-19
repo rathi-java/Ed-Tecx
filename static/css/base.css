@@ -4,7 +4,7 @@
  body {
   font-family: sans-serif;
   min-height: 100vh;
-  padding-top: 1rem; 
+  padding-top: 1rem;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -44,8 +44,9 @@
 /*****************************************************
  * NAV LINKS
  *****************************************************/
+
 .nav-links {
-  display: flex; /* visible on desktop */
+  display: flex;
   margin-left: auto;
 }
 .nav-links ul {
@@ -72,17 +73,12 @@
 /*****************************************************
  * Conditional nav-links margin (logged-in vs. logged-out)
  *****************************************************/
-/* Logged in: maybe you want minimal margin */
 .navbar.logged-in .nav-links {
   padding-left: 350px;
 }
 
-/* Logged out: push nav-links to the right so the Sign Up & Log In 
-   buttons sit on the right edge comfortably */
-
-
 /*****************************************************
- * DROPDOWN (the existing "Solution" dropdown)
+ * DROPDOWN
  *****************************************************/
 .dropdown-content {
   display: none;
@@ -91,7 +87,7 @@
   min-width: 160px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  top: 100%; /* or adjust this value if needed */
+  top: 100%;
   border-top: 2px solid #1273b9;
 }
 
@@ -113,7 +109,7 @@
 }
 
 /*****************************************************
- * BUTTONS: SIGNUP / LOGIN
+ * SIGNUP / LOGIN BUTTONS
  *****************************************************/
 .signup,
 .login {
@@ -122,7 +118,7 @@
 }
 .signup button,
 .login button {
-  position: relative; /* Make z-index effective if needed */
+  position: relative;
   padding: 8px 24px;
   width: 105px;
   border-radius: 10px;
@@ -131,7 +127,7 @@
   font-size: 16px;
   cursor: pointer;
 }
-/* Sign Up */
+/* Log In button */
 .login button {
   background-color: #1273b9;
   color: white;
@@ -141,7 +137,7 @@
 .login button:hover {
   background-color: #ec8a3f;
 }
-/* Log In */
+/* Sign Up button */
 .signup button {
   background-color: rgba(18, 115, 185, 0.11);
   color: black;
@@ -153,12 +149,25 @@
 }
 
 /*****************************************************
- * NEW PROFILE DROPDOWN
+ * PROFILE DROPDOWN
  *****************************************************/
+ .avatar {
+  width: 50px;
+  height: 50px;
+  background: #077BC3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 15px;
+}
 .profile-dropdown {
-  position: relative; /* required for absolute dropdown menu */
+  position: relative;
   display: inline-block;
-  margin-left: auto;  /* pushes it to the far right in a flex container */
+  margin-left: auto;
   cursor: pointer;
   color: black;
   font-size: 18px;
@@ -166,7 +175,7 @@
 .profile-dropdown-content {
   display: none;
   position: absolute;
-  right: 0;                  /* stick to the right edge */
+  right: 0;
   background: white;
   min-width: 240px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -175,9 +184,10 @@
   overflow: hidden;
   text-align: left;
   padding-bottom: 5px;
-  border-top: 2px solid #1273b9;
+  border-top: 2px solid #077BC3;
   top: 115%;
 }
+
 .profile-dropdown-content a {
   display: flex;
   align-items: center;
@@ -192,8 +202,6 @@
 .profile-dropdown-content a:hover {
   background: #f1f1f1;
 }
-
-/* Profile info links and social icons */
 .profile-info-links {
   font-size: 12px;
   color: gray;
@@ -228,72 +236,48 @@
 .profile-social-icons a:hover {
   transform: scale(1.1);
 }
-.profile-dropdown-content a:hover {
-  background: #f1f1f1;
+
+/* Make the name clickable like the icon */
+.hello-user {
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  align-self: center;
 }
-.profile-dropdown-content a i {
-  margin-right: 10px;
-}
-.profile-dropdown-content a:hover {
-  background: #f1f1f1;
-}
-.profile-dropdown-content a i {
-  margin-right: 10px;
-}
-.profile-dropdown-content a:hover {
-  background: #f1f1f1;
-}
-.profile-social-icons a:hover {
-  transform: scale(1.1);
-}
-.profile-dropdown-content a:hover {
-  background: #f1f1f1;
-}
-.profile-info-links a:hover {
-  text-decoration: underline;
-}
-.profile-dropdown-content a i {
-  margin-right: 10px;
-}
-.profile-dropdown-content a:hover {
-  background: #f1f1f1;
-}
-.profile-social-icons a:hover {
-  transform: scale(1.1);
-}
-.profile-info-links a:hover {
-  text-decoration: underline;
-}
-.profile-dropdown-content a i {
-  margin-right: 10px;
-}
-.profile-dropdown-content a:hover {
-  background: #f1f1f1;
+.hello-user p {
+  color: #077BC3;
+  font-weight: 500;
 }
 
 /*****************************************************
- * FOOTER (Integrated New CSS)
+ * FOOTER
  *****************************************************/
-.footer {
+ .footer {
   display: flex;
   flex-direction: column;
   color: white;
-  /* padding-left: 100%; */
-  /* width: 60%; */
-  min-height: auto;
   background: linear-gradient(90deg, rgba(49, 132, 205, 1) 0%, rgba(0, 77, 144, 1) 100%);
   font-family: Arial, sans-serif;
-  padding: 40px 18% 40px 14%;
+  padding: 20px 0;
   overflow-x: hidden;
 }
 
 .footer-container {
+  /* Match .nav-container exactly */
+  max-width: 1200px;         /* same width as your header container */
+  margin: 0 auto;            /* center it horizontally */
+  padding: 0 20px;           /* optional side padding to match header’s spacing */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: nowrap;
-  width: 100%;
-  gap: 20px;
+  gap: 120px;
+}
+
+/* The second row uses column layout for the hr + base row */
+.footer-column {
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 .footer-left {
@@ -304,39 +288,22 @@
   min-width: 220px;
 }
 
-.footer-left img {
-  margin: 40px;
-  padding: 50px;
-}
-
 .footer-links,
 .footer-practice,
 .footer-ccc {
   flex: 1;
   min-width: 200px;
   text-align: left;
-}
-
-.footer-practice {
-  position: relative;
-  left: 60px; /* Moves it to the right */
-}
-.footer-links {
-  position: relative;
-  left: 100px; /* Moves it to the right */
+  margin-top: 20px;
 }
 
 .footer-para {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   border-bottom: 2px solid white;
   display: inline-block;
-  padding-bottom: 5px;
-}
-
-.footer-down {
-  margin: 10px;
+  padding-bottom: 4px;
 }
 
 .footer-container ul {
@@ -345,116 +312,44 @@
 }
 
 .footer-container ul li {
-  margin: 5px 0;
-  padding: 5px;
+  margin: 3px 0;
+  padding: 3px;
   transition: 0.3s;
 }
 
 .footer-line {
+  width: 1200px;
+  margin-left: 1%;
   border: 1px solid white;
-  width: 91.4%;
-  margin: 40px 90px;
-
+  margin: 10px 0;  /* or as you prefer */
 }
 
 .footer-base {
+  max-width: 1200px;         /* same width as your header container */
+  margin: 0 auto;            /* center it horizontally */
+  padding: 0 20px;           /* optional side padding to match header’s spacing */
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  width: 96%;
-  margin-left: 80px;
+  align-items: flex-start;
+  gap: 651px;
+  margin-left: -2% !important;
+}
+
+.footer-base p {
+  margin: 0;                    /* remove default paragraph margin */
+  white-space: nowrap;          /* keep it on one line */
 }
 
 .footer-logos {
   display: flex;
   gap: 15px;
-  margin-right: 50px;
-}
-
-.footer-logos img {
-  width: 40px;
-  height: 40px;
-}
-
-.fac img {
-  height: 55px;
-  width: 55px;
-  gap: 20px;
-  padding-top: -5px;
-}
-
-.footer-iii {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  margin-left: 10px;
-  text-align: left;
-}
-.footer-iv {
-  margin-left: -22px;
-  /* margin-left: -10px; */
-}
-.footer-v {
-  margin-left: -60px;
-}
-
-.footer-ii {
-  margin: 1px;
-  padding: 1px;
-  margin-left: 11px;
-}
-.footer-i {
-  margin-left: 5px;
-}
-
-.footer-iii div {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin-left: 0px;
-}
-
-.footer-ccc {
-  text-align: center;
-  margin-left: 20px;
+  margin-right: 10px;
 }
 
 .fac img {
   width: 55px;
   height: 55px;
   vertical-align: middle;
-}
-
-/* Responsive Footer */
-@media screen and (max-width: 1024px) {
-  .footer-container {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .footer-left {
-    justify-content: center;
-  }
-  .footer-ccc {
-    margin-left: 0;
-    text-align: center;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .footer {
-    padding: 20px;
-  }
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-  }
-  .footer-base {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
 }
 
 /*****************************************************
@@ -465,8 +360,6 @@
   font-size: 24px;
   cursor: pointer;
 }
-
-/* Mobile Sidebar (hidden by default) */
 .mobile-sidebar {
   position: fixed;
   top: 0;
@@ -500,7 +393,7 @@
 @media (max-width: 768px) {
   .signup,
   .login {
-    display: none; /* Hide these buttons on mobile */
+    display: none;
   }
   .nav-links {
     display: none;
@@ -508,16 +401,9 @@
   .hamburger {
     display: block;
   }
-
-  /* Footer columns become full width */
-  .col-md-3 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
 }
 
-/* Additional breakpoints for smaller devices (optional) */
+/* Additional breakpoints */
 @media (max-width: 425px) {
   .navbar-brand img {
     height: 40px;
@@ -526,9 +412,6 @@
   .login button {
     width: 90px;
     font-size: 14px;
-  }
-  .subscribe-form input {
-    width: 75%;
   }
 }
 @media (max-width: 375px) {
@@ -540,9 +423,6 @@
     width: 85px;
     font-size: 13px;
   }
-  .subscribe-form input {
-    width: 70%;
-  }
 }
 @media (max-width: 320px) {
   .navbar-brand img {
@@ -553,10 +433,4 @@
     width: 80px;
     font-size: 12px;
   }
-  .subscribe-form input {
-    width: 65%;
-  }
-}
-.hello-user p {
-  color: #077BC3;
 }

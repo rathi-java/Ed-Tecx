@@ -1,10 +1,49 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import *
+from .models import UsersDB, CollegesDb
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
 from django.contrib.auth import logout
 from django.utils.timezone import now
+from django.utils import timezone
+
+def update_profile(request):
+    if request.method == "POST":
+        user_id = request.session.get('user_id')
+        if not user_id:
+            messages.error(request, "You must be logged in to update your profile.")
+            return redirect('login')
+
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            messages.error(request, "User not found. Please log in again.")
+            return redirect('login')
+
+        new_full_name = request.POST.get('full_name')
+        new_course = request.POST.get('course')
+        new_dob = request.POST.get('dob')
+        new_college = request.POST.get('college_name')
+        new_gender = request.POST.get('gender')
+
+        if new_full_name:
+            user.full_name = new_full_name
+        if new_course:
+            user.course = new_course
+        if new_dob:
+            user.dob = new_dob
+        if new_college:
+            user.college_name = new_college
+        if new_gender:
+            user.gender = new_gender
+
+        user.save()
+        messages.success(request, "Profile updated successfully!")
+        return redirect('profile')
+    else:
+        messages.error(request, "Invalid request method.")
+        return redirect('profile')
+
 
 def profile(request):
     user_id = request.session.get('user_id')  # Fetch user_id from session
