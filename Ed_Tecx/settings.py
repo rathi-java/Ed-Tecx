@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'admin_portal',
     'certificate_management',
     'price',
+    'jobportol',
+
     
 ]
 
