@@ -304,21 +304,30 @@ hr {
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   transition: all 0.3s ease-in-out;
 } */
+.hero-line{
+  margin: 40px 0;
+}
+/* 1) The stats wrapper remains a row of items */
 .stats {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
   gap: 40px;
+  /* ...your other rules remain... */
 }
+
+/* 2) Each stat is now a row: icon on the left, text on the right */
 .stat-item {
-  display: flex;
-  flex-direction: column;
+  display: flex;            /* horizontal row */
   align-items: center;
-  text-align: center;
+  gap: 15px;                /* spacing between icon & text */
+  text-align: left;         /* so text does not center */
 }
-.active-circle,
+/* .active-circle,
 .companies-circle,
+.alumni-circle,
+.satisfaction-circle,
 .courses-circle {
   width: 40px;
   height: 40px;
@@ -338,6 +347,40 @@ hr {
 .courses-circle {
   border-color: #32cd32;
 }
+.alumni-circle{
+  border-color: #A020F0;
+}
+.satisfaction-circle{
+  border-color: #1E90FF;
+} */
+/* 3) The icon can be any color/size you want */
+.hero-stats-icon i {
+  font-size: 3rem;  /* bigger icon, e.g. ~48px */
+  color: #077BC3;   /* pink (match your reference image) */
+}
+
+/* 4) The text description is still stacked: number over label */
+.hero-stats-description {
+  display: flex;
+  flex-direction: column;   /* number above label */
+  align-items: flex-start;  /* align to left edge */
+}
+
+/* The first span: large, bold number */
+.hero-stats-description span:first-child {
+  font-size: 2rem;      /* bigger number */
+  font-weight: bold;
+  color: #000000;       /* or any dark purple */
+  line-height: 1.2;
+}
+
+/* The second span: smaller label */
+.hero-stats-description span:last-child {
+  margin-top: 4px;
+  font-size: 1rem;
+  color: #666;          /* or #777, as you prefer */
+}
+
 
 /* ---------------------------------------------
    EXAMINATION SECTION (unchanged)
@@ -423,7 +466,7 @@ hr {
   padding: 1%;
   margin-left: 0;
   text-align: center;
-  padding-bottom: 2%;
+  padding-bottom: 3%;
   margin-top: -3%;
 }
 
@@ -694,6 +737,7 @@ hr {
 }
 
 .content {
+  padding-top: 45px !important;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;

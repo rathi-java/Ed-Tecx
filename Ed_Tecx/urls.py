@@ -26,6 +26,7 @@ from price.views import price
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path("accounts/", include("allauth.urls")),
     path('signup/', signup, name='signup'),
     path('login/', user_login, name='login'),
     path('logout/', logout_page, name='logout'),
