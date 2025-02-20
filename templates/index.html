@@ -2,6 +2,13 @@
 {% load static %}
 
 {% block title %}EdTech{% endblock %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-..."
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
@@ -179,24 +186,68 @@
       </div>
     </aside>
   </div>
-</section>
+{% comment %} </section> {% endcomment %}
 
 <!-- ================= STATS ROW (3 circles) ================= -->
-<section class="hero-stats-section">
+{% comment %} <section class="hero-stats-section"> {% endcomment %}
+  <hr class="hero-line">
   <div class="stats">
+    <!-- 1 -->
     <div class="stat-item">
-      <div class="active-circle"></div>
-      <span>1k+ Active Learners</span>
+      <div class="hero-stats-icon">
+        <i class="fa-solid fa-users"></i>
+      </div>
+      <div class="hero-stats-description">
+        <!-- Start from 0, animate to 1000 -->
+        <span class="count" data-target="1000" data-suffix="+">0</span>
+        <span>Active Learners</span>
+      </div>
     </div>
+  
+    <!-- 2 -->
     <div class="stat-item">
-      <div class="companies-circle"></div>
-      <span>100+ Companies Hiring</span>
+      <div class="hero-stats-icon">
+        <i class="fa-solid fa-building"></i>
+      </div>
+      <div class="hero-stats-description">
+        <span class="count" data-target="100" data-suffix="+">0</span>
+        <span>Companies Hiring</span>
+      </div>
     </div>
+  
+    <!-- 3 -->
     <div class="stat-item">
-      <div class="courses-circle"></div>
-      <span>30+ Courses Offered</span>
+      <div class="hero-stats-icon">
+        <i class="fa-solid fa-book-open"></i>
+      </div>
+      <div class="hero-stats-description">
+        <span class="count" data-target="30" data-suffix="+">0</span>
+        <span>Courses Offered</span>
+      </div>
     </div>
-  </div>
+  
+    <!-- 4 -->
+    <div class="stat-item">
+      <div class="hero-stats-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <div class="hero-stats-description">
+        <span class="count" data-target="5000" data-suffix="+">0</span>
+        <span>Alumni</span>
+      </div>
+    </div>
+  
+    <!-- 5 -->
+    <div class="stat-item">
+      <div class="hero-stats-icon">
+        <i class="fa-solid fa-thumbs-up"></i>
+      </div>
+      <div class="hero-stats-description">
+        <span class="count" data-target="95" data-suffix="%">0</span>
+        <span>Satisfaction Rate</span>
+      </div>
+    </div>
+  </div>  
 </section>
 
 <!-- Achievers infinite + auto scroll script -->
@@ -458,5 +509,30 @@
       </div>
   </div>
 </section>
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const counters = document.querySelectorAll('.count');
+
+    counters.forEach(counter => {
+      const targetValue = parseInt(counter.getAttribute('data-target'));
+      const suffix = counter.getAttribute('data-suffix') || '';
+      const increment = Math.ceil(targetValue / 50); // Adjust for speed
+      let currentValue = 0;
+
+      const updateCounter = setInterval(() => {
+        currentValue += increment;
+        if (currentValue >= targetValue) {
+          counter.textContent = targetValue + suffix;
+          clearInterval(updateCounter);
+        } else {
+          counter.textContent = currentValue + suffix;
+        }
+      }, 30); // Update interval in milliseconds
+    });
+  });
+</script>
+{% endblock %}
 
 {% endblock %}

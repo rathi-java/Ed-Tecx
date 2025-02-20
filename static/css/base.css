@@ -258,7 +258,7 @@
   color: white;
   background: linear-gradient(90deg, rgba(49, 132, 205, 1) 0%, rgba(0, 77, 144, 1) 100%);
   font-family: Arial, sans-serif;
-  padding: 20px 0;
+  padding: 20px 0 0 0;
   overflow-x: hidden;
 }
 
@@ -270,7 +270,13 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 120px;
+  gap: 70px;
+}
+
+.footer-container img{
+  width: 220px; 
+  height: 220px;
+  margin-top: 20px;
 }
 
 /* The second row uses column layout for the hr + base row */
@@ -331,19 +337,31 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 651px;
+  gap: 793px;
   margin-left: -2% !important;
 }
 
 .footer-base p {
+  padding-bottom: 10px;
   margin: 0;                    /* remove default paragraph margin */
   white-space: nowrap;          /* keep it on one line */
+  font-size: 12px;
 }
+
+.footer-practice ul li a {
+  text-decoration: none;
+  color: inherit; /* keeps the inherited text color */
+}
+.footer-practice ul li a:hover {
+  text-decoration: none;
+}
+
 
 .footer-logos {
   display: flex;
   gap: 15px;
   margin-right: 10px;
+  margin-top: -25px;
 }
 
 .fac img {

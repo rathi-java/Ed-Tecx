@@ -10,10 +10,15 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <!-- Auth Modals CSS -->
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
-  <!-- NEW Pop-Up CSS -->
+  <!-- Pop-Up CSS -->
   <link rel="stylesheet" href="{% static 'css/popup.css' %}">
 
-  <!-- CodeMirror + other external libraries (optional) -->
+  <script>
+    var isLoggedIn = {% if request.session.user_id %} true {% else %} false {% endif %};
+  </script>
+  
+
+  <!-- External libraries (optional) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/theme/dracula.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
@@ -23,24 +28,21 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{% static 'images/fav.ico' %}?v=1">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
 
-  {% block extra_css %}
-  {# You can include extra per-page CSS here if needed #}
-  {% endblock %}
+  {% block extra_css %}{% endblock %}
 </head>
 
 <body>
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar, Mobile Sidebar, etc. -->
   <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
         <img src="{% static 'assets/logo.png' %}" alt="EdTech Logo" height="50" />
       </a>
 
-      <!-- Desktop Nav Links -->
+      <!-- Desktop Nav -->
       <div class="nav-links" id="navbarNav">
         <ul>
           <li><a class="nav-link" href="/">Home</a></li>
@@ -57,7 +59,6 @@
               <a href="https://www.readerclub.in/" onclick="handleAuthCheck(event, 'https://www.readerclub.in/')">Reader Club magazine</a>
             </div>
           </li>
-
           <li>
             <a class="nav-link" href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a>
           </li>
@@ -74,7 +75,7 @@
       </div>
 
       {% if request.session.user_id %}
-      <!-- Profile Dropdown Container -->
+      <!-- Profile Dropdown -->
       <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
         <div class="avatar">
           {% if logged_in_user and logged_in_user.full_name %}
@@ -106,10 +107,6 @@
           </div>
         </div>
       </div>
-      <!-- Make username clickable too, toggling the same dropdown -->
-      {% comment %} <div class="hello-user" onclick="toggleProfileDropdown(event)">
-        <p>Hi {{ logged_in_user.full_name }} dahiya heello!</p>
-      </div> {% endcomment %}
       {% else %}
       <!-- Sign Up & Log In Buttons -->
       <div class="login">
@@ -120,14 +117,14 @@
       </div>
       {% endif %}
 
-      <!-- Hamburger Icon (for mobile) -->
+      <!-- Hamburger (for mobile) -->
       <div class="hamburger" id="hamburger">
         <i class="fas fa-bars"></i>
       </div>
     </div>
   </nav>
 
-  <!-- Mobile Sidebar -->
+  <!-- MOBILE SIDEBAR -->
   <div class="mobile-sidebar" id="mobileSidebar">
     <div class="close-btn" id="closeBtn">
       <i class="fas fa-times"></i>
@@ -158,18 +155,17 @@
     </ul>
   </div>
 
-  <!-- Main Content Section -->
+  <!-- MAIN CONTENT -->
   <main class="main-content">
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="footer">
     <!-- First Row: main links -->
     <div class="footer-container">
       <div class="footer-left">
-        <img src="{% static 'assets/icon_2.png' %}" alt="Icon" width="220" height="220">
+        <img src="{% static 'assets/icon_2.png' %}" alt="Icon">
       </div>
       <div class="footer-links">
         <p class="footer-para">Useful Links</p>
@@ -216,33 +212,39 @@
           </ul>
         </div>
       </div>
+      <div class="footer-practice">
+        <p class="footer-para">Socials</p>
+        <ul>
+          <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+          <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
+          <li><a href="https://twitter.com" target="_blank">X</a></li>
+          <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>          
+        </ul>
+      </div>
     </div>
-  
-    <!-- Second Row: HR + base row (copyright, social) -->
+    <!-- Second Row: HR + base row -->
     <div class="footer-container footer-column">
       <hr class="footer-line">
       <div class="footer-base">
         <p>© 2022 Readerclub. All rights reserved</p>
-        <div class="footer-logos">
+        {% comment %} <div class="footer-logos">
           <div class="fac">
             <img src="{% static 'assets/facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
           </div>
           <img src="{% static 'assets/instagram.png' %}" alt="Instagram" style="width: 30px; height: 30px;">
           <img src="{% static 'assets/twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px;">
           <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;">
-        </div>
+        </div> {% endcomment %}
       </div>
     </div>
   </footer>
     
-  <!-- ============== -->
-  <!-- Existing Modal (Login/Signup) -->
-  <!-- ============== -->
+  <!-- MODAL (LOGIN/SIGNUP) -->
   <div id="Modal" class="modal" style="display: none;">
-    <div class="container {% if modal_type == 'loginForm' %}login{% elif modal_type == 'signupForm' %}signup{% endif %}">
-      <!-- Header -->
+    <div class="container" id="popupContainer">
+      <!-- Header that changes via JS -->
       <div class="header" style="margin-bottom:8px;">
-        LOGIN<br>
+        JOIN US<br>
         <small>Login to continue</small>
       </div>
 
@@ -252,111 +254,13 @@
         <button id="signupTab" class="tab-button" onclick="switchTab('signup')">Signup</button>
       </div>
 
-      <!-- REMOVED the <div class="smokey-border"></div> -->
-
-      <!-- Login Form -->
-      <div id="loginForm" class="form-content">
-        <form method="POST" action="{% url 'login' %}">
-          {% csrf_token %}
-          <div class="message-container">
-            {% if messages %}
-              {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-              {% endfor %}
-            {% endif %}
-          </div>
-          <div class="input-box">
-            <i class="fa fa-envelope"></i>
-            <input type="text" name="username" placeholder="username" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-lock"></i>
-            <input type="password" name="password" placeholder="password" required>
-          </div>
-          <button class="btn">Login</button>
-          <div class="or"><span>OR</span></div>
-          <button class="google-btn">
-            <img src="https://img.icons8.com/color/48/000000/google-logo.png"> Continue with Google
-          </button>
-          <div class="bottom-text">
-            Don't have an account?
-            <a href="#" onclick="switchTab('signup')">Sign up</a>
-          </div>
-        </form>
-      </div>
-
-      <!-- Signup Form -->
-      <div id="signupForm" class="form-content" style="display: none;">
-        <form method="POST" action="{% url 'signup' %}">
-          {% csrf_token %}
-          <div class="message-container">
-            {% if messages %}
-              {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-              {% endfor %}
-            {% endif %}
-          </div>
-          <div class="input-box">
-            <i class="fa fa-user"></i>
-            <input type="text" name="full_name" placeholder="Full Name" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-envelope"></i>
-            <input type="email" name="email" placeholder="Email" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-phone"></i>
-            <input type="tel" name="phone_number" placeholder="Phone number" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-lock"></i>
-            <input type="password" name="password" placeholder="Password" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-lock"></i>
-            <input type="password" name="re_password" placeholder="Re-enter Password" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-university"></i>
-            <select name="college_name" required>
-              <option value="" disabled selected>College Name</option>
-              {% if colleges %}
-                {% for college in colleges %}
-                  <option value="{{ college.college_name }}">{{ college.college_name }}</option>
-                {% endfor %}
-              {% endif %}
-            </select>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-calendar-alt"></i>
-            <input type="date" name="dob" placeholder="Date of Birth" required>
-          </div>
-          <div class="input-box">
-            <i class="fa fa-user-friends"></i>
-            <input type="text" name="referral_code" placeholder="Referral Code (optional)">
-          </div>
-          <button class="btn" type="submit">Submit</button>
-          <div class="or"><span>OR</span></div>
-          <button class="google-btn">
-            <img src="https://img.icons8.com/color/48/000000/google-logo.png"> Continue with Google
-          </button>
-          <div class="bottom-text">
-            Already have an account?
-            <a href="#" onclick="switchTab('login')">Login</a>
-          </div>
-        </form>
-      </div>
+      <!-- Partial Templates for Each Form -->
+      {% include 'oauth/login.html' %}
+      {% include 'oauth/signup.html' %}
     </div>
   </div>
-  <!-- End of the existing Login/Signup Modal -->
 
-  <!-- ========================= -->
-  <!-- NEW: "Please Sign-in" Pop-up -->
-  <!-- ========================= -->
+  <!-- "Please Sign-in" Pop-up -->
   <div id="authPopUp" class="popup-overlay">
     <div class="popup-box">
       <img src="{% static 'images/padlock.png' %}" alt="Lock" class="popup-lock">
@@ -369,117 +273,7 @@
     </div>
   </div>
 
-  <!-- ========================= -->
-  <!-- JavaScript -->
-  <!-- ========================= -->
-  <script>
-    // Mobile Sidebar
-    const hamburger = document.getElementById("hamburger");
-    const mobileSidebar = document.getElementById("mobileSidebar");
-    const closeBtn = document.getElementById("closeBtn");
-
-    hamburger.addEventListener("click", () => {
-      mobileSidebar.style.transform = "translateX(0)";
-    });
-    closeBtn.addEventListener("click", () => {
-      mobileSidebar.style.transform = "translateX(-100%)";
-    });
-
-    // Profile Dropdown
-    function toggleProfileDropdown(event) {
-      event.stopPropagation();
-      const menu = document.getElementById("profile-menu");
-      menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-    document.addEventListener("click", function(e) {
-      const dropdown = document.querySelector(".profile-dropdown");
-      if (dropdown && !dropdown.contains(e.target)) {
-        const profileMenu = document.getElementById("profile-menu");
-        if (profileMenu) profileMenu.style.display = "none";
-      }
-    });
-
-    // =====================
-    // POP-UP LOGIN/SIGNUP
-    // =====================
-    function openModal(defaultTab = 'login') {
-      document.getElementById('Modal').style.display = 'flex';
-      switchTab(defaultTab);
-    }
-
-    function closeModal() {
-      document.getElementById('Modal').style.display = 'none';
-    }
-
-    function switchTab(tab) {
-      const loginTab = document.getElementById('loginTab');
-      const signupTab = document.getElementById('signupTab');
-      const loginForm = document.getElementById('loginForm');
-      const signupForm = document.getElementById('signupForm');
-      const header = document.querySelector('.header');
-
-      if (tab === 'login') {
-        loginTab.classList.add('active');
-        signupTab.classList.remove('active');
-        loginForm.style.display = 'block';
-        signupForm.style.display = 'none';
-        header.innerHTML = `JOIN US<br>`;
-      } else {
-        signupTab.classList.add('active');
-        loginTab.classList.remove('active');
-        signupForm.style.display = 'block';
-        loginForm.style.display = 'none';
-        header.innerHTML = `JOIN US<br>`;
-      }
-    }
-
-    // Close modal if clicked outside
-    window.onclick = function(event) {
-      const modal = document.getElementById('Modal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    };
-
-    // =====================
-    // SHOW "PLEASE SIGN-IN" POP-UP IF LOGGED OUT
-    // =====================
-    const isLoggedIn = Boolean("{{ request.session.user_id|default_if_none:'' }}");
-
-    function handleAuthCheck(event, linkUrl) {
-      if (!isLoggedIn) {
-        event.preventDefault();
-        document.getElementById('authPopUp').style.display = 'flex';
-      }
-    }
-
-    // Local login/signup modal
-    function showLoginModal() {
-      document.getElementById('authPopUp').style.display = 'none';
-      openModal('login');
-    }
-    function showSignupModal() {
-      document.getElementById('authPopUp').style.display = 'none';
-      openModal('signup');
-    }
-
-    // Close the auth pop-up if user clicks outside
-    document.getElementById('authPopUp').addEventListener('click', function(event) {
-      if (event.target === this) {
-        this.style.display = 'none';
-      }
-    });
-
-    // On page load, check for URL parameters
-    window.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const showModal = urlParams.get('showModal');
-      if (showModal === 'login' || showModal === 'signup') {
-        openModal(showModal);
-      }
-    });
-  </script>
-
-  {% block extra_js %}{% endblock %}
+  <!-- Load All Auth JS from oauth -->
+  <script src="{% static 'js/auth.js' %}"></script>
 </body>
 </html>
