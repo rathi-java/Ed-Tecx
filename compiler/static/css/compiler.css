@@ -4,13 +4,17 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+  .main-content {
+    background-color: #f2f2f2;
+  }
   .compiler-app {
     background: #f2f2f2;
     color: #333;
     font-family: 'Roboto', sans-serif;
     overflow-y: auto;
+    max-width: 1200px;
     padding: 20px;
+    margin: 0 auto;
   }
   
   /* Horizontal Divider */
@@ -21,6 +25,40 @@
     margin: 10px 0;
     border-radius: 2px;
   }
+.compiler-app .code-area textarea, .compiler-app .input-area textarea {
+    resize: none;
+    outline: none;
+    border: none;
+    height: 100%;
+    padding: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.5; /* Add this to make room for line numbers */
+}
+
+.compiler-app .code-area textarea, .compiler-app .input-area textarea::before {
+    content: attr(line-number); /* This will display the line number */
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    color: #ccc;
+    pointer-events: none;
+}
+
+.compiler-app .code-area textarea, .compiler-app .input-area textarea::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px; /* Make room for the line numbers */
+    height: 100%;
+    background-color: #f2f2f2;
+    border-right: 1px solid #ccc;
+    pointer-events: none;
+}
   
   /* Vertical Divider */
   .compiler-app .vertical-divider {
@@ -60,6 +98,7 @@
   .compiler-app .toolbar {
     display: flex;
     margin: 10px;
+    margin-top: 39px;
     justify-content: space-between;
     align-items: center;
     background: #fff;
@@ -111,6 +150,7 @@
   .compiler-app .editor-container {
     display: flex;
     flex: 1;
+    max-width: 1184px;
     gap: 10px;
     margin: 10px;
     width: 100%;
@@ -123,6 +163,7 @@
   .compiler-app .input-area {
     display: flex;
     flex-direction: column;
+   
     background-color: #fff;
     border-radius: 8px;
     overflow: auto;
@@ -138,8 +179,10 @@
   /* Input Area Specific */
   .compiler-app .input-area {
     flex: 1;
-    margin-left: -10px;
-  }
+    height: 100%;
+    border: 2px solid #efefef;
+    margin-left: -18px;
+}
   
   /* CodeMirror Editor Styling */
   .compiler-app .CodeMirror {
@@ -214,3 +257,18 @@
       display: none;
     }
   }
+/* Scrollbar Styles */
+.compiler-app .output-container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.compiler-app .output-container::-webkit-scrollbar-thumb {
+  background-color: #077BC3;
+  border-radius: 10px;
+}
+
+.compiler-app .output-container::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}

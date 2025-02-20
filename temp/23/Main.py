@@ -1,1 +1,0 @@
-a=int(intput("write somethinf"))

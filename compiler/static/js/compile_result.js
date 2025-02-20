@@ -16,8 +16,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   let isVerticalDragging = false;
   let isHorizontalDragging = false;
+  let dragStartY, initialEditorHeight, initialOutputHeight, totalHeight;
 
-  // Vertical Resizing Logic
+  // Vertical Resizing Logic (width between code and input areas)
   verticalDivider.addEventListener("mousedown", () => {
     isVerticalDragging = true;
     document.body.style.cursor = "col-resize";
@@ -27,56 +28,47 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isVerticalDragging) {
       const editorContainerRect = editorContainer.getBoundingClientRect();
       const offsetX = e.clientX - editorContainerRect.left;
-
-      // Ensure proper boundaries
-      const minFlex = 0.2; // Minimum width as flex ratio
-      const maxFlex = 0.8; // Maximum width as flex ratio
+      const minFlex = 0.2;
+      const maxFlex = 0.8;
       const containerWidth = editorContainer.offsetWidth;
-
       let leftFlex = Math.max(minFlex, offsetX / containerWidth);
       leftFlex = Math.min(leftFlex, maxFlex);
-
       const rightFlex = 1 - leftFlex;
-
-      // Update flex values for code and input areas
       codeArea.style.flex = leftFlex;
       inputArea.style.flex = rightFlex;
     }
-
     if (isHorizontalDragging) {
-      const containerHeight = editorContainer.parentElement.offsetHeight;
-      const offsetY = e.clientY - editorContainer.parentElement.getBoundingClientRect().top;
-
-      // Adjust height dynamically ensuring a minimum and maximum height
-      const minHeight = 100; // Minimum height in pixels
-      const maxHeight = containerHeight - minHeight; // Maximum height in pixels
-
-      const topHeight = Math.max(minHeight, Math.min(offsetY, maxHeight));
-      const bottomHeight = containerHeight - topHeight;
-
-      editorContainer.style.height = `${topHeight}px`;
-      outputContainer.style.height = `${bottomHeight}px`;
+      const deltaY = e.clientY - dragStartY;
+      const minHeight = 100;
+      const maxEditorHeight = totalHeight - minHeight;
+      let newEditorHeight = initialEditorHeight + deltaY;
+      newEditorHeight = Math.max(minHeight, Math.min(newEditorHeight, maxEditorHeight));
+      const newOutputHeight = totalHeight - newEditorHeight;
+      editorContainer.style.height = `${newEditorHeight}px`;
+      outputContainer.style.height = `${newOutputHeight}px`;
     }
   });
 
-  // Stop dragging on mouse up
   document.addEventListener("mouseup", () => {
     isVerticalDragging = false;
     isHorizontalDragging = false;
     document.body.style.cursor = "default";
   });
 
-  // Horizontal Resizing
-  horizontalDivider.addEventListener("mousedown", () => {
+  // Horizontal Resizing Logic (height between editor and output areas)
+  horizontalDivider.addEventListener("mousedown", (e) => {
     isHorizontalDragging = true;
     document.body.style.cursor = "ns-resize";
+    dragStartY = e.clientY;
+    initialEditorHeight = editorContainer.offsetHeight;
+    initialOutputHeight = outputContainer.offsetHeight;
+    totalHeight = initialEditorHeight + initialOutputHeight;
   });
 
   // Language Logo Update
   function changeLogo() {
     const language = document.getElementById("language").value;
     const logo = document.getElementById("logo");
-
     if (language === "java") {
       logo.src = "/static/images/java.png";
     } else if (language === "python") {
@@ -85,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
       logo.src = "/static/images/javascript.png";
     }
   }
+
   // Set initial logo and update on language change
   changeLogo();
   document.getElementById("language").addEventListener("change", changeLogo);
