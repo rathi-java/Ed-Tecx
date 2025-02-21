@@ -28,7 +28,11 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+<<<<<<< HEAD
 SITE_ID = 3
+=======
+SITE_ID = 2
+>>>>>>> d156a64a898eded8207ee4bca6bf1e9ee8f68a1e
 
 INSTALLED_APPS = [
     'django.contrib.admin',
