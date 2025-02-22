@@ -1,5 +1,5 @@
 // ===============
-// MOBILE SIDEBAR
+// MOBILE SIDEBARS
 // ===============
 const hamburger = document.getElementById("hamburger");
 const mobileSidebar = document.getElementById("mobileSidebar");
