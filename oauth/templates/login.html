@@ -2,44 +2,41 @@
 <div id="loginForm" class="form-content">
   <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
-    <div class="message-container"></div>
+    <div class="message-container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
 
     <div class="input-box">
       <i class="fa fa-envelope"></i>
-      <input type="text" name="username" placeholder="Username" required>
+      <input type="text" name="username" placeholder="Username" required />
     </div>
 
     <div class="input-box">
       <i class="fa fa-lock"></i>
       <!-- Default type="password" so user input is hidden -->
-      <input
-        type="password"
-        name="password"
-        id="login-password"
-        placeholder="Password"
-        required
-      >
+      <input type="password" name="password" id="login-password" placeholder="Password" required />
       <!-- Eye icon is 'fa-eye-slash' by default (closed eye) -->
-      <span
-        class="toggle-eye"
-        onclick="togglePassword('login-password','toggleIconLoginPass')"
-      >
-        <i id="toggleIconLoginPass" class="fa fa-eye-slash"></i>
-      </span>
+      <span class="toggle-eye" onclick="togglePassword('login-password','toggleIconLoginPass')"><i id="toggleIconLoginPass" class="fa fa-eye-slash"></i></span>
     </div>
 
     <a href="#" class="forgot-password">Forgot Password?</a>
 
     <button class="btn">Login</button>
 
-    <div class="or"><span>OR</span></div>
+    <div class="or">
+      <span>OR</span>
+    </div>
 
     <button class="google-btn">
-      <img src="Ed-Tecx\static\images\Facebook.png"> 
+      <img src="Ed-Tecx\static\images\Facebook.png" />
       <a href="{% provider_login_url 'github' %}">Continue with Github</a>
     </button>
     <button class="google-btn">
-      <img src="https://img.icons8.com/color/48/000000/google-logo.png"> 
+      <img src="https://img.icons8.com/color/48/000000/google-logo.png" />
       <a href="{% provider_login_url 'google' %}">Continue With Google</a>
     </button>
 

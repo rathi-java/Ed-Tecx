@@ -2,55 +2,38 @@
 <div id="signupForm" class="form-content" style="display: none;">
   <form method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
-    <div class="message-container"></div>
-
+    <div class="message-container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
     <div class="input-box">
       <i class="fa fa-user"></i>
-      <input type="text" name="full_name" placeholder="Full Name" required>
+      <input type="text" name="full_name" placeholder="Full Name" required />
     </div>
 
     <div class="input-box">
       <i class="fa fa-envelope"></i>
-      <input type="email" name="email" placeholder="Email" required>
+      <input type="email" name="email" placeholder="Email" required />
     </div>
 
     <div class="input-box">
       <i class="fa fa-phone"></i>
-      <input type="tel" name="phone_number" placeholder="Phone number" required>
+      <input type="tel" name="phone_number" placeholder="Phone number" required />
     </div>
 
     <div class="input-box">
       <i class="fa fa-lock"></i>
-      <input
-        type="password"
-        name="password"
-        id="signup-password"
-        placeholder="Password"
-        required
-      >
-      <span
-        class="toggle-eye"
-        onclick="togglePassword('signup-password','toggleIconSignupPass')"
-      >
-        <i id="toggleIconSignupPass" class="fa fa-eye-slash"></i>
-      </span>
+      <input type="password" name="password" id="signup-password" placeholder="Password" required />
+      <span class="toggle-eye" onclick="togglePassword('signup-password','toggleIconSignupPass')"><i id="toggleIconSignupPass" class="fa fa-eye-slash"></i></span>
     </div>
 
     <div class="input-box">
       <i class="fa fa-lock"></i>
-      <input
-        type="password"
-        name="re_password"
-        id="signup-repassword"
-        placeholder="Re-enter Password"
-        required
-      >
-      <span
-        class="toggle-eye"
-        onclick="togglePassword('signup-repassword','toggleIconSignupRePass')"
-      >
-        <i id="toggleIconSignupRePass" class="fa fa-eye-slash"></i>
-      </span>
+      <input type="password" name="re_password" id="signup-repassword" placeholder="Re-enter Password" required />
+      <span class="toggle-eye" onclick="togglePassword('signup-repassword','toggleIconSignupRePass')"><i id="toggleIconSignupRePass" class="fa fa-eye-slash"></i></span>
     </div>
 
     <div class="input-box">
@@ -67,24 +50,26 @@
 
     <div class="input-box">
       <i class="fa fa-calendar-alt"></i>
-      <input type="date" name="dob" required>
+      <input type="date" name="dob" required />
     </div>
 
     <div class="input-box">
       <i class="fa fa-user-friends"></i>
-      <input type="text" name="referral_code" placeholder="Referral Code (optional)">
+      <input type="text" name="referral_code" placeholder="Referral Code (optional)" />
     </div>
 
     <button class="btn" type="submit">Submit</button>
 
-    <div class="or"><span>OR</span></div>
+    <div class="or">
+      <span>OR</span>
+    </div>
 
     <button class="google-btn">
-      <img src="Ed-Tecx\static\images\Facebook.png"> 
+      <img src="Ed-Tecx\static\images\Facebook.png" />
       <a href="{% provider_login_url 'github' %}">Continue with Github</a>
     </button>
     <button class="google-btn">
-      <img src="https://img.icons8.com/color/48/000000/google-logo.png"> 
+      <img src="https://img.icons8.com/color/48/000000/google-logo.png" />
       <a href="{% provider_login_url 'google' %}">Continue With Google</a>
     </button>
 
