@@ -23,4 +23,6 @@ urlpatterns = [
     # path('manage-questions/', manage_questions, name='manage_questions'),
     path('get-subjects/', get_subjects, name='get_subjects'),
     path("update_certificate_status/", update_certificate_status, name="update_certificate_status"),
+    path('add-jobs/', add_jobs, name='add_jobs'),  # Handles adding and updating jobs
+    path('delete-job/<int:job_id>/', delete_job, name='delete_job'),
 ]

@@ -83,11 +83,9 @@
             color: white;
         }
    
-    
-
 
         .sidebar {
-            width: 210px;
+            width: 13.5%;
             background: #077BC3;;
             color: white;
             height: 100vh;
@@ -212,7 +210,7 @@
         }
 
         .container {
-        max-width: 1000px;
+        width: 100%;
         margin: auto;
         background: white;
         padding: 20px;
@@ -324,7 +322,7 @@
             font-weight: bold;
         }
         input {
-            width: 70%;
+            width: 30%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -387,6 +385,80 @@
         }
         .accept { background-color: #008CBA; }
         .delete-selected { background-color: #f44336; }
+
+        /* Scoped CSS: Only applies to Add Job section */
+        .add-job-section .job-container {
+            width: 100%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+    
+        .add-job-section .job-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: gray;
+        }
+    
+        .add-job-section .job-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+    
+        .add-job-section .job-input {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .add-job-section .job-input.job-double {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+    
+        .add-job-section .job-input.job-full {
+            grid-column: span 2;
+        }
+    
+        .add-job-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+    
+        .add-job-section input,
+        .add-job-section textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        .add-job-section textarea {
+            height: 100px;
+            resize: vertical;
+        }
+    
+        .add-job-section .job-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    
+        .add-job-section .job-save-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: green;
+            color: white;
+        }
     </style>
      
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -404,8 +476,8 @@
             <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
             <div class="dropdown-content">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <a href="#"><span class="material-icons">edit</span> Edit</a>
-                <a href="#"><span class="material-icons">logout</span> Logout</a>
+                <a href="{% url 'update_profile' %}" class="edit-button">Edit Profile</a>
+                <a href="{% url 'logout' %}"><span class="material-icons">logout</span> Logout</a>
             </div>
         </div>
     </div>
@@ -509,7 +581,16 @@
                     &nbsp;&nbsp;&nbsp;
                     Result <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
                 </li>
-            </ul>
+                <!-- Jobs Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('jobs-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Jobs <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="jobs-menu">
+                    <li onclick="setActive(this)" data-page-name="manage_jobs">Manage Jobs</li>
+                    <li onclick="setActive(this)" data-page-name="add_jobs">Add Jobs</li>
+                </ul>
+</ul>
         </div>
         <!--content current page of sidebar dashboard-->
         <div class="content current_page_action " data-page-name="dashboard">
@@ -1443,6 +1524,150 @@
                 </form>
             </div>
         </div>
+
+        <!-- Manage Jobs -->
+        <div class="content current_page_action hidden" data-page-name="manage_jobs">
+            <h3>&nbsp;Jobs / Manage Jobs</h3>
+
+            <!-- Search Bar for Job Profile -->
+            <div class="container">
+                <div class="header">
+                    <input type="text" id="jobSearch" placeholder="Search Job by Company Name or Job Profile..." onkeyup="filterJobs()">
+                    <button class="add-button" data-page-name="add_jobs" onclick="setActive(this)">Add +</button>
+                </div>
+
+                <table id="jobTable">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Job ID</th>
+                            <th>Company Logo</th>
+                            <th>Profile</th>
+                            <th>Company Name</th>
+                            <th>Location</th>
+                            <th>Experience</th>
+                            <th>Package</th>
+                            <th>Employment Type</th>
+                            <th>About Job</th>
+                            <th>Qualifications</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for job in jobs %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ job.job_id }}</td>
+                            <td><img src="{{ job.company_logo.url }}" alt="Company Logo" width="50"></td>
+                            <td class="job-profile">{{ job.profile }}</td>
+                            <td>{{ job.company_name }}</td>
+                            <td>{{ job.location_state }} - {{ job.location_city }}</td>
+                            <td>{{ job.min_experience }} - {{ job.max_experience }} Years</td>
+                            <td>{{ job.package_min }} - {{ job.package_max }} LPA</td>
+                            <td>{{ job.employment_types|join:", " }}</td>
+                            <td>{{ job.about_job }}</td>
+                            <td>{{ job.qualification }}</td>
+                            <td>
+                                <button class="edit-btn" 
+                                onclick='editJob(
+                                    "{{ job.id }}",
+                                    "{{ job.company_logo.url|default:''|escapejs }}",
+                                    "{{ job.profile|escapejs }}",
+                                    "{{ job.company_name|escapejs }}",
+                                    "{{ job.location_state|escapejs }}",
+                                    "{{ job.location_city|escapejs }}",
+                                    "{{ job.min_experience }}",
+                                    "{{ job.max_experience }}",
+                                    "{{ job.package_min }}",
+                                    "{{ job.package_max }}",
+                                    `{{ job.employment_types|safe|escapejs }}`,  <!-- This should be a valid JSON array -->
+                                    "{{ job.about_job|escapejs }}",
+                                    "{{ job.qualification|escapejs }}"
+                                )'>
+                                Edit
+                                </button>
+                            
+                                <form method="POST" action="{% url 'delete_job' job.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" 
+                                        onclick="return confirm('Are you sure you want to delete {{ job.profile|escapejs }}?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="12" style="text-align: center;">No jobs found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Job Section -->
+        <div class="content current_page_action hidden add-job-section" data-page-name="add_jobs">
+            <h3>&nbsp;Jobs / Add Job</h3>
+            <div class="job-container">
+                <form method="POST" action="{% url 'add_jobs' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!-- Hidden field for updating a job (if applicable) -->
+                    <input type="hidden" id="job_id" name="job_id">
+
+                    <div class="job-form">
+                        <div class="job-input">
+                            <label for="company_logo">Company Logo</label>
+                            <input type="file" id="company_logo" name="company_logo" accept="image/*">
+                        </div>
+                        <div class="job-input">
+                            <label for="profile">Job Profile</label>
+                            <input type="text" id="profile" name="profile" placeholder="Enter Job Profile" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="company_name">Company Name</label>
+                            <input type="text" id="company_name" name="company_name" placeholder="Enter Company Name" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" placeholder="Enter State" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="Enter City" required>
+                        </div>
+                        <div class="job-input job-double">
+                            <label>Experience (Years)</label>
+                            <input type="number" id="experience_min" name="experience_min" placeholder="Min" required>
+                            <input type="number" id="experience_max" name="experience_max" placeholder="Max" required>
+                        </div>
+                        <div class="job-input job-double">
+                            <label>Package (LPA)</label>
+                            <input type="number" id="package_min" name="package_min" placeholder="Min" required>
+                            <input type="number" id="package_max" name="package_max" placeholder="Max" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="employment_types">Employment Type</label>
+                            <input type="text" id="employment_types" name="employment_types" placeholder="e.g. Full-time, Part-time, Internship" required>
+                        </div>
+                        <div class="job-input job-full">
+                            <label for="about_job">About Job</label>
+                            <textarea id="about_job" name="about_job" placeholder="Enter job details" required></textarea>
+                        </div>
+                        <div class="job-input job-full">
+                            <label for="qualification">Qualifications</label>
+                            <textarea id="qualification" name="qualification" placeholder="Enter required qualifications" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="job-buttons">
+                        <button type="submit" class="job-save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
             
         </div>
     </div>
@@ -1764,6 +1989,62 @@
     
                 rows[i].style.display = (name.includes(input) || email.includes(input)) ? "" : "none";
             }
+        }
+
+        if (page === 'manage_jobs') {
+            document.querySelector('[data-page-name="manage_jobs"]').classList.add('active');
+            document.querySelector('[data-page-name="manage_jobs"]').click();
+        }
+
+        function filterJobs() {
+            let searchInput = document.getElementById("jobSearch").value.toLowerCase();
+            let jobRows = document.querySelectorAll("#jobTable tbody tr");
+        
+            jobRows.forEach(row => {
+                let profile = row.querySelector(".job-profile")?.textContent.toLowerCase() || "";
+                let company = row.querySelector(".company-name")?.textContent.toLowerCase() || "";
+                let aboutJob = row.querySelector(".about-job")?.textContent.toLowerCase() || "";
+        
+                if (profile.includes(searchInput) || company.includes(searchInput) || aboutJob.includes(searchInput)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+        
+        function editJob(id, logoUrl, profile, companyName, state, city, minExp, maxExp, minPackage, maxPackage, employmentTypes, aboutJob, qualification) {
+            // ✅ Ensure employmentTypes is an array
+            if (!Array.isArray(employmentTypes)) {
+                try {
+                    if (typeof employmentTypes === "string") {
+                        try {
+                            employmentTypes = JSON.parse(employmentTypes);
+                        } catch (e) {
+                            employmentTypes = employmentTypes.split(",").map(t => t.trim());
+                        }
+                    }
+                } catch (e) {
+                    employmentTypes = [];
+                }
+            }
+        
+            // ✅ Populate form fields
+            document.getElementById("job_id").value = id;
+            document.getElementById("profile").value = profile;
+            document.getElementById("company_name").value = companyName;
+            document.getElementById("state").value = state;
+            document.getElementById("city").value = city;
+            document.getElementById("experience_min").value = minExp;
+            document.getElementById("experience_max").value = maxExp;
+            document.getElementById("package_min").value = minPackage;
+            document.getElementById("package_max").value = maxPackage;
+            document.getElementById("employment_types").value = employmentTypes.join(", ");  // ✅ Display correctly
+            document.getElementById("about_job").value = aboutJob;
+            document.getElementById("qualification").value = qualification;
+        
+            // ✅ Show the "Add Job" section
+            setActive(document.querySelector('[data-page-name="add_jobs"]'));
         }
         
     </script>

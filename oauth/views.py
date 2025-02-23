@@ -3,8 +3,13 @@ from django.contrib import messages
 from .models import UsersDB, CollegesDb
 from django.contrib.auth.hashers import make_password, check_password
 from django.db import IntegrityError
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login as auth_login
 from django.utils.timezone import now
+import logging
+
+logger = logging.getLogger(__name__)
+def home(request):
+    return render(request, 'index.html')
 
 def update_profile(request):
     if request.method == "POST":
@@ -140,7 +145,6 @@ def signup(request):
     colleges = CollegesDb.objects.all()
     return render(request, 'signup.html', {'colleges': colleges})
 
-
 def user_login(request):
     if request.method == "POST":
         user_input = request.POST.get('username')
@@ -155,7 +159,11 @@ def user_login(request):
             user = UsersDB.objects.get(username=user_input)
 
         if user and check_password(password, user.password):
+            user.backend = 'django.contrib.auth.backends.ModelBackend'  # Specify the backend
+            auth_login(request, user)
             request.session['user_id'] = user.id
+            request.session.save()
+            logger.info(f"User {user.id} logged in, session saved")
             user.last_login = now()
             user.save()
             messages.success(request, f"Welcome back, {user.full_name}!")

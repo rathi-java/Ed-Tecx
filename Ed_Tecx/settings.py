@@ -24,11 +24,11 @@ SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 
-SITE_ID = 3
+SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'placement_stories',
     # 'demo_exam',
     'practice_question',
+    'jobportol',
     'oauth',
     'admin_portal',
     'certificate_management',
@@ -62,6 +63,7 @@ SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {"access_type": "online"},
+        'OAUTH_PKCE_ENABLED': True,
     },
     "github": {
         "APP": {
@@ -79,8 +81,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware', # for Google auth
+    'allauth.account.middleware.AccountMiddleware',  # for Google auth
+    'oauth.middleware.EnsureUserIdMiddleware',         # run this last
 ]
+
 
 ROOT_URLCONF = 'Ed_Tecx.urls'
 
@@ -165,6 +169,51 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+SOCIALACCOUNT_ADAPTER = 'oauth.adapters.CustomSocialAccountAdapter'
+
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "profile"
 SOCIALACCOUNT_LOGIN_ON_GET =True
+SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True
+
+# Session settings
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed sessions
+SESSION_COOKIE_NAME = 'sessionid'  # Name of the session cookie
+SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session cookie
+SESSION_COOKIE_SAMESITE = 'Lax'  # Adjust as needed ('Lax', 'Strict', 'None')
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
+SESSION_COOKIE_AGE = 1209600  # Session expiry in seconds (2 weeks)
+
+# settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        '': {  # Root logger
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    },
+}
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'  # Disable social email verification
+SOCIALACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = False

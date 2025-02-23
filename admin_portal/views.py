@@ -1,5 +1,7 @@
 
 from datetime import *
+import json
+import os
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render ,redirect ,get_object_or_404
@@ -12,6 +14,7 @@ from django.contrib import messages
 from django.utils import timezone
 from datetime import timedelta
 from certificate_management.models import *
+from jobportol.models import *
 
 # def dashboard(request):
 #     certificates = Certificate.objects.all()  # Fetch all certificate requests
@@ -88,6 +91,7 @@ def dashboard(request):
         "categories": Category.objects.all(),
         "students": StudentsDB.objects.all(),
         "certificates": certificates,
+        "jobs":Job.objects.all(),
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -211,7 +215,6 @@ def add_manager(request):
             return redirect(reverse('dashboard') + "?page=manage_manager")
 
     return redirect('dashboard')
-
 
 def delete_manager(request, manager_id):
     if request.method == "POST":
@@ -496,3 +499,88 @@ def delete_student(request, student_id):
         student.delete()
         messages.success(request, "Student deleted successfully!")
     return redirect(reverse('dashboard') + "?page=manage_student")
+
+def add_jobs(request):
+    if request.method == "POST":
+        print("✅ Form submitted!")  # Debugging
+        print("Received Data:", request.POST)  # Check what data is sent
+
+        job_id = request.POST.get('job_id')
+        profile = request.POST.get('profile', '').strip()
+        company_name = request.POST.get("company_name", "").strip()
+        state = request.POST.get("state", "").strip()
+        city = request.POST.get("city", "").strip()
+        min_experience = request.POST.get("experience_min", "").strip()
+        max_experience = request.POST.get("experience_max", "").strip()
+        package_min = request.POST.get("package_min", "").strip()
+        package_max = request.POST.get("package_max", "").strip()
+        employment_types_raw = request.POST.get("employment_types", "").strip()
+        about_job = request.POST.get("about_job", "").strip()
+        qualification = request.POST.get("qualification", "").strip()
+        company_logo = request.FILES.get('company_logo', None)
+
+        print("Profile:", profile)
+        print("Company Name:", company_name)
+        print("Employment Types:", employment_types_raw)
+
+        if employment_types_raw:
+            employment_types = [t.strip() for t in employment_types_raw.split(",")]
+        else:
+            employment_types = []
+
+        if company_logo:
+            valid_extensions = ['.jpg', '.jpeg', '.png', '.gif']
+            ext = os.path.splitext(company_logo.name)[1].lower()
+            if ext not in valid_extensions:
+                messages.error(request, "Invalid file type for logo. Only images are allowed.")
+                return redirect(reverse('dashboard') + "?page=manage_jobs")
+
+        try:
+            if job_id:
+                job = get_object_or_404(Job, id=job_id)
+                job.profile = profile
+                job.company_name = company_name
+                job.location_state = state
+                job.location_city = city
+                job.min_experience = min_experience
+                job.max_experience = max_experience
+                job.package_min = package_min
+                job.package_max = package_max
+                job.employment_types = employment_types
+                job.about_job = about_job
+                job.qualification = qualification
+                if company_logo:
+                    job.company_logo = company_logo
+                job.save()
+                messages.success(request, "Job updated successfully!")
+            else:
+                Job.objects.create(
+                    profile=profile,
+                    company_name=company_name,
+                    location_state=state,
+                    location_city=city,
+                    min_experience=min_experience,
+                    max_experience=max_experience,
+                    package_min=package_min,
+                    package_max=package_max,
+                    employment_types=employment_types,
+                    about_job=about_job,
+                    qualification=qualification,
+                    company_logo=company_logo
+                )
+                messages.success(request, "Job added successfully!")
+
+            return redirect(reverse('dashboard') + "?page=manage_jobs")
+
+        except IntegrityError as e:
+            messages.error(request, f"Error: {e}")
+            print("IntegrityError:", e)  # Debugging
+            return redirect(reverse('dashboard') + "?page=manage_jobs")
+
+    return redirect('dashboard')
+
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    job.delete()
+    messages.success(request, "Job deleted successfully!")
+    return redirect(reverse('dashboard') + "?page=manage_jobs")
