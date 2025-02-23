@@ -28,6 +28,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 
+
 SITE_ID = 1
 
 INSTALLED_APPS = [
