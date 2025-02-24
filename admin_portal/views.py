@@ -1,6 +1,5 @@
 
 from datetime import *
-import json
 import os
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
@@ -44,6 +43,16 @@ def update_certificate_status(request):
 
 def dashboard(request):
     # Fetch data from the database
+    section = request.GET.get('section', 'dashboard')  # Default to 'dashboard'
+
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        try:
+            user = SuperAdminDB.objects.get(id=user_id)
+        except SuperAdminDB.DoesNotExist:
+            user = None
     
     total_super_admins = SuperAdminDB.objects.count()
     total_admins = AdminDB.objects.count()
@@ -111,6 +120,8 @@ def dashboard(request):
         "monthly_sales": monthly_sales,
         "weekly_sales": weekly_sales,
         "daily_sales": daily_sales,
+        'section': section,
+        'user': user,
     }
     return render(request, 'dashboard.html', context)
 
@@ -445,16 +456,26 @@ def add_question(request):
 
 def add_student(request):
     if request.method == "POST":
-        student_id = request.POST.get("student_id")
-        username = request.POST.get("username").strip()
-        email = request.POST.get("email").strip()
-        domain_id = request.POST.get("domain")
-        subject_id = request.POST.get("subject")
-        date = request.POST.get("date").strip()
-        payment = request.POST.get("payment").strip()
+        student_id = request.POST.get("student_id", "").strip()
+        full_name = request.POST.get("full_name", "").strip()
+        email = request.POST.get("email", "").strip()
+        domain_id = request.POST.get("domain", "").strip()
+        subject_id = request.POST.get("subject", "").strip()
+        payment = request.POST.get("payment", "").strip()
 
-        domain = get_object_or_404(Category, id=domain_id)
-        subject = get_object_or_404(Subject, id=subject_id)
+        # 🔹 Generate username if not provided
+        username = request.POST.get("username", "").strip()
+        if not username and full_name:
+            username = full_name.lower().replace(" ", "_")  # Example: "John Doe" → "john_doe"
+        elif not username:
+            username = f"user_{str(uuid.uuid4())[:8]}"  # Example: "user_abc12345"
+
+        if not full_name or not email:
+            messages.error(request, "Full Name and Email are required.")
+            return redirect(reverse('dashboard') + "?page=manage_student")
+
+        domain = get_object_or_404(Category, id=domain_id) if domain_id else None
+        subject = get_object_or_404(Subject, id=subject_id) if subject_id else None
 
         try:
             existing_student = StudentsDB.objects.filter(email__iexact=email).first()
@@ -465,25 +486,25 @@ def add_student(request):
             if student_id:
                 # Updating existing student
                 student = get_object_or_404(StudentsDB, id=student_id)
-                student.username = username
+                student.username = username  # ✅ Assign username
+                student.full_name = full_name
                 student.email = email
                 student.domain = domain
                 student.subject = subject
-                student.date = date
                 student.payment = payment
                 student.save()
-                messages.success(request, f"Student {username} updated successfully!")
+                messages.success(request, f"Student {full_name} updated successfully!")
             else:
                 # Creating a new student
                 StudentsDB.objects.create(
-                    username=username,
+                    username=username,  # ✅ Assign username
+                    full_name=full_name,
                     email=email,
                     domain=domain,
                     subject=subject,
-                    date=date,
                     payment=payment
                 )
-                messages.success(request, f"Student {username} added successfully!")
+                messages.success(request, f"Student {full_name} added successfully!")
 
             return redirect(reverse('dashboard') + "?page=manage_student")
 
@@ -492,6 +513,7 @@ def add_student(request):
             return redirect(reverse('dashboard') + "?page=manage_student")
 
     return redirect('dashboard')
+
 
 def delete_student(request, student_id):
     if request.method == "POST":
@@ -584,3 +606,40 @@ def delete_job(request, job_id):
     job.delete()
     messages.success(request, "Job deleted successfully!")
     return redirect(reverse('dashboard') + "?page=manage_jobs")
+
+def update_superadmin_profile(request):
+    if request.method == "POST":
+        user_id = request.session.get('user_id')
+        if not user_id:
+            messages.error(request, "Session expired. Please log in again.")
+            return redirect('/dashboard/?section=profile')
+
+        try:
+            user = SuperAdminDB.objects.get(id=user_id)
+        except SuperAdminDB.DoesNotExist:
+            messages.error(request, "SuperAdmin not found.")
+            return redirect('/dashboard/?section=profile')
+
+        user.full_name = request.POST.get('full_name', user.full_name)
+        user.phone_number = request.POST.get('phone_number', user.phone_number)
+        user.save()
+
+        messages.success(request, "Profile updated successfully!")
+        return redirect('/dashboard/?section=profile')
+
+    messages.error(request, "Invalid request method.")
+    return redirect('/dashboard/?section=profile')
+
+def get_superadmin_profile(request):
+    user_id = request.session.get('user_id')
+    if user_id:
+        try:
+            user = SuperAdminDB.objects.get(id=user_id)
+            return JsonResponse({
+                "full_name": user.full_name,
+                "email": user.email,
+                "phone_number": user.phone_number,
+            })
+        except SuperAdminDB.DoesNotExist:
+            return JsonResponse({"error": "User not found"}, status=404)
+    return JsonResponse({"error": "Not logged in"}, status=401)

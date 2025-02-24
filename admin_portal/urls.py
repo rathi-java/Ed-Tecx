@@ -25,4 +25,6 @@ urlpatterns = [
     path("update_certificate_status/", update_certificate_status, name="update_certificate_status"),
     path('add-jobs/', add_jobs, name='add_jobs'),  # Handles adding and updating jobs
     path('delete-job/<int:job_id>/', delete_job, name='delete_job'),
+    path('get_superadmin_profile/', get_superadmin_profile, name='get_superadmin_profile'),
+    path('update_superadmin_profile/', update_superadmin_profile, name='update_superadmin_profile'),  
 ]

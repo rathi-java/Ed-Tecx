@@ -476,7 +476,7 @@
             <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
             <div class="dropdown-content">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <a href="{% url 'update_profile' %}" class="edit-button">Edit Profile</a>
+                <a href="{% url 'dashboard' %}?section=profile"><span class="material-icons">edit</span> Edit</a>
                 <a href="{% url 'logout' %}"><span class="material-icons">logout</span> Logout</a>
             </div>
         </div>
@@ -594,6 +594,37 @@
         </div>
         <!--content current page of sidebar dashboard-->
         <div class="content current_page_action " data-page-name="dashboard">
+            {% if section == "profile" %}
+              <!-- Profile Section -->
+              <h3>Edit Profile</h3>
+              <div class="container">
+                <form method="POST" action="{% url 'update_superadmin_profile' %}">
+                  {% csrf_token %}
+        
+                  <div class="form-row">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" value="{{ user.full_name }}" required>
+                  </div>
+
+                  <div class="form-row">
+                    <label>Email</label>
+                    <input type="email" value="{{ user.email }}" disabled>
+                  </div>
+        
+                  <div class="form-row">
+                    <label>Phone No.</label>
+                    <input type="text" name="phone_number" value="{{ user.phone_number }}">
+                  </div>
+        
+                  <div class="buttons">
+                    <button type="submit" class="save-btn">Save</button>
+                    <a href="{% url 'dashboard' %}" class="cancel-btn">Cancel</a>
+                  </div>
+                </form>
+              </div>
+            {% else %}
+
+            <!-- Dashboard Section -->
             <h3>&nbsp;Dashboard</h3>
             <div class="dashboard-cards">
                 <!-- Super Admins -->
@@ -694,6 +725,7 @@
                     <p>{{ daily_sales }}</p>
                 </div>
             </div>
+            {% endif %}
         </div>
         
         <!-- manage certificate requests -->
@@ -800,21 +832,21 @@
                 <input type="hidden" name="admin_id" id="admin_id">
                 <div class="form-row">
                     <div class="input-group">
-                        <label for="full_name">Full Name</label>
-                        <input type="text" name="full_name" id="full_name" placeholder="Enter Full Name" required>
+                        <label for="admin_full_name">Full Name</label>
+                        <input type="text" name="admin_full_name" id="admin_full_name" placeholder="Enter Full Name" required>
                     </div>
                     <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                        <label for="admin_email">Email</label>
+                        <input type="email" name="admin_email" id="admin_email" placeholder="Enter Email" required>
                     </div>
                 </div>
                 <div class="input-group">
-                    <label for="phone">Phone No.</label>
-                    <input type="text" name="phone_number" id="phone" placeholder="Enter phone no.">
+                    <label for="admin_phone">Phone No.</label>
+                    <input type="text" name="admin_phone_number" id="admin_phone" placeholder="Enter phone no.">
                 </div>
                 <div class="input-group">
-                    <label for="alt_phone">Alt. Phone No.</label>
-                    <input type="text" name="alt_phone_number" id="alt_phone" placeholder="Enter alt. phone no.">
+                    <label for="admin_alt_phone">Alt. Phone No.</label>
+                    <input type="text" name="admin_alt_phone_number" id="admin_alt_phone" placeholder="Enter alt. phone no.">
                 </div>
                 <div class="form-row">
                     <div class="input-group">
@@ -823,8 +855,8 @@
                     </div>
                 </div>
                 <div class="input-group">
-                    <label for="aadhar_number">Aadhar No.</label>
-                    <input type="text" name="aadhar_number" id="aadhar_number" placeholder="Enter Aadhar No." required>
+                    <label for="admin_aadhar_number">Aadhar No.</label>
+                    <input type="text" name="admin_aadhar_number" id="admin_aadhar_number" placeholder="Enter Aadhar No." required>
                 </div>
                 <div class="buttons">
                     <button type="submit" class="save-btn">Save</button>
@@ -872,7 +904,6 @@
                             <th class="student-email">Email</th>
                             <th>Domain</th>
                             <th>Subject</th>
-                            <th>Date</th>
                             <th>Payment</th>
                             <th>Actions</th>
                         </tr>
@@ -885,20 +916,20 @@
                             <td class="student-email">{{ student.email }}</td>
                             <td>{{ student.domain.category_name }}</td>
                             <td>{{ student.subject.subject_name }}</td>
-                            <td>{{ student.date }}</td>
                             <td>{{ student.payment }}</td>
                             <td>
                                 <button class="edit-btn" 
-                                    onclick="editStudent(
-                                        {{ student.id }},
-                                        '{{ student.username|escapejs }}',
-                                        '{{ student.email|escapejs }}',
-                                        '{{ student.domain.category_name|escapejs }}',
-                                        '{{ student.subject.subject_name|escapejs }}',
-                                        '{{ student.date|escapejs }}',
-                                        '{{ student.payment|escapejs }}'
-                                    )">
-                                    Edit
+                                onclick="editStudent(
+                                    '{{ student.id }}', 
+                                    '{{ student.full_name|escapejs }}', 
+                                    '{{ student.email|escapejs }}', 
+                                    '{{ student.phone_number|default:""|escapejs }}', 
+                                    '{{ student.alt_phone_number|default:""|escapejs }}', 
+                                    '{{ student.domain.id|default:""|escapejs }}', 
+                                    '{{ student.subject.id|default:""|escapejs }}', 
+                                    '{{ student.payment|default:""|escapejs }}'
+                                )">
+                                Edit
                                 </button>
                                 <form method="POST" action="{% url 'delete_student' student.id %}" style="display:inline;">
                                     {% csrf_token %}
@@ -929,22 +960,22 @@
                     <input type="hidden" name="student_id" id="student_id">
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="username">Student Name</label>
-                            <input type="text" id="username" name="username" placeholder="Enter Student Name" required>
+                            <label for="student_full_name">Student Name</label>
+                            <input type="text" id="student_full_name" name="full_name" placeholder="Enter Student Name" required>
                         </div>
                         <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                            <label for="student_email">Email</label>
+                            <input type="email" id="student_email" name="email" placeholder="Enter Email" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="phone_number">Phone No.</label>
-                            <input type="text" id="phone_number" name="phone_number" placeholder="Enter phone no.">
+                            <label for="student_phone_number">Phone No.</label>
+                            <input type="text" id="student_phone_number" name="student_phone_number" placeholder="Enter phone no.">
                         </div>
                         <div class="input-group">
-                            <label for="alt_phone_number">Alt. Phone No.</label>
-                            <input type="text" id="alt_phone_number" name="alt_phone_number" placeholder="Enter alt. phone no.">
+                            <label for="student_alt_phone_number">Alt. Phone No.</label>
+                            <input type="text" id="student_alt_phone_number" name="student_alt_phone_number" placeholder="Enter alt. phone no.">
                         </div>
                     </div>
                     <div class="form-row">
@@ -958,8 +989,8 @@
                             </select>
                         </div>
                         <div class="input-group">
-                            <label for="subject">Subject</label>
-                            <select id="subject" name="subject" required>
+                            <label for="student_subject">Subject</label>
+                            <select id="student_subject" name="subject" required>
                                 <option value="" disabled selected>Select Subject</option>
                                 {% for subject in subjects %}
                                 <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
@@ -969,23 +1000,19 @@
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="date">Date</label>
-                            <input type="date" id="date" name="date" required>
-                        </div>
-                        <div class="input-group">
                             <label for="payment">Payment</label>
                             <input type="text" id="payment" name="payment" value="INR 999" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                            <label for="student_password">Password</label>
+                            <input type="password" name="student_password" id="student_password" placeholder="Enter Password" required>
                         </div>
                     </div>
                     <div class="input-group">
-                        <label for="aadhar_number">Aadhar No.</label>
-                        <input type="text" name="aadhar_number" id="aadhar_number" placeholder="Enter Aadhar No." required>
+                        <label for="student_aadhar_number">Aadhar No.</label>
+                        <input type="text" name="student_aadhar_number" id="student_aadhar_number" placeholder="Enter Aadhar No." required>
                     </div>
                     <div class="buttons">
                         <button type="submit" class="save-btn">Save</button>
@@ -1167,24 +1194,24 @@
 
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="full_name">Full Name</label>
-                            <input type="text" id="full_name" name="full_name" placeholder="Enter Full Name" required>
+                            <label for="employee_full_name">Full Name</label>
+                            <input type="text" id="employee_full_name" name="employee_full_name" placeholder="Enter Full Name" required>
                         </div>
                         <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter Email" required>
+                            <label for="employee_email">Email</label>
+                            <input type="email" id="employee_email" name="employee_email" placeholder="Enter Email" required>
                         </div>
                         <div class="input-group">
-                            <label for="phone_number">Phone Number</label>
-                            <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone Number" required>
+                            <label for="employee_phone_number">Phone Number</label>
+                            <input type="text" id="employee_phone_number" name="employee_phone_number" placeholder="Enter Phone Number" required>
                         </div>
                         <div class="input-group">
-                            <label for="alt_phone_number">Alt. Phone Number</label>
-                            <input type="text" id="alt_phone_number" name="alt_phone_number" placeholder="Enter Alternate Phone Number">
+                            <label for="employee_alt_phone_number">Alt. Phone Number</label>
+                            <input type="text" id="employee_alt_phone_number" name="employee_alt_phone_number" placeholder="Enter Alternate Phone Number">
                         </div>
                         <div class="input-group">
-                            <label for="aadhar_number">Aadhar Number</label>
-                            <input type="text" id="aadhar_number" name="aadhar_number" placeholder="Enter Aadhar Number" required>
+                            <label for="employee_aadhar_number">Aadhar Number</label>
+                            <input type="text" id="employee_aadhar_number" name="employee_aadhar_number" placeholder="Enter Aadhar Number" required>
                         </div>
                     </div>
                     
@@ -1275,40 +1302,40 @@
 
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="full_name">Full Name</label>
-                            <input type="text" name="full_name" id="full_name" placeholder="Enter Full Name" required>
+                            <label for="user_full_name">Full Name</label>
+                            <input type="text" name="user_full_name" id="user_full_name" placeholder="Enter Full Name" required>
                         </div>
                         <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="phone_number">Phone No.</label>
-                            <input type="text" name="phone_number" id="phone_number" placeholder="Enter Phone No.">
-                        </div>
-                        <div class="input-group">
-                            <label for="college_name">College Name</label>
-                            <input type="text" name="college_name" id="college_name" placeholder="Enter College Name">
+                            <label for="user_email">Email</label>
+                            <input type="email" name="user_email" id="user_email" placeholder="Enter Email" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" name="dob" id="dob" required>
+                            <label for="user_phone_number">Phone No.</label>
+                            <input type="text" name="user_phone_number" id="user_phone_number" placeholder="Enter Phone No.">
                         </div>
                         <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                            <label for="user_college_name">College Name</label>
+                            <input type="text" name="user_college_name" id="user_college_name" placeholder="Enter College Name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="user_dob">Date of Birth</label>
+                            <input type="date" name="user_dob" id="user_dob" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="user_password">Password</label>
+                            <input type="password" name="user_password" id="user_password" placeholder="Enter Password" required>
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label for="referral_code">Referral Code</label>
-                        <input type="text" name="referral_code" id="referral_code" placeholder="Enter Referral Code (Optional)">
+                        <label for="user_referral_code">Referral Code</label>
+                        <input type="text" name="user_referral_code" id="user_referral_code" placeholder="Enter Referral Code (Optional)">
                     </div>
 
                     <div class="buttons">
@@ -1687,6 +1714,16 @@
                 });
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+        
+            if (section === "profile") {
+                document.querySelectorAll(".current_page_action").forEach(el => el.classList.add("hidden"));
+                document.querySelector("[data-page-name='dashboard']").classList.remove("hidden");
+            }
+        });
         
         function toggleDropdown(id, element) {
             var menu = document.getElementById(id);
@@ -1743,12 +1780,12 @@
 
         function editAdmin(id, fullName, email, phone, altPhone, password, aadhar) {
             document.getElementById('admin_id').value = id;
-            document.getElementById('full_name').value = fullName;
-            document.getElementById('email').value = email;
-            document.getElementById('phone').value = phone;
-            document.getElementById('alt_phone').value = altPhone;
-            document.getElementById('password').value = password;
-            document.getElementById('aadhar_number').value = aadhar;
+            document.getElementById('admin_full_name').value = fullName;
+            document.getElementById('admin_email').value = email;
+            document.getElementById('admin_phone').value = phone;
+            document.getElementById('admin_alt_phone').value = altPhone;
+            document.getElementById('admin_password').value = password;
+            document.getElementById('admin_aadhar_number').value = aadhar;
     
             setActive(document.querySelector('[data-page-name="add_admin"]'));
         }
@@ -1794,28 +1831,37 @@
             setActive(document.querySelector('[data-page-name="add_college"]'));
         }
 
-        function editUser(id, fullName, email, phoneNumber, collegeName, dob, referralCode) {
-            document.getElementById("user_id").value = id;
-            document.getElementById("full_name").value = fullName;
-            document.getElementById("email").value = email;
-            document.getElementById("phone_number").value = phoneNumber;
-            document.getElementById("college_name").value = collegeName;
-            document.getElementById("dob").value = dob;
-            document.getElementById("referral_code").value = referralCode;
+        function editUser(id, fullName, email, phoneNumber, collegeName, dob, referralCode,password) {
+            console.log("Editing User:", id, fullName, email, phoneNumber, collegeName, dob, referralCode);
+        
+            document.getElementById("user_id").value = id || "";
+            document.getElementById("user_full_name").value = fullName || "";
+            document.getElementById("user_email").value = email || "";
+            document.getElementById("user_phone_number").value = phoneNumber || "";
+            document.getElementById("user_college_name").value = collegeName || "";
+            document.getElementById("user_dob").value = dob || "";
+            document.getElementById("user_referral_code").value = referralCode || "";
+            document.getElementById("user_password").value = password || "";
+        
+            // Switch to the Add/Edit User page
             setActive(document.querySelector('[data-page-name="add_user"]'));
         }
 
-        function editStudent(id, username, email, domainId, subjectId, date, payment) {
+        function editStudent(id, username, email, phone, altPhone, domainId, subjectId, date, payment, aadhar) {
             document.getElementById('student_id').value = id;
-            document.getElementById('username').value = username;
-            document.getElementById('email').value = email;
-            document.getElementById('domain').value = domainId;
-            document.getElementById('subject').value = subjectId;
+            document.getElementById('student_username').value = username;
+            document.getElementById('student_email').value = email;
+            document.getElementById('student_phone_number').value = phone;  
+            document.getElementById('student_alt_phone_number').value = altPhone;  
+            document.getElementById('domain').value = domainId || "";
+            document.getElementById('student_subject').value = subjectId || ""; 
             document.getElementById('date').value = date;
             document.getElementById('payment').value = payment;
+            document.getElementById('student_aadhar_number').value = aadhar;
         
             setActive(document.querySelector('[data-page-name="add_student"]'));
         }
+        
         
         function openStudentForm() {
             document.querySelector('[data-page-name="manage_student"]').classList.add('hidden');
@@ -2047,6 +2093,21 @@
             setActive(document.querySelector('[data-page-name="add_jobs"]'));
         }
         
+        function loadProfileData() {
+            fetch("{% url 'get_superadmin_profile' %}")
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector("input[name='full_name']").value = data.full_name;
+                document.querySelector("input[name='phone_number']").value = data.phone_number;
+            })
+            .catch(error => console.error("Error loading profile data:", error));
+        }
+        
+        // Call function when Edit Profile section loads
+        if (window.location.search.includes("section=profile")) {
+            loadProfileData();
+        }
+
     </script>
 </body>
 </html>
