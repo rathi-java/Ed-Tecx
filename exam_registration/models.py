@@ -4,7 +4,6 @@ from oauth.models import UsersDB
 import uuid
 
 class StudentsDB(models.Model):
-    user = models.ForeignKey(UsersDB, on_delete=models.CASCADE, related_name="students", null=True, blank=True)  # Allow null values temporarily
     username = models.CharField(max_length=100)
     studentId = models.CharField(max_length=50, unique=True, blank=True)  # Remove default
     full_name = models.CharField(max_length=100)

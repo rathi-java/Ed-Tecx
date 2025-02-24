@@ -59,7 +59,6 @@ def exam_register(request):
 
             # Check for existing registration
             if StudentsDB.objects.filter(
-                user=user,
                 domain_id=domain_id,
                 subject_id=subject_id
             ).exists():
@@ -72,7 +71,6 @@ def exam_register(request):
 
             # Create registration
             student = StudentsDB.objects.create(
-                user=user,
                 username=user.username,
                 full_name=full_name,
                 email=email,
