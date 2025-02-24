@@ -12,6 +12,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils.timezone import now
 import random, time, smtplib
 from oauth.models import UsersDB, Otpdb
+
 def home(request):
     return render(request, 'index.html')
 
@@ -176,7 +177,7 @@ def user_login(request):
             messages.error(request, "Invalid username or password. Please try again.", extra_tags='login')
             return render(request, 'index.html', {'form_type': 'login'})
 
-    return render(request, 'login.html')
+    return render(request,'login.html')
 
 
 
