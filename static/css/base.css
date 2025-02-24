@@ -273,12 +273,12 @@
   gap: 70px;
 }
 
-.footer-container img{
-  width: 220px; 
-  height: 220px;
-  margin-top: 20px;
+.footer-container img {
+  width: 165px;
+  height: auto;
+  margin-top: 60px;
+  margin-left: 42px;
 }
-
 /* The second row uses column layout for the hr + base row */
 .footer-column {
   flex-direction: column;

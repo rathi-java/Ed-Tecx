@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.utils.timezone import now, timedelta
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 class UsersDBManager(BaseUserManager):
@@ -104,3 +105,40 @@ class UsersDB(AbstractBaseUser, PermissionsMixin):
         return self.username
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
+
+
+class Otpdb(models.Model):
+    user = models.OneToOneField(UsersDB, on_delete=models.CASCADE, unique=True)  # Corrected field reference
+    otp_count = models.IntegerField(default=1)
+    otp = models.IntegerField(null=True, blank=True)
+    timestamp = models.DateTimeField(default=now)
+    status = models.IntegerField(default=0)  # 0: Unused, 1: Used or Expired
+
+    def update_otp(self, new_otp):
+        """Update OTP, timestamp, and count when a new OTP is generated."""
+        self.otp = new_otp
+        self.timestamp = now()
+        self.otp_count += 1
+        self.status = 0  # Reset status to unused
+        self.save()
+
+    def is_expired(self):
+        """Check if the OTP is expired (1 minute limit)."""
+        return now() > self.timestamp + timedelta(minutes=1)
+
+    def verify_otp(self, entered_otp):
+        """Verify OTP and update status accordingly."""
+        if self.is_expired():
+            self.status = 1  # Mark expired
+            self.save()
+            return False, "OTP expired"
+        
+        if self.otp == entered_otp:
+            self.status = 1  # Mark used
+            self.save()
+            return True, "OTP verified"
+        
+        return False, "Invalid OTP"
+
+    def __str__(self):
+        return f"{self.user.username} - OTP Count: {self.otp_count}"

@@ -257,6 +257,7 @@
       <!-- Partial Templates for Each Form -->
       {% include 'login.html' %}
       {% include 'signup.html' %}
+
     </div>
   </div>
 
@@ -275,5 +276,20 @@
 
   <!-- Load All Auth JS from oauth -->
   <script src="{% static 'js/auth.js' %}"></script>
+  <script>
+    // This runs after DOM loads
+    document.addEventListener('DOMContentLoaded', function() {
+      const formType = "{{ form_type|default:'none' }}";
+      if (formType === 'login') {
+        openModal('login');
+      }
+      else if (formType === 'signup') {
+        openModal('signup');
+      }
+      // If formType is none, do nothing -> no pop-up
+    });
+  </script>  
+  {% block extra_js %}
+  {% endblock %}
 </body>
 </html>

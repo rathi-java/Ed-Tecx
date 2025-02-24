@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+
     
 ]
 
@@ -73,6 +74,7 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }   
 }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

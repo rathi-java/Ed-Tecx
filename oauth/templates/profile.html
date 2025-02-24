@@ -64,7 +64,7 @@
           <div class="form-group">
             <label>Phone No.</label>
             <img src="{% static 'images/call.svg' %}" alt="Icon">
-            <input type="text" value="{{ user.phone_number|default:'N/A' }}" disabled>
+            <input name="phone_number" type="text" value="{{ user.phone_number|default:'N/A' }}" disabled data-editable="true">
           </div>
         </div>
 

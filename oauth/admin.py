@@ -28,3 +28,9 @@ class UserDBAdmin(admin.ModelAdmin):
 # Register the models and their custom admin classes
 admin.site.register(CollegesDb, CollegesDbAdmin)
 admin.site.register(UsersDB, UserDBAdmin)
+class OtpdbAdmin(admin.ModelAdmin):
+    list_display = ('user', 'otp', 'timestamp', 'status')  # Use 'user' instead of 'username'
+    readonly_fields = ('user', 'otp', 'timestamp', 'status')  # Remove 'otp_count'
+    search_fields = ('user__email',)  # Search by user email if needed
+
+admin.site.register(Otpdb, OtpdbAdmin)

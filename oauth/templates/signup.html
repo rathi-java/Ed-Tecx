@@ -5,10 +5,15 @@
     <div class="message-container">
       {% if messages %}
         {% for message in messages %}
-          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% if "signup" in message.tags %}
+            {% ifchanged message %}
+              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endifchanged %}
+          {% endif %}
         {% endfor %}
       {% endif %}
     </div>
+
     <div class="input-box">
       <i class="fa fa-user"></i>
       <input type="text" name="full_name" placeholder="Full Name" required />
