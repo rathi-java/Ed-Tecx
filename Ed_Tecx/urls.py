@@ -30,6 +30,7 @@ urlpatterns = [
     path('auth/',include('oauth.urls')),
     path('compiler/',include('compiler.urls')),
     path('examportol/',include('examportol.urls')),
+    path('roadmap/',include('roadmap.urls')),
     path('placement_stories/',include('placement_stories.urls')),
     # path('demoexam/',include('demo_exam.urls')),
     path('practice_questions/',include('practice_question.urls')),

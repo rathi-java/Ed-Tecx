@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'compiler',
+    'roadmap',
     'exam_registration',
     'examportol',
     'placement_stories',

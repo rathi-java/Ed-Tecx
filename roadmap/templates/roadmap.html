@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Practice Questions{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'roadmap_index.css' %}">
+{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <h1 class="main-heading"></h1>
+    <h2>Stay ahead with step-by-step learning and expert-curated roadmaps.</h2>
+
+    <div class="card-container">
+        <!-- Card 1: IT -->
+        <a href="{% url 'it_page' %}">
+            <div class="info-card">
+                <div class="card-image it-bg">
+                    <img src="{% static 'practice_questions/assets/IT-icon.svg' %}" alt="IT">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">IT</h3>
+                    <p class="card-description">Master programming, cybersecurity, cloud computing, and data analytics with real-world scenarios.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 2: Management -->
+        <a href="{% url 'management_page' %}">
+                <div class="info-card">
+                <div class="card-image management-bg">
+                    <img src="{% static 'practice_questions/assets/Management-icon.svg' %}" alt="Management">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Management</h3>
+                    <p class="card-description">Develop leadership, strategic planning, and business decision-making skills with industry-relevant case studies.</p>
+                </div>
+            </div>
+        </a>
+   
+</div>
+{% endblock %}
