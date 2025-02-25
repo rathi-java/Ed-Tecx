@@ -1,5 +1,4 @@
-// ===============
-// MOBILE SIDEBARS
+
 // ===============
 const hamburger = document.getElementById("hamburger");
 const mobileSidebar = document.getElementById("mobileSidebar");
@@ -67,13 +66,13 @@ function switchTab(tab) {
     if (signupTab) signupTab.classList.remove('active');
     if (loginForm) loginForm.style.display = 'block';
     if (signupForm) signupForm.style.display = 'none';
-    if (header) header.innerHTML = `JOIN US`;
+    if (header) header.innerHTML = JOINUS;
   } else {
     if (signupTab) signupTab.classList.add('active');
     if (loginTab) loginTab.classList.remove('active');
     if (signupForm) signupForm.style.display = 'block';
     if (loginForm) loginForm.style.display = 'none';
-    if (header) header.innerHTML = `JOIN US`;
+    if (header) header.innerHTML = JOINUS;
   }
 }
 
@@ -146,4 +145,54 @@ function togglePassword(inputId, iconId) {
       }
     }
   }
+  function openForgotModal() {
+    const forgotModal = document.getElementById('ForgotModal');
+    if (forgotModal) {
+      // Always revert to Step 1
+      document.getElementById('step1').classList.remove('hidden');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.add('hidden');
   
+      // Clear any leftover message, timer, or error
+      messageDiv.innerHTML = "";
+      timerDiv.innerHTML = "";
+      timerDiv.classList.add('hidden');
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+      sendOtpBtn.disabled = false;
+  
+      // Optionally clear input fields if you want a fresh start
+      document.getElementById('email').value = "";
+      document.getElementById('otp').value = "";
+      document.getElementById('newPassword').value = "";
+      document.getElementById('confirmPassword').value = "";
+  
+      // Finally, show the modal
+      forgotModal.style.display = 'flex'; 
+    }
+  }  
+  
+  function closeForgotModal() {
+    const forgotModal = document.getElementById('ForgotModal');
+    if (forgotModal) {
+      forgotModal.style.display = 'none'; 
+    }
+  }
+  
+  // Optionally close if user clicks outside the container
+  window.addEventListener('click', function(e) {
+    const forgotModal = document.getElementById('ForgotModal');
+    if (e.target === forgotModal) {
+      closeForgotModal();
+    }
+  });
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const forgotLink = document.getElementById('forgotPasswordLink');
+    forgotLink.addEventListener('click', function(e) {
+      e.preventDefault();         // stops navigation to "#"
+      openForgotModal();          // show your modal
+    });
+  });

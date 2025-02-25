@@ -1,4 +1,10 @@
+{% extends "base.html" %}
 {% load static %}
+{% block title %}Roadmap{% endblock %}
+{% block extra_css %}
+{% endblock %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
 .download-btn {
-    position: fixed;
-    top: 20px;
+    position: absolute;
+    top: 80px;
     right: 20px;
     padding: 10px 20px;
     font-size: 14px;
@@ -46,6 +52,7 @@ body {
 /* Roadmap Title */
 .roadmap-title {
     font-size: 2rem;
+    margin-top: 80px;
     font-weight: bold;
     color: rgb(88, 88, 232);
     margin-bottom: 50px;
@@ -252,3 +259,4 @@ body {
 
 </body>
 </html>
+{% endblock %}

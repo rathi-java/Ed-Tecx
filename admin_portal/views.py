@@ -14,10 +14,8 @@ from django.utils import timezone
 from datetime import timedelta
 from certificate_management.models import *
 from jobportol.models import *
-
-# def dashboard(request):
-#     certificates = Certificate.objects.all()  # Fetch all certificate requests
-#     return render(request, "dashboard.html", {"certificates": certificates})
+from placement_stories.models import *
+from django.core.paginator import Paginator
 
 def update_certificate_status(request):
     if request.method == "POST":
@@ -101,6 +99,7 @@ def dashboard(request):
         "students": StudentsDB.objects.all(),
         "certificates": certificates,
         "jobs":Job.objects.all(),
+        "stories":PlacementStories.objects.all(),
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -122,6 +121,7 @@ def dashboard(request):
         "daily_sales": daily_sales,
         'section': section,
         'user': user,
+     
     }
     return render(request, 'dashboard.html', context)
 
@@ -642,4 +642,80 @@ def get_superadmin_profile(request):
             })
         except SuperAdminDB.DoesNotExist:
             return JsonResponse({"error": "User not found"}, status=404)
-    return JsonResponse({"error": "Not logged in"}, status=401)
+    return JsonResponse({"error": "Not logged in"}, status=401)   
+# def manage_placement_stories(request):
+#     stories_list = PlacementStories.objects.all().order_by('-id')
+#     paginator = Paginator(stories_list, 5)  # Show 5 stories per page
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     return render(request, 'dashboard.html', {'page_obj': page_obj, 'page': 'manage_placement_stories'})
+
+def add_placement_story(request):
+    if request.method == "POST":
+        story_id = request.POST.get("story_id", "").strip()
+        name = request.POST.get("name", "").strip()
+        company_name = request.POST.get("company_name", "").strip()
+        designation = request.POST.get("designation", "").strip()
+        package = request.POST.get("package", "").strip()
+        batch = request.POST.get("batch", "").strip()
+        degree = request.POST.get("degree", "").strip()
+        branch = request.POST.get("branch", "").strip()
+        description = request.POST.get("description", "").strip()
+        user_profile_pic = request.FILES.get("user_profile_pic")
+        hand_written_review = request.FILES.get("hand_written_review")
+
+        if not name or not company_name:
+            messages.error(request, "Name and Company are required.")
+            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+
+        try:
+            if story_id:
+                # Updating existing placement story
+                story = get_object_or_404(PlacementStories, id=story_id)
+                story.name = name
+                story.company_name = company_name
+                story.designation = designation
+                story.package = package
+                story.batch = batch
+                story.degree = degree
+                story.branch = branch
+                story.description = description
+
+                # Only update images if new ones are provided
+                if user_profile_pic:
+                    story.user_profile_pic = user_profile_pic
+                if hand_written_review:
+                    story.hand_written_review = hand_written_review
+                
+                story.save()
+                messages.success(request, f"Placement story for {name} updated successfully!")
+            else:
+                # Creating a new placement story
+                PlacementStories.objects.create(
+                    name=name,
+                    company_name=company_name,
+                    designation=designation,
+                    package=package,
+                    batch=batch,
+                    degree=degree,
+                    branch=branch,
+                    description=description,
+                    user_profile_pic=user_profile_pic,
+                    hand_written_review=hand_written_review
+                )
+                messages.success(request, f"Placement story for {name} added successfully!")
+
+            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+
+        except IntegrityError as e:
+            messages.error(request, f"Error: {e}")
+            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+
+    return redirect('dashboard')
+
+def delete_placement_story(request, story_id):
+    if request.method == "POST":
+        story = get_object_or_404(PlacementStories, id=story_id)
+        story.delete()
+        messages.success(request, "Placement story deleted successfully!")
+    return redirect(reverse('dashboard') + "?page=manage_placement_stories")

@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import UsersDB, CollegesDb
@@ -121,24 +122,24 @@ def signup(request):
 
             hashed_password = make_password(password)
 
-            try:
-                new_user = UsersDB.objects.create(
-                    full_name=full_name,
-                    email=email,
-                    phone_number=phone_number,
-                    password=hashed_password,
-                    college_name=college,
-                    dob=dob,
-                    referral_code=referral_code
-                )
-            except IntegrityError as e:
-                if 'email' in str(e):
-                    messages.error(request, "This email is already registered.", extra_tags='signup')
-                elif 'phone_number' in str(e):
-                    messages.error(request, "This phone number is already registered.", extra_tags='signup')
-                else:
-                    messages.error(request, "A user with this username already exists.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
+            # try:
+            new_user = UsersDB.objects.create(
+                full_name=full_name,
+                email=email,
+                phone_number=phone_number,
+                password=hashed_password,
+                college_name=college,
+                dob=dob,
+                referral_code=referral_code
+            )
+            # except IntegrityError as e:
+            #     if 'email' in str(e):
+            #         messages.error(request, "This email is already registered.", extra_tags='signup')
+            #     elif 'phone_number' in str(e):
+            #         messages.error(request, "This phone number is already registered.", extra_tags='signup')
+            #     else:
+            #         messages.error(request, "A user with this username already exists.", extra_tags='signup')
+            #     return render(request, 'index.html', {'form_type': 'signup'})
 
             messages.success(request, f"Account created successfully for {new_user.full_name}. Please login.", extra_tags='login')
             return render(request, 'index.html', {'form_type': 'login'})
@@ -219,20 +220,22 @@ def reset_password(request):
         email = request.POST.get("email")
         new_password = request.POST.get("new_password")
         confirm_password = request.POST.get("confirm_password")
+
+        if not email or not new_password or not confirm_password:
+            return JsonResponse({"message": "All fields are required."}, status=400)
+
         if new_password != confirm_password:
-            return JsonResponse({"message": "Passwords do not match"}, status=400)
-        if request.session.get("otp_verified") != email:
-            return JsonResponse({"message": "OTP verification required"}, status=401)
+            return JsonResponse({"message": "Passwords do not match."}, status=400)
+
         try:
             user = UsersDB.objects.get(email=email)
+            user.password = make_password(new_password)
+            user.save()
+            return JsonResponse({"message": "Password reset Successful"})
         except UsersDB.DoesNotExist:
-            return JsonResponse({"message": "User not found"}, status=404)
-        user.password = make_password(new_password)
-        user.last_login = now()
-        user.save()
-        del request.session["otp_verified"]
-        return JsonResponse({"message": "Password successfully reset"})
-    return JsonResponse({"message": "Invalid request"}, status=400)
+            return JsonResponse({"message": "User not found."}, status=404)
+
+    return JsonResponse({"message": "Invalid request method."}, status=405)
 
 def send_email(request):
     if request.method == "POST":

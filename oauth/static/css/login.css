@@ -86,7 +86,7 @@
     border-top-right-radius: 40px;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 -8px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.5);
 }
 #Modal .form-content::-webkit-scrollbar {
     width: 6px;
@@ -195,26 +195,51 @@
     padding: 0 10px;
     color: #777;
 }
-#Modal .google-btn {
-    width: 100%;
-    background: #fff;
-    color: #333;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
+/* Common styles for both GitHub and Google buttons under #Modal */
+#Modal a.auth-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s;
-}
-#Modal .google-btn img {
-    width: 20px;
-    margin-right: 8px;
-}
-#Modal .google-btn:hover {
-    transform: scale(1.05);
-}
+    gap: 8px;                     /* Space between icon and text */
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    margin: 8px 0;               /* Space between the two buttons */
+    text-decoration: none;       /* Remove underline from link */
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  /* Icon styling for both buttons */
+  #Modal a.auth-btn img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  #Modal a.github-btn {
+    background-color: #fff;
+    color: #555;
+    border: 1px solid #ccc;
+  }
+  
+  #Modal a.github-btn:hover {
+    background-color: #f8f8f8;
+    transform: scale(1.02);
+  }
+  
+  /* Google button: white background, subtle border */
+  #Modal a.google-btn {
+    background-color: #fff;
+    color: #555;
+    border: 1px solid #ccc;
+  }
+  
+  #Modal a.google-btn:hover {
+    background-color: #f8f8f8;
+    transform: scale(1.02);
+  }  
 #Modal .bottom-text {
     margin-top: 10px;
     font-size: 14px;

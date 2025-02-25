@@ -41,5 +41,7 @@ urlpatterns = [
     path('demo_test/', demo_test, name="demo_test"),
     path('certificate_management/',include('certificate_management.urls')),
     path('price/', price ,name="price"),
+    #profile
+    path('profile/', include('user_profile.urls')),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

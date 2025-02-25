@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   <!-- Auth Modals CSS -->
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/forgot_password.css' %}">
   <!-- Pop-Up CSS -->
   <link rel="stylesheet" href="{% static 'css/popup.css' %}">
 
@@ -86,8 +87,8 @@
         </div>        
         <div id="profile-menu" class="profile-dropdown-content">
           <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
-          <a href="#"><i class="fas fa-cog"></i> Settings</a>
-          <a href="#"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+          {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
+          <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
           <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
           <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
 
@@ -260,6 +261,7 @@
 
     </div>
   </div>
+  {% include 'forgot_password.html' %}
 
   <!-- "Please Sign-in" Pop-up -->
   <div id="authPopUp" class="popup-overlay">
@@ -275,21 +277,21 @@
   </div>
 
   <!-- Load All Auth JS from oauth -->
-  <script src="{% static 'js/auth.js' %}"></script>
+  <script src="{% static 'js/auth.js' %}"></script> 
+  {% block extra_js %}
+  {% endblock %}
   <script>
-    // This runs after DOM loads
     document.addEventListener('DOMContentLoaded', function() {
-      const formType = "{{ form_type|default:'none' }}";
+      var formType = "{{ form_type|default:'none' }}".trim();
+      console.log("formType:", formType);
       if (formType === 'login') {
         openModal('login');
       }
       else if (formType === 'signup') {
         openModal('signup');
       }
-      // If formType is none, do nothing -> no pop-up
+      // If formType is 'none', do nothing
     });
   </script>  
-  {% block extra_js %}
-  {% endblock %}
 </body>
 </html>

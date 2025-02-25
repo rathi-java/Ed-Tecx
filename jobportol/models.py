@@ -16,6 +16,7 @@ class Job(models.Model):
     qualification = models.TextField()
     posted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     def save(self, *args, **kwargs):
         """Auto-generate job_id before saving"""

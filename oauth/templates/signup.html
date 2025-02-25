@@ -1,17 +1,19 @@
+
 {% load socialaccount %}
+{% load static %}
 <div id="signupForm" class="form-content" style="display: none;">
   <form method="POST" action="{% url 'signup' %}">
     {% csrf_token %}
     <div class="message-container">
-      {% if messages %}
-        {% for message in messages %}
-          {% if "signup" in message.tags %}
-            {% ifchanged message %}
-              <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endifchanged %}
-          {% endif %}
-        {% endfor %}
-      {% endif %}
+        {% if messages %}
+          {% for message in messages %}
+            {% if "signup" in message.tags %}
+              {% ifchanged message %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+              {% endifchanged %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
     </div>
 
     <div class="input-box">
@@ -69,14 +71,17 @@
       <span>OR</span>
     </div>
 
-    <button class="google-btn">
-      <img src="Ed-Tecx\static\images\Facebook.png" />
-      <a href="{% provider_login_url 'github' %}">Continue with Github</a>
-    </button>
-    <button class="google-btn">
-      <img src="https://img.icons8.com/color/48/000000/google-logo.png" />
-      <a href="{% provider_login_url 'google' %}">Continue With Google</a>
-    </button>
+    <!-- GitHub Button -->
+    <a class="auth-btn github-btn" href="{% provider_login_url 'github' %}">
+      <img src="{% static 'images/github.png' %}" alt="GitHub Icon">
+      Continue with GitHub
+    </a>
+
+    <!-- Google Button -->
+    <a class="auth-btn google-btn" href="{% provider_login_url 'google' %}">
+      <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Icon">
+      Continue with Google
+    </a>
 
     <div class="bottom-text">
       Already have an account?

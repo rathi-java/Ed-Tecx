@@ -434,45 +434,79 @@
   </script>
 
   <footer>
-      <p>Access magazines on every topic and ace your learning journey</p>
+      <p><i>Access magazines on every topic and ace your learning journey</i></p>
   </footer>
 </section>
 
 <!-- FAQ Section -->
 <section class="faq-section">
-  <div class="breadcrumb">You are here: Home / FAQ</div>
-  <div class="faqq-container">
-    <h1 class="faq-title">Do You Have Questions?</h1>
-    <p class="faq-subheading">We know things (or at least we pretend really well!)</p>
-    <p class="faq-description">
-      Below, you'll find answers to some of the most common questions about online advertising.
-      Be sure to check out our <a href="#">Facebook & Google Advertising Guides & Academy</a> for more information.
-      If you still need assistance, just <a href="#">contact us!</a>
-    </p>
-    <div class="faq-image-section">
-      <img src="{% static 'images/image.png' %}" alt="FAQ Illustration" class="faq-image">
+    <div class="faqq-container">
+        <h1 class="faq-title">Do You Have Questions?</h1>
+        <div class="faq-image-section">
+            <img src="{% static 'images/Faq-image.jpg' %}" alt="FAQ Illustration" class="faq-image">
+        </div>
+        <div class="faq-content">
+            <div class="faq-category">
+                <h2 class="faq-category-title">Information & Technology FAQs</h2>
+                <ul class="faq-list">
+                    <li>
+                        <a href="#">What is Information Technology (IT)?</a>
+                        <div class="dropdown-content">
+                            <p>IT is the use of computers, networking, storage, and other technologies to process and store data.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">What are the main branches of IT?</a>
+                        <div class="dropdown-content">
+                            <p>Major branches include software development, cybersecurity, networking, data science, and IT support.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">What is the difference between hardware and software?</a>
+                        <div class="dropdown-content">
+                            <p>Hardware is the physical components of a computer, while software is the set of instructions that tell the hardware what to do.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">What is an operating system (OS)?</a>
+                        <div class="dropdown-content">
+                            <p>An OS is system software that manages computer hardware, software resources, and provides common services for applications.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="faq-category">
+                <h2 class="faq-category-title">Management FAQs</h2>
+                <ul class="faq-list">
+                    <li>
+                        <a href="#">What is management?</a>
+                        <div class="dropdown-content">
+                            <p>Management is the process of planning, organizing, leading, and controlling resources to achieve specific goals.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">What are the main functions of management?</a>
+                        <div class="dropdown-content">
+                            <p>Planning, organizing, leading, and controlling are the core functions of management.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">What are the different levels of management?</a>
+                        <div class="dropdown-content">
+                            <p>There are three levels: top-level, middle-level, and operational-level management.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#">What is project management?</a>
+                        <div class="dropdown-content">
+                            <p>Project management involves planning, executing, and monitoring a project to meet specific goals within a given timeframe.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="faq-content">
-      <div class="faq-category">
-          <h2 class="faq-category-title">Information & Technology FAQs</h2>
-          <ul class="faq-list">
-              <li><span class="faq-number"></span> <a href="#">What is Information Technology (IT)?</a></li>
-              <li><span class="faq-number"></span> <a href="#">What are the main branches of IT?</a></li>
-              <li><span class="faq-number"></span> <a href="#">What is the difference between hardware and software?</a></li>
-              <li><span class="faq-number"></span> <a href="#">What is an operating system (OS)?</a></li>
-          </ul>
-      </div>
-      <div class="faq-category">
-          <h2 class="faq-category-title">Management FAQs</h2>
-          <ul class="faq-list">
-              <li><span class="faq-number"> </span> <a href="#">What is management?</a></li>
-              <li><span class="faq-number"></span> <a href="#">What are the main functions of management?</a></li>
-              <li><span class="faq-number"></span> <a href="#">What are the different levels of management?</a></li>
-              <li><span class="faq-number"></span> <a href="#">What is project management?</a></li>
-          </ul>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- Download App Section -->
@@ -483,8 +517,8 @@
           <button class="get-show"></button>
           <div class="phone-screen">
               <h2 class="phone-text">Download the <br> App now</h2>
-              <img src="{% static 'images/download-icon.png' %}" alt="Download Icon" class="download-icon">
-              <button class="get-started">Get Started</button>
+              <img src="{% static 'assets/icon_2.png' %}" alt="Download Icon" class="download-icon">
+              <button class="get-started">Download</button>
           </div>
       </div>
 
@@ -500,17 +534,17 @@
 
           <div class="download-buttons">
               <a href="#" class="download-btn apple-btn">
-                  <img src="{% static 'images/apple-icon.png' %}" alt="Apple"> Download Now
+                  <img src="{% static 'images/apple.png' %}" alt="Apple"> Download Now
               </a>
               <a href="#" class="download-btn android-btn">
-                  <img src="{% static 'images/android-icon.png' %}" alt="Android"> Download Now
+                  <img src="{% static 'images/android.png' %}" alt="Android"> Download Now
               </a>
           </div>
       </div>
   </div>
 </section>
 
-{% block extra_js %}
+{% comment %} {% block extra_js %}
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const counters = document.querySelectorAll('.count');
@@ -532,7 +566,43 @@
       }, 30); // Update interval in milliseconds
     });
   });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const faqItems = document.querySelectorAll(".faq-list li a");
+
+    faqItems.forEach((item) => {
+      item.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent page jump
+
+        const parentLi = this.parentElement;
+        const dropdown = parentLi.querySelector(".dropdown-content");
+
+        if (dropdown) {
+          const isActive = parentLi.classList.contains("active");
+
+          // Close all dropdowns
+          document.querySelectorAll(".faq-list li").forEach((li) => {
+            li.classList.remove("active");
+            const otherDropdown = li.querySelector(".dropdown-content");
+            if (otherDropdown) {
+              otherDropdown.style.maxHeight = "0";
+              otherDropdown.style.opacity = "0";
+              otherDropdown.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+            }
+          });
+
+          // Toggle current dropdown
+          if (!isActive) {
+            parentLi.classList.add("active");
+            dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+            dropdown.style.opacity = "1";
+            dropdown.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+          }
+        }
+      });
+    });
+  });
 </script>
-{% endblock %}
+{% endblock %} {% endcomment %}
 
 {% endblock %}

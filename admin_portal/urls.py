@@ -27,4 +27,7 @@ urlpatterns = [
     path('delete-job/<int:job_id>/', delete_job, name='delete_job'),
     path('get_superadmin_profile/', get_superadmin_profile, name='get_superadmin_profile'),
     path('update_superadmin_profile/', update_superadmin_profile, name='update_superadmin_profile'),  
+    path('add_placement_stories/', add_placement_story, name='add_placement_stories'),
+    path('delete_placement_story/<int:story_id>/', delete_placement_story, name='delete_story'),
+
 ]

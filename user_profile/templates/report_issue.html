@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Report Issue - ReaderClub{% endblock title %}
+
+{% block extra_css %}
+<!-- Your custom CSS -->
+<link rel="stylesheet" href="{% static 'css/report_issue.css' %}">
+<!-- Font Awesome & Bootstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="main1">
+    <section class="report-issue">
+      <div class="report-container">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h3>Report an Issue</h3>
+      </div>
+      <p class="paragraph">
+        At ReaderClub, we are committed to providing a seamless learning experience.
+        If you encounter any technical issues, errors, or have concerns, please report
+        them here, and our support team will address them as soon as possible.
+      </p>
+
+      <div class="container">
+        <h4 class="style1">Common Issues You Can Report:</h4>
+        <div class="issue-list">
+          <!-- Issue items -->
+          <div class="issue-item-wrapper" onclick="openPopup('Login or account-related issues')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">Login or account-related issues</div>
+          </div>
+          <div class="issue-item-wrapper" onclick="openPopup('Payment and subscription problems')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">Payment and subscription problems</div>
+          </div>
+          <div class="issue-item-wrapper" onclick="openPopup('Content-related concerns (incorrect or missing information)')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">Content-related concerns (incorrect or missing information)</div>
+          </div>
+          <div class="issue-item-wrapper" onclick="openPopup('Other technical difficulties')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">Other technical difficulties</div>
+          </div>
+          <div class="issue-item-wrapper" onclick="openPopup('Online Compiler Issue')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">Online Compiler Issue</div>
+          </div>
+          <div class="issue-item-wrapper" onclick="openPopup('Exam portal issue')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">Exam portal issue</div>
+          </div>
+          <div class="issue-item-wrapper" onclick="openPopup('My issue is not listed here')">
+            <img src="{% static 'images/Vector.svg' %}" alt="icon">
+            <div class="issue-item">My issue is not listed here</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="downcontainer">
+        <div class="assistance">
+          <h4 class="style2">Need Immediate Assistance?</h4>
+          <p>For urgent issues, please reach out to our support team:</p>
+          <p>Email: support@example.com</p>
+        </div>
+        <div class="image">
+          <img src="{% static 'images/anotherlogo.svg' %}" alt="Need Assistance">
+        </div>
+      </div>
+    </section>
+</div>
+
+<!-- Popup Modal -->
+<div id="popupModal" class="popup-modal" style="display:none;">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <div class="container">
+        <div class="heading">
+          <h2>Report the Issue</h2>
+        </div>
+        {% comment %} 
+        <!-- If you want this form to submit to a specific Django URL, 
+             replace '#' with {% url 'your_view_name' %} or something similar -->
+        {% endcomment %}
+        <form action="#" method="post">
+          {% csrf_token %}
+          <label for="issue-name" class="issue-name">Issue Name</label>
+          <input type="text" id="issue-name" name="issue-name" value="" readonly>
+
+          <label for="description" class="add-description">Add Description</label>
+          <textarea id="description" name="description" rows="5"></textarea>
+
+          <button type="submit" class="btn">Submit</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+  function setIssue(issueName) {
+      localStorage.setItem('selectedIssue', issueName);
+  }
+
+  function openPopup(issueName) {
+      // Set the issue name in the popup input field
+      document.getElementById("issue-name").value = issueName;
+      // Show the popup modal
+      document.getElementById("popupModal").style.display = "block";
+      // Blur the background behind the popup (main content or the main1 container)
+      document.querySelector('.main1').classList.add('blur-background');
+  }
+
+  function closePopup() {
+      // Hide the popup modal
+      document.getElementById("popupModal").style.display = "none";
+      // Remove the blur effect from the background
+      document.querySelector('.main1').classList.remove('blur-background');
+  }
+</script>
+{% endblock extra_js %}

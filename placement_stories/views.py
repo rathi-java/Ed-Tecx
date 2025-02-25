@@ -46,33 +46,3 @@ def story_detail(request, story_id):
     })
 
 # View to edit a specific placement story
-def edit_story(request, story_id):
-    # Fetch the story or return 404 if not found
-    story = get_object_or_404(PlacementStories, id=story_id)
-    
-    if request.method == 'POST':
-        # If the form is submitted, bind the data to the form and validate
-        form = PlacementStoriesForm(request.POST, request.FILES, instance=story)
-        if form.is_valid():
-            # If form is valid, save the updated story and redirect to the list page
-            form.save()
-            return redirect('placement_stories')
-    else:
-        # If it's a GET request, pre-fill the form with the story data
-        form = PlacementStoriesForm(instance=story)
-    
-    # Render the edit story page with the form and the story details
-    return render(request, 'edit_story.html', {'form': form, 'story': story})
-
-# View to delete a specific placement story
-def delete_story(request, story_id):
-    # Fetch the story or return 404 if not found
-    story = get_object_or_404(PlacementStories, id=story_id)
-    
-    if request.method == 'POST':
-        # If the form is submitted, delete the story and redirect to the story list page
-        story.delete()
-        return redirect('placement_stories')
-    
-    # Render the delete story page with a confirmation message
-    return render(request, 'delete_story.html', {'story': story})
