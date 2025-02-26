@@ -30,8 +30,9 @@
                           <span class="old-price">&#8377; {{ plan.price }}</span>
                           <span class="discount"><b>Save {{ plan.discount }}%</b></span>
                       </div>
-                      <div class="pricing-amount">&#8377; {{ plan.discounted_price }}
-                          <span>/{% if plan.duration_in_months == 1 %}m{% else %}y{% endif %}</span>
+                      <div class="pricing-amount">&#8377; {% widthratio plan.discounted_price plan.duration_in_months 1 %}
+                        
+                          <span>/m</span>
                       </div>
                       {% endif %}
                   </div>
