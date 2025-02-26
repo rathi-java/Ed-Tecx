@@ -10,8 +10,6 @@ class PlanType(models.Model):
 class SubscriptionPlan(models.Model):
     plan_type = models.ForeignKey(PlanType, on_delete=models.CASCADE, related_name='subscriptions',null = True, blank = True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    duration_in_months = models.IntegerField(default=1)  # 1 for monthly, 12 for yearly, 0 for free
-    description = models.TextField(blank=True, null=True)
     features = models.JSONField(default=dict)  # Store features as a dictionary
     is_active = models.BooleanField(default=True)
     discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)  # In percentage
