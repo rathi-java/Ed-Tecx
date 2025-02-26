@@ -1,11 +1,9 @@
-
 {% extends "base.html" %}
 {% load static %}
 
 {% block title %}Pricing Plans{% endblock %}
 
 {% block extra_css %}
-<!-- Reference your custom CSS for pricing plans -->
 <link rel="stylesheet" href="{% static 'css/price.css' %}">
 <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Kite One" rel="stylesheet">
@@ -18,132 +16,83 @@
       <h1>Get Hired Faster with the<br> Right Plan!</h1>
       <p>Choose Your Plan & Start Your Journey Today!</p>
       <div class="plans">
+          {% for plan in subscription_plans %}
           <div class="plan">
               <div class="plan-header">
                   <div class="plan-title">
-                      <h2>Basic</h2>
+                      <h2>{{ plan.plan_type.display_name }}</h2>
                       <br>
+                      {% if plan.plan_type.code == 'basic' %}
                       <div class="badge"><b>Free Plan</b></div>
-                      <div class="pricing-amountt">&#8377; 0</div>
+                      <div class="pricing-amountt">&#8377; {{ plan.price }}</div>
+                      {% else %}
+                      <div class="second-heading">
+                          <span class="old-price">&#8377; {{ plan.price }}</span>
+                          <span class="discount"><b>Save {{ plan.discount }}%</b></span>
+                      </div>
+                      <div class="pricing-amount">&#8377; {{ plan.discounted_price }}
+                          <span>/{% if plan.duration_in_months == 1 %}m{% else %}y{% endif %}</span>
+                      </div>
+                      {% endif %}
                   </div>
               </div>
               <div class="divider"></div>
               <ul>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Compiler one time</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Explore and apply to jobs/Internships</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Basic profile visibility to recruiters</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Limited access to Study material</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Cannot attend Practice Questions</li>
+                  {% for feature in plan.features.items %}
+                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> {{ feature.1 }}</li>
+                  {% endfor %}
               </ul>
+              {% if plan.plan_type.code == 'basic' %}
               <button>Start for Free</button>
+              {% else %}
+              <button class="purchase-btn" id="{{ plan.plan_type.code }}-btn">Purchase Plan</button>
+              {% endif %}
           </div>
-          <div class="plan">
-              <div class="plan-header">
-                  
-                  <div class="plan-title">
-                      <h2>Monthly</h2>
-                      <br>
-                      <div class="second-heading">
-                          <span class="old-price">&#8377; 299</span>
-                          <span class="discount"><b>Save 44.3%</b></span>
-                      </div>
-                      <div class="pricing-amount">&#8377; 299<span >/m</span></div>
-                  </div>
-              </div>
-              <div class="divider"></div>
-              <ul>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Limited Compiler access</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Give exam and become eligible for shortlisting</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Good visibility to recruiters</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Study material access</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Limited access to Practice Questions</li>
-              </ul>
-              <button class="purchase-btn" id="monthly-btn">Purchase Plan</button>
-          </div>
-          <div class="plan">
-              <div class="plan-header">
-                  
-                  <div class="plan-title">
-                      <h2>Yearly</h2>
-                      <br>
-                      <div class="second-heading">
-                          <span class="old-price">&#8377; 299</span>
-                          <span class="discount"><b>Save 44.3%</b></span>
-                      </div>
-                      <div class="pricing-amount">&#8377; 166<span >/m</span></div>
-                  </div>
-              </div>
-              <div class="divider"></div>
-              <ul>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Unlimited compiler access</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Give exam and appear among top shortlisted candidates</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> High chances of getting selected by recruiters</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Study material access</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Unlimited access to Practice Questions</li>
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> Support and career guidance</li>
-              </ul>
-              <button class="purchase-btn" id="yearly-btn">Purchase Plan</button>
-          </div>
+          {% endfor %}
       </div>
   </div>
 
-<!-- Monthly Plan Modal -->
-<div class="modal-overlay" id="monthly-modal">
-  <div class="modal-content">
-      <h2>Monthly Plan <span class="price">&nbsp;&nbsp;&#8377; 299/-</span></h2>
-      <p>🎉 You're One Step Closer to Your Dream Job!</p>
-      <br>
-      <p>Scan this code to pay via UPI</p>
-      <img src="{% static 'images/upi_app_icon.jpeg' %}" alt="icon" class="icon-jpeg">
-      <div class="qr-code">
-          <img src="{% static 'images/qr.png' %}" alt="QR Code">
-      </div>
-      <p class="expire-text"><b>This QR expires in 5 mins</b></p>
-      <div class="or-divider">
-          <span>Or</span>
-      </div>
-      <button class="pay-btn">Pay via credit/debit card or net banking</button>
+  <!-- Modals for Payments -->
+  {% for plan in subscription_plans %}
+  {% if plan.plan_type.code != 'basic' %}
+  <div class="modal-overlay" id="{{ plan.plan_type.code }}-modal">
+    <div class="modal-content">
+        <h2>{{ plan.plan_type.display_name }} Plan <span class="price">&nbsp;&nbsp;&#8377; {{ plan.discounted_price }}/-</span></h2>
+        <p>🎉 You're One Step Closer to Your Dream Job!</p>
+        <br>
+        <p>Scan this code to pay via UPI</p>
+        <img src="{% static 'images/upi_app_icon.jpeg' %}" alt="icon" class="icon-jpeg">
+        <div class="qr-code">
+            <img src="{% static 'images/qr.png' %}" alt="QR Code">
+        </div>
+        <p class="expire-text"><b>This QR expires in 5 mins</b></p>
+        <div class="or-divider">
+            <span>Or</span>
+        </div> 
+        <button class="pay-btn">Pay via credit/debit card or net banking</button>
+    </div>
   </div>
-</div>
-
-<!-- Yearly Plan Modal -->
-<div class="modal-overlay" id="yearly-modal">
-  <div class="modal-content">
-      <h2>Yearly Plan <span class="price">&nbsp;&nbsp;&#8377; 999/-</span></h2>
-      <p>🎉 Unlock Full Access & Get Noticed by Top Recruiters!</p>
-      <br>
-      <p>Scan this code to pay via UPI</p>
-      <img src="{% static 'images/upi_app_icon.jpeg' %}" alt="icon" class="icon-jpeg">
-      <div class="qr-code">
-          <img src="{% static 'images/qr.png' %}" alt="QR Code">
-      </div>
-      <p class="expire-text"><b>This QR expires in 5 mins</b></p>
-      <div class="or-divider">
-          <span>Or</span>
-      </div> 
-      <button class="pay-btn">Pay via credit/debit card or net banking</button>
-
-  </div>
-</div>
+  {% endif %}
+  {% endfor %}
 </section>
 {% endblock content %}
 
 {% block extra_js %}
 <script>
-  document.getElementById("monthly-btn").addEventListener("click", () => {
-      document.getElementById("monthly-modal").style.display = "flex";
-  });
-  document.getElementById("yearly-btn").addEventListener("click", () => {
-      document.getElementById("yearly-modal").style.display = "flex";
+  document.querySelectorAll(".purchase-btn").forEach(button => {
+      button.addEventListener("click", () => {
+          const planType = button.id.replace("-btn", "");
+          document.getElementById(planType + "-modal").style.display = "flex";
+      });
   });
 
-  // Close Modals When Clicking Outside the Content
-document.querySelectorAll(".modal-overlay").forEach(modal => {
-  modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-          modal.style.display = "none";
-      }
+  document.querySelectorAll(".modal-overlay").forEach(modal => {
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
   });
-});
 </script>
 {% endblock extra_js %}
+ 
