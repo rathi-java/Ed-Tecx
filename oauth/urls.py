@@ -11,5 +11,7 @@ urlpatterns = [
     path("send_email/", send_email, name="send_email"),
     path("verify_otp/", verify_otp, name="verify_otp"),
     path("reset_password/", reset_password, name="reset_password"),
+    path('report/', report_issue, name='report_issue'),
+    path('refer/', refer_friend, name='refer_friend'),
    
 ]

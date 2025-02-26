@@ -75,7 +75,7 @@
 <!-- Popup Modal -->
 <div id="popupModal" class="popup-modal" style="display:none;">
     <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
+      {% comment %} <span class="close-btn" onclick="closePopup()">&times;</span> {% endcomment %}
       <div class="container">
         <div class="heading">
           <h2>Report the Issue</h2>
@@ -111,14 +111,22 @@
       // Show the popup modal
       document.getElementById("popupModal").style.display = "block";
       // Blur the background behind the popup (main content or the main1 container)
-      document.querySelector('.main1').classList.add('blur-background');
+      // document.querySelector('.main1').classList.add('blur-background');
   }
 
   function closePopup() {
       // Hide the popup modal
       document.getElementById("popupModal").style.display = "none";
       // Remove the blur effect from the background
-      document.querySelector('.main1').classList.remove('blur-background');
+      // document.querySelector('.main1').classList.remove('blur-background');
   }
+
+  // Close the popup if the user clicks outside of the popup content
+  document.getElementById('popupModal').addEventListener('click', function(event) {
+    // If the click target is the modal background itself, close the popup
+    if (event.target === this) {
+        closePopup();
+    }
+  });
 </script>
 {% endblock extra_js %}

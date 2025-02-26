@@ -51,7 +51,7 @@
             <a class="nav-link" href="#">
               Solution <i class="fa-solid fa-caret-down"></i>
             </a>
-            <div class="dropdown-content">
+            <div class="solution-dropdown-content">
               <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a>
               <a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a>
               <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a>
@@ -89,7 +89,7 @@
           <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
           {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
           <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
-          <a href="#"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+          <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
           <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
 
           <div class="profile-info-links">

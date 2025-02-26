@@ -274,3 +274,9 @@ def send_email(request):
             print("Error:", str(e))
             return JsonResponse({"error": "Failed to send email."}, status=500)
     return render(request, "forgot_password.html")
+
+def report_issue(request):
+    return render(request, 'report_issue.html')
+
+def refer_friend(request):
+    return render(request, 'refer_friend.html')

@@ -1,52 +1,12 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: white;
-  padding: 15px 50px;
-}
-
-.logo {
-  padding: 10px 0;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-
-.hamburger {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: black;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
+/* Report Issue Section */
 .report-issue {
   padding: 15px 40px;
   color: black;
-  margin: 26px 34px;
+  margin: 60px auto 6px auto; 
+  max-width: 1200px;
+  width: 90%;
   border-radius: 8px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-  margin-bottom: 0;
 }
 
 .report-container {
@@ -57,17 +17,20 @@
   margin-top: 15px;
   padding-bottom: 10px;
 }
+
 .report-container i {
   font-size: 25px;
 }
 
+/* Container (merged styles for both usage contexts) */
 .container {
   max-width: 100%;
-  padding: 15px 40px;
+  padding: 20px;
   margin: 0 20px;
   border-radius: 8px;
 }
 
+/* Issue List and Items */
 .issue-list {
   display: flex;
   flex-direction: column;
@@ -101,6 +64,7 @@
   background: #f8faff;
 }
 
+/* Downcontainer Section */
 .downcontainer {
   display: flex;
   align-items: center;
@@ -154,7 +118,6 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); 
   z-index: 1000;
-  display: flex; 
   justify-content: center; 
   align-items: center; 
 }
@@ -168,6 +131,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   margin-top: 10%;
   margin-left: 30%;
+  position: relative;
 }
 
 .close-btn {
@@ -177,10 +141,6 @@
   font-size: 24px;
   cursor: pointer;
   color: #333; 
-}
-
-.container {
-  padding: 20px;
 }
 
 .heading h2 {
@@ -214,23 +174,26 @@ textarea {
   cursor: pointer;
 }
 
-/* Add this class to blur the background */
+/* Blur effect when popup is active */
 .blur-background {
   filter: blur(5px); 
   transition: filter 0.3s ease-in-out;
 }
+
+/* Additional Typography */
 h3 {
   font-size: 29px;
 }
-.style1
-{
+
+.style1 {
   color: #095F95;
-    font-size: 26px;
-    font-weight: 600;
-    line-height: 38px;
-    margin-bottom: 16px;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 38px;
+  margin-bottom: 16px;
 }
-.style2{
+
+.style2 {
   color: #095F95;
   margin-bottom: 7%;
   font-size: 23px;
@@ -240,32 +203,6 @@ h3 {
 
 /* Tablets (768px and below) */
 @media screen and (max-width: 768px) {
-  .navbar {
-    padding: 15px 20px;
-  }
-
-  .nav-links {
-    display: none; 
-    flex-direction: column;
-    background: white;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 50%;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-links a {
-    font-size: 18px;
-    padding: 10px;
-    display: block;
-  }
-
-  .hamburger {
-    display: block; 
-  }
-
   .paragraph {
     font-size: 16px;
     margin-inline: 5%;
@@ -276,13 +213,13 @@ h3 {
   }
 
   .popup-content {
-    /* width: 0%; */
     max-width: 100%;
     text-align: left;
-   
     justify-content: center; 
     align-items: start;
+    margin-left: 0;
   }
+  
   .heading h2 {
     font-size: 22px;
   }
@@ -294,19 +231,12 @@ h3 {
 
   .btn {
     width: 100%; 
+    margin-left: 0;
   }
 }
 
 /* Mobile (480px and below) */
 @media screen and (max-width: 480px) {
-  .navbar {
-    padding: 10px;
-  }
-
-  .nav-links {
-    width: 100%;
-  }
-
   .paragraph {
     font-size: 14px;
     text-align: center;
@@ -324,9 +254,8 @@ h3 {
   }
 
   .popup-content {
-   max-width: 100%;
+    max-width: 100%;
     padding: 15px;
-  
   }
 
   .btn {
