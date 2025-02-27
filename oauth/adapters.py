@@ -45,13 +45,31 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         """
         This method is called to save a new user.
         If the user already exists (and the social account is connected via pre_social_login),
-        this code will update the user’s details.
+        this code will update the user's details.
         """
         try:
             provider = sociallogin.account.provider
             uid = sociallogin.account.uid
-            email = sociallogin.account.extra_data.get('email')
-            full_name = sociallogin.account.extra_data.get('name')
+            extra_data = sociallogin.account.extra_data
+            
+            # Get email and name based on provider
+            if provider == 'github':
+                email = extra_data.get('email')
+                # GitHub might not provide email, try to handle this case
+                if not email:
+                    # Can log or handle case where GitHub doesn't share email
+                    logger.warning("GitHub login without email access, using username as fallback")
+                    # You might want to use a placeholder email or username-based email
+                    username = extra_data.get('login')
+                    email = f"{username}@github.placeholder"
+                
+                # Get name from GitHub, with fallbacks
+                full_name = extra_data.get('name')
+                if not full_name:
+                    full_name = extra_data.get('login', '')  # Use username if name not available
+            else:  # Google or other providers
+                email = extra_data.get('email')
+                full_name = extra_data.get('name')
 
             logger.debug(f"Processing social login for email: {email}, provider: {provider}")
 
@@ -63,15 +81,20 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
                 user.full_name = full_name
                 if provider == 'google':
                     user.google_id = uid
+                elif provider == 'github':
+                    # Assuming you've added github_id field to your UsersDB model
+                    user.github_id = uid
                 user.last_login = timezone.now()
                 user.save()
             except UsersDB.DoesNotExist:
                 logger.info(f"Creating new user: {email}")
                 temp_phone = self.generate_unique_phone()
+                
                 user = UsersDB(
                     email=email,
                     full_name=full_name,
                     google_id=uid if provider == 'google' else None,
+                    github_id=uid if provider == 'github' else None,  # Add GitHub ID
                     phone_number=temp_phone,
                     password='',  # Social accounts may not need a password initially
                     last_login=timezone.now(),

@@ -51,7 +51,7 @@ class CollegesDb(models.Model):
 
 class UsersDB(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100, unique=True)
+    email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
     phone_number = models.CharField(
         max_length=15, 
         unique=True, 
@@ -67,6 +67,7 @@ class UsersDB(AbstractBaseUser, PermissionsMixin):
     last_login = models.DateTimeField(null=True, blank=True)
     gender = models.CharField(max_length=10, default='other', null=True, blank=True)
     google_id = models.CharField(max_length=255, blank=True, null=True)
+    github_id = models.CharField(max_length=100, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

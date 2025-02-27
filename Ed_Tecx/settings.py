@@ -70,10 +70,10 @@ SOCIALACCOUNT_PROVIDERS = {
         'OAUTH_PKCE_ENABLED': True,
     },
     "github": {
-        "APP": {
-            "client_id": "Ov23lipOZxF0RmLtECYl",
-            "secret": "42d3e1118ade5ea40792003c7a9ab47d57874c1b",
-        }
+        "SCOPE": ["read:user", "user:email"],  
+        "AUTH_PARAMS": {"access_type": "online"},
+        'OAUTH_PKCE_ENABLED': True,
+       
     }   
 }
 
