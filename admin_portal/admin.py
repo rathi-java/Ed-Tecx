@@ -9,9 +9,10 @@ class SuperAdminAdmin(admin.ModelAdmin):
 
 @admin.register(AdminDB)
 class AdminAdmin(admin.ModelAdmin):
-    list_display = ('username', 'full_name', 'email', 'phone_number')
+    list_display = ('username', 'full_name', 'email', 'phone_number', 'superadmin')
     search_fields = ('username', 'full_name', 'email')
     readonly_fields = ('username',)
+    list_filter = ('superadmin',)  # Optional: Add a filter for superadmin
 
 @admin.register(ManagerDB)
 class ManagerAdmin(admin.ModelAdmin):

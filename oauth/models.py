@@ -61,6 +61,7 @@ class UsersDB(AbstractBaseUser, PermissionsMixin):
     )
     password = models.CharField(max_length=128, null=True, blank=True)
     college_name = models.CharField(max_length=255, default="Unknown College")
+    course = models.CharField(max_length=255, default="Unknown Course")
     dob = models.DateField(default=date(2000, 1, 1))
     referral_code = models.CharField(max_length=50, blank=True, null=True)
     username = models.CharField(max_length=10, unique=True, editable=False)

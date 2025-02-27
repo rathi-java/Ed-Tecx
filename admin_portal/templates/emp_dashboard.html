@@ -5,349 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <style>
-        /* Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        h2, h3 {
-            font-weight: 1;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        a .home-image {
-            width: 40% !important;
-            height: auto !important;
-            border-radius: 15px !important;
-            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2) !important;
-        }
-        
-
-        .header {   
-            display: flex;
-            justify-content: flex-end;
-            height: 60px;
-            align-items: center;
-            background: white;
-            color: #085889;
-            padding: 15px 20px;
-        }
-        .content > h3 {
-            margin-bottom: 5px;
-        }
-        .dropdown {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
-        .profile-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            color: black;
-            min-width: 120px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-            right: 0;
-            top: 100%;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .dropdown-content a {
-            color: black;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 8px;
-        }
-        .dropdown-content a:hover {
-            background-color: #64B5F6;
-            border-radius: 5px;
-            color: white;
-        }
-        .dropdown-content a:hover .material-icons {
-            color: white;
-        }
-        
-        /* Sidebar Styles */
-        .sidebar {
-            width: 210px;
-            background: #077BC3;
-            color: white;
-            height: 100vh;
-            padding: 0px;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 20px;
-        }
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 10px 0 20px 10px;
-        }
-        .sidebar ul {
-            list-style: none;
-        }
-        .sidebar ul li {
-            width: 100%;
-            padding: 10px 30px 10px 20px;
-            cursor: pointer;
-            position: relative;
-            transition: background-color 0.3s ease;
-        }
-        .dropdown-menu li {
-            width: 100%;
-            padding: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .sidebar ul li:hover {
-            background-color: #4cb2f2;
-        }
-        .dropdown-menu li:hover {
-            background-color: #177dbb;
-        }
-        .dropdown-menu {
-            display: none;
-            list-style: none;
-            padding-left: 30px;
-        }
-        .dropdown-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: first baseline;
-        }
-        
-        /* Content Styles */
-        .content {
-            flex: 1;
-            background: #e9f0f6;
-            padding: 20px;
-        }
-        .dashboard-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-        .card {
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 8px 15px rgba(37, 83, 181, 0.2);
-        }
-        .card:nth-child(4n+1) { border-bottom: 5px solid #C7FCEC; }
-        .card:nth-child(4n+2) { border-bottom: 5px solid #FDF0C6; }
-        .card:nth-child(4n+3) { border-bottom: 5px solid #FED8F1; }
-        .card:nth-child(4n+4) { border-bottom: 5px solid #BCEBFF; }
-        .menu-icon {
-            margin-right: 5px;
-        }
-        .dropdown-icon {
-            margin-left: auto;
-        }
-        .card p {
-            color: rgb(48, 47, 47);
-            font-size: large;
-        }
-        h6 {
-            font-size: small;
-            padding-bottom: 10px;
-            color: #949292;
-        }
-        .hidden {
-            display: none;
-        }
-        .show {
-            display: block;
-        }
-        .hover_sidebar_color {
-            background-color: #4cb2f2;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h2 {
-            color: #333;
-        }
-        .add-button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-left: auto;
-            margin-bottom: 20px;
-        }
-        .add-button:hover {
-            background-color: #45a049;
-        }
-        .back-link {
-            display: block;
-            margin-bottom: 20px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        tr:nth-child(even) {
-            background-color: rgb(224, 233, 244);
-        }
-        .action-buttons a {
-            margin-right: 10px;
-            color: white;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .edit-icon::before {
-            content: '\270E';
-            font-size: 30px;
-            font-weight: bold;
-            color: #000;
-        }
-        .delete-icon::before {
-            content: '\1F5D1';
-            font-size: 30px;
-            font-weight: bold;
-            color: #f44336;
-        }
-        .action-buttons a:hover {
-            opacity: 0.8;
-        }
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            position: absolute;
-            top: -40px;
-            left: 0;
-            color: gray;
-        }
-        .form-row {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            flex: 1;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        input {
-            width: 70%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .save-btn, .continue-btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .save-btn {
-            background-color: green;
-            color: white;
-        }
-        .continue-btn {
-            background-color: blue;
-            color: white;
-        }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-        .edit, .delete {
-            cursor: pointer;
-            padding: 5px 10px;
-            border: none;
-            color: white;
-            border-radius: 4px;
-        }
-        .edit { background-color: #4CAF50; }
-        .delete { background-color: #f44336; }
-        .bottom-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-        }
-        .bottom-actions button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .accept { background-color: #008CBA; }
-        .delete-selected { background-color: #f44336; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <!-- Header Section -->
+<!--header section-->
     <div class="header">
         <a href ='#' ><img src = {% static 'images/home.png' %} class='home-image'></a>
         <div class="dropdown">
+            
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16 0C7.2 0 0 7.2 0 16C0 24.8 7.2 32 16 32C24.8 32 32 24.8 32 16C32 7.2 24.8 0 16 0ZM16 6.22222C17.9556 6.22222 19.5556 7.82222 19.5556 9.77778C19.5556 11.7333 17.9556 13.3333 16 13.3333C14.0444 13.3333 12.4444 11.7333 12.4444 9.77778C12.4444 7.82222 14.0444 6.22222 16 6.22222ZM7.11111 24.8889C7.11111 20 11.1111 16 16 16C20.8889 16 24.8889 20 24.8889 24.8889H7.11111Z" fill="#085889"/>
             </svg> 
@@ -355,210 +21,554 @@
             <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
             <div class="dropdown-content">
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <a href="#"><span class="material-icons">edit</span> Edit</a>
+                <a href="{% url 'dashboard' %}?section=profile"><span class="material-icons">edit</span> Edit</a>
                 <a href="{% url 'logout' %}"><span class="material-icons">logout</span> Logout</a>
             </div>
         </div>
     </div>
 
     <div style="display: flex;">
-        <!-- Sidebar Section -->
+        <!--side bar section-->
         <div class="sidebar">
             <div class="sidebar-header">
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16 0C7.2 0 0 7.2 0 16C0 24.8 7.2 32 16 32C24.8 32 32 24.8 32 16C32 7.2 24.8 0 16 0ZM16 6.22222C17.9556 6.22222 19.5556 7.82222 19.5556 9.77778C19.5556 11.7333 17.9556 13.3333 16 13.3333C14.0444 13.3333 12.4444 11.7333 12.4444 9.77778C12.4444 7.82222 14.0444 6.22222 16 6.22222ZM7.11111 24.8889C7.11111 20 11.1111 16 16 16C20.8889 16 24.8889 20 24.8889 24.8889H7.11111Z" fill="white"/>
-                </svg>
+                    </svg>
                 <h3>Employee</h3>
             </div>
             <ul>
-                <li onclick="setActive(this)" data-page-name="dashboard"><span class="fas fa-tachometer-alt"></span> &nbsp;&nbsp;&nbsp;Dashboard</li>
+                
+                <li onclick="setActive(this)" data-page-name="dashboard"><span class="fas fa-tachometer-alt"></span> 
+                    &nbsp;&nbsp;&nbsp;Dashboard</li>
+
+                <!-- Request Dropdown -->                
+                <li onclick="setActive(this)" data-page-name="request_menu"><span class="fas fa-briefcase"></span>
+                    &nbsp;&nbsp;&nbsp;Certificate Req.</li>
+
+
+                <!-- Admin Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('admin-menu', this)"><span class="fas fa-users"></span>&nbsp;&nbsp;&nbsp; 
+                    Admin <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="admin-menu">
+                    <li onclick="setActive(this)" data-page-name="manage_admin">Manage Admin</li>
+                    <li onclick="setActive(this)" data-page-name="add_admin">Add Admin</li>
+                </ul>
+                 
+                <!-- Manager Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('manager-menu', this)"><span class="fas fa-briefcase"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Manager <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="manager-menu">
+                    <li onclick="setActive(this)" data-page-name="manage_manager">Manage Manager </li>
+                    <li onclick="setActive(this)" data-page-name="add_manager">Add Manager</li>
+                </ul>
+
+                <!-- Employee Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('employee-menu', this)"><span class="fas fa-user-tie"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Employee <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="employee-menu">
+                    <li onclick="setActive(this)" data-page-name="manage_employee">Manage Employee</li>
+                    <li onclick="setActive(this)"  data-page-name="add_employee">Add Employee </li>
+                </ul>
+
                 <!-- Users Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('users-menu', this)"><span class="fas fa-user-circle"></span> &nbsp;&nbsp;&nbsp; Users <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span></li>
+                <li class="dropdown-toggle" onclick="toggleDropdown('users-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Users <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
                 <ul class="dropdown-menu" id="users-menu">
-                    <li onclick="setActive(this)" data-page-name="manage_user">Manage User</li>
-                    <li onclick="setActive(this)" data-page-name="add_user">Add User</li>
+                    <li onclick="setActive(this)" data-page-name="manage_user"> Manage User</li>
+                    <li onclick="setActive(this)"  data-page-name="add_user">Add User</li>
+                </ul>
+
+                <!-- Sales Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('sales-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Sales <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="sales-menu">
+                    <li onclick="setActive(this)" data-page-name="sales_overview"> Sales Overview</li>
+                    <li onclick="setActive(this)" data-page-name="manage_sales">Manage Sales</li>
                 </ul>
                 <!-- Student Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('student-menu', this)"><span class="fas fa-user-circle"></span> &nbsp;&nbsp;&nbsp; Students <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span></li>
+                <li class="dropdown-toggle" onclick="toggleDropdown('student-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Students <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
                 <ul class="dropdown-menu" id="student-menu">
-                    <li onclick="setActive(this)" data-page-name="manage_student">Manage Student</li>
+                    <li onclick="setActive(this)" data-page-name="manage_student"> Manage Student</li>
                     <li onclick="setActive(this)" data-page-name="add_student">Add Student</li>
                 </ul>
                 <!-- Colleges Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('colleges-menu', this)"><span class="fas fa-user-circle"></span> &nbsp;&nbsp;&nbsp; Colleges <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span></li>
+                <li class="dropdown-toggle" onclick="toggleDropdown('colleges-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Colleges <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
                 <ul class="dropdown-menu" id="colleges-menu">
                     <li onclick="setActive(this)" data-page-name="manage_college">Manage Colleges</li>
                     <li onclick="setActive(this)" data-page-name="add_college">Add Colleges</li>
                 </ul>
                 <!-- Question Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('question-menu', this)"><span class="fas fa-user-circle"></span> &nbsp;&nbsp;&nbsp; Question <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span></li>
+                <li class="dropdown-toggle" onclick="toggleDropdown('question-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Question <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
                 <ul class="dropdown-menu" id="question-menu">
-                    <li onclick="setActive(this)" data-page-name="manage_question">Manage Question</li>
-                    <li onclick="setActive(this)" data-page-name="add_question">Add Questions</li>
+                  <li onclick="setActive(this)" data-page-name="manage_question">Manage Question</li>
+                  <li onclick="setActive(this)" data-page-name="add_question"> Add Questions</li>
+                   </ul>
+                        <!-- Result Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('Result-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Result <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <!-- Jobs Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('jobs-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Jobs <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="jobs-menu">
+                    <li onclick="setActive(this)" data-page-name="manage_jobs">Manage Jobs</li>
+                    <li onclick="setActive(this)" data-page-name="add_jobs">Add Jobs</li>
                 </ul>
-            </ul>
+
+                <!-- placement_stories Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('placement_stories-menu', this)"><span class="fas fa-user-circle"></span> 
+                    &nbsp;&nbsp;&nbsp;
+                    Placement stories <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="placement_stories-menu">
+                    <li onclick="setActive(this)" data-page-name="manage_placement_stories">Manage Stories</li>
+                    <li onclick="setActive(this)" data-page-name="add_placement_stories">Add Stories</li>
+                </ul>
+
+</ul>
         </div>
-        <!-- Main Content Area -->
-        <div class="content current_page_action" data-page-name="dashboard">
+        <!--content current page of sidebar dashboard-->
+        <div class="content current_page_action " data-page-name="dashboard">
+            {% if section == "profile" %}
+              <!-- Profile Section -->
+              <h3>Edit Profile</h3>
+              <div class="container">
+                <form method="POST" action="{% url 'update_superadmin_profile' %}">
+                  {% csrf_token %}
+        
+                  <div class="form-row">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" value="{{ user.full_name }}" required>
+                  </div>
+
+                  <div class="form-row">
+                    <label>Email</label>
+                    <input type="email" value="{{ user.email }}" disabled>
+                  </div>
+        
+                  <div class="form-row">
+                    <label>Phone No.</label>
+                    <input type="text" name="phone_number" value="{{ user.phone_number }}">
+                  </div>
+        
+                  <div class="buttons">
+                    <button type="submit" class="save-btn">Save</button>
+                    <a href="{% url 'dashboard' %}" class="cancel-btn">Cancel</a>
+                  </div>
+                </form>
+              </div>
+            {% else %}
+
+            <!-- Dashboard Section -->
             <h3>&nbsp;Dashboard</h3>
             <div class="dashboard-cards">
+                <!-- Super Admins -->
+                <div class="card" data-page-name="super_admins">
+                    <h6>Total Super Admins</h6>
+                    <p>{{ total_super_admins }}</p>
+                </div>
+
+                <!-- Admins -->
+                <div class="card" data-page-name="admins">
+                    <h6>Total Admins</h6>
+                    <p>{{ total_admins }}</p>
+                </div>
+
+                <!-- Managers -->
+                <div class="card" data-page-name="managers">
+                    <h6>Total Managers</h6>
+                    <p>{{ total_managers }}</p>
+                </div>
+
+                <!-- Employees -->
+                <div class="card" data-page-name="employees">
+                    <h6>Total Employees</h6>
+                    <p>{{ total_employees }}</p>
+                </div>
+
+                <!-- Students -->
+                <div class="card" data-page-name="students">
+                    <h6>Total Students</h6>
+                    <p>{{ total_students }}</p>
+                </div>
+
+                <!-- Users -->
+                <div class="card" data-page-name="users">
+                    <h6>Total Users</h6>
+                    <p>{{ total_users }}</p>
+                </div>
+
+                <!-- Active Users -->
                 <div class="card" data-page-name="active_users">
-                    <h6>Active users</h6>
-                    <p>10.2k</p>
+                    <h6>Active Users</h6>
+                    <p>{{ active_users }}</p>
                 </div>
-                <div class="card" data-page-name="active_users">
-                    <h6>Premium users</h6>
-                    <p>4.2k</p>
+
+                <!-- Premium Users -->
+                <div class="card" data-page-name="premium_users">
+                    <h6>Premium Users</h6>
+                    <p>{{ premium_users }}</p>
                 </div>
-                <div class="card" data-page-name="active_users">
-                    <h6>Total Users </h6>
-                    <p>80L</p>
+
+                <!-- Colleges -->
+                <div class="card" data-page-name="colleges">
+                    <h6>Total Colleges</h6>
+                    <p>{{ total_colleges }}</p>
                 </div>
-                <div class="card" data-page-name="total_employee">
-                    <h6>Total Employee</h6>
-                    <p>10L</p>
+
+                <!-- Questions -->
+                <div class="card" data-page-name="questions">
+                    <h6>Total Questions</h6>
+                    <p>{{ total_questions }}</p>
                 </div>
-                <div class="card" data-page-name="admin">
-                    <h6>Total Super Admin</h6>
-                    <p>10.2k</p>
+
+                <!-- Subjects -->
+                <div class="card" data-page-name="subjects">
+                    <h6>Total Subjects</h6>
+                    <p>{{ total_subjects }}</p>
                 </div>
-                <div class="card" data-page-name="admin">
-                    <h6>Total Admin</h6>
-                    <p>4.2k</p>
+
+                <!-- Categories -->
+                <div class="card" data-page-name="categories">
+                    <h6>Total Categories</h6>
+                    <p>{{ total_categories }}</p>
                 </div>
-                <div class="card" data-page-name="manager">
-                    <h6>Total Manager</h6>
-                    <p>80L</p>
+
+                <!-- Sales -->
+                <div class="card" data-page-name="total_sales">
+                    <h6>Total Sales</h6>
+                    <p>{{ total_sales }}</p>
                 </div>
-                <div class="card" data-page-name="sales">
-                    <h6>Total Sale</h6>
-                    <p>10L</p>
+
+                <div class="card" data-page-name="yearly_sales">
+                    <h6>Yearly Sales</h6>
+                    <p>{{ yearly_sales }}</p>
                 </div>
-                <div class="card" data-page-name="sales">
-                    <h6>Yearly Sale</h6>
-                    <p>10.2k</p>
+
+                <div class="card" data-page-name="monthly_sales">
+                    <h6>Monthly Sales</h6>
+                    <p>{{ monthly_sales }}</p>
                 </div>
-                <div class="card" data-page-name="sales">
-                    <h6>Monthly Sale</h6>
-                    <p>4.2k</p>
+
+                <div class="card" data-page-name="weekly_sales">
+                    <h6>Weekly Sales</h6>
+                    <p>{{ weekly_sales }}</p>
                 </div>
-                <div class="card" data-page-name="sales">
-                    <h6>Weekly Sale</h6>
-                    <p>80L</p>
-                </div>
-                <div class="card" data-page-name="sales">
-                    <h6>Daily Sale</h6>
-                    <p>10L</p>
+
+                <div class="card" data-page-name="daily_sales">
+                    <h6>Daily Sales</h6>
+                    <p>{{ daily_sales }}</p>
                 </div>
             </div>
+            {% endif %}
         </div>
         
-        <!-- Request Menu Section -->
+        <!-- manage certificate requests -->
         <div class="content current_page_action hidden" data-page-name="request_menu">
-            <h2>Request Page</h2>
-            {% comment %}
-            <table>
-                <thead>
-                    <tr>
-                        <th><input type="checkbox" onclick="toggleSelectAll(this)"></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Request</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" class="row-checkbox"></td>
-                        <td>John Doe</td>
-                        <td>john@example.com</td>
-                        <td>Request 1</td>
-                        <td class="actions">
-                            <button class="edit">Edit</button>
-                            <button class="delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="row-checkbox"></td>
-                        <td>Jane Smith</td>
-                        <td>jane@example.com</td>
-                        <td>Request 2</td>
-                        <td class="actions">
-                            <button class="edit">Edit</button>
-                            <button class="delete">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            {% endcomment %}
-            <div class="bottom-actions">
-                <button class="delete-selected">Delete Selected</button>
-                <button class="accept">Accept</button>
+            <h3>&nbsp;Certificates/Manage Certificate Requests</h3>
+            <div class="container">
+                <form method="POST" action="{% url 'update_certificate_status' %}">
+                    {% csrf_token %}
+                    <div class="header">
+                        <select name="certificate_status_action" id="certificate_status_action">
+                            <option value="">Select Action</option>
+                            <option value="approve">Approve</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                        <button type="submit">Apply</button>
+                    </div>
+
+                    <!-- Table to Show Certificate Requests -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select_all" onclick="toggleSelectAll()"></th>
+                                <th>Name</th>
+                                <th>Certificate For</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for certificate in certificates %}
+                            <tr>
+                                <td><input type="checkbox" name="selected_certificates" class="select_certificate" value="{{ certificate.id }}"></td>
+                                <td>{{ certificate.name }}</td>
+                                <td>{{ certificate.certified_for }}</td>
+                                <td>{{ certificate.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
         
-        <!-- Manage Admin Section -->
+        <!-- Manage Admin -->
         <div class="content current_page_action hidden" data-page-name="manage_admin">
-            <h3>&nbsp;Admin/Manage admin</h3>
+            <h3>&nbsp;Admin / Manage Admin</h3>
+
             <div class="container">
                 <div class="header">
+                    <input type="text" id="search-admin" placeholder="Search by Name or Email..." onkeyup="filterAdmins()">
                     <button class="add-button" data-page-name="add_admin" onclick="setActive(this)">Add +</button>
                 </div>
-                <table>
+
+                <!-- Table to Show Existing Admins -->
+                <table id="admin-table">
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Admin Name</th>
-                            <th>Email</th>
-                            <th>Admin ID</th>
-                            <th>Phone</th>
+                            <th>User Name</th>
+                            <th class="admin-name">Full Name</th>
+                            <th class="admin-email">Email</th>
+                            <th>Phone No.</th>
+                            <th>Alt. Phone No.</th>
+                            <th>Password</th>
+                            <th>Aadhar No.</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for admin in admins %}
                         <tr>
-                            <td>{{ admin.Sno }}</td>
-                            <td>{{ admin.admin_name }}</td>
-                            <td>{{ admin.email }}</td>
-                            <td>{{ admin.admin_id }}</td>
-                            <td>{{ admin.phone }}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ admin.username }}</td>
+                            <td class="admin-name">{{ admin.full_name }}</td>
+                            <td class="admin-email">{{ admin.email }}</td>
+                            <td>{{ admin.phone_number }}</td>
+                            <td>{{ admin.alt_phone_number }}</td>
+                            <td>{{ admin.password }}</td>
+                            <td>{{ admin.aadhar_number }}</td>
+                            <td>
+                                <button class="edit-btn" onclick="editAdmin({{ admin.id }}, '{{ admin.full_name|escapejs }}', '{{ admin.email|escapejs }}', '{{ admin.phone_number|escapejs }}', '{{ admin.alt_phone_number|escapejs }}', '{{ admin.password|escapejs }}', '{{ admin.aadhar_number|escapejs }}')">Edit</button>
+                                <form method="POST" action="{% url 'delete_admin' admin.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this admin?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" style="text-align: center;">No admins found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <!-- Add Admin Section -->
-        <div class="content current_page_action hidden" data-page-name="add_admin">
-            <h3>&nbsp;Admin/Add Admin</h3>
+
+    <!-- Add/Edit Admin Section -->
+    <div class="content current_page_action hidden" data-page-name="add_admin">
+        <h3>&nbsp;Admin/Add Admin</h3>
+        <div class="container">
+            <div class="title">Manage Admin</div>
+            <form method="POST" action="{% url 'add_admin' %}">
+                {% csrf_token %}
+                <input type="hidden" name="admin_id" id="admin_id">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="admin_full_name">Full Name</label>
+                        <input type="text" name="admin_full_name" id="admin_full_name" placeholder="Enter Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="admin_email">Email</label>
+                        <input type="email" name="admin_email" id="admin_email" placeholder="Enter Email" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="admin_phone">Phone No.</label>
+                    <input type="text" name="admin_phone_number" id="admin_phone" placeholder="Enter phone no.">
+                </div>
+                <div class="input-group">
+                    <label for="admin_alt_phone">Alt. Phone No.</label>
+                    <input type="text" name="admin_alt_phone_number" id="admin_alt_phone" placeholder="Enter alt. phone no.">
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="admin_aadhar_number">Aadhar No.</label>
+                    <input type="text" name="admin_aadhar_number" id="admin_aadhar_number" placeholder="Enter Aadhar No." required>
+                </div>
+                <div class="buttons">
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+        <!--content current page of total employee-->
+        <div class="content current_page_action hidden"  data-page-name="total_employee">
+            <h3>&nbsp;Total Employee</h3>
             <div class="container">
-                <div class="title">Manage Admin</div>
-                <form method="POST" action="{% url 'add_admin' %}">
+                <div class="header">
+                      <button class="add-button">Add +</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!--content current page of card sales-->
+        <div class="content current_page_action hidden"  data-page-name="sales">
+            <h3>&nbsp;Sales</h3>
+
+        </div>
+ 
+        <!--content current page of  card sales-->
+        <div class="content current_page_action hidden"  data-page-name="admin">
+            <h3>&nbsp;Admin</h3>
+
+        </div>
+
+        <!-- Manage Students -->
+        <div class="content current_page_action hidden" data-page-name="manage_student">
+            <h3>&nbsp;Students / Manage Students</h3>
+            <div class="container">
+                <div class="header">
+                    <input type="text" id="search-student" placeholder="Search by Name or Email..." onkeyup="filterStudents()">
+                    <button class="add-button" data-page-name="add_student" onclick="setActive(this)">Add +</button>
+                </div>
+                <table id="student-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th class="student-name">Username</th>
+                            <th class="student-email">Email</th>
+                            <th>Domain</th>
+                            <th>Subject</th>
+                            <th>Payment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="student-name">{{ student.username }}</td>
+                            <td class="student-email">{{ student.email }}</td>
+                            <td>{{ student.domain.category_name }}</td>
+                            <td>{{ student.subject.subject_name }}</td>
+                            <td>{{ student.payment }}</td>
+                            <td>
+                                <button class="edit-btn" 
+                                onclick="editStudent(
+                                    '{{ student.id }}', 
+                                    '{{ student.full_name|escapejs }}', 
+                                    '{{ student.email|escapejs }}', 
+                                    '{{ student.phone_number|default:""|escapejs }}', 
+                                    '{{ student.alt_phone_number|default:""|escapejs }}', 
+                                    '{{ student.domain.id|default:""|escapejs }}', 
+                                    '{{ student.subject.id|default:""|escapejs }}', 
+                                    '{{ student.payment|default:""|escapejs }}'
+                                )">
+                                Edit
+                                </button>
+                                <form method="POST" action="{% url 'delete_student' student.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" 
+                                        onclick="return confirm('Are you sure you want to delete {{ student.username }}?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" style="text-align: center;">No students found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Student Section -->
+        <div class="content current_page_action hidden" data-page-name="add_student">
+            <h3>&nbsp;Students / Add Student</h3>
+            <div class="container">
+                <div class="title">Manage Students</div>
+                <form method="POST" action="{% url 'add_student' %}">
                     {% csrf_token %}
+                    <input type="hidden" name="student_id" id="student_id">
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="admin-name">Admin Name</label>
-                            <input type="text" name="admin_name" id="admin-name" placeholder="Enter Admin name" required>
+                            <label for="student_full_name">Student Name</label>
+                            <input type="text" id="student_full_name" name="full_name" placeholder="Enter Student Name" required>
                         </div>
                         <div class="input-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                            <label for="student_email">Email</label>
+                            <input type="email" id="student_email" name="email" placeholder="Enter Email" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                            <label for="student_phone_number">Phone No.</label>
+                            <input type="text" id="student_phone_number" name="student_phone_number" placeholder="Enter phone no.">
                         </div>
                         <div class="input-group">
-                            <label for="phone">Phone No.</label>
-                            <input type="text" name="phone" id="phone" placeholder="Enter phone no.">
+                            <label for="student_alt_phone_number">Alt. Phone No.</label>
+                            <input type="text" id="student_alt_phone_number" name="student_alt_phone_number" placeholder="Enter alt. phone no.">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="domain">Domain</label>
+                            <select id="domain" name="domain" required>
+                                <option value="" disabled selected>Select Domain</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="student_subject">Subject</label>
+                            <select id="student_subject" name="subject" required>
+                                <option value="" disabled selected>Select Subject</option>
+                                {% for subject in subjects %}
+                                <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="payment">Payment</label>
+                            <input type="text" id="payment" name="payment" value="INR 999" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="student_password">Password</label>
+                            <input type="password" name="student_password" id="student_password" placeholder="Enter Password" required>
                         </div>
                     </div>
                     <div class="input-group">
-                        <label for="admin-id">Admin ID</label>
-                        <input type="text" name="admin_id" id="admin-id" placeholder="Enter Admin ID" required>
+                        <label for="student_aadhar_number">Aadhar No.</label>
+                        <input type="text" name="student_aadhar_number" id="student_aadhar_number" placeholder="Enter Aadhar No." required>
                     </div>
                     <div class="buttons">
                         <button type="submit" class="save-btn">Save</button>
@@ -566,85 +576,94 @@
                 </form>
             </div>
         </div>
-        
-        <!-- Total Employee Section -->
-        <div class="content current_page_action hidden" data-page-name="total_employee">
-            <h3>&nbsp;Total Employee</h3>
-            <div class="container">
-                <div class="header">
-                    <button class="add-button">Add +</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sales Section -->
-        <div class="content current_page_action hidden" data-page-name="sales">
-            <h3>&nbsp;Sales</h3>
-        </div>
- 
-        <!-- Admin Section -->
-        <div class="content current_page_action hidden" data-page-name="admin">
-            <h3>&nbsp;Admin</h3>
-        </div>
-        
-        <!-- Manage Manager Section -->
+
+        <!-- Manage Manager -->
         <div class="content current_page_action hidden" data-page-name="manage_manager">
-            <h3>&nbsp;Manager/Manage Manager</h3>
+            <h3>&nbsp;Manager / Manage Manager</h3>
             <div class="container">
                 <div class="header">
+                    <input type="text" id="managerSearch" placeholder="Search by Name or Email..." onkeyup="filterManagers()">
                     <button class="add-button" data-page-name="add_manager" onclick="setActive(this)">Add +</button>
                 </div>
-                <table>
+                <table id="managerTable">
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Manager Name</th>
+                            <th>User Name</th>
+                            <th>Full Name</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Manager ID</th>
+                            <th>Phone No.</th>
+                            <th>Alt. Phone No.</th>
+                            <th>Password</th>
+                            <th>Aadhar No.</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for manager in managers %}
                         <tr>
-                            <td>{{ manager.Sno }}</td>
-                            <td>{{ manager.manager_name }}</td>
-                            <td>{{ manager.email }}</td>
-                            <td>{{ manager.phone }}</td>
-                            <td>{{ manager.manager_id }}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="manager-name">{{ manager.username }}</td>
+                            <td>{{ manager.full_name }}</td>
+                            <td class="manager-email">{{ manager.email }}</td>
+                            <td>{{ manager.phone_number }}</td>
+                            <td>{{ manager.alt_phone_number }}</td>
+                            <td>{{ manager.password }}</td>
+                            <td>{{ manager.aadhar_number }}</td>
+                            <td>
+                                <button class="edit-btn" onclick="editManager({{ manager.id }}, '{{ manager.full_name }}', '{{ manager.email }}', '{{ manager.phone_number }}', '{{ manager.alt_phone_number }}', '{{ manager.password }}', '{{ manager.aadhar_number }}')">Edit</button>
+                                <form method="POST" action="{% url 'delete_manager' manager.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this manager?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" style="text-align: center;">No managers found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <!-- Add Manager Section -->
+
+
+        <!-- Add/Edit Manager -->
         <div class="content current_page_action hidden" data-page-name="add_manager">
             <h3>&nbsp;Manager/Add Manager</h3>
             <div class="container">
                 <div class="title">Manage Manager</div>
                 <form method="POST" action="{% url 'add_manager' %}">
                     {% csrf_token %}
+                    <input type="hidden" name="manager_id" id="manager_id">
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="manager-name">Manager Name</label>
-                            <input type="text" name="manager_name" id="manager-name" placeholder="Enter Manager Name" required>
+                            <label for="manager_full_name">Full Name</label>
+                            <input type="text" name="full_name" id="manager_full_name" placeholder="Enter Full Name" required>
                         </div>
                         <div class="input-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                            <label for="manager_email">Email</label>
+                            <input type="email" name="email" id="manager_email" placeholder="Enter Email" required>
                         </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="manager_phone">Phone No.</label>
+                        <input type="text" name="phone_number" id="manager_phone" placeholder="Enter phone no.">
+                    </div>
+                    <div class="input-group">
+                        <label for="manager_alt_phone">Alt. Phone No.</label>
+                        <input type="text" name="alt_phone_number" id="manager_alt_phone" placeholder="Enter alt. phone no.">
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" name="phone" id="phone" placeholder="Enter Phone Number">
+                            <label for="manager_password">Password</label>
+                            <input type="password" name="password" id="manager_password" placeholder="Enter Password" required>
                         </div>
-                        <div class="input-group">
-                            <label for="manager-id">Manager ID</label>
-                            <input type="text" name="manager_id" id="manager-id" placeholder="Enter Manager ID" required>
-                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="manager_aadhar_number">Aadhar No.</label>
+                        <input type="text" name="aadhar_number" id="manager_aadhar_number" placeholder="Enter Aadhar No." required>
                     </div>
                     <div class="buttons">
                         <button type="submit" class="save-btn">Save</button>
@@ -652,43 +671,349 @@
                 </form>
             </div>
         </div>
-        
-        <!-- Manage User Section (with CRUD actions) -->
-        <div class="content current_page_action hidden" data-page-name="manage_user">
-            <h3>&nbsp;User/Manage User</h3>
+       
+        <!-- Manage Employee -->
+        <div class="content current_page_action hidden" data-page-name="manage_employee">
+            <h3>&nbsp;Employee / Manage Employee</h3>
+
+            <!-- Search Bar for Employee Name or Email -->
             <div class="container">
                 <div class="header">
-                    <button class="add-button" data-page-name="add_user" onclick="setActive(this)">Add +</button>
+                    <input type="text" id="employeeSearch" placeholder="Search Employee by Name or Email..." onkeyup="filterEmployees()">
+                    <button class="add-button" data-page-name="add_employee" onclick="setActive(this)">Add +</button>
                 </div>
-                <table>
+
+                <table id="employeeTable">
                     <thead>
                         <tr>
                             <th>S.No</th>
                             <th>User Name</th>
-                            <th>Email</th>
-                            <th>User ID</th>
-                            <th>Phone</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th class="employee-name">Full Name</th>
+                            <th class="employee-email">Email</th>
+                            <th>Phone No.</th>
+                            <th>Alt. Phone No.</th>
+                            <th>Password</th>
+                            <th>Aadhar No.</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ employee.username }}</td>
+                            <td class="employee-name">{{ employee.full_name }}</td>
+                            <td class="employee-email">{{ employee.email }}</td>
+                            <td>{{ employee.phone_number }}</td>
+                            <td>{{ employee.alt_phone_number }}</td>
+                            <td>{{ employee.password }}</td>
+                            <td>{{ employee.aadhar_number }}</td>
+                            <td>
+                                <button class="edit-btn" 
+                                    onclick="editEmployee(
+                                        {{ employee.id }}, 
+                                        '{{ employee.full_name|escapejs }}', 
+                                        '{{ employee.email|escapejs }}', 
+                                        '{{ employee.phone_number|escapejs }}', 
+                                        '{{ employee.alt_phone_number|escapejs }}', 
+                                        '{{ employee.password|escapejs }}', 
+                                        '{{ employee.aadhar_number|escapejs }}'
+                                    )">
+                                    Edit
+                                </button>
+                                <form method="POST" action="{% url 'delete_employee' employee.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" style="text-align: center;">No employees found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add Employee Section -->
+        <div class="content current_page_action hidden" data-page-name="add_employee">
+            <h3>&nbsp;Employee / Add Employee</h3>
+            <div class="container">
+                <div class="title">Manage Employees</div>
+                <form method="POST" action="{% url 'add_employee' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Hidden field for updating an employee (if applicable) -->
+                    <input type="hidden" id="employee_id" name="employee_id">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="employee_full_name">Full Name</label>
+                            <input type="text" id="employee_full_name" name="employee_full_name" placeholder="Enter Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="employee_email">Email</label>
+                            <input type="email" id="employee_email" name="employee_email" placeholder="Enter Email" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="employee_phone_number">Phone Number</label>
+                            <input type="text" id="employee_phone_number" name="employee_phone_number" placeholder="Enter Phone Number" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="employee_alt_phone_number">Alt. Phone Number</label>
+                            <input type="text" id="employee_alt_phone_number" name="employee_alt_phone_number" placeholder="Enter Alternate Phone Number">
+                        </div>
+                        <div class="input-group">
+                            <label for="employee_aadhar_number">Aadhar Number</label>
+                            <input type="text" id="employee_aadhar_number" name="employee_aadhar_number" placeholder="Enter Aadhar Number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Manage User -->
+        <div class="content current_page_action hidden" data-page-name="manage_user">
+            <h3>&nbsp;User / Manage Users</h3>
+            <div class="container">
+                <div class="header">
+                    <input type="text" id="search-user" placeholder="Search by Name or Email..." onkeyup="filterUsers()">
+                    <button class="add-button" data-page-name="add_user" onclick="setActive(this)">Add +</button>
+                </div>
+                <table id="user-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Username</th>
+                            <th class="user-name">Full Name</th>
+                            <th class="user-email">Email</th>
+                            <th>Phone No.</th>
+                            <th>College Name</th>
+                            <th>Date of Birth</th>
+                            <th>Referral Code</th>
+                            <th>Last Login</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for user in users %}
                         <tr>
-                            <td>{{ user.Sno }}</td>
-                            <td>{{ user.user_name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.user_id }}</td>
-                            <td>{{ user.phone }}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.username }}</td>
+                            <td class="user-name">{{ user.full_name }}</td>
+                            <td class="user-email">{{ user.email }}</td>
+                            <td>{{ user.phone_number }}</td>
+                            <td>{{ user.college_name }}</td>
+                            <td>{{ user.dob }}</td>
+                            <td>{{ user.referral_code|default:"N/A" }}</td>
+                            <td>{{ user.last_login|default:"Never" }}</td>
                             <td>
-                                <button type="button" onclick="editUser('{{ user.user_id }}', '{{ user.user_name }}', '{{ user.email }}', '{{ user.phone }}')">Edit</button>
-                            </td>
-                            <td>
-                                <form method="POST" action="{% url 'emp_dashboard' %}" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                <button class="edit-btn" 
+                                    onclick="editUser(
+                                        {{ user.id }}, 
+                                        '{{ user.full_name|escapejs }}', 
+                                        '{{ user.email|escapejs }}', 
+                                        '{{ user.phone_number|escapejs }}', 
+                                        '{{ user.college_name|escapejs }}', 
+                                        '{{ user.dob }}', 
+                                        '{{ user.referral_code|escapejs }}'
+                                    )">
+                                    Edit
+                                </button>
+                                <form method="POST" action="{% url 'delete_user' user.id %}" style="display:inline;">
                                     {% csrf_token %}
-                                    <input type="hidden" name="delete_user" value="1">
-                                    <input type="hidden" name="user_id" value="{{ user.user_id }}">
-                                    <button type="submit">Delete</button>
+                                    <button type="submit" class="delete-btn" 
+                                        onclick="return confirm('Are you sure you want to delete {{ user.full_name }}?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10" style="text-align: center;">No users found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add User Section -->
+        <div class="content current_page_action hidden" data-page-name="add_user">
+            <h3>&nbsp;User / Add User</h3>
+            <div class="container">
+                <div class="title">Manage Users</div>
+                <form method="POST" action="{% url 'add_user' %}">
+                    {% csrf_token %}
+
+                    <!-- Hidden field for editing -->
+                    <input type="hidden" id="user_id" name="user_id">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="user_full_name">Full Name</label>
+                            <input type="text" name="user_full_name" id="user_full_name" placeholder="Enter Full Name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="user_email">Email</label>
+                            <input type="email" name="user_email" id="user_email" placeholder="Enter Email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="user_phone_number">Phone No.</label>
+                            <input type="text" name="user_phone_number" id="user_phone_number" placeholder="Enter Phone No.">
+                        </div>
+                        <div class="input-group">
+                            <label for="user_college_name">College Name</label>
+                            <input type="text" name="user_college_name" id="user_college_name" placeholder="Enter College Name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="user_dob">Date of Birth</label>
+                            <input type="date" name="user_dob" id="user_dob" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="user_password">Password</label>
+                            <input type="password" name="user_password" id="user_password" placeholder="Enter Password" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="user_referral_code">Referral Code</label>
+                        <input type="text" name="user_referral_code" id="user_referral_code" placeholder="Enter Referral Code (Optional)">
+                    </div>
+
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Manage College -->
+        <div class="content current_page_action hidden" data-page-name="manage_college">
+            <h3>&nbsp;College / Manage College</h3>
+            
+            <!-- Search Bar for College Name -->
+            <div class="container">
+                <div class="header">
+                    <input type="text" id="collegeSearch" placeholder="Search College by Name..." onkeyup="filterColleges()">
+                    <button class="add-button" data-page-name="add_college" onclick="setActive(this)">Add +</button>
+                </div>
+
+                <table id="collegeTable">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>College Name</th>
+                            <th>Location</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for college in colleges %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td class="college-name">{{ college.college_name }}</td>
+                            <td>{{ college.college_location }}</td>
+                            <td>
+                                <button class="edit-btn" 
+                                    onclick="editCollege(
+                                        {{ college.id }}, 
+                                        '{{ college.college_name|escapejs }}', 
+                                        '{{ college.college_location|escapejs }}'
+                                    )">
+                                    Edit
+                                </button>
+                                <form method="POST" action="{% url 'delete_college' college.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" 
+                                        onclick="return confirm('Are you sure you want to delete {{ college.college_name|escapejs }}?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" style="text-align: center;">No colleges found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add College Section -->
+        <div class="content current_page_action hidden" data-page-name="add_college">
+            <h3>&nbsp;College / Add College</h3>
+            <div class="container">
+                <div class="title">Manage Colleges</div>
+                <form method="POST" action="{% url 'add_college' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Hidden field for updating a college (if applicable) -->
+                    <input type="hidden" id="college_id" name="college_id">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="college_name">College Name</label>
+                            <input type="text" id="college_name" name="college_name" placeholder="Enter College Name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="college_location">Location</label>
+                            <input type="text" id="college_location" name="college_location" placeholder="Enter Location" required>
+                        </div>
+                    </div>
+                    
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Manage Questions Section -->
+        <div class="content current_page_action {% if current_page == 'manage_question' %}show{% else %}hidden{% endif %}" data-page-name="manage_question">
+            <h3>&nbsp;Questions / Manage Questions</h3>
+            <div class="container">
+
+
+                <!-- List of Questions -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Question Code</th>
+                            <th>Question</th>
+                            <th>Subject</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for question in questions %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ question.question_code }}</td>
+                            <td>{{ question.question_text|truncatechars:50 }}</td>
+                            <td>{{ question.question_subject.subject_name }}</td>
+                            <td>
+                                <button class="edit-btn" onclick="editQuestion({{ question.id }}, '{{ question.question_text|escapejs }}', '{{ question.question_subject.id }}')">Edit</button>
+                                <form method="POST" action="{% url 'delete_question' question.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this question?')">Delete</button>
                                 </form>
                             </td>
                         </tr>
@@ -697,496 +1022,377 @@
                 </table>
             </div>
         </div>
-        
-        <!-- Add User Section -->
-        <div class="content current_page_action hidden" data-page-name="add_user">
-            <h3>&nbsp;User/Add User</h3>
-            <div class="container">
-                <div class="title">Manage User</div>
-                <form method="POST" action="{% url 'add_user' %}">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="user-name">User Name</label>
-                            <input type="text" name="user_name" id="user-name" placeholder="Enter User name" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="phone">Phone No.</label>
-                            <input type="text" name="phone" id="phone" placeholder="Enter Phone No.">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="user-id">User ID</label>
-                        <input type="text" name="user_id" id="user-id" placeholder="Enter User ID" required>
-                    </div>
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        <!-- Update User Section -->
-        <div class="content current_page_action hidden" data-page-name="update_user">
-            <h3>&nbsp;User/Update User</h3>
-            <div class="container">
-                <div class="title">Update User</div>
-                <form method="POST" action="{% url 'emp_dashboard' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="update_user" value="1">
-                    <input type="hidden" name="user_id" id="update_user_id" value="">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="update_user_name">User Name</label>
-                            <input type="text" name="user_name" id="update_user_name" placeholder="Enter User name" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="update_email">Email Address</label>
-                            <input type="email" name="email" id="update_email" placeholder="Enter Email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="update_password">Password</label>
-                            <input type="password" name="password" id="update_password" placeholder="Enter new password (leave blank to keep unchanged)">
-                        </div>
-                        <div class="input-group">
-                            <label for="update_phone">Phone No.</label>
-                            <input type="text" name="phone" id="update_phone" placeholder="Enter Phone No.">
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Update</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        <!-- Manage Student Section -->
-        <div class="content current_page_action hidden" data-page-name="manage_student">
-            <h3>&nbsp;Student/Manage Student</h3>
-            <div class="container">
-                <div class="header">
-                    <button class="add-button" data-page-name="add_student" onclick="setActive(this)">Add +</button>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Student Name</th>
-                            <th>Email</th>
-                            <th>Student ID</th>
-                            <th>Registration Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for student in students %}
-                        <tr>
-                            <td>{{ student.Sno }}</td>
-                            <td>{{ student.student_name }}</td>
-                            <td>{{ student.email }}</td>
-                            <td>{{ student.student_id }}</td>
-                            <td>{{ student.registration_date }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Add Student Section -->
-        <div class="content current_page_action hidden" data-page-name="add_student">
-            <h3>&nbsp;Student/Add Student</h3>
-            <div class="container">
-                <div class="title">Manage Student</div>
-                <form method="POST" action="{% url 'add_student' %}">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="student-name">Student Name</label>
-                            <input type="text" name="student_name" id="student-name" placeholder="Enter Student name" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="registration-date">Registration Date</label>
-                            <input type="text" name="registration_date" id="registration-date" placeholder="Enter Registration Date">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="student-id">Student ID</label>
-                        <input type="text" name="student_id" id="student-id" placeholder="Enter Student ID" required>
-                    </div>
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        <!-- Manage College Section -->
-        <div class="content current_page_action hidden" data-page-name="manage_college">
-            <h3>&nbsp;College/Manage College</h3>
-            <div class="container">
-                <div class="header">
-                    <button class="add-button" data-page-name="add_college" onclick="setActive(this)">Add +</button>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>College Name</th>
-                            <th>Location</th>
-                            <th>Contact</th>
-                            <th>College ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for college in colleges %}
-                        <tr>
-                            <td>{{ college.Sno }}</td>
-                            <td>{{ college.college_name }}</td>
-                            <td>{{ college.location }}</td>
-                            <td>{{ college.contact }}</td>
-                            <td>{{ college.college_id }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Add College Section -->
-        <div class="content current_page_action hidden" data-page-name="add_college">
-            <h3>&nbsp;College/Add College</h3>
-            <div class="container">
-                <div class="title">Manage College</div>
-                <form method="POST" action="{% url 'add_college' %}">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="college-name">College Name</label>
-                            <input type="text" name="college_name" id="college-name" placeholder="Enter College Name" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="location">Location</label>
-                            <input type="text" name="location" id="location" placeholder="Enter Location">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="contact">Contact</label>
-                            <input type="text" name="contact" id="contact" placeholder="Enter Contact">
-                        </div>
-                        <div class="input-group">
-                            <label for="college-id">College ID</label>
-                            <input type="text" name="college_id" id="college-id" placeholder="Enter College ID" required>
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
-        <!-- Manage Question Section -->
-        <div class="content current_page_action hidden" data-page-name="manage_question">
-            <h3>&nbsp;question/Manage question</h3>
-            <div class="container">
-                <div class="header">
-                    <button class="add-button">Add +</button>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Admin Code</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>mona</td>
-                            <td>mona@example.com</td>
-                            <td>password123</td>
-                            <td>ADM001</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>MONA SINGH</td>
-                            <td>mona2021cs146@abesit.edu.in</td>
-                            <td>password456</td>
-                            <td>SPC002</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>divyansh</td>
-                            <td>divyansh@gmaail.com</td>
-                            <td>pass789</td>
-                            <td>SPC003</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>monad</td>
-                            <td>monad@gmail.com</td>
-                            <td>monadpass</td>
-                            <td>ADM004</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>sona</td>
-                            <td>sona@gmail.com</td>
-                            <td>sonapass</td>
-                            <td>GST005</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>shubham</td>
-                            <td>shub@gmail.com</td>
-                            <td>shubpass</td>
-                            <td>ADM006</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>student</td>
-                            <td>stud@gmail.com</td>
-                            <td>studpass</td>
-                            <td>SPC007</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>priyanshu</td>
-                            <td>priyanshu@iadhik</td>
-                            <td>priyanpass</td>
-                            <td>SPC008</td>
-                            <td class="action-buttons">
-                                <a href="#" class="edit-icon"></a>
-                                <a href="#" class="delete-icon"></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
+
+
         <!-- Add Question Section -->
         <div class="content current_page_action hidden" data-page-name="add_question">
-            <h3>&nbsp;questions/Add question</h3>
+            <h3>&nbsp;Questions / Add Question</h3>
             <div class="container">
-                <div class="title">Manage Manager</div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="manager-name">Manager Name</label>
-                        <input type="text" id="manager-name" placeholder="Enter Admin name">
+                <div class="title">Manage Questions</div>
+                <!-- Add/Edit Question Form -->
+                <form method="POST" action="{% url 'manage_questions' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="question_id" id="question_id" value="{{ question.id|default:'' }}">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required onchange="loadSubjects()">
+                                <option value="" disabled selected>Select Category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}" {% if question and question.question_subject.subject_category.id == category.id %}selected{% endif %}>
+                                    {{ category.category_name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="question_subject" required>
+                                <option value="" disabled selected>Select Subject</option>
+                                {% for subject in subjects %}
+                                <option value="{{ subject.id }}" {% if question and question.question_subject.id == subject.id %}selected{% endif %}>
+                                    {{ subject.subject_name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter Email">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="question_text">Question</label>
+                            <textarea id="question_text" name="question_text" placeholder="Enter Question" required>{{ question.question_text|default:'' }}</textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter Password">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="option_A">Option A</label>
+                            <input type="text" id="option_A" name="option_A" placeholder="Enter Option A" required value="{{ question.answers.option_A.text|default:'' }}">
+                        </div>
+                        <div class="input-group">
+                            <label for="option_B">Option B</label>
+                            <input type="text" id="option_B" name="option_B" placeholder="Enter Option B" required value="{{ question.answers.option_B.text|default:'' }}">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <label for="phone">Phone No.</label>
-                        <input type="text" id="phone" placeholder="Enter phone no.">
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="option_C">Option C</label>
+                            <input type="text" id="option_C" name="option_C" placeholder="Enter Option C" required value="{{ question.answers.option_C.text|default:'' }}">
+                        </div>
+                        <div class="input-group">
+                            <label for="option_D">Option D</label>
+                            <input type="text" id="option_D" name="option_D" placeholder="Enter Option D" required value="{{ question.answers.option_D.text|default:'' }}">
+                        </div>
                     </div>
-                </div>
-                <div class="input-groupp" style="margin-bottom: 20px;">
-                    <label for="manager-id">Manager ID</label>
-                    <input type="text" id="manager-id" placeholder="Enter Manager ID">
-                </div>
-                <div class="buttons">
-                    <button class="save-btn">Save</button>
-                </div>
+
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="correct_answer">Correct Answer</label>
+                            <select id="correct_answer" name="correct_answer" required>
+                                <option value="" disabled selected>Select Correct Answer</option>
+                                <option value="A" {% if question and question.answers.option_A.is_correct %}selected{% endif %}>A</option>
+                                <option value="B" {% if question and question.answers.option_B.is_correct %}selected{% endif %}>B</option>
+                                <option value="C" {% if question and question.answers.option_C.is_correct %}selected{% endif %}>C</option>
+                                <option value="D" {% if question and question.answers.option_D.is_correct %}selected{% endif %}>D</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
-        
-        <!-- Sales Overview Section -->
-        <div class="content current_page_action hidden" data-page-name="sales_overview">
-            <h3>&nbsp;sales/sales overview</h3>
-            <div class="container">
-                <div class="title">Manage Manager</div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="manager-name">Manager Name</label>
-                        <input type="text" id="manager-name" placeholder="Enter Admin name">
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter Email">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter Password">
-                    </div>
-                    <div class="input-group">
-                        <label for="phone">Phone No.</label>
-                        <input type="text" id="phone" placeholder="Enter phone no.">
-                    </div>
-                </div>
-                <div class="input-groupp" style="margin-bottom: 20px;">
-                    <label for="manager-id">Manager ID</label>
-                    <input type="text" id="manager-id" placeholder="Enter Manager ID">
-                </div>
-                <div class="buttons">
-                    <button class="save-btn">Save</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sales Manage Section -->
-        <div class="content current_page_action hidden" data-page-name="manage_sales">
-            <h3>&nbsp;sales/sales manage</h3>
-            <div class="container">
-                <div class="title">Manage Manager</div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="manager-name">Manager Name</label>
-                        <input type="text" id="manager-name" placeholder="Enter Admin name">
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" placeholder="Enter Email">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="Enter Password">
-                    </div>
-                    <div class="input-group">
-                        <label for="phone">Phone No.</label>
-                        <input type="text" id="phone" placeholder="Enter phone no.">
-                    </div>
-                </div>
-                <div class="input-groupp" style="margin-bottom: 20px;">
-                    <label for="manager-id">Manager ID</label>
-                    <input type="text" id="manager-id" placeholder="Enter Manager ID">
-                </div>
-                <div class="buttons">
-                    <button class="save-btn">Save</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Manage Employee Section -->
-        <div class="content current_page_action hidden" data-page-name="manage_employee">
-            <h3>&nbsp;Employee/Manage Employee</h3>
+
+        <!-- Manage Jobs -->
+        <div class="content current_page_action hidden" data-page-name="manage_jobs">
+            <h3>&nbsp;Jobs / Manage Jobs</h3>
+
+            <!-- Search Bar for Job Profile -->
             <div class="container">
                 <div class="header">
-                    <button class="add-button" data-page-name="add_employee" onclick="setActive(this)">Add +</button>
+                    <input type="text" id="jobSearch" placeholder="Search Job by Company Name or Job Profile..." onkeyup="filterJobs()">
+                    <button class="add-button" data-page-name="add_jobs" onclick="setActive(this)">Add +</button>
                 </div>
-                <table>
+
+                <table id="jobTable">
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Employee Name</th>
-                            <th>Email</th>
-                            <th>Employee ID</th>
-                            <th>Phone</th>
+                            <th>Job ID</th>
+                            <th>Company Logo</th>
+                            <th>Profile</th>
+                            <th>Company Name</th>
+                            <th>Location</th>
+                            <th>Experience</th>
+                            <th>Package</th>
+                            <th>Employment Type</th>
+                            <th>About Job</th>
+                            <th>Qualifications</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for employee in employees %}
+                        {% for job in jobs %}
                         <tr>
-                            <td>{{ employee.Sno }}</td>
-                            <td>{{ employee.employee_name }}</td>
-                            <td>{{ employee.email }}</td>
-                            <td>{{ employee.employee_id }}</td>
-                            <td>{{ employee.phone }}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ job.job_id }}</td>
+                            <td><img src="{{ job.company_logo.url }}" alt="Company Logo" width="50"></td>
+                            <td class="job-profile">{{ job.profile }}</td>
+                            <td>{{ job.company_name }}</td>
+                            <td>{{ job.location_state }} - {{ job.location_city }}</td>
+                            <td>{{ job.min_experience }} - {{ job.max_experience }} Years</td>
+                            <td>{{ job.package_min }} - {{ job.package_max }} LPA</td>
+                            <td>{{ job.employment_types|join:", " }}</td>
+                            <td>{{ job.about_job }}</td>
+                            <td>{{ job.qualification }}</td>
+                            <td>
+                                <button class="edit-btn" 
+                                onclick='editJob(
+                                    "{{ job.id }}",
+                                    "{{ job.company_logo.url|default:''|escapejs }}",
+                                    "{{ job.profile|escapejs }}",
+                                    "{{ job.company_name|escapejs }}",
+                                    "{{ job.location_state|escapejs }}",
+                                    "{{ job.location_city|escapejs }}",
+                                    "{{ job.min_experience }}",
+                                    "{{ job.max_experience }}",
+                                    "{{ job.package_min }}",
+                                    "{{ job.package_max }}",
+                                    `{{ job.employment_types|safe|escapejs }}`,  <!-- This should be a valid JSON array -->
+                                    "{{ job.about_job|escapejs }}",
+                                    "{{ job.qualification|escapejs }}"
+                                )'>
+                                Edit
+                                </button>
+                            
+                                <form method="POST" action="{% url 'delete_job' job.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" 
+                                        onclick="return confirm('Are you sure you want to delete {{ job.profile|escapejs }}?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="12" style="text-align: center;">No jobs found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <!-- Add Employee Section -->
-        <div class="content current_page_action hidden" data-page-name="add_employee">
-            <h3>&nbsp;Employee/Add Employee</h3>
-            <div class="container">
-                <div class="title">Manage Employee</div>
-                <form method="POST" action="{% url 'add_employee' %}">
+
+        <!-- Add Job Section -->
+        <div class="content current_page_action hidden add-job-section" data-page-name="add_jobs">
+            <h3>&nbsp;Jobs / Add Job</h3>
+            <div class="job-container">
+                <form method="POST" action="{% url 'add_jobs' %}" enctype="multipart/form-data">
                     {% csrf_token %}
+
+                    <!-- Hidden field for updating a job (if applicable) -->
+                    <input type="hidden" id="job_id" name="job_id">
+
+                    <div class="job-form">
+                        <div class="job-input">
+                            <label for="company_logo">Company Logo</label>
+                            <input type="file" id="company_logo" name="company_logo" accept="image/*">
+                        </div>
+                        <div class="job-input">
+                            <label for="profile">Job Profile</label>
+                            <input type="text" id="profile" name="profile" placeholder="Enter Job Profile" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="company_name">Company Name</label>
+                            <input type="text" id="company_name" name="company_name" placeholder="Enter Company Name" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" placeholder="Enter State" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="Enter City" required>
+                        </div>
+                        <div class="job-input job-double">
+                            <label>Experience (Years)</label>
+                            <input type="number" id="experience_min" name="experience_min" placeholder="Min" required>
+                            <input type="number" id="experience_max" name="experience_max" placeholder="Max" required>
+                        </div>
+                        <div class="job-input job-double">
+                            <label>Package (LPA)</label>
+                            <input type="number" id="package_min" name="package_min" placeholder="Min" required>
+                            <input type="number" id="package_max" name="package_max" placeholder="Max" required>
+                        </div>
+                        <div class="job-input">
+                            <label for="employment_types">Employment Type</label>
+                            <input type="text" id="employment_types" name="employment_types" placeholder="e.g. Full-time, Part-time, Internship" required>
+                        </div>
+                        <div class="job-input job-full">
+                            <label for="about_job">About Job</label>
+                            <textarea id="about_job" name="about_job" placeholder="Enter job details" required></textarea>
+                        </div>
+                        <div class="job-input job-full">
+                            <label for="qualification">Qualifications</label>
+                            <textarea id="qualification" name="qualification" placeholder="Enter required qualifications" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="job-buttons">
+                        <button type="submit" class="job-save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Manage Placement Stories -->
+        <div class="content current_page_action hidden" data-page-name="manage_placement_stories">
+            <h3>&nbsp;Placement Stories / Manage Stories</h3>
+            <div class="container">
+                <div class="header">
+                    <input type="text" id="search-story" placeholder="Search by Name, Company, or Branch..." onkeyup="filterStories()">
+                    <button class="add-button" data-page-name="add_placement_stories" onclick="setActive(this)">Add +</button>
+                </div>
+                <table id="placement-stories-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Profile Pic</th>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Designation</th>
+                            <th>Package</th>
+                            <th>Batch</th>
+                            <th>Degree</th>
+                            <th>Branch</th>
+                            <th>Handwritten Review</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for story in stories %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                {% if story.user_profile_pic %}
+                                <img src="{{ story.user_profile_pic.url }}" alt="Profile Pic" width="50">
+                                {% else %}
+                                N/A
+                                {% endif %}
+                            </td>
+                            <td class="story-name">{{ story.name }}</td>
+                            <td>{{ story.company_name }}</td>
+                            <td>{{ story.designation }}</td>
+                            <td>{{ story.package }} LPA</td>
+                            <td>{{ story.batch }}</td>
+                            <td>{{ story.degree }}</td>
+                            <td>{{ story.branch }}</td>
+                            <td>
+                                {% if story.hand_written_review %}
+                                <a href="{{ story.hand_written_review.url }}" target="_blank">View</a>
+                                {% else %}
+                                N/A
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button class="edit-btn" 
+                                    onclick="editStory(
+                                        '{{ story.id }}', 
+                                        '{{ story.name|escapejs }}', 
+                                        '{{ story.company_name|escapejs }}', 
+                                        '{{ story.designation|escapejs }}', 
+                                        '{{ story.package }}', 
+                                        '{{ story.batch|escapejs }}', 
+                                        '{{ story.degree|escapejs }}', 
+                                        '{{ story.branch|escapejs }}', 
+                                        {% if story.user_profile_pic %}'{{ story.user_profile_pic.url|escapejs }}'{% else %}''{% endif %},
+                                        {% if story.hand_written_review %}'{{ story.hand_written_review.url|escapejs }}'{% else %}''{% endif %}
+                                    )">
+                                    Edit
+                                </button>
+                                <form method="POST" action="{% url 'delete_story' story.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ story.name|escapejs }}?')">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="11" style="text-align: center;">No placement stories found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Add Placement Story Section -->
+
+        <div class="content current_page_action hidden" data-page-name="add_placement_stories">
+            <h3>&nbsp;Placement Stories / Add Story</h3>
+            <div class="container">
+                <div class="title">Manage Placement Stories</div>
+                <form method="POST" action="{% url 'add_placement_stories' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="story_id" id="story_id">
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="employee-name">Employee Name</label>
-                            <input type="text" name="employee_name" id="employee-name" placeholder="Enter Employee Name" required>
+                            <label for="story_name">Name</label>
+                            <input type="text" id="story_name" name="name" placeholder="Enter Name" required>
                         </div>
                         <div class="input-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email" required>
+                            <label for="company_name">Company</label>
+                            <input type="text" id="company_name" name="company_name" placeholder="Enter Company Name" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Enter Password" required>
+                            <label for="designation">Designation</label>
+                            <input type="text" id="designation" name="designation" placeholder="Enter Designation" required>
                         </div>
                         <div class="input-group">
-                            <label for="phone">Phone No.</label>
-                            <input type="text" name="phone" id="phone" placeholder="Enter Phone No.">
+                            <label for="package">Package</label>
+                            <input type="number" id="package" name="package" placeholder="Enter Package (INR)" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="batch">Batch</label>
+                            <input type="text" id="batch" name="batch" placeholder="Enter Batch" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="degree">Degree</label>
+                            <input type="text" id="degree" name="degree" placeholder="Enter Degree" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="branch">Branch</label>
+                            <input type="text" id="branch" name="branch" placeholder="Enter Branch" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="user_profile_pic">Profile Picture</label>
+                            <input type="file" id="user_profile_pic" name="user_profile_pic" accept="image/*">
+                        </div>
+                        <div class="input-group">
+                            <label for="hand_written_review">Handwritten Review</label>
+                            <input type="file" id="hand_written_review" name="hand_written_review" accept="image/*">
                         </div>
                     </div>
                     <div class="input-group">
-                        <label for="employee-id">Employee ID</label>
-                        <input type="text" name="employee_id" id="employee-id" placeholder="Enter Employee ID" required>
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Enter Story Description" required></textarea>
                     </div>
                     <div class="buttons">
                         <button type="submit" class="save-btn">Save</button>
@@ -1194,118 +1400,11 @@
                 </form>
             </div>
         </div>
-        
-        <!-- Update User Section (New) -->
-        <div class="content current_page_action hidden" data-page-name="update_user">
-            <h3>&nbsp;User/Update User</h3>
-            <div class="container">
-                <div class="title">Update User</div>
-                <form method="POST" action="{% url 'emp_dashboard' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="update_user" value="1">
-                    <input type="hidden" name="user_id" id="update_user_id" value="">
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="update_user_name">User Name</label>
-                            <input type="text" name="user_name" id="update_user_name" placeholder="Enter User name" required>
-                        </div>
-                        <div class="input-group">
-                            <label for="update_email">Email Address</label>
-                            <input type="email" name="email" id="update_email" placeholder="Enter Email" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="update_password">Password</label>
-                            <input type="password" name="password" id="update_password" placeholder="Enter new password (leave blank to keep unchanged)">
-                        </div>
-                        <div class="input-group">
-                            <label for="update_phone">Phone No.</label>
-                            <input type="text" name="phone" id="update_phone" placeholder="Enter Phone No.">
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Update</button>
-                    </div>
-                </form>
-            </div>
+
+
+            
         </div>
     </div>
-
-    <script>    
-        document.addEventListener('DOMContentLoaded', () => {
-            // Adding click event listeners to cards (if needed)
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const pageName = card.getAttribute('data-page-name');
-                    if (pageName) {
-                        setActive(card); // Set active class and handle page display
-                    }
-                });
-            });
-        });
-        
-        function toggleDropdown(id, element) {
-            var menu = document.getElementById(id);
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
-            setActive(element, 0);
-            let icon = element.querySelector('.icon_toggle');
-            if (icon.classList.contains('fa-chevron-right')) {
-                icon.classList.remove('fa-chevron-right');
-                icon.classList.add('fa-chevron-down');
-            } else {
-                icon.classList.add('fa-chevron-right');
-                icon.classList.remove('fa-chevron-down');
-            }
-        }
-        
-        function setActive(element, call_type = 1) {
-            // Remove 'active' class from all sidebar and dropdown items
-            document.querySelectorAll('.sidebar ul li, .dropdown-menu li, .card').forEach(el => {
-                el.classList.remove('active', 'hover_sidebar_color');
-            });
-        
-            // Add 'active' and 'hover_sidebar_color' classes to the clicked element
-            element.classList.add('active', 'hover_sidebar_color');
-        
-            if (call_type === 1) {
-                const pages_elements = document.querySelectorAll(".current_page_action");
-                pages_elements.forEach(e => {
-                    if (e.getAttribute("data-page-name") === element.getAttribute("data-page-name")) {
-                        e.classList.add('show');
-                        e.classList.remove('hidden');
-                    } else {
-                        e.classList.add('hidden');
-                        e.classList.remove('show');
-                    }
-                });
-            }
-        }
-        
-        function editUser(userId, userName, email, phone) {
-            // Populate the update form with the user's details.
-            document.getElementById('update_user_id').value = userId;
-            document.getElementById('update_user_name').value = userName;
-            document.getElementById('update_email').value = email;
-            document.getElementById('update_phone').value = phone;
-            document.getElementById('update_password').value = "";
-            
-            // Switch view to the update user section.
-            const pages_elements = document.querySelectorAll(".current_page_action");
-            pages_elements.forEach(e => {
-                e.classList.add('hidden');
-                e.classList.remove('show');
-            });
-            const updateSection = document.querySelector('[data-page-name="update_user"]');
-            updateSection.classList.remove('hidden');
-            updateSection.classList.add('show');
-        }
-        
-        function toggleSelectAll(source) {
-            let checkboxes = document.querySelectorAll('.row-checkbox');
-            checkboxes.forEach(checkbox => checkbox.checked = source.checked);
-        }
-    </script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
 </body>
 </html>

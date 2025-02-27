@@ -36,6 +36,7 @@ def update_profile(request):
         new_college = request.POST.get('college_name')
         new_gender = request.POST.get('gender')
         new_phone_number = request.POST.get('phone_number')
+        new_email= request.POST.get('email')
 
         if new_full_name:
             user.full_name = new_full_name
@@ -49,6 +50,12 @@ def update_profile(request):
             user.gender = new_gender
         if new_phone_number:
             user.phone_number = new_phone_number
+        if new_email:
+            if UsersDB.objects.filter(email=new_email).exists():
+                
+                messages.error(request, "This email is already registered.")
+                return redirect('profile')
+            user.email = new_email
 
         user.save()
         messages.success(request, "Profile updated successfully!")
@@ -68,7 +75,7 @@ def profile(request):
         except UsersDB.DoesNotExist:
             request.session.flush()  # Clear session if user not found
             messages.error(request, "Session expired. Please login again.")
-            return redirect('/login/')
+            return redirect('/')
 
     return render(request, 'profile.html', {'user': user})
 

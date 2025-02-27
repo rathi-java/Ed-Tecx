@@ -29,5 +29,10 @@ urlpatterns = [
     path('update_superadmin_profile/', update_superadmin_profile, name='update_superadmin_profile'),  
     path('add_placement_stories/', add_placement_story, name='add_placement_stories'),
     path('delete_placement_story/<int:story_id>/', delete_placement_story, name='delete_story'),
-
+    path('transfer_admin/<int:admin_id>/<int:new_superadmin_id>/', transfer_admin, name='transfer_admin'),
+    path('transfer_manager/<int:manager_id>/<int:new_admin_id>/', transfer_manager, name='transfer_manager'),
+    path('transfer_employee/<int:employee_id>/<int:new_manager_id>/', transfer_employee, name='transfer_employee'),
+    path('admin-dashboard/', adm_dashboard, name='adm_dashboard'),
+    path('manager-dashboard/', mgr_dashboard, name='mgr_dashboard'),
+    path('employee-dashboard/', emp_dashboard, name='emp_dashboard'),
 ]

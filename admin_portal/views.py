@@ -125,6 +125,264 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+def adm_dashboard(request):
+    # Fetch data from the database
+    section = request.GET.get('section', 'dashboard')  # Default to 'dashboard'
+
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        try:
+            user = SuperAdminDB.objects.get(id=user_id)
+        except SuperAdminDB.DoesNotExist:
+            user = None
+    
+    total_super_admins = SuperAdminDB.objects.count()
+    total_admins = AdminDB.objects.count()
+    total_managers = ManagerDB.objects.count()
+    total_employees = EmployeeDB.objects.count()
+    total_students = StudentsDB.objects.count()
+    total_users = UsersDB.objects.count()
+    total_colleges = CollegesDb.objects.count()
+    total_questions = Question.objects.count()
+    total_subjects = Subject.objects.count()
+    total_categories = Category.objects.count()
+    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
+
+    # Active users (users who logged in within the last 30 days)
+    active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
+
+    # Premium users (assuming premium users have a specific field or condition)
+    # Example: If premium users have a field `is_premium=True`
+    # premium_users = UsersDB.objects.filter(is_premium=True).count()
+    premium_users = 0  # Replace with actual logic if applicable
+
+    # Sales data (assuming you have a Sales model)
+    # Example: If you have a Sales model with an `amount` field
+    # total_sales = Sale.objects.aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # yearly_sales = Sale.objects.filter(date__year=timezone.now().year).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # monthly_sales = Sale.objects.filter(date__month=timezone.now().month, date__year=timezone.now().year).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # weekly_sales = Sale.objects.filter(date__gte=timezone.now() - timedelta(days=7)).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # daily_sales = Sale.objects.filter(date=timezone.now().date()).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+
+    # Placeholder values for sales (replace with actual logic if applicable)
+    total_sales = 0
+    yearly_sales = 0
+    monthly_sales = 0
+    weekly_sales = 0
+    daily_sales = 0
+
+    context = {
+        "admins": AdminDB.objects.all(),
+        "managers": ManagerDB.objects.all(),
+        "employees": EmployeeDB.objects.all(),
+        "colleges": CollegesDb.objects.all(),
+        "users": UsersDB.objects.all(),
+        "questions": Question.objects.all(),
+        "subjects": Subject.objects.all(),
+        "categories": Category.objects.all(),
+        "students": StudentsDB.objects.all(),
+        "certificates": certificates,
+        "jobs":Job.objects.all(),
+        "stories":PlacementStories.objects.all(),
+
+        # Dashboard metrics
+        "total_super_admins": total_super_admins,
+        "total_admins": total_admins,
+        "total_managers": total_managers,
+        "total_employees": total_employees,
+        "total_students": total_students,
+        "total_users": total_users,
+        "total_colleges": total_colleges,
+        "total_questions": total_questions,
+        "total_subjects": total_subjects,
+        "total_categories": total_categories,
+        "active_users": active_users,
+        "premium_users": premium_users,
+        "total_sales": total_sales,
+        "yearly_sales": yearly_sales,
+        "monthly_sales": monthly_sales,
+        "weekly_sales": weekly_sales,
+        "daily_sales": daily_sales,
+        'section': section,
+        'user': user,
+     
+    }
+    return render(request, 'adm_dashboard.html', context)
+
+def mgr_dashboard(request):
+    # Fetch data from the database
+    section = request.GET.get('section', 'dashboard')  # Default to 'dashboard'
+
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        try:
+            user = SuperAdminDB.objects.get(id=user_id)
+        except SuperAdminDB.DoesNotExist:
+            user = None
+    
+    total_super_admins = SuperAdminDB.objects.count()
+    total_admins = AdminDB.objects.count()
+    total_managers = ManagerDB.objects.count()
+    total_employees = EmployeeDB.objects.count()
+    total_students = StudentsDB.objects.count()
+    total_users = UsersDB.objects.count()
+    total_colleges = CollegesDb.objects.count()
+    total_questions = Question.objects.count()
+    total_subjects = Subject.objects.count()
+    total_categories = Category.objects.count()
+    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
+
+    # Active users (users who logged in within the last 30 days)
+    active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
+
+    # Premium users (assuming premium users have a specific field or condition)
+    # Example: If premium users have a field `is_premium=True`
+    # premium_users = UsersDB.objects.filter(is_premium=True).count()
+    premium_users = 0  # Replace with actual logic if applicable
+
+    # Sales data (assuming you have a Sales model)
+    # Example: If you have a Sales model with an `amount` field
+    # total_sales = Sale.objects.aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # yearly_sales = Sale.objects.filter(date__year=timezone.now().year).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # monthly_sales = Sale.objects.filter(date__month=timezone.now().month, date__year=timezone.now().year).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # weekly_sales = Sale.objects.filter(date__gte=timezone.now() - timedelta(days=7)).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # daily_sales = Sale.objects.filter(date=timezone.now().date()).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+
+    # Placeholder values for sales (replace with actual logic if applicable)
+    total_sales = 0
+    yearly_sales = 0
+    monthly_sales = 0
+    weekly_sales = 0
+    daily_sales = 0
+
+    context = {
+        "admins": AdminDB.objects.all(),
+        "managers": ManagerDB.objects.all(),
+        "employees": EmployeeDB.objects.all(),
+        "colleges": CollegesDb.objects.all(),
+        "users": UsersDB.objects.all(),
+        "questions": Question.objects.all(),
+        "subjects": Subject.objects.all(),
+        "categories": Category.objects.all(),
+        "students": StudentsDB.objects.all(),
+        "certificates": certificates,
+        "jobs":Job.objects.all(),
+        "stories":PlacementStories.objects.all(),
+
+        # Dashboard metrics
+        "total_super_admins": total_super_admins,
+        "total_admins": total_admins,
+        "total_managers": total_managers,
+        "total_employees": total_employees,
+        "total_students": total_students,
+        "total_users": total_users,
+        "total_colleges": total_colleges,
+        "total_questions": total_questions,
+        "total_subjects": total_subjects,
+        "total_categories": total_categories,
+        "active_users": active_users,
+        "premium_users": premium_users,
+        "total_sales": total_sales,
+        "yearly_sales": yearly_sales,
+        "monthly_sales": monthly_sales,
+        "weekly_sales": weekly_sales,
+        "daily_sales": daily_sales,
+        'section': section,
+        'user': user,
+     
+    }
+    return render(request, 'mgr_dashboard.html', context)
+
+def emp_dashboard(request):
+    # Fetch data from the database
+    section = request.GET.get('section', 'dashboard')  # Default to 'dashboard'
+
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        try:
+            user = SuperAdminDB.objects.get(id=user_id)
+        except SuperAdminDB.DoesNotExist:
+            user = None
+    
+    total_super_admins = SuperAdminDB.objects.count()
+    total_admins = AdminDB.objects.count()
+    total_managers = ManagerDB.objects.count()
+    total_employees = EmployeeDB.objects.count()
+    total_students = StudentsDB.objects.count()
+    total_users = UsersDB.objects.count()
+    total_colleges = CollegesDb.objects.count()
+    total_questions = Question.objects.count()
+    total_subjects = Subject.objects.count()
+    total_categories = Category.objects.count()
+    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
+
+    # Active users (users who logged in within the last 30 days)
+    active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
+
+    # Premium users (assuming premium users have a specific field or condition)
+    # Example: If premium users have a field `is_premium=True`
+    # premium_users = UsersDB.objects.filter(is_premium=True).count()
+    premium_users = 0  # Replace with actual logic if applicable
+
+    # Sales data (assuming you have a Sales model)
+    # Example: If you have a Sales model with an `amount` field
+    # total_sales = Sale.objects.aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # yearly_sales = Sale.objects.filter(date__year=timezone.now().year).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # monthly_sales = Sale.objects.filter(date__month=timezone.now().month, date__year=timezone.now().year).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # weekly_sales = Sale.objects.filter(date__gte=timezone.now() - timedelta(days=7)).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+    # daily_sales = Sale.objects.filter(date=timezone.now().date()).aggregate(total_sales=Sum('amount'))['total_sales'] or 0
+
+    # Placeholder values for sales (replace with actual logic if applicable)
+    total_sales = 0
+    yearly_sales = 0
+    monthly_sales = 0
+    weekly_sales = 0
+    daily_sales = 0
+
+    context = {
+        "admins": AdminDB.objects.all(),
+        "managers": ManagerDB.objects.all(),
+        "employees": EmployeeDB.objects.all(),
+        "colleges": CollegesDb.objects.all(),
+        "users": UsersDB.objects.all(),
+        "questions": Question.objects.all(),
+        "subjects": Subject.objects.all(),
+        "categories": Category.objects.all(),
+        "students": StudentsDB.objects.all(),
+        "certificates": certificates,
+        "jobs":Job.objects.all(),
+        "stories":PlacementStories.objects.all(),
+
+        # Dashboard metrics
+        "total_super_admins": total_super_admins,
+        "total_admins": total_admins,
+        "total_managers": total_managers,
+        "total_employees": total_employees,
+        "total_students": total_students,
+        "total_users": total_users,
+        "total_colleges": total_colleges,
+        "total_questions": total_questions,
+        "total_subjects": total_subjects,
+        "total_categories": total_categories,
+        "active_users": active_users,
+        "premium_users": premium_users,
+        "total_sales": total_sales,
+        "yearly_sales": yearly_sales,
+        "monthly_sales": monthly_sales,
+        "weekly_sales": weekly_sales,
+        "daily_sales": daily_sales,
+        'section': section,
+        'user': user,
+     
+    }
+    return render(request, 'emp_dashboard.html', context)
+
 def add_admin(request):
     if request.method == "POST":
         admin_id = request.POST.get('admin_id')  
@@ -514,7 +772,6 @@ def add_student(request):
 
     return redirect('dashboard')
 
-
 def delete_student(request, student_id):
     if request.method == "POST":
         student = get_object_or_404(StudentsDB, id=student_id)
@@ -643,12 +900,6 @@ def get_superadmin_profile(request):
         except SuperAdminDB.DoesNotExist:
             return JsonResponse({"error": "User not found"}, status=404)
     return JsonResponse({"error": "Not logged in"}, status=401)   
-# def manage_placement_stories(request):
-#     stories_list = PlacementStories.objects.all().order_by('-id')
-#     paginator = Paginator(stories_list, 5)  # Show 5 stories per page
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#     return render(request, 'dashboard.html', {'page_obj': page_obj, 'page': 'manage_placement_stories'})
 
 def add_placement_story(request):
     if request.method == "POST":
@@ -719,3 +970,30 @@ def delete_placement_story(request, story_id):
         story.delete()
         messages.success(request, "Placement story deleted successfully!")
     return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+
+def transfer_manager(request, manager_id, new_admin_id):
+    if request.method == "POST":
+        manager = get_object_or_404(ManagerDB, id=manager_id)
+        new_admin = get_object_or_404(AdminDB, id=new_admin_id)
+        manager.admin = new_admin
+        manager.save()
+        messages.success(request, f"Manager {manager.username} transferred to Admin {new_admin.username} successfully!")
+    return redirect(reverse('dashboard') + "?page=manage_manager")
+
+def transfer_employee(request, employee_id, new_manager_id):
+    if request.method == "POST":
+        employee = get_object_or_404(EmployeeDB, id=employee_id)
+        new_manager = get_object_or_404(ManagerDB, id=new_manager_id)
+        employee.manager = new_manager
+        employee.save()
+        messages.success(request, f"Employee {employee.username} transferred to Manager {new_manager.username} successfully!")
+    return redirect(reverse('dashboard') + "?page=manage_employee")
+
+def transfer_admin(request, admin_id, new_superadmin_id):
+    if request.method == "POST":
+        admin = get_object_or_404(AdminDB, id=admin_id)
+        new_superadmin = get_object_or_404(SuperAdminDB, id=new_superadmin_id)
+        admin.superadmin = new_superadmin
+        admin.save()
+        messages.success(request, f"Admin {admin.username} transferred to SuperAdmin {new_superadmin.username} successfully!")
+    return redirect(reverse('dashboard') + "?page=manage_admin")

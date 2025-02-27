@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   margin: 0;
+  background-color: #dddddd48;
 }
 
 .main-content {

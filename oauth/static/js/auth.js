@@ -27,8 +27,12 @@ function toggleProfileDropdown(event) {
   }
 }
 document.addEventListener("click", function(e) {
+  // Only handle clicks that are inside or directly related to .profile-dropdown
   const dropdown = document.querySelector(".profile-dropdown");
-  if (dropdown && !dropdown.contains(e.target)) {
+  if (!dropdown) return;
+
+  // If the click is outside .profile-dropdown, close it
+  if (!dropdown.contains(e.target)) {
     const profileMenu = document.getElementById("profile-menu");
     if (profileMenu) {
       profileMenu.style.display = "none";
@@ -66,13 +70,13 @@ function switchTab(tab) {
     if (signupTab) signupTab.classList.remove('active');
     if (loginForm) loginForm.style.display = 'block';
     if (signupForm) signupForm.style.display = 'none';
-    if (header) header.innerHTML = JOINUS;
+    if (header) header.innerHTML = "JOIN US";
   } else {
     if (signupTab) signupTab.classList.add('active');
     if (loginTab) loginTab.classList.remove('active');
     if (signupForm) signupForm.style.display = 'block';
     if (loginForm) loginForm.style.display = 'none';
-    if (header) header.innerHTML = JOINUS;
+    if (header) header.innerHTML = "JOIN US";
   }
 }
 
