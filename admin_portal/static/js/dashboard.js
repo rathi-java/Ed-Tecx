@@ -441,3 +441,48 @@ function filterStories() {
         rows[i].style.display = (name.includes(input) || company.includes(input)) ? "" : "none";
     }
 }
+
+function transferAdmin(adminId, newSuperadminId) {
+    fetch(`/transfer_admin/${adminId}/${newSuperadminId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          }
+      });
+}
+
+function transferManager(managerId, newAdminId) {
+    fetch(`/transfer_manager/${managerId}/${newAdminId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          }
+      });
+}
+
+function transferEmployee(employeeId, newManagerId) {
+    fetch(`/transfer_employee/${employeeId}/${newManagerId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              location.reload();
+          }
+      });
+}
