@@ -1,0 +1,1128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}ReaderClub Privacy Policy{% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+    .pvcy_container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 80%;
+        margin: auto;
+        line-height: 0.75;
+    }
+    .contact-box {
+        width: 45%;
+    }
+    .contact-box a {
+        color: blue;
+        text-decoration: none;
+    }
+    .privacy_policy_container{
+        max-width: 1200px;
+        width: 90%;
+        margin: 60px auto;
+        background-color: #fff;
+}
+  * {margin:0; padding:0; text-indent:0; }
+  h1 { color: #077BC2; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 22pt; }
+  h3 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
+  .p, p { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; margin:0pt; }
+  .s1 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
+  .s2 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
+  .a, a { color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt; }
+  .s3 { color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+  .s4 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+  .s5 { color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
+  .s7 { color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 11pt; }
+  .s8 { color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+  .s9 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
+  h2 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
+  li {display: block; }
+  #l1 {padding-left: 0pt; }
+  #l1> li>*:first-child:before {content: "● "; color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l2 {padding-left: 0pt; }
+  #l2> li>*:first-child:before {content: "o "; color: black; font-family:"Courier New", monospace; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l3 {padding-left: 0pt;counter-reset: d1 2; }
+  #l3> li>*:first-child:before {counter-increment: d1; content: counter(d1, lower-latin)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l3> li:first-child>*:first-child:before {counter-increment: d1 0;  }
+  li {display: block; }
+  #l4 {padding-left: 0pt;counter-reset: d1 12; }
+  #l4> li>*:first-child:before {counter-increment: d1; content: counter(d1, lower-latin)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l4> li:first-child>*:first-child:before {counter-increment: d1 0;  }
+  li {display: block; }
+  #l5 {padding-left: 0pt;counter-reset: e1 3; }
+  #l5> li>*:first-child:before {counter-increment: e1; content: counter(e1, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9.5pt; }
+  #l5> li:first-child>*:first-child:before {counter-increment: e1 0;  }
+  #l6 {padding-left: 0pt; }
+  #l6> li>*:first-child:before {content: "● "; color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+  #l7 {padding-left: 0pt; }
+  #l7> li>*:first-child:before {content: "● "; color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+  #l8 {padding-left: 0pt; }
+  #l8> li>*:first-child:before {content: "● "; color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+  #l9 {padding-left: 0pt; }
+  #l9> li>*:first-child:before {content: "● "; color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+  #l10 {padding-left: 0pt; }
+  #l10> li>*:first-child:before {content: "● "; color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10pt; }
+  #l11 {padding-left: 0pt;counter-reset: f1 0; }
+  #l11> li>*:first-child:before {counter-increment: f1; content: counter(f1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l11> li:first-child>*:first-child:before {counter-increment: f1 0;  }
+  #l12 {padding-left: 0pt;counter-reset: f2 1; }
+  #l12> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
+  #l12> li:first-child>*:first-child:before {counter-increment: f2 0;  }
+  #l13 {padding-left: 0pt;counter-reset: g1 0; }
+  #l13> li>*:first-child:before {counter-increment: g1; content: counter(g1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l13> li:first-child>*:first-child:before {counter-increment: g1 0;  }
+  #l14 {padding-left: 0pt;counter-reset: g2 1; }
+  #l14> li>*:first-child:before {counter-increment: g2; content: counter(g1, decimal)"."counter(g2, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
+  #l14> li:first-child>*:first-child:before {counter-increment: g2 0;  }
+  #l15 {padding-left: 0pt;counter-reset: h1 0; }
+  #l15> li>*:first-child:before {counter-increment: h1; content: counter(h1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l15> li:first-child>*:first-child:before {counter-increment: h1 0;  }
+  #l16 {padding-left: 0pt;counter-reset: h2 1; }
+  #l16> li>*:first-child:before {counter-increment: h2; content: counter(h1, decimal)"."counter(h2, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l16> li:first-child>*:first-child:before {counter-increment: h2 0;  }
+  #l17 {padding-left: 0pt;counter-reset: i1 0; }
+  #l17> li>*:first-child:before {counter-increment: i1; content: counter(i1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l17> li:first-child>*:first-child:before {counter-increment: i1 0;  }
+  #l18 {padding-left: 0pt;counter-reset: i2 0; }
+  #l18> li>*:first-child:before {counter-increment: i2; content: counter(i1, decimal)"."counter(i2, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
+  #l18> li:first-child>*:first-child:before {counter-increment: i2 0;  }
+  #l19 {padding-left: 0pt;counter-reset: i3 1; }
+  #l19> li>*:first-child:before {counter-increment: i3; content: counter(i1, decimal)"."counter(i2, decimal)"."counter(i3, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
+  #l19> li:first-child>*:first-child:before {counter-increment: i3 0;  }
+  #l20 {padding-left: 0pt;counter-reset: j1 1; }
+  #l20> li>*:first-child:before {counter-increment: j1; content: counter(j1, lower-latin)") "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
+  #l20> li:first-child>*:first-child:before {counter-increment: j1 0;  }
+  li {display: block; }
+  #l21 {padding-left: 0pt;counter-reset: k1 1; }
+  #l21> li>*:first-child:before {counter-increment: k1; content: "("counter(k1, lower-roman)") "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
+  #l21> li:first-child>*:first-child:before {counter-increment: k1 0;  }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="privacy_policy_container"
+    <!-- Begin Privacy Policy Content -->
+    <h1 style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <a name="bookmark0">&zwnj;</a>Privacy Policy
+    </h1>
+    <h3 style="padding-top: 12pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <a name="bookmark1">&zwnj;</a>Effective as of February 20, 2025
+    </h3>
+    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
+    ReaderClub<span class="p">, a service provided by </span>Cincooni Systems Pvt. Ltd.<span class="p">, brings innovation and inspiration to the world of education, hiring, global opportunities, and digital publishing by delivering the ultimate user experience on any device. ReaderClub leads the market in Ed-Tech, recruitment, abroad offers, and magazines with a vast range of content and seamless accessibility across all platforms. Offering businesses, publishers, and educators complete flexibility in managing and delivering their content through branded, native applications for tablet, smartphone, and desktop, along with searchable databases for jobs, courses, and articles. For learners, job seekers, global aspirants, and magazine readers, ReaderClub operates an online web portal and mobile app (iOS, Android, Windows), providing the widest selection of educational resources, job listings, international study and work opportunities, and digital magazine content—all accessible on any platform. Content can be read online or offline, synced across multiple devices, and searched for archival information.
+    </h3>
+    <h3 style="padding-top: 12pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <a name="bookmark2">&zwnj;</a>Welcome to all.
+    </h3>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <a href="http://www.readerclub.in/" class="s2" target="_blank">all (“us”, “we”, or “our”) operates </a>www.readerclub.in <a href="http://www.readerclub.in/" class="s2" target="_blank">(hereinafter referred to as “Service”). Our Privacy Policy governs your visit to </a><a href="http://www.readerclub.in/" class="s1" target="_blank">www.readerclub.in</a><span class="p">, and explains how we collect, safeguard and disclose information that results from your use of our Service.</span>
+    </h3>
+    <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    We use your data to provide and improve Service. By using Service, you agree to the collection and use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, the terms used in this Privacy Policy have the same meanings as in our Terms and Conditions.
+    </p>
+    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    Our Terms and Conditions (“Terms”) govern all use of our Service and together with the Privacy Policy constitutes your agreement with us (“agreement”).
+    </p>
+    <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <a name="bookmark3">&zwnj;</a>Definitions
+    </h3>
+    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    SERVICE <a href="http://www.readerclub.in/" class="s2" target="_blank">means the </a>www.readerclub.in <span class="p">website operated by all.</span>
+    </h3>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    PERSONAL DATA <span class="p">means data about a living individual who can be identified from those data (or from those and other information either in our possession or likely to come into our possession).</span>
+    </h3>
+    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    USAGE DATA <span class="p">is data collected automatically either generated by the use of Service or from Service infrastructure itself (for example, the duration of a page visit).</span>
+    </h3>
+    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    COOKIES <span class="p">are small files stored on your device (computer or mobile device).</span>
+    </h3>
+    <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    DATA CONTROLLER <span class="p">means a natural or legal person who (either alone or jointly or in common with other persons) determines the purposes for which and the manner in which any personal</span>
+    </h3>
+    <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    data are, or are to be, processed. For the purpose of this Privacy Policy, we are a Data Controller of your data.
+    </p>
+    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
+    DATA PROCESSORS (OR SERVICE PROVIDERS) <span class="p">mean any natural or legal person who processes the data on behalf of the Data Controller. We may use the services of various Service Providers in</span>
+    </h3>
+    <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: justify;">
+    order to process your data more effectively.
+    </p>
+    <h3 style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    DATA SUBJECT <span class="p">is any living individual who is the subject of Personal Data.</span>
+    </h3>
+    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    THE USER is the individual using our Service. The User corresponds to the Data Subject, who is the subject of Personal Data.
+    </p>
+    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 7pt;text-indent: 0pt;text-align: left;">
+    <a name="bookmark4">&zwnj;</a>Coverage of this policy
+    </h3>
+    <p style="padding-top: 9pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <p style="padding-left: 5pt;text-indent: 9pt;line-height: 129%;text-align: left;">
+    This Policy covers Company’s treatment of personally identifiable information (“Personal Information”) and other information about you and your computer or device that Company
+    </p>
+    <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+    gathers when you are accessing the Service. We may collect Personal Information from you, as explained in more detail, and we use this Personal Information internally in connection with our Services, including to personalize, provide, and improve our products, services, content, and advertising, and to allow you to set up a user account and profile, to contact you, to fulfill your requests for certain products and services, and to analyze how you use the Services. In certain cases, we may also share some Personal Information with third parties, but only as described in below
+    </p>
+    <p style="padding-top: 11pt;padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+    We do not knowingly collect or solicit Personal Information from children under the age of 18. If you are under 18, please do not attempt to register for the Services or send any personal
+    </p>
+    <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+    information about yourself to us. If we learn that we have collected personal information from a child under age 18, we will delete that information as quickly as possible. If you believe that a
+    </p>
+    <p class="s3" style="padding-left: 5pt;text-indent: 0pt;line-height: 127%;text-align: left;">
+    <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">child under 18 may have provided us personal information, please contact us at </a><span style=" color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt;">privacy@readerclub.in</span>.
+    </p>
+    <p style="padding-top: 11pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+    <a name="bookmark5">&zwnj;</a>Information we collect
+    </h3>
+    <p style="padding-top: 9pt;text-indent: 0pt;text-align: left;"><br/></p>
+    <ul id="l1">
+    <li data-list-text="●">
+        <h3 style="padding-left: 41pt;text-indent: -18pt;line-height: 129%;text-align: left;">
+        a. <span class="p">We collect Personal Information you enter on or through the Service, such as when you create a ReaderClub account, purchase a magazine/subscription, apply for job opportunities, enroll in educational programs, or contact us.</span>
+        </h3>
+        <ul id="l2">
+        <li data-list-text="o">
+            <p style="padding-top: 11pt;padding-left: 76pt;text-indent: -17pt;text-align: left;">
+            When you create a ReaderClub account, we collect your Name, Email address,
+            </p>
+            <p style="padding-top: 3pt;padding-left: 77pt;text-indent: 0pt;text-align: left;">
+            Mobile Number, Password, and Gender (optional). These details allow you to
+            </p>
+            <p style="padding-top: 3pt;padding-left: 77pt;text-indent: 0pt;line-height: 128%;text-align: left;">
+            access your subscriptions, job applications, educational enrollments, and abroad offers on multiple devices. Additionally, when you change your device, these
+            </p>
+            <p style="padding-left: 77pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+            details help you sync your ReaderClub account and retain access to your services.
+            </p>
+            <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
+        </li>
+        <li data-list-text="o">
+            <p class="s4" style="padding-left: 77pt;text-indent: -18pt;line-height: 128%;text-align: left;">
+            When you purchase a magazine/subscription, enroll in an educational program, or pay for a service on our website, we may additionally collect your Address (with Pin Code) and Card details in certain scenarios. This is done to validate transactions, and we clear such data when validations are no longer required. Please note that we don’t store your card details—they are securely stored by the payment gateway. For transactions made through our iOS/Android apps, we do not collect Address and Card details from users.
+            </p>
+        </li>
+        <li data-list-text="o">
+            <p class="s4" style="padding-top: 3pt;padding-left: 77pt;text-indent: -18pt;line-height: 127%;text-align: left;">
+            We collect your <b>location details </b>when you use multiple devices. These details, along with your <b>subscriptions, job applications, and enrolled courses, </b>help us provide seamless access across devices and notify you if you log in from a new device. We clear the logs containing location details within <b>10 days.</b>
+            </p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        </li>
+        <li data-list-text="o">
+            <p style="padding-left: 77pt;text-indent: -18pt;line-height: 123%;text-align: left;">
+            When you contact us, we collect your email address to provide services and answer your queries.
+            </p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l3">
+            <li data-list-text="b.">
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: left;">
+                The Personal Information we collect includes third-party account credentials (for example, your log-in credentials for Facebook, Twitter, Google or other third-party sites).
+                </p>
+            </li>
+            <li data-list-text="c.">
+                <p style="padding-top: 11pt;padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: left;">
+                We also collect information associated with your use of the application in order to make personalized recommendations. If you provide your third-party account credentials to
+                </p>
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: left;">
+                us, you understand some content and/or information in those accounts “Third Party Account Information” may be transmitted into your account with us if you authorize such transmissions, and that Third Party Account Information transmitted to the Service is covered by this Policy.
+                </p>
+            </li>
+            <li data-list-text="d.">
+                <p style="padding-top: 10pt;padding-left: 58pt;text-indent: -35pt;text-align: left;">
+                We may ask for additional information such as <b>age, gender, and interests. </b>You
+                </p>
+                <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                can choose not to provide certain information, but this may limit your access to some of our
+                </p>
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                special features. For example, we showcase <b>personalized magazines, articles, job opportunities, educational courses, and abroad offers </b>based on the interests you’ve selected.
+                </p>
+            </li>
+            <li data-list-text="e.">
+                <p style="padding-top: 10pt;padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: left;">
+                When you send gift cards or subscriptions, we may collect the information you provide about the gift recipients, including name and email address. We will use such
+                </p>
+                <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+                information to fulfill your requests, provide the relevant service, or for anti-fraud purposes.
+                </p>
+                <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="f.">
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: justify;">
+                The Personal Information we collect allows us to respond to your requests, improve our products and services, customize the advertising and content you see, and communicate with you about new products.
+                </p>
+            </li>
+            <li data-list-text="g.">
+                <p style="padding-top: 11pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                If you do not want to receive emails from us, you may opt out of Company’s marketing and promotional messaging by changing the ‘Email Preferences’ under ‘My
+                </p>
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                Account’ after logging in to your <span class="s5">ReaderClub </span>account. However, while you maintain an account with Company, you will not be able to opt out of emails that send important notices, such as communications about purchases and changes to our terms, conditions, and policies.
+                </p>
+            </li>
+            <li data-list-text="h.">
+                <p style="padding-top: 11pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                We also collect data in a form that does not, on its own, permit direct association with any specific individual. We may collect, use, transfer, and disclose non-personally
+                </p>
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                identifying information for any purpose.
+                </p>
+                <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="i.">
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 128%;text-align: left;">
+                We receive and store certain types of information whenever you interact with the Service. Company automatically collects information on our server logs from your
+                </p>
+                <p style="padding-top: 4pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+                browser,
+                </p>
+                <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;line-height: 128%;text-align: left;">
+                including your Internet Protocol (IP) address, the name and identity of your computer, mobile device and other devices, your operating system, browser type and version, CPU speed,
+                </p>
+                <p style="padding-top: 4pt;padding-left: 23pt;text-indent: 0pt;line-height: 128%;text-align: left;">
+                connection speed, and locale information based on IP address. To the extent that IP addresses or similar identifiers are considered personal information by local law, we also treat these
+                </p>
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                identifiers as personal information.
+                </p>
+                <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br/></p>
+                <p style="padding-left: 5pt;text-indent: 12pt;line-height: 129%;text-align: justify;">
+                The Site collects usage information, such as the number and frequency of user visits to our website and its components, which magazines are added to the cart, which contests you’ve participated in,
+                </p>
+                <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
+                which job postings you’ve viewed or applied for, which educational courses or abroad opportunities you’ve explored, and the length and time spent on various content, including articles, courses, and job listings.
+                </p>
+                <p style="padding-top: 11pt;padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                We use this information to give a personalized experience to our users and improve our services. For instance, if you add a magazine, course, or service to your cart and the payment fails for some reason, we may send you an email notification to complete the purchase using an alternate payment method.
+                </p>
+                <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="j.">
+                <p style="padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+                We also collect information about your purchases and activities on the Service, which we may use to present you with offers that we believe may be of interest to you. As part of this use of information, we may provide non-personally identifying, aggregate information to our Participating Publishers and other third parties about how our users, collectively, use the Service.
+                </p>
+            </li>
+            <li data-list-text="k.">
+                <p style="padding-top: 11pt;padding-left: 33pt;text-indent: -10pt;text-align: left;">
+                We track your activities such as:
+                </p>
+            </li>
+            </ol>
+        </li>
+        </ul>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
+        Your searches – To showcase more relevant keywords and results to you, and analyze trending keywords across magazines, educational courses, job listings, and abroad opportunities.
+        </p>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
+        Your downloads – To verify if you have downloaded the magazines, course materials, or job-related documents that you are permitted to access.
+        </p>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
+        Magazines you&#39;ve visited – To understand your interests and showcase more relevant magazines and educational content.
+        </p>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
+        Magazines you’ve read – To understand your interests and showcase more relevant magazines and related recommendations.
+        </p>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
+        Articles you’ve read – To understand your interests and showcase more relevant articles, career insights, and study-abroad resources.
+        </p>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
+        Time spent on reading each magazine and article – To analyze the quality of content and provide appropriate feedback to publishers, educators, and recruiters for improvement.
+        </p>
+    </li>
+    <li data-list-text="●">
+        <p style="padding-left: 40pt;text-indent: -17pt;text-align: left;">
+        Web and app pages you’ve visited – To track features used by you and recommend features
+        </p>
+    </li>
+    </ul>
+    <p style="padding-left: 41pt;text-indent: 0pt;text-align: left;">
+    that you’ve not used, such as new courses, job postings, abroad opportunities, and magazine subscriptions.
+    </p>
+    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    <ol id="l4">
+    <li data-list-text="l.">
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: left;">
+        We send push notifications to our apps after getting consent from our users. These push notifications inform users about the <b>latest offers, new magazine issues going live, personalized magazines and articles, job openings, educational course updates, and</b>
+        </p>
+        <h3 style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        abroad opportunities. <span class="p">Users can disable push notifications anytime.</span>
+        </h3>
+    </li>
+    <li data-list-text="m.">
+        <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
+        We also track your interactions to our marketing initiatives such as which emails you have clicked and which push notifications you have tapped on, to understand your interests and improve our services.
+        </p>
+    </li>
+    <li data-list-text="n.">
+        <p style="padding-top: 10pt;padding-left: 23pt;text-indent: 0pt;line-height: 130%;text-align: left;">
+        We will also use <b>usage information </b>to ensure users adhere to our <b>Terms of Use. </b>For example, a user’s <b>usage information </b>will help us confirm that a user only downloads a <b>magazine, educational course material, job-related document, or abroad opportunity resource </b>a permitted number of times or to a permitted number of devices.
+        </p>
+    </li>
+    <li data-list-text="o.">
+        <p style="padding-top: 7pt;padding-left: 58pt;text-indent: -35pt;text-align: left;">
+        If you win any of our contests which are conducted on our website/apps, we will
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        need basic details from you such as Name, Email address, Mailing Address and Phone number to send the gifts to you.
+        </p>
+    </li>
+    <li data-list-text="p.">
+        <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+        You have the right to be forgotten by <span class="s5">ReaderClub</span>. You can Deactivate your account by visiting ‘My Profile’ under ‘My Account’ and clicking on ‘Deactivate my account’. We’ll
+        </p>
+    </li>
+    </ol>
+    <p style="padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+    Deactivate your account and delete all your data from our database within 30 days from the time we receive your deactivation request.
+    </p>
+    <ol id="l5">
+    <li data-list-text="3.">
+        <h3 style="padding-top: 11pt;padding-left: 33pt;text-indent: -10pt;text-align: left;">
+        <a name="bookmark6">&zwnj;</a>Cookie Policy
+        </h3>
+        <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ul id="l6">
+        <li data-list-text="●">
+            <p style="padding-left: 41pt;text-indent: -18pt;line-height: 130%;text-align: justify;">
+            Cookies are alphanumeric identifiers that we transfer to your computer or device to enable our systems to recognize your browser and tell us how and when pages in our website are visited and by how many people.
+            </p>
+        </li>
+        <li data-list-text="●">
+            <p style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;line-height: 129%;text-align: left;">
+            Most browsers have an option for turning off the cookie feature, which will prevent or limit your browser from accepting new cookies, as well as (depending on the
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+            sophistication of your browser software) allowing you to decide on acceptance of each new cookie in a variety of ways. You may wish to leave the cookies activated because cookies enable you to take advantage of some of the Site’s most essential features.
+            </p>
+        </li>
+        </ul>
+    </li>
+    <li data-list-text="4.">
+        <h3 style="padding-top: 11pt;padding-left: 33pt;text-indent: -10pt;text-align: left;">
+        <a name="bookmark7">&zwnj;</a>Sharing of your personal information
+        </h3>
+        <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ul id="l7">
+        <li data-list-text="●">
+            <p style="padding-left: 41pt;text-indent: -18pt;line-height: 130%;text-align: left;">
+            Personal Information will only be shared by Company to provide or improve our products, services, and to contact you about our services; it will not be shared with third parties
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;text-align: left;">
+            for their marketing purposes.
+            </p>
+            <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
+        </li>
+        <li data-list-text="●">
+            <p style="padding-left: 41pt;text-indent: -18pt;line-height: 129%;text-align: left;">
+            Others: We may access, read, preserve, disclose, or release Personal Information when we believe in good faith that release is necessary to comply with law and enforce or apply our Terms of Use; or protect the rights, property, or safety of Company, our employees, our users, or others.
+            </p>
+        </li>
+        </ul>
+    </li>
+    <li data-list-text="5.">
+        <h3 style="padding-top: 3pt;padding-left: 33pt;text-indent: -10pt;text-align: left;">
+        <a name="bookmark8">&zwnj;</a>Security of your personal information
+        </h3>
+        <p style="padding-top: 7pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 23pt;text-indent: 3pt;line-height: 129%;text-align: left;">
+        We allow you to limit access to your account via a password for your privacy and security. If you access your account via a third-party site or service, you may have additional or
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        different sign-on protections via that third party site or service. You are responsible for
+        </p>
+        <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+        ensuring against unauthorized access to your account and Personal Information by selecting and protecting your password and/or other sign-on mechanism appropriately and limiting
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+        access to your computer and browser by signing off after you have finished accessing your account.
+        </p>
+        <ul id="l8">
+        <li data-list-text="●">
+            <p style="padding-top: 10pt;padding-left: 40pt;text-indent: -17pt;text-align: left;">
+            We use industry-standard Secure Socket Layer (SSL) software to encrypt your
+            </p>
+            <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+            Personal Information during transmission. However, because no data transmission over the
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+            Internet is completely secure, and no system of physical or electronic security is impenetrable, Company cannot guarantee the security of Personal Information in its possession or the security of its servers or databases. Unauthorized entry or use,
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+            hardware or software failure, and other factors, may compromise the security of user information at any time.
+            </p>
+        </li>
+        <li data-list-text="●">
+            <p style="padding-top: 10pt;padding-left: 40pt;text-indent: -17pt;text-align: justify;">
+            In the unlikely event that Company believes that the security of your Personal
+            </p>
+            <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 130%;text-align: justify;">
+            Information in its possession or control may have been compromised, Company may seek to notify you. If notification is appropriate, Company may notify you by email, messaging to your device, or other means within 84 hours of data compromise.
+            </p>
+        </li>
+        </ul>
+    </li>
+    <li data-list-text="6.">
+        <h3 style="padding-top: 11pt;padding-left: 34pt;text-indent: -11pt;text-align: justify;">
+        <a name="bookmark9">&zwnj;</a>Personal information you can access
+        </h3>
+        <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ul id="l9">
+        <li data-list-text="●">
+            <p style="padding-left: 41pt;text-indent: -18pt;line-height: 129%;text-align: justify;">
+            Company allows you to access the following information about you for the purpose of viewing, and in certain situations, updating that information: email address, name,
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
+            location and marketing preferences. This list may change as the Service changes. The information you can view, update, and delete may change as the Website changes. If
+            </p>
+            <p class="s7" style="padding-left: 41pt;text-indent: 0pt;line-height: 110%;text-align: justify;">
+            <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">you have any questions about viewing or updating information we have on file about you, please contact us at </a><span style=" color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 11pt;">privacy@readerclub.in</span> <span class="p">.</span>
+            </p>
+        </li>
+        <li data-list-text="●">
+            <p style="padding-top: 5pt;padding-left: 41pt;text-indent: -18pt;line-height: 129%;text-align: justify;">
+            You can add or update certain personal information on your account, such as name and email address. When you update information, however, we often maintain a copy of the unrevised information in our records.
+            </p>
+        </li>
+        <li data-list-text="●">
+            <p class="s7" style="padding-top: 8pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
+            <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">Upon your written request to </a><span style=" color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 11pt;">privacy@readerclub.in</span> <span class="p">, we will remove your Personal</span>
+            </p>
+            <p style="padding-top: 7pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+            Information from our active user database provided that (a) you are current with all payment obligations, (b) we do not believe it reasonably necessary to keep such
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+            information for any pending legal action, and (c) we are under no obligation to retain such information. Please be aware that any unfulfilled subscriptions may be canceled without refund and you will have to re-register in order to use the Service. It is your responsibility to request a refund from us.
+            </p>
+        </li>
+        <li data-list-text="●">
+            <p style="padding-top: 4pt;padding-left: 41pt;text-indent: -18pt;line-height: 129%;text-align: justify;">
+            Information you provide to Company will be collected and stored in India, and the backup will be stored in the AWS any server. By providing personal information to Company, you hereby consent to such collection and storage.
+            </p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        </li>
+        </ul>
+    </li>
+    <li data-list-text="7.">
+        <h3 style="padding-left: 33pt;text-indent: -10pt;text-align: left;">
+        <a name="bookmark10">&zwnj;</a>Changes to this Policy
+        </h3>
+        <p style="padding-top: 7pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Company may amend this Policy from time to time. Use of information we collect now is
+        </p>
+        <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;line-height: 129%;text-align: left;">
+        subject to the Policy in effect at the time such information is used. If we make changes in the way we use Personal Information, we will notify you by posting an announcement on the Service. You are bound by any changes to the Privacy Policy when you use the Website after
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        such changes have been first posted.
+        </p>
+        <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="8.">
+        <h3 style="padding-left: 34pt;text-indent: -11pt;text-align: left;">
+        <a name="bookmark11">&zwnj;</a>Questions or Concerns
+        </h3>
+        <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ul id="l10">
+        <li data-list-text="●">
+            <p class="s7" style="padding-left: 41pt;text-indent: -18pt;line-height: 110%;text-align: left;">
+            <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">If you have any questions or concerns regarding privacy in connection with the Service, please send us a detailed message to </a><span style=" color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 11pt;">privacy@readerclub.in</span> <span class="p">. We will make every</span>
+            </p>
+            <p style="padding-left: 41pt;text-indent: 0pt;text-align: left;">
+            effort
+            </p>
+            <p style="padding-top: 7pt;padding-left: 41pt;text-indent: 0pt;text-align: left;">
+            to resolve your concerns.
+            </p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        </li>
+        </ul>
+    </li>
+    <li data-list-text="9.">
+        <h3 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
+        <a name="bookmark12">&zwnj;</a>Security of Data
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        The security of your data is important to us but remember that no method of transmission over the Internet or method of electronic storage is 100% secure. While we strive to use commercially
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        acceptable means to protect your Personal Data, we cannot guarantee its absolute security.
+        </p>
+        <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="10.">
+        <h3 style="padding-left: 21pt;text-indent: -16pt;text-align: left;">
+        <a name="bookmark13">&zwnj;</a>Your Data Protection Rights Under General Data Protection Regulation (GDPR)
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        If you are a resident of the European Union (EU) and European Economic Area (EEA), you have certain data protection rights, covered by GDPR.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        We aim to take reasonable steps to allow you to correct, amend, delete, or limit the use of your Personal Data.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p class="s8" style="padding-left: 5pt;text-indent: 0pt;line-height: 112%;text-align: left;">
+        <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">If you wish to be informed what Personal Data, we hold about you and if you want it to be removed from our systems, please email us at </a><span style=" color: #077BC2; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt;">privacy@readerclub.in</span> <span class="p">.</span>
+        </p>
+        <p style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        In certain circumstances, you have the following data protection rights:
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ol id="l11">
+        <ol id="l12">
+            <li data-list-text="0.1.">
+            <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                the right to access, update or to delete the information we have on you;
+            </p>
+            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.2.">
+            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                the right of rectification. You have the right to have your information rectified if that information is inaccurate or incomplete;
+            </p>
+            </li>
+            <li data-list-text="0.3.">
+            <p style="padding-top: 3pt;padding-left: 23pt;text-indent: -18pt;text-align: left;">
+                the right to object. You have the right to object to our processing of your Personal Data;
+            </p>
+            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.4.">
+            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                the right of restriction. You have the right to request that we restrict the processing of your personal information;
+            </p>
+            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.5.">
+            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                the right to data portability. You have the right to be provided with a copy of your Personal Data in a structured, machine-readable and commonly used format;
+            </p>
+            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.6.">
+            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                the right to withdraw consent. You also have the right to withdraw your consent at any time where we rely on your consent to process your personal information;
+            </p>
+            </li>
+        </ol>
+        </ol>
+        <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Please note that we may ask you to verify your identity before responding to such requests. Please note, we may not able to provide Service without some necessary data.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        You have the right to complain to a Data Protection Authority about our collection and use of
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        your Personal Data. For more information, please contact your local data protection authority in the European Economic Area (EEA).
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="11.">
+        <h3 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+        <a name="bookmark14">&zwnj;</a>Your Data Protection Rights under the California Privacy Protection Act (CalOPPA)
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 152%;text-align: left;">
+        CalOPPA is the first state law in the nation to require commercial websites and online services to post a privacy policy. The law’s reach stretches well beyond California to require a person or company in the United States (and conceivable the world) that operates websites collecting personally identifiable information from California consumers to post a conspicuous privacy policy on its website stating exactly the information being collected and those individuals with whom it is being shared, and to comply with this policy.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        According to CalOPPA we agree to the following:
+        </p>
+        <p style="padding-top: 12pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ol id="l13">
+        <ol id="l14">
+            <li data-list-text="0.1.">
+            <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                users can visit our site anonymously;
+            </p>
+            <p style="padding-top: 12pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.2.">
+            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 152%;text-align: left;">
+                our Privacy Policy link includes the word “Privacy”, and can easily be found on the home page of our website;
+            </p>
+            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.3.">
+            <p style="padding-left: 23pt;text-indent: -18pt;text-align: left;">
+                users will be notified of any privacy policy changes on our Privacy Policy Page;
+            </p>
+            <p style="text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.4.">
+            <p style="padding-left: 23pt;text-indent: -18pt;text-align: left;">
+                <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">users are able to change their personal information by emailing us at </a><a href="mailto:privacy@readerclub.in" target="_blank">privacy@readerclub.in</a>
+            </p>
+            </li>
+        </ol>
+        </ol>
+        <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Our Policy on “Do Not Track” Signals: We honor Do Not Track signals and do not track, plant cookies, or use advertising when a Do Not Track browser mechanism is in place. Do Not Track is
+        </p>
+        <p style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;line-height: 152%;text-align: left;">
+        a preference you can set in your web browser to inform websites that you do not want to be tracked. You can enable or disable Do Not Track by visiting the Preferences or Settings page of your web browser.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="12.">
+        <h3 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+        <a name="bookmark15">&zwnj;</a>Your Data Protection Rights under the California Consumer Privacy Act (CCPA)
+        </h3>
+        <p style="padding-top: 12pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
+        If you are a California resident, you are entitled to learn what data we collect about you, ask to delete your data and not to sell (share) it. To exercise your data protection rights, you can make certain requests and ask us:
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <ol id="l15">
+        <ol id="l16">
+            <li data-list-text="0.1.">
+            <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                <a name="bookmark16">&zwnj;</a>What personal information we have about you. If you make this request, we will return to you:
+            </h3>
+            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <ol id="l17">
+                <ol id="l18">
+                <ol id="l19">
+                    <li data-list-text="0.0.1.">
+                    <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                        The categories of personal information we have collected about you.
+                    </p>
+                    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+                    </li>
+                    <li data-list-text="0.0.2.">
+                    <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                        The categories of sources from which we collect your personal information.
+                    </p>
+                    <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+                    </li>
+                    <li data-list-text="0.0.3.">
+                    <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                        The business or commercial purpose for collecting or selling your personal information.
+                    </p>
+                    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+                    </li>
+                    <li data-list-text="0.0.4.">
+                    <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                        The categories of third parties with whom we share personal information.
+                    </p>
+                    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+                    </li>
+                    <li data-list-text="0.0.5.">
+                    <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                        The specific pieces of personal information we have collected about you.
+                    </p>
+                    <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+                    </li>
+                    <li data-list-text="0.0.6.">
+                    <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
+                        A list of categories of personal information that we have sold, along with the category of any other company we sold it to. If we have not sold your personal information, we will inform you of that fact.
+                    </p>
+                    <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+                    </li>
+                    <li data-list-text="0.0.7.">
+                    <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                        A list of categories of personal information that we have disclosed for a business purpose, along with the category of any other company we shared it with.
+                    </p>
+                    </li>
+                </ol>
+                </ol>
+            </ol>
+            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
+            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                Please note, you are entitled to ask us to provide you with this information up to two times in a rolling twelve-month period. When you make this request, the information provided may be
+            </p>
+            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                limited to the personal information we collected about you in the previous 12 months.
+            </p>
+            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.2.">
+            <p class="s9" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                To delete your personal information. If you make this request, we will delete the personal information we hold about you as of the date of your request from our
+            </p>
+            <p class="s9" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                records and direct any service providers to do the same. In some cases, deletion may be accomplished through de-identification of the information. If you choose to delete your personal information, you may not be able to use certain functions that require your personal information to operate.
+            </p>
+            <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br/></p>
+            </li>
+            <li data-list-text="0.3.">
+            <p class="s9" style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+                To stop selling your personal information. We don’t sell or rent your
+            </p>
+            </li>
+        </ol>
+        </ol>
+        <p class="s9" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        personal information to any third parties for any purpose. We do not sell your personal
+        </p>
+        <p class="s9" style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        information for monetary consideration. However, under some circumstances, a
+        </p>
+        <p class="s9" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        transfer of personal information to a third party, or within our family of companies, without monetary consideration may be considered a “sale” under California law. You
+        </p>
+        <p class="s9" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        are the only owner of your Personal Data and can request disclosure or deletion at any time.
+        </p>
+        <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        If you submit a request to stop selling your personal information, we will stop making such transfers.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Please note, if you ask us to delete or stop selling your data, it may impact your experience with us, and you may not be able to participate in certain programs or membership services which
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        require the usage of your personal information to function. But in no circumstances, we will discriminate against you for exercising your rights.
+        </p>
+        <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        To exercise your California data protection rights described above, please send your request(s) by email: <a href="mailto:privacy@readerclub.in" class="s2" target="_blank">privacy@readerclub.in</a><a href="mailto:privacy@readerclub.in" class="s2" target="_blank">.</a>
+        </p>
+        <p style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Your data protection rights, described above, are covered by the CCPA, short for the California Consumer Privacy Act. To find out more, visit the official California Legislative Information website. The CCPA took effect on 24/04/2018.
+        </p>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="13.">
+        <h3 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+        <a name="bookmark17">&zwnj;</a>Terms and Conditions for Online Payment
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        The Terms and Conditions contained herein shall apply to any person (“Applicant”) using the
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        services for making Application through an online payment gateway service (“Service”) offered by Payment Gateway Service provider, through <b>Cincooni </b>website i.e.
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        <a href="http://www.cincooni.com/" class="s2" target="_blank">https://www.</a><a href="http://www.cincooni.com/" class="s1" target="_blank">Cincooni</a><a href="http://www.cincooni.com/" class="s2" target="_blank">.com</a>
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Each Applicant is, therefore, deemed to have read and accepted these Terms and Conditions.
+        </p>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <h2 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">Privacy Policy</h2>
+        <h3 style="padding-top: 12pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Cincooni <span class="p">respects and protects the privacy of the individuals that access the information and use the services provided through them. Individually identifiable information about the person is not willfully disclosed to any third party without first receiving the person’s permission, as covered in this Privacy Policy.</span>
+        </h3>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Please be aware, however, that <b>Cincooni </b>will release specific personal information about the persons, if required to do so in the following circumstances
+        </p>
+        <ol id="l20">
+        <li data-list-text="a)">
+            <p style="padding-left: 51pt;text-indent: -28pt;text-align: left;">
+            in order to comply with any valid legal process such as a search warrant, statute, or court order, or
+            </p>
+        </li>
+        <li data-list-text="b)">
+            <p style="padding-left: 54pt;text-indent: -31pt;text-align: left;">
+            if any of person’s actions on <b>Cincooni ‘s </b>website violates the Terms of Service or any of <b>Cincooni ‘s </b>guidelines for specific services, or
+            </p>
+        </li>
+        <li data-list-text="c)">
+            <p style="padding-left: 34pt;text-indent: -11pt;text-align: left;">
+            to protect or defend <b>Cincooni ‘s </b>legal rights or property, the <b>Cincooni </b>site, or
+            </p>
+            <h3 style="padding-left: 49pt;text-indent: 0pt;text-align: left;">
+            Cincooni <span class="p">Applicants; or</span>
+            </h3>
+        </li>
+        <li data-list-text="d)">
+            <p style="padding-left: 54pt;text-indent: -31pt;text-align: left;">
+            to investigate, prevent, or take action regarding illegal activities,
+            </p>
+        </li>
+        </ol>
+        <p style="padding-left: 54pt;text-indent: 0pt;text-align: left;">
+        suspected fraud, situations involving potential threats to the security, integrity of <b>Cincooni</b>
+        </p>
+        <p style="padding-left: 41pt;text-indent: 0pt;text-align: left;">
+        website/offerings.
+        </p>
+    </li>
+    <li data-list-text="14.">
+        <h3 style="padding-top: 4pt;padding-left: 58pt;text-indent: -35pt;text-align: left;">
+        <a name="bookmark18">&zwnj;</a>General Terms and Conditions for Online-Payments
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: justify;">
+        Once an Applicant has accepted these Terms and Conditions, he/ she may register and avail the Services.
+        </p>
+        <h3 style="padding-left: 23pt;text-indent: 0pt;text-align: justify;">
+        Cincooni’s <span class="p">rights, obligations, undertakings shall be subject to the laws in force in India, as well as any directives/ procedures of Government of India, and nothing contained in these Terms and Conditions shall be in derogation of </span>Cincooni ‘s <span class="p">right to comply with</span>
+        </h3>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        any law enforcement agencies request or requirements relating to any Applicant’s use of the website or information provided to or gathered by <b>Cincooni </b>with respect to such use. Each Applicant accepts and agrees that the provision of details of his/ her use of the Website to
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        regulators or police or to any other third party in order to resolve disputes or complaints which relate to the Website shall be at the absolute discretion of <b>Cincooni</b>.
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        If any part of these Terms and Conditions are determined to be invalid or unenforceable pursuant to applicable law including, but not limited to, the warranty disclaimers and liability limitations set forth herein, then the invalid or unenforceable provision will be deemed superseded by a
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        valid, enforceable provision that most closely matches the intent of the original provision and the remainder of these Terms and Conditions shall continue in effect.
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        These Terms and Conditions constitute the entire agreement between the Applicant and
+        </p>
+        <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        <a name="bookmark19">&zwnj;</a>Cincooni<span class="p">.</span>
+        </h3>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        These Terms and Conditions supersede all prior or contemporaneous communications and proposals, whether electronic, oral, or written, between the Applicant and <b>Cincooni</b>.
+        </p>
+        <p style="padding-left: 23pt;text-indent: 3pt;text-align: left;">
+        A printed version of these Terms and Conditions and of any notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating to these
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Terms and Conditions to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form.
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        The entries in the books of <b>Cincooni </b>and/or the Payment Service Providers kept in the ordinary course of business of <b>Cincooni </b>and/or the Payment Service Providers with regard to transactions covered under these Terms and Conditions and matters therein appearing shall be binding on the Applicant and shall be conclusive proof of the genuineness and accuracy of the transaction.
+        </p>
+    </li>
+    <li data-list-text="15.">
+        <h3 style="padding-top: 11pt;padding-left: 40pt;text-indent: -35pt;text-align: left;">
+        <a name="bookmark20">&zwnj;</a>Limitation of Liability
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <h3 style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Cincooni <span class="p">has made this Service available to the Applicant as a matter of convenience.</span>
+        </h3>
+        <h3 style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Cincooni <span class="p">expressly disclaims any claim or liability arising out of the provision of this Service.</span>
+        </h3>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant agrees and acknowledges that he/she shall be solely responsible for his/ her conduct and that <b>Cincooni </b>reserves the right to terminate the rights to use the Service immediately without giving any prior notice thereof.
+        </p>
+        <h3 style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Cincooni <span class="p">and/or the Payment Service Providers shall not be liable for any inaccuracy, error or delay in, or omission of </span>(a) <span class="p">any data, information or message, or </span>(b) <span class="p">the transmission or delivery of any such data, information or message; or </span>(c) <span class="p">any loss or damage arising from or</span>
+        </h3>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        occasioned by any such inaccuracy, error, delay or omission, non-performance or interruption in any such data, information or message. Under no circumstances shall <b>Cincooni </b>and/or the Payment Service Providers, their employees, directors, and their third- party agents involved in processing, delivering or managing the Services, be liable for any direct, indirect, incidental, special or consequential damages, or any damages whatsoever, including punitive or exemplary arising out of or in any way connected with the provision of or any inadequacy or deficiency in the provision of the Services or resulting from unauthorized access or
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        alteration of transmissions of data or arising from suspension or termination of the Services.
+        </p>
+        <h3 style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Cincooni <span class="p">and the Payment Service Provider(s) assume no liability whatsoever for any monetary or other damage suffered by the Applicant on account of:</span>
+        </h3>
+        <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        (I) <span class="p">the delay, failure, interruption, or corruption of any data or other information transmitted in connection with use of the Payment Gateway or Services in connection thereto; and/ or
+        </span>
+        </h3>
+        <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        (ii) <span class="p">Any interruption or errors in the operation of the Payment Gateway.</span>
+        </h3>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant shall indemnify and hold harmless the Payment Service Provider(s) and <b>Cincooni </b>and their respective officers, directors, agents, and employees, from any claim or demand, or actions arising out of or in connection with the utilization of the Services.
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        The Applicant agrees that <b>Cincooni </b>or any of its employees will not be held liable by the
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Applicant for any loss or damages arising from your use of, or reliance upon the information contained on the Website, or any failure to comply with these Terms and Conditions where such failure is due to circumstance beyond <b>Cincooni ‘s </b>reasonable control.
+        </p>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="16.">
+        <h3 style="padding-left: 21pt;text-indent: -16pt;text-align: left;">
+        <a name="bookmark21">&zwnj;</a>Miscellaneous Conditions:
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant agrees, understands and confirms that his/ her personal data including without limitation details relating to debit card/ credit card transmitted over the internet may be
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        susceptible to misuse, hacking, theft and/ or fraud and that <b>Cincooni </b>or the Payment Service Provider(s) have no control over such matters.
+        </p>
+        <p style="padding-left: 23pt;text-indent: 29pt;text-align: left;">
+        Although all reasonable care has been taken towards guarding against unauthorized use of any information transmitted by the Applicant, <b>Cincooni </b>does not represent or guarantee
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        that the use of the Services provided by/ through it will not result in theft and/or unauthorized use of data over the internet.
+        </p>
+        <h3 style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        Cincooni<span class="p">, the Payment Service Provider(s) and its affiliates and associates shall not be liable, at any time, for any failure of performance, error, omission, interruption, deletion, defect, delay in operation or transmission, computer virus, communications line failure, theft or
+        </span>
+        </h3>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        destruction or unauthorized access to, alteration of, or use of information contained on the Website.
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The total e-payment online transactions are executed using state of the art technology (SSL) to ensure secured transaction. <b>Cincooni </b>shall not be liable for any failure by the applicant or third-party making payment of Fees to properly protect data from being seen on their screen by other persons or otherwise obtained by such persons, during the online payment process or in respect of any omission to provide accurate information in the course of the online
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        payment process.
+        </p>
+    </li>
+    <li data-list-text="17.">
+        <h3 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
+        <a name="bookmark22">&zwnj;</a>Debit/Credit Card, Bank Account Details
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant agrees that the debit/credit card details provided by him/ her for use of the aforesaid Service(s) must be correct and accurate and that the Applicant shall not use a debit/ credit card, that is not lawfully owned by him/ her or the use of which is not
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        authorized by the lawful owner thereof. The Applicant further agrees and undertakes to provide correct and valid debit/credit card details.
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant may pay his/ her application/ subscriptions fees to <b>Cincooni </b>by using a debit/credit card or through online banking account. The Applicant warrants, agrees and confirms that when he/ she initiates a payment transaction and/or issues an online payment instruction and provides his/ her card / bank details:
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant is fully and lawfully entitled to use such credit / debit card, bank account for such transactions;
+        </p>
+        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant is responsible to ensure that the card/ bank account details provided by him/ her are accurate;
+        </p>
+        <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        (iii) <span class="p">The Applicant authorizes debit of the nominated card/ bank account for the payment of fees selected by such Applicant along with the applicable Fees.</span>
+        </h3>
+        <p style="padding-top: 3pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
+        The Applicant is responsible to ensure that sufficient credit is available on the nominated card/ bank account at the time of making the payment to permit the payment.
+        </p>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="18.">
+        <h3 style="padding-left: 21pt;text-indent: -16pt;text-align: left;">
+        <a name="bookmark23">&zwnj;</a>Transaction Charges
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <h3 style="padding-left: 5pt;text-indent: 2pt;text-align: left;">
+        Cincooni <span class="p">does not charge any processing fee or service charge from the Applicants for online payment. However, applicants have to bear the necessary transaction charge plus service tax</span>
+        </h3>
+        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+        applicable for online payment of Application/ Subscriptions fee. This charge will be taken by e-
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        payment solution provider for giving this service. Charges are mentioned in <b>Cincooni </b>payment Portal where Applicant proceeds for online payment.
+        </p>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    </li>
+    <li data-list-text="19.">
+        <h3 style="padding-left: 21pt;text-indent: -16pt;text-align: left;">
+        <a name="bookmark24">&zwnj;</a>Payment Gateway /Net Banking Disclaimer
+        </h3>
+        <p style="text-indent: 0pt;text-align: left;"><br/></p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        The Service is provided in order to facilitate access to pay Application/ Subscriptions fee online. <b>Cincooni </b>or the Payment Service Provider(s) do not make any representation of any kind, express or implied, as to the operation of the Payment Gateway other than what is specified in the
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        Website for this purpose. By accepting/ agreeing to these Terms and Conditions, the User expressly agrees that his/ her use of the aforesaid online payment Service is entirely at own risk and responsibility of the User.
+        </p>
+    </li>
+    <li data-list-text="20.">
+        <h3 style="padding-top: 12pt;padding-left: 22pt;text-indent: -17pt;text-align: left;">
+        <a name="bookmark25">&zwnj;</a>Refund and Cancellation Policy
+        </h3>
+    </li>
+    </ol>
+    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+    Refund: In the event there is any claim for refund by the Applicant for any reason
+    </p>
+    <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+    whatsoever, such Applicant shall immediately approach <b>Cincooni </b>with his/ her claim details and claim refund from <b>Cincooni </b>alone. Such refund (if any) shall be made only by <b>Cincooni </b>via payment gateway or by means of a demand draft or such other means as <b>Cincooni </b>deems appropriate, in line with their policies and rules. No claims for refund shall be made by any Applicant to the Payment Service Provider(s) and in the event such claim is made it shall not be entertained.
+    </p>
+    <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+    In these Terms and Conditions, the term “Refund” shall mean, approved and settled credit card or net banking transaction(s) for payment of fees.
+    </p>
+    <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+    Refund for fraudulent/duplicate transaction(s): The Applicant shall directly contact <b>Cincooni </b>for any fraudulent transaction(s) on account of misuse of Card/ Bank details by a fraudulent individual/party and such issues shall be suitably addressed by <b>Cincooni </b>alone in line with
+    </p>
+    <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+    their policies and rules.
+    </p>
+    <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
+    Server Slow Down/Session Timeout: In case the Website or Payment Service Provider’s webpage, that is linked to the Website, is experiencing any server related issues like ‘slow down’ or ‘failure’ or ‘session timeout’, the Applicant shall, before initiating the second payment, check whether his/her Bank Account has been debited or not and accordingly
+    </p>
+    <p style="padding-left: 23pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+    resort to one of the following options:
+    </p>
+    <ol id="l21">
+    <li data-list-text="(i)">
+        <p style="padding-left: 41pt;text-indent: -36pt;text-align: left;">
+        In case the Bank Account appears to be debited, ensure that he/ she does not make
+        </p>
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        the payment twice and immediately thereafter contact <b>Cincooni </b>via e-mail or any other mode of contact as provided by <b>Cincooni </b>to confirm payment.
+        </p>
+    </li>
+    <li data-list-text="(ii)">
+        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
+        In case the Bank Account is not debited, the Applicant may initiate a fresh transaction to make payment.
+        </p>
+    </li>
+    </ol>
+    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    <pre>
+        <div class="pvcy_container">
+            <div class="contact-box">
+                <p><br>
+                Contact Details 1:<br>
+                <strong>Cincooni Systems PVT LTD</strong><br><br>
+                3rd Floor, KH NO 303 Sultanpur,<br>
+                New Delhi 110030<br>
+                <a href="mailto:support@readerclub.in">support@readerclub.in</a><br>
+                Telephone number: 9911775525</p>
+            </div>
+    
+            <div class="contact-box">
+                <p><br>
+                Contact Details 2:<br>
+                <strong>ReaderClub</strong><br><br>
+                G1, Plot No. A-61,<br>
+                Sector-16, Noida,<br>
+                Gautam Buddh Nagar, UP 201301<br>
+                <a href="mailto:support@readerclub.in">support@readerclub.in</a><br>
+                Telephone number: 9911775525</p>
+            </div>
+        </div>
+    </pre>
+    <p style="text-indent: 0pt;text-align: left;"><br/></p>
+    <h3 style="text-indent: 0pt;text-align: center;">
+    No Return, No Refund.
+    </h3>
+    <!-- End Privacy Policy Content -->
+</div>
+{% endblock content %}

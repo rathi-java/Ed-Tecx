@@ -40,7 +40,7 @@
               <div class="divider"></div>
               <ul>
                   {% for feature in plan.features.items %}
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> {{ feature.1 }}</li>
+                  <li><img src="{% static 'images/check.jpg' %}" alt="✔"> {{ feature.1 }}</li>
                   {% endfor %}
               </ul>
               {% if plan.plan_type.code == 'basic' %}
@@ -62,7 +62,7 @@
         <p>🎉 You're One Step Closer to Your Dream Job!</p>
         <br>
         <p>Scan this code to pay via UPI</p>
-        <img src="{% static 'images/upi_app_icon.jpeg' %}" alt="icon" class="icon-jpeg">
+        <img src="{% static 'images/upi_app_icon.jpg' %}" alt="icon" class="icon-jpeg">
         <div class="qr-code">
             <img src="{% static 'images/qr.png' %}" alt="QR Code">
         </div>
@@ -96,4 +96,3 @@
   });
 </script>
 {% endblock extra_js %}
- 

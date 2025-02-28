@@ -28,7 +28,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{% static 'images/fav.ico' %}?v=1">
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
 
@@ -40,7 +40,7 @@
   <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
-        <img src="{% static 'assets/logo.png' %}" alt="EdTech Logo" height="50" />
+        <img src="{% static 'assets/header.png' %}" alt="EdTech Logo" height="50" />
       </a>
 
       <!-- Desktop Nav -->
@@ -69,9 +69,9 @@
           <li>
             <a class="nav-link" href="{% url 'price' %}" onclick="handleAuthCheck(event, '#')">Pricing</a>
           </li>
-          <li>
-            <a class="nav-link" href="#" onclick="handleAuthCheck(event, '#')">About Us</a>
-          </li>
+          {% comment %} <li>
+            <a class="nav-link" href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a>
+          </li> {% endcomment %}
         </ul>
       </div>
 
@@ -97,7 +97,7 @@
             <a href="#">Privacy Policy</a>
             <a href="#">About</a>
             <a href="#">Career</a>
-            <a href="#">Blog</a>
+            {% comment %} <a href="#">Blog</a> {% endcomment %}
           </div>
           <div class="profile-social-icons">
             <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -145,7 +145,7 @@
       </li>
       <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
       <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
-      <li><a href="#" onclick="handleAuthCheck(event, '#')">About Us</a></li>
+      <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li>
       {% if request.session.user_id %}
       <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
@@ -166,42 +166,43 @@
     <!-- First Row: main links -->
     <div class="footer-container">
       <div class="footer-left">
-        <img src="{% static 'assets/icon_2.png' %}" alt="Icon">
+        <img src="{% static 'assets/footer.png' %}" alt="Icon">
       </div>
       <div class="footer-links">
         <p class="footer-para">Useful Links</p>
         <ul>
-          <li>About Us</li>
-          <li>Contact Us</li>
-          <li>Blogs</li>
-          <li>Career</li>
-          <li>Privacy Policy</li>
-          <li>Terms & Conditions</li>
-          <li>Child Policy</li>
+          <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
+          <li><a href="/" class="no-underline">Contact Us</a></li>
+          <li><a href="{% url 'placement_stories' %}" class="no-underline">Placement Stories</a></li>
+          <li><a href="/" class="no-underline">Career</a></li>
+          <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
+          <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms & Conditions</a></li>
+          <li><a href="/" class="no-underline">Child Policy</a></li>
         </ul>
       </div>
       <div class="footer-practice">
         <p class="footer-para">Top Practice Ques</p>
         <ul>
-          <li>IT</li>
-          <li>Management</li>
-          <li>Aptitude</li>
-          <li>Coding</li>
+          <li><a href="{% url 'python_practice' %}" onclick="handleAuthCheck(event, '{% url 'python_practice' %}')">IT</a></li>
+          <li><a href="{% url 'finance_practice' %}" onclick="handleAuthCheck(event, '{% url 'finance_practice' %}')">Management</a></li>
+          <li><a href="{% url 'abstract_reasoning_practice' %}" onclick="handleAuthCheck(event, '{% url 'abstract_reasoning_practice' %}')">Aptitude</a></li>
+          <li><a href="{% url 'coding_practice' %}" onclick="handleAuthCheck(event, '{% url 'coding_practice' %}')">Coding</a></li>        
         </ul>
       </div>
       <div class="footer-ccc">
         <div class="footer-top">
           <p class="footer-para">Online Compiler</p>
           <ul class="footer-iii">
-            <div class="footer-iv">
-              <li>C++ Compiler</li>
-              <li>Java Compiler</li>
-            </div>
-            <div>
-              <div class="footer-i"><li>JS Compiler</li></div>
-              <div class="footer-ii"><li>Python Compiler</li></div>
-            </div>
-          </ul>
+            <li>
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">C++ Compiler</a>
+            </li>
+            <li>
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Java Compiler</a>
+            </li>
+            <li class="footer-i">
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">JS Compiler</a>
+            </li>
+          </ul>          
         </div>
         <div class="footer-down">
           <p class="footer-para">Jobs & Opportunities</p>
@@ -214,20 +215,22 @@
         </div>
       </div>
       <div class="footer-practice">
-        <p class="footer-para">Socials</p>
-        <ul>
-          <li><a href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-          <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
-          <li><a href="https://twitter.com" target="_blank">X</a></li>
-          <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>          
-        </ul>
+        <p class="footer-para">Contact US</p>
+        <ul class="social-links">
+          <li><i class="fa fa-phone"></i>  +91-9911775525</li>
+          <li><i class="fa fa-envelope"></i>  contact@readerclub.in</li>
+          <li><i class="fa-solid fa-location-dot"></i>  G1, Plot No. A-61,
+            Sector-16, Noida,
+            Gautam Buddh
+            Nagar, UP 201301</li>
+        </ul>        
       </div>
     </div>
     <!-- Second Row: HR + base row -->
     <div class="footer-container footer-column">
       <hr class="footer-line">
       <div class="footer-base">
-        <p>© 2022 Readerclub. All rights reserved</p>
+        <p>© 2018-25 Readerclub. All rights reserved</p>
         {% comment %} <div class="footer-logos">
           <div class="fac">
             <img src="{% static 'assets/facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
@@ -277,21 +280,18 @@
   </div>
 
   <!-- Load All Auth JS from oauth -->
-  <script src="{% static 'js/auth.js' %}"></script> 
-  {% block extra_js %}
-  {% endblock %}
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var formType = "{{ form_type|default:'none' }}".trim();
-      console.log("formType:", formType);
-      if (formType === 'login') {
+      // Check if we should show the login form based on form_type
+      {% if form_type == 'login' %}
         openModal('login');
-      }
-      else if (formType === 'signup') {
+      {% elif form_type == 'signup' %}
         openModal('signup');
-      }
-      // If formType is 'none', do nothing
+      {% endif %}
     });
   </script>  
+  {% block extra_js %}
+  {% endblock %}
+  <script src="{% static 'js/auth.js' %}"></script> 
 </body>
 </html>

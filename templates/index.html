@@ -12,6 +12,16 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<style>
+  /* Hide scrollbar but keep manual scrolling */
+  .achiever-list {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+   }
+  .achiever-list::-webkit-scrollbar {
+    display: none;            /* Chrome/Safari */
+   }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -108,14 +118,12 @@
 
     <!-- RIGHT COLUMN (ASIDE) -->
     <aside class="hero-right">
-      <h2 class="achievers-title">
-        <img src="{% static 'images/trophy.png' %}" alt="Trophy" width="52" height="53"
-             style="vertical-align: middle; margin-right: 8px;">
-        Top Achievers
-      </h2>
-      <button class="category-btn">Software Development</button>
+      {% comment %} <img src="{% static 'images/trophy.png' %}" {% endcomment %}
+      <h2 class="achievers-title">Top Achievers</h2>
+      <button id="category" class="category-btn">Software Development</button>
 
-      <!-- Infinitely scrolling list -->
+
+      <!-- Auto-scroll list -->
       <div class="achiever-list" id="achieverList">
         <!-- Achiever 1 -->
         <div class="achiever-card">
@@ -125,7 +133,7 @@
           <div class="achiver-detail">
             <p class="achiver-name"><b>Rishi Prakash</b></p>
             <p class="achiver-comp">Microsoft</p>
-            <p class="achiver-post">Software Developer<br><img src="{% static 'images/package.png' %}" alt="Package"> 12 LPA</p>
+            <p class="achiver-post">Software Developer<br>💰 12 LPA</p>
           </div>
           <div class="achiver-badge">
             <img src="{% static 'images/badge.webp' %}" alt="Badge">
@@ -139,7 +147,7 @@
           <div class="achiver-detail">
             <p class="achiver-name"><b>Meera Roy</b></p>
             <p class="achiver-comp">Amazon</p>
-            <p class="achiver-post">Data Engineer<br><img src="{% static 'images/package.png' %}" alt="Package"> 15 LPA</p>
+            <p class="achiver-post">Data Engineer<br>💰 15 LPA</p>
           </div>
           <div class="achiver-badge">
             <img src="{% static 'images/badge.webp' %}" alt="Badge">
@@ -153,7 +161,7 @@
           <div class="achiver-detail">
             <p class="achiver-name"><b>Ankit Sharma</b></p>
             <p class="achiver-comp">Google</p>
-            <p class="achiver-post">Cloud Specialist<br><img src="{% static 'images/package.png' %}" alt="Package"> 18 LPA</p>
+            <p class="achiver-post">Cloud Specialist<br>💰 18 LPA</p>
           </div>
           <div class="achiver-badge">
             <img src="{% static 'images/badge.webp' %}" alt="Badge">
@@ -167,7 +175,7 @@
           <div class="achiver-detail">
             <p class="achiver-name"><b>Priya Singh</b></p>
             <p class="achiver-comp">Meta</p>
-            <p class="achiver-post">ML Engineer<br><img src="{% static 'images/package.png' %}" alt="Package"> 20 LPA</p>
+            <p class="achiver-post">ML Engineer<br>💰 20 LPA</p>
           </div>
           <div class="achiver-badge">
             <img src="{% static 'images/badge.webp' %}" alt="Badge">
@@ -242,47 +250,209 @@
 
 <!-- Achievers infinite + auto scroll scripts -->
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  // Categories & Achievers data
+  const categories = [
+    {
+      name: "Software Development",
+      achievers: [
+        { name: "Rishi Prakash", company: "Microsoft", post: "Software Developer", salary: "💰 12 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Meera Roy", company: "Amazon", post: "Data Engineer", salary: "💰 15 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Ankit Sharma", company: "Google", post: "Cloud Specialist", salary: "💰 18 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Priya Singh", company: "Meta", post: "ML Engineer", salary: "💰 20 LPA", image: "{% static 'images/girl.png' %}" }
+      ]
+    },
+    {
+      name: "Data Science",
+      achievers: [
+        { name: "Amit Verma", company: "Amazon", post: "Data Scientist", salary: "💰 18 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Pooja Singh", company: "Facebook", post: "ML Engineer", salary: "💰 20 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Rahul Kumar", company: "Netflix", post: "AI Researcher", salary: "💰 22 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Sneha Joshi", company: "IBM", post: "Data Analyst", salary: "💰 16 LPA", image: "{% static 'images/girl.png' %}" }
+      ]
+    },
+    {
+      name: "Cyber Security",
+      achievers: [
+        { name: "Raj Malhotra", company: "IBM", post: "Security Analyst", salary: "💰 13 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Simran Kaur", company: "Cisco", post: "Ethical Hacker", salary: "💰 16 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Vikram Patel", company: "Microsoft", post: "Security Engineer", salary: "💰 19 LPA", image: "{% static 'images/girl.png' %}" },
+        { name: "Neha Gupta", company: "Google", post: "Threat Hunter", salary: "💰 21 LPA", image: "{% static 'images/girl.png' %}" }
+      ]
+    }
+  ];
+
+  // Keeps track of which category we're on, and the requestAnimationFrame ID for scrolling
+  let currentIndex = 0;
+  let scrollAnimationId;
+  let autoScrollTimeout;
+
+  /**
+  * Sets up infinite scrolling for whichever cards are in #achieverList now.
+  */
+  function autoScrollAchievers(duration, callback) {
     const achieverList = document.getElementById('achieverList');
+    
+    // Cancel any existing animation
+    if (scrollAnimationId) {
+      cancelAnimationFrame(scrollAnimationId);
+    }
+    
+    // Clear any existing timeout
+    if (autoScrollTimeout) {
+      clearTimeout(autoScrollTimeout);
+    }
+
+    // Reset scroll position
+    achieverList.scrollTop = 0;
     let scrollPos = 0;
-    const autoScrollSpeed = 0.75; // Adjust as desired
+    
+    // Speed of the auto-scroll (pixels per frame)
+    const autoScrollSpeed = 0.75;
 
-    // Store the original 4 Achiever cards
-    const baseCards = Array.from(achieverList.children);
-
-    // Clones the base cards & appends to the container
-    function addMoreCards() {
+    // Get the original cards as base for cloning
+    const baseCards = Array.from(achieverList.querySelectorAll('.achiever-card')).slice(0, categories[currentIndex].achievers.length);
+    
+    // Clear any existing cards and add our base cards
+    achieverList.innerHTML = '';
+    baseCards.forEach(card => {
+      achieverList.appendChild(card.cloneNode(true));
+    });
+    
+    // Add more cards initially to ensure there's enough content to scroll
+    for (let i = 0; i < 3; i++) {
       baseCards.forEach(card => {
-        const clone = card.cloneNode(true);
-        achieverList.appendChild(clone);
+        achieverList.appendChild(card.cloneNode(true));
       });
     }
 
-    // Generate a bunch of extra cards at the start
-    addMoreCards(); 
-    addMoreCards();
+    // Function to add more cards when nearing the bottom
+    function addMoreCards() {
+      baseCards.forEach(card => {
+        achieverList.appendChild(card.cloneNode(true));
+      });
+    }
 
-    // If near bottom, clone more
+    // Check if we're near the bottom
     function checkBottom() {
-      if (achieverList.scrollTop + achieverList.clientHeight >= achieverList.scrollHeight - 50) {
+      if (achieverList.scrollTop + achieverList.clientHeight >= achieverList.scrollHeight - 200) {
         addMoreCards();
       }
     }
 
-    // Keep generating new cards if user manually scrolls
-    achieverList.addEventListener('scroll', () => {
-      checkBottom();
-      scrollPos = achieverList.scrollTop;
-    });
-
-    // Continuous auto-scroll
+    // The animation function
     function animate() {
       scrollPos += autoScrollSpeed;
       achieverList.scrollTop = scrollPos;
       checkBottom();
-      requestAnimationFrame(animate);
+      scrollAnimationId = requestAnimationFrame(animate);
     }
-    requestAnimationFrame(animate);
+
+    // Start the animation
+    animate();
+
+    // Set timeout to change category if requested
+    if (duration && callback) {
+      autoScrollTimeout = setTimeout(() => {
+        cancelAnimationFrame(scrollAnimationId);
+        callback();
+      }, duration);
+    }
+  }
+
+  /**
+  * Changes to the next category with animation
+  */
+  function updateCategory() {
+    const categoryBtn = document.getElementById('category');
+    const achieverList = document.getElementById('achieverList');
+
+    // Slide out effect
+    categoryBtn.classList.add('slide-out');
+    achieverList.classList.add('slide-out');
+
+    // After the slide-out completes, change content
+    setTimeout(() => {
+      // Update category button text
+      const nextCategory = categories[currentIndex];
+      categoryBtn.textContent = nextCategory.name;
+      
+      // Clear existing cards
+      achieverList.innerHTML = '';
+
+      // Create & append new cards for current category
+      nextCategory.achievers.forEach(achiever => {
+        const card = document.createElement("div");
+        card.classList.add("achiever-card");
+        card.innerHTML = `
+          <div class="achiver-image">
+            <img src="${achiever.image}" alt="Achiever">
+          </div>
+          <div class="achiver-detail">
+            <p class="achiver-name"><b>${achiever.name}</b></p>
+            <p class="achiver-comp">${achiever.company}</p>
+            <p class="achiver-post">${achiever.post}<br>${achiever.salary}</p>
+          </div>
+          <div class="achiver-badge">
+            <img src="{% static 'images/badge.webp' %}" alt="Badge">
+          </div>
+        `;
+        achieverList.appendChild(card);
+      });
+
+      // Remove slide-out classes
+      categoryBtn.classList.remove('slide-out');
+      achieverList.classList.remove('slide-out');
+
+      // Add slide-in class for animation
+      categoryBtn.classList.add('slide-in');
+      achieverList.classList.add('slide-in');
+
+      // Remove slide-in classes after animation completes
+      setTimeout(() => {
+        categoryBtn.classList.remove('slide-in');
+        achieverList.classList.remove('slide-in');
+      }, 500);
+
+      // Move to next category
+      currentIndex = (currentIndex + 1) % categories.length;
+
+      // Start auto scrolling again with a callback to update category
+      autoScrollAchievers(10000, updateCategory);
+
+    }, 500); // Transition duration
+  }
+
+  // Initialize everything when the page is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    const achieverList = document.getElementById('achieverList');
+    
+    // Set up manual scroll handling
+    achieverList.addEventListener('scroll', function() {
+      // If this is a manual scroll, get the current category
+      const currentCategory = categories[(currentIndex === 0 ? categories.length - 1 : currentIndex - 1)];
+      const baseCards = Array.from(this.querySelectorAll('.achiever-card')).slice(0, currentCategory.achievers.length);
+      
+      // Add more cards if scrolled near bottom
+      if (this.scrollTop + this.clientHeight >= this.scrollHeight - 200) {
+        baseCards.forEach(card => {
+          this.appendChild(card.cloneNode(true));
+        });
+      }
+    });
+
+    // Allow manual category change by clicking button
+    document.getElementById('category').addEventListener('click', function() {
+      if (scrollAnimationId) {
+        cancelAnimationFrame(scrollAnimationId);
+      }
+      if (autoScrollTimeout) {
+        clearTimeout(autoScrollTimeout);
+      }
+      updateCategory();
+    });
+
+    // Start with the first category
+    updateCategory();
   });
 </script>
 
@@ -312,7 +482,7 @@
       </div>
 
       <!-- Vertical Divider -->
-      <div class="divider"></div>
+      <div class="divider-e"></div>
 
       <!-- Right Section -->
       <div class="right">
@@ -406,7 +576,7 @@
   <!-- Card Content -->
   <div class="card-containerr" id="card">
       <h2 id="subject">Science & Technology</h2>
-      <p>Most popular around the world<br>all for learning..</p>
+      <p>Most popular courses around the world for learning..</p>
       <div class="button-containerr">
           <button class="show-all" onclick="window.location.href='//www.readerclub.in/'">Show All</button>
           <button class="subscribe" onclick="window.location.href='//www.readerclub.in/'">Subscribe</button>
@@ -426,6 +596,89 @@
   <footer>
       <p><i>Access magazines on every topic and ace your learning journey</i></p>
   </footer>
+</section>
+
+<!-- top-company section-->
+<section class="top-company-section">
+  <div class="company-conatiner">
+    <div class="content">
+        <div class="header">Top Companies<br>Hiring</div>
+        <div class="divider"></div>
+        <div class="companies">
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                  <img src="{% static 'images/meta.png' %}" alt="Meta">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/jtc.png' %}" alt="LTC">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/d.png' %}" alt="Deloitte">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/google.png' %}" alt="Google">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/infosys.png' %}" alt="Infosys">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top-company-footer">Trusted by 1k+ Companies all over the globe</div>
+  </div>
+  <hr>
+  <div class="company-conatiner">
+    <div class="content">
+        <div class="header">Top Companies Hiring</div>
+        <div class="divider"></div>
+        <div class="companies">
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/meta.png' %}" alt="Meta">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/jtc.png' %}" alt="LTC">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/d.png' %}" alt="Deloitte">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/google.png' %}" alt="Google">
+                </div>
+            </div>
+            <div class="company">
+                <span class="job-count">20+ Jobs</span>
+                <div class="circle-conatiner">
+                    <img src="{% static 'images/infosys.png' %}" alt="Infosys">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top-company-footer">Trusted by 1k+ Companies all over the globe</div>
+  </div>
 </section>
 
 <!-- FAQ Section -->
@@ -509,7 +762,7 @@
           <button class="get-show"></button>
           <div class="phone-screen">
               <h2 class="phone-text">Download the <br> App now</h2>
-              <img src="{% static 'assets/icon_2.png' %}" alt="Download Icon" class="download-icon">
+              <img src="{% static 'assets/footer.png' %}" alt="Download Icon" class="download-icon">
               <button class="get-started">Download</button>
           </div>
       </div>
@@ -525,20 +778,26 @@
           </p>
 
           <div class="download-buttons">
-              <a href="#" class="download-btn apple-btn">
-                  <img src="{% static 'images/apple.png' %}" alt="Apple"> Download Now
-              </a>
-              <a href="#" class="download-btn android-btn">
-                  <img src="{% static 'images/android.png' %}" alt="Android"> Download Now
-              </a>
-          </div>
+            <a href="#" class="download-btn apple-btn">
+              <i class="fab fa-apple fa-2x"></i> Download Now
+            </a>
+            <a href="#" class="download-btn android-btn">
+              <i class="fab fa-google-play fa-2x"></i> Download Now
+            </a>
+        </div>        
       </div>
   </div>
 </section>
 
 {% block extra_js %}
 <script src="{% static 'js/index.js' %}"></script>
-
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  {% if show_login_modal %}
+    openModal('login');
+  {% endif %}
+});
+</script>
  
 {% endblock %}
 

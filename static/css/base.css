@@ -38,7 +38,7 @@
   justify-content: space-between;
 }
 .navbar-brand img {
-  height: 50px;
+  height: 295px;
   display: inline-block;
 }
 
@@ -273,14 +273,14 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 70px;
+  gap: 40px;
 }
 
 .footer-container img {
   width: 165px;
   height: auto;
-  margin-top: 60px;
-  margin-left: 42px;
+  margin-top: 37px;
+  margin-left: 44px;
 }
 /* The second row uses column layout for the hr + base row */
 .footer-column {
@@ -314,6 +314,30 @@
   display: inline-block;
   padding-bottom: 4px;
 }
+.no-underline {
+  text-decoration: none;
+  color: #fff;
+}
+.social-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* Adjust spacing between icons */
+}
+
+.social-links li a {
+  text-decoration: none;
+  /* color: #333; Adjust color as needed */
+  font-size: 20px; /* Increase icon size */
+  transition: transform 0.3s ease;
+}
+
+.social-links li a:hover {
+  transform: scale(1.1);
+}
+
 
 .footer-container ul {
   list-style: none;
@@ -371,6 +395,36 @@
   width: 55px;
   height: 55px;
   vertical-align: middle;
+}
+/* Remove default list styles and spacing for the footer list */
+.footer-iii {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Add spacing between groups (the div wrappers) if needed */
+/* .footer-iii > div {
+  margin-bottom: 10px;
+} */
+
+/* Style each list item */
+.footer-iii li {
+  margin-bottom: 10px;
+}
+
+/* Anchor styling for all footer items */
+.footer-iii li a {
+  text-decoration: none;
+  color: #fff; 
+}
+
+/* Hover and focus effects */
+.footer-iii li a:hover,
+.footer-iii li a:focus {
+  /* background-color: #007bff; */
+  color: #fff;
+  /* border-color: #007bff; */
 }
 
 /*****************************************************

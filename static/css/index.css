@@ -1,3 +1,4 @@
+
 /* ======================== RESET/BASE ========================= */
 * {
   margin: 0;
@@ -5,14 +6,6 @@
   box-sizing: border-box;
   /* border: none; */
 }
-  /* Hide scrollbar but keep manual scrolling */
-  .achiever-list {
-    -ms-overflow-style: none;  /* IE/Edge */
-    scrollbar-width: none;     /* Firefox */
-  }
-  .achiever-list::-webkit-scrollbar {
-    display: none;            /* Chrome/Safari */
-  }
 section {
   max-width: 1200px;
   width: 90%;
@@ -295,6 +288,49 @@ hr {
 .achiever-list {
   scrollbar-width: thin;
   scrollbar-color: #007bc3 #f1f1f1;
+}
+
+  /* Animation for category button */
+  #category {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.animate-category {
+    opacity: 0;
+    transform: scale(0.8);
+}
+  /* Sliding out animation */
+.slide-out {
+    animation: slideOut 0.5s forwards;
+}
+
+/* Sliding in animation */
+.slide-in {
+    animation: slideIn 0.5s forwards;
+}
+
+/* Keyframes for sliding out */
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-50%);
+        opacity: 0;
+    }
+}
+
+/* Keyframes for sliding in */
+@keyframes slideIn {
+    from {
+        transform: translateX(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* ============ RESPONSIVE MEDIA QUERIES FOR HERO ============ */
@@ -827,7 +863,7 @@ hr {
 }
 
 /* Divider Fix */
-.divider {
+.divider-e {
   width: 4px;
   background-color: #98d6fd;
   height: 90%;
@@ -1538,6 +1574,172 @@ footer p {
   }
 }
 
+/* ----------------------------top-compnay-section------------------------------------- */
+.company-conatiner {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+.content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.header {
+  font-size: 35px;
+  color: #007bff;
+  font-weight: bold;
+  text-align: left;
+  flex: 1;
+}
+.divider {
+  width: 1px;
+  background: #ccc;
+  height: 100px;
+  margin: 0 20px;
+  left: 240px;
+  top: 44px;
+}
+.companies {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex: 3;
+}
+.company {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin: 0 10px;
+}
+.circle-conatiner {
+  width: 100px; /* Fixed company-conatiner size */
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  background: white;
+  overflow: hidden;
+}
+.company img {
+  max-width: 86%;
+  max-height: 100%;
+ 
+}
+.job-count {
+  position: absolute;
+  top: -10px;
+  background: white;
+  color: #000;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+.top-company-footer {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .company-conatiner {
+      width: 90%;
+  }
+  .title {
+      font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .company-conatiner {
+      flex-direction: column;
+      align-items: center;
+  }
+  .left-section, .slider-company-conatiner {
+      width: 100%;
+      text-align: center;
+  }
+  .slider-company-conatiner {
+      margin-top: 20px;
+  }
+  button {
+      font-size: 24px;
+  }
+  .company img {
+      width: 80px;
+      height: 80px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .job-slider {
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+  .job-card {
+      width: 90%;
+      height: auto;
+  }
+  .title {
+      font-size: 30px;
+  }
+  button {
+      font-size: 20px;
+  }
+  .circle-conatiner {
+      width: 80px;
+      height: 80px;
+  }
+  .company img {
+      width: 70px;
+      height: 70px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .company-conatiner {
+      width: 95%;
+      padding: 10px;
+  }
+  .job-card {
+      width: 100%;
+  }
+  .title {
+      font-size: 24px;
+  }
+  button {
+      font-size: 18px;
+  }
+  .companies {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      justify-content: center;
+  }
+  .circle-conatiner {
+      width: 60px;
+      height: 60px;
+  }
+  .company img {
+      width: 50px;
+      height: 50px;
+  }
+}
+
+
 /* ----------------------------faq section------------------------------------- */
 
 .breadcrumb {
@@ -1679,10 +1881,10 @@ footer p {
   line-height: 1.6;
   pointer-events: none; /* Prevents clicks on paragraph text from triggering events */
 }
-
+/* e6f2ff */
 /* Style for active FAQ item */
 .faq-list li.faq-active a {
-  background: #e6f2ff;
+  /* background: #e6f2ff; */
   border-radius: 5px 5px 0 0;
   color: #0056b3;
   font-weight: 600;
@@ -1708,6 +1910,7 @@ footer p {
   opacity: 1 !important;
   max-height: 500px !important; /* Larger max-height to accommodate content */
   overflow: visible !important;
+  background: #e6f2ff;
 }
 
 .faq-list li.faq-active {
@@ -1792,7 +1995,7 @@ footer p {
 
 .download-icon {
   width: auto;
-  height: 100px;
+  height: 155px;
   margin: 45px 0;
 }
 
@@ -1969,6 +2172,7 @@ footer p {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+    /* font-size: 10px; */
   }
 }
 
