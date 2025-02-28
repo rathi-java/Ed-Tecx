@@ -52,7 +52,7 @@ sendOtpForm.addEventListener('submit', function(e) {
   userEmail = document.getElementById('email').value;
   messageDiv.innerHTML = "";
   timerDiv.innerHTML = "";
-  fetch("{% url 'send_email' %}", {
+  fetch(sendEmailUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -83,7 +83,7 @@ sendOtpForm.addEventListener('submit', function(e) {
 verifyOtpForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const otp = document.getElementById('otp').value;
-  fetch("{% url 'verify_otp' %}", {
+  fetch(verifyOtpUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -115,7 +115,7 @@ resetPasswordForm.addEventListener('submit', function(e) {
   const confirmPassword = document.getElementById('confirmPassword').value;
   const emailForReset = emailHidden.value;
 
-  fetch("{% url 'reset_password' %}", {
+  fetch(resetPasswordUrl, {
       method: "POST",
       headers: {
           "Content-Type": "application/x-www-form-urlencoded",
