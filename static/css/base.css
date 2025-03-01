@@ -37,9 +37,16 @@
   align-items: center;
   justify-content: space-between;
 }
+.navbar-brand {
+  height: 80px; /* Set your desired header height */
+  overflow: hidden; /* Hide any overflow */
+}
+
 .navbar-brand img {
-  height: 295px;
+  height: 295px; /* Keep original height */
   display: inline-block;
+  margin-top: -100px; /* Adjust this value to show the portion of the image you want */
+  margin-left: -22px;
 }
 
 /*****************************************************
@@ -265,30 +272,33 @@
   overflow-x: hidden;
 }
 
+/* Main footer container styles */
 .footer-container {
-  /* Match .nav-container exactly */
   max-width: 1200px;         /* same width as your header container */
   margin: 0 auto;            /* center it horizontally */
-  padding: 0 20px;           /* optional side padding to match header’s spacing */
+  padding: 0 20px;           /* optional side padding to match header spacing */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
 }
 
+/* Footer image styling */
 .footer-container img {
   width: 165px;
   height: auto;
   margin-top: 37px;
   margin-left: 44px;
 }
-/* The second row uses column layout for the hr + base row */
+
+/* Second row container using column layout for hr + base row */
 .footer-column {
   flex-direction: column;
   align-items: center;
   gap: 0;
 }
 
+/* Left section of the footer */
 .footer-left {
   flex: 1;
   display: flex;
@@ -297,6 +307,7 @@
   min-width: 220px;
 }
 
+/* Footer link groups */
 .footer-links,
 .footer-practice,
 .footer-ccc {
@@ -306,6 +317,7 @@
   margin-top: 20px;
 }
 
+/* Section header in the footer */
 .footer-para {
   font-size: 1.2rem;
   font-weight: bold;
@@ -314,10 +326,14 @@
   display: inline-block;
   padding-bottom: 4px;
 }
+
+/* Remove underline from links */
 .no-underline {
   text-decoration: none;
   color: #fff;
 }
+
+/* Social links list styling */
 .social-links {
   list-style: none;
   padding: 0;
@@ -329,7 +345,6 @@
 
 .social-links li a {
   text-decoration: none;
-  /* color: #333; Adjust color as needed */
   font-size: 20px; /* Increase icon size */
   transition: transform 0.3s ease;
 }
@@ -338,7 +353,7 @@
   transform: scale(1.1);
 }
 
-
+/* Remove default list styles in footer containers */
 .footer-container ul {
   list-style: none;
   padding-left: 0;
@@ -350,6 +365,7 @@
   transition: 0.3s;
 }
 
+/* Horizontal line in the footer */
 .footer-line {
   width: 1200px;
   margin-left: 1%;
@@ -357,10 +373,11 @@
   margin: 10px 0;  /* or as you prefer */
 }
 
+/* Footer base row styling */
 .footer-base {
   max-width: 1200px;         /* same width as your header container */
   margin: 0 auto;            /* center it horizontally */
-  padding: 0 20px;           /* optional side padding to match header’s spacing */
+  padding: 0 20px;           /* optional side padding to match header spacing */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -375,15 +392,16 @@
   font-size: 12px;
 }
 
+/* Footer practice links hover effects */
 .footer-practice ul li a {
   text-decoration: none;
-  color: inherit; /* keeps the inherited text color */
+  color: inherit; /* inherits text color */
 }
 .footer-practice ul li a:hover {
   text-decoration: none;
 }
 
-
+/* Footer logos styling */
 .footer-logos {
   display: flex;
   gap: 15px;
@@ -396,35 +414,113 @@
   height: 55px;
   vertical-align: middle;
 }
-/* Remove default list styles and spacing for the footer list */
+
+/* Footer list items without default styles */
 .footer-iii {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* Optional: Add spacing between groups (the div wrappers) if needed */
-/* .footer-iii > div {
-  margin-bottom: 10px;
-} */
-
-/* Style each list item */
+/* Individual list item spacing */
 .footer-iii li {
   margin-bottom: 10px;
 }
 
-/* Anchor styling for all footer items */
+/* Anchor styling for footer items */
 .footer-iii li a {
   text-decoration: none;
   color: #fff; 
 }
 
-/* Hover and focus effects */
+/* Hover and focus effects for footer links */
 .footer-iii li a:hover,
 .footer-iii li a:focus {
-  /* background-color: #007bff; */
   color: #fff;
-  /* border-color: #007bff; */
+}
+
+/*****************************************************
+ * RESPONSIVE FOOTER STYLES
+ * Adjust footer layout on smaller screens
+ *****************************************************/
+@media (max-width: 768px) {
+  /* Stack footer sections vertically */
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Center align each section within the footer */
+  .footer-container > div {
+    text-align: center;
+  }
+  
+  /* Adjust the footer image margin for smaller screens */
+  .footer-container img {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+  
+  /* Adjust horizontal line width to be more flexible */
+  .footer-line {
+    width: 90%;
+    margin: 10px auto;
+  }
+  
+  /* Stack the base row items vertically */
+  .footer-base {
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* Optional: Additional breakpoints for very small devices */
+@media (max-width: 425px) {
+  .footer-para {
+    font-size: 1rem;
+  }
+  
+  .footer-container,
+  .footer-base {
+    padding: 0 10px;
+  }
+}
+/* Laptop screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  /* Allow sections to wrap and center them */
+  .footer-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  /* Each footer section takes about half the available width */
+  .footer-container > div {
+    flex: 1 1 45%;
+    text-align: center;
+    margin: 10px 0;
+  }
+  /* Adjust image margins */
+  .footer-container img {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+  /* Make the horizontal line flexible */
+  .footer-line {
+    width: 90%;
+    margin: 10px auto;
+  }
+  /* Stack base row items vertically */
+  .footer-base {
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /*****************************************************
@@ -481,7 +577,7 @@
 /* Additional breakpoints */
 @media (max-width: 425px) {
   .navbar-brand img {
-    height: 40px;
+    height: 295px;
   }
   .signup button,
   .login button {
@@ -491,7 +587,7 @@
 }
 @media (max-width: 375px) {
   .navbar-brand img {
-    height: 35px;
+    height: 295px;
   }
   .signup button,
   .login button {
@@ -501,7 +597,7 @@
 }
 @media (max-width: 320px) {
   .navbar-brand img {
-    height: 30px;
+    height: 295px;
   }
   .signup button,
   .login button {

@@ -8,6 +8,7 @@ urlpatterns = [
     path('instructions/', instructions, name='instructions'),
     path('results/',user_exam_results, name='exam_results'),
     path('instructions/terms/', terms, name='terms'),
+    path('upload-questions/', upload_questions, name='manage_questions'),
     # path('certificate/<int:exam_id>/', generate_certificate, name='generate_certificate'),
 
     path('instructions/privacy/', privacy, name='privacy'),

@@ -1,1191 +1,721 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}ReaderClub Terms _ Conditions{% endblock %}
+{% block title %}About Us{% endblock %}
 
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 <style type="text/css">
     .tnc_container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 80%;
-        margin: auto;
-        line-height: 0.75;
+        max-width: 1200px;
+        width: 90%;
+        margin: 58px auto 4px auto;
+        background-color: #fff;
+        padding: 5pt;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
     }
-    .contact-box {
-        width: 45%;
+
+    h1, h2 {
+        font-family: "Trebuchet MS", sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: left;
+        padding-left: 5pt;
     }
-    .contact-box a {
-        color: blue;
+
+    h1 {
+        color: #077BC2;
+        font-size: 22pt;
+        padding-top: 3pt;
+    }
+
+    h2 {
+        color: #FE7800;
+        font-size: 17.5pt;
+        padding-top: 12pt;
+    }
+
+    .about-us-para {
+        font-family: "Trebuchet MS", sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: none;
+        font-size: 16.5pt;
+        text-align: justify;
+        margin: 0pt;
+        padding-left: 5pt;
+        padding-right: 5pt;
+        padding-top: 12pt;
+        color: #818181;
+    }
+
+    .contact-link {
+        color: #077BC2;
+        font-size: 10.5pt;
         text-decoration: none;
     }
-.terms_and_conditions_container{
-    max-width: 1200px;
-    width: 90%;
-    margin: 60px auto;
-    background-color: #fff;
-
-}
-  h1 { color: #0779C2; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 22pt; }
-  .s1 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
-  .p, p { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; margin:0pt; }
-  h2 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 14pt; }
-  .s2 { color: #black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
-  .s3 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
-  .a, a { color: #0779C2; font-family:"Lucida Sans", sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt; }
-  .s4 { color: #0779C2; font-family:"Lucida Sans", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 12pt; }
-  .s5 { color: #0779C2; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: underline; font-size: 10.5pt; }
-  .s7 { color: #1153CC; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
-  .s8 { color: #0779C2; font-family:"Lucida Sans", sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 13pt; }
-  .s9 { color: #0779C2; font-family:"Lucida Sans", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 13pt; }
-  h4 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 11pt; }
-  .s10 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
-  h3 { color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 12pt; }
-  li {display: block; }
-  #l1 {padding-left: 0pt;counter-reset: c1 1; }
-  #l1> li>*:first-child:before {counter-increment: c1; content: counter(c1, decimal)". "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-  #l1> li:first-child>*:first-child:before {counter-increment: c1 0;  }
-  #l2 {padding-left: 0pt; }
-  #l2> li>*:first-child:before {content: "● "; color: black; font-family:Arial, sans-serif; font-style: normal; font-weight: normal; text-decoration: none; }
-  #l3 {padding-left: 0pt;counter-reset: d1 0; }
-  #l3> li>*:first-child:before {counter-increment: d1; content: counter(d1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-  #l3> li:first-child>*:first-child:before {counter-increment: d1 0;  }
-  #l4 {padding-left: 0pt;counter-reset: d2 1; }
-  #l4> li>*:first-child:before {counter-increment: d2; content: counter(d1, decimal)"."counter(d2, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
-  #l4> li:first-child>*:first-child:before {counter-increment: d2 0;  }
-  #l5 {padding-left: 0pt;counter-reset: e1 0; }
-  #l5> li>*:first-child:before {counter-increment: e1; content: counter(e1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-  #l5> li:first-child>*:first-child:before {counter-increment: e1 0;  }
-  #l6 {padding-left: 0pt;counter-reset: e2 1; }
-  #l6> li>*:first-child:before {counter-increment: e2; content: counter(e1, decimal)"."counter(e2, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
-  #l6> li:first-child>*:first-child:before {counter-increment: e2 0;  }
-  #l7 {padding-left: 0pt;counter-reset: f1 0; }
-  #l7> li>*:first-child:before {counter-increment: f1; content: counter(f1, decimal)" "; color: black; font-style: normal; font-weight: normal; text-decoration: none; }
-  #l7> li:first-child>*:first-child:before {counter-increment: f1 0;  }
-  #l8 {padding-left: 0pt;counter-reset: f2 1; }
-  #l8> li>*:first-child:before {counter-increment: f2; content: counter(f1, decimal)"."counter(f2, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
-  #l8> li:first-child>*:first-child:before {counter-increment: f2 0;  }
-  li {display: block; }
-  #l9 {padding-left: 0pt;counter-reset: g1 1; }
-  #l9> li>*:first-child:before {counter-increment: g1; content: counter(g1, lower-latin)") "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: normal; text-decoration: none; font-size: 10.5pt; }
-  #l9> li:first-child>*:first-child:before {counter-increment: g1 0;  }
-  li {display: block; }
-  #l10 {padding-left: 0pt;counter-reset: h1 2; }
-  #l10> li>*:first-child:before {counter-increment: h1; content: counter(h1, decimal)". "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 9.5pt; }
-  #l10> li:first-child>*:first-child:before {counter-increment: h1 0;  }
-  #l11 {padding-left: 0pt;counter-reset: h2 1; }
-  #l11> li>*:first-child:before {counter-increment: h2; content: "("counter(h2, lower-roman)") "; color: #black; font-family:"Trebuchet MS", sans-serif; font-style: normal; font-weight: bold; text-decoration: none; font-size: 10.5pt; }
-  #l11> li:first-child>*:first-child:before {counter-increment: h2 0;  }
+    /* Contact details */
+    .tnc-contact-container {
+        font-family: Arial, sans-serif;
+        color: #818181;
+        display: flex;
+        align-items: flex-start;
+        font-size: 16.5pt;
+        justify-content: space-between;
+        width: 80%;
+        margin: auto;
+        line-height: 1.45 !important;
+    }
+    .tnc-last-text { text-align: center; }
 </style>
 {% endblock extra_css %}
 
 {% block content %}
-<div class="terms_and_conditions_container">
-    <div class="privacy_policy_container">
-        <!-- Begin Terms & Conditions Content -->
-        <h1 style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        <a name="bookmark0">&zwnj;</a>Terms &amp; Conditions
-        </h1>
-        <p class="s1" style="padding-top: 10pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        <a name="bookmark1">&zwnj;</a>Effective as of February 20, 2025
-        </p>
-        <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        <p class="s1" style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        ReaderClub<span class="p">, a service by </span>Cincooni Systems Pvt. Ltd.<span class="p">, brings innovation to Ed-Tech, Hiring, Abroad Offers, and Magazines by delivering a seamless digital experience on any device. It offers publishers, educators, and recruiters complete flexibility in managing content through branded applications for tablet, smartphone, and desktop, along with searchable databases for courses, job listings, and articles. For learners, job seekers, global aspirants, and magazine readers, ReaderClub provides an online web portal and mobile app (iOS, Android, Windows), offering a wide selection of educational resources, job opportunities, international study and work prospects, and digital magazine content. All content is accessible across platforms, available for online or offline reading, synced across devices, and searchable for archival information.
-        </p>
-        <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        <h2 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">1. Introduction</h2>
-        <p style="padding-top: 12pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        Welcome to <span class="s2">ReaderClub </span>(“Company”, “we”, “our”, “us”)!
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        <a href="http://www.readerclub.in/" class="s10" target="_blank">These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website located at </a><b>www.readerclub.in </b>(together or individually “Service”) operated by <span class="s2">ReaderClub</span>.
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard and disclose information that results from your use of our web pages. Your agreement with us includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read and
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        understood Agreements, and agree to be bound of them.
-        </p>
-        <p style="padding-top: 7pt;text-indent: 0pt;text-align: left;"><br/></p>
-        <p class="s4" style="padding-left: 5pt;text-indent: 0pt;line-height: 89%;text-align: justify;">
-        <a href="mailto:privacy@readerclub.in" class="s10" target="_blank">If you do not agree with (or cannot comply with) Agreements, then you may not use the Service, but please let us know by emailing at </a><span style=" color: #0779C2; font-family:&quot;Lucida Sans&quot;, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt;">privacy@readerclub.in</span> <span class="p">so we can try to find a solution. These Terms apply to all visitors, users and others who wish to access or use Service.</span>
-        </p>
-        <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br/></p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        Access to, browsing and use of the <span class="s2">ReaderClub </span>website, Internet services and mobile device
-        </p>
-        <p style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-        apps (&#39;App&#39;) are subject to the following Terms and Conditions (&#39;Terms&#39;). Please read these Terms carefully. Creating an account with <span class="s2">ReaderClub </span>(&#39;we&#39;, &#39;us&#39;) or otherwise using any <span class="s2">ReaderClub </span>or <span class="s2">ReaderClub </span>related service or App will signify that you have read, understood, and agree to be bound by these Terms and to comply with all applicable laws and regulations. These Terms
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-        constitute a binding agreement between you and <span class="s2">ReaderClub </span>and affiliates. If you do not agree to these Terms, you may not use the Service. THESE TERMS CONTAIN WARRANTY DISCLAIMERS AND OTHER PROVISIONS THAT LIMIT THE LIABILITY OF
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
-        <span class="s2">ReaderClub</span>, SO PLEASE READ THESE TERMS IN THEIR ENTIRETY. ReaderClub reserves the right to terminate your access to the <b>website, service, or app </b>if you fail to comply with this agreement. The <b>ReaderClub website, Internet services, and mobile apps </b>collectively form the <b>Service,</b>
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-        <a href="https://www.readerclub.in/" class="s10" target="_blank">which is owned and operated by ReaderClub. This Service includes </a><a href="https://www.readerclub.in/" class="s5" target="_blank">https://www.readerclub.in</a><span style=" color: #1153CC; font-family:&quot;Trebuchet MS&quot;, sans-serif; font-style: normal; font-weight: bold; text-decoration: underline; font-size: 10.5pt;">/</span><span class="s7"> </span>and the app, allowing users to <b>order, subscribe to, and receive </b>digital versions of <b>magazines, books, news, educational materials, job listings, and global opportunities </b>(collectively known as <b>‘Publications’</b>) across multiple platforms.
-        </p>
-        <ol id="l1">
-        <li data-list-text="1.">
-            <p style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
-            Certain portions of the Service are available only to individuals who have registered with and obtained a password from <span class="s2">ReaderClub</span>. By registering with <span class="s2">ReaderClub</span>, you certify that you are at least 15 years of age. While registering with <span class="s2">ReaderClub</span>, you should provide true and
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-            accurate data which includes that of your geographical location, personal details, billing information, etc. The accountability for maintaining and updating this data lies solely with you. <span class="s2">ReaderClub </span>reserves the right for terminating the account for untrue or inaccurate data at any time if found or proved. The responsibility for maintaining the confidentiality of the password
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            and the account information rests entirely with you. You agree to immediately notify <span class="s2">ReaderClub</span>
-            </p>
-            <p style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            of any unauthorized use of your password or account or any other breach of security.
-            </p>
-            <ul id="l2">
-            <li data-list-text="●">
-                <p class="s1" style="padding-top: 3pt;padding-left: 41pt;text-indent: -18pt;line-height: 128%;text-align: left;">
-                2. <span class="p">You will maintain and promptly update that information to keep it true, accurate, current and complete. You are responsible for maintaining the confidentiality of</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 128%;text-align: left;">
-                your account and password and for restricting access to your computer, and you agree to accept responsibility for all activities that occur under your account,
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                including the selection and use of all content and services.
-                </p>
-                <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
-            </li>
-            <li data-list-text="●">
-                <p style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                <b>3. </b>Without prior written or authorized permission from <span class="s2">ReaderClub</span>, you should not modify, copy, distribute or sell any content obtained from <span class="s2">ReaderClub </span>as everything published here is the proprietary property of <span class="s2">ReaderClub </span>or its licensors. As such
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                unauthorized use may also violate applicable laws including copyright and trademark laws, <span class="s2">ReaderClub </span>strictly prohibits these and will terminate your access and account if any such illegal activity is proved or detected. You should also stand liable for the
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                damages caused by these unauthorized activities. Except as permitted by the
-                </p>
-                <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;text-align: left;">
-                Publication&#39;s lawful owner, you acknowledge that you do not acquire any ownership
-                </p>
-                <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                rights by downloading Publications accessed through the Service. Except as explicitly required under copyright law or permitted by the features of the Service you may not
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                modify, reverse engineer, publish, transmit, display, participate in the transfer or sale, create derivative works of, or in any way commercially exploit or provide to a third party the content of the App, the Publications, or any portion of them without the
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                express permission of <span class="s2">ReaderClub </span>and the owner of such content. We do not grant you any licenses, express or implied, to the intellectual property of <span class="s2">ReaderClub </span>or
-                </p>
-                <p class="s2" style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                ReaderClub’ s <span class="p">licensors.</span>
-                </p>
-                <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-left: 41pt;text-indent: -18pt;text-align: justify;">
-                4. <span class="s2">ReaderClub </span><span class="p">reserves the right to refuse service, terminate accounts, or cancel orders at any time in its sole discretion, including, without limitation, based upon any activity by a subscriber in violation of these Terms or applicable law.</span>
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                5. <span class="p">You agree not to misrepresent geographical locations, use proxies, use IP spoofing or by any other means to hide the origin of any message you send or purchase you</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                make through the service. You agree not to pretend as any other individual or identity.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p style="padding-top: 4pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                <b>6. </b>The Service is controlled, operated and administered by <span class="s2">ReaderClub </span>from its offices within the India. If you access the Service from a location outside the India, you are
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                responsible for compliance with all local laws that apply to you. You agree that you will not use the Service or any Publications accessed through the Service in any country.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                7. <span class="s2">ReaderClub </span><span class="p">reserves all rights to monitor the content published and inputted by you for the purpose of determining whether you are compliant with these Terms and</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                conditions and other operating rules determined by <span class="s2">ReaderClub</span>. <span class="s2">ReaderClub </span>has the right to take decisions about the content and delete them at its own will.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                8. ReaderClub <span class="p">is a distributor, not a publisher of the Publications and, therefore, has no editorial control over the content, including opinions, advice, statements, services, or offers represented in the magazines. ReaderClub is not responsible for the accuracy or reliability of any information provided through the Service, except when shared by authorized employees in an official capacity. Any content expressed by third parties,</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: justify;">
-                including Publications offered on the platform, reflects the views of the respective
-                </p>
-                <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
-                authors or publishers, not ReaderClub. ReaderClub is not liable for any loss or damage caused by reliance on such information. Additionally, the Service may contain links to third-party websites, but ReaderClub assumes no responsibility for the content or
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: justify;">
-                communications on those sites. These links are provided for convenience only, and
-                </p>
-                <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
-                users are solely responsible for understanding any terms and conditions before engaging with third-party services.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p class="s2" style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                <span class="s1">9. </span>ReaderClub <span class="p">reserves the right to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice at any time. You agree that </span>ReaderClub <span class="p">shall not be liable to you or to any third party for any modification, suspension or discontinuance of the Service.</span>
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                10. <span class="p">THE SERVICE AND ALL PUBLICATIONS ARE PROVIDED ON AN &#39;AS IS&#39; AND &#39;AS AVAILABLE&#39; BASIS. READERCLUB, ITS AFFILIATES, SUPPLIERS, LICENSORS AND AGENTS EXPRESSLY</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON- INFRINGEMENT. WITHOUT LIMITING THE FOREGOING, NEITHER READERCLUB NOR ITS AFFILIATES, SUPPLIERS, LICENSORS OR AGENTS, MAKES ANY WARRANTY THAT (I) THE SERVICE WILL MEET YOUR REQUIREMENTS, (II) THE SERVICE WILL BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE, (III) THE INFORMATION THAT MAY BE OBTAINED FROM THE USE OF THE SERVICE OR THAT MAY BE CONTAINED IN
-                </p>
-                <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                THE PUBLICATIONS WILL BE ACCURATE OR RELIABLE, OR (IV) THE QUALITY OF ANY PUBLICATIONS OR THE SERVICE WILL MEET YOUR EXPECTATIONS. YOU ARE SOLELY RESPONSIBLE FOR OBTAINING AND MAINTAINING RELIABLE INTERNET CONNECTIVITY AND YOUR DEVICE. READERCLUB IS NOT RESPONSIBLE FOR YOUR INABILITY TO DOWNLOAD
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                CONTENT. ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SERVICE IS DONE AT YOUR OWN DISCRETION AND RISK AND YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR MOBILE DEVICE OR LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY SUCH MATERIAL. NO ADVICE OR INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM READERCLUB OR
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                THROUGH OR FROM THE SERVICE SHALL CREATE ANY WARRANTY.
-                </p>
-                <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                11. <span class="p">TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, NEITHER READERCLUB NOR ITS AFFILIATES, SUPPLIERS LICENSORS, OR AGENTS SHALL BE LIABLE UNDER ANY THEORY OF LAW, FOR ANY INDIRECT, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE AGGREGATE LIABILITY OF</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                READERCLUB FOR CLAIMS ARISING FROM YOUR USE OF THE SERVICE OR PUBLICATIONS OR OTHERWISE SHALL BE LIMITED TO THE FEES PAID BY YOU TO READERCLUB FOR THE PORTION OF THE SERVICE OR
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                PUBLICATION GIVING RISE TO THE CLAIM. You agree to defend <span class="s2">ReaderClub</span>, its
-                </p>
-                <p style="padding-top: 3pt;padding-left: 41pt;text-indent: 0pt;line-height: 129%;text-align: justify;">
-                employees and its affiliates from all claims, demands, actions, damages, costs and liabilities arising out of your use or misuse of the Service.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                12. <span class="p">All sales related taxes will be paid by the user as per the taxation norms that may change from time to time based on location of the user. All pricing and tax on the</span>
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: justify;">
-                Apple iTunes App will be governed by Apple&#39;s iTunes Terms and Conditions.
-                </p>
-                <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
-            </li>
-            <li data-list-text="●">
-                <p class="s1" style="padding-left: 41pt;text-indent: -18pt;text-align: left;">
-                <a name="bookmark2">&zwnj;</a>13. Your satisfaction is very important to us. However, all sales are final and no refunds in full or in part will be issued to you.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p style="padding-top: 11pt;padding-left: 41pt;text-indent: -18pt;text-align: justify;">
-                <b>14. </b>All subscriptions bought through <span class="s2">ReaderClub </span>are auto renewable. The subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period.
-                </p>
-            </li>
-            <li data-list-text="●">
-                <p style="padding-top: 10pt;padding-left: 41pt;text-indent: -18pt;text-align: justify;">
-                <b>15. </b>A <span class="s2">ReaderClub </span>subscription is for your personal, non-commercial use only. You may not use it for your business, institution or any other commercial service/purpose. If you&#39;d like to obtain a commercial license of <span class="s2">ReaderClub </span>subscription, please get in touch with
-                </p>
-                <p style="padding-left: 41pt;text-indent: 0pt;line-height: 125%;text-align: justify;">
-                us via the <span class="s8">corporate&nbsp; offers</span><span class="s9"> </span>section and we&#39;ll get back to you with a customized proposal.
-                </p>
-                <p style="padding-left: 5pt;text-indent: 0pt;line-height: 130%;text-align: justify;">
-                These Terms and Conditions and the other rules, guidelines, licenses and disclaimers posted on the Service (on the <span class="s2">ReaderClub </span>website or <span class="s2">ReaderClub </span>Apps constitute the entire agreement
-                </p>
-                <p style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                between <span class="s2">ReaderClub </span>and you with respect to your use of the Service and supersede all
-                </p>
-                <p style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                previous written or oral agreements between us with respect to the subject matter hereof.
-                </p>
-                <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
-                <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                From time to time, <span class="s2">ReaderClub </span>may revise these Terms and Conditions to keep them up to date with <span class="s2">ReaderClub </span>products and services. Please refer to the <span class="s2">ReaderClub </span>website and <span class="s2">ReaderClub </span>Apps periodically for any changes. The update date first written above is used to alert you to
-                </p>
-                <p style="padding-left: 5pt;text-indent: 0pt;line-height: 129%;text-align: left;">
-                recent modifications. Your access or use of the Service subsequent to such an update will signify your assent to be bound by such changes.
-                </p>
-                <p style="padding-top: 11pt;padding-left: 5pt;text-indent: 0pt;line-height: 88%;text-align: left;">
-                <a href="mailto:privacy@readerclub.in" class="s10" target="_blank">If you have any questions regarding our terms and conditions, please email us at </a><a href="mailto:privacy@readerclub.in" target="_blank">privacy@readerclub.in</a>
-                </p>
-            </li>
-            </ol>
-        </li>
-        <li data-list-text="2.">
-            <h4 style="padding-top: 11pt;padding-left: 16pt;text-indent: -11pt;text-align: justify;">
-            <a name="bookmark3">&zwnj;</a>Communications
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            By using our Service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            <a href="mailto:privacy@readerclub.in" class="s10" target="_blank">at </a><a href="mailto:privacy@readerclub.in" class="a" target="_blank">privacy@readerclub.in</a><a href="mailto:privacy@readerclub.in" class="s10" target="_blank">.</a>
-            </p>
-            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="3.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark4">&zwnj;</a>Purchases
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            If you wish to purchase any product or service made available through Service (“Purchase”), you may be asked to supply certain information relevant to your Purchase including but not limited to, your credit or debit card number, the expiration date of your card, your billing address, and your shipping information.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            You represent and warrant that: <b>(i) </b>you have the legal right to use any card(s) or other payment method(s) in connection with any Purchase; and that <b>(ii) </b>the information you supply to us is true, correct and complete.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            We may employ the use of third-party services for the purpose of facilitating payment and the completion of Purchases. By submitting your information, you grant us the right to provide the information to these third parties subject to our Privacy Policy.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We reserve the right to refuse or cancel your order at any time for reasons including but not limited to: product or service availability, errors in the description or price of the product or service, error in your order or other reasons.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We reserve the right to refuse or cancel your order if fraud or an unauthorized or illegal transaction is suspected.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="4.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark5">&zwnj;</a>Contests, Sweepstakes and Promotions
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Any contests, sweepstakes or other promotions (collectively, “Promotions”) made available
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            through Service may be governed by rules that are separate from these Terms of Service. If you participate in any Promotions, please review the applicable rules as well as our Privacy Policy. If the rules for a Promotion conflict with these Terms of Service, Promotion rules will apply.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="5.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark6">&zwnj;</a>Subscriptions
-            </h4>
-            <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            Some parts of Service are billed on a subscription basis (&quot;Subscription(s)&quot;). You will be billed in advance on a recurring and periodic basis (&quot;Billing Cycle&quot;). Billing cycles will be set depending on the type of subscription plan you select when purchasing a Subscription.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            At the end of each Billing Cycle, your Subscription will automatically renew under the exact same conditions unless you cancel it or <span class="s2">ReaderClub </span>cancels it. You may cancel your
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            Subscription renewal either through your online account management page or by contacting
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
-            <a href="mailto:privacy@readerclub.in" class="a" target="_blank">privacy@readerclub.in</a>. customer support team.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-            A valid payment method is required to process the payment for your subscription. You shall
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            provide <span class="s2">ReaderClub </span>with accurate and complete billing information that may include but not
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            limited to full name, address, state, postal or zip code, telephone number, and a valid payment method information. By submitting such payment information, you automatically
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            authorize <span class="s2">ReaderClub </span>to charge all Subscription fees incurred through your account to any such payment instruments.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Should automatic billing fail to occur for any reason, <span class="s2">ReaderClub </span>reserves the right to terminate your access to the Service with immediate effect.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="6.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark7">&zwnj;</a>Free Trial
-            </h4>
-            <p class="s2" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            ReaderClub <span class="p">may, at its sole discretion, offer a Subscription with a free trial for a limited period of time (&quot;Free Trial&quot;).</span>
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            You may be required to enter your billing information in order to sign up for Free Trial.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            If you do enter your billing information when signing up for Free Trial, you will not be charged by <span class="s2">ReaderClub </span>until Free Trial has expired. On the last day of Free Trial period, unless you cancelled your Subscription, you will be automatically charged the applicable Subscription fees for the type of Subscription you have selected.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            At any time and without notice, <span class="s2">ReaderClub </span>reserves the right to (i) modify Terms of Service of Free Trial offer, or (ii) cancel such Free Trial offer.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="7.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark8">&zwnj;</a>Fee Changes
-            </h4>
-            <p class="s2" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            ReaderClub<span class="p">, in its sole discretion and at any time, may modify Subscription fees for the Subscriptions. Any Subscription fee change will become effective at the end of the then-current Billing Cycle.</span>
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            al will provide you with a reasonable prior notice of any change in Subscription fees to give you an opportunity to terminate your Subscription before such change becomes effective.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Your continued use of Service after Subscription fee change comes into effect constitutes your agreement to pay the modified Subscription fee amount.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="8.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark9">&zwnj;</a>Refunds
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            No Return, No Refund.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="9.">
-            <h4 style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark10">&zwnj;</a>Content
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Our Service allows you to post, link, store, share and otherwise make available certain information, text, graphics, videos, or other material (“Content”). You are responsible for Content that you post on or through Service, including its legality, reliability, and appropriateness.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: justify;">
-            By posting Content on or through Service, you represent and warrant that: <b>(i) </b>Content is yours
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            (you own it) and/or you have the right to use it and the right to grant us the rights and license as provided in these Terms, and <b>(ii) </b>that the posting of your Content on or through Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any
-            </p>
-            <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            person or entity. We reserve the right to terminate the account of anyone found to be infringing on a copyright.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            You retain any and all of your rights to any Content you submit, post or display on or through Service and you are responsible for protecting those rights. We take no responsibility and
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            assume no liability for Content you or any third-party posts on or through Service. However, by posting Content using Service you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through Service. You
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            agree that this license includes the right for us to make your Content available to other users of Service, who may also use your Content subject to these Terms.
-            </p>
-            <p class="s2" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            ReaderClub <span class="p">has the right but not the obligation to monitor and edit all Content provided by users.</span>
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            In addition, Content found on or through this Service are the property of <span class="s2">ReaderClub </span>or used
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use said Content, whether in whole or in part, for commercial purposes or for personal gain, without express advance written permission from us.
-            </p>
-        </li>
-        <li data-list-text="10.">
-            <h4 style="padding-top: 12pt;padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark11">&zwnj;</a>Prohibited Uses
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            You may use Service only for lawful purposes and in accordance with Terms. You agree not to use Service:
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <ol id="l3">
-            <ol id="l4">
-                <li data-list-text="0.1.">
-                <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-                    In any way that violates any applicable national or international law or regulation.
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.2.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way by exposing them to inappropriate content or otherwise.
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.3.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    To transmit, or procure the sending of, any advertising or promotional material, including any “junk mail”, “chain letter,” “spam,” or any other similar solicitation.
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.4.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    To impersonate or attempt to impersonate Company, a Company employee, another user, or any other person or entity.
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.5.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    In any way that infringes upon the rights of others, or in any way is illegal, threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent, or harmful purpose or activity.
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.6.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment of Service, or which, as determined by us, may harm or offend Company or users of Service or expose them to liability.
-                </p>
-                </li>
-            </ol>
-            </ol>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p class="s1" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Additionally, you agree not to:
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <ol id="l5">
-            <ol id="l6">
-                <li data-list-text="0.1.">
-                <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-                    Use Service in any manner that could disable, overburden, damage, or impair
-                </p>
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    Service or interfere with any other party’s use of Service, including their ability to engage in real time activities through Service.
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.2.">
-                <p style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-                    Use any robot, spider, or other automatic device, process, or means to access
-                </p>
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    Service for any purpose, including monitoring or copying any of the material on Service.
-                </p>
-                </li>
-                <li data-list-text="0.3.">
-                <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    Use any manual process to monitor or copy any of the material on Service or for any other unauthorized purpose without our prior written consent.
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.4.">
-                <p style="padding-left: 23pt;text-indent: -18pt;text-align: left;">
-                    Use any device, software, or routine that interferes with the proper working of Service.
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.5.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    Introduce any viruses, trojan horses, worms, logic bombs, or other material which is malicious or technologically harmful.
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.6.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-                    Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of Service, the server on which Service is stored, or any server, computer, or database connected to Service.
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.7.">
-                <p style="padding-left: 23pt;text-indent: -18pt;text-align: left;">
-                    Attack Service via a denial-of-service attack or a distributed denial-of-service attack.
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.8.">
-                <p style="padding-left: 24pt;text-indent: -19pt;text-align: left;">
-                    Take any action that may damage or falsify Company rating.
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.9.">
-                <p style="padding-left: 23pt;text-indent: -18pt;text-align: left;">
-                    Otherwise attempt to interfere with the proper working of Service.
-                </p>
-                </li>
-            </ol>
-            </ol>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="11.">
-            <h4 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark13">&zwnj;</a>Analytics
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We may use third-party Service Providers to monitor and analyze the use of our Service.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="12.">
-            <h4 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark14">&zwnj;</a>No Use by Minors
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Service is intended only for access and use by individuals at least eighteen (18) years old. By
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            accessing or using Service, you warrant and represent that you are at least eighteen (18) years of age and with the full authority, right, and capacity to enter into this agreement and abide by all of the terms and conditions of Terms. If you are not at least eighteen (18) years old, you are
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            prohibited from both the access and usage of Service.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="13.">
-            <h4 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark15">&zwnj;</a>Accounts
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            When you create an account with us, you guarantee that you are above the age of 18, and that the information you provide us is accurate, complete, and current at all times. Inaccurate,
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            incomplete, or obsolete information may result in the immediate termination of your account on Service.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            You are responsible for maintaining the confidentiality of your account and password, including but not limited to the restriction of access to your computer and/or account. You agree to
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            accept responsibility for any and all activities or actions that occur under your account and/or password, whether your password is with our Service or a third-party service. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            You may not use as a username the name of another person or entity or that is not lawfully
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            available for use, a name or trademark that is subject to any rights of another person or entity other than you, without appropriate authorization. You may not use as a username any name
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            that is offensive, vulgar or obscene.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel orders in our sole discretion.
-            </p>
-        </li>
-        <li data-list-text="14.">
-            <h4 style="padding-top: 4pt;padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark16">&zwnj;</a>Intellectual Property
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Service and its original content (excluding Content provided by users), features and functionality are and will remain the exclusive property of <span class="s2">ReaderClub </span>and its licensors. Service is protected by copyright, trademark, and other laws of and foreign countries. Our trademarks may not be
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            used in connection with any product or service without the prior written consent of <span class="s2">ReaderClub</span>.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="15.">
-            <h4 style="padding-top: 4pt;padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark17">&zwnj;</a>Copyright Policy
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We respect the intellectual property rights of others. It is our policy to respond to any claim that Content posted on Service infringes on the copyright or other intellectual property rights (“Infringement”) of any person or entity.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            If you are a copyright owner, or authorized on behalf of one, and you believe that the
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
-            copyrighted work has been copied in a way that constitutes copyright infringement, please
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 94%;text-align: justify;">
-            <a href="mailto:privacy@readerclub.in" class="s10" target="_blank">submit your claim via email to </a><a href="mailto:privacy@readerclub.in" class="a" target="_blank">privacy@readerclub.in</a>, with the subject line: “Copyright Infringement” and include in your claim a detailed description of the alleged Infringement as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            You may be held accountable for damages (including costs and attorneys’ fees) for
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            misrepresentation or bad-faith claims on the infringement of any Content found on and/or through Service on your copyright.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="16.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark18">&zwnj;</a>DMCA Notice and Procedure for Copyright Infringement Claims
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            You may submit a notification pursuant to the Digital Millennium Copyright Act (DMCA) by
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            providing our Copyright Agent with the following information in writing (see 17 U.S.C 512(c)(3) for further detail):
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <ol id="l7">
-            <ol id="l8">
-                <li data-list-text="0.1.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright’s interest;
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.2.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    a description of the copyrighted work that you claim has been infringed, including the URL (i.e., web page address) of the location where the copyrighted work exists or a copy of
-                </p>
-                <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-                    the copyrighted work;
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.3.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    identification of the URL or other specific location on Service where the material that you claim is infringing is located;
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.4.">
-                <p style="padding-left: 23pt;text-indent: -18pt;text-align: left;">
-                    your address, telephone number, and email address;
-                </p>
-                <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.5.">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                    a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law;
-                </p>
-                <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-                </li>
-                <li data-list-text="0.6.">
-                <p style="padding-left: 5pt;text-indent: 0pt;line-height: 94%;text-align: left;">
-                    a statement by you, made under penalty of perjury, that the above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner’s behalf. You can contact our Copyright Agent via email at
-                </p>
-                </li>
-            </ol>
-            </ol>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
-            <a href="mailto:privacy@readerclub.in" class="a" target="_blank">privacy@readerclub.in</a><a href="mailto:privacy@readerclub.in" class="s10" target="_blank">.</a>
-            </p>
-            <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="17.">
-            <h4 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark19">&zwnj;</a>Error Reporting and Feedback
-            </h4>
-            <p class="s4" style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 93%;text-align: left;">
-            <a href="mailto:privacy@readerclub.in" class="s10" target="_blank">You may provide us either directly at </a><span style=" color: #0779C2; font-family:&quot;Lucida Sans&quot;, sans-serif; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 12pt;">privacy@readerclub.in</span> <span class="p">or via third party sites and tools with information and feedback concerning errors, suggestions for improvements, ideas,</span>
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge
-            </p>
-            <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            and agree that: <b>(i) </b>you shall not retain, acquire or assert any intellectual property right or other right, title or interest in or to the Feedback; <b>(ii) </b>Company may have development ideas similar to the Feedback; <b>(iii) </b>Feedback does not contain confidential information or proprietary information from you or any third party; and <b>(iv) </b>Company is not under any obligation of confidentiality with respect to the Feedback. In the event the transfer of the ownership to the Feedback is not
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive, transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback in any manner and for any purpose.
-            </p>
-        </li>
-        <li data-list-text="18.">
-            <h4 style="padding-top: 11pt;padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark20">&zwnj;</a>Links to Other Web Sites
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Our Service may contain links to third party web sites or services that are not owned or controlled by <span class="s2">ReaderClub</span>.
-            </p>
-            <p class="s2" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            ReaderClub <span class="p">has no control over, and assumes no responsibility for the content, privacy policies, or practices of any third-party web sites or services. We do not warrant the offerings of any of these entities/individuals or their websites.</span>
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE ON OR THROUGH ANY SUCH THIRD-PARTY WEB SITES OR SERVICES. WE STRONGLY ADVISE YOU TO READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD-PARTY WEB SITES OR SERVICES THAT YOU VISIT.
-            </p>
-        </li>
-        <li data-list-text="19.">
-            <h4 style="padding-top: 11pt;padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark21">&zwnj;</a>Disclaimer of Warranty
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            THESE SERVICES ARE PROVIDED BY COMPANY ON AN “AS IS” AND “AS AVAILABLE” BASIS. COMPANY MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE OPERATION OF THEIR SERVICES, OR THE INFORMATION, CONTENT OR MATERIALS INCLUDED THEREIN. YOU EXPRESSLY AGREE THAT YOUR USE OF THESE SERVICES, THEIR CONTENT, AND ANY SERVICES OR ITEMS OBTAINED FROM US IS AT YOUR SOLE RISK.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            NEITHER COMPANY NOR ANY PERSON ASSOCIATED WITH COMPANY MAKES ANY WARRANTY OR REPRESENTATION WITH RESPECT TO THE COMPLETENESS, SECURITY, RELIABILITY, QUALITY, ACCURACY, OR AVAILABILITY OF THE SERVICES. WITHOUT LIMITING THE FOREGOING, NEITHER COMPANY NOR ANYONE ASSOCIATED WITH COMPANY REPRESENTS OR WARRANTS THAT THE
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            SERVICES, THEIR CONTENT, OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL BE ACCURATE, RELIABLE, ERROR-FREE, OR UNINTERRUPTED, THAT DEFECTS WILL BE CORRECTED, THAT THE SERVICES OR THE SERVER THAT MAKES IT AVAILABLE ARE FREE OF VIRUSES OR OTHER
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            HARMFUL COMPONENTS OR THAT THE SERVICES OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL OTHERWISE MEET YOUR NEEDS OR EXPECTATIONS.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            COMPANY HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            MERCHANTABILITY, NON-INFRINGEMENT, AND FITNESS FOR PARTICULAR PURPOSE. THE FOREGOING DOES NOT AFFECT ANY WARRANTIES WHICH CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW.
-            </p>
-        </li>
-        <li data-list-text="20.">
-            <h4 style="padding-top: 11pt;padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark22">&zwnj;</a>Limitation of Liability
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            EXCEPT AS PROHIBITED BY LAW, YOU WILL HOLD US AND OUR OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS HARMLESS FOR ANY INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGE, HOWEVER IT ARISES (INCLUDING ATTORNEYS’ FEES AND ALL RELATED COSTS AND EXPENSES OF LITIGATION AND ARBITRATION, OR AT TRIAL OR ON APPEAL, IF ANY, WHETHER OR NOT LITIGATION OR ARBITRATION IS INSTITUTED), WHETHER
-            </p>
-            <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, OR ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT, INCLUDING WITHOUT LIMITATION ANY CLAIM FOR
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            PERSONAL INJURY OR PROPERTY DAMAGE, ARISING FROM THIS AGREEMENT AND ANY VIOLATION BY YOU OF ANY FEDERAL, STATE, OR LOCAL LAWS, STATUTES, RULES, OR REGULATIONS, EVEN IF
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            COMPANY HAS BEEN PREVIOUSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. EXCEPT AS PROHIBITED BY LAW, IF THERE IS LIABILITY FOUND ON THE PART OF COMPANY, IT WILL BE LIMITED TO THE AMOUNT PAID FOR THE PRODUCTS AND/OR SERVICES, AND UNDER NO CIRCUMSTANCES
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            WILL THERE BE CONSEQUENTIAL OR PUNITIVE DAMAGES. SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE PRIOR LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="21.">
-            <h4 style="padding-left: 40pt;text-indent: -35pt;text-align: left;">
-            <a name="bookmark23">&zwnj;</a>Termination
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We may terminate or suspend your account and bar access to Service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation,
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            including but not limited to a breach of Terms.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            If you wish to terminate your account, you may simply discontinue using Service.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            All provisions of Terms which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="22.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark24">&zwnj;</a>Governing Law
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            These Terms shall be governed and construed in accordance with the laws of <b>INDIA</b>, which governing law applies to agreement without regard to its conflict of law provisions.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Our failure to enforce any right or provision of these Terms will not be considered a waiver of
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect. These Terms constitute the entire
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            agreement between us regarding our Service and supersede and replace any prior agreements we might have had between us regarding Service.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="23.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark25">&zwnj;</a>Changes to Service
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            We reserve the right to withdraw or amend our Service, and any service or material we provide via Service, in our sole discretion without notice. We will not be liable if for any reason all or any part of Service is unavailable at any time or for any period. From time to time, we may
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            restrict access to some parts of Service, or the entire Service, to users, including registered users.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="24.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: justify;">
-            <a name="bookmark26">&zwnj;</a>Amendments to Terms
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            We may amend Terms at any time by posting the amended terms on this site. It is your responsibility to review these Terms periodically.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            Your continued use of the Platform following the posting of revised Terms means that you accept and agree to the changes. You are expected to check this page frequently so you are aware of any changes, as they are binding on you.
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: justify;">
-            By continuing to access or use our Service after any revisions become effective, you agree to be
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-            bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use Service.
-            </p>
-        </li>
-        <li data-list-text="25.">
-            <h4 style="padding-top: 12pt;padding-left: 22pt;text-indent: -17pt;text-align: justify;">
-            <a name="bookmark27">&zwnj;</a>Waiver and Severability
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            No waiver by Company of any term or condition set forth in Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition, and any
-            </p>
-            <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            failure of Company to assert a right or provision under Terms shall not constitute a waiver of such right or provision.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            If any provision of Terms is held by a court or other tribunal of competent jurisdiction to be invalid, illegal or unenforceable for any reason, such provision shall be eliminated or limited to the minimum extent such that the remaining provisions of Terms will continue in full force and effect.
-            </p>
-            <p style="padding-top: 5pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="26.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark28">&zwnj;</a>Acknowledgement
-            </h4>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            BY USING SERVICE OR OTHER SERVICES PROVIDED BY US, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM.
-            </p>
-            <p style="padding-top: 6pt;text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="27.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark29">&zwnj;</a>Contact Us
-            </h4>
-            <p style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;line-height: 88%;text-align: left;">
-            <a href="mailto:privacy@readerclub.in" class="s10" target="_blank">Please send your feedback, comments, requests for technical support by email: </a><a href="mailto:privacy@readerclub.in" class="a" target="_blank">privacy@readerclub.in</a><a href="mailto:privacy@readerclub.in" class="s10" target="_blank">.</a>
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="28.">
-            <h4 style="padding-left: 22pt;text-indent: -17pt;text-align: left;">
-            <a name="bookmark30">&zwnj;</a>Terms and Conditions for Online Payment
-            </h4>
-        </li>
-        </ol>
-        <p style="padding-top: 12pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        The Terms and Conditions contained herein shall apply to any person (“Applicant”) using the
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        services for making Application through an online payment gateway service (“Service”) offered by Payment Gateway Service provider, through <b>Cincooni </b>website
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-        <a href="http://www.cincooni.com/" class="s10" target="_blank">i.e. https://www.</a><a href="http://www.cincooni.com/" class="s3" target="_blank">Cincooni</a><a href="http://www.cincooni.com/" class="s10" target="_blank">.com</a>
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        Each Applicant is, therefore, deemed to have read and accepted these Terms and Conditions.
-        </p>
-        <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        <h3 style="padding-left: 5pt;text-indent: 0pt;text-align: left;">Privacy Policy</h3>
-        <p class="s1" style="padding-top: 12pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        Cincooni <span class="p">respects and protects the privacy of the individuals that access the information and use the services provided through them. Individually identifiable information about the person is not willfully disclosed to any third party without first receiving the person’s permission, as covered in this Privacy Policy.</span>
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: justify;">
-        Please be aware, however, that <b>Cincooni </b>will release specific personal information about the persons, if required to do so in the following circumstances
-        </p>
-        <ol id="l9">
-        <li data-list-text="a)">
-            <p style="padding-left: 51pt;text-indent: -28pt;text-align: left;">
-            in order to comply with any valid legal process such as a search warrant, statute, or court order, or
-            </p>
-        </li>
-        <li data-list-text="b)">
-            <p style="padding-left: 54pt;text-indent: -31pt;text-align: left;">
-            if any of person’s actions on <b>Cincooni ‘s </b>website violates the Terms of Service or any of <b>Cincooni ‘s </b>guidelines for specific services, or
-            </p>
-        </li>
-        <li data-list-text="c)">
-            <p style="padding-left: 34pt;text-indent: -11pt;text-align: left;">
-            to protect or defend <b>Cincooni ‘s </b>legal rights or property, the <b>Cincooni </b>site, or
-            </p>
-            <p class="s1" style="padding-left: 49pt;text-indent: 0pt;text-align: left;">
-            Cincooni <span class="p">Applicants; or</span>
-            </p>
-        </li>
-        <li data-list-text="d)">
-            <p style="padding-left: 54pt;text-indent: -31pt;text-align: left;">
-            to investigate, prevent, or take action regarding illegal activities,
-            </p>
-        </li>
-        </ol>
-        <p style="padding-left: 54pt;text-indent: 0pt;text-align: left;">
-        suspected fraud, situations involving potential threats to the security, integrity of <b>Cincooni</b>
-        </p>
-        <p style="padding-left: 41pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-        website/offerings.
-        </p>
-        <p class="s1" style="padding-top: 5pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-        <a name="bookmark31">&zwnj;</a>1.   General Terms and Conditions for Online-Payments
-        </p>
-        <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        <p style="padding-left: 23pt;text-indent: 0pt;text-align: justify;">
-        Once an Applicant has accepted these Terms and Conditions, he/ she may register and avail the Services.
-        </p>
-        <p class="s1" style="padding-left: 23pt;text-indent: 0pt;text-align: justify;">
-        Cincooni ‘s <span class="p">rights, obligations, undertakings shall be subject to the laws in force in India, as well as any directives/ procedures of Government of India, and nothing contained in these Terms and Conditions shall be in derogation of </span>Cincooni ‘s <span class="p">right to comply with</span>
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        any law enforcement agencies request or requirements relating to any Applicant’s use of the website or information provided to or gathered by <b>Cincooni </b>with respect to such use. Each Applicant accepts and agrees that the provision of details of his/ her use of the Website to
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        regulators or police or to any other third party in order to resolve disputes or complaints which relate to the Website shall be at the absolute discretion of <b>Cincooni</b>.
-        </p>
-        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-        If any part of these Terms and Conditions are determined to be invalid or unenforceable pursuant to applicable law including, but not limited to, the warranty disclaimers and liability limitations set forth herein, then the invalid or unenforceable provision will be deemed superseded by a
-        </p>
-        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-        valid, enforceable provision that most closely matches the intent of the original provision and the remainder of these Terms and Conditions shall continue in effect.
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+<div class="tnc_container">
+    <h1>Terms & Conditions</h1>
+    
+    <p class="about-us-para">Effective as of February 20, 2025</p>
+    <p class="about-us-para"><b>ReaderClub</b>, a service by <b>Cincooni Systems Pvt. Ltd.</b>, brings innovation to Ed-Tech, Hiring, Abroad
+        Offers, and Magazines by delivering a seamless digital experience on any device. It offers publishers,
+        educators, and recruiters complete flexibility in managing content through branded applications for
+        tablet, smartphone, and desktop, along with searchable databases for courses, job listings, and
+        articles. For learners, job seekers, global aspirants, and magazine readers, ReaderClub provides an
+        online web portal and mobile app (iOS, Android, Windows), offering a wide selection of educational
+        resources, job opportunities, international study and work prospects, and digital magazine content.
+        All content is accessible across platforms, available for online or offline reading, synced across
+        devices, and searchable for archival information.</p>
+    
+    {% comment %} <h2>Your favorite local bookshop, perfected — and expanded</h2> {% endcomment %}
+    <p class="about-us-para"><b>1. Introduction</b></p>
+
+    <p class="about-us-para">Welcome to ReaderClub (“Company”, “we”, “our”, “us”)!<br>
+        These Terms of Service (“Terms”, “Terms of Service”) govern your use of our website
+        located at www.readerclub.in (together or individually “Service”) operated by ReaderClub.
+        Our Privacy Policy also governs your use of our Service and explains how we collect, safeguard
+        and disclose information that results from your use of our web pages. Your agreement with us
+        includes these Terms and our Privacy Policy (“Agreements”). You acknowledge that you have read
+        and
+        understood Agreements, and agree to be bound of them.</p>
+
+    <p class="about-us-para">If you do not agree with (or cannot comply with) Agreements, then you may not use the Service,
+        but please let us know by emailing at     <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a>.
+        so we can try to find a
+        solution. These Terms apply to all visitors, users and others who wish to access or use Service</p>
+
+    <p class="about-us-para">Access to, browsing and use of the ReaderClub website, Internet services and mobile device
+        apps ('App') are subject to the following Terms and Conditions ('Terms'). Please read these Terms
+        carefully. Creating an account with ReaderClub ('we', 'us') or otherwise using any ReaderClub or
+        ReaderClub related service or App will signify that you have read, understood, and agree to be
+        bound by these Terms and to comply with all applicable laws and regulations. These Terms
+        constitute a binding agreement between you and ReaderClub and affiliates. If you do not agree
+        to these Terms, you may not use the Service. THESE TERMS CONTAIN WARRANTY DISCLAIMERS
+        AND OTHER PROVISIONS THAT LIMIT THE LIABILITY OF
+        ReaderClub, SO PLEASE READ THESE TERMS IN THEIR ENTIRETY. ReaderClub reserves the right to
+        terminate your access to the website, service, or app if you fail to comply with this agreement.
+        The ReaderClub website, Internet services, and mobile apps collectively form the Service,
+        which is owned and operated by ReaderClub. This Service includes <a href="https://www.readerclub.in/">https://www.readerclub.in/</a>
+        and the app, allowing users to order, subscribe to, and receive digital versions of magazines,
+        books, news, educational materials, job listings, and global opportunities (collectively known
+        as ‘Publications’) across multiple platforms.</p>
+    <p class="about-us-para">1. Certain portions of the Service are available only to individuals who have registered with
+        and obtained a password from ReaderClub. By registering with ReaderClub, you certify that you
+        are at least 15 years of age. While registering with ReaderClub, you should provide true and
+        accurate data which includes that of your geographical location, personal details, billing
+        information, etc. The accountability for maintaining and updating this data lies solely with you.
+        ReaderClub reserves the right for terminating the account for untrue or inaccurate data at any
+        time if found or proved. The responsibility for maintaining the confidentiality of the password
+        and the account information rests entirely with you. You agree to immediately notify ReaderClub
+        of any unauthorized use of your password or account or any other breach of security</p>
+    <p class="about-us-para">2. You will maintain and promptly update that information to keep it true, accurate,
+        current and complete. You are responsible for maintaining the confidentiality of
+        your account and password and for restricting access to your computer, and you
+        agree to accept responsibility for all activities that occur under your account,
+        including the selection and use of all content and services.</p>
+    <p class="about-us-para">3. Without prior written or authorized permission from ReaderClub, you should not
+        modify, copy, distribute or sell any content obtained from ReaderClub as
+        everything published here is the proprietary property of ReaderClub or its
+        licensors. As such
+        unauthorized use may also violate applicable laws including copyright and trademark
+        laws, ReaderClub strictly prohibits these and will terminate your access and account if
+        any such illegal activity is proved or detected. You should also stand liable for the
+        damages caused by these unauthorized activities. Except as permitted by the
+        Publication's lawful owner, you acknowledge that you do not acquire any ownership
+        rights by downloading Publications accessed through the Service. Except as explicitly
+        required under copyright law or permitted by the features of the Service you may not
+        modify, reverse engineer, publish, transmit, display, participate in the transfer or sale,
+        create derivative works of, or in any way commercially exploit or provide to a third
+        party the content of the App, the Publications, or any portion of them without the
+        express permission of ReaderClub and the owner of such content. We do not grant you
+        any licenses, express or implied, to the intellectual property of ReaderClub or
+        ReaderClub’ s licensors.</p>
+    <p class="about-us-para">4. ReaderClub reserves the right to refuse service, terminate accounts, or cancel orders
+        at any time in its sole discretion, including, without limitation, based upon any activity
+        by a subscriber in violation of these Terms or applicable law.</p>
+    <p class="about-us-para">5. You agree not to misrepresent geographical locations, use proxies, use IP spoofing
+        or by any other means to hide the origin of any message you send or purchase you
+        make through the service. You agree not to pretend as any other individual or identity</p>
+    <p class="about-us-para">6. The Service is controlled, operated and administered by ReaderClub from its offices
+        within the India. If you access the Service from a location outside the India, you are
+        responsible for compliance with all local laws that apply to you. You agree that you
+        will not use the Service or any Publications accessed through the Service in any
+        country.</p>
+    <p class="about-us-para"> 7. ReaderClub reserves all rights to monitor the content published and inputted by
+        you for the purpose of determining whether you are compliant with these terms and
+        conditions and other operating rules determined by ReaderClub. ReaderClub has the
+        right to take decisions about the content and delete them at its own will.</p>
+    <p class="about-us-para">8. ReaderClub is a distributor, not a publisher of the Publications and, therefore, has
+        no editorial control over the content, including opinions, advice, statements, services,
+        or offers represented in the magazines. ReaderClub is not responsible for the accuracy
+        or reliability of any information provided through the Service, except when shared by
+        authorized employees in an official capacity. Any content expressed by third parties,
+        including Publications offered on the platform, reflects the views of the respective
+        authors or publishers, not ReaderClub. ReaderClub is not liable for any loss or
+        damage caused by reliance on such information. Additionally, the Service may
+        contain links to third-party websites, but ReaderClub assumes no responsibility for
+        the content or
+        communications on those sites. These links are provided for convenience only, and
+        users are solely responsible for understanding any terms and conditions before
+        engaging with third-party services.</p>
+    <p class="about-us-para">9. ReaderClub reserves the right to modify or discontinue, temporarily or
+        permanently, the Service (or any part thereof) with or without notice at any time.
+        You agree that ReaderClub shall not be liable to you or to any third party for any
+        modification, suspension or discontinuance of the Service.</p>
+    <p class="about-us-para">10. THE SERVICE AND ALL PUBLICATIONS ARE PROVIDED ON AN 'AS IS' AND 'AS
+        AVAILABLE' BASIS. READERCLUB, ITS AFFILIATES, SUPPLIERS, LICENSORS AND AGENTS
+        EXPRESSLY
+        DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING BUT
+        NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+        PARTICULAR PURPOSE AND NON- INFRINGEMENT. WITHOUT LIMITING THE FOREGOING,
+        NEITHER READERCLUB NOR ITS AFFILIATES, SUPPLIERS, LICENSORS OR AGENTS, MAKES ANY
+        WARRANTY THAT (I) THE SERVICE WILL MEET YOUR REQUIREMENTS, (II) THE SERVICE WILL
+        BE UNINTERRUPTED, TIMELY, SECURE, OR ERROR-FREE, (III) THE INFORMATION THAT MAY
+        BE OBTAINED FROM THE USE OF THE SERVICE OR THAT MAY BE CONTAINED IN
+        THE PUBLICATIONS WILL BE ACCURATE OR RELIABLE, OR (IV) THE QUALITY OF ANY
+        PUBLICATIONS OR THE SERVICE WILL MEET YOUR EXPECTATIONS. YOU ARE SOLELY
+        RESPONSIBLE FOR OBTAINING AND MAINTAINING RELIABLE INTERNET CONNECTIVITY AND
+        YOUR DEVICE. READERCLUB IS NOT RESPONSIBLE FOR YOUR INABILITY TO DOWNLOAD
+        CONTENT. ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF
+        THE SERVICE IS DONE AT YOUR OWN DISCRETION AND RISK AND YOU WILL BE SOLELY
+        RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR MOBILE DEVICE OR LOSS
+        OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY SUCH MATERIAL. NO ADVICE OR
+        INFORMATION, WHETHER ORAL OR WRITTEN, OBTAINED BY YOU FROM READERCLUB OR
+        THROUGH OR FROM THE SERVICE SHALL CREATE ANY WARRANTY</p>
+    <p class="about-us-para">11. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, NEITHER READERCLUB
+        NOR ITS AFFILIATES, SUPPLIERS LICENSORS, OR AGENTS SHALL BE LIABLE UNDER ANY
+        THEORY OF LAW, FOR ANY INDIRECT, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL
+        DAMAGES. TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE AGGREGATE
+        LIABILITY OF
+        READERCLUB FOR CLAIMS ARISING FROM YOUR USE OF THE SERVICE OR PUBLICATIONS OR
+        OTHERWISE SHALL BE LIMITED TO THE FEES PAID BY YOU TO READERCLUB FOR THE
+        PORTION OF THE SERVICE OR
+        PUBLICATION GIVING RISE TO THE CLAIM. You agree to defend ReaderClub, its
+        employees and its affiliates from all claims, demands, actions, damages, costs and
+        liabilities arising out of your use or misuse of the Service.</p>
+    <p class="about-us-para">12. All sales related taxes will be paid by the user as per the taxation norms that may
+        change from time to time based on location of the user. All pricing and tax on the
+        Apple iTunes App will be governed by Apple's iTunes Terms and Conditions</p>
+    <p class="about-us-para"><b>13. Your satisfaction is very important to us. However, all sales are final
+        and no refunds in full or in part will be issued to you.</b></p>
+    <p class="about-us-para">14. All subscriptions bought through ReaderClub are auto renewable. The
+        subscription automatically renews unless auto-renew is turned off at least 24-hours
+        before the end of the current period.</p>
+    <p class="about-us-para">15. A ReaderClub subscription is for your personal, non-commercial use only. You may not
+        use it for your business, institution or any other commercial service/purpose. If you'd like
+        to obtain a commercial license of ReaderClub subscription, please get in touch with
+        us via the <b>corporate offers</b> section and we'll get back to you with a
+        customized proposal.</p>
+    <p class="about-us-para">These Terms and Conditions and the other rules, guidelines, licenses and disclaimers posted on
+        the Service (on the ReaderClub website or ReaderClub Apps constitute the entire agreement
+        between ReaderClub and you with respect to your use of the Service and supersede all
+        previous written or oral agreements between us with respect to the subject matter hereof.
+        From time to time, ReaderClub may revise these Terms and Conditions to keep them up to date
+        with ReaderClub products and services. Please refer to the ReaderClub website and
+        ReaderClub Apps periodically for any changes. The update date first written above is used to
+        alert you to
+        recent modifications. Your access or use of the Service subsequent to such an update will signify
+        your assent to be bound by such changes.</p>
+    <p class="about-us-para">If you have any questions regarding our terms and conditions, please email us
+        at <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a></p>
+    <p class="about-us-para">2. Communications
+        By using our Service, you agree to subscribe to newsletters, marketing or promotional materials
+        and other information we may send. However, you may opt out of receiving any, or all, of these
+        communications from us by following the unsubscribe link or by emailing
+        at <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a>.</p>
+    <p class="about-us-para"><b>3. Purchases</b></p>
+    <p class="about-us-para">If you wish to purchase any product or service made available through Service (“Purchase”), you
+        may be asked to supply certain information relevant to your Purchase including but not limited
+        to, your credit or debit card number, the expiration date of your card, your billing address, and
+        your shipping information.</p>
+    <p class="about-us-para">You represent and warrant that: (i) you have the legal right to use any card(s) or other payment
+        method(s) in connection with any Purchase; and that (ii) the information you supply to us is
+        true, correct and complete.</p>
+    <p class="about-us-para">We may employ the use of third-party services for the purpose of facilitating payment and the
+        completion of Purchases. By submitting your information, you grant us the right to provide the
+        information to these third parties subject to our Privacy Policy</p>
+    <p class="about-us-para">We reserve the right to refuse or cancel your order at any time for reasons including but not
+        limited to: product or service availability, errors in the description or price of the product or
+        service, error in your order or other reasons.</p>
+    <p class="about-us-para">We reserve the right to refuse or cancel your order if fraud or an unauthorized or illegal
+        transaction is suspected.</p>
+    <p class="about-us-para"><b>4. Contests, Sweepstakes and Promotions</b>></p>
+    <p class="about-us-para">Any contests, sweepstakes or other promotions (collectively, “Promotions”) made available
+        through Service may be governed by rules that are separate from these Terms of Service. If you
+        participate in any Promotions, please review the applicable rules as well as our Privacy Policy. If
+        the rules for a Promotion conflict with these Terms of Service, Promotion rules will apply.</p>
+    <p class="about-us-para"><b>5. Subscriptions</b></p>
+    <p class="about-us-para">Some parts of Service are billed on a subscription basis ("Subscription(s)"). You will be billed in
+        advance on a recurring and periodic basis ("Billing Cycle"). Billing cycles will be set depending
+        on the type of subscription plan you select when purchasing a Subscription.</p>
+    <p class="about-us-para">At the end of each Billing Cycle, your Subscription will automatically renew under the exact
+        same conditions unless you cancel it or ReaderClub cancels it. You may cancel your
+        Subscription renewal either through your online account management page or by contacting
+        <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a>. customer support team.</p>
+    <p class="about-us-para">A valid payment method is required to process the payment for your subscription. You shall
+        provide ReaderClub with accurate and complete billing information that may include but not
+        limited to full name, address, state, postal or zip code, telephone number, and a valid payment
+        method information. By submitting such payment information, you automatically
+        authorize ReaderClub to charge all Subscription fees incurred through your account to any
+        such payment instruments.
+        Should automatic billing fail to occur for any reason, ReaderClub reserves the right to terminate
+        your access to the Service with immediate effect.</p>
+    <p class="about-us-para"><b>6.Free Trial</b></p>
+    <p class="about-us-para">ReaderClub may, at its sole discretion, offer a Subscription with a free trial for a limited period
+        of time ("Free Trial").
+        You may be required to enter your billing information in order to sign up for Free Trial.<br></p>
+    <p class="about-us-para">If you do enter your billing information when signing up for Free Trial, you will not be charged by
+        ReaderClub until Free Trial has expired. On the last day of Free Trial period, unless you
+        cancelled your Subscription, you will be automatically charged the applicable Subscription fees
+        for the type of Subscription you have selected.
+        At any time and without notice, ReaderClub reserves the right to (i) modify Terms of Service
+        of Free Trial offer, or (ii) cancel such Free Trial offer.</p>
+    <p class="about-us-para"><b>7. Fee Changes</b></p>
+    <p class="about-us-para">ReaderClub, in its sole discretion and at any time, may modify Subscription fees for the
+        Subscriptions. Any Subscription fee change will become effective at the end of the then-current
+        Billing Cycle.
+        al will provide you with a reasonable prior notice of any change in Subscription fees to give you an
+        opportunity to terminate your Subscription before such change becomes effective.
+        Your continued use of Service after Subscription fee change comes into effect constitutes
+        your agreement to pay the modified Subscription fee amount.</p>
+    <p class="about-us-para"><b>8.Refunds</b></p>
+    <p class="about-us-para">No Return, No Refund.</p>
+    <p class="about-us-para"><b>8.Content</b></p>
+    <p class="about-us-para">Our Service allows you to post, link, store, share and otherwise make available certain
+        information, text, graphics, videos, or other material (“Content”). You are responsible for
+        Content that you post on or through Service, including its legality, reliability, and
+        appropriateness.</p>
+    <p class="about-us-para">By posting Content on or through Service, you represent and warrant that: (i) Content is yours
+        (you own it) and/or you have the right to use it and the right to grant us the rights and license
+        as provided in these Terms, and (ii) that the posting of your Content on or through Service does
+        not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of
+        any
+        person or entity. We reserve the right to terminate the account of anyone found to be infringing
+        on a copyright.</p>
+    <p class="about-us-para">You retain any and all of your rights to any Content you submit, post or display on or through
+        Service and you are responsible for protecting those rights. We take no responsibility and
+        assume no liability for Content you or any third-party posts on or through Service. However, by
+        posting Content using Service you grant us the right and license to use, modify, publicly
+        perform, publicly display, reproduce, and distribute such Content on and through Service. You
+        agree that this license includes the right for us to make your Content available to other users of
+        Service, who may also use your Content subject to these Terms.
+        ReaderClub has the right but not the obligation to monitor and edit all Content provided by
+        users.
+        In addition, Content found on or through this Service are the property of ReaderClub or used
+        with permission. You may not distribute, modify, transmit, reuse, download, repost, copy, or use
+        said Content, whether in whole or in part, for commercial purposes or for personal gain,
+        without express advance written permission from us.</p>
+    <p class="about-us-para"><b>10. Prohibited Uses</b></p>
+    <p class="about-us-para">You may use Service only for lawful purposes and in accordance with Terms. You agree not to use
+        Service:</p>
+    <p class="about-us-para">0.1. In any way that violates any applicable national or international law or regulation.</p>
+    <p class="about-us-para">0.2. For the purpose of exploiting, harming, or attempting to exploit or harm minors in
+        any way by exposing them to inappropriate content or otherwise.</p>
+    <p class="about-us-para">0.3. To transmit, or procure the sending of, any advertising or promotional material, including
+        any “junk mail”, “chain letter,” “spam,” or any other similar solicitation.</p>
+    <p class="about-us-para">0.4. To impersonate or attempt to impersonate Company, a Company employee,
+        another user, or any other person or entity.</p>
+    <p class="about-us-para">0.5. In any way that infringes upon the rights of others, or in any way is illegal,
+        threatening, fraudulent, or harmful, or in connection with any unlawful, illegal, fraudulent,
+        or harmful purpose or activity.</p>
+    <p class="about-us-para">0.6. To engage in any other conduct that restricts or inhibits anyone’s use or enjoyment
+        of Service, or which, as determined by us, may harm or offend Company or users of
+        Service or expose them to liability.</p>
+    <p class="about-us-para"><b>Additionally, you agree not to:</b><br></p>
+    <p class="about-us-para">0.1. Use Service in any manner that could disable, overburden, damage, or impair
+        Service or interfere with any other party’s use of Service, including their ability to engage
+        in real time activities through Service.</p>
+    <p class="about-us-para">0.2. Use any robot, spider, or other automatic device, process, or means to access
+        Service for any purpose, including monitoring or copying any of the material on Service.</p>
+    <p class="about-us-para">0.3. Use any manual process to monitor or copy any of the material on Service or for
+        any other unauthorized purpose without our prior written consent.</p>
+    <p class="about-us-para">0.4.Use any device, software, or routine that interferes with the proper working of Service.</p>
+    <p class="about-us-para">0.5. Introduce any viruses, trojan horses, worms, logic bombs, or
+        other material which is malicious or technologically harmful.</p>
+    <p class="about-us-para">0.6. Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts
+        of Service, the server on which Service is stored, or any server, computer, or database
+        connected to Service.</p>
+    <p class="about-us-para">0.7.Attack Service via a denial-of-service attack or a distributed denial-of-service attack.</p>
+    <p class="about-us-para">0.8.Take any action that may damage or falsify Company rating.</p>
+    <p class="about-us-para">0.9.Otherwise attempt to interfere with the proper working of Service.</p>
+    <p class="about-us-para"><b>11. Analytics</b></p>
+    <p class="about-us-para">We may use third-party Service Providers to monitor and analyze the use of our Service</p>
+    <p class="about-us-para"><b>12. No Use by Minors</b></p>
+    <p class="about-us-para">Service is intended only for access and use by individuals at least eighteen (18) years old. By
+        accessing or using Service, you warrant and represent that you are at least eighteen (18) years of
+        age and with the full authority, right, and capacity to enter into this agreement and abide by all
+        of the terms and conditions of Terms. If you are not at least eighteen (18) years old, you are
+        prohibited from both the access and usage of Service.</p>
+    <p class="about-us-para"><b>13. Accounts</b></p>
+    <p class="about-us-para">When you create an account with us, you guarantee that you are above the age of 18, and that
+        the information you provide us is accurate, complete, and current at all times. Inaccurate,
+        incomplete, or obsolete information may result in the immediate termination of your account on
+        Service.
+        You are responsible for maintaining the confidentiality of your account and password, including
+        but not limited to the restriction of access to your computer and/or account. You agree to
+        accept responsibility for any and all activities or actions that occur under your account and/or
+        password, whether your password is with our Service or a third-party service. You must notify us
+        immediately upon becoming aware of any breach of security or unauthorized use of your
+        account.
+        You may not use as a username the name of another person or entity or that is not lawfully
+        available for use, a name or trademark that is subject to any rights of another person or entity
+        other than you, without appropriate authorization. You may not use as a username any name
+        that is offensive, vulgar or obscene.
+        We reserve the right to refuse service, terminate accounts, remove or edit content, or cancel
+        orders in our sole discretion.</p>
+    <p class="about-us-para"><b>14. Intellectual Property</b></p>
+    <p class="about-us-para">Service and its original content (excluding Content provided by users), features and functionality
+        are and will remain the exclusive property of ReaderClub and its licensors. Service is protected
+        by copyright, trademark, and other laws of and foreign countries. Our trademarks may not be
+        used in connection with any product or service without the prior written consent of ReaderClub.</p>
+    <p class="about-us-para"><b>15. Copyright Policy</b></p>
+    <p class="about-us-para">We respect the intellectual property rights of others. It is our policy to respond to any claim that
+        Content posted on Service infringes on the copyright or other intellectual property rights
+        (“Infringement”) of any person or entity.
+        If you are a copyright owner, or authorized on behalf of one, and you believe that the
+        copyrighted work has been copied in a way that constitutes copyright infringement, please
+        submit your claim via email to <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a>, with the subject line: “Copyright
+        Infringement” and include in your claim a detailed description of the alleged Infringement
+        as detailed below, under “DMCA Notice and Procedure for Copyright Infringement Claims”
+        You may be held accountable for damages (including costs and attorneys’ fees) for
+        misrepresentation or bad-faith claims on the infringement of any Content found on and/or
+        through Service on your copyright.</p>
+    <p class="about-us-para"><b>16. DMCA Notice and Procedure for Copyright Infringement Claims</b></p>
+    <p class="about-us-para">You may submit a notification pursuant to the Digital Millennium Copyright Act (DMCA) by
+        providing our Copyright Agent with the following information in writing (see 17 U.S.C 512(c)(3)
+        for further detail):</p>
+    <p class="about-us-para">0.1. an electronic or physical signature of the person authorized to act on behalf of the owner
+        of the copyright’s interest;</p>
+    <p class="about-us-para">0.2. a description of the copyrighted work that you claim has been infringed, including
+        the URL (i.e., web page address) of the location where the copyrighted work exists or a copy
+        of
+        the copyrighted work;</p>
+    <p class="about-us-para">0.3. identification of the URL or other specific location on Service where the material
+        that you claim is infringing is located;</p>
+    <p class="about-us-para">0.4.your address, telephone number, and email address;</p>
+    <p class="about-us-para">0.5. a statement by you that you have a good faith belief that the disputed use
+        is not authorized by the copyright owner, its agent, or the law;</p>
+    <p class="about-us-para">0.6. a statement by you, made under penalty of perjury, that the above information
+        in your notice is accurate and that you are the copyright owner or authorized to act on
+        the copyright owner’s behalf. You can contact our Copyright Agent via email at
+        <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a>.</p>
+    <p class="about-us-para"><b>17. Error Reporting and Feedback</b></p>
+    <p class="about-us-para">You may provide us either directly at privacy@readerclub.in or via third party sites and
+        tools with information and feedback concerning errors, suggestions for improvements, ideas,
+        problems, complaints, and other matters related to our Service (“Feedback”). You acknowledge
+        and agree that: (i) you shall not retain, acquire or assert any intellectual property right or other
+        right, title or interest in or to the Feedback; (ii) Company may have development ideas similar to
+        the Feedback; (iii) Feedback does not contain confidential information or proprietary information
+        from you or any third party; and (iv) Company is not under any obligation of confidentiality with
+        respect to the Feedback. In the event the transfer of the ownership to the Feedback is not
+        possible due to applicable mandatory laws, you grant Company and its affiliates an exclusive,
+        transferable, irrevocable, free-of-charge, sub-licensable, unlimited and perpetual right to use
+        (including copy, modify, create derivative works, publish, distribute and commercialize) Feedback
+        in any manner and for any purpose.</p>
+    <p class="about-us-para"><b>18. Links to Other Web Sites</b></p>
+    <p class="about-us-para">Our Service may contain links to third party web sites or services that are not owned or
+        controlled by ReaderClub.
+        ReaderClub has no control over, and assumes no responsibility for the content, privacy policies,
+        or practices of any third-party web sites or services. We do not warrant the offerings of any of
+        these entities/individuals or their websites.
+        YOU ACKNOWLEDGE AND AGREE THAT COMPANY SHALL NOT BE RESPONSIBLE OR LIABLE, DIRECTLY
+        OR INDIRECTLY, FOR ANY DAMAGE OR LOSS CAUSED OR ALLEGED TO BE CAUSED BY OR IN
+        CONNECTION WITH USE OF OR RELIANCE ON ANY SUCH CONTENT, GOODS OR SERVICES AVAILABLE
+        ON OR THROUGH ANY SUCH THIRD-PARTY WEB SITES OR SERVICES. WE STRONGLY ADVISE YOU TO
+        READ THE TERMS OF SERVICE AND PRIVACY POLICIES OF ANY THIRD-PARTY WEB SITES OR SERVICES
+        THAT YOU VISIT.</p>
+    <p class="about-us-para"><b>19. Disclaimer of Warranty</b></p>
+    <p class="about-us-para">THESE SERVICES ARE PROVIDED BY COMPANY ON AN “AS IS” AND “AS AVAILABLE” BASIS. COMPANY
+        MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE
+        OPERATION OF THEIR SERVICES, OR THE INFORMATION, CONTENT OR MATERIALS INCLUDED
+        THEREIN. YOU EXPRESSLY AGREE THAT YOUR USE OF THESE SERVICES, THEIR CONTENT, AND ANY
+        SERVICES OR ITEMS OBTAINED FROM US IS AT YOUR SOLE RISK.
+        NEITHER COMPANY NOR ANY PERSON ASSOCIATED WITH COMPANY MAKES ANY WARRANTY OR
+        REPRESENTATION WITH RESPECT TO THE COMPLETENESS, SECURITY, RELIABILITY, QUALITY,
+        ACCURACY, OR AVAILABILITY OF THE SERVICES. WITHOUT LIMITING THE FOREGOING, NEITHER
+        COMPANY NOR ANYONE ASSOCIATED WITH COMPANY REPRESENTS OR WARRANTS THAT THE
+        SERVICES, THEIR CONTENT, OR ANY SERVICES OR ITEMS OBTAINED THROUGH THE SERVICES WILL
+        BE ACCURATE, RELIABLE, ERROR-FREE, OR UNINTERRUPTED, THAT DEFECTS WILL BE
+        CORRECTED, THAT THE SERVICES OR THE SERVER THAT MAKES IT AVAILABLE ARE FREE OF
+        VIRUSES OR OTHER
+        HARMFUL COMPONENTS OR THAT THE SERVICES OR ANY SERVICES OR ITEMS OBTAINED THROUGH
+        THE SERVICES WILL OTHERWISE MEET YOUR NEEDS OR EXPECTATIONS.
+        COMPANY HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED,
+        STATUTORY, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+        MERCHANTABILITY, NON-INFRINGEMENT, AND FITNESS FOR PARTICULAR PURPOSE. THE
+        FOREGOING DOES NOT AFFECT ANY WARRANTIES WHICH CANNOT BE EXCLUDED OR LIMITED
+        UNDER APPLICABLE LAW.</p>
+    <p class="about-us-para"><b>20.Limitation of Liability</b></p>
+    <p class="about-us-para">EXCEPT AS PROHIBITED BY LAW, YOU WILL HOLD US AND OUR OFFICERS, DIRECTORS, EMPLOYEES,
+        AND AGENTS HARMLESS FOR ANY INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
+        DAMAGE, HOWEVER IT ARISES (INCLUDING ATTORNEYS’ FEES AND ALL RELATED COSTS AND
+        EXPENSES OF LITIGATION AND ARBITRATION, OR AT TRIAL OR ON APPEAL, IF ANY, WHETHER OR NOT
+        LITIGATION OR ARBITRATION IS INSTITUTED), WHETHER
+        IN AN ACTION OF CONTRACT, NEGLIGENCE, OR OTHER TORTIOUS ACTION, OR ARISING OUT OF OR
+        IN CONNECTION WITH THIS AGREEMENT, INCLUDING WITHOUT LIMITATION ANY CLAIM FOR
+        PERSONAL INJURY OR PROPERTY DAMAGE, ARISING FROM THIS AGREEMENT AND ANY VIOLATION BY
+        YOU OF ANY FEDERAL, STATE, OR LOCAL LAWS, STATUTES, RULES, OR REGULATIONS, EVEN IF
+        COMPANY HAS BEEN PREVIOUSLY ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. EXCEPT AS
+        PROHIBITED BY LAW, IF THERE IS LIABILITY FOUND ON THE PART OF COMPANY, IT WILL BE
+        LIMITED TO THE AMOUNT PAID FOR THE PRODUCTS AND/OR SERVICES, AND UNDER NO
+        CIRCUMSTANCES
+        WILL THERE BE CONSEQUENTIAL OR PUNITIVE DAMAGES. SOME STATES DO NOT ALLOW THE
+        EXCLUSION OR LIMITATION OF PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE PRIOR
+        LIMITATION OR EXCLUSION MAY NOT APPLY TO YOU.</p>
+    <p class="about-us-para"><b>21. Termination</b></p>
+    <p class="about-us-para">We may terminate or suspend your account and bar access to Service immediately, without prior
+        notice or liability, under our sole discretion, for any reason whatsoever and without limitation,
+        including but not limited to a breach of Terms.
+        If you wish to terminate your account, you may simply discontinue using Service.
+        All provisions of Terms which by their nature should survive termination shall survive
+        termination, including, without limitation, ownership provisions, warranty disclaimers,
+        indemnity and limitations of liability.</p>
+    <p class="about-us-para"><b>22. Governing Law</b></p>
+    <p class="about-us-para">These Terms shall be governed and construed in accordance with the laws of INDIA, which
+        governing law applies to agreement without regard to its conflict of law provisions.
+        Our failure to enforce any right or provision of these Terms will not be considered a waiver of
+        those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the
+        remaining provisions of these Terms will remain in effect. These Terms constitute the entire
+        agreement between us regarding our Service and supersede and replace any prior agreements we
+        might have had between us regarding Service.</p>
+    <p class="about-us-para"><b>23. Changes to Service</b></p>
+    <p class="about-us-para">We reserve the right to withdraw or amend our Service, and any service or material we provide
+        via Service, in our sole discretion without notice. We will not be liable if for any reason all or
+        any part of Service is unavailable at any time or for any period. From time to time, we may
+        restrict access to some parts of Service, or the entire Service, to users, including registered
+        users.</p>
+    <p class="about-us-para"><b>24. Amendments to Terms</b></p>
+    <p class="about-us-para">We may amend Terms at any time by posting the amended terms on this site. It is
+        your responsibility to review these Terms periodically.
+        Your continued use of the Platform following the posting of revised Terms means that you accept
+        and agree to the changes. You are expected to check this page frequently so you are aware of
+        any changes, as they are binding on you.
+        By continuing to access or use our Service after any revisions become effective, you agree to be
+        bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to
+        use Service.</p>
+    <p class="about-us-para"><b>25. Waiver and Severability</b></p>
+    <p class="about-us-para">No waiver by Company of any term or condition set forth in Terms shall be deemed a further or
+        continuing waiver of such term or condition or a waiver of any other term or condition, and any
+        failure of Company to assert a right or provision under Terms shall not constitute a waiver of
+        such right or provision.</p>
+    <p class="about-us-para">No waiver by Company of any term or condition set forth in Terms shall be deemed a further or
+        continuing waiver of such term or condition or a waiver of any other term or condition, and any
+        failure of Company to assert a right or provision under Terms shall not constitute a waiver of
+        such right or provision.</p>
+    <p class="about-us-para">If any provision of Terms is held by a court or other tribunal of competent jurisdiction to be
+        invalid, illegal or unenforceable for any reason, such provision shall be eliminated or limited to
+        the minimum extent such that the remaining provisions of Terms will continue in full force and
+        effect.</p>
+    <p class="about-us-para"><b>26.Acknowledgement</b></p>
+    <p class="about-us-para">BY USING SERVICE OR OTHER SERVICES PROVIDED BY US, YOU ACKNOWLEDGE THAT YOU HAVE
+        READ THESE TERMS OF SERVICE AND AGREE TO BE BOUND BY THEM.</p>
+    <p class="about-us-para"><b>27. Contact Us</b></p>
+    <p class="about-us-para">Please send your feedback, comments, requests for technical support by
+        email: <a href="mailto:support@readerclub.in" class="contact-link">privacy@readerclub.in</a>.</p>
+    <p class="about-us-para"><b>28.Terms and Conditions for Online Payment</b></p>
+    <p class="about-us-para">The Terms and Conditions contained herein shall apply to any person (“Applicant”) using the
+        services for making Application through an online payment gateway service (“Service”) offered
+        by Payment Gateway Service provider, through Cincooni website
+        i.e. https://www.Cincooni.com
+        Each Applicant is, therefore, deemed to have read and accepted these Terms and Conditions.</p>
+    <p class="about-us-para"><br><b>Privacy Policy</b><br></p>
+    <p class="about-us-para"><b>Cincooni</b> respects and protects the privacy of the individuals that access the information and
+        use the services provided through them. Individually identifiable information about the person is
+        not willfully disclosed to any third party without first receiving the person’s permission, as
+        covered in this Privacy Policy.
+        Please be aware, however, that Cincooni will release specific personal information about
+        the persons, if required to do so in the following circumstances</p>
+    <p class="about-us-para">a) in order to comply with any valid legal process such as a search
+        warrant, statute, or court order, or</p>
+    <p class="about-us-para">b) if any of person’s actions on Cincooni ‘s website violates the Terms
+        of Service or any of Cincooni ‘s guidelines for specific services, or</p>
+    <p class="about-us-para">c) to protect or defend Cincooni ‘s legal rights or property, the Cincooni site, or
+        Cincooni Applicants; or</p>
+    <p class="about-us-para">d) to investigate, prevent, or take action regarding illegal activities,
+        suspected fraud, situations involving potential threats to the security,
+        integrity of <b>Cincooni</b>
+        website/offerings.<br><br></p>
+    <p class="about-us-para"><b>1. General Terms and Conditions for Online-Payments</b></p>
+    <p class="about-us-para">Once an Applicant has accepted these Terms and Conditions, he/ she may register and avail
+        the Services.
+        <b>Cincooni ‘s</b> rights, obligations, undertakings shall be subject to the laws in force in India, as
+        well as any directives/ procedures of Government of India, and nothing contained in these
+        Terms and Conditions shall be in derogation of <b>Cincooni ‘s</b> right to comply with
+        any law enforcement agencies request or requirements relating to any Applicant’s use of the
+        website or information provided to or gathered by <b>Cincooni</b> with respect to such use. Each
+        Applicant accepts and agrees that the provision of details of his/ her use of the Website to
+        regulators or police or to any other third party in order to resolve disputes or complaints which
+        relate to the Website shall be at the absolute discretion of <b>Cincooni</b>.
+        If any part of these Terms and Conditions are determined to be invalid or unenforceable pursuant
+        to applicable law including, but not limited to, the warranty disclaimers and liability limitations
+        set forth herein, then the invalid or unenforceable provision will be deemed superseded by a
+        valid, enforceable provision that most closely matches the intent of the original provision and the
+        remainder of these Terms and Conditions shall continue in effect.
         These Terms and Conditions constitute the entire agreement between the Applicant and
-        </p>
-        <p class="s1" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        <a name="bookmark32">&zwnj;</a>Cincooni<span class="p">.</span>
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        These Terms and Conditions supersede all prior or contemporaneous communications and proposals, whether electronic, oral, or written, between the Applicant and <b>Cincooni</b>.
-        </p>
-        <p style="padding-left: 23pt;text-indent: 3pt;text-align: left;">
-        A printed version of these Terms and Conditions and of any notice given in electronic form shall be admissible in judicial or administrative proceedings based upon or relating to these
-        </p>
-        <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-        Terms and Conditions to the same extent and subject to the same conditions as other business documents and records originally generated and maintained in printed form.
-        </p>
-        <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-        The entries in the books of <b>Cincooni </b>and/or the Payment Service Providers kept in the ordinary course of business of <b>Cincooni </b>and/or the Payment Service Providers with regard to transactions covered under these Terms and Conditions and matters therein appearing shall be binding on the Applicant and shall be conclusive proof of the genuineness and accuracy of the transaction.
-        </p>
-        <ol id="l10">
-        <li data-list-text="2.">
-            <p class="s1" style="padding-top: 12pt;padding-left: 15pt;text-indent: -10pt;text-align: justify;">
-            <a name="bookmark33">&zwnj;</a>Limitation of Liability
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p class="s1" style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Cincooni <span class="p">has made this Service available to the Applicant as a matter of convenience.</span>
-            </p>
-            <p class="s1" style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Cincooni <span class="p">expressly disclaims any claim or liability arising out of the provision of this Service.</span>
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant agrees and acknowledges that he/she shall be solely responsible for his/ her conduct and that <b>Cincooni </b>reserves the right to terminate the rights to use the Service immediately without giving any prior notice thereof.
-            </p>
-            <p class="s1" style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Cincooni <span class="p">and/or the Payment Service Providers shall not be liable for any inaccuracy, error or delay in, or omission of </span>(a) <span class="p">any data, information or message, or </span>(b) <span class="p">the transmission or delivery of any such data, information or message; or </span>(c) <span class="p">any loss or damage arising from or</span>
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            occasioned by any such inaccuracy, error, delay or omission, non-performance or interruption in any such data, information or message. Under no circumstances shall <b>Cincooni </b>and/or the Payment Service Providers, their employees, directors, and their third- party agents involved in processing, delivering or managing the Services, be liable for any direct, indirect, incidental, special or consequential damages, or any damages whatsoever, including punitive or exemplary arising out of or in any way connected with the provision of or any inadequacy or deficiency in the provision of the Services or resulting from unauthorized access or
-            </p>
-        </li>
-        <li data-list-text="3.">
-            <p class="s1" style="padding-top: 12pt;padding-left: 15pt;text-indent: -10pt;text-align: justify;">
-            <a name="bookmark34">&zwnj;</a>Miscellaneous Conditions:
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant agrees, understands and confirms that his/ her personal data including without limitation details relating to debit card/ credit card transmitted over the internet may be
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            susceptible to misuse, hacking, theft and/ or fraud and that <b>Cincooni </b>or the Payment Service Provider(s) have no control over such matters.
-            </p>
-            <p style="padding-left: 23pt;text-indent: 29pt;text-align: left;">
-            Although all reasonable care has been taken towards guarding against unauthorized use of any information transmitted by the Applicant, <b>Cincooni </b>does not represent or
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            guarantee that the use of the Services provided by/ through it will not result in theft and/or unauthorized use of data over the internet.
-            </p>
-            <p class="s1" style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Cincooni<span class="p">, the Payment Service Provider(s) and its affiliates and associates shall not be liable, at any time, for any failure of performance, error, omission, interruption, deletion, defect, delay in operation or transmission, computer virus, communications line failure,</span>
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            theft or destruction or unauthorized access to, alteration of, or use of information contained on the Website.
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: justify;">
-            The total e-payment online transactions are executed using state of the art technology (SSL) to ensure secured transaction. <b>Cincooni </b>shall not be liable for any failure by the applicant or third-party making payment of Fees to properly protect data from being seen on their screen by other persons or otherwise obtained by such persons, during the online payment process
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: justify;">
-            or in respect of any omission to provide accurate information in the course of the online payment process.
-            </p>
-        </li>
-        <li data-list-text="4.">
-            <p class="s1" style="padding-top: 10pt;padding-left: 15pt;text-indent: -10pt;text-align: left;">
-            <a name="bookmark35">&zwnj;</a>Debit/Credit Card, Bank Account Details
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant agrees that the debit/credit card details provided by him/ her for use of the aforesaid Service(s) must be correct and accurate and that the Applicant shall not use a debit/ credit card, that is not lawfully owned by him/ her or the use of which is not
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            authorized by the lawful owner thereof. The Applicant further agrees and undertakes to provide correct and valid debit/credit card details.
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant may pay his/ her application/ subscriptions fees to <b>Cincooni </b>by using a debit/credit card or through online banking account. The Applicant warrants, agrees and confirms that when he/ she initiates a payment transaction and/or issues an online payment instruction and provides his/ her card / bank details:
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant is fully and lawfully entitled to use such credit / debit card, bank account for such transactions;
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant is responsible to ensure that the card/ bank account details provided by him/ her are accurate;
-            </p>
-            <p class="s1" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            (iii) <span class="p">The Applicant authorizes debit of the nominated card/ bank account for the payment of fees selected by such Applicant along with the applicable Fees.</span>
-            </p>
-            <p style="padding-top: 4pt;padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            The Applicant is responsible to ensure that sufficient credit is available on the nominated card/ bank account at the time of making the payment to permit the payment.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="5.">
-            <p class="s1" style="padding-left: 15pt;text-indent: -10pt;text-align: left;">
-            <a name="bookmark36">&zwnj;</a>Transaction Charges
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p class="s1" style="padding-left: 5pt;text-indent: 2pt;text-align: left;">
-            Cincooni <span class="p">does not charge any processing fee or service charge from the Applicants for online payment. However, applicants have to bear the necessary transaction charge plus service tax</span>
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
-            applicable for online payment of Application/ Subscriptions fee. This charge will be taken by e-
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            payment solution provider for giving this service. Charges are mentioned in <b>Cincooni </b>payment Portal where Applicant proceeds for online payment.
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        </li>
-        <li data-list-text="6.">
-            <p class="s1" style="padding-left: 16pt;text-indent: -11pt;text-align: left;">
-            <a name="bookmark37">&zwnj;</a>Payment Gateway /Net Banking Disclaimer
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            The Service is provided in order to facilitate access to pay Application/ Subscriptions fee online. <b>Cincooni </b>or the Payment Service Provider(s) do not make any representation of any kind, express or implied, as to the operation of the Payment Gateway other than what is specified in the
-            </p>
-            <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-            Website for this purpose. By accepting/ agreeing to these Terms and Conditions, the User expressly agrees that his/ her use of the aforesaid online payment Service is entirely at own risk and responsibility of the User.
-            </p>
-        </li>
-        <li data-list-text="7.">
-            <p class="s1" style="padding-top: 12pt;padding-left: 15pt;text-indent: -10pt;text-align: left;">
-            <a name="bookmark38">&zwnj;</a>Refund and Cancellation Policy
-            </p>
-            <p style="text-indent: 0pt;text-align: left;"><br/></p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Refund: In the event there is any claim for refund by the Applicant for any reason
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            whatsoever, such Applicant shall immediately approach <b>Cincooni </b>with his/ her claim details and claim refund from <b>Cincooni </b>alone. Such refund (if any) shall be made only by <b>Cincooni </b>via payment gateway or by means of a demand draft or such other means as <b>Cincooni </b>deems appropriate, in line with their policies and rules. No claims for refund shall be made by any Applicant to the Payment Service Provider(s) and in the event such claim is made it shall not be entertained.
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            In these Terms and Conditions, the term “Refund” shall mean, approved and settled credit card or net banking transaction(s) for payment of fees.
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Refund for fraudulent/duplicate transaction(s): The Applicant shall directly contact <b>Cincooni </b>for any fraudulent transaction(s) on account of misuse of Card/ Bank details by a fraudulent individual/party and such issues shall be suitably addressed by <b>Cincooni </b>alone in line with
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            their policies and rules.
-            </p>
-            <p style="padding-left: 23pt;text-indent: 0pt;text-align: left;">
-            Server Slow Down/Session Timeout: In case the Website or Payment Service Provider’s webpage, that is linked to the Website, is experiencing any server related issues like ‘slow down’ or ‘failure’ or ‘session timeout’, the Applicant shall, before initiating the second payment, check whether his/her Bank Account has been debited or not and accordingly resort to one of the following options:
-            </p>
-            <ol id="l11">
-            <li data-list-text="(i)">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                In case the Bank Account appears to be debited, ensure that he/ she does not make the payment twice and immediately thereafter contact <b>Cincooni </b>via e-mail or any other
-                </p>
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                mode of contact as provided by <b>Cincooni </b>to confirm payment.
-                </p>
-            </li>
-            <li data-list-text="(ii)">
-                <p style="padding-left: 5pt;text-indent: 0pt;text-align: left;">
-                In case the Bank Account is not debited, the Applicant may initiate a fresh transaction to make payment.
-                </p>
-            </li>
-            </ol>
-        </li>
-        </ol>
-        <p style="text-indent: 0pt;text-align: left;"><br/></p>
-        <pre>
-            <div class="tnc_container">
-                <div class="contact-box">
-                    <p><br>
-                    Contact Details 1:<br>
-                    <strong>Cincooni Systems PVT LTD</strong><br><br>
-                    3rd Floor, KH NO 303 Sultanpur,<br>
-                    New Delhi 110030<br>
-                    <a href="mailto:support@readerclub.in">support@readerclub.in</a><br>
-                    Telephone number: 9911775525</p>
-                </div>
-        
-                <div class="contact-box">
-                    <p><br>
-                    Contact Details 2:<br>
-                    <strong>ReaderClub</strong><br><br>
-                    G1, Plot No. A-61,<br>
-                    Sector-16, Noida,<br>
-                    Gautam Buddh Nagar, UP 201301<br>
-                    <a href="mailto:support@readerclub.in">support@readerclub.in</a><br>
-                    Telephone number: 9911775525</p>
-                </div>
+        <b>Cincooni</b>.
+        These Terms and Conditions supersede all prior or contemporaneous communications and
+        proposals, whether electronic, oral, or written, between the Applicant and <b>Cincooni</b>.
+        A printed version of these Terms and Conditions and of any notice given in electronic form
+        shall be admissible in judicial or administrative proceedings based upon or relating to these
+        Terms and Conditions to the same extent and subject to the same conditions as other business
+        documents and records originally generated and maintained in printed form.
+        The entries in the books of <b>Cincooni</b> and/or the Payment Service Providers kept in the ordinary
+        course of business of <b>Cincooni</b> and/or the Payment Service Providers with regard to transactions
+        covered under these Terms and Conditions and matters therein appearing shall be binding on the
+        Applicant and shall be conclusive proof of the genuineness and accuracy of the transaction.</p>
+    <p class="about-us-para"><b>2. Limitation of Liability</b></p>
+    <p class="about-us-para"><b>Cincooni</b> has made this Service available to the Applicant as a matter of convenience.
+        <b>Cincooni</b> expressly disclaims any claim or liability arising out of the provision of this Service.
+        The Applicant agrees and acknowledges that he/she shall be solely responsible for his/ her
+        conduct and that <b>Cincooni</b> reserves the right to terminate the rights to use the Service
+        immediately without giving any prior notice thereof.
+        <b>Cincooni</b> and/or the Payment Service Providers shall not be liable for any inaccuracy, error or
+        delay in, or omission of (a) any data, information or message, or (b) the transmission or
+        delivery of any such data, information or message; or (c) any loss or damage arising from or
+        occasioned by any such inaccuracy, error, delay or omission, non-performance or interruption
+        in any such data, information or message. Under no circumstances shall <b>Cincooni</b> and/or the
+        Payment Service Providers, their employees, directors, and their third- party agents involved
+        in processing, delivering or managing the Services, be liable for any direct, indirect,
+        incidental, special or consequential damages, or any damages whatsoever, including punitive
+        or exemplary arising out of or in any way connected with the provision of or any inadequacy
+        or deficiency in the provision of the Services or resulting from unauthorized access or
+        alteration of transmissions of data or arising from suspension or termination of the Services.</p>
+    <p class="about-us-para">Cincooni and the Payment Service Provider(s) assume no liability whatsoever for any
+        monetary or other damage suffered by the Applicant on account of:</p>
+    <p class="about-us-para">(I) the delay, failure, interruption, or corruption of any data or other information transmitted in
+        connection with use of the Payment Gateway or Services in connection thereto; and/ or</p>
+    <p class="about-us-para">(ii) Any interruption or errors in the operation of the Payment Gateway</p>
+    <p class="about-us-para">The Applicant shall indemnify and hold harmless the Payment Service Provider(s) and Cincooni
+        and their respective officers, directors, agents, and employees, from any claim or demand, or
+        actions arising out of or in connection with the utilization of the Services.
+        The Applicant agrees that Cincooni or any of its employees will not be held liable by the
+        Applicant for any loss or damages arising from your use of, or reliance upon the information
+        contained on the Website, or any failure to comply with these Terms and Conditions where
+        such failure is due to circumstance beyond Cincooni ‘s reasonable control.</p>
+    <p class="about-us-para"><b>3.Miscellaneous Conditions:</b></p>
+    <p class="about-us-para">The Applicant agrees, understands and confirms that his/ her personal data including without
+        limitation details relating to debit card/ credit card transmitted over the internet may be
+        susceptible to misuse, hacking, theft and/ or fraud and that Cincooni or the Payment Service
+        Provider(s) have no control over such matters.</p>
+    <p class="about-us-para">Although all reasonable care has been taken towards guarding against unauthorized
+        use of any information transmitted by the Applicant, <b>Cincooni</b> does not represent or
+        guarantee that the use of the Services provided by/ through it will not result in theft and/or
+        unauthorized use of data over the internet.
+        <b>Cincooni</b>, the Payment Service Provider(s) and its affiliates and associates shall not be
+        liable, at any time, for any failure of performance, error, omission, interruption, deletion,
+        defect, delay in operation or transmission, computer virus, communications line failure,
+        theft or destruction or unauthorized access to, alteration of, or use of information contained
+        on the Website.
+        The total e-payment online transactions are executed using state of the art technology (SSL)
+        to ensure secured transaction. <b>Cincooni</b> shall not be liable for any failure by the applicant or
+        third-party making payment of Fees to properly protect data from being seen on their screen
+        by other persons or otherwise obtained by such persons, during the online payment process
+        or in respect of any omission to provide accurate information in the course of the online
+        payment process.</p>
+    <p class="about-us-para"><b>4.Debit/Credit Card, Bank Account Details</b></p>
+    <p class="about-us-para">The Applicant agrees that the debit/credit card details provided by him/ her for use of the
+        aforesaid Service(s) must be correct and accurate and that the Applicant shall not use a
+        debit/ credit card, that is not lawfully owned by him/ her or the use of which is not
+        authorized by the lawful owner thereof. The Applicant further agrees and undertakes to
+        provide correct and valid debit/credit card details.
+        The Applicant may pay his/ her application/ subscriptions fees to Cincooni by using a debit/credit
+        card or through online banking account. The Applicant warrants, agrees and confirms that when
+        he/ she initiates a payment transaction and/or issues an online payment instruction and provides
+        his/ her card / bank details:</p>
+    <p class="about-us-para">The Applicant is fully and lawfully entitled to use such credit / debit card, bank account for
+        such transactions;
+        The Applicant is responsible to ensure that the card/ bank account details provided by him/
+        her are accurate;</p>
+    <p class="about-us-para">(iii) The Applicant authorizes debit of the nominated card/ bank account for the payment of fees
+        selected by such Applicant along with the applicable Fees.</p>
+    <p class="about-us-para">The Applicant is responsible to ensure that sufficient credit is available on the nominated
+        card/ bank account at the time of making the payment to permit the payment.</p><br>
+    <p class="about-us-para"><b>5.Transaction Charges</b></p>
+    <p class="about-us-para"><b>Cincooni</b> does not charge any processing fee or service charge from the Applicants for online
+        payment. However, applicants have to bear the necessary transaction charge plus service tax
+        applicable for online payment of Application/ Subscriptions fee. This charge will be taken by epayment solution provider for giving this service. Charges are mentioned in Cincooni payment Portal
+        where Applicant proceeds for online payment.</p>
+    <p class="about-us-para"><b>6. Payment Gateway /Net Banking Disclaimer</b></p>
+    <p class="about-us-para">The Service is provided in order to facilitate access to pay Application/ Subscriptions fee online.
+        <b>Cincooni</b> or the Payment Service Provider(s) do not make any representation of any kind, express
+        or implied, as to the operation of the Payment Gateway other than what is specified in the
+        Website for this purpose. By accepting/ agreeing to these Terms and Conditions, the User
+        expressly agrees that his/ her use of the aforesaid online payment Service is entirely at own risk
+        and responsibility of the User.</p>
+    <p class="about-us-para"><b>7.Refund and Cancellation Policy</b></p>
+    <p class="about-us-para">Refund: In the event there is any claim for refund by the Applicant for any reason
+        whatsoever, such Applicant shall immediately approach Cincooni with his/ her claim details
+        and claim refund from Cincooni alone. Such refund (if any) shall be made only by Cincooni
+        via payment gateway or by means of a demand draft or such other means as Cincooni deems
+        appropriate, in line with their policies and rules. No claims for refund shall be made by any
+        Applicant to the Payment Service Provider(s) and in the event such claim is made it shall not
+        be entertained.</p>
+    <p class="about-us-para">In these Terms and Conditions, the term “Refund” shall mean, approved and settled credit
+        card or net banking transaction(s) for payment of fees.
+        Refund for fraudulent/duplicate transaction(s): The Applicant shall directly contact Cincooni
+        for any fraudulent transaction(s) on account of misuse of Card/ Bank details by a fraudulent
+        individual/party and such issues shall be suitably addressed by Cincooni alone in line with
+        their policies and rules.</p>
+    <p class="about-us-para">Server Slow Down/Session Timeout: In case the Website or Payment Service Provider’s
+        webpage, that is linked to the Website, is experiencing any server related issues like
+        ‘slow down’ or ‘failure’ or ‘session timeout’, the Applicant shall, before initiating the
+        second payment, check whether his/her Bank Account has been debited or not and
+        accordingly resort to one of the following options:</p>
+    <p class="about-us-para">(i) In case the Bank Account appears to be debited, ensure that he/ she does not make
+        the payment twice and immediately thereafter contact Cincooni via e-mail or any other
+        mode of contact as provided by Cincooni to confirm payment.</p>
+    <p class="about-us-para">(ii) In case the Bank Account is not debited, the Applicant may initiate
+        a fresh transaction to make payment.</p>
+        <div class="tnc-contact-container">
+            <div class="tnc-contact-box">
+                <p><br>
+                Contact Details 1:<br>
+                <span class="privacy-policy-company">Cincooni Systems PVT LTD</span><br><br>
+                3rd Floor, KH NO 303 Sultanpur,<br>
+                New Delhi 110030<br>
+                <a href="mailto:support@readerclub.in" class="privacy-policy-link">support@readerclub.in</a><br>
+                Telephone number: 9911775525</p>
             </div>
-        </pre>
-        <p class="s1" style="text-indent: 0pt;text-align: center;">No Return, No Refund.</p>
-        <!-- End Terms & Conditions Content -->
-    </div>
+    
+            <div class="privacy-policy-contact-box">
+                <p><br>
+                Contact Details 2:<br>
+                <span class="privacy-policy-company">ReaderClub</span><br><br>
+                G1, Plot No. A-61,<br>
+                Sector-16, Noida,<br>
+                Gautam Buddh Nagar, UP 201301<br>
+                <a href="mailto:support@readerclub.in" class="privacy-policy-link">support@readerclub.in</a><br>
+                Telephone number: 9911775525</p>
+            </div>
+        </div>
+    </pre>
+    <h3 class="tnc-last-text">
+        No Return, No Refund.
+    </h3>
 </div>
+{% include 'faq.html' %}
+{% include 'app.html' %}
 {% endblock content %}
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock %}

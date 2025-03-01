@@ -642,7 +642,7 @@
   <hr>
   <div class="company-conatiner">
     <div class="content">
-        <div class="header">Top Companies Hiring</div>
+        <div class="header">Top Universities</div>
         <div class="divider"></div>
         <div class="companies">
             <div class="company">
@@ -682,9 +682,7 @@
 </section>
 
 <!-- FAQ Section -->
-
-
-<section class="faq-section">
+{% comment %} <section class="faq-section">
     <div class="faqq-container">
         <h1 class="faq-title">Do You Have Questions?</h1>
         <div class="faq-image-section">
@@ -752,10 +750,10 @@
             </div>
         </div>
     </div>
-</section>
+</section> {% endcomment %}
 
 <!-- Download App Section -->
-<section class="app-section">
+{% comment %} <section class="app-section">
   <div class="app-container">
       <!-- Phone Mockup -->
       <div class="phone-mockup">
@@ -787,7 +785,10 @@
         </div>        
       </div>
   </div>
-</section>
+</section> {% endcomment %}
+
+{% include 'faq.html' %}
+{% include 'app.html' %}
 
 {% block extra_js %}
 <script src="{% static 'js/index.js' %}"></script>

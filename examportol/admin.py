@@ -1,74 +1,92 @@
-from django.contrib import admin
-from .models import Category, Subject, Question, ExamResult
-import json
-
-"""
-Django Admin Configuration for the Models
-
-This module registers the models Category, Subject, and Question with the Django Admin site
-and customizes their display and search capabilities.
-
-Classes:
-    CategoryAdmin -- Admin configuration for the Category model.
-    SubjectAdmin -- Admin configuration for the Subject model.
-    QuestionAdmin -- Admin configuration for the Question model.
-"""
-
-class CategoryAdmin(admin.ModelAdmin):
-    """
-    Admin settings for the Category model.
-
-    Attributes:
-        list_display (tuple): Fields to display in the list view.
-        search_fields (tuple): Fields available for searching.
-    """
-    list_display = ('category_code', 'category_name')
-    search_fields = ('category_code', 'category_name')
-    list_filter = ('category_name',)
-    ordering = ('category_code',)
-
-class SubjectAdmin(admin.ModelAdmin):
-    """
-    Admin settings for the Subject model.
-
-    Attributes:
-        list_display (tuple): Fields to display in the list view.
-        search_fields (tuple): Fields available for searching.
-        list_filter (tuple): Fields available for filtering.
-    """
-    list_display = ('subject_code', 'subject_name', 'subject_category')
-    search_fields = ('subject_code', 'subject_name', 'subject_category__category_name')
-    list_filter = ('subject_category',)
-    ordering = ('subject_code',)
+import csv
+from django.contrib import admin, messages
+from django.shortcuts import render, redirect
+from django.urls import path
+from django.utils.html import format_html
+from django.http import HttpResponseRedirect
+from .models import Question, Subject, Category
+from .forms import QuestionUploadForm
 
 class QuestionAdmin(admin.ModelAdmin):
-    """
-    Admin settings for the Question model.
+    list_display = ('question_text', 'question_subject')  # Removed 'created_at'
+    search_fields = ('question_text',)
 
-    Attributes:
-        list_display (tuple): Fields to display in the list view.
-        search_fields (tuple): Fields available for searching.
-        list_filter (tuple): Fields available for filtering.
-    """
-    list_display = ('question_code', 'question_text', 'question_subject')
-    search_fields = ('question_code', 'question_text', 'question_subject__subject_name')
-    list_filter = ('question_subject',)
-    ordering = ('question_code',)
-    
-    def formatted_answers(self, obj):
-        """Display answers in a readable format."""
-        return json.dumps(obj.answers, indent=4)
-    
-    formatted_answers.allow_tags = True
-    formatted_answers.short_description = "Answers"
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('upload-questions/', self.admin_site.admin_view(self.upload_questions), name='upload_questions'),
+        ]
+        return custom_urls + urls
 
-class ExamResultAdmin(admin.ModelAdmin):
-    list_display = ('user', 'session_id', 'total_questions', 'correct_answers', 'score', 'submitted_at')
-    search_fields = ('user__username', 'session_id')
-    list_filter = ('submitted_at',)
-    ordering = ('-submitted_at',)
+    def upload_questions(self, request):
+        if request.method == 'POST':
+            form = QuestionUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                category_id = form.cleaned_data['category'].id
+                subject_id = form.cleaned_data['subject'].id
+                file = request.FILES['file']
 
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Subject, SubjectAdmin)
+                # Ensure file is CSV
+                if not file.name.endswith('.csv'):
+                    self.message_user(request, "Invalid file format! Please upload a CSV file.", level=messages.ERROR)
+                    return redirect('admin:upload_questions')
+
+                try:
+                    decoded_file = file.read().decode('utf-8').splitlines()
+                    reader = csv.DictReader(decoded_file)
+
+                    required_fields = ['Question', 'Correct Answer', 'Option A', 'Option B', 'Option C', 'Option D']
+                    missing_rows = []
+                    subject = Subject.objects.get(id=subject_id)
+                    category = Category.objects.get(id=category_id)
+
+                    for index, row in enumerate(reader, start=1):
+                        if not all(row.get(field, '').strip() for field in required_fields):
+                            missing_rows.append(index)
+                            continue
+
+                        question_text = row['Question'].strip()
+                        correct_answer = row['Correct Answer'].strip().upper()
+
+                        if correct_answer not in ['A', 'B', 'C', 'D']:
+                            self.message_user(request, f"Row {index}: Invalid correct answer '{correct_answer}', skipping.", level=messages.WARNING)
+                            continue
+
+                        answers = {
+                            f'option_{letter}': {
+                                'text': row[f'Option {letter}'].strip(),
+                                'is_correct': (letter == correct_answer)
+                            } for letter in ['A', 'B', 'C', 'D']
+                        }
+
+                        if Question.objects.filter(question_text=question_text, question_subject=subject).exists():
+                            self.message_user(request, f"Row {index}: Duplicate question skipped.", level=messages.WARNING)
+                            continue
+
+                        Question.objects.create(
+                            question_text=question_text,
+                            question_subject=subject,
+                            answers=answers
+                        )
+
+                    if missing_rows:
+                        self.message_user(request, f"Skipped rows {missing_rows} due to missing fields.", level=messages.WARNING)
+
+                    self.message_user(request, "Questions uploaded successfully!", level=messages.SUCCESS)
+                    return HttpResponseRedirect(request.path)
+
+                except Exception as e:
+                    self.message_user(request, f"Error processing file: {e}", level=messages.ERROR)
+
+        else:
+            form = QuestionUploadForm()
+
+        return render(request, 'admin/upload_questions.html', {'form': form})
+
+    def upload_questions_button(self, obj):
+        return format_html('<a class="button" href="upload-questions/">Upload Questions</a>')
+
+    upload_questions_button.short_description = "Upload Questions"
+    upload_questions_button.allow_tags = True
+
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(ExamResult, ExamResultAdmin)

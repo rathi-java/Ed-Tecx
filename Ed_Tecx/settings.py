@@ -15,6 +15,12 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 
+import json
+
+# Read the secrets.json file
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -235,3 +241,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For developm
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'  # Disable social email verification
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = False
+with open(os.path.join(BASE_DIR, "secrets.json")) as secrets_file:
+    secrets = json.load(secrets_file)
+
+# Store API keys securely
+RAZORPAY_KEY_ID = secrets.get("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = secrets.get("RAZORPAY_SECRET_KEY")

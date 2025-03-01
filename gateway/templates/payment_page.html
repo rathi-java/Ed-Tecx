@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Complete Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Complete Payment for {{ plan_type|title }} Plan (₹{{ amount }})</h2>
+    
+    <button id="pay-button">Pay Now</button>
+
+    <script>
+        var options = {
+            key: "{{ key }}",
+            amount: "{{ amount|floatformat:2 }}",
+            currency: "INR",
+            name: "Reader Club",
+            description: "{{ plan_type|title }} Plan Payment",
+            order_id: "{{ order_id }}",
+            handler: function (response) {
+                alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+            },
+            theme: {
+                color: "#3399cc"
+            }
+        };
+        var rzp = new Razorpay(options);
+        document.getElementById("pay-button").onclick = function (e) {
+            rzp.open();
+            e.preventDefault();
+        };
+    </script>
+</body>
+</html>

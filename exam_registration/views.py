@@ -132,3 +132,12 @@ def exam_resisteration_success(request):
         logger.error(f"Error in exam registration success: {str(e)}")
         messages.error(request, "An error occurred. Please try again.")
         return redirect("exam_register")
+
+def add_exam(request):
+    # Define the add_exam view
+    if request.method == 'POST':
+        # Handle form submission
+        pass
+    else:
+        # Render form
+        return render(request, 'add_exam.html')

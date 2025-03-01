@@ -44,37 +44,7 @@
 
                 <!-- Request Dropdown -->                
                 <li onclick="setActive(this)" data-page-name="request_menu"><span class="fas fa-briefcase"></span>
-                    &nbsp;&nbsp;&nbsp;Certificate Req.</li>
-
-
-                <!-- Admin Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('admin-menu', this)"><span class="fas fa-users"></span>&nbsp;&nbsp;&nbsp; 
-                    Admin <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
-                </li>
-                <ul class="dropdown-menu" id="admin-menu">
-                    <li onclick="setActive(this)" data-page-name="manage_admin">Manage Admin</li>
-                    <li onclick="setActive(this)" data-page-name="add_admin">Add Admin</li>
-                </ul>
-                 
-                <!-- Manager Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('manager-menu', this)"><span class="fas fa-briefcase"></span> 
-                    &nbsp;&nbsp;&nbsp;
-                    Manager <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
-                </li>
-                <ul class="dropdown-menu" id="manager-menu">
-                    <li onclick="setActive(this)" data-page-name="manage_manager">Manage Manager </li>
-                    <li onclick="setActive(this)" data-page-name="add_manager">Add Manager</li>
-                </ul>
-
-                <!-- Employee Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('employee-menu', this)"><span class="fas fa-user-tie"></span> 
-                    &nbsp;&nbsp;&nbsp;
-                    Employee <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
-                </li>
-                <ul class="dropdown-menu" id="employee-menu">
-                    <li onclick="setActive(this)" data-page-name="manage_employee">Manage Employee</li>
-                    <li onclick="setActive(this)"  data-page-name="add_employee">Add Employee </li>
-                </ul>
+                    &nbsp;&nbsp;&nbsp;Certificate Req.</li>                 
 
                 <!-- Users Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('users-menu', this)"><span class="fas fa-user-circle"></span> 
@@ -325,7 +295,7 @@
             </div>
         </div>
         
-    <!-- Manage Admin Section -->
+    {% comment %} <!-- Manage Admin Section -->
     <div class="content current_page_action hidden" data-page-name="manage_admin">
         <h3>&nbsp;Admin / Manage Admin</h3>
         <div class="container">
@@ -426,7 +396,7 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> {% endcomment %}
 
         <!--content current page of total employee-->
         <div class="content current_page_action hidden"  data-page-name="total_employee">
@@ -583,7 +553,7 @@
                 </form>
             </div>
         </div>
-
+{% comment %} 
         <!-- Manage Manager Section -->
         <div class="content current_page_action hidden" data-page-name="manage_manager">
             <h3>&nbsp;Manager / Manage Manager</h3>
@@ -686,9 +656,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> {% endcomment %}
        
-        <!-- Manage Employee Section -->
+        {% comment %} <!-- Manage Employee Section -->
         <div class="content current_page_action hidden" data-page-name="manage_employee">
             <h3>&nbsp;Employee / Manage Employee</h3>
             <div class="container">
@@ -787,7 +757,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> {% endcomment %}
 
         <!-- Manage User -->
         <div class="content current_page_action hidden" data-page-name="manage_user">

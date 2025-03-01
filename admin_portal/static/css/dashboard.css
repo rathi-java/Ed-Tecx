@@ -75,6 +75,17 @@ a .home-image {
     color: white;
 }
 
+.from-data{
+    text-align: center;
+}
+
+.form-edit{
+    display: inline;
+}
+
+.sidebar-section{
+    display: flex;
+}
 
 .sidebar {
     width: 13.5%;

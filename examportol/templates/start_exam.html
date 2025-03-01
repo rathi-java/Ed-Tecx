@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ exam.exam_name }}</h1>
+    <p>Date: {{ exam.exam_date }}</p>
+    <p>Time: {{ exam.exam_time }}</p>
+    <p>Duration: {{ exam.exam_duration }}</p>
+    <p>Fee: {{ exam.exam_fee }}</p>
+
+    <h2>Subjects</h2>
+    <ul>
+        {% for subject in subjects %}
+        <li>{{ subject.subject_name }}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="{% url 'submit_exam' exam.exam_id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Start Exam</button>
+    </form>
+</div>
+{% endblock %}

@@ -5,12 +5,71 @@ from django.contrib import messages
 from django.utils import timezone
 from oauth.models import UsersDB
 from exam_registration.models import StudentsDB
+from examportol.forms import QuestionUploadForm
+import csv
 
 # View to manage questions (Add new questions and display existing ones)
 from django.shortcuts import render, redirect
 from .models import Category, Subject, Question
 from django.http import JsonResponse
+def upload_questions(request):
+    if request.method == 'POST':
+        form = QuestionUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            category = form.cleaned_data['category']
+            subject = form.cleaned_data['subject']
+            file = request.FILES['file']
 
+            # Check if file is CSV
+            if not file.name.endswith('.csv'):
+                messages.error(request, "Invalid file format! Please upload a CSV file.")
+                return redirect('upload_questions')
+
+            try:
+                # Read CSV file
+                decoded_file = file.read().decode('utf-8').splitlines()
+                reader = csv.DictReader(decoded_file)
+
+                required_fields = ['Question', 'Correct Answer', 'Option A', 'Option B', 'Option C', 'Option D']
+                missing_rows = []
+
+                for index, row in enumerate(reader, start=1):
+                    # Check for missing fields
+                    if not all(row.get(field, '').strip() for field in required_fields):
+                        missing_rows.append(index)
+                        continue  # Skip this row
+
+                    question_text = row['Question'].strip()
+                    correct_answer = row['Correct Answer'].strip()
+
+                    answers = {}
+                    for letter in ['A', 'B', 'C', 'D']:
+                        option_text = row[f'Option {letter}'].strip()
+                        answers[f'option_{letter}'] = {
+                            'text': option_text,
+                            'is_correct': letter == correct_answer
+                        }
+
+                    # Save Question
+                    Question.objects.create(
+                        question_text=question_text,
+                        question_subject=subject,
+                        answers=answers
+                    )
+
+                if missing_rows:
+                    messages.warning(request, f"Skipped rows {missing_rows} due to missing fields.")
+
+                messages.success(request, "Questions uploaded successfully!")
+                return redirect('upload_questions')
+
+            except Exception as e:
+                messages.error(request, f"Error processing file: {e}")
+
+    else:
+        form = QuestionUploadForm()
+
+    return render(request, 'manage_questions', {'form': form})
 def manage_questions(request):
     if request.method == 'POST':
         # Check if a new category is added

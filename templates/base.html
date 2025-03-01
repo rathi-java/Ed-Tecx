@@ -40,7 +40,7 @@
   <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
-        <img src="{% static 'assets/header.png' %}" alt="EdTech Logo" height="50" />
+        <img src="{% static 'assets/header.png' %}" alt="EdTech Logo"/>
       </a>
 
       <!-- Desktop Nav -->
@@ -173,7 +173,7 @@
         <ul>
           <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
           <li><a href="/" class="no-underline">Contact Us</a></li>
-          <li><a href="{% url 'placement_stories' %}" class="no-underline">Placement Stories</a></li>
+          <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')" class="no-underline">Placement Stories</a></li>
           <li><a href="/" class="no-underline">Career</a></li>
           <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
           <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms & Conditions</a></li>

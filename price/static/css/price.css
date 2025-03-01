@@ -1,7 +1,12 @@
 .pricing-container {
-    width: 100%;
-    margin: auto;
+    width: 85%;
     box-sizing: border-box;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 94px;
+    margin-top: 10px;
 }
 
 .pricing-container h1 {
@@ -10,7 +15,6 @@
     color: #3d3d3d;
     font-size: 38px;
     text-align: center;
-    margin-top: 80px;
 }
 
 .pricing-container p {
@@ -28,7 +32,6 @@
     gap: 20px;
     padding: 0 10px;
     overflow: visible;
-    margin-bottom: 40px;
 }
 
 .plan {
@@ -47,10 +50,10 @@
 }
 
 .plan:hover {
-    transform: scale(1.05); /* Slightly enlarges the plan */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
-    transition: all 0.3s ease-in-out; /* Smooth transition */
-    border-color: #055a91; /* Changes border color on hover */
+    transform: scale(1.05); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease-in-out; 
+    border-color: #055a91; 
 }
 
 .plan-header {
@@ -59,11 +62,7 @@
     justify-content: flex-start;
     gap: 1px;
     padding: -1px;
-  
-
 }
-
-
 .plan-title {
     display: flex;
     flex-direction: column;
@@ -278,36 +277,274 @@
     color: gray;
 }
 
-/* Responsive Design */
+/* sec3 */
 
-  @media (max-width: 1024px) {
+
+.sec3-pricing-section {
+    width: 65%;
+    /* max-width: 900px; */
+    margin: 50px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 10px;
+    margin-left: 197px;
+}
+
+.sec3-pricing-header {
+    font-family: 'Poppins';
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 29px;
+    color: #3d3d3d;
+    margin-top: 1px;
+}
+
+.sec3-pricing-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.sec3-pricing-card {
+    width: 30%;
+}
+
+.sec3-pricing-card img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.sec3-pricing-title {
+    font-family: 'Poppins';
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color:#077bc3;
+}
+
+.sec3-pricing-desc {
+    font-family: 'Poppins';
+    font-size: 14px;
+    color: #555;
+    text-align: -webkit-center;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+/* card1 */
+.container {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 79%;
+    margin-right: 200px;
+}
+.arrow{
+    width: 100px;
+    height: 100px;
+    margin-top: 50px;
+
+} 
+.bell {
+    width: 80px;
+    height: 80px;
+    margin-bottom:70px;
+}
+.photo {
+    margin-bottom:-60px;
+    width: 250px;
+    height: auto;
+}
+.text-content {
+    flex: 1;
+    text-align: center;
+    padding: 0 20px;
+}
+.text-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    color: #333;
+    text-align: left;
+}
+
+.text-content p {
+    font-family: 'Kite One', sans-serif;
+    font-size: 18px;
+    color: #077bc3;
+    margin-top: 10px;
+}
+.text-content p a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #077bc3;
+    margin-right: 52px;
+}
+.illustration-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 2560px){
+.container {
+    width: 70%;
+    margin-left: 160px;
+}}
+
+@media (max-width: 1440px){
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1000px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 79%;
+       margin-left:176px
+    }}
+
+@media (max-width: 1024px) {
     .plans {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 15px; /* Reduce gap for better fit */
+        gap: 15px; 
         padding: 0 1px;
     }
 
     .plan {
-        width: 280px; /* Slightly reduce width for better fit */
-        min-height: 420px; /* Adjust height accordingly */
+        width: 280px;
+        min-height: 420px; 
         padding: 8px;
     }
 
     .plan-title h2 {
-        font-size: 1.6em; /* Adjust font size for smaller screens */
+        font-size: 1.6em;
     }
 
     .pricing-amount {
-        font-size: 2em; /* Slightly reduce pricing text */
+        font-size: 2em; 
     }
 
     .plan ul li {
-        font-size: 13px; /* Adjust text size */
+        font-size: 13px;
     }
 
     .plan button {
-        font-size: 18px; /* Adjust button size */
+        font-size: 18px; 
         padding: 10px;
     }
+    .container {
+        margin-left: 71px;
+    }
+    .pricing-container {
+        width: 100%;
+        padding: 40px;
+        margin-top: 10px;
+        margin-left: 0px;
+}
+.sec3-pricing-section {
+    width: 79%;
+    margin-left: 63px;
+}
+}
+@media (max-width: 768px) {
+    .container {
+        margin-left: 76px;
+        height: 155px;
+    }
+    .text-content h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 28px;
+        color: #333;
+        text-align: left;
+        margin-top: -122px;
+        margin-left: -31px;
+    }
+    .text-content p a {
+        margin-right: 118px;
+    }
+    .arrow {
+        width: 60px;
+        height: 60px;
+        margin-right: 604px;
+    }
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .illustration-container {
+        flex-direction: column;
+        align-items: center;
+    }
+     .bell {
+        /* width: 60px;
+        height: 60px; */
+        margin-top: -163px;
+        margin-left: 97px;
+    }
+    .photo {
+        width: 200px;
+        margin-left: 489px;
+        margin-top: -153px;
+    }
+}
+@media (max-width: 768px) {
+    .container{
+width: 147%;
+    margin-left: -4px;}
+    .photo {
+        width: 145px;
+        margin-left: 420px;
+        margin-top: -104px;
+    }
+    .pricing-container {
+        margin-left: 84px;
+    }
+    .sec3-pricing-section {
+        width: 106%;
+        margin-left: 33px;}
+}
+@media (max-width: 320px) {
+.text-content h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    color: #333;
+    text-align: left;
+    margin-top: -122px;
+    margin-left: 0px;
+}
+.bell {
+    margin-top: -195px;
+    margin-left: 283px;
+    width: 68px;
+}
+.photo {
+    width: 126px;
+        margin-left: 337px;
+        margin-top: -71px;
+    }
+ .text-content p a {
+            font-size: 17px;
+            text-align: left;
+            /* margin-right: 330px; */
+            margin-right: 101px;
+        }
+        .sec3-pricing-desc {
+            font-family: 'Poppins';
+            font-size: 14px;
+            color: #555;
+             padding-left: 0px; 
+             padding-right: 0px; 
+        }
 }

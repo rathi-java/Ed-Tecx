@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div style="display: flex;">
+    <div class="sidebar-section">
         <!--side bar section-->
         <div class="sidebar">
             <div class="sidebar-header">
@@ -369,7 +369,7 @@
                         </td>
                         <td>
                             <button class="edit-btn" onclick="editAdmin({{ admin.id }}, '{{ admin.full_name|escapejs }}', '{{ admin.email|escapejs }}', '{{ admin.phone_number|escapejs }}', '{{ admin.alt_phone_number|escapejs }}', '{{ admin.password|escapejs }}', '{{ admin.aadhar_number|escapejs }}')">Edit</button>
-                            <form method="POST" action="{% url 'delete_admin' admin.id %}" style="display:inline;">
+                            <form class ="form-edit" method="POST" action="{% url 'delete_admin' admin.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this admin?')">Delete</button>
                             </form>
@@ -377,7 +377,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="10" style="text-align: center;">No admins found.</td>
+                        <td class = "form-data" colspan="10" >No admins found.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -494,7 +494,7 @@
                                 )">
                                 Edit
                                 </button>
-                                <form method="POST" action="{% url 'delete_student' student.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_student' student.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" 
                                         onclick="return confirm('Are you sure you want to delete {{ student.username }}?')">
@@ -505,7 +505,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="8" style="text-align: center;">No students found.</td>
+                            <td class ="form-data" colspan="8" >No students found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -628,7 +628,7 @@
                             </td>
                             <td>
                                 <button class="edit-btn" onclick="editManager({{ manager.id }}, '{{ manager.full_name }}', '{{ manager.email }}', '{{ manager.phone_number }}', '{{ manager.alt_phone_number }}', '{{ manager.password }}', '{{ manager.aadhar_number }}')">Edit</button>
-                                <form method="POST" action="{% url 'delete_manager' manager.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_manager' manager.id %}" >
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this manager?')">Delete</button>
                                 </form>
@@ -636,7 +636,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="10" style="text-align: center;">No managers found.</td>
+                            <td class ="form-data" colspan="10">No managers found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -732,7 +732,7 @@
                             </td>
                             <td>
                                 <button class="edit-btn" onclick="editEmployee({{ employee.id }}, '{{ employee.full_name|escapejs }}', '{{ employee.email|escapejs }}', '{{ employee.phone_number|escapejs }}', '{{ employee.alt_phone_number|escapejs }}', '{{ employee.password|escapejs }}', '{{ employee.aadhar_number|escapejs }}')">Edit</button>
-                                <form method="POST" action="{% url 'delete_employee' employee.id %}" style="display:inline;">
+                                <form class ="form-data" method="POST" action="{% url 'delete_employee' employee.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this employee?')">Delete</button>
                                 </form>
@@ -740,7 +740,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="10" style="text-align: center;">No employees found.</td>
+                            <td class ="form-data" colspan="10">No employees found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -837,7 +837,7 @@
                                     )">
                                     Edit
                                 </button>
-                                <form method="POST" action="{% url 'delete_user' user.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_user' user.id %}" >
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" 
                                         onclick="return confirm('Are you sure you want to delete {{ user.full_name }}?')">
@@ -848,7 +848,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="10" style="text-align: center;">No users found.</td>
+                            <td class ="form-data" colspan="10">No users found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -948,7 +948,7 @@
                                     )">
                                     Edit
                                 </button>
-                                <form method="POST" action="{% url 'delete_college' college.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_college' college.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" 
                                         onclick="return confirm('Are you sure you want to delete {{ college.college_name|escapejs }}?')">
@@ -959,7 +959,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="4" style="text-align: center;">No colleges found.</td>
+                            <td class ="form-data" colspan="4" >No colleges found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -1022,7 +1022,7 @@
                             <td>{{ question.question_subject.subject_name }}</td>
                             <td>
                                 <button class="edit-btn" onclick="editQuestion({{ question.id }}, '{{ question.question_text|escapejs }}', '{{ question.question_subject.id }}')">Edit</button>
-                                <form method="POST" action="{% url 'delete_question' question.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_question' question.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this question?')">Delete</button>
                                 </form>
@@ -1181,7 +1181,7 @@
                                 Edit
                                 </button>
                             
-                                <form method="POST" action="{% url 'delete_job' job.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_job' job.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" 
                                         onclick="return confirm('Are you sure you want to delete {{ job.profile|escapejs }}?')">
@@ -1192,7 +1192,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="12" style="text-align: center;">No jobs found.</td>
+                            <td class ="form-data" colspan="12">No jobs found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -1327,7 +1327,7 @@
                                     )">
                                     Edit
                                 </button>
-                                <form method="POST" action="{% url 'delete_story' story.id %}" style="display:inline;">
+                                <form class ="form-edit" method="POST" action="{% url 'delete_story' story.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ story.name|escapejs }}?')">
                                         Delete
@@ -1337,7 +1337,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="11" style="text-align: center;">No placement stories found.</td>
+                            <td class ="form-data" colspan="11">No placement stories found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>

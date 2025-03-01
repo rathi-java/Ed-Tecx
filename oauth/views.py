@@ -91,45 +91,41 @@ def logout_page(request):
 
 def signup(request):
     if request.method == "POST":
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')
+        re_password = request.POST.get('re_password')
+        college_name = request.POST.get('college_name')
+        dob = request.POST.get('dob')
+        referral_code = request.POST.get('referral_code')
+
+        # Check if the email is already registered
+        if UsersDB.objects.filter(email=email).exists():
+            messages.error(request, "This email is already registered.", extra_tags='signup')
+            return render(request, 'index.html', {'form_type': 'signup'})
+
+        # Check if the phone number is already registered
+        if UsersDB.objects.filter(phone_number=phone_number).exists():
+            messages.error(request, "This phone number is already registered.", extra_tags='signup')
+            return render(request, 'index.html', {'form_type': 'signup'})
+
+        if len(phone_number) < 10:
+            messages.error(request, "Phone number must be at least 10 digits.", extra_tags='signup')
+            return render(request, 'index.html', {'form_type': 'signup'})
+
+        if password != re_password:
+            messages.error(request, "Passwords do not match.", extra_tags='signup')
+            return render(request, 'index.html', {'form_type': 'signup'})
+
         try:
-            full_name = request.POST.get('full_name')
-            email = request.POST.get('email')
-            phone_number = request.POST.get('phone_number')
-            password = request.POST.get('password')
-            re_password = request.POST.get('re_password')
-            college_name = request.POST.get('college_name')
-            dob = request.POST.get('dob')
-            referral_code = request.POST.get('referral_code')
+            college = CollegesDb.objects.get(college_name=college_name)
+        except CollegesDb.DoesNotExist:
+            messages.error(request, f"College '{college_name}' not found.", extra_tags='signup')
+            return render(request, 'index.html', {'form_type': 'signup'})
 
-            if not all([full_name, email, phone_number, password, re_password, college_name, dob]):
-                messages.error(request, "All fields are required.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
-
-            if password != re_password:
-                messages.error(request, "Passwords do not match.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
-
-            if len(phone_number) < 10:
-                messages.error(request, "Phone number must be at least 10 digits.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
-
-            if UsersDB.objects.filter(email=email).exists():
-                messages.error(request, "This email is already registered.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
-
-            if UsersDB.objects.filter(phone_number=phone_number).exists():
-                messages.error(request, "This phone number is already registered.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
-
-            try:
-                college = CollegesDb.objects.get(college_name=college_name)
-            except CollegesDb.DoesNotExist:
-                messages.error(request, f"College '{college_name}' not found.", extra_tags='signup')
-                return render(request, 'index.html', {'form_type': 'signup'})
-
-            hashed_password = make_password(password)
-
-            # try:
+        hashed_password = make_password(password)
+        try:
             new_user = UsersDB.objects.create(
                 full_name=full_name,
                 email=email,
@@ -139,24 +135,16 @@ def signup(request):
                 dob=dob,
                 referral_code=referral_code
             )
-            # except IntegrityError as e:
-            #     if 'email' in str(e):
-            #         messages.error(request, "This email is already registered.", extra_tags='signup')
-            #     elif 'phone_number' in str(e):
-            #         messages.error(request, "This phone number is already registered.", extra_tags='signup')
-            #     else:
-            #         messages.error(request, "A user with this username already exists.", extra_tags='signup')
-            #     return render(request, 'index.html', {'form_type': 'signup'})
-
-            messages.success(request, f"Account created successfully for {new_user.full_name}. Please login.", extra_tags='login')
-            return render(request, 'index.html', {'form_type': 'login'})
-
         except Exception as e:
-            messages.error(request, f"Error: {str(e)}", extra_tags='signup')
+            messages.error(request, f"Error creating account: {str(e)}", extra_tags='signup')
             return render(request, 'index.html', {'form_type': 'signup'})
+
+        messages.success(request, f"Account created successfully for {new_user.full_name}. Please login.", extra_tags='login')
+        return render(request, 'index.html', {'form_type': 'login'})
 
     colleges = CollegesDb.objects.all()
     return render(request, 'signup.html', {'colleges': colleges})
+
 
 def user_login(request):
     if request.method == "POST":
@@ -164,30 +152,52 @@ def user_login(request):
         password = request.POST.get('password')
 
         user = None
-        if UsersDB.objects.filter(email=user_input).exists():
-            user = UsersDB.objects.get(email=user_input)
-        elif UsersDB.objects.filter(phone_number=user_input).exists():
-            user = UsersDB.objects.get(phone_number=user_input)
-        elif UsersDB.objects.filter(username=user_input).exists():
-            user = UsersDB.objects.get(username=user_input)
+        role = None
+
+        # Identify role based on username prefix
+        if user_input.startswith("SAD"):
+            user = SuperAdminDB.objects.filter(username=user_input).first()
+            role = "superadmin"
+            return redirect('dashboard')
+        elif user_input.startswith("ADM"):
+            user = AdminDB.objects.filter(username=user_input).first()
+            role = "admin"
+            return redirect('adm_dashboard')
+        elif user_input.startswith("MGR"):
+            user = ManagerDB.objects.filter(username=user_input).first()
+            role = "manager"
+            return redirect('mgr_dashboard')
+        elif user_input.startswith("EMP"):
+            user = EmployeeDB.objects.filter(username=user_input).first()
+            role = "employee"
+            return redirect('emp_dashboard')
+        else:
+            user = UsersDB.objects.filter(email=user_input).first() or \
+                   UsersDB.objects.filter(phone_number=user_input).first() or \
+                   UsersDB.objects.filter(username=user_input).first()
+            role = "user"
 
         if user and check_password(password, user.password):
-            user.backend = 'django.contrib.auth.backends.ModelBackend'
-            auth_login(request, user)
             request.session['user_id'] = user.id
-            request.session.save()
-
+            request.session['role'] = role  # Store role in session
             user.last_login = now()
             user.save()
-            messages.success(request, f"Welcome back, {user.full_name}!", extra_tags='login')
-            return redirect('/')
+            messages.success(request, f"Welcome back, {user.full_name}!")
+
+            # Redirect based on role
+            redirect_urls = {
+                "superadmin": "/dashboard/",
+                "admin": "/adm_dashboard/",
+                "manager": "/mgr_dashboard/",
+                "employee": "/emp_dashboard/",
+                "user": "home"  
+            }
+            return redirect(redirect_urls.get(role, '/'))
         else:
-            messages.error(request, "Invalid username or password. Please try again.", extra_tags='login')
-            return render(request, 'index.html', {'form_type': 'login'})
+            messages.error(request, "Invalid username or password. Please try again.")
+            return render(request, 'login.html', {'form_type': 'login'})
 
-    return render(request,'login.html')
-
-
+    return render(request, 'login.html')
 
 def generate_otp(request):
     if request.method == "POST":
