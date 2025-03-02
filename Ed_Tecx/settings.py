@@ -14,12 +14,8 @@ from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
 
-
-import json
-
-# Read the secrets.json file
-
-
+from dotenv import load_dotenv
+load_dotenv("secrets.env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,11 +123,11 @@ WSGI_APPLICATION = 'Ed_Tecx.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ed_tecx',  # Ensure this matches exactly
-        'USER': 'root',
-        'PASSWORD': 'Delta@123',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
     }
 }
 
@@ -233,9 +229,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For developm
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'  # Disable social email verification
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = False
-with open(os.path.join(BASE_DIR, "secrets.json")) as secrets_file:
-    secrets = json.load(secrets_file)
 
-# Store API keys securely
-RAZORPAY_KEY_ID = secrets.get("RAZORPAY_KEY_ID")
-RAZORPAY_KEY_SECRET = secrets.get("RAZORPAY_SECRET_KEY")
+# Secrets securely access
+RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")

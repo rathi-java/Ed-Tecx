@@ -44,4 +44,7 @@ urlpatterns = [
     path('price/', price ,name="price"),
     path('policies/',include('policies.urls')),
 
+    # Payment gateway
+    path('pay/',include('price.urls')),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
