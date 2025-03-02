@@ -1,6 +1,6 @@
+import pymysql
 from django.core.management.base import BaseCommand
 from django.conf import settings
-import MySQLdb
 
 class Command(BaseCommand):
     help = "Creates the MySQL database if it does not exist."
@@ -12,17 +12,22 @@ class Command(BaseCommand):
         password = db_settings['PASSWORD']
         host = db_settings.get('HOST', 'localhost')
         port = int(db_settings.get('PORT', 3306))
-        
+
         try:
-            connection = MySQLdb.connect(host=host, port=port, user=user, passwd=password, db='mysql')
+            connection = pymysql.connect(
+                host=host, user=user, password=password, port=port
+            )
             cursor = connection.cursor()
-            cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{db_name}`")
-            connection.commit()
-            self.stdout.write(self.style.SUCCESS(f"Database '{db_name}' is ready."))
-        except Exception as e:
-            self.stderr.write(self.style.ERROR(f"Error creating database: {e}"))
+
+            cursor.execute(f"SHOW DATABASES LIKE '{db_name}'")
+            if not cursor.fetchone():
+                cursor.execute(f"CREATE DATABASE `{db_name}`")
+                self.stdout.write(self.style.SUCCESS(f"✅ Database '{db_name}' created successfully."))
+            else:
+                self.stdout.write(self.style.SUCCESS(f"✅ Database '{db_name}' already exists."))
+
+        except pymysql.MySQLError as e:
+            self.stderr.write(self.style.ERROR(f"❌ Error creating/checking database: {e}"))
         finally:
-            if cursor:
-                cursor.close()
-            if connection:
-                connection.close()
+            cursor.close()
+            connection.close()

@@ -39,3 +39,6 @@ Thumbs.db
 *.pid
 *.tar.gz
 *.zip
+
+# Ignore all .json files contains secret
+*.json

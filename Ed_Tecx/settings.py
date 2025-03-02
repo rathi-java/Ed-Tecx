@@ -67,11 +67,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'dbtools',
-    'policies',
-    
-  
-
-    
+    'policies',    
 ]
 
 # for Google auth
@@ -131,17 +127,13 @@ WSGI_APPLICATION = 'Ed_Tecx.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Ed_tecx',
+        'NAME': 'ed_tecx',  # Ensure this matches exactly
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',  # or your database host
-        'PORT': '3306',       # default MySQL port
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'PASSWORD': 'Delta@123',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

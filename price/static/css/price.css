@@ -6,7 +6,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-left: 94px;
-    margin-top: 10px;
+    margin-top: 2px;
 }
 
 .pricing-container h1 {
@@ -289,7 +289,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 10px;
+    margin-top: 2px;
     margin-left: 197px;
 }
 
@@ -344,6 +344,7 @@
     padding: 30px;
     width: 79%;
     margin-right: 200px;
+    margin-top: 58px;
 }
 .arrow{
     width: 100px;

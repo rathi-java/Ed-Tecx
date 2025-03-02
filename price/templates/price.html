@@ -1,26 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing Plans</title>
-    
-    
-    <link rel="stylesheet" href="{% static 'css/price.css' %}">
-    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pricing Plans</title>
+        
+        
+        <link rel="stylesheet" href="{% static 'css/price.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Kite One' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 <body>
-
     
-<div class="container">
-       
-    <img class="arrow" src="{% static 'images/arrow.png' %}" alt="Arrow">
-    <div class="text-content">
-        <h2>Get Hired Faster with <br> the Right Plan!</h2>
-        <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
+    
+    <div class="container">
+        
+        <img class="arrow" src="{% static 'images/arrow.png' %}" alt="Arrow">
+        <div class="text-content">
+            <h2>Get Hired Faster with <br> the Right Plan!</h2>
+            <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
     </div>
     <div class="illustration-container">
         <img class="bell" src="{% static 'images/bell.png' %}" alt="Bell Icon">
@@ -102,30 +104,30 @@
                 </div>
             </div>
         </div>
-
-    <!-- Monthly Plan Modal -->
-    <div class="modal-overlay" id="monthly-modal">
+        
+        <!-- Monthly Plan Modal -->
+        <div class="modal-overlay" id="monthly-modal">
         <div class="modal-content">
             <h2>Monthly Plan <span class="price">&nbsp;&nbsp;&#8377; 299/-</span></h2>
             <p>🎉 You're One Step Closer to Your Dream Job!</p>
             <br>
- 
+            
             <button class="pay-btn" onclick="openRazorpay('monthly')">Pay via credit/debit card or net banking</button>
         </div>
     </div>
-
+    
     <!-- Yearly Plan Modal -->
     <div class="modal-overlay" id="yearly-modal">
         <div class="modal-content">
             <h2>Yearly Plan <span class="price">&nbsp;&nbsp;&#8377; 999/-</span></h2>
             <p>🎉 Unlock Full Access & Get Noticed by Top Recruiters!</p>
             <br>
-  
+            
             <button class="pay-btn" onclick="openRazorpay('yearly')">Pay via credit/debit card or net banking</button>
 
         </div>
     </div>
-    </section>
+</section>
 
 <section class="sec3-pricing-section">
     <h2 class="sec3-pricing-header">Choose the Right Plan for<br> your Journey</h2>
@@ -151,9 +153,9 @@
 
 
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script>
-
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    
         function openRazorpay(plan) {
             var options = {
                 key: "{{ key }}",
@@ -173,14 +175,14 @@
             var rzp = new Razorpay(options);
             rzp.open();
         }
-
+        
         document.getElementById("monthly-btn").addEventListener("click", () => {
             document.getElementById("monthly-modal").style.display = "flex";
         });
         document.getElementById("yearly-btn").addEventListener("click", () => {
             document.getElementById("yearly-modal").style.display = "flex";
         });
-    
+        
         // Close Modals When Clicking Outside the Content
     document.querySelectorAll(".modal-overlay").forEach(modal => {
         modal.addEventListener("click", (e) => {
@@ -192,3 +194,4 @@
     </script>
 </body>
 </html>
+{% endblock %}
