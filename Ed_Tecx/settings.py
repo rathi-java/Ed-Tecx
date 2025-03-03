@@ -71,16 +71,22 @@ SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": ["profile", "email"],
         "AUTH_PARAMS": {"access_type": "online"},
-        'OAUTH_PKCE_ENABLED': True,
+        "OAUTH_PKCE_ENABLED": True,
+        "APP": {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+        }
     },
     "github": {
-        "SCOPE": ["read:user", "user:email"],  
+        "SCOPE": ["read:user", "user:email"],
         "AUTH_PARAMS": {"access_type": "online"},
-        'OAUTH_PKCE_ENABLED': True,
-       
-    }   
+        "OAUTH_PKCE_ENABLED": True,
+        "APP": {
+            "client_id": os.getenv("GITHUB_CLIENT_ID"),
+            "secret": os.getenv("GITHUB_CLIENT_SECRET"),
+        }
+    }
 }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
