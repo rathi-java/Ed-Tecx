@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 import uuid
 from oauth.models import UsersDB
 
-
 class Category(models.Model):
     category_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
     category_name = models.CharField(max_length=255)
@@ -18,12 +17,11 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 
-
 class Subject(models.Model):
     subject_code = models.CharField(max_length=15, unique=True, blank=True, null=True)
     subject_name = models.CharField(max_length=255)
     subject_category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='subjects'
+        Category, on_delete=models.CASCADE, related_name='subjects'
     )
 
     def save(self, *args, **kwargs):
@@ -43,12 +41,11 @@ class Subject(models.Model):
     def __str__(self):
         return self.subject_name
 
-
 class Question(models.Model):
     question_code = models.CharField(max_length=20, unique=True, blank=True, null=True)
     question_text = models.TextField()
     question_subject = models.ForeignKey(
-        Subject, on_delete=models.SET_NULL, null=True, blank=True, related_name='questions'
+        Subject, on_delete=models.CASCADE, related_name='questions'
     )
     answers = models.JSONField(blank=True, null=True)
 
@@ -69,7 +66,6 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
-
 class ExamResult(models.Model):
     user = models.ForeignKey(UsersDB, on_delete=models.CASCADE)  # Use custom user model   
     session_id = models.UUIDField(default=uuid.uuid4, editable=False, blank=True, null=True)  # Unique ID for guests
@@ -81,3 +77,17 @@ class ExamResult(models.Model):
 
     def __str__(self):
         return f"Exam Result - {self.user if self.user else 'Guest'} - Score: {self.score}%"
+
+class Exam(models.Model):
+    name = models.CharField(max_length=255)
+    questions = models.ManyToManyField(Question, related_name='exams')
+    duration = models.PositiveIntegerField(help_text="Duration in minutes")
+    
+    exam_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.exam_code:
+            last_exam = Exam.objects.order_by('-id').first()
+            new_id = int(last_exam.exam_code[1:]) + 1 if last_exam and last_exam.exam_code else 1
+            self.exam_code = f'E{new_id:04d}'
+        super().save(*args, **kwargs)

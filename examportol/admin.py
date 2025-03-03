@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.urls import path
 from django.utils.html import format_html
 from django.http import HttpResponseRedirect
-from .models import Question, Subject, Category
+from .models import Question, Subject, Category, Exam, ExamResult
 from .forms import QuestionUploadForm
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -89,4 +89,14 @@ class QuestionAdmin(admin.ModelAdmin):
     upload_questions_button.short_description = "Upload Questions"
     upload_questions_button.allow_tags = True
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['category_name', 'category_code']
+    search_fields = ['category_name']
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ['subject_name', 'subject_code']
+
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Subject, SubjectAdmin)
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(Exam)
+admin.site.register(ExamResult)
