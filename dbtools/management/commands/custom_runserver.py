@@ -54,8 +54,7 @@ class Command(BaseCommand):
             connection.close()
 
         # Run `dumpdb` before migrations
-        self.stdout.write(self.style.SUCCESS("🔄 Running DUMPDB..."))
-        call_command('dumpdb')
+    
 
         # Run `loaddb` before migrations
         self.stdout.write(self.style.SUCCESS("🔄 Running loaddb..."))
