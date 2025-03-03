@@ -5,17 +5,13 @@ from admin_portal.views import *
 urlpatterns = [
 
     path('', dashboard,name="dashboard"),
-    path('examportol/', include('examportol.urls')),
-    path('add-admin/', add_admin, name='add_admin'),
-    path('add_manager/', add_manager, name='add_manager'),
-    path('add_employee/', add_employee, name='add_employee'),
-    path('delete-admin/<int:admin_id>/', delete_admin, name='delete_admin'),
-    path('delete-manager/<int:manager_id>/', delete_manager, name='delete_manager'),
-    path('delete-employee/<int:employee_id>/', delete_employee, name='delete_employee'),
+  
+    path('manage_admin/', manage_admin, name='manage_admin'),
+    path('manage_manager/', manage_manager, name="manage_manager"),
+    path('manage_employee/', manage_employee, name="manage_employee"),
+    path('manage_users/', manage_users, name="manage_users"),
     path("add_college/", add_college, name="add_college"),
     path("delete_college/<int:college_id>/", delete_college, name="delete_college"),
-    path("add_user/", add_user, name="add_user"),
-    path("delete_user/<int:user_id>/", delete_user, name="delete_user"),
     path("add_question/", add_question, name="add_question"),
     path("delete_question/<int:question_id>/", delete_question, name="delete_question"),
     path("add-student/", add_student, name="add_student"),

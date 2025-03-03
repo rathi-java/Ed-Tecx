@@ -383,176 +383,164 @@ def emp_dashboard(request):
     }
     return render(request, 'emp_dashboard.html', context)
 
-def add_admin(request):
+def manage_admin(request):
     if request.method == "POST":
-        admin_id = request.POST.get('admin_id')  
-        full_name = request.POST.get('full_name')
-        email = request.POST.get("email")
-        phone_number = request.POST.get("phone_number")
-        alt_phone_number = request.POST.get("alt_phone_number")
-        password = request.POST.get("password")
-        aadhar_number = request.POST.get("aadhar_number")
+        action = request.POST.get("action")
 
-        try:
-            if admin_id:  
-                admin = get_object_or_404(AdminDB, id=admin_id)
-                admin.full_name = full_name
-                admin.email = email
-                admin.phone_number = phone_number
-                admin.alt_phone_number = alt_phone_number
-                admin.password = password
-                admin.aadhar_number = aadhar_number
-                admin.save()
-                messages.success(request, "Admin updated successfully!")
-            else:  
-                admin = AdminDB(
-                    full_name=full_name,
-                    email=email,
-                    phone_number=phone_number,
-                    alt_phone_number=alt_phone_number,
-                    password=password,
-                    aadhar_number=aadhar_number
-                )
-                admin.save()
-                messages.success(request, "Admin added successfully!")
+        # Handling Add/Edit Admin
+        if action == "add_edit":
+            admin_id = request.POST.get("admin_id")
+            full_name = request.POST.get("admin_full_name")
+            email = request.POST.get("admin_email")
+            phone_number = request.POST.get("admin_phone_number")
+            alt_phone_number = request.POST.get("admin_alt_phone_number")
+            password = request.POST.get("password")
+            aadhar_number = request.POST.get("admin_aadhar_number")
 
-            # Redirect to dashboard and open Manage Admin section
-            url = reverse('dashboard') + "?page=manage_admin"
-            return HttpResponseRedirect(url)  
+            try:
+                if admin_id:  
+                    admin = get_object_or_404(AdminDB, id=admin_id)
+                    admin.full_name = full_name
+                    admin.email = email
+                    admin.phone_number = phone_number
+                    admin.alt_phone_number = alt_phone_number
+                    admin.password = password
+                    admin.aadhar_number = aadhar_number
+                    admin.save()
+                    messages.success(request, "Admin updated successfully!")
+                else:  
+                    admin = AdminDB(
+                        full_name=full_name,
+                        email=email,
+                        phone_number=phone_number,
+                        alt_phone_number=alt_phone_number,
+                        password=password,
+                        aadhar_number=aadhar_number
+                    )
+                    admin.save()
+                    messages.success(request, "Admin added successfully!")
 
-        except IntegrityError as e:
-            messages.error(request, f"Error: {e}")  
-            return redirect('add_admin')
+            except IntegrityError as e:
+                messages.error(request, f"Error: {e}")
+                return redirect("dashboard")
 
-    return redirect('dashboard')
+        # Handling Delete Admin
+        elif action == "delete":
+            admin_id = request.POST.get("admin_id")
+            admin = get_object_or_404(AdminDB, id=admin_id)
+            admin.delete()
+            messages.success(request, "Admin deleted successfully!")
 
-def delete_admin(request, admin_id):
+        # Redirect to dashboard and open Manage Admin section
+        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_admin")
+
+    return redirect("dashboard")
+
+def manage_manager(request):
     if request.method == "POST":
-        admin = get_object_or_404(AdminDB, id=admin_id)
-        admin.delete()
-        messages.success(request, "Admin deleted successfully!")
+        action = request.POST.get("action")
 
-    # Redirect to dashboard and open Manage Admin section
-    url = reverse('dashboard') + "?page=manage_admin"
-    return HttpResponseRedirect(url)
+        # Handling Add/Edit Manager
+        if action == "add_edit":
+            manager_id = request.POST.get("manager_id", "").strip()
+            full_name = request.POST.get("manager_full_name", "").strip()
+            email = request.POST.get("manager_email", "").strip()
+            phone_number = request.POST.get("manager_phone_number", "").strip()
+            alt_phone_number = request.POST.get("manager_alt_phone_number", "").strip()
+            password = request.POST.get("password", "").strip()
+            aadhar_number = request.POST.get("manager_aadhar_number", "").strip()
 
-def add_manager(request):
-    if request.method == "POST":
-        manager_id = request.POST.get('manager_id')  # Fetch manager ID if editing an existing entry
-        full_name = request.POST.get('full_name').strip()
-        email = request.POST.get("email").strip()
-        phone_number = request.POST.get("phone_number").strip()
-        alt_phone_number = request.POST.get("alt_phone_number").strip()
-        password = request.POST.get("password")
-        aadhar_number = request.POST.get("aadhar_number")
-
-        try:
-            # Check if a manager with the same email already exists
-            existing_manager = ManagerDB.objects.filter(email__iexact=email).first()
+            try:
+                if manager_id.isdigit():  # Ensure manager_id is a valid number
+                    manager = get_object_or_404(ManagerDB, id=int(manager_id))
+                    manager.full_name = full_name
+                    manager.email = email
+                    manager.phone_number = phone_number
+                    manager.alt_phone_number = alt_phone_number
+                    manager.password = password
+                    manager.aadhar_number = aadhar_number
+                    manager.save()
+                    messages.success(request, "Manager updated successfully!")
+                else:  # Create new manager
+                    ManagerDB.objects.create(
+                        full_name=full_name,
+                        email=email,
+                        phone_number=phone_number,
+                        alt_phone_number=alt_phone_number,
+                        password=password,
+                        aadhar_number=aadhar_number
+                    )
+                    messages.success(request, "Manager added successfully!")
             
-            if existing_manager:
-                messages.error(request, "Manager with this email already exists!")
-                return redirect(reverse('dashboard') + "?page=manage_manager")
+            except IntegrityError as e:
+                messages.error(request, f"Error: {e}")
+                return redirect("dashboard")
 
-            if manager_id:  # If manager_id exists, update the existing entry
-                manager = get_object_or_404(ManagerDB, id=manager_id)
-                manager.full_name = full_name
-                manager.email = email
-                manager.phone_number = phone_number
-                manager.alt_phone_number = alt_phone_number
-                manager.password = password
-                manager.aadhar_number = aadhar_number
-                manager.save()
-                messages.success(request, "Manager updated successfully!")
-            else:  # Otherwise, create a new entry
-                manager = ManagerDB(
-                    full_name=full_name,
-                    email=email,
-                    phone_number=phone_number,
-                    alt_phone_number=alt_phone_number,
-                    password=password,
-                    aadhar_number=aadhar_number
-                )
-                manager.save()
-                messages.success(request, "Manager added successfully!")
-
-            # Redirect to the dashboard and open Manage Manager section
-            return HttpResponseRedirect(reverse('dashboard') + "?page=manage_manager")
-
-        except IntegrityError as e:
-            messages.error(request, f"Error: {e}")  # Log actual error
-            return redirect(reverse('dashboard') + "?page=manage_manager")
-
-    return redirect('dashboard')
-
-def delete_manager(request, manager_id):
-    if request.method == "POST":
-        try:
-            manager = get_object_or_404(ManagerDB, id=manager_id)
-            manager.delete()
-            messages.success(request, "Manager deleted successfully!")
-        except ManagerDB.DoesNotExist:
-            messages.error(request, "Manager not found!")
-    
-        # Redirect to the dashboard and open Manage Manager section
-        return HttpResponseRedirect(reverse('dashboard') + "?page=manage_manager")
-    
-    return redirect('dashboard')
-
-def add_employee(request):
-    if request.method == "POST":
-        employee_id = request.POST.get('employee_id')
-        full_name = request.POST.get('full_name').strip()
-        email = request.POST.get("email").strip()
-        phone_number = request.POST.get("phone_number").strip()
-        alt_phone_number = request.POST.get("alt_phone_number").strip()
-        aadhar_number = request.POST.get("aadhar_number").strip()
-
-        try:
-            existing_employee = EmployeeDB.objects.filter(
-                email__iexact=email, phone_number__iexact=phone_number
-            ).first()
-
-            if existing_employee:
-                messages.error(request, "Employee with this email or phone number already exists!")
-                return redirect(reverse('dashboard') + "?page=manage_employee")
-
-            if employee_id:
-                employee = get_object_or_404(EmployeeDB, id=employee_id)
-                employee.full_name = full_name
-                employee.email = email
-                employee.phone_number = phone_number
-                employee.alt_phone_number = alt_phone_number
-                employee.aadhar_number = aadhar_number
-                employee.save()
-                messages.success(request, "Employee updated successfully!")
+        # Handling Delete Manager
+        elif action == "delete":
+            manager_id = request.POST.get("manager_id", "").strip()
+            if manager_id.isdigit():
+                manager = get_object_or_404(ManagerDB, id=int(manager_id))
+                manager.delete()
+                messages.success(request, "Manager deleted successfully!")
             else:
-                employee = EmployeeDB(
-                    full_name=full_name,
-                    email=email,
-                    phone_number=phone_number,
-                    alt_phone_number=alt_phone_number,
-                    aadhar_number=aadhar_number
-                )
-                employee.save()
-                messages.success(request, "Employee added successfully!")
+                messages.error(request, "Invalid manager ID!")
 
-            return redirect(reverse('dashboard') + "?page=manage_employee")
+        # Redirect to dashboard and open Manage Manager section
+        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_manager")
 
-        except IntegrityError as e:
-            messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?page=manage_employee")
+    return redirect("dashboard")
 
-    return redirect('dashboard')
-
-def delete_employee(request, employee_id):
+def manage_employee(request):
     if request.method == "POST":
-        employee = get_object_or_404(EmployeeDB, id=employee_id)
-        employee.delete()
-        messages.success(request, "Employee deleted successfully!")
-        return redirect(reverse('dashboard') + "?page=manage_employee")
+        action = request.POST.get("action")
+
+        # Handling Add/Edit Employee
+        if action == "add_edit":
+            employee_id = request.POST.get("employee_id")
+            full_name = request.POST.get("employee_full_name", "").strip()
+            email = request.POST.get("employee_email", "").strip()
+            phone_number = request.POST.get("employee_phone_number", "").strip()
+            alt_phone_number = request.POST.get("employee_alt_phone_number", "").strip()
+            password = request.POST.get("password", "").strip()
+            aadhar_number = request.POST.get("employee_aadhar_number", "").strip()
+
+            try:
+                if employee_id:
+                    employee = get_object_or_404(EmployeeDB, id=employee_id)
+                    employee.full_name = full_name
+                    employee.email = email
+                    employee.phone_number = phone_number
+                    employee.alt_phone_number = alt_phone_number
+                    employee.password = password
+                    employee.aadhar_number = aadhar_number
+                    employee.save()
+                    messages.success(request, "Employee updated successfully!")
+                else:
+                    EmployeeDB.objects.create(
+                        full_name=full_name,
+                        email=email,
+                        phone_number=phone_number,
+                        alt_phone_number=alt_phone_number,
+                        password=password,
+                        aadhar_number=aadhar_number
+                    )
+                    messages.success(request, "Employee added successfully!")
+            except IntegrityError as e:
+                messages.error(request, f"Error: {e}")
+                return HttpResponseRedirect(reverse("dashboard") + "?page=manage_employee")
+
+        # Handling Delete Employee
+        elif action == "delete":
+            employee_id = request.POST.get("employee_id")
+            employee = get_object_or_404(EmployeeDB, id=employee_id)
+            employee.delete()
+            messages.success(request, "Employee deleted successfully!")
+
+        # Redirect to dashboard and open Manage Employee section
+        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_employee")
     
-    return redirect('dashboard')
+    return redirect("dashboard")
 
 def add_college(request):
     if request.method == "POST":
@@ -605,62 +593,56 @@ def delete_college(request, college_id):
     
     return redirect('dashboard')
 
-def add_user(request):
+def manage_users(request):
     if request.method == "POST":
+        action = request.POST.get("action")
         user_id = request.POST.get('user_id')
-        full_name = request.POST.get('full_name').strip()
-        email = request.POST.get("email").strip()
-        phone_number = request.POST.get("phone_number").strip()
-        college_name = request.POST.get("college_name").strip()
-        dob = request.POST.get("dob").strip()
-        password = request.POST.get("password").strip()
-        referral_code = request.POST.get("referral_code", "N/A").strip()
-
-        try:
-            existing_user = UsersDB.objects.filter(email__iexact=email).first()
-            if existing_user and not user_id:
-                messages.error(request, "A user with this email already exists!")
-                return redirect(reverse('dashboard') + "?page=manage_user")
-
-            if user_id:
-                # Updating existing user
-                user = get_object_or_404(UsersDB, id=user_id)
-                user.full_name = full_name
-                user.email = email
-                user.phone_number = phone_number
-                user.college_name = college_name
-                user.dob = dob
-                user.password = password  # Ideally, hash the password
-                user.referral_code = referral_code
-                user.save()
-                messages.success(request, "User updated successfully!")
-            else:
-                # Creating a new user
-                user = UsersDB(
-                    full_name=full_name,
-                    email=email,
-                    phone_number=phone_number,
-                    college_name=college_name,
-                    dob=dob,
-                    password=password,  # Ideally, hash the password
-                    referral_code=referral_code
-                )
-                user.save()
-                messages.success(request, "User added successfully!")
-
-            return redirect(reverse('dashboard') + "?page=manage_user")
-
-        except IntegrityError as e:
-            messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?page=manage_user")
-
-    return redirect('dashboard')
-
-def delete_user(request, user_id):
-    if request.method == "POST":
-        user = get_object_or_404(UsersDB, id=user_id)
-        user.delete()
-        messages.success(request, "User deleted successfully!")
+        
+        if action == "add_or_update":
+            full_name = request.POST.get('full_name').strip()
+            email = request.POST.get("email").strip()
+            phone_number = request.POST.get("phone_number").strip()
+            college_name = request.POST.get("college_name").strip()
+            dob = request.POST.get("dob").strip()
+            password = request.POST.get("password").strip()
+            referral_code = request.POST.get("referral_code", "N/A").strip()
+            
+            try:
+                if user_id:
+                    # Updating existing user
+                    user = get_object_or_404(UsersDB, id=user_id)
+                    user.full_name = full_name
+                    user.email = email
+                    user.phone_number = phone_number
+                    user.college_name = college_name
+                    user.dob = dob
+                    user.password = password  # Ideally, hash the password
+                    user.referral_code = referral_code
+                    user.save()
+                    messages.success(request, "User updated successfully!")
+                else:
+                    # Creating a new user
+                    if UsersDB.objects.filter(email__iexact=email).exists():
+                        messages.error(request, "A user with this email already exists!")
+                    else:
+                        UsersDB.objects.create(
+                            full_name=full_name,
+                            email=email,
+                            phone_number=phone_number,
+                            college_name=college_name,
+                            dob=dob,
+                            password=password,  # Ideally, hash the password
+                            referral_code=referral_code
+                        )
+                        messages.success(request, "User added successfully!")
+            except IntegrityError as e:
+                messages.error(request, f"Error: {e}")
+            
+        elif action == "delete":
+            user = get_object_or_404(UsersDB, id=user_id)
+            user.delete()
+            messages.success(request, "User deleted successfully!")
+        
     return redirect(reverse('dashboard') + "?page=manage_user")
 
 def get_subjects(request):

@@ -76,16 +76,17 @@ function toggleSelectAll(source) {
 }
 
 function editAdmin(id, fullName, email, phone, altPhone, password, aadhar) {
-    document.getElementById('admin_id').value = id;
-    document.getElementById('admin_full_name').value = fullName;
-    document.getElementById('admin_email').value = email;
-    document.getElementById('admin_phone').value = phone;
-    document.getElementById('admin_alt_phone').value = altPhone;
-    document.getElementById('admin_password').value = password;
-    document.getElementById('admin_aadhar_number').value = aadhar;
+    document.getElementById("admin_id").value = id;
+    document.getElementById("admin_full_name").value = fullName;
+    document.getElementById("admin_email").value = email;
+    document.getElementById("admin_phone").value = phone;
+    document.getElementById("admin_alt_phone").value = altPhone;
+    document.getElementById("password").value = password;
+    document.getElementById("admin_aadhar_number").value = aadhar;
 
     setActive(document.querySelector('[data-page-name="add_admin"]'));
 }
+
 
 function editManager(id, fullName, email, phone, altPhone, password, aadhar) {
     document.getElementById('manager_id').value = id;

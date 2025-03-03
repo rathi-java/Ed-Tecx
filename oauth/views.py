@@ -14,6 +14,12 @@ from django.utils.timezone import now
 import random, time, smtplib
 from oauth.models import UsersDB, Otpdb
 
+
+from admin_portal.models import *
+# Load environment variables from secrets.env
+import os
+from dotenv import load_dotenv
+load_dotenv("secrets.env")
 def home(request):
     return render(request, 'index.html')
 
@@ -195,9 +201,9 @@ def user_login(request):
             return redirect(redirect_urls.get(role, '/'))
         else:
             messages.error(request, "Invalid username or password. Please try again.")
-            return render(request, 'login.html', {'form_type': 'login'})
+            return render(request, 'index.html', {'form_type': 'login'})
 
-    return render(request, 'login.html')
+    return render(request, 'index.html', {'form_type': 'login'})
 
 def generate_otp(request):
     if request.method == "POST":
@@ -262,8 +268,8 @@ def send_email(request):
         if recipient_email in suspended_emails and current_time - suspended_emails[recipient_email] < 120:
             remaining_time = 120 - int(current_time - suspended_emails[recipient_email])
             return JsonResponse({"error": f"Wait {remaining_time} seconds before resending OTP."}, status=429)
-        sender_email = "alphaedtech3@gmail.com"
-        sender_password = "akjm awjd sljp gpvt"  # Ensure you secure credentials in production!
+        sender_email = os.getenv("EMAIL_HOST_USER")
+        sender_password = os.getenv("EMAIL_HOST_PASSWORD")
         sender_name = "Ed. Tech."
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
@@ -291,7 +297,6 @@ def send_email(request):
             print("Error:", str(e))
             return JsonResponse({"error": "Failed to send email."}, status=500)
     return render(request, "forgot_password.html")
-
 def report_issue(request):
     return render(request, 'report_issue.html')
 
