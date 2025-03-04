@@ -1,0 +1,30 @@
+.maintenence-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+    
+.maintenence-image{
+    max-width: 100%;
+    height: auto;
+    margin-top: 75px;
+    margin-bottom: 1px;
+}
+.go-back-button-maintenence {
+    display: inline-block;       /* Treat as an inline-block so we can set width/height properly */
+    padding: 10px 20px;          /* Some breathing room inside the button */
+    margin-top: 20px;            /* Spacing above the button, adjust as needed */
+    margin-bottom: 20px;
+    background-color: #077BC3;   /* Button background color */
+    color: #fff;                 /* Text color */
+    text-decoration: none;       /* Remove underline on link text */
+    font-size: 16px;             /* Font size for the button text */
+    border-radius: 4px;          /* Rounded corners, optional */
+    transition: background-color 0.3s ease; /* Smooth color transition on hover */
+  }
+  
+  .go-back-button-maintenence:hover {
+    background-color: #077BC3;   /* Slightly darker shade on hover */
+  }
+  

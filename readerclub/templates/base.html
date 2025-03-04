@@ -1,0 +1,322 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Welcome | ReaderClub, We always learn..{% endblock %}</title>
+
+  <!-- Site-Wide Base CSS -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <!-- Auth Modals CSS -->
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/forgot_password.css' %}">
+  <!-- Pop-Up CSS -->
+  <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+  <script>
+    var isLoggedIn = {% if request.session.user_id %} true {% else %} false {% endif %};
+  </script>
+  
+
+  <!-- External libraries (optional) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/theme/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=1">
+
+  <meta property="og:title" content="100% Placement - Your Future Starts Here" />
+  <meta property="og:description" content="Discover the best in campus-to-corporate opportunities!" />
+  <meta property="og:image" content="{% static 'assets/footer.png' %}" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:type" content="website" />  
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
+
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+  <!-- Navigation Bar, Mobile Sidebar, etc. -->
+  <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
+    <div class="nav-container">
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'assets/header.png' %}" alt="EdTech Logo"/>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="nav-links" id="navbarNav">
+        <ul>
+          <li><a class="nav-link" href="/">Home</a></li>
+          <li class="dropdown">
+            <a class="nav-link" href="#">
+              Solution <i class="fa-solid fa-caret-down"></i>
+            </a>
+            <div class="solution-dropdown-content">
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a>
+              <a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a>
+              <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a>
+              <a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a>
+              <a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a>
+              <a href="https://library.readerclub.in/">Library</a>
+            </div>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a>
+          </li>
+          <li>
+            <a class="nav-link" href="{% url 'price' %}">Pricing</a>
+          </li>
+          {% comment %} <li>
+            <a class="nav-link" href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a>
+          </li> {% endcomment %}
+        </ul>
+      </div>
+
+      {% if request.session.user_id %}
+      <!-- Profile Dropdown -->
+      <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
+        <div class="avatar">
+          {% if logged_in_user and logged_in_user.full_name %}
+            {{ logged_in_user.full_name|slice:":1"|upper }}
+          {% else %}
+            ?
+          {% endif %}
+        </div>        
+        <div id="profile-menu" class="profile-dropdown-content">
+          <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+          {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
+          <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+          <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+          <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+
+          <div class="profile-info-links">
+            <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
+            <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+            <a href="{% url 'about_us' %}">About</a>
+            <a href="{% url 'maintenance_view' %}">Career</a>
+            {% comment %} <a href="#">Blog</a> {% endcomment %}
+          </div>
+          {% comment %} <div class="profile-social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+          </div> {% endcomment %}
+        </div>
+      </div>
+      {% else %}
+      <!-- Sign Up & Log In Buttons -->
+      <div class="login">
+        <button onclick="openModal('login')">Login</button>
+      </div>
+      <div class="signup">
+        <button onclick="openModal('signup')">Sign Up</button>
+      </div>
+      {% endif %}
+
+      <!-- Hamburger (for mobile) -->
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE SIDEBAR -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="close-btn" id="closeBtn">
+      <i class="fas fa-times"></i>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">Solution <i class="fa-solid fa-caret-down"></i></a>
+        <ul>
+          <li><a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a></li>
+          <li><a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a></li>
+          <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a></li>
+          <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a></li>
+          <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a></li>
+          <li><a href="https://library.readerclub.in/">Library</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
+      <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
+      <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li>
+      {% if request.session.user_id %}
+      <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+      {% else %}
+      <li><button onclick="openModal('signup')">Sign Up</button></li>
+      <li><button onclick="openModal('login')">Log In</button></li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <!-- First Row: main links -->
+    <div class="footer-container">
+      <div class="footer-left">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'assets/footer.png' %}" alt="Icon">
+        </a>        
+      </div>
+      <div class="footer-links">
+        <p class="footer-para">Useful Links</p>
+        <ul>
+          <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
+          <li><a href="{% url 'maintenance_view' %}" class="no-underline">Contact Us</a></li>
+          <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')" class="no-underline">Placement Stories</a></li>
+          <li><a href="{% url 'maintenance_view' %}" class="no-underline">Career</a></li>
+          <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
+          <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms & Conditions</a></li>
+          <li><a href="{% url 'maintenance_view' %}" class="no-underline">Child Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Top Practice Ques</p>
+        <ul>
+          <li><a href="{% url 'python_practice' %}" onclick="handleAuthCheck(event, '{% url 'python_practice' %}')">IT</a></li>
+          <li><a href="{% url 'finance_practice' %}" onclick="handleAuthCheck(event, '{% url 'finance_practice' %}')">Management</a></li>
+          <li><a href="{% url 'abstract_reasoning_practice' %}" onclick="handleAuthCheck(event, '{% url 'abstract_reasoning_practice' %}')">Aptitude</a></li>
+          <li><a href="{% url 'coding_practice' %}" onclick="handleAuthCheck(event, '{% url 'coding_practice' %}')">Coding</a></li>        
+        </ul>
+      </div>
+      <div class="footer-ccc">
+        <div class="footer-top">
+          <p class="footer-para">Online Compiler</p>
+          <ul class="footer-iii">
+            <li>
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Python Compiler</a>
+            </li>
+            <li>
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Java Compiler</a>
+            </li>
+            <li class="footer-i">
+              <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">JS Compiler</a>
+            </li>
+          </ul>          
+        </div>
+        <div class="footer-down">
+          <p class="footer-para">Jobs & Opportunities</p>
+          <ul class="footer-iii">
+            <div class="footer-v">
+              <li><a href="{% url 'maintenance_view' %}" class="job-footer-link">Popular Internships</a></li>
+              <li><a href="{% url 'maintenance_view' %} " class="job-footer-link">Popular Jobs</a></li>          
+            </div>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Contact US</p>
+        <ul class="social-links">
+          <li>
+            <i class="fa fa-phone"></i>
+            <a href="tel:+91-9911775525" class="contact-link">+91-9911775525</a>
+          </li>
+          <li>
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:contact@readerclub.in" class="contact-link">contact@readerclub.in</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=G1+Plot+No.+A-61+Sector-16+Noida+Gautam+Buddh+Nagar+UP+201301" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
+              G1, Plot No. A-61,<br>
+              Sector-16, Noida,<br>
+              Gautam Buddh Nagar,<br>
+              UP 201301
+            </a>
+          </li>
+              </ul>        
+      </div>
+    </div>
+    <!-- Second Row: HR + base row -->
+    <div class="footer-container footer-column">
+      <hr class="footer-line">
+      <div class="footer-base">
+        <p>© 2018-25 Readerclub. All rights reserved</p>
+        {% comment %} <div class="footer-logos">
+          <div class="fac">
+            <img src="{% static 'assets/facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
+          </div>
+          <img src="{% static 'assets/instagram.png' %}" alt="Instagram" style="width: 30px; height: 30px;">
+          <img src="{% static 'assets/twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px;">
+          <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;">
+        </div> {% endcomment %}
+      </div>
+    </div>
+  </footer>
+    
+  <!-- MODAL (LOGIN/SIGNUP) -->
+  <div id="Modal" class="modal" style="display: none;">
+    <div class="container" id="popupContainer">
+      <!-- Header that changes via JS -->
+      <div class="header" style="margin-bottom:8px;">
+        JOIN US<br>
+        <small>Login to continue</small>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="tabs" style="margin-bottom: 10px;">
+        <button id="loginTab" class="tab-button active" onclick="switchTab('login')">Login</button>
+        <button id="signupTab" class="tab-button" onclick="switchTab('signup')">Signup</button>
+      </div>
+
+      <!-- Partial Templates for Each Form -->
+      {% include 'login.html' %}
+      {% include 'signup.html' %}
+
+    </div>
+  </div>
+  {% include 'forgot_password.html' %}
+
+  <!-- "Please Sign-in" Pop-up -->
+  <div id="authPopUp" class="popup-overlay">
+    <div class="popup-box">
+      <img src="{% static 'images/padlock.png' %}" alt="Lock" class="popup-lock">
+      <h2>Please Sign-in to continue</h2>
+      <p>You need to be logged in to access this page.</p>
+      <div class="popup-buttons">
+        <button class="login-btn" onclick="showLoginModal()">Login</button>
+        <button class="signup-btn" onclick="showSignupModal()">Signup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load All Auth JS from oauth -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check if we should show the login form based on form_type
+      {% if form_type == 'login' %}
+        openModal('login');
+      {% elif form_type == 'signup' %}
+        openModal('signup');
+      {% endif %}
+    });
+  </script>  
+  {% block extra_js %}
+  {% endblock %}
+  <script src="{% static 'js/auth.js' %}"></script> 
+</body>
+</html>

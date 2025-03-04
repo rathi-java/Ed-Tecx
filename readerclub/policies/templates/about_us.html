@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock %}
+
+{% block extra_css %}
+<!-- Importing Google Fonts -->
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<style>
+  /* Base body font for everything unless overridden */
+  body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333; /* A slightly darker default text color for contrast */
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Container styling can remain the same or slightly tweaked */
+  .about_us_container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 58px auto 4px auto;
+    background-color: #fff;
+    padding: 5pt 20pt 20pt 20pt; /* More consistent padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Headings: use Poppins for a bold, modern look */
+  h1, h2 {
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  h1 {
+    color: #077BC2;
+    font-size: 2rem; /* Using rem instead of pt for responsive sizing */
+    margin-top: 1rem;
+  }
+
+  h2 {
+    color: #FE7800;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Paragraph text: Open Sans for readability */
+  .about-us-para {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6; /* Improves readability */
+    text-align: justify;
+    margin: 1rem 0;
+    color: #818181;
+  }
+
+  /* Contact link: keep it small and clean */
+  .contact-link {
+    color: #077BC2;
+    font-size: 0.875rem; /* 14px equivalent */
+    text-decoration: none;
+  }
+
+  .contact-link:hover {
+    text-decoration: underline; /* A small hover effect */
+  }
+
+  /* Footer text (if used) */
+  .footer-text {
+    color: #818181;
+    font-size: 0.875rem;
+  }
+</style>
+{% endblock extra_css %}
+
+
+{% block content %}
+<div class="about_us_container">
+    <h1>About Us</h1>
+    
+    <p class="about-us-para">ReaderClub is one of the world’s largest and fastest-growing cross-platform digital hubs <b>for e-papers,
+        e-books, educational content, job listings, and global opportunities.</b></p>
+    
+    <p class="about-us-para">ReaderClub leverages the power of CINCOONI SYSTEMS PVT LTD, a digital marketing brand, to offer
+        online customers the web’s premier destination for newspapers, magazines, eBooks, e-journals,
+        books, comics, educational resources, job portals, and abroad services. It provides the best content
+        for reading and learning on web, mobile, and tablet devices. The platform includes popular
+        newspapers, top magazines, study materials, career resources, and global opportunity listings — all in
+        one place. Whether you're reading premier Indian newspapers, exploring trending magazines, or
+        searching for career or study-abroad options, ReaderClub has you covered.</p>
+    
+    <p class="about-us-para">ReaderClub is the ideal destination for anyone looking for children's books, educational videos, and
+        learning materials. With age-based recommendations and curated stores for classics like Alice in
+        Wonderland, it’s the ultimate one-stop shop for kids, students, and lifelong learners.</p>
+
+    <h2>Your favorite local bookshop, perfected — and expanded</h2>
+    
+    <p class="about-us-para">At ReaderClub, we embody everything you love about your favorite local bookshop, enhanced for your
+        modern life. Our mission is to bring the power of reading, learning, career growth, and global
+        exploration to your world — because we’re book lovers and knowledge seekers, just like you. Why do
+        we do it? Because we believe stories, education, and opportunities shape who we are, and words can
+        enhance and transform the world around us.</p>
+    
+    <p class="about-us-para">Several commercial entities like hotels, hospitals, doctors’ clinics, coffee shops, corporate offices,
+        and educational institutions have partnered with us to provide access to digital content, career
+        resources, and study materials. Many of the early eBooks are from Project Gutenberg, meaning you
+        can discover timeless classics alongside modern learning and career content.</p>
+    
+    <p class="about-us-para">In our daily newsletter, we keep our rapidly growing list of active subscribers up to date on the latest
+        free and discounted eBooks, job openings, study resources, and international programs available
+        online. We always love to hear from our visitors, so if you have any questions or feedback, don't
+        hesitate to contact our editor at <a href="mailto:support@readerclub.in" class="contact-link">support@readerclub.in</a>.</p>
+    {% comment %} <hr class="policies-hr-line"> {% endcomment %}
+</div>
+
+{% include 'faq.html' %}
+{% include 'app.html' %}
+{% endblock content %}
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+{% endblock %}
