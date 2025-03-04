@@ -87,11 +87,14 @@ CREATE TABLE `admin_portal_admindb` (
   `password` varchar(128) NOT NULL,
   `aadhar_number` varchar(50) DEFAULT NULL,
   `superadmin_id` bigint DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `admin_portal_admindb_superadmin_id_45ef5c28_fk_admin_por` (`superadmin_id`),
-  CONSTRAINT `admin_portal_admindb_superadmin_id_45ef5c28_fk_admin_por` FOREIGN KEY (`superadmin_id`) REFERENCES `admin_portal_superadmindb` (`id`)
+  CONSTRAINT `admin_portal_admindb_superadmin_id_45ef5c28_fk_admin_por` FOREIGN KEY (`superadmin_id`) REFERENCES `admin_portal_superadmindb` (`id`),
+  CONSTRAINT `fk_admin_superadmin` FOREIGN KEY (`superadmin_id`) REFERENCES `admin_portal_superadmindb` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,11 +124,14 @@ CREATE TABLE `admin_portal_employeedb` (
   `password` varchar(128) NOT NULL,
   `aadhar_number` varchar(50) DEFAULT NULL,
   `manager_id` bigint DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `admin_portal_employe_manager_id_4be6b1c2_fk_admin_por` (`manager_id`),
-  CONSTRAINT `admin_portal_employe_manager_id_4be6b1c2_fk_admin_por` FOREIGN KEY (`manager_id`) REFERENCES `admin_portal_managerdb` (`id`)
+  CONSTRAINT `admin_portal_employe_manager_id_4be6b1c2_fk_admin_por` FOREIGN KEY (`manager_id`) REFERENCES `admin_portal_managerdb` (`id`),
+  CONSTRAINT `fk_employee_manager` FOREIGN KEY (`manager_id`) REFERENCES `admin_portal_managerdb` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -155,11 +161,14 @@ CREATE TABLE `admin_portal_managerdb` (
   `password` varchar(128) NOT NULL,
   `aadhar_number` varchar(50) DEFAULT NULL,
   `admin_id` bigint DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `admin_portal_manager_admin_id_2f19ddde_fk_admin_por` (`admin_id`),
-  CONSTRAINT `admin_portal_manager_admin_id_2f19ddde_fk_admin_por` FOREIGN KEY (`admin_id`) REFERENCES `admin_portal_admindb` (`id`)
+  CONSTRAINT `admin_portal_manager_admin_id_2f19ddde_fk_admin_por` FOREIGN KEY (`admin_id`) REFERENCES `admin_portal_admindb` (`id`),
+  CONSTRAINT `fk_manager_admin` FOREIGN KEY (`admin_id`) REFERENCES `admin_portal_admindb` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -188,10 +197,12 @@ CREATE TABLE `admin_portal_superadmindb` (
   `alt_phone_number` varchar(15) NOT NULL,
   `password` varchar(128) NOT NULL,
   `aadhar_number` varchar(50) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,6 +211,7 @@ CREATE TABLE `admin_portal_superadmindb` (
 
 LOCK TABLES `admin_portal_superadmindb` WRITE;
 /*!40000 ALTER TABLE `admin_portal_superadmindb` DISABLE KEYS */;
+INSERT INTO `admin_portal_superadmindb` VALUES (1,'SAD00001','alpha','alpha@rathitech.me','0000000000','0000000001','pbkdf2_sha256$870000$5bd7rVfY0NNNo9PUucAmcJ$8qTua3wShsvO8UonlpJ23R9waRewJ5D6l6BDzcDJKXw=','321112341234','2025-03-04 11:46:27',1);
 /*!40000 ALTER TABLE `admin_portal_superadmindb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -365,7 +377,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +386,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (200,'2025-03-04 06:25:01.551029','3','basic',1,'[{\"added\": {}}]',20,4),(201,'2025-03-04 06:25:18.863630','3','basic - ₹0.00/m',1,'[{\"added\": {}}]',21,4),(202,'2025-03-04 06:30:14.669043','4','monthly',1,'[{\"added\": {}}]',20,4),(203,'2025-03-04 06:30:31.180474','4','monthly - ₹284.05/m',1,'[{\"added\": {}}]',21,4),(204,'2025-03-04 09:12:53.622024','1','PaymentTransaction object (1)',3,'',31,4),(205,'2025-03-04 09:15:58.569254','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(206,'2025-03-04 09:16:13.861441','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(207,'2025-03-04 09:21:12.114605','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\", \"Subscription start\", \"Subscription end\"]}}]',13,4),(208,'2025-03-04 09:22:04.748515','4','monthly - ₹284.05/m',2,'[]',21,4),(209,'2025-03-04 09:22:27.521978','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4);
+INSERT INTO `django_admin_log` VALUES (200,'2025-03-04 06:25:01.551029','3','basic',1,'[{\"added\": {}}]',20,4),(201,'2025-03-04 06:25:18.863630','3','basic - ₹0.00/m',1,'[{\"added\": {}}]',21,4),(202,'2025-03-04 06:30:14.669043','4','monthly',1,'[{\"added\": {}}]',20,4),(203,'2025-03-04 06:30:31.180474','4','monthly - ₹284.05/m',1,'[{\"added\": {}}]',21,4),(204,'2025-03-04 09:12:53.622024','1','PaymentTransaction object (1)',3,'',31,4),(205,'2025-03-04 09:15:58.569254','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(206,'2025-03-04 09:16:13.861441','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(207,'2025-03-04 09:21:12.114605','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\", \"Subscription start\", \"Subscription end\"]}}]',13,4),(208,'2025-03-04 09:22:04.748515','4','monthly - ₹284.05/m',2,'[]',21,4),(209,'2025-03-04 09:22:27.521978','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(210,'2025-03-04 11:44:43.776079','1','SAD00001',1,'[{\"added\": {}}]',15,4),(211,'2025-03-04 12:30:25.628063','3','basic - ₹0.00/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(212,'2025-03-04 12:32:47.505329','4','monthly - ₹284.05/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(213,'2025-03-04 12:33:37.395975','3','basic - ₹0.00/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -452,7 +464,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('73wp0fpjgfa1358s5nz9nyyi0c8pndq0','.eJxVTksOwiAQvQtrQ4DOQOvSvWcgDAy2aiDpZ2W8uzRpjO7eP-8lfNjW0W8Lz35K4iy0OP1qFOKDy26keyi3KmMt6zyR3CPycBd5rYmflyP7NzCGZWxto4CzQz0MhJYBOsM9KpdcjjaRCdQwYpe5MWcJAhq2qo-AFpgMtNHvR_3-AIkwO3A:1tp0Ee:8ELo3aBg7DKjprDp8uV-snw9HOidE-Q2MwUVtLW9p54','2025-03-17 07:29:08.007092'),('7gi3lfbwfh4sd2w80aa9oiq7t8a9ltos','.eJxVj8tKxjAQRt8l61KSNNOmWYpbV7oTCblM_1Z_E8wFBPHdbTB4mdUw58zHzAfRppZd14xJH54oIsjwd2aNe8HQgH824RJHF0NJhx2bMnaax7vo8XrT3X8Bu8n7uU0XQG4WEBujblthnXGmzjsGs-SOc274JKQ3Qkq5gRPWerYuVkoBdAVooT83ioEkvBy5YEKv8d28EjUNJJfqMZTvN-4fbulZ07nXBP1WMZcjhqxj8piIegQYGIWnzkss5vprEcU6aGlT731NpmGiZvr5BV_3Z4c:1tpPYe:vfxdNKBcPJawXLZTBKq_w5kiGtiMAuK8HUaTS3O5_P0','2025-03-18 10:31:28.803502'),('9cso5307miv29ofgfxpgi25m4i40xqm7','.eJx9jkuOwyAQRO_COkKhscF4Ncp-zoDadBMzE38E9myi3D1YiiJlM7tWV72nuouyl5VnYvI8YboV0d9FwYk5r5gnzLKsX9cjkWGZRK9sc7ZgNBgJYJTS-nESy7b6P84pJibR_4OfhMd9G_1eOPt0dOHzN2D4rWtqQD84X5dKzVtOgzwq8pUW-b0Q3y6v7odgxDJW2rSD66h1AZ1SpFmjivHcERkdq8UiQLTGaIcmBNXaCFjvyIBNR411VfreCI8nPyliEg:1tnwEY:fsT4yI_EdmjQ7gF8O79F76BzcChitIUDfLVj1ZUXz0w','2025-03-14 09:00:38.475142'),('a53f9hskf6uoiyfbt9ix8acbwyglb8a7','.eJxVTksOwiAQvQtrQ4DOQOvSvWcgDAy2aiDpZ2W8uzRpjO7eP-8lfNjW0W8Lz35K4iy0OP1qFOKDy26keyi3KmMt6zyR3CPycBd5rYmflyP7NzCGZWxto4CzQz0MhJYBOsM9KpdcjjaRCdQwYpe5MWcJAhq2qo-AFpgMtNHvR_3-AIkwO3A:1tpAAr:wx0mGU270SBXeMH40yGz-8XPIq8PNFQtwO_0XYXSgFs','2025-03-17 18:05:53.807244'),('ldr5g3ouhg8f33z0smk926rx6qew3x0p','.eJxVjssOwiAQRf-FdUMo8mi7dO83kAGmtlohFkhMjP8uTRpTdzP3nLmZNzFQ8mRKwtXMngykJc0xs-DuGDbgbxCukboY8jpbuil0p4leosflvLt_BROkqV5zJnDUsu17KxUKceLYSaa9Hp3yloOts5SnEeumlRUgOSrWOSGVQMtFLf392DYEX_AwOWZYzLNgynMMiQyC7eRo-bLCxmvCPl8KaE8j:1tp0DB:7tJsPPVWuLhAjhWkgHkswJAhZTK6OCucUflINvLNNyo','2025-03-17 07:27:37.916784'),('o5pg7gcgbp235vs0i6txx4lztqfaxu2j','.eJxVUMtOxDAM_JecR1XSxnnsEXHlBDeEqrTx7haWVrSphIT4d9yl4hHlMJ6xJ-N8qDat5dyuC8_tkNVBGYW_XJf6Fx43IT-n8TRV_TSWeeiqraXa1aW6mzJfbvbefwbntJxlutaWj55MjB05trapOZD22R97l7s6dYKJmiNL5V1nE9XsdOgtOctdbcX0J6OBmvk0LIVnzi2_p1d1IKilrJnH8r3G_cOtluNlbmto31ZeyjCNSzvNmWd1eCSCDwgNogPJDYgGnuA8Yo0YESycg29gtNQaLgraKotgQF6QQWzgjCCNEOEaBAGEIAMBXpgavkYIcMKLsYez8A5RvAkU4eVNDS-kSBJHJHraM5eppMtv8uuSV2Hb0O44r3PaZPkW_fkFJ9SFKg:1tpLZ7:l9Ti-pp8vHTPQbKNA_CbbxGlfppWznZB1IG85wie_jA','2025-03-18 06:15:41.778668'),('p63ugn31q7shudoo21f38vjgx8m72kue','.eJxVjLEOgzAQQ__lZhSRcJcAY_d-A8olR6FFRAowVf33QoUqsdl-tt-wLZK7MUKrC8hpEmh_ERTQ-W0duj8Hfc3Yh5fMB4hPPz-SCmle88jqqKiTLuqeoky3s3s5GPwy7GtTovSOdNMwWUGsjNRUuuj6YCMbz7smqnrZnbOMnozYsg5IFoUNwucLvOY_zw:1tp4Rq:wiFxkFOPeA9syme6bMgBSsXindb29I6DVGxJZhJ00IE','2025-03-17 11:59:02.861207');
+INSERT INTO `django_session` VALUES ('0s8mny8rmsb3oauho4kid0dbglf1yv9h','.eJxtU8uO2zAQ-xedhUAjjWw5x977BUVh-JUmbTZGbQdYYNF_Lzn2brFAD4Yy0ojikMybe67T0t5Gd1bvlvk-ubNtOe-m1-6l_f2c1u02P9Z2XkZsn79FER9T4yUHrNmLJh8FX2h8jAE11hSxipeEOhbU6iNrLahrfMDQiHvqRVAnfAI87Euo0M8V2IH9xAN-Rn9iXQGHuKg14w76yUXACX3CHmIrsDM58DfOBJzIMwIXWEK-eDuyR8kPODYL8G0-3mcN_kp-4Aw-kTwD7pGf8ceacDfybWKBUyIGz7FGYHMG0wH3rJ_38AZxA_UgL-6RO-enFuBNLZTvcz7Uph1nz98Pg7Z56-7_bHLnphwnNDUdv8fn0vHcnavwf2fbRG9TNg_Mr1AZv6iHd6w5MzXRynwwjvQac9Mf6sp8MBPmA_3nnDbzu--1acq5TWtow0yYNtSImlJ7ekad4Nc-f2067xqpZcM0ec8ivaX-xNC8-yDZMkltmSHmj94xP7vvYvkxv-kB8ZEdZsvyyDzwjmU97PkyvHrPr2U-7_kyv9NHRsz70Oz5kz1_zIFlkrljXiw_Yrm2PDEDWsHbtntu1_bjz-nUfdrru-HX9ODB-LN7_JhPw_zYllt_YsvpOF1PX-dxun85ej8BXLv1ituhzlPs6qwXCcOlyU01VWEYB8lViQPs7RCFMnZaSrnkQft-lKbuS9EcmpxH9-cvHyX9XA:1tpRW7:hKBQEurWaTdlpHKtbUTSvdIyOXapSCt_eKJHmUsMY08','2025-03-18 12:36:59.999396'),('1s2vyu750palb2fkvwuguahi5633rxk0','.eJxVj0FuhTAMRO_iNUIJiZ2YXXuNqkL5IXxQKalI6AZx9wLlL9hZ45mnmRVS9IMbnfdxmXKTssshQb1uBbw0t-Q-THnwLg9xar5D7mO7ez5W-L-hvlNgz2aopdFSsLBkSiRGVVEBP3P8Hdow75FnjM8x7N5lOAhSVFZZIqklGaGFQakIts8CzgLNksLcnE4DN-3h_FeYjocbx0Murxrl6bneqXy7zXi_UjdU71J_cB6M7Fl2SE4Hj4i6s541kxQtdaat2DCiIvRW244kahV8pY1jp5TkY9Orrdn-ABpYcxk:1tpRJf:I1vdzZDLpvYZFtVHWkLtU6Z_7M4pZ6ewejP8axNuga0','2025-03-18 12:24:07.585366'),('73wp0fpjgfa1358s5nz9nyyi0c8pndq0','.eJxVTksOwiAQvQtrQ4DOQOvSvWcgDAy2aiDpZ2W8uzRpjO7eP-8lfNjW0W8Lz35K4iy0OP1qFOKDy26keyi3KmMt6zyR3CPycBd5rYmflyP7NzCGZWxto4CzQz0MhJYBOsM9KpdcjjaRCdQwYpe5MWcJAhq2qo-AFpgMtNHvR_3-AIkwO3A:1tp0Ee:8ELo3aBg7DKjprDp8uV-snw9HOidE-Q2MwUVtLW9p54','2025-03-17 07:29:08.007092'),('7gi3lfbwfh4sd2w80aa9oiq7t8a9ltos','.eJxVj8tKxjAQRt8l61KSNNOmWYpbV7oTCblM_1Z_E8wFBPHdbTB4mdUw58zHzAfRppZd14xJH54oIsjwd2aNe8HQgH824RJHF0NJhx2bMnaax7vo8XrT3X8Bu8n7uU0XQG4WEBujblthnXGmzjsGs-SOc274JKQ3Qkq5gRPWerYuVkoBdAVooT83ioEkvBy5YEKv8d28EjUNJJfqMZTvN-4fbulZ07nXBP1WMZcjhqxj8piIegQYGIWnzkss5vprEcU6aGlT731NpmGiZvr5BV_3Z4c:1tpPYe:vfxdNKBcPJawXLZTBKq_w5kiGtiMAuK8HUaTS3O5_P0','2025-03-18 10:31:28.803502'),('9cso5307miv29ofgfxpgi25m4i40xqm7','.eJx9jkuOwyAQRO_COkKhscF4Ncp-zoDadBMzE38E9myi3D1YiiJlM7tWV72nuouyl5VnYvI8YboV0d9FwYk5r5gnzLKsX9cjkWGZRK9sc7ZgNBgJYJTS-nESy7b6P84pJibR_4OfhMd9G_1eOPt0dOHzN2D4rWtqQD84X5dKzVtOgzwq8pUW-b0Q3y6v7odgxDJW2rSD66h1AZ1SpFmjivHcERkdq8UiQLTGaIcmBNXaCFjvyIBNR411VfreCI8nPyliEg:1tnwEY:fsT4yI_EdmjQ7gF8O79F76BzcChitIUDfLVj1ZUXz0w','2025-03-14 09:00:38.475142'),('ldr5g3ouhg8f33z0smk926rx6qew3x0p','.eJxVjssOwiAQRf-FdUMo8mi7dO83kAGmtlohFkhMjP8uTRpTdzP3nLmZNzFQ8mRKwtXMngykJc0xs-DuGDbgbxCukboY8jpbuil0p4leosflvLt_BROkqV5zJnDUsu17KxUKceLYSaa9Hp3yloOts5SnEeumlRUgOSrWOSGVQMtFLf392DYEX_AwOWZYzLNgynMMiQyC7eRo-bLCxmvCPl8KaE8j:1tp0DB:7tJsPPVWuLhAjhWkgHkswJAhZTK6OCucUflINvLNNyo','2025-03-17 07:27:37.916784'),('o5pg7gcgbp235vs0i6txx4lztqfaxu2j','.eJxVUMtOxDAM_JecR1XSxnnsEXHlBDeEqrTx7haWVrSphIT4d9yl4hHlMJ6xJ-N8qDat5dyuC8_tkNVBGYW_XJf6Fx43IT-n8TRV_TSWeeiqraXa1aW6mzJfbvbefwbntJxlutaWj55MjB05trapOZD22R97l7s6dYKJmiNL5V1nE9XsdOgtOctdbcX0J6OBmvk0LIVnzi2_p1d1IKilrJnH8r3G_cOtluNlbmto31ZeyjCNSzvNmWd1eCSCDwgNogPJDYgGnuA8Yo0YESycg29gtNQaLgraKotgQF6QQWzgjCCNEOEaBAGEIAMBXpgavkYIcMKLsYez8A5RvAkU4eVNDS-kSBJHJHraM5eppMtv8uuSV2Hb0O44r3PaZPkW_fkFJ9SFKg:1tpLZ7:l9Ti-pp8vHTPQbKNA_CbbxGlfppWznZB1IG85wie_jA','2025-03-18 06:15:41.778668'),('p63ugn31q7shudoo21f38vjgx8m72kue','.eJxVjLEOgzAQQ__lZhSRcJcAY_d-A8olR6FFRAowVf33QoUqsdl-tt-wLZK7MUKrC8hpEmh_ERTQ-W0duj8Hfc3Yh5fMB4hPPz-SCmle88jqqKiTLuqeoky3s3s5GPwy7GtTovSOdNMwWUGsjNRUuuj6YCMbz7smqnrZnbOMnozYsg5IFoUNwucLvOY_zw:1tp4Rq:wiFxkFOPeA9syme6bMgBSsXindb29I6DVGxJZhJ00IE','2025-03-17 11:59:02.861207');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -503,7 +515,7 @@ CREATE TABLE `exam_registration_studentsdb` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `studentId` (`studentId`),
   UNIQUE KEY `registration_code` (`registration_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -512,7 +524,7 @@ CREATE TABLE `exam_registration_studentsdb` (
 
 LOCK TABLES `exam_registration_studentsdb` WRITE;
 /*!40000 ALTER TABLE `exam_registration_studentsdb` DISABLE KEYS */;
-INSERT INTO `exam_registration_studentsdb` VALUES (8,'USR00001','STD00001','rathi','alpha@rathitech.me','None','INR 999.00','f7e5c883-30e',6,4),(9,'USR00001','STD00002','rathi','alpha@rathitech.me','None','INR 999.00','7fdf8de5-a95',2,4),(10,'USR00001','STD00003','rathi','alpha@rathitech.me','None','INR 999.00','21c980d5-a03',3,4);
+INSERT INTO `exam_registration_studentsdb` VALUES (8,'USR00001','STD00001','rathi','alpha@rathitech.me','None','INR 999.00','f7e5c883-30e',6,4),(9,'USR00001','STD00002','rathi','alpha@rathitech.me','None','INR 999.00','7fdf8de5-a95',2,4),(10,'USR00001','STD00003','rathi','alpha@rathitech.me','None','INR 999.00','21c980d5-a03',3,4),(11,'USR00004','STD00004','Sameer','sameerparmar.sps@gmail.com','1797400400','INR 999.00','6f206b9b-d17',3,7);
 /*!40000 ALTER TABLE `exam_registration_studentsdb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -803,7 +815,7 @@ CREATE TABLE `oauth_paymenttransaction` (
   KEY `oauth_paymenttransaction_user_id_96f38971_fk_oauth_usersdb_id` (`user_id`),
   CONSTRAINT `oauth_paymenttransac_subscription_plan_id_213c470f_fk_price_sub` FOREIGN KEY (`subscription_plan_id`) REFERENCES `price_subscriptionplan` (`id`),
   CONSTRAINT `oauth_paymenttransaction_user_id_96f38971_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -812,7 +824,7 @@ CREATE TABLE `oauth_paymenttransaction` (
 
 LOCK TABLES `oauth_paymenttransaction` WRITE;
 /*!40000 ALTER TABLE `oauth_paymenttransaction` DISABLE KEYS */;
-INSERT INTO `oauth_paymenttransaction` VALUES (2,'order_Q2fWLoGGeM5ild','pay_Q2fWfNgWpLFgPK',284.05,'INR','captured','2025-03-04 09:47:39.762798',4,5),(3,'order_Q2gHYCFYY77Uu2','pay_Q2gHr6XZPWy5Ub',284.05,'INR','captured','2025-03-04 10:31:22.964779',4,4);
+INSERT INTO `oauth_paymenttransaction` VALUES (2,'order_Q2fWLoGGeM5ild','pay_Q2fWfNgWpLFgPK',284.05,'INR','captured','2025-03-04 09:47:39.762798',4,5),(3,'order_Q2gHYCFYY77Uu2','pay_Q2gHr6XZPWy5Ub',284.05,'INR','captured','2025-03-04 10:31:22.964779',4,4),(4,'order_Q2iBZGbqmGmTt9','pay_Q2iBvPXAUrKMir',284.05,'INR','captured','2025-03-04 12:23:01.467805',4,7);
 /*!40000 ALTER TABLE `oauth_paymenttransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -850,7 +862,7 @@ CREATE TABLE `oauth_usersdb` (
   UNIQUE KEY `phone_number` (`phone_number`),
   KEY `fk_subscription_plan` (`subscription_plan_id`),
   CONSTRAINT `oauth_usersdb_subscription_plan_id_b02c7315_fk_price_sub` FOREIGN KEY (`subscription_plan_id`) REFERENCES `price_subscriptionplan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -859,7 +871,7 @@ CREATE TABLE `oauth_usersdb` (
 
 LOCK TABLES `oauth_usersdb` WRITE;
 /*!40000 ALTER TABLE `oauth_usersdb` DISABLE KEYS */;
-INSERT INTO `oauth_usersdb` VALUES (4,'rathi','alpha@rathitech.me',NULL,'pbkdf2_sha256$870000$ZnX5fKuyjCTJhdg7onDPyA$mHVW5alXUbcU8LPh+hKABIz91t1BZ35LNqQvzqsDPEU=','Unknown Course','2000-01-01',NULL,'USR00001','2025-03-04 09:47:49.930314','other',NULL,NULL,1,1,1,'Unknown College',4,'2025-03-04 10:31:23','2025-04-03 10:31:23'),(5,'Sameer Parmar','sameerparmar.sp@gmail.com','0788628920','','Unknown Course','2000-01-01',NULL,'USR00002','2025-03-04 09:38:46.028912','other','114100297514272700577',NULL,1,0,0,'Unknown College',4,'2025-03-04 09:47:40','2025-04-03 09:47:40');
+INSERT INTO `oauth_usersdb` VALUES (4,'rathi','alpha@rathitech.me',NULL,'pbkdf2_sha256$870000$ZnX5fKuyjCTJhdg7onDPyA$mHVW5alXUbcU8LPh+hKABIz91t1BZ35LNqQvzqsDPEU=','Unknown Course','2000-01-01',NULL,'USR00001','2025-03-04 12:26:09.509830','other',NULL,NULL,1,1,1,'Unknown College',4,'2025-03-04 10:31:23','2025-04-03 10:31:23'),(5,'Sameer Parmar','sameerparmar.sp@gmail.com','0788628920','','Unknown Course','2000-01-01',NULL,'USR00002','2025-03-04 09:38:46.028912','other','114100297514272700577',NULL,1,0,0,'Unknown College',4,'2025-03-04 09:47:40','2025-04-03 09:47:40'),(6,'Sameer Parmar','sameer-parmar@github.placeholder','5726063422','','Unknown Course','2000-01-01',NULL,'USR00003','2025-03-04 11:45:28.890017','other',NULL,'85328386',1,0,0,'Unknown College',NULL,NULL,NULL),(7,'Sameer','sameerparmar.sps@gmail.com','1797400400','','Unknown Course','2000-01-01',NULL,'USR00004','2025-03-04 12:21:07.581003','other','102838661416704075136',NULL,1,0,0,'Unknown College',4,'2025-03-04 12:23:01','2025-04-03 12:23:01');
 /*!40000 ALTER TABLE `oauth_usersdb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1004,7 +1016,7 @@ CREATE TABLE `price_subscriptionplan` (
 
 LOCK TABLES `price_subscriptionplan` WRITE;
 /*!40000 ALTER TABLE `price_subscriptionplan` DISABLE KEYS */;
-INSERT INTO `price_subscriptionplan` VALUES (3,0.00,1,'{\"t\": \"t\"}',1,0.00,3),(4,299.00,1,'{\"t\": \"t\"}',1,5.00,4);
+INSERT INTO `price_subscriptionplan` VALUES (3,0.00,1,'{\"Compiler one time\": \"Compiler one time\", \"Cannot attend Practice Questions\": \"Cannot attend Practice Questions\", \"Limited access to Study material\": \"Limited access to Study material\", \"Explore and apply to jobs/Internships\": \"Explore and apply to jobs/Internships\", \"Basic profile visibility to recruiters\": \"Basic profile visibility to recruiters\"}',1,0.00,3),(4,299.00,1,'{\"Study material access\": \"Study material access\", \"Limited Compiler access\": \"Limited Compiler access\", \"Good Visibility to recruiters\": \"Good Visibility to recruiters\", \"Limited Access to Practice Questions\": \"Limited Access to Practice Questions\", \"Give exam and become eligible for shortlisting\": \"Give exam and become eligible for shortlisting\"}',1,5.00,4);
 /*!40000 ALTER TABLE `price_subscriptionplan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1027,7 +1039,7 @@ CREATE TABLE `socialaccount_socialaccount` (
   UNIQUE KEY `socialaccount_socialaccount_provider_uid_fc810c6e_uniq` (`provider`,`uid`),
   KEY `socialaccount_socialaccount_user_id_8146e70c_fk_oauth_usersdb_id` (`user_id`),
   CONSTRAINT `socialaccount_socialaccount_user_id_8146e70c_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1036,6 +1048,7 @@ CREATE TABLE `socialaccount_socialaccount` (
 
 LOCK TABLES `socialaccount_socialaccount` WRITE;
 /*!40000 ALTER TABLE `socialaccount_socialaccount` DISABLE KEYS */;
+INSERT INTO `socialaccount_socialaccount` VALUES (3,'google','102838661416704075136','2025-03-04 12:21:07.563006','2025-03-04 12:21:07.563032','{\"aud\": \"260573975109-31a4bo03gs4scr5fa53brmfj4uu5m3ku.apps.googleusercontent.com\", \"azp\": \"260573975109-31a4bo03gs4scr5fa53brmfj4uu5m3ku.apps.googleusercontent.com\", \"exp\": 1741094461, \"iat\": 1741090861, \"iss\": \"https://accounts.google.com\", \"sub\": \"102838661416704075136\", \"name\": \"Sameer\", \"email\": \"sameerparmar.sps@gmail.com\", \"at_hash\": \"UMXOMXw9QU4H8H0ZwiluoA\", \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocJAzdTBMHjWKi_-VoBy5eV-zSjTuvcSLrv77TAuemkmCIcH3g=s96-c\", \"given_name\": \"Sameer\", \"email_verified\": true}',7);
 /*!40000 ALTER TABLE `socialaccount_socialaccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1136,4 +1149,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-04 16:03:42
+-- Dump completed on 2025-03-04 18:07:55
