@@ -1,8 +1,10 @@
+# oauth/models.py (OAuth App)
 from django.db import models
-from datetime import date
-from django.utils.timezone import now, timedelta
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.contrib.auth.models import PermissionsMixin
+from datetime import date, timedelta
+from django.utils.timezone import now
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from price.models import SubscriptionPlan
+
 class UsersDBManager(BaseUserManager):
     def create_user(self, email, full_name, password=None, **extra_fields):
         if not email:
@@ -21,7 +23,6 @@ class UsersDBManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-
         return self.create_user(email, full_name, password, **extra_fields)
 
 def save_google_auth_data(backend, user, response, *args, **kwargs):
@@ -39,16 +40,13 @@ def save_google_auth_data(backend, user, response, *args, **kwargs):
                 # Add other fields here as needed
             }
         )
+
 class CollegesDb(models.Model):
     college_name = models.CharField(max_length=255)
     college_location = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
-
-
-
-
 class UsersDB(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
@@ -86,7 +84,10 @@ class UsersDB(AbstractBaseUser, PermissionsMixin):
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',
     )
-
+    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True, blank=True)
+    subscription_start = models.DateTimeField(null=True, blank=True)
+    subscription_end = models.DateTimeField(null=True, blank=True)
+    
     objects = UsersDBManager()
 
     USERNAME_FIELD = 'email'
@@ -103,14 +104,34 @@ class UsersDB(AbstractBaseUser, PermissionsMixin):
             self.username = new_id
         super().save(*args, **kwargs)
 
+    def set_subscription(self, plan):
+        """
+        Assigns a subscription plan to the user.
+        Sets the subscription start to now and calculates the end date based on the plan duration.
+        """
+        self.subscription_plan = plan
+        self.subscription_start = now()
+        # Approximate each month as 30 days:
+        self.subscription_end = now() + timedelta(days=plan.duration_in_months * 30)
+        self.save()
+
+    def is_subscription_active(self):
+        """
+        Checks if the user's subscription is currently active.
+        Returns True if subscription_end is set and in the future.
+        """
+        if self.is_superuser or self.is_staff:
+            return True
+        return self.subscription_end and self.subscription_end > now()
+
     def __str__(self):
         return self.username
+
     def delete(self, *args, **kwargs):
         super().delete(*args, **kwargs)
 
-
 class Otpdb(models.Model):
-    user = models.OneToOneField(UsersDB, on_delete=models.CASCADE, unique=True)  # Corrected field reference
+    user = models.OneToOneField(UsersDB, on_delete=models.CASCADE, unique=True)
     otp_count = models.IntegerField(default=1)
     otp = models.IntegerField(null=True, blank=True)
     timestamp = models.DateTimeField(default=now)
@@ -144,3 +165,12 @@ class Otpdb(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - OTP Count: {self.otp_count}"
+class PaymentTransaction(models.Model):
+    user = models.ForeignKey(UsersDB, on_delete=models.CASCADE)
+    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True)
+    razorpay_order_id = models.CharField(max_length=100)
+    razorpay_payment_id = models.CharField(max_length=100)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    currency = models.CharField(max_length=10, default="INR")
+    status = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)

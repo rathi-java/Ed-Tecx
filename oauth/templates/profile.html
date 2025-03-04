@@ -111,8 +111,28 @@
             <option value="female" {% if user.gender == "female" %}selected{% endif %}>Female</option>
             <option value="other" {% if user.gender == "other" %}selected{% endif %}>Other</option>
           </select>
-        </div>        
-                
+        </div>  
+              {% comment %} this code is handling subscription   {% endcomment %}
+        {% if user.subscription_plan %}
+        <div class="current-subscription">
+          <h3>Current Subscription Plan</h3>
+          <p>
+            <strong>{{ user.subscription_plan.plan_type.display_name }} Plan</strong>
+            — ₹{{ user.subscription_plan.discounted_price }}/month
+          </p>
+          {% if user.subscription_start and user.subscription_end %}
+          <p>
+            Valid from: {{ user.subscription_start|date:"d-m-Y" }} to: {{ user.subscription_end|date:"d-m-Y" }}
+          </p>
+          {% endif %}
+        </div>
+        {% else %}
+        <div class="current-subscription">
+          <h3>No Active Subscription</h3>
+          <p>You currently do not have an active subscription plan.</p>
+        </div>
+        {% endif %}
+        {% comment %} this this comment  {% endcomment %}
         
 
         <!-- Save/Cancel Buttons (hidden by default) -->

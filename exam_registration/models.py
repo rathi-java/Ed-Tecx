@@ -1,17 +1,16 @@
 from django.db import models
-from examportol.models import Category, Subject
+from examportol.models import Category, Subject, Exam
 from oauth.models import UsersDB
 import uuid
 
 class StudentsDB(models.Model):
     user = models.ForeignKey(UsersDB, on_delete=models.CASCADE, related_name="students", null=True, blank=True)  # Allow null values temporarily
-    username = models.CharField(max_length=100)
+    username = models.CharField(max_length=100,null= True, blank=True)
     studentId = models.CharField(max_length=50, unique=True, blank=True)  # Remove default
     full_name = models.CharField(max_length=100)
     email = models.CharField(max_length=255, default="default@example.com")
     phone_number = models.CharField(max_length=15)
-    domain = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="students")
-    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True, blank=True, related_name="students")
+    exam_domain = models.ForeignKey(Exam,on_delete=models.CASCADE,related_name='students',null=True,blank=True)
     payment = models.CharField(max_length=20, default="INR 999")
     registration_code = models.CharField(max_length=50, unique=True, editable=False, blank=True)
 

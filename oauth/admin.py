@@ -34,3 +34,4 @@ class OtpdbAdmin(admin.ModelAdmin):
     search_fields = ('user__email',)  # Search by user email if needed
 
 admin.site.register(Otpdb, OtpdbAdmin)
+admin.site.register(PaymentTransaction)

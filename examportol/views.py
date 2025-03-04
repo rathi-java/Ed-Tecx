@@ -8,13 +8,6 @@ from exam_registration.models import StudentsDB
 from examportol.forms import QuestionUploadForm
 import csv
 import random
-
-# View to manage questions (Add new questions and display existing ones)
-from django.shortcuts import render, redirect
-from .models import Category, Subject, Question
-from django.http import JsonResponse
-
-
 def upload_questions(request):
     if request.method == 'POST':
         form = QuestionUploadForm(request.POST, request.FILES)
@@ -142,126 +135,76 @@ def manage_questions(request):
     })
 
 # View to display questions based on selected category and subject
-def display_questions(request):
-    # Retrieve subject ID from GET parameters
-    subject_id = request.GET.get('subject')
-    if not subject_id:
-        messages.error(request, "No subject selected. Please select a subject first.")
-        return redirect('exam_home')  # Or wherever you want to redirect
 
-    # Retrieve the custom user from session
-    user_id = request.session.get('user_id')
-    user = None
-
-    if user_id:
-        try:
-            user = UsersDB.objects.get(id=user_id)
-        except UsersDB.DoesNotExist:
-            request.session.flush()  # Clear session if user not found
-            messages.error(request, "Session expired. Please login again.")
-            return redirect('/login/')
-    
-    # Use the custom user object instead of request.user
-    if not StudentsDB.objects.filter(email=user.email, subject_id=subject_id).exists():
-        messages.error(request, "You are not registered for this exam subject. Please register first.")
-        return redirect('exam_register')  # Redirect to your registration page
-
-    # Fetch questions related to the subject.
-    questions = Question.objects.select_related(
-        'question_subject', 'question_subject__subject_category'
-    ).filter(question_subject_id=subject_id)
-    subject_obj = Subject.objects.get(id=subject_id)
-
-    # Get categories and subjects with question counts for sidebar/navigation.
-    categories = Category.objects.annotate(question_count=Count('subjects__questions'))
-    subjects = Subject.objects.annotate(question_count=Count('questions'))
-    if subject_id:
-        subjects = subjects.filter(id=subject_id)
-
-    # Store the total number of exam questions in session.
-    request.session['exam_total_questions'] = questions.count()
-
-    context = {
-        'questions': questions,
-        'categories': categories,
-        'subjects': subjects,
-        'subjectname':subject_obj,
-        'selected_subject': int(subject_id),
-        'user': user,  # Pass the custom user object here
-    }
-
-    return render(request, 'questions_display.html', context)
-
-
-def submit_exam(request):
-    if request.method == 'POST':
-        # Retrieve custom user from session
-        user_id = request.session.get('user_id')
-        if not user_id:
-            messages.error(request, "You must be logged in to submit the exam.")
-            return redirect('/login/')
-        try:
-            custom_user = UsersDB.objects.get(id=user_id)
-        except UsersDB.DoesNotExist:
-            messages.error(request, "User not found. Please log in again.")
-            return redirect('/login/')
+# def submit_exam(request):
+#     if request.method == 'POST':
+#         # Retrieve custom user from session
+#         user_id = request.session.get('user_id')
+#         if not user_id:
+#             messages.error(request, "You must be logged in to submit the exam.")
+#             return redirect('/login/')
+#         try:
+#             custom_user = UsersDB.objects.get(id=user_id)
+#         except UsersDB.DoesNotExist:
+#             messages.error(request, "User not found. Please log in again.")
+#             return redirect('/login/')
         
-        # Retrieve total number of exam questions from session
-        total_questions = request.session.get('exam_total_questions', 0)
-        print("DEBUG: total_questions =", total_questions)
+#         # Retrieve total number of exam questions from session
+#         total_questions = request.session.get('exam_total_questions', 0)
+#         print("DEBUG: total_questions =", total_questions)
         
-        correct_answers = 0
-        submitted_answers = {}
+#         correct_answers = 0
+#         submitted_answers = {}
 
-        # Process each POST key that starts with "question"
-        for key, selected_option in request.POST.items():
-            if key.startswith('question'):
-                try:
-                    question_id = int(key.replace('question', ''))
-                    question = Question.objects.get(id=question_id)
-                except (ValueError, Question.DoesNotExist):
-                    continue
+#         # Process each POST key that starts with "question"
+#         for key, selected_option in request.POST.items():
+#             if key.startswith('question'):
+#                 try:
+#                     question_id = int(key.replace('question', ''))
+#                     question = Question.objects.get(id=question_id)
+#                 except (ValueError, Question.DoesNotExist):
+#                     continue
 
-                # Determine the correct answer key
-                correct_key = None
-                for option_key, option_value in question.answers.items():
-                    if option_value.get('is_correct'):
-                        correct_key = option_key
-                        break
+#                 # Determine the correct answer key
+#                 correct_key = None
+#                 for option_key, option_value in question.answers.items():
+#                     if option_value.get('is_correct'):
+#                         correct_key = option_key
+#                         break
 
-                submitted_answers[str(question_id)] = {
-                    'selected': selected_option,
-                    'correct': correct_key
-                }
-                if selected_option == correct_key:
-                    correct_answers += 1
+#                 submitted_answers[str(question_id)] = {
+#                     'selected': selected_option,
+#                     'correct': correct_key
+#                 }
+#                 if selected_option == correct_key:
+#                     correct_answers += 1
 
-        print("DEBUG: correct_answers =", correct_answers)
-        score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
-        print("DEBUG: score =", score)
-        print("DEBUG: submitted_answers =", submitted_answers)
-        print("DEBUG: custom_user =", custom_user, "with id", custom_user.pk)
+#         print("DEBUG: correct_answers =", correct_answers)
+#         score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
+#         print("DEBUG: score =", score)
+#         print("DEBUG: submitted_answers =", submitted_answers)
+#         print("DEBUG: custom_user =", custom_user, "with id", custom_user.pk)
 
-        try:
-            exam_result = ExamResult.objects.create(
-                user=custom_user,
-                total_questions=total_questions,
-                correct_answers=correct_answers,
-                score=score,
-                submitted_answers=submitted_answers,
-                submitted_at=timezone.now()
-            )
-            print("DEBUG: ExamResult created:", exam_result)
-        except Exception as e:
-            print("DEBUG: Error saving exam result:", e)
-            messages.error(request, f"Error saving exam result: {e}")
-            return redirect('submit_exam')
+#         try:
+#             exam_result = ExamResult.objects.create(
+#                 user=custom_user,
+#                 total_questions=total_questions,
+#                 correct_answers=correct_answers,
+#                 score=score,
+#                 submitted_answers=submitted_answers,
+#                 submitted_at=timezone.now()
+#             )
+#             print("DEBUG: ExamResult created:", exam_result)
+#         except Exception as e:
+#             print("DEBUG: Error saving exam result:", e)
+#             messages.error(request, f"Error saving exam result: {e}")
+#             return redirect('submit_exam')
 
-        messages.success(request, f'Exam submitted successfully! Your score is {score:.2f}%')
-        return redirect('exam_results')
+#         messages.success(request, f'Exam submitted successfully! Your score is {score:.2f}%')
+#         return redirect('exam_results')
     
-    # For GET requests, redirect to exam home or another page.
-    return redirect('exam_home')
+#     # For GET requests, redirect to exam home or another page.
+#     return redirect('exam_home')
 
 # View to display user exam results
 def user_exam_results(request):
@@ -310,6 +253,7 @@ def user_exam_results(request):
 
 # View to render exam instructions
 def instructions(request):
+    # Retrieve user from session
     user_id = request.session.get('user_id')
     if not user_id:
         messages.error(request, "You need to log in first.")
@@ -322,17 +266,20 @@ def instructions(request):
         messages.error(request, "Session expired. Please log in again.")
         return redirect('/login/')
 
-    # Query the database for any exam registration for this user.
+    # Get the latest exam registration for this user
     registration = StudentsDB.objects.filter(user=user).order_by('-id').first()
 
-    if not registration or not registration.subject:
-        messages.error(request, "You are not registered for this exam subject. Please register first.")
+    if not registration or not registration.exam_domain:
+        messages.error(request, "You are not registered for any exam. Please register first.")
         return redirect('exam_register')
 
-    # You could also let the user choose a subject if they are registered for multiple subjects.
-    subject_id = registration.subject.id
+    # Extract the exam ID from the registration record
+    exam_id = registration.exam_domain.id
 
-    return render(request, 'instructions/new.html', {'subject_id': subject_id})
+    # Pass the exam ID to the instructions template.
+    # In your template, you can then link to the take_exam view, for example:
+    # <a href="{% url 'take_exam' exam_id %}" class="btn btn-primary">Start Exam</a>
+    return render(request, 'instructions/new.html', {'exam_id': exam_id, 'user': user})
 
 # View to render terms and conditions page
 def terms(request):
@@ -341,31 +288,42 @@ def terms(request):
 # View to render privacy policy page
 def privacy(request):
     return render(request, 'instructions/Privacy.html')
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from examportol.models import Category, Subject, Question, Exam
+import random
+
 def create_exam(request):
+    # Fetch all categories and subjects (for filtering)
     categories = Category.objects.all()
     subjects = Subject.objects.all()
-    selected_category_id = None
-    selected_subject_id = None
-    questions = []
+    
+    # Initialize filter variables and get all questions by default
+    selected_category_ids = []
+    selected_subject_ids = []
+    questions = Question.objects.all()
+    
+    # Retrieve previously selected question IDs from GET parameters
+    # (These come in as strings; convert them to integers later if needed)
+    selected_question_ids = request.GET.getlist('questions')
     
     if request.method == 'POST':
-        # Handle form submission
+        # Handle form submission to create an exam
         name = request.POST.get('name')
         duration = request.POST.get('duration')
-        subject_id = request.POST.get('subject')
         question_ids = request.POST.getlist('questions')
         
-        if not name or not duration or not subject_id or not question_ids:
+        if not name or not duration or not question_ids:
             messages.error(request, "Please fill all required fields")
             return redirect('create_exam')
         
-        # Create the exam
+        # Create the exam instance
         exam = Exam.objects.create(
             name=name,
             duration=duration
         )
         
-        # Add selected questions to the exam
+        # Add selected questions (which can come from multiple subjects/categories)
         for q_id in question_ids:
             try:
                 question = Question.objects.get(id=q_id)
@@ -375,27 +333,52 @@ def create_exam(request):
         
         messages.success(request, f"Exam '{name}' created successfully!")
         return redirect('list_exams')
-    
-    # Handle GET parameters for filtering
-    if 'category' in request.GET:
-        selected_category_id = request.GET.get('category')
-        # Filter subjects by category
-        subjects = subjects.filter(subject_category_id=selected_category_id)
-    
-    if 'subject' in request.GET and request.GET.get('subject'):
-        selected_subject_id = request.GET.get('subject')
-        # Get questions for the selected subject
-        questions = Question.objects.filter(question_subject_id=selected_subject_id)
+    else:
+        # For GET requests, use multi-select filtering
+        if 'categories' in request.GET:
+            selected_category_ids = request.GET.getlist('categories')
+        if 'subjects' in request.GET:
+            selected_subject_ids = request.GET.getlist('subjects')
+        
+        # Filter questions based on selected categories
+        if selected_category_ids:
+            questions = questions.filter(
+                question_subject__subject_category_id__in=selected_category_ids
+            )
+            # Also update the subjects list to only those within the selected categories
+            subjects = Subject.objects.filter(
+                subject_category_id__in=selected_category_ids
+            )
+        # Further filter questions by selected subjects
+        if selected_subject_ids:
+            questions = questions.filter(
+                question_subject_id__in=selected_subject_ids
+            )
+        
+        # Now, if there are previously selected questions that might not be in the filtered queryset,
+        # fetch them and union them with the current questions.
+        if selected_question_ids:
+            # Get questions that were selected (even if not matching the current filter)
+            extra_questions = Question.objects.filter(id__in=selected_question_ids)
+            # Combine: use a set to avoid duplicates
+            questions_set = {q.id: q for q in questions}
+            for q in extra_questions:
+                if q.id not in questions_set:
+                    questions_set[q.id] = q
+            # Convert back to a list; you may sort this list as needed
+            questions = list(questions_set.values())
     
     context = {
         'categories': categories,
         'subjects': subjects,
         'questions': questions,
-        'selected_category_id': selected_category_id,
-        'selected_subject_id': selected_subject_id
+        'selected_category_ids': selected_category_ids,
+        'selected_subject_ids': selected_subject_ids,
+        'selected_question_ids': selected_question_ids,
     }
     
     return render(request, 'create_exam.html', context)
+
 def list_exams(request):
     # Retrieve the custom user from session
     user_id = request.session.get('user_id')
@@ -409,15 +392,10 @@ def list_exams(request):
             messages.error(request, "Session expired. Please login again.")
             return redirect('/login/')
     
-    # Get all exams or filter by user's registered subjects
-    if user and StudentsDB.objects.filter(email=user.email).exists():
-        # Get subjects the user is registered for
-        registered_subjects = StudentsDB.objects.filter(email=user.email).values_list('subject_id', flat=True)
-        
-        # Get exams that have questions from those subjects
-        exams = Exam.objects.filter(
-            questions__question_subject_id__in=registered_subjects
-        ).distinct()
+    # If the user is registered (via exam_domain) then show only those exams
+    if user and StudentsDB.objects.filter(email=user.email, exam_domain__isnull=False).exists():
+        registered_exam_ids = StudentsDB.objects.filter(email=user.email, exam_domain__isnull=False).values_list('exam_domain_id', flat=True)
+        exams = Exam.objects.filter(id__in=registered_exam_ids).distinct()
     else:
         exams = Exam.objects.all()
     
@@ -428,35 +406,54 @@ def list_exams(request):
 def take_exam(request, exam_id):
     # Retrieve the custom user from session
     user_id = request.session.get('user_id')
-    user = None
-
-    if user_id:
-        try:
-            user = UsersDB.objects.get(id=user_id)
-        except UsersDB.DoesNotExist:
-            request.session.flush()
-            messages.error(request, "Session expired. Please login again.")
-            return redirect('/login/')
-    else:
+    if not user_id:
         messages.error(request, "You must be logged in to take an exam.")
         return redirect('/login/')
     
-    # Get the exam
+    try:
+        user = UsersDB.objects.get(id=user_id)
+    except UsersDB.DoesNotExist:
+        request.session.flush()
+        messages.error(request, "Session expired. Please login again.")
+        return redirect('/login/')
+
+    # Get the exam (which may include questions from multiple subjects)
     try:
         exam = Exam.objects.get(id=exam_id)
     except Exam.DoesNotExist:
         messages.error(request, "Exam not found.")
         return redirect('list_exams')
-    
-    # Get questions for this exam and shuffle them
-    questions = list(exam.questions.all())
-    random.shuffle(questions)
-    
-    # Store the total number of exam questions in session
+
+    # Check if the user is registered for this exam via StudentsDB (registration is now exam-based)
+    try:
+        registration = StudentsDB.objects.get(user=user, exam_domain=exam)
+    except StudentsDB.DoesNotExist:
+        messages.error(request, "You are not registered for this exam. Please register first.")
+        return redirect('exam_register')
+
+    # Retrieve or generate a fixed, randomized question order
+    # This works regardless of whether the exam contains questions from one or multiple subjects.
+    exam_questions_order = request.session.get('exam_questions_order')
+    if exam_questions_order is None:
+        # First time: fetch all exam questions and shuffle them
+        questions = list(exam.questions.all())
+        random.shuffle(questions)
+        # Save the order (list of question IDs) in session so it remains fixed
+        exam_questions_order = [q.id for q in questions]
+        request.session['exam_questions_order'] = exam_questions_order
+    else:
+        # Retrieve questions in the previously stored order
+        question_ids = exam_questions_order
+        questions_queryset = exam.questions.filter(id__in=question_ids)
+        # Create a mapping to enforce the saved order
+        questions_dict = {q.id: q for q in questions_queryset}
+        questions = [questions_dict[qid] for qid in question_ids if qid in questions_dict]
+
+    # Store exam details in session
     request.session['exam_total_questions'] = len(questions)
     request.session['exam_id'] = exam.id
     request.session['exam_duration'] = exam.duration
-    
+
     context = {
         'exam': exam,
         'questions': questions,

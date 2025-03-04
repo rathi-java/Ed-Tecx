@@ -12,7 +12,7 @@
     }
     .alert-success { background-color: #4CAF50; }
     .alert-warning { background-color: #FFC107; }
-    .alert-error { background-color:rgb(241, 83, 72); }
+    .alert-error { background-color: rgb(241, 83, 72); }
 </style>
 {% endblock %}
 
@@ -48,18 +48,11 @@
                 <input type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}" readonly>
             </div>
             <div>
-                <label class="form-label">Select Domain</label>
-                <select name="domain" id="domain" required>
+                <label class="form-label">Select Exam</label>
+                <select name="exam_domain" id="exam_domain" required>
                     <option value="">Select</option>
-                    {% for category in categories %}
-                    <option value="{{ category.id }}">{{ category.category_name }}</option>
-                    {% endfor %}
-                </select>
-                <label class="form-label">Select Subject</label>
-                <select name="subject" id="subject" required>
-                    <option value="">Select</option>
-                    {% for subject in subjects %}
-                    <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                    {% for exam in exams %}
+                    <option value="{{ exam.id }}">{{ exam.name }}</option>
                     {% endfor %}
                 </select>
             </div>

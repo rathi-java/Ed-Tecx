@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class PlanType(models.Model):
     code = models.CharField(max_length=20, unique=True)  # e.g., 'basic', 'monthly'
     display_name = models.CharField(max_length=50)  # e.g., 'Basic', 'Monthly'

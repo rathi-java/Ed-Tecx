@@ -18,10 +18,11 @@
         <div class="text-content">
             <h2>Get Hired Faster with <br> the Right Plan!</h2>
             <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
-    </div>
-    <div class="illustration-container">
-        <img class="bell" src="{% static 'images/bell.png' %}" alt="Bell Icon">
-        <img class="photo" src="{% static 'images/photo.png' %}" alt="Person climbing stairs towards trophy">
+        </div>
+        <div class="illustration-container">
+            <img class="bell" src="{% static 'images/bell.png' %}" alt="Bell Icon">
+            <img class="photo" src="{% static 'images/photo.png' %}" alt="Person climbing stairs towards trophy">
+        </div>
     </div>
 </section>
 
@@ -47,8 +48,7 @@
                       <div class="pricing-amount">
                         &#8377; {% widthratio plan.discounted_price plan.duration_in_months 1 %} 
                         <span>/m</span>
-                    </div>
-                    
+                      </div>
                       {% endif %}
                   </div>
               </div>
@@ -61,7 +61,8 @@
               {% if plan.plan_type.code == 'basic' %}
               <button>Start for Free</button>
               {% else %}
-              <button class="purchase-btn" id="{{ plan.plan_type.code }}-btn">Purchase Plan</button>
+              <!-- Add data-plan-id attribute -->
+              <button class="purchase-btn" data-plan-id="{{ plan.id }}" id="{{ plan.plan_type.code }}-btn">Purchase Plan</button>
               {% endif %}
           </div>
           {% endfor %}
@@ -76,15 +77,6 @@
         <h2>{{ plan.plan_type.display_name }} Plan <span class="price">&nbsp;&nbsp;&#8377; {{ plan.discounted_price }}/-</span></h2>
         <p>🎉 You're One Step Closer to Your Dream Job!</p>
         <br>
-        {% comment %} <p>Scan this code to pay via UPI</p>
-        <img src="{% static 'images/upi_app_icon.jpeg' %}" alt="icon" class="icon-jpeg">
-        <div class="qr-code">
-            <img src="{% static 'images/qr.png' %}" alt="QR Code">
-        </div>
-        <p class="expire-text"><b>This QR expires in 5 mins</b></p>
-        <div class="or-divider">
-            <span>Or</span>
-        </div>  {% endcomment %}
         <button class="pay-btn" onclick="startPayment('{{ plan.discounted_price }}')">
             Pay via credit/debit card or net banking
         </button>        
@@ -120,57 +112,86 @@
 {% block extra_js %}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    function startPayment(amount) {
-        fetch("{% url 'create_order' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: new URLSearchParams({ amount: amount })
-        })
-        .then(response => response.json())
-        .then(order => {
-            var options = {
-                "key": "{{ settings.RAZORPAY_KEY_ID }}",
-                "amount": order.amount,
-                "currency": "INR",
-                "name": "Reader Club",  // Remove unwanted text
-                "description": "Subscription Payment",
-                "order_id": order.id,
-                "image": "{% static 'images/yearly.png' %}",  // Load logo from static folder
-                "handler": function (response) {
-                    alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
-                },
-                "prefill": {
-                    "name": "Reader Club",
-                    "email": "rc@gmail.com",
-                    "contact": "1234567890"
-                },
-                "theme": {
-                    "color": "#077BC3"
-                }
-            };
-            var rzp1 = new Razorpay(options);
-            rzp1.open();
-        })
-        .catch(error => console.error("Error:", error));
-    }    
-    
+  // Global variable to store the current plan ID
+  let currentPlanId = null;
+
+  // When a purchase button is clicked, store its data-plan-id
   document.querySelectorAll(".purchase-btn").forEach(button => {
       button.addEventListener("click", () => {
+          currentPlanId = button.dataset.planId; // capture the plan id
           const planType = button.id.replace("-btn", "");
           document.getElementById(planType + "-modal").style.display = "flex";
       });
   });
 
+  // Hide modal when clicking outside content
   document.querySelectorAll(".modal-overlay").forEach(modal => {
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
+      modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+              modal.style.display = "none";
+          }
+      });
   });
+
+  function startPayment(amount) {
+      fetch("{% url 'create_order' %}", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-CSRFToken": "{{ csrf_token }}"
+          },
+          body: new URLSearchParams({ amount: amount })
+      })
+      .then(response => response.json())
+      .then(order => {
+          var options = {
+              "key": "{{ settings.RAZORPAY_KEY_ID }}",
+              "amount": order.amount,
+              "currency": "INR",
+              "name": "Reader Club",
+              "description": "Subscription Payment",
+              "order_id": order.id,
+              "image": "{% static 'images/yearly.png' %}",
+              "handler": function (response) {
+                  // Call payment_success endpoint with the captured plan ID
+                  fetch("{% url 'payment_success' %}", {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/x-www-form-urlencoded",
+                          "X-CSRFToken": "{{ csrf_token }}"
+                      },
+                      body: new URLSearchParams({
+                          "razorpay_payment_id": response.razorpay_payment_id,
+                          "razorpay_order_id": response.razorpay_order_id,
+                          "plan_id": currentPlanId,   // use the stored plan id
+                          "amount": order.amount / 100  // convert paise back to rupees
+                      })
+                  })
+                  .then(res => res.json())
+                  .then(data => {
+                      if (data.status === "success") {
+                          alert("Payment successful and subscription updated!");
+                      } else {
+                          alert("Payment processed, but there was an error updating the subscription.");
+                      }
+                  })
+                  .catch(error => console.error("Error:", error));
+              },
+              "prefill": {
+                  "name": "Reader Club",
+                  "email": "rc@gmail.com",
+                  "contact": "1234567890"
+              },
+              "theme": {
+                  "color": "#077BC3"
+              }
+          };
+          var rzp1 = new Razorpay(options);
+          rzp1.open();
+      })
+      .catch(error => console.error("Error:", error));
+  }
+
+  window.startPayment = startPayment;
 </script>
 {% endblock extra_js %}
- 
