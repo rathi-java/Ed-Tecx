@@ -98,7 +98,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # for Google auth
     'oauth.middleware.EnsureUserIdMiddleware',
-    'admin_portal.middleware.DashboardAccessMiddleware',  
+    'admin_portal.middleware.DashboardAccessMiddleware', 
+    'oauth.middleware.LoginRequiredMiddleware', 
+    
+
        
 ]
 
@@ -246,3 +249,10 @@ RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 # Email Configuration
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+PUBLIC_PATHS = [
+    '/',  # Allow the home page
+    '/policies/',  # Any URL starting with '/policies/' is open.
+    '/maintenence/',  # Any URL starting with '/maintenence/' is open.
+]
+
+LOGIN_URL = '/login/'

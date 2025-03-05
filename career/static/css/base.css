@@ -1,0 +1,230 @@
+/* --- Base Reset and Global --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* --- HEADER (Navbar) Styles --- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 5%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky; /* or 'fixed' if you want it always visible */
+  top: 0;
+  z-index: 999;
+}
+
+/* Logo Container */
+.logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover {
+  color: #077bc3;
+}
+
+/* Buttons Container */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.find-job,
+.hire-talent {
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+.find-job {
+  background-color: #077bc3;
+  color: #fff;
+}
+
+.find-job:hover {
+  background-color: #055a90;
+}
+
+.hire-talent {
+  background-color: #fff;
+  color: #077bc3;
+  border: 2px solid #077bc3;
+}
+
+.hire-talent:hover {
+  background-color: #f0f8ff;
+}
+
+/* --- FOOTER Styles --- */
+.footer {
+  background: linear-gradient(90deg, rgba(49,132,205,1) 0%, rgba(0,77,144,1) 100%);
+  color: #fff;
+  padding: 20px 5%;
+  margin-top: 40px; /* Optional spacing above footer */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Left Section (Logo or main link) */
+.footer-left img {
+  max-height: 60px;
+  width: auto;
+}
+
+/* Footer Link Groups */
+.footer-links,
+.footer-practice,
+.footer-ccc {
+  flex: 1;
+  min-width: 160px;
+}
+
+.footer-para {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+  border-bottom: 2px solid #fff;
+  display: inline-block;
+  padding-bottom: 3px;
+}
+
+.footer-links ul,
+.footer-practice ul,
+.footer-ccc ul {
+  list-style: none;
+  margin-top: 8px;
+}
+.footer-links li,
+.footer-practice li,
+.footer-ccc li {
+  margin-bottom: 5px;
+}
+.footer-links a,
+.footer-practice a,
+.footer-ccc a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+}
+.footer-links a:hover,
+.footer-practice a:hover,
+.footer-ccc a:hover {
+  color: #cce2f0;
+}
+
+/* Social/Contact Section */
+.social-links {
+  list-style: none;
+  margin-top: 8px;
+}
+.social-links li {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+}
+.social-links li i {
+  margin-right: 10px;
+}
+
+/* Divider + Base Row */
+.footer-line {
+  width: 100%;
+  margin: 16px 0;
+  border: 0;
+  border-top: 1px solid #eee;
+  opacity: 0.7;
+}
+.footer-base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-base p {
+  font-size: 0.9rem;
+}
+
+/* --- MEDIA QUERIES for Responsiveness --- */
+
+/* Tablets and below */
+@media (max-width: 992px) {
+  .navbar {
+    flex-wrap: wrap; /* Let the nav items wrap if needed */
+  }
+  .buttons {
+    margin-top: 10px; /* Keep some breathing space if wrapped */
+  }
+
+  .footer-container {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-left,
+  .footer-links,
+  .footer-practice,
+  .footer-ccc {
+    flex: 1 1 45%;
+  }
+  .footer-base {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 576px) {
+  .nav-links {
+    display: none; /* For a mobile-friendly nav, you’d typically use a burger menu */
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-left img {
+    margin-bottom: 20px;
+  }
+  .footer-base {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,611 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+
+    <!-- Original job page CSS -->
+    <link rel="stylesheet" href="{% static 'css/job_page.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+    <!-- OPTIONAL: If you'd prefer to keep job_application.css external, use:
+         <link rel="stylesheet" href="{% static 'css/job_application.css' %}">
+         And remove the <style> block below.
+    -->
+
+    <!-- Embedded job_application.css so you can copy one file in full -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        /* Modal overlay (the dark/grey background) */
+        .modal-overlay {
+            display: none;           /* Hidden by default */
+            position: fixed;         /* Stay in place */
+            z-index: 9998;           /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;             /* Full width */
+            height: 100%;            /* Full height */
+            overflow: auto;          /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+        }
+
+        /* The Modal itself (popup content) */
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;         /* 5% from the top and centered */
+            border-radius: 16px;
+            border: 3px solid #077bc3;
+            padding: 20px;
+            max-width: 750px;        /* Could be a fixed width or 100% for responsive */
+            position: relative;      /* So we can position the close button */
+            font-family: 'Inter', sans-serif; 
+        }
+
+        /* Close button (X) in top-right corner */
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* job_application.css content below */
+        .container.job-app-container {
+            width: auto; /* override to let .modal-content control width */
+            border: none; /* we'll rely on .modal-content's border */
+            box-shadow: none; /* rely on .modal-content box shadow if desired */
+            margin: 0;
+            padding: 0;
+        }
+
+        .heading h3 {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .heading-txt {
+            font-size: 22px;
+            text-align: center;
+            margin-top: 1%;
+        }
+
+        .para-txt {
+            font-size: 14px;
+            color: #7B8085;
+        }
+
+        .input-box {
+            background-color: #F3F8FC;
+            border-radius: 14px;
+            padding: 3%;
+            margin-top: 2%;
+        }
+
+        .form-container h2 {
+            color: #077bc3;
+            font-size: 17px;
+            font-weight: 500;
+            margin-top: 0%;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            gap: 1;
+        }
+        .form-row1 {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .short-width {
+            flex: 1;  /* Ensures equal width for all fields */
+            min-width: 150px;
+            width: 25%;
+        }
+
+        .full-width {
+            width: 100%;
+            margin-bottom: 3%;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: lighter;
+        }
+
+        label span {
+            color: red;
+        }
+
+        input, select {
+            padding: 8px;
+            border: 1px solid #a3c4e7;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #ffffff;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2%;
+        }
+
+        #next1 {
+            margin-left: 88%;
+        }
+
+        #submit-btn {
+            background-color: green;
+        }
+        
+        .add-education {
+            cursor:pointer;
+            font-weight: 500;
+        }
+        
+        .remove-education {
+            color: rgb(164, 5, 5); 
+            border:none; 
+            background:none; 
+            cursor:pointer;
+            margin-top: 3%;
+        }
+
+        button {
+            background-color: #077bc3;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 0;
+        }
+
+        button:hover {
+            background-color: #0665a0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <header class="navbar">
+            <a href="#" class="logo">
+                <img src="{% static 'job_page/logo.png' %}" alt="ReaderClub">
+            </a>
+            <nav class="nav-links">
+                <a href="#">IT & Software</a>
+                <a href="#">Management & Business</a>
+                <a href="#">Sales & Marketing</a>
+                <a href="#">Content & Creative</a>
+            </nav>
+        </header>
+        <div class="filter-controls">
+            <div class="dropdown-container">
+                <img src="{% static 'job_page/location.png' %}" alt="Location Icon" class="dropdown-icon">
+                <select id="locationFilter">
+                    <option value="">Select Location</option>
+                    <option value="new-delhi">New Delhi, India</option>
+                    <option value="noida">Noida, Uttar Pradesh</option>
+                    <option value="bangalore">Bangalore, India</option>
+                </select>
+            </div>
+        
+            <div class="dropdown-container">
+                <img src="{% static 'job_page/salary.png' %}" alt="Salary Icon" class="dropdown-icon">
+                <select id="salaryFilter">
+                    <option value="">Package</option>
+                    <option value="3-5">3.5 LPA to 5 LPA</option>
+                    <option value="5-7">5 LPA to 7 LPA</option>
+                    <option value="7-10">7 LPA to 10 LPA</option>
+                </select>
+            </div>
+        
+            <div class="dropdown-container">
+                <img src="{% static 'job_page/dropdown.png' %}" alt="Date Icon" class="dropdown-icon">
+                <select id="openingDateFilter">
+                    <option value="">Opening Date</option>
+                    <option value="jan">January</option>
+                    <option value="feb">February</option>
+                    <option value="mar">March</option>
+                </select>
+            </div>
+        
+            <div class="dropdown-container">
+                <img src="{% static 'job_page/salary.png' %}" alt="Experience Icon" class="dropdown-icon">
+                <select id="experienceFilter">
+                    <option value="">Experience Level</option>
+                    <option value="fresher">Fresher</option>
+                    <option value="mid">Mid-Level</option>
+                    <option value="senior">Senior</option>
+                </select>
+            </div>
+        
+            <button id="applyFilter">Apply Filter</button>
+        </div>
+    
+        <div class="main-content">
+            <!-- Left Section for Job Listings -->
+            <div class="left-section">
+                <!-- Sample Job Cards, you can add more or change details -->
+                <div class="job-card" onclick="showJobDetails('Google', 'Front End Developer')">
+                    <img src="{% static 'job_page/google.png' %}" alt="Google Logo">
+                    <div class="job-info">
+                        <h3>Front End Developer</h3>
+                        <p>Google</p>
+                        <div class="tags">
+                            <span class="tag">New Delhi, India</span>
+                            <span class="tag">Full Time</span>
+                            <span class="tag">500000-700000/y</span>
+                        </div>
+                        <div class="divider"></div>
+                        <p>12 days ago <a href="#" class="apply-btn">Apply Now →</a></p>
+                    </div>
+                </div>
+
+                <div class="job-card" onclick="showJobDetails('Microsoft', 'Backend Developer')">
+                    <img src="{% static 'job_page/google.png' %}" alt="Microsoft Logo">
+                    <div class="job-info">
+                        <h3>Backend Developer</h3>
+                        <p>Microsoft</p>
+                        <div class="tags">
+                            <span class="tag">Bangalore, India</span>
+                            <span class="tag">Full Time</span>
+                            <span class="tag">600000-800000/y</span>
+                        </div>
+                        <div class="divider"></div>
+                        <p>8 days ago <a href="#" class="apply-btn">Apply Now →</a></p>
+                    </div>
+                </div>
+
+                <div class="job-card" onclick="showJobDetails('Amazon', 'UI/UX Designer')">
+                    <img src="{% static 'job_page/google.png' %}" alt="Amazon Logo">
+                    <div class="job-info">
+                        <h3>UI/UX Designer</h3>
+                        <p>Amazon</p>
+                        <div class="tags">
+                            <span class="tag">Hyderabad, India</span>
+                            <span class="tag">Full Time</span>
+                            <span class="tag">450000-650000/y</span>
+                        </div>
+                        <div class="divider"></div>
+                        <p>10 days ago <a href="#" class="apply-btn">Apply Now →</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section for Job Details -->
+            <div class="right-section" id="jobDetails">
+                <h2>Job Details</h2>
+                <p>Select a job to see details.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal Overlay -->
+    <div id="applicationModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeModal()">×</button>
+
+            <!-- Entire job_application form below -->
+            <div class="container job-app-container">
+                <div class="heading">
+                    <h3 class="heading-txt">Job Application</h3>
+                    <p class="para-txt">Note: Fields with * are necessary to fill. All the details must be accurate</p>
+                </div>
+
+                <!-- Step 1: Personal Details -->
+                <div class="input-box form-step" id="step1">
+                    <div class="form-container">
+                        <h2>Personal Details</h2>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="first-name">First Name <span>*</span></label>
+                                    <input type="text" id="first-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last-name">Last Name <span>*</span></label>
+                                    <input type="text" id="last-name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address <span>*</span></label>
+                                    <input type="email" id="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone no. <span>*</span></label>
+                                    <input type="tel" id="phone" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="resume">Add CV / Resume <span>*</span></label>
+                                    <input type="file" id="resume" required>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-navigation">
+                            <button type="button" class="next-btn" id="next1" onclick="nextStep()">Next →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Qualification Details -->
+                <div class="input-box form-step hidden" id="step2">
+                    <div class="form-container">
+                        <h2>Qualification</h2>
+                        <form>
+                            <div class="form-group full-width">
+                                <label for="education">Highest Education <span>*</span></label>
+                                <select id="education" required>
+                                    <option value="">Select</option>
+                                    <option value="PHD">PHD</option>
+                                    <option value="Master">Master's</option>
+                                    <option value="Bachelor">Bachelor's</option>
+                                    <option value="HighSchool">High School</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row1">
+                                <div class="form-group short-width">
+                                    <label for="specialization">Specialization</label>
+                                    <select id="specialization">
+                                        <option value="">Select</option>
+                                        <option value="CSE">CSE</option>
+                                        <option value="IT">IT</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group short-width">
+                                    <label for="passing-year">Year of Passing</label>
+                                    <input type="number" id="passing-year" placeholder="YYYY">
+                                </div>
+
+                                <div class="form-group short-width">
+                                    <label for="score">Score</label>
+                                    <input type="text" id="score" placeholder="CGPA / Percentage">
+                                </div>
+                            </div>
+
+                            <!-- Dynamic Education Section -->
+                            <h4 class="add-education" id="add-education">Education +</h4>
+                            <div id="education-container"></div>
+                        </form>
+                        <div class="form-navigation">
+                            <button type="button" onclick="prevStep()">← Previous</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Skills Details -->
+                <div class="input-box form-step hidden" id="step3">
+                    <div class="form-container">
+                        <h2>Skills</h2>
+                        <form>
+                            <div class="form-group full-width">
+                                <label for="skill">Add Skill <span>*</span></label>
+                                <input type="text" id="skill" required>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="certificate">Add Certificate <span>*</span></label>
+                                <input type="file" id="rcertificate" required>
+                            </div>
+                        </form>
+                        <div class="form-navigation">
+                            <button type="button" onclick="prevStep()">← Previous</button>
+                            <button type="button" class="next-btn" onclick="nextStep()">Next →</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Experience Details -->
+                <div class="input-box form-step hidden" id="step4">
+                    <div class="form-container">
+                        <form>
+                            <h2>Experience</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="job-role">Job Role/Position<span>*</span></label>
+                                    <input type="text" id="job-role" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company">Company Name<span>*</span></label>
+                                    <input type="text" id="company" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row1">
+                                <div class="form-group short-width">
+                                    <label for="joining-date">Joining date</label>
+                                    <input type="number" id="joining-date" placeholder="YYYY">
+                                </div>
+
+                                <div class="form-group short-width">
+                                    <label for="ending date">Ending Date</label>
+                                    <input type="number" id="ending-date" placeholder="YYYY">
+                                </div>
+
+                                <div class="form-group short-width">
+                                    <label for="ctc">CTC</label>
+                                    <input type="text" id="ctc" placeholder="Annual CTC">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-navigation">
+                            <button type="button" onclick="prevStep()">← Previous</button>
+                            <button type="button" class="next-btn" id="submit-btn" onclick="nextStep()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Confirmation -->
+                <div class="input-box form-step hidden" id="step5">
+                    <h2>Confirmation</h2>
+                    <p>Thank you for submitting your application. We will get back to you soon.</p>
+                </div>
+            </div>
+            <!-- End of job_application content -->
+        </div>
+    </div>
+    
+    <script>
+        // -----------------------------
+        // JOB DETAILS + APPLY FUNCTION
+        // -----------------------------
+        function showJobDetails(company, role) {
+            document.getElementById('jobDetails').innerHTML = `
+                <div class="job-details-container">
+                    <div class="job-header">
+                        <img src="{% static 'job_page/google.png' %}" alt="${company} Logo" class="company-logo">
+                        <div class="job-title">
+                            <h2>${role}</h2>
+                            <p>${company}</p>
+                        </div>
+                        <button class="applyy-btn" onclick="openModal()">Apply job</button>
+                    </div>
+                    <div class="job-meta">
+                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> New Delhi, India</p>
+                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location">  Updated on: 10 Feb, 2025</p>
+                    </div>
+                    <hr>
+                    <p class="comp-deatil">Eligibility</p>
+                    <p>BTech Computer Science</p>
+                    <hr>
+                    <p class="comp-deatil">About the Job</p>
+                    <div class="job-inffo">
+                        <p class="detail"><strong>Job Type:</strong> Full Time</p>
+                        <p class="detail"><strong>Salary:</strong> 500000 - 700000/y</p>
+                        <p class="detail"><strong>Experience:</strong> 2-3 Yr</p>
+                    </div>
+                    <p class="jd"><u>Job Description</u></p>
+                    <p class="detail">
+                        We are looking for a skilled and passionate Software Engineer to join our dynamic team. The ideal candidate:
+                        <br>Will be responsible for designing, developing, testing, and maintaining software applications while ensuring high performance and scalability.
+                        <ul>
+                            <li>Design, develop, and maintain scalable and high-quality software solutions.</li>
+                            <li>Write clean, efficient, and maintainable code following best practices.</li>
+                        </ul>
+                    </p>
+                    <p class="jd"><u>Skills Required</u></p>
+                    <ul>
+                        <li>Experience with DevOps, CI/CD pipelines, and Docker/Kubernetes.</li>
+                        <li>Knowledge of Agile and Scrum methodologies.</li>
+                        <li>Familiarity with testing frameworks and automation tools.</li>
+                    </ul>
+                    <hr>        
+                    <p class="comp-deatil">About the Company</p>
+                    <p class="detail"><strong>Company Overview</strong></p>
+                    <p class="para">Hunarlab Learning Solutions Private Limited is an Ed-Tech platform based in Mumbai. We offer job-ready courses curated by industry experts to enhance and shape the workforce for a competitive edge.</p>
+                    <div class="company-info">
+                        <p><strong>Employees:</strong> 100 - 5000 employees</p>
+                        <p><strong>Industry:</strong> Information & Technology</p>
+                        <p><strong>Established on:</strong> 20 January 2019</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // -----------------------------
+        // MODAL CONTROL
+        // -----------------------------
+        function openModal() {
+            document.getElementById("applicationModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("applicationModal").style.display = "none";
+        }
+
+        // Close the modal if user clicks outside of the modal content
+        window.onclick = function(event) {
+            let modal = document.getElementById("applicationModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // -----------------------------
+        // MULTISTEP FORM FUNCTIONS
+        // -----------------------------
+        function nextStep() {
+            var currentStep = document.querySelector('.form-step:not(.hidden)');
+            var nextStep = currentStep.nextElementSibling;
+
+            if (nextStep && nextStep.classList.contains('form-step')) {
+                currentStep.classList.add('hidden');
+                nextStep.classList.remove('hidden');
+            }
+        }
+
+        function prevStep() {
+            var currentStep = document.querySelector('.form-step:not(.hidden)');
+            var prevStep = currentStep.previousElementSibling;
+
+            if (prevStep && prevStep.classList.contains('form-step')) {
+                currentStep.classList.add('hidden');
+                prevStep.classList.remove('hidden');
+            }
+        }
+
+        // Add education fields
+        document.getElementById("add-education").addEventListener("click", function () {
+            let container = document.getElementById("education-container");
+
+            let newEntry = document.createElement("div");
+            newEntry.classList.add("form-row1");
+
+            newEntry.innerHTML = `
+                <div class="form-group short-width">
+                    <label>Course</label>
+                    <input type="text" id="course" placeholder="Course">
+                </div>
+                <div class="form-group short-width">
+                    <label>Year of Passing</label>
+                    <input type="text" placeholder="YYYY">
+                </div>
+                <div class="form-group short-width">
+                    <label>Score</label>
+                    <input type="text" placeholder="CGPA / Percentage">
+                </div>
+                <button class="remove-education">Remove</button>
+            `;
+
+            container.appendChild(newEntry);
+
+            // Remove entry when "Remove" is clicked
+            newEntry.querySelector(".remove-education").addEventListener("click", function () {
+                container.removeChild(newEntry);
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Job Portal{% endblock %}</title>
+  <!-- Example: link to your main CSS -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="navbar">
+    <!-- Logo -->
+    <a href="#" class="logo">
+      <img src="{% static 'images/logo.png' %}" alt="ReaderClub"> 
+      <!-- Change src to match your actual file path -->
+    </a>
+
+    <!-- Nav Dropdowns -->
+    <nav class="nav-links">
+      <a href="#">IT &amp; Software</a>
+      <a href="#">Management &amp; Business</a>
+      <a href="#">Sales &amp; Marketing</a>
+      <a href="#">Content &amp; Creative</a>
+    </nav>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button class="find-job">Find Job</button>
+      <button class="hire-talent">Hire Talent</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT BLOCK -->
+  {% block content %}
+  <!-- Child templates will override this -->
+  {% endblock content %}
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <img src="{% static 'images/footer.png' %}" alt="Icon" />
+      </div>
+      <div class="footer-links">
+        <p class="footer-para">Useful Links</p>
+        <ul>
+          <li><a href="about_us.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="placement_stories.html">Blogs</a></li>
+          <li><a href="career.html">Career</a></li>
+          <li><a href="privacy_policy.html">Privacy Policy</a></li>
+          <li><a href="terms_and_conditions.html">Terms &amp; Conditions</a></li>
+          <li><a href="child_policy.html">Child Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Job Categories</p>
+        <ul>
+          <li><a href="#">IT &amp; Software</a></li>
+          <li><a href="#">Management &amp; Business</a></li>
+          <li><a href="#">Sales &amp; Marketing</a></li>
+          <li><a href="#">Content &amp; Creative</a></li>
+        </ul>
+      </div>
+      <div class="footer-ccc">
+        <div class="footer-top">
+          <p class="footer-para">Job &amp; Opportunities</p>
+          <ul class="footer-iii">
+            <li><a href="#">Full Time Jobs</a></li>
+            <li><a href="#">Part Time Jobs</a></li>
+            <li><a href="#">Remote Jobs</a></li>
+            <li><a href="#">Work From Home Jobs</a></li>
+            <li><a href="#">Internships</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Contact Us</p>
+        <ul class="social-links">
+          <li><i class="fa fa-phone"></i> +91-9911775525</li>
+          <li><i class="fa fa-envelope"></i> contact@readerclub.in</li>
+          <li><i class="fa-solid fa-location-dot"></i> G1, Plot No. A-61, Sector-16,
+            Noida, Gautam Buddh Nagar, UP 201301
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-container footer-column">
+      <hr class="footer-line">
+      <div class="footer-base">
+        <p>© 2018-25 Readerclub. All rights reserved</p>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Optional main script -->
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block extra_scripts %}
+  <!-- Child templates can inject scripts here -->
+  {% endblock extra_scripts %}
+</body>
+</html>

@@ -1,0 +1,497 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Portal</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kite+One" rel="stylesheet">
+  <!-- Static CSS files -->
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <!-- If your SVG file is used as a stylesheet/icon, adjust accordingly -->
+  <link rel="stylesheet" href="{% static 'svg/sv.svg' %}">
+</head>
+<body style="margin: 0 auto;">
+  <header>
+    <img src="{% static 'image/company_logo.svg' %}" class="discover-logo" alt="">
+    <div class="buttons">
+      <button class="find-job">Find Job</button>
+      <button class="hire-talent">Hire Talent</button>
+    </div>
+  </header>
+
+  <section class="page1">
+    <div class="discover-main">
+      <section class="discover-hero">
+        <div class="discover-text-content">
+          <h1>
+            <span class="discover-highlight">Discover <br /></span> Jobs That Fit You Perfectly!
+          </h1>
+          <p class="discover-sub-heading">
+            Make your career in 
+            <span class="discover-highlight-green typing"></span>
+          </p>
+          <div class="discover-search-bar">
+            <div class="con">
+              <input type="text" placeholder="+ &nbsp; Add Skill" class="discover-searchs" />
+              <span class="span2">|</span>
+              <input type="text" placeholder="+ &nbsp; Add Experience" class="exp" />
+              <button>Find Jobs</button>
+            </div>
+            <div>
+              <p class="popular1">
+                Popular Searches: <span>&nbsp; Web Development, Data Analyst</span>
+              </p>      
+            </div>
+          </div>
+        </div>
+
+        <img class="discover-hero-image" src="{% static 'assets/tempImagekYH0qi 1.svg' %}" alt="women-holding-books">
+        <img src="{% static 'assets/e-2 2.svg' %}" alt="" class="job" />
+        <!-- <img src="{% static 'assets/tempImage2ljX6n 1.svg' %}" class="icons-cube cube1"> -->
+        <img src="{% static 'assets/tempImage2ljX6n 2.svg' %}" alt="" class="speaker" />
+        <img src="{% static 'assets/tempImage9IlasC 1.svg' %}" class="icons-cube cube3">
+        <div class="image-content">
+          <img src="{% static 'assets/tempImage2ljX6n 1.svg' %}" class="icons-cube cube2">
+          <div class="flexx">
+            <div class="discover-top-companies">
+              <div class="batch-dis">
+                <img src="{% static 'svg/sv.svg' %}" alt="">
+              </div>
+              <div>Top Companies</div>
+            </div>
+            <div class="discover-faster-hiring">
+              <div class="batch-dis">
+                <img src="{% static 'svg/sv2.svg' %}" alt="">
+              </div>
+              <div>Faster Hiring</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script>
+      const roles = [
+        "Web Developer",
+        "Full Stack Developer",
+        "UI/UX Designer",
+        "Software Engineer",
+      ];
+      
+      let roleIndex = 0; // Tracks which role is being typed
+      let charIndex = 0; // Tracks which character in the role is being typed
+      const speed = 50; // Typing speed in milliseconds
+      const eraseSpeed = 25; // Speed for erasing text
+      const delayBetweenRoles = 1500; // Delay before erasing and switching roles
+      const typewriterElement = document.querySelector(".discover-highlight-green");
+      
+      function typeWriter() {
+        if (charIndex < roles[roleIndex].length) {
+          typewriterElement.innerHTML += roles[roleIndex].charAt(charIndex);
+          charIndex++;
+          setTimeout(typeWriter, speed);
+        } else {
+          setTimeout(eraseText, delayBetweenRoles); // Pause before erasing
+        }
+      }
+      
+      function eraseText() {
+        if (charIndex > 0) {
+          typewriterElement.innerHTML = roles[roleIndex].substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(eraseText, eraseSpeed);
+        } else {
+          // Move to the next role
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(typeWriter, 500);
+        }
+      }
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(typeWriter, speed);
+      });
+    </script>
+  </section>
+
+  <section id="page2">
+    <div class="categories">
+      <div class="category" data-category="IT &amp; Software" onmouseover="updateJobs('IT &amp; Software')">
+        <img src="{% static 'image/it.png' %}" alt="IT &amp; Software">IT &amp; Software
+      </div>
+      <div class="category" data-category="Management &amp; Business" onmouseover="updateJobs('Management &amp; Business')">
+        <img src="{% static 'image/mb.png' %}" alt="Management &amp; Business">Management &amp; Business
+      </div>
+      <div class="category" data-category="Sales &amp; Marketing" onmouseover="updateJobs('Sales &amp; Marketing')">
+        <img src="{% static 'image/sm.png' %}" alt="Sales &amp; Marketing">Sales &amp; Marketing
+      </div>
+      <div class="category" data-category="Content &amp; Creative" onmouseover="updateJobs('Content &amp; Creative')">
+        <img src="{% static 'image/cc.png' %}" alt="Content &amp; Creative">Content &amp; Creative
+      </div>
+      <div id="slider" class="slider"></div>
+    </div>
+    <div id="job-container" class="job-container"></div>
+    <script>
+      const jobData = {
+        "IT &amp; Software": [
+          { name: "Web Development", img: "{% static 'image/wd.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/ad.jpeg' %}" },
+          { name: "Data Science", img: "{% static 'image/cs.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/se.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/st.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/dm.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/st.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/dm.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/wd.jpeg' %}" },
+        ],
+        "Management &amp; Business": [
+          { name: "Business Analysis", img: "{% static 'image/wd.jpeg' %}" },
+          { name: "Project Management", img:"{% static 'image/ad.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/cs.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/se.jpeg' %}" },
+          { name: "Web Development", img:"{% static 'image/st.jpeg' %}" },
+          { name: "Software Engineering", img:"{% static 'image/st.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/wd.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/ad.jpeg' %}" },
+          { name: "Data Science", img: "{% static 'image/cs.jpeg' %}" },
+        ],
+        "Sales &amp; Marketing": [
+          { name: "Digital Marketing", img: "{% static 'image/ad.jpeg' %}" },
+          { name: "Sales Executive", img:"{% static 'image/st.jpeg' %}" },
+          { name: "Web Development", img:"{% static 'image/se.jpeg' %}" },
+          { name: "Software Engineering", img:"{% static 'image/cs.jpeg' %}" },
+          { name: "Web Development", img:"{% static 'image/ad.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/wd.jpeg' %}" },
+          { name: "Web Development", img:"{% static 'image/se.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/ad.jpeg' %}" }
+        ],
+        "Content &amp; Creative": [
+          { name: "Digital Marketing", img: "{% static 'image/ad.jpeg' %}" },
+          { name: "Graphic Design", img: "{% static 'image/wd.jpeg' %}" },
+          { name: "Content Writing", img: "{% static 'image/cs.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/ad.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/se.jpeg' %}" },
+          { name: "Web Development", img:"{% static 'image/st.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/st.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/wd.jpeg' %}" },
+          { name: "Software Engineering", img: "{% static 'image/se.jpeg' %}" }
+        ]
+      };
+
+      function updateJobs(category) {
+        const jobContainer = document.getElementById("job-container");
+        jobContainer.innerHTML = "";
+
+        jobData[category].forEach(job => {
+          const jobCard = document.createElement("div");
+          jobCard.classList.add("job-card");
+          
+          jobCard.innerHTML = `
+            <div class="job-image">
+              <img src="${job.img}" alt="${job.name}">
+            </div>
+            <div class="job-info">
+              <span class="job-namee">${job.name}</span>
+              <span class="job-countt">50+ Jobs</span>
+            </div>
+          `;
+
+          jobCard.onclick = function() {
+            window.location.href = `job-details.html?job=${encodeURIComponent(job.name)}`;
+          };
+
+          jobContainer.appendChild(jobCard);
+        });
+
+        document.querySelectorAll(".category").forEach(cat => cat.classList.remove("selected"));
+        const selectedCategory = document.querySelector(`.category[data-category='${category}']`);
+        selectedCategory.classList.add("selected");
+
+        const slider = document.getElementById("slider");
+        slider.style.width = `${selectedCategory.offsetWidth}px`;
+        slider.style.left = `${selectedCategory.offsetLeft}px`;
+      }
+    </script>
+    
+    <script>
+      updateJobs("IT &amp; Software");
+    </script>
+  </section>
+
+  <section id="page-3">
+    <div class="partt2-container">
+      <div class="part2-left-sec">
+        <div class="textt">
+          <div class="part2title">Explore<br> Popular Jobs</div>
+          <button class="btnnn">IT &amp; Software →</button>
+        </div>
+        <div class="job-flow">
+          <div class="job-slider">
+            <div class="job-cardd">
+              <h3>Data Scientist</h3>
+              <p>Microsoft <img class="company-logo" src="{% static 'image/company.png' %}" alt="logo"></p>
+              <div class="line-with-dots"></div>
+              <p class="info">
+                <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
+              </p>
+              <p class="info">
+                <img src="{% static 'image/dropdown.png' %}" alt="Experience"> 3-5 years
+              </p>
+              <p class="info">
+                <img src="{% static 'image/salary.png' %}" alt="Salary"> 12 LPA - 18 LPA
+              </p>
+              <p class="key-skills">Key Skills: <span>Python, Machine Learning</span></p>
+            </div>
+    
+            <div class="job-cardd">
+              <h3>Frontend Developer</h3>
+              <p>Google <img class="company-logo" src="{% static 'image/company.png' %}" alt="logo"></p>
+              <div class="line-with-dots"></div>
+              <p class="info">
+                <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
+              </p>
+              <p class="info">
+                <img src="{% static 'image/dropdown.png' %}" alt="Experience"> 3-5 years
+              </p>
+              <p class="info">
+                <img src="{% static 'image/salary.png' %}" alt="Salary"> 12 LPA - 18 LPA
+              </p>
+              <p class="key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
+            </div>
+    
+            <div class="job-cardd">
+              <h3>Backend Developer</h3>
+              <p>Amazon <img class="company-logo" src="{% static 'image/company.png' %}" alt="logo"></p>
+              <div class="line-with-dots"></div>
+              <p class="info">
+                <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
+              </p>
+              <p class="info">
+                <img src="{% static 'image/dropdown.png' %}" alt="Experience"> 3-5 years
+              </p>
+              <p class="info">
+                <img src="{% static 'image/salary.png' %}" alt="Salary"> 12 LPA - 18 LPA
+              </p>
+              <p class="key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".job-slider");
+        let cards = Array.from(document.querySelectorAll(".job-cardd"));
+        let visibleCards = getVisibleCards();
+    
+        function getVisibleCards() {
+          if (window.innerWidth <= 768) return 1; // Mobile: 1 card
+          if (window.innerWidth <= 1024) return 2; // Tablet: 2 cards
+          return 3; // Desktop: 3 cards
+        }
+    
+        function updateSlider() {
+          visibleCards = getVisibleCards();
+          slider.innerHTML = ""; // Remove old cards
+          let updatedCards = [...cards, ...cards, ...cards]; // Clone cards for looping
+    
+          updatedCards.forEach(card => {
+            let clone = card.cloneNode(true);
+            slider.appendChild(clone);
+          });
+        }
+    
+        window.addEventListener("resize", updateSlider);
+        updateSlider(); // Run on page load
+    
+        function slideNext() {
+          slider.style.transition = "transform 0.3s linear"; // Smooth transition
+          slider.style.transform = `translateX(-100%)`;
+    
+          setTimeout(() => {
+            slider.appendChild(slider.firstElementChild); // Move first card to the end
+            slider.style.transition = "none"; // Remove transition temporarily
+            slider.style.transform = "translateX(0)";
+          }, 300);
+        }
+    
+        setInterval(slideNext, 3000); // Auto-slide every 3 seconds
+      });
+    </script>
+  </section>
+
+  <section class="page">
+    <div class="company-conatiner">
+      <div class="content">
+        <div class="header">Top <br>Companies <br> Hiring</div>
+        <div class="divider"></div>
+        <div class="company-slider">
+          <div class="companies">
+            <div class="company">
+              <span class="job-count">20+ Jobs</span>
+              <div class="circle-conatiner">
+                <img src="{% static 'image/meta.png' %}" alt="Meta">
+              </div>
+            </div>
+            <div class="company">
+              <span class="job-count">20+ Jobs</span>
+              <div class="circle-conatiner">
+                <img src="{% static 'image/jtc.png' %}" alt="LTC">
+              </div>
+            </div>
+            <div class="company">
+              <span class="job-count">20+ Jobs</span>
+              <div class="circle-conatiner">
+                <img src="{% static 'image/d.png' %}" alt="Deloitte">
+              </div>
+            </div>
+            <div class="company">
+              <span class="job-count">20+ Jobs</span>
+              <div class="circle-conatiner">
+                <img src="{% static 'image/google.png' %}" alt="Google">
+              </div>
+            </div>
+            <div class="company">
+              <span class="job-count">20+ Jobs</span>
+              <div class="circle-conatiner">
+                <img src="{% static 'image/infosys.png' %}" alt="Infosys">
+              </div>
+            </div>
+            <!-- Repeat additional company blocks as needed -->
+          </div>
+        </div>
+      </div>
+      <div class="com-lower">Trusted by 1k+ Companies all over the globe</div>
+    </div>
+  </section>
+
+  <section id="page4">
+    <div class="flow-container">
+      <div class="image-section">
+        <img src="{% static 'image/left.png' %}" alt="Illustration">
+      </div>
+      <div class="content-section">
+        <div class="ddd">
+          <h2>How It <span>Works</span></h2>
+          <p>Finding your dream job has never been easier! Follow these simple <br> steps to create your profile, explore opportunities, and apply <br>&nbsp;effortlessly.</p>
+        </div>
+        <ul class="steps">
+          <li>
+            <img src="{% static 'image/add.png' %}" alt="icon">
+            <div>
+              <a href="#">Create an account</a>
+              <span>Sign up easily using your email and some details to get started.</span>
+            </div>
+          </li>
+          <li>
+            <img src="{% static 'image/search.png' %}" alt="icon">
+            <div>
+              <a href="#">Find suitable Job</a>
+              <span>Browse through job listings to find the one that matches your skills.</span>
+            </div>
+          </li>
+          <li>
+            <img src="{% static 'image/cv.png' %}" alt="icon">
+            <div>
+              <a href="#">Upload CV &amp; Details</a>
+              <span>Update profile with your resume and key details to stand out to employers.</span>
+            </div>
+          </li>
+          <li>
+            <img src="{% static 'image/job.png' %}" alt="icon">
+            <div>
+              <a href="#">Apply for Job</a>
+              <span>Submit your application with one click and take the next step in your career!</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        $(document).ready(function(){
+          $('.job-flow').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            arrows: false,
+            infinite: true,
+            speed: 800,
+            responsive: [
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 1
+                }
+              }
+            ]
+          });
+        });
+      });
+    </script>
+  </section>
+
+  <section id="page-5">
+    <footer class="footer">
+      <!-- First Row: main links -->
+      <div class="footer-container">
+        <div class="footer-left">
+          <img src="{% static 'image/footer.png' %}" alt="Icon">
+        </div>
+        <div class="footer-links">
+          <p class="footer-para">Useful Links</p>
+          <ul>
+            <li><a href="about_us.html" class="no-underline">About Us</a></li>
+            <li><a href="contact.html" class="no-underline">Contact Us</a></li>
+            <li><a href="placement_stories.html" class="no-underline">Blogs</a></li>
+            <li><a href="career.html" class="no-underline">Career</a></li>
+            <li><a href="privacy_policy.html" class="no-underline">Privacy Policy</a></li>
+            <li><a href="terms_and_conditions.html" class="no-underline">Terms &amp; Conditions</a></li>
+            <li><a href="child_policy.html" class="no-underline">Child Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-practice">
+          <p class="footer-para">Job categories</p>
+          <ul>
+            <li><a href="python_practice.html">IT &amp; Software</a></li>
+            <li><a href="finance_practice.html">Management &amp; Business</a></li>
+            <li><a href="abstract_reasoning_practice.html">Sales &amp; Marketing</a></li>
+            <li><a href="coding_practice.html">Content &amp; Creative</a></li>
+          </ul>
+        </div>
+        <div class="footer-ccc">
+          <div class="footer-top">
+            <p class="footer-para">Job &amp; Opportunities</p>
+            <ul class="footer-iii">
+              <li><a>Full time jobs</a></li>
+              <li><a>Part time jobs</a></li>
+              <li><a>Remote jobs</a></li>
+              <li><a>Work from home jobs</a></li>
+              <li><a>Internships</a></li>
+              <li class="footer-i"><a href="compile_code.html">JS Compiler</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-practice">
+          <p class="footer-para">Contact US</p>
+          <ul class="social-links">
+            <li><i class="fa fa-phone"></i> +91-9911775525</li>
+            <li><i class="fa fa-envelope"></i> contact@readerclub.in</li>
+            <li><i class="fa-solid fa-location-dot"></i> G1, Plot No. A-61, Sector-16, Noida, Gautam Buddh Nagar, UP 201301</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Second Row: HR + base row -->
+      <div class="footer-container footer-column">
+        <hr class="footer-line">
+        <div class="footer-base">
+          <p>© 2018-25 Readerclub. All rights reserved</p>
+          <!-- Footer Logos commented out -->
+        </div>
+      </div>
+    </footer>
+  </section>
+</body>
+</html>
