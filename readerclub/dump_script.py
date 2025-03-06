@@ -4,7 +4,7 @@ from django.core.management import call_command
 from django.conf import settings
 import io
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Ed_Tecx.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'readerclub.settings')
 django.setup()  # Set up the Django environment
 
 def replace_problematic_chars(data):

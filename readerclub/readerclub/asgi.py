@@ -1,5 +1,5 @@
 """
-ASGI config for Ed_Tecx project.
+ASGI config for readerclub project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Ed_Tecx.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'readerclub.settings')
 
 application = get_asgi_application()
