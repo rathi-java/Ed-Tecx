@@ -21,6 +21,8 @@
  <link rel="stylesheet" href="{% static 'css/internship.css' %}"> 
  <link rel="stylesheet" href="{% static 'css/stats.css' %}"> 
   <link rel="stylesheet" href="{% static 'css/hero-section.css' %}"> 
+  <link rel="stylesheet" href="{% static 'css/job-section.css' %}">
+  <link rel="stylesheet" href="{% static 'css/magazine.css' %}">
 <style>
   /* Hide scrollbar but keep manual scrolling */
   .achiever-list {
@@ -46,13 +48,15 @@
 {% include 'internship-section.html' %}
 
 <!--job section-->
-{% comment %} {% include 'job-section.html' %}  {% endcomment %}
+{% include 'job-section.html' %} 
 
 <!-- Study Material Section -->
  {% comment %} {% include 'study-material.html' %}  {% endcomment %}
 
 <!-- top-company section-->
 {% include 'top-company.html' %}  
+
+{% include 'magazine.html' %}
 
 <!-- FAQ Section -->
 {% include 'faq.html' %}

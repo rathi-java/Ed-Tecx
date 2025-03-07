@@ -251,7 +251,11 @@
             <div class="left-section">
                 {% for job in jobs %}
                 <div class="job-card" onclick="showJobDetails(this)" data-company="{{ job.company.name }}" data-role="{{ job.role }}" data-location="{{ job.company.address }}" data-updated="{{ job.updated_at }}" data-eligibility="{{ job.eligibility }}" data-job-type="{{ job.job_type }}" data-salary="{{ job.salary_per_annum }}" data-experience="{{ job.required_experience }}" data-description="{{ job.job_description }}" data-skills="{{ job.required_skills }}" data-company-about="{{ job.company.about }}" data-company-employees="{{ job.company.working_employees }}" data-company-industry="Information & Technology" data-company-established="{{ job.company.established_year }}">
-                    <img src="{% static job.company.logo %}" alt="{{ job.company.name }} Logo">
+                    {% if job.company.logo %}
+                    <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }} Logo">
+                    {% else %}
+                    <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
+                    {% endif %}
                     <div class="job-info">
                         <h3>{{ job.role }}</h3>
                         <p>{{ job.company.name }}</p>
@@ -470,7 +474,11 @@
             document.getElementById('jobDetails').innerHTML = `
                 <div class="job-details-container">
                     <div class="job-header">
-                        <img src="{% static 'job_page/google.png' %}" alt="${company} Logo" class="company-logo">
+                        {% if company.logo %}
+                        <img src="${company.logo.url}" alt="${company} Logo" class="company-logo">
+                        {% else %}
+                        <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo" class="company-logo">
+                        {% endif %}
                         <div class="job-title">
                             <h2>${role}</h2>
                             <p>${company}</p>

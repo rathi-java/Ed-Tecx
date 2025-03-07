@@ -210,10 +210,10 @@ section.top-company-section {
 
 @keyframes moveCompanies1 {
   0% {
-      transform: translateX(0); /* Start at the initial position */
+      transform: translateX(0%); 
   }
   100% {
-      transform: translateX(-30%); /* Move the entire list out of view */
+      transform: translateX(-30%);
   }
 }
 
@@ -270,6 +270,7 @@ section.top-company-section {
   white-space: nowrap;
   position: relative;
   border-left: 1px solid gray;
+  margin-left: 9%;
 }
 .top-company-company-slider1 {
   width: 81%;
@@ -315,9 +316,9 @@ section.top-company-section {
 img.hire {
   width: 50px;
   height: 50px;
-  left: 11%;
+  left: 12%;
   position: absolute;
-  margin-block: 1%;
+  margin-block: 2%;
 }
 
 @keyframes colorChange {
@@ -328,17 +329,34 @@ img.hire {
     color: green;
   }
 }
+@media (max-width: 2560px) {
+  img.hire {
+    width: 50px;
+    height: 50px;
+    left: 9%;
+    position: absolute;
+    margin-block: 2%;
+}
+@media (max-width: 1440px) {
+  img.hire {
+    width: 50px;
+    height: 50px;
+    left: 12%;
+    position: absolute;
+    margin-block: 2%;
+}
+}
 
+}
 
 @media (max-width: 1200px) {
   img.hire {
     width: 40px;
     height: 40px;
-    left: 14%;
+    left: 15%;
     position: absolute;
-    margin-block: 1%;
+    margin-block: 2%;
 }
-
 
   .hire {
     width: 40px;
@@ -349,11 +367,11 @@ img.hire {
     /* top: 3px; */
     margin-block: 1%;
 }
-  .top-company-header-mn img {
-    width: 40px;
-    height: 40px;
-    margin-inline: -34%;
-    margin-block: 5%;
+.top-company-header-mn img {
+  width: 40px;
+  height: 43px;
+  margin-inline: -30%;
+  margin-block: 5%;
 }
 .top-company-job-cardd {
     padding: 20px;
@@ -440,9 +458,9 @@ img.hire {
   img.hire {
     width: 40px;
     height: 40px;
-    left: 19%;
+    left: 20%;
     position: absolute;
-    margin-block: 2%;
+    margin-block: 3%;
 }
   .top-company-discover-hero {
     flex-direction: column;
@@ -634,24 +652,17 @@ img.hire {
   margin-block: 5%;
 }
 }
+
 @media (max-width: 426px) {
-  .exam-content-wrapper {
-    flex-direction: column;
-}
-  img.hire {
-    width: 50px;
-    height: 50px;
-    left: 11%;
-    position: absolute;
-    margin-block: 3%;
-  }
-@media (max-width: 576px) {
   
   .top-company-header-mn img {
     width: 40px;
-    height: 40px;
-    margin-inline: -66%;
-    margin-block: 7%;
+    height: 44px;
+    margin-inline: -61%;
+    margin-block: 3%;
+}
+.top-company-header-mn span {
+  margin-left: -35px;
 }
   .top-company-header {
       margin-top: 4%;
@@ -670,7 +681,7 @@ img.hire {
 
 }
   .top-company-header1 {
-    margin-inline: 68%;
+    margin-inline: 61%;
         font-size: 19px;
         font-weight: bold;
         margin-bottom: 20px;
@@ -679,7 +690,13 @@ img.hire {
         text-align: center;
     
   }
-  
+  img.hire {
+    width: 40px;
+    height: 42px;
+    left: 35%;
+    position: absolute;
+    margin-block: 1%;
+}
   .top-company-content {
       display: flex
   ;
@@ -834,5 +851,14 @@ img.hire {
   }
   to {
       transform: translateX(0); /* Moves only half so duplicated content loops */
+  }
+}
+@media (max-width: 321px) {
+  img.hire {
+      width: 40px;
+      height: 43px;
+      left: 32%;
+      position: absolute;
+      margin-block: 0%;
   }
 }

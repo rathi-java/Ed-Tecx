@@ -2,7 +2,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    category_code = models.CharField(max_length=5, unique=True, blank=True, null=True)
+    category_code = models.CharField(max_length=6, unique=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.category_code:
@@ -14,6 +14,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'jobportal_category'
+
+
 class Company(models.Model):
     name = models.CharField(max_length=255)
     address = models.TextField()
@@ -23,11 +27,12 @@ class Company(models.Model):
     about = models.TextField(max_length=200)
     working_employees = models.IntegerField()
     established_year = models.IntegerField()
-    company_code = models.CharField(max_length=5, unique=True, blank=True, null=True)
+    company_code = models.CharField(max_length=6, unique=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
+        # Check and set company_code instead of category_code
         if not self.company_code:
             last_company = Company.objects.order_by('-id').first()
             new_id = int(last_company.company_code[2:]) + 1 if last_company and last_company.company_code else 1
@@ -36,6 +41,10 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        db_table = 'jobportal_company'
+
 
 class Job(models.Model):
     job_id = models.AutoField(primary_key=True)
@@ -51,19 +60,23 @@ class Job(models.Model):
     job_description = models.TextField()
     required_skills = models.TextField()
     vacancy = models.IntegerField()
-    job_code = models.CharField(max_length=5, unique=True, blank=True, null=True)
+    job_code = models.CharField(max_length=6, unique=True, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.job_code:
-            last_job = Job.objects.order_by('-id').first()
+            last_job = Job.objects.last() 
             new_id = int(last_job.job_code[1:]) + 1 if last_job and last_job.job_code else 1
             self.job_code = f'J{new_id:04d}'
         super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.role} at {self.company.name}"
+
+    class Meta:
+        db_table = 'jobportal_job'
+
 
 class Domain(models.Model):
     name = models.CharField(max_length=255)
@@ -79,4 +92,31 @@ class Domain(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        db_table = 'jobportal_domain'
 
+
+class JobApplication(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    resume = models.FileField(upload_to='resumes/')
+    education = models.CharField(max_length=255)
+    specialization = models.CharField(max_length=255, blank=True, null=True)
+    passing_year = models.CharField(max_length=4, blank=True, null=True)
+    score = models.CharField(max_length=50, blank=True, null=True)
+    skills = models.TextField()
+    certificate = models.FileField(upload_to='certificates/')
+    job_role = models.CharField(max_length=255)
+    company_name = models.CharField(max_length=255)
+    joining_date = models.CharField(max_length=4, blank=True, null=True)
+    ending_date = models.CharField(max_length=4, blank=True, null=True)
+    ctc = models.CharField(max_length=50, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.job_role}"
+
+    class Meta:
+        db_table = 'jobportal_jobapplication'

@@ -157,7 +157,7 @@
   .apple-btn:hover {
   
     color: #F1EDFF;
-    background: rgb(187, 185, 185);
+    background: #ec8a3f;
   }
   
   /* Android Button */
@@ -169,7 +169,7 @@
   
   .android-btn:hover {
     color: #FFF5E1;
-    background: grey;
+    background: #ec8a3f;
   }
   
   .apple-btn img {

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Dashboard</h2>
+        
+        <h3>Categories</h3>
+        <a href="{% url 'add_category' %}">Add New Category</a>
+        <ul>
+            {% for category in categories %}
+            <li>
+                {{ category.name }}
+                <a href="{% url 'edit_category' category.id %}">Edit</a>
+                <a href="{% url 'delete_category' category.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Companies</h3>
+        <a href="{% url 'add_company' %}">Add New Company</a>
+        <ul>
+            {% for company in companies %}
+            <li>
+                {{ company.name }}
+                <a href="{% url 'edit_company' company.id %}">Edit</a>
+                <a href="{% url 'delete_company' company.id %}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h3>Jobs</h3>
+        <a href="{% url 'add_job' %}">Add New Job</a>
+        <ul>
+            {% for job in jobs %}
+            <li>
+                {{ job.role }} at {{ job.company.name }}
+                {% if job.id %}
+                <a href="{% url 'edit_job' job.id %}">Edit</a>
+                <a href="{% url 'delete_job' job.id %}">Delete</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

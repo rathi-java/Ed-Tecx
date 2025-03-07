@@ -303,7 +303,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 80px;
+  gap: 160px;
 }
 
 /* Footer image styling */
@@ -413,7 +413,7 @@
   margin: 0;                    /* remove default paragraph margin */
   white-space: nowrap;          /* keep it on one line */
   font-size: 12px;
-  margin-left: -524px;
+  margin-left: -800px;
 }
 
 /* Footer practice links hover effects */
@@ -473,6 +473,9 @@
 .contact-link {
   font-size: 12.5pt !important;
   text-decoration: none;
+}
+.contact-link.email{
+  font-size: 11.3pt !important;
 }
 /*****************************************************
  * RESPONSIVE FOOTER STYLES

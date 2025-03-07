@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'job_portal',
     'policies',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
