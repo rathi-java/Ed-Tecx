@@ -1,4 +1,5 @@
-from django.shortcuts import render
+import json
+from django.shortcuts import redirect, render
 import requests
 from .models import SubscriptionPlan
 from oauth.models import  PaymentTransaction
@@ -10,6 +11,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+import hashlib
+import uuid
+from urllib.parse import urlencode
+from django.urls import reverse
 
 razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
@@ -89,6 +94,25 @@ def create_cashfree_order(request):
     
     return JsonResponse({"error": "Invalid request method"}, status=400)
 
+@csrf_exempt
+def cashfree_webhook(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        order_id = data.get('orderId')
+        payment_status = data.get('txStatus')
+        
+        if payment_status == 'SUCCESS':
+            # Handle successful payment
+            pass
+        elif payment_status == 'FAILED':
+            # Handle failed payment
+            pass
+        elif payment_status == 'PENDING':
+            # Handle pending payment
+            pass
+        
+        return JsonResponse({"status": "received"})
+    return JsonResponse({"error": "Invalid request method"}, status=400)
 
 def price(request):
     """
@@ -105,7 +129,6 @@ def price(request):
     
     return render(request, 'price.html', context)
 
-razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
 @csrf_exempt
 def create_order(request):
@@ -118,6 +141,7 @@ def create_order(request):
         order = razorpay_client.order.create(data)
 
         return JsonResponse(order)
+
 
 @csrf_exempt
 def payment_success(request):
@@ -162,25 +186,27 @@ def payment_success(request):
     
 @csrf_exempt
 def cashfree_payment_success(request):
-    if request.method == "POST":
-        user = request.user
-        payment_id = request.POST.get("payment_id")
-        order_id = request.POST.get("order_id")
-        amount = request.POST.get("amount")
-        plan_id = request.POST.get("plan_id")
+    if request.method == "POST" or request.method == "GET":
+        order_id = request.GET.get("order_id") or request.POST.get("order_id")
+        payment_id = request.GET.get("payment_id") or request.POST.get("payment_id")
+        amount = request.GET.get("amount") or request.POST.get("amount")
+        plan_id = request.GET.get("plan_id") or request.POST.get("plan_id")
 
-        # Check for successful payment status and update the user's subscription
-        # (You may want to validate the payment status with Cashfree)
+        if not (order_id and payment_id and amount and plan_id):
+            return JsonResponse({"error": "Missing required parameters"}, status=400)
 
-        # Update user's subscription
+        # Check for successful payment status (here, you would typically validate with Cashfree)
+
+        # Retrieve the subscription plan and update the user's subscription
         plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+        user = request.user
         user.set_subscription(plan)
 
         # Record the payment transaction
         PaymentTransaction.objects.create(
             user=user,
             subscription_plan=plan,
-            payment_gateway="cashfree",  # Indicates Cashfree as the payment gateway
+            payment_gateway="cashfree",
             order_id=order_id,
             payment_id=payment_id,
             amount=amount,
@@ -188,6 +214,115 @@ def cashfree_payment_success(request):
             status="captured"
         )
 
-        return JsonResponse({"status": "success"})
-    else:
-        return JsonResponse({"error": "Invalid request method"}, status=400)
+        # Redirect to the 'price.html' page, passing the order_id as a query parameter
+        return redirect(f"/price/?order_id={order_id}")
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
+
+@csrf_exempt
+def create_payu_order(request):
+    """
+    Create a PayU order.
+    """
+    if request.method == "POST":
+        try:
+            amount = request.POST.get('amount')
+            plan_id = request.POST.get('plan_id')
+            if not amount or not plan_id:
+                return JsonResponse({"error": "Amount and Plan ID are required"}, status=400)
+
+            txnid = f"txn_{uuid.uuid4().hex[:10]}"
+            productinfo = f"Subscription Plan {plan_id}"
+            firstname = "Customer"
+            email = "customer@example.com"
+            success_url = request.build_absolute_uri(reverse('payu_payment_success'))
+            failure_url = request.build_absolute_uri(reverse('payu_payment_failure'))
+
+            data = {
+                'key': settings.PAYU_MERCHANT_KEY,
+                'txnid': txnid,
+                'amount': amount,
+                'productinfo': productinfo,
+                'firstname': firstname,
+                'email': email,
+                'surl': success_url,
+                'furl': failure_url,
+                'service_provider': 'payu_paisa',
+                'udf1': plan_id,
+                'udf2': '',
+                'udf3': '',
+                'udf4': '',
+                'udf5': '',
+            }
+
+            # Generate hash
+            hash_string = (
+                f"{settings.PAYU_MERCHANT_KEY}|{txnid}|{amount}|{productinfo}|"
+                f"{firstname}|{email}|{plan_id}||||||||||{settings.PAYU_SALT}"
+            )
+            data['hash'] = hashlib.sha512(hash_string.encode('utf-8')).hexdigest()
+
+            return JsonResponse({
+                'payment_url': settings.PAYU_BASE_URL,
+                'form_data': data
+            })
+        except Exception as e:
+            logger.error(f"Error creating PayU order: {str(e)}", exc_info=True)
+            return JsonResponse({"error": "Internal server error"}, status=500)
+        
+@csrf_exempt
+def payu_payment_success(request):
+    """
+    Handle successful PayU payments.
+    """
+    if request.method == "POST":
+        try:
+            txnid = request.POST.get('txnid')
+            amount = request.POST.get('amount')
+            status = request.POST.get('status')
+            posted_hash = request.POST.get('hash')
+            plan_id = request.POST.get('udf1')
+
+            # Verify hash
+            hash_string = (
+                f"{settings.PAYU_SALT}|{status}||||||{request.POST.get('udf5', '')}|"
+                f"{request.POST.get('udf4', '')}|{request.POST.get('udf3', '')}|"
+                f"{request.POST.get('udf2', '')}|{plan_id}|{request.POST.get('email', '')}|"
+                f"{request.POST.get('firstname', '')}|{request.POST.get('productinfo', '')}|"
+                f"{amount}|{txnid}|{settings.PAYU_MERCHANT_KEY}"
+            )
+            calculated_hash = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
+
+            if posted_hash.lower() == calculated_hash and status == 'success':
+                user = request.user
+                plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+                user.set_subscription(plan)
+
+                PaymentTransaction.objects.create(
+                    user=user,
+                    subscription_plan=plan,
+                    payment_gateway="payu",
+                    order_id=txnid,
+                    payment_id=request.POST.get('mihpayid'),
+                    amount=amount,
+                    currency="INR",
+                    status=status
+                )
+
+                return redirect(f"/price/?status=success&order_id={txnid}")
+            else:
+                return redirect("/price/?status=error")
+        except Exception as e:
+            logger.error(f"Error handling PayU success: {str(e)}", exc_info=True)
+            return redirect("/price/?status=error")
+
+@csrf_exempt
+def payu_payment_failure(request):
+    """
+    Handle failed PayU payments.
+    """
+    if request.method == "POST":
+        txnid = request.POST.get('txnid')
+        return redirect(f"/price/?status=error&order_id={txnid}")
+    return redirect("/price/")
+

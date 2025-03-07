@@ -135,12 +135,14 @@
 
         input, select {
             padding: 8px;
-            border: 1px solid #a3c4e7;
+            {% comment %} border: 1px solid #a3c4e7; {% endcomment %}
             border-radius: 4px;
             font-size: 14px;
             background-color: #ffffff;
         }
-
+        select{
+            font-size:11px;
+        }
         .form-navigation {
             display: flex;
             justify-content: space-between;
@@ -190,7 +192,7 @@
 </head>
 <body>
     <div class="container">
-
+{% comment %} 
         <header class="navbar">
             <a href="#" class="logo">
                 <img src="{% static 'job_page/logo.png' %}" alt="ReaderClub">
@@ -201,7 +203,7 @@
                 <a href="#">Sales & Marketing</a>
                 <a href="#">Content & Creative</a>
             </nav>
-        </header>
+        </header> {% endcomment %}
         <div class="filter-controls">
             <div class="dropdown-container">
                 <img src="{% static 'job_page/location.png' %}" alt="Location Icon" class="dropdown-icon">
@@ -265,7 +267,7 @@
                             <span class="tag">{{ job.salary_per_annum }}/y</span>
                         </div>
                         <div class="divider"></div>
-                        <p>{{ job.created_at|timesince }} ago <a href="#" class="apply-btn">Apply Now →</a></p>
+                        <p class="timee">{{ job.created_at|timesince }} ago <a href="#" class="apply-btn">Apply Now →</a></p>
                     </div>
                 </div>
                 {% endfor %}
@@ -503,7 +505,7 @@
                     <p class="detail">${description}</p>
                     <p class="jd"><u>Skills Required</u></p>
                     <ul>
-                        ${skills.split(',').map(skill => `<li>${skill}</li>`).join('')}
+                        ${skills.split(',').map(skill => <li>${skill}</li>).join('')}
                     </ul>
                     <hr>        
                     <p class="comp-deatil">About the Company</p>

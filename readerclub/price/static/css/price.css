@@ -6,7 +6,7 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-left: 94px;
-    margin-top: 2px;
+    margin-top: 10px;
 }
 
 .pricing-container h1 {
@@ -281,7 +281,7 @@
 
 
 .sec3-pricing-section {
-    width: 65%;
+    width: 79.5%;
     /* max-width: 900px; */
     margin: 50px auto;
     background: #fff;
@@ -289,8 +289,8 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 2px;
-    margin-left: 197px;
+    margin-top: 10px;
+    margin-left: 98px;
 }
 
 .sec3-pricing-header {
@@ -334,7 +334,7 @@
     padding-left: 25px;
     padding-right: 25px;
 }
-/* card1 */
+
 .container {
     display: flex;
     justify-content: space-between;
@@ -342,9 +342,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 79%;
-    margin-right: 200px;
-    margin-top: 58px;
+    width: 80.5%;
+    margin-left:6%;
 }
 .arrow{
     width: 100px;
@@ -395,25 +394,35 @@
 
 
 /* Responsive Design */
-@media (max-width: 2560px){
-.container {
-    width: 70%;
-    margin-left: 160px;
-}}
+
 
 @media (max-width: 1440px){
-    .container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        max-width: 1000px;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        width: 79%;
-       margin-left:176px
-    }}
+    
+        .container {
+            display: flex;         ;
+            align-items: center;
+            justify-content: space-between;
+            /* max-width: 1000px; */
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 81%;
+            margin-left: 94px;
+        }
+        /* .sec3-pricing-section {
+             width: 100%; 
+             /* max-width: 1121px;  */
+            /* margin: 50px auto;
+            background: #fff;
+            padding: 90px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 10px;
+            margin-left: 98px; */
+        
+    }
 
 @media (max-width: 1024px) {
     .plans {
@@ -449,7 +458,7 @@
         margin-left: 71px;
     }
     .pricing-container {
-        width: 100%;
+        width: 99%;
         padding: 40px;
         margin-top: 10px;
         margin-left: 0px;

@@ -146,3 +146,16 @@
   </div>
 </div>
 </section>
+<script>
+  const sliderTrack = document.querySelector('.campus-achievers-container');
+  const slides = Array.from(sliderTrack.children);
+  
+  function cloneSlides() {
+      slides.forEach(slide => {
+          const clone = slide.cloneNode(true);
+          sliderTrack.appendChild(clone);
+      });
+  }
+  
+  cloneSlides();
+</script>

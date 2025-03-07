@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [".mydev.local", "127.0.0.1"] 
 AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 
@@ -250,10 +250,33 @@ RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
 # Email Configuration
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+# Settings for social auth
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+# Add to PUBLIC_PATHS in settings
 PUBLIC_PATHS = [
-    '/',  # Allow the home page
-    '/policies/',  # Any URL starting with '/policies/' is open.
-    '/maintenence/',  # Any URL starting with '/maintenence/' is open.
+    '/',
+    '/accounts/login',
+    '/accounts/signup',
+    '/accounts/google/login/',
+    '/accounts/github/login/',
+    '/accounts/social-auth/',
 ]
 
 LOGIN_URL = '/login/'
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_DOMAIN = "127.0.0.1" 
+SESSION_COOKIE_AGE = 1209600  # etc.
+SESSION_SAVE_EVERY_REQUEST = True

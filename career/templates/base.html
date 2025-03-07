@@ -8,13 +8,18 @@
 </head>
 
 <body>
-<header>
+  <header>
     <img src="{% static 'image/career-header.svg' %}" class="discover-logo" alt="">
     <div class="buttons">
-     <a href = {% url "job_page" %}> <button class="find-job">Find Job</button></a>
-      <button class="hire-talent">Hire Talent</button>
+        {% if request.session.user_id %}
+            <a href="{% url 'job_page' %}"><button class="find-job">Find Job</button></a>
+            <a href="{% url 'maintenance_view' %}"> <button class="hire-talent">Hire Talent</button></a>
+        {% else %}
+            <a href="http://127.0.0.1:8000/"><button class="hire-talent">Login</button></a>
+        {% endif %}
     </div>
 </header>
+
 
 <div class="main-content">
     {% block content %}

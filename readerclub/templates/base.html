@@ -74,6 +74,12 @@
             <a class="nav-link" href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a>
           </li>
           <li>
+            <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
+          </li>
+          <li>
+            <a class="nav-link" href="https://library.readerclub.in/">Library</a>
+          </li>
+          <li>
             <a class="nav-link" href="{% url 'price' %}">Pricing</a>
           </li>
           {% comment %} <li>
@@ -151,6 +157,12 @@
         </ul>
       </li>
       <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
+      <li>
+        <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
+      </li>
+      <li>
+        <a class="nav-link" href="https://library.readerclub.in/">Library</a>
+      </li>
       <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
       {% comment %} <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li> {% endcomment %}
       {% if request.session.user_id %}

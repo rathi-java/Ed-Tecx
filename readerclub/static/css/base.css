@@ -668,3 +668,6 @@
     font-size: 12px;
   }
 }
+.navbar-brand img:hover{
+  transform: scale(1.1);
+}

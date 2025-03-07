@@ -475,6 +475,9 @@ object-fit: contain;
   .campus-achievers-container:hover {
     animation-play-state: paused;
   }
+  .campus-achievers-container{
+    animation: scroll 10s linear infinite;
+  }
 
   /* Responsive Animations */
   @media (min-width: 481px) {
@@ -482,7 +485,16 @@ object-fit: contain;
     .campus-achievers-container {
       display: flex;
       flex-direction: row;
-      animation: slideRightToLeft 20s linear infinite;
+      animation: slideRightToLeft 10s linear infinite;
+      animation: scroll 10s linear infinite;
+    }
+  }
+  @keyframes scroll {
+    from{
+      transform: translateX(0);
+    }
+    to{
+      transform: translateX(-50%);
     }
   }
 
