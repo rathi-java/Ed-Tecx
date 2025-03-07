@@ -35,7 +35,7 @@
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M16 0C7.2 0 0 7.2 0 16C0 24.8 7.2 32 16 32C24.8 32 32 24.8 32 16C32 7.2 24.8 0 16 0ZM16 6.22222C17.9556 6.22222 19.5556 7.82222 19.5556 9.77778C19.5556 11.7333 17.9556 13.3333 16 13.3333C14.0444 13.3333 12.4444 11.7333 12.4444 9.77778C12.4444 7.82222 14.0444 6.22222 16 6.22222ZM7.11111 24.8889C7.11111 20 11.1111 16 16 16C20.8889 16 24.8889 20 24.8889 24.8889H7.11111Z" fill="white"/>
                     </svg>
-                <h3>Super Admin</h3>
+                <h3>Super Advfrffmin</h3>
             </div>
             <ul>
                 
@@ -113,14 +113,15 @@
                     <li onclick="setActive(this)" data-page-name="manage_college">Manage Colleges</li>
                     <li onclick="setActive(this)" data-page-name="add_college">Add Colleges</li>
                 </ul>
-                <!-- Question Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('question-menu', this)"><span class="fas fa-user-circle"></span> 
+                <!-- Exam Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('exam-menu', this)"><span class="fas fa-user-circle"></span> 
                     &nbsp;&nbsp;&nbsp;
-                    Question <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
+                    Exams <span class="dropdown-icon"><i class="fas fa-chevron-down icon_toggle"></i></span>
                 </li>
-                <ul class="dropdown-menu" id="question-menu">
-                  <li onclick="setActive(this)" data-page-name="manage_question">Manage Question</li>
-                  <li onclick="setActive(this)" data-page-name="add_question"> Add Questions</li>
+                <ul class="dropdown-menu" id="exam-menu">
+                  <li onclick="setActive(this)" data-page-name="manage_exam">Manage Exams</li>
+                  <li onclick="setActive(this)" data-page-name="create_exam"> Create Exams</li>
+                  
                    </ul>
                         <!-- Result Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('Result-menu', this)"><span class="fas fa-user-circle"></span> 
@@ -1010,128 +1011,167 @@
             </div>
         </div>
 
-        <!-- Manage Questions Section -->
-        <div class="content current_page_action {% if current_page == 'manage_question' %}show{% else %}hidden{% endif %}" data-page-name="manage_question">
-            <h3>&nbsp;Questions / Manage Questions</h3>
-            <div class="container">
+        <!-- Manage Exam Section -->
+        <div class="content current_page_action hidden" data-page-name="manage_exam">
+            <h3>&nbsp;Exams / Manage Exams</h3>
 
-
-                <!-- List of Questions -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Question Code</th>
-                            <th>Question</th>
-                            <th>Subject</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for question in questions %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ question.question_code }}</td>
-                            <td>{{ question.question_text|truncatechars:50 }}</td>
-                            <td>{{ question.question_subject.subject_name }}</td>
-                            <td>
-                                <button class="edit-btn" onclick="editQuestion({{ question.id }}, '{{ question.question_text|escapejs }}', '{{ question.question_subject.id }}')">Edit</button>
-                                <form class ="form-edit" method="POST" action="{% url 'delete_question' question.id %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this question?')">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <!-- Search Bar for Exam Profile -->
+                <div class="container">
+                    <div class="header">
+                        <input type="text" id="examSearch" placeholder="Search Exam by ..." onkeyup="filterExams()">
+                        <button class="add-button" data-page-name="create_exam" onclick="setActive(this)">Add +</button>
+                    </div>
+    
+                    <table id="examTable">
+                        <thead>
+                            <tr>
+                                <th>Exam Code</th>
+                                <th>Name</th>
+                                <th>Questions</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for exam in exams %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ job.job_id }}</td>
+                                <td><img src="{{ job.company_logo.url }}" alt="Company Logo" width="50"></td>
+                                <td class="job-profile">{{ job.profile }}</td>
+                                <td>{{ job.company_name }}</td>
+                                <td>{{ job.location_state }} - {{ job.location_city }}</td>
+                                <td>{{ job.min_experience }} - {{ job.max_experience }} Years</td>
+                                <td>{{ job.package_min }} - {{ job.package_max }} LPA</td>
+                                <td>{{ job.employment_types|join:", " }}</td>
+                                <td>{{ job.about_job }}</td>
+                                <td>{{ job.qualification }}</td>
+                                <td>
+                                    <button class="edit-btn" 
+                                    onclick='editJob(
+                                        "{{ job.id }}",
+                                        "{{ job.company_logo.url|default:''|escapejs }}",
+                                        "{{ job.profile|escapejs }}",
+                                        "{{ job.company_name|escapejs }}",
+                                        "{{ job.location_state|escapejs }}",
+                                        "{{ job.location_city|escapejs }}",
+                                        "{{ job.min_experience }}",
+                                        "{{ job.max_experience }}",
+                                        "{{ job.package_min }}",
+                                        "{{ job.package_max }}",
+                                        `{{ job.employment_types|safe|escapejs }}`,  <!-- This should be a valid JSON array -->
+                                        "{{ job.about_job|escapejs }}",
+                                        "{{ job.qualification|escapejs }}"
+                                    )'>
+                                    Edit
+                                    </button>
+                                
+                                    <form class ="form-edit" method="POST" action="{% url 'delete_job' job.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-btn" 
+                                            onclick="return confirm('Are you sure you want to delete {{ job.profile|escapejs }}?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td class ="form-data" colspan="12">No jobs found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+    
 
+        <!-- Create Exam Section -->
+        <div class="content current_page_action hidden" data-page-name="create_exam">
+            <h3>&nbsp;Exam / Create Exam</h3>
+            
+            <div class="exam-container">
+                <h1 class="exam-heading">Create New Exam</h1>
 
-        <!-- Add Question Section -->
-        <div class="content current_page_action hidden" data-page-name="add_question">
-            <h3>&nbsp;Questions / Add Question</h3>
-            <div class="container">
-                <div class="title">Manage Questions</div>
-                <!-- Add/Edit Question Form -->
-                <form method="POST" action="{% url 'manage_questions' %}">
+                <form method="POST" action="{% url 'create_exam' %}" id="examForm">
                     {% csrf_token %}
-                    <input type="hidden" name="question_id" id="question_id" value="{{ question.id|default:'' }}">
-
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="category">Category</label>
-                            <select id="category" name="category" required onchange="loadSubjects()">
-                                <option value="" disabled selected>Select Category</option>
-                                {% for category in categories %}
-                                <option value="{{ category.id }}" {% if question and question.question_subject.subject_category.id == category.id %}selected{% endif %}>
-                                    {{ category.category_name }}
-                                </option>
-                                {% endfor %}
-                            </select>
+                    
+                    <!-- Exam Details Card -->
+                    <div class="exam-card">
+                        <div class="exam-card__header">
+                            <h5>Exam Details</h5>
                         </div>
-                        <div class="input-group">
-                            <label for="subject">Subject</label>
-                            <select id="subject" name="question_subject" required>
-                                <option value="" disabled selected>Select Subject</option>
-                                {% for subject in subjects %}
-                                <option value="{{ subject.id }}" {% if question and question.question_subject.id == subject.id %}selected{% endif %}>
-                                    {{ subject.subject_name }}
-                                </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="question_text">Question</label>
-                            <textarea id="question_text" name="question_text" placeholder="Enter Question" required>{{ question.question_text|default:'' }}</textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="option_A">Option A</label>
-                            <input type="text" id="option_A" name="option_A" placeholder="Enter Option A" required value="{{ question.answers.option_A.text|default:'' }}">
-                        </div>
-                        <div class="input-group">
-                            <label for="option_B">Option B</label>
-                            <input type="text" id="option_B" name="option_B" placeholder="Enter Option B" required value="{{ question.answers.option_B.text|default:'' }}">
+                        <div class="exam-card__body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Exam Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="duration" class="form-label">Duration (minutes)</label>
+                                <input type="number" class="form-control" id="duration" name="duration" min="1" required>
+                            </div>
+                            <!-- Multi-select for Categories -->
+                            <div class="mb-3">
+                                <label for="categories" class="form-label">Category</label>
+                                <select class="form-select" id="categories" name="categories" multiple>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}" {% if category.id|stringformat:"s" in selected_category_ids %}selected{% endif %}>
+                                            {{ category.category_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <!-- Multi-select for Subjects -->
+                            <div class="mb-3">
+                                <label for="subjects" class="form-label">Subject</label>
+                                <select class="form-select" id="subjects" name="subjects" multiple>
+                                    {% for subject in subjects %}
+                                        <option value="{{ subject.id }}" {% if subject.id|stringformat:"s" in selected_subject_ids %}selected{% endif %}>
+                                            {{ subject.subject_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="option_C">Option C</label>
-                            <input type="text" id="option_C" name="option_C" placeholder="Enter Option C" required value="{{ question.answers.option_C.text|default:'' }}">
+                    
+                    <!-- Questions Selection Card -->
+                    <div class="exam-card">
+                        <div class="exam-card__header">
+                            <h5>Select Questions</h5>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-primary btn--select-all" id="btnSelectAll">Select All</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" id="btnDeselectAll">Deselect All</button>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label for="option_D">Option D</label>
-                            <input type="text" id="option_D" name="option_D" placeholder="Enter Option D" required value="{{ question.answers.option_D.text|default:'' }}">
+                        <div class="exam-card__body">
+                            <div id="questionsList" class="list-group">
+                                {% if questions|length > 0 %}
+                                    {% for question in questions %}
+                                        <div class="list-group__item">
+                                            <div class="form-check">
+                                                <input class="form-check-input question-checkbox" type="checkbox" name="questions" value="{{ question.id }}" id="question{{ question.id }}"
+                                                    {% if question.id|stringformat:"s" in selected_question_ids %}checked{% endif %}>
+                                                <label class="form-check-label" for="question{{ question.id }}">
+                                                    {{ question.question_text }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="text-center p-4">No questions found with current filters</div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="input-group">
-                            <label for="correct_answer">Correct Answer</label>
-                            <select id="correct_answer" name="correct_answer" required>
-                                <option value="" disabled selected>Select Correct Answer</option>
-                                <option value="A" {% if question and question.answers.option_A.is_correct %}selected{% endif %}>A</option>
-                                <option value="B" {% if question and question.answers.option_B.is_correct %}selected{% endif %}>B</option>
-                                <option value="C" {% if question and question.answers.option_C.is_correct %}selected{% endif %}>C</option>
-                                <option value="D" {% if question and question.answers.option_D.is_correct %}selected{% endif %}>D</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="buttons">
-                        <button type="submit" class="save-btn">Save</button>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'list_exams' %}" class="btn btn-secondary me-md-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Create Exam</button>
                     </div>
                 </form>
             </div>
         </div>
+
 
         <!-- Manage Jobs -->
         <div class="content current_page_action hidden" data-page-name="manage_jobs">

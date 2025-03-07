@@ -6,8 +6,8 @@
   /* border: none; */
 }
 section {
-  max-width: 1200px;
-  width: 90%;
+  /* max-width: 1200px; */
+  /* width: 90%; */
   margin: 40px auto;
   padding: 40px;
   background-color: #ffffff;
@@ -944,7 +944,7 @@ hr {
 
 /* Section Styling */
 section {
-  width: 100%;
+  /* width: 100%; */
   margin: 40px auto;
   /* Creates a gap between sections */
   padding: 40px;
@@ -1102,9 +1102,9 @@ section+section {
 /* improved */
 /* Section Styling */
 section {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   /* Prevents excessive width expansion */
-  width: 90%;
+  /* width: 90%; */
   margin: 40px auto;
   margin-bottom: 4px !important;
   padding: 40px;
@@ -1746,11 +1746,12 @@ footer p {
   font-size: 14px;
 }
 .faq-section {
-  max-width: 1200px;
+  /* max-width: 1200px; */
+  width:100%;
   margin: auto;
   padding: 20px;
   background: #ffffff;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1759,9 +1760,9 @@ footer p {
   font-size: 28px;
   font-weight: 600;
   background: linear-gradient(to right, #0073e6, #0F5683);
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: white;
   margin-bottom: 10px;
-  margin-top: 40px;
+  margin-top: 57px;
 }
 
 .faq-subheading {
@@ -2097,7 +2098,7 @@ footer p {
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .phone-mockup {
     width: 200px;
     height: 400px;
@@ -2168,9 +2169,151 @@ footer p {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    /* font-size: 10px; */
+    /* font-size: 10px; 
+  }
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Design */
+@media(max-width:1440px){
+  .download-icon {
+    width: auto;
+    height: 160px;
+    margin: 26px 0;
+}
+}
+@media (max-width: 1024px) {
+  .phone-mockup {
+      width: 200px;
+      height: 400px;
+      margin-right:60%;
+  }
+  .app-container {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .app-info {
+      text-align: left;
+      margin-top:-40%;
+      margin-left:40%;
+  }
+  .download-icon {
+    width: auto;
+    height: 155px;
+    margin: 2px 0;
+}
+
+  .download-buttons {
+      justify-content: center;
+  }
+  .phone-screen {
+    height: 88%;}
+}
+@media (max-width: 992px) {
+  .app-container {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .app-info {
+      text-align: left;
+      margin-right:10%;
+      margin-top: -60%;
+  }
+
+  .download-buttons {
+      justify-content: center;
   }
 }
+
+@media (max-width: 600px) {
+  .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center; 
+  }
+
+  .app-info {
+      order: 1; 
+      margin: 20px 10px; 
+      text-align: left; 
+  }
+
+  .phone-mockup {
+      order: 2; 
+      width: 200px;
+      height: 400px;
+      margin: 20px 0;
+  }
+
+  .phone-text {
+      font-size: 16px;
+      text-align: center;
+  }
+
+  .download-buttons {
+      order: 3; 
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px; 
+  }
+}
+
+@media(max-width:780px){
+
+              .app-section {
+                  width: 100%;}
+}
+
+@media(max-width:480px){
+
+
+              .app-section {
+                  width: 100%;}
+  }
+
+@media(max-width:330px){
+
+      .app-section {
+          width: 100%;}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* .examination-section,
 .internship-section,
@@ -2199,4 +2342,190 @@ footer p {
   padding-bottom: 0px;
   margin-top: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+
+/* --------------------------------- */
+
+
+.breadcrumb {
+  background-color: #eaeaea;
+  padding: 10px;
+  font-size: 14px;
+}
+.faq-section {
+  /* max-width: 1200px; */
+  width:100%;
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  /* border-radius: 10px; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  background: linear-gradient(to right, #0073e6, #0F5683);
+  -webkit-text-fill-color: white;
+  margin-bottom: 10px; 
+  margin-top: 56px;
+
+}
+
+.faq-subheading {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.faq-description {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #444;
+  margin-top: 20px;
+}
+
+.faq-image-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.faq-image {
+  max-width: 60%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.faq-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.faq-category {
+  width: 48%;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .faq-category {
+    width: 100%;
+  }
+}
+
+.faq-category:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.faq-category-title {
+  font-size: 22px;
+  color: #333;
+  border-bottom: 2px solid #0073e6;
+  padding-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.faq-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.faq-list li {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.faq-list a {
+  text-decoration: none;
+  color: #0073e6;
+  font-weight: 500;
+  cursor: pointer;
+  display: block;
+  padding: 12px 10px;
+  transition: background 0.3s ease;
+  position: relative;
+  font-size: 16px;
+}
+
+.faq-list a:hover {
+  background: #e6f2ff;
+  border-radius: 5px;
+}
+
+/* Dropdown Content Styling - Improved */
+.dropdown-content {
+  display: none;
+  padding: 15px;
+  margin: 0 10px 10px 10px;
+  border: 1px solid #e0e0e0;
+  background: #f9f9f9;
+  border-radius: 5px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  z-index: 5; /* Ensure content stays above other elements */
+}
+
+.dropdown-content p {
+  margin: 0;
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+  pointer-events: none; /* Prevents clicks on paragraph text from triggering events */
+}
+/* e6f2ff */
+/* Style for active FAQ item */
+.faq-list li.faq-active a {
+  /* background: #e6f2ff; */
+  border-radius: 5px 5px 0 0;
+  color: #0056b3;
+  font-weight: 600;
+}
+
+/* Add an indicator for dropdown state */
+.faq-list a::after {
+  content: '+';
+  position: absolute;
+  right: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.faq-list li.faq-active a::after {
+  content: '−';
+  transform: rotate(0deg);
+}
+
+.faq-list li.faq-active .dropdown-content {
+  display: block !important;
+  opacity: 1 !important;
+  max-height: 500px !important; /* Larger max-height to accommodate content */
+  overflow: visible !important;
+  background: #e6f2ff;
+}
+
+.faq-list li.faq-active {
+  z-index: 6; /* Higher z-index for active items */
+  position: relative; /* Establish stacking context */
 }

@@ -1,0 +1,209 @@
+.stats-container {
+    margin-top:5px;
+    background: white;
+    width: 100%;
+    height: 30%;
+    padding: 1%;
+    /* border-radius: 10px; */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+   border: 2px solid #077bc3;
+   margin-bottom: -90px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    position: relative;
+    z-index: 2; /* Keeps text and icons above wave */
+}
+.stat {
+    text-align: center;
+}
+.stat .icon-wrapper {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 20px;
+}
+.stat img {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.stat img.white {
+    opacity: 0;
+}
+.stat h3 {
+    font-size: 22px;
+    /* font-weight: bold; */
+    color: #077bc3;
+    transition: color 0.5s ease-in-out;
+    margin-bottom: 3PX;
+}
+.stat p {
+    color: #077bc3;
+    transition: color 0.5s ease-in-out;
+
+}
+.stat p {
+    font-size: 20px;
+    margin-bottom: 34px;
+}
+.wavee {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background: #077bc3;
+    /* clip-path: path("M 0 100 Q 250 160, 500 100 T 1155 100 V 300 H 0 Z"); */
+    transition: bottom 0.9s ease-in-out;
+    z-index: 1; /* Keeps wave behind text */
+}
+
+.stats-container:hover .wavee {
+    bottom: 0;
+}
+
+.stats-container:hover h2,
+.stats-container:hover .stat p,
+.stats-container:hover .stat h3 {
+    color: white;
+}
+
+.stats-container:hover .stat img.blue {
+    opacity: 0;
+}
+
+.stats-container:hover .stat img.white {
+    opacity: 1;
+}
+
+.stats-container h2 {
+    font-size: 28px;
+    color: #077bc3;
+    transition: color 0.5s ease-in-out;
+    position: relative;
+    padding-bottom: 2%; 
+    z-index: 2; /* Keeps heading above wave */
+    font-family:'Carattere' ;
+}
+@media  (max-width: 1440px) {
+    .stats-container{
+        width: 100%;
+        height: 50%;
+    }
+    .stat p {
+        font-size: 20px;
+        margin-bottom: 41px;
+    }
+
+}
+@media  (max-width: 1024px) {
+    .stats-container {
+        width: 100%;
+        padding: 15px;
+      
+    }
+    .stats-container h2{
+        font-size: 16px;
+    }
+    .stats {
+        flex-direction: row;
+        gap: 4px;
+        height: 66%;
+    }
+    .stat .icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+    .stat img {
+        width: 30px;
+        height: 30px;
+    }
+    .stat h3 {
+        font-size: 11px;
+    }
+    .stat p {
+        font-size: 12px;
+    }
+}
+@media  (max-width: 768px) {
+    
+    .exam-card p {
+        margin-top: -3px;
+        font-size: 15px;
+        /* font-weight: bold; */
+        color: #077bc3;
+        position: relative;
+        z-index: 2;
+    }
+    .stats-container h2 {
+        font-size: 29px;
+    }
+    .stats-container {
+        width: 100%;
+        padding: 15px;
+    }
+    .stats {
+        flex-direction: row;
+        gap: 15px;
+    }
+    .stat .icon-wrapper {
+        width: 40px;
+        height: 40px;
+    }
+    .stat img {
+        width: 40px;
+        height: 40px;
+    }
+    .stat h3 {
+        font-size: 35px;
+    }
+    .stat p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 450px) {
+    
+    .stats {
+        flex-direction: column;
+        gap: 0px;
+    }
+    .stats-container {
+        width: 100%;
+        height: 50%;
+    }
+    .stat h3 {
+        margin-top: -19px;
+        font-size: 20px;
+    }
+    .stats-container h2 {
+        font-size: 26px;
+    }
+    .stats {
+        flex-direction: column;
+        gap: 4px;
+        height: 66%;
+        margin-top: 6px;
+    }
+    .stat p {
+        font-family: 'Poppins';
+        font-size: 11px;
+        color: #077bc3;
+        transition: color 0.5sease-in-out;
+        margin-bottom: 22px;
+    }
+}
+
+
+

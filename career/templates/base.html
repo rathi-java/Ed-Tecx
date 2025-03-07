@@ -1,105 +1,87 @@
-{% load static %} 
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}Job Portal{% endblock %}</title>
-  <!-- Example: link to your main CSS -->
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  {% block extra_head %}{% endblock extra_head %}
+    <title>{% block title %}Career{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    {% block extra_css %}
+    {% endblock %}
 </head>
+
 <body>
-  <!-- HEADER -->
-  <header class="navbar">
-    <!-- Logo -->
-    <a href="#" class="logo">
-      <img src="{% static 'images/logo.png' %}" alt="ReaderClub"> 
-      <!-- Change src to match your actual file path -->
-    </a>
-
-    <!-- Nav Dropdowns -->
-    <nav class="nav-links">
-      <a href="#">IT &amp; Software</a>
-      <a href="#">Management &amp; Business</a>
-      <a href="#">Sales &amp; Marketing</a>
-      <a href="#">Content &amp; Creative</a>
-    </nav>
-
-    <!-- Buttons -->
+<header>
+    <img src="{% static 'image/career-header.svg' %}" class="discover-logo" alt="">
     <div class="buttons">
       <button class="find-job">Find Job</button>
       <button class="hire-talent">Hire Talent</button>
     </div>
-  </header>
+</header>
 
-  <!-- MAIN CONTENT BLOCK -->
-  {% block content %}
-  <!-- Child templates will override this -->
-  {% endblock content %}
+<div class="main-content">
+    {% block content %}
+    {% endblock %}
+</div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-left">
-        <img src="{% static 'images/footer.png' %}" alt="Icon" />
-      </div>
-      <div class="footer-links">
-        <p class="footer-para">Useful Links</p>
-        <ul>
-          <li><a href="about_us.html">About Us</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="placement_stories.html">Blogs</a></li>
-          <li><a href="career.html">Career</a></li>
-          <li><a href="privacy_policy.html">Privacy Policy</a></li>
-          <li><a href="terms_and_conditions.html">Terms &amp; Conditions</a></li>
-          <li><a href="child_policy.html">Child Policy</a></li>
-        </ul>
-      </div>
-      <div class="footer-practice">
-        <p class="footer-para">Job Categories</p>
-        <ul>
-          <li><a href="#">IT &amp; Software</a></li>
-          <li><a href="#">Management &amp; Business</a></li>
-          <li><a href="#">Sales &amp; Marketing</a></li>
-          <li><a href="#">Content &amp; Creative</a></li>
-        </ul>
-      </div>
-      <div class="footer-ccc">
-        <div class="footer-top">
-          <p class="footer-para">Job &amp; Opportunities</p>
-          <ul class="footer-iii">
-            <li><a href="#">Full Time Jobs</a></li>
-            <li><a href="#">Part Time Jobs</a></li>
-            <li><a href="#">Remote Jobs</a></li>
-            <li><a href="#">Work From Home Jobs</a></li>
-            <li><a href="#">Internships</a></li>
+<section id="page-5">
+    <footer class="footer">
+      <!-- First Row: main links -->
+      <div class="footer-container">
+        <div class="footer-left">
+          <img src="{% static 'image/footer.png' %}" alt="Icon">
+        </div>
+        <div class="footer-links">
+          <p class="footer-para">Useful Links</p>
+          <ul>
+            <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
+            <li><a href="{% url 'maintenance_view' %}" class="no-underline">Contact Us</a></li>
+            <li><a href="{% url 'maintenance_view' %}" class="no-underline">Blogs</a></li>
+            <li><a href="{% url 'maintenance_view' %}" class="no-underline">Career</a></li>
+            <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
+            <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms &amp; Conditions</a></li>
+            <li><a href="{% url 'maintenance_view' %}" class="no-underline">Child Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-practice">
+          <p class="footer-para">Job categories</p>
+          <ul>
+            <li><a href="{% url 'maintenance_view' %}">IT &amp; Software</a></li>
+            <li><a href="{% url 'maintenance_view' %}">Management &amp; Business</a></li>
+            <li><a href="{% url 'maintenance_view' %}">Sales &amp; Marketing</a></li>
+            <li><a href="{% url 'maintenance_view' %}">Content &amp; Creative</a></li>
+          </ul>
+        </div>
+        <div class="footer-ccc">
+          <div class="footer-top">
+            <p class="footer-para">Job &amp; Opportunities</p>
+            <ul class="footer-iii">
+              <li><a href="{% url 'maintenance_view' %}">Full time jobs</a></li>
+              <li><a href="{% url 'maintenance_view' %}">Part time jobs</a></li>
+              <li><a href="{% url 'maintenance_view' %}">Remote jobs</a></li>
+              <li><a href="{% url 'maintenance_view' %}">Work from home jobs</a></li>
+              <li><a>Internships</a></li>
+              <li class="footer-i"><a href="compile_code.html">JS Compiler</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-practice">
+          <p class="footer-para">Contact US</p>
+          <ul class="social-links">
+            <li><i class="fa fa-phone"></i> +91-9911775525</li>
+            <li><i class="fa fa-envelope"></i> contact@readerclub.in</li>
+            <li><i class="fa-solid fa-location-dot"></i> G1, Plot No. A-61, Sector-16, Noida, Gautam Buddh Nagar, UP 201301</li>
           </ul>
         </div>
       </div>
-      <div class="footer-practice">
-        <p class="footer-para">Contact Us</p>
-        <ul class="social-links">
-          <li><i class="fa fa-phone"></i> +91-9911775525</li>
-          <li><i class="fa fa-envelope"></i> contact@readerclub.in</li>
-          <li><i class="fa-solid fa-location-dot"></i> G1, Plot No. A-61, Sector-16,
-            Noida, Gautam Buddh Nagar, UP 201301
-          </li>
-        </ul>
+      <!-- Second Row: HR + base row -->
+      <div class="footer-container footer-column">
+        <hr class="footer-line">
+        <div class="footer-base">
+          <p>© 2018-25 Readerclub. All rights reserved</p>
+          <!-- Footer Logos commented out -->
+        </div>
       </div>
-    </div>
-    <div class="footer-container footer-column">
-      <hr class="footer-line">
-      <div class="footer-base">
-        <p>© 2018-25 Readerclub. All rights reserved</p>
-      </div>
-    </div>
-  </footer>
-  
-  <!-- Optional main script -->
-  <script src="{% static 'js/main.js' %}"></script>
-  {% block extra_scripts %}
-  <!-- Child templates can inject scripts here -->
-  {% endblock extra_scripts %}
+    </footer>
+  </section>
+{% block extra_js %}
+{% endblock %}
 </body>
 </html>

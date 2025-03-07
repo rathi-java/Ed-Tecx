@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Maintenence{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/maintenence.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="maintenence-container">
+    <img class="maintenence-image" src="{% static 'image/maintenence.svg' %}" alt="Maintenence">
+    <a href="javascript:history.back()" class="go-back-button-maintenence">Go Back</a>
+</div>
+
+{% block extra_js %}
+{% endblock %}
+
+{% endblock %}

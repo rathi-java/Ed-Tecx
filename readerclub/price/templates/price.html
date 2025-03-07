@@ -74,12 +74,20 @@
   {% if plan.plan_type.code != 'basic' %}
   <div class="modal-overlay" id="{{ plan.plan_type.code }}-modal">
     <div class="modal-content">
-        <h2>{{ plan.plan_type.display_name }} Plan <span class="price">&nbsp;&nbsp;&#8377; {{ plan.discounted_price }}/-</span></h2>
+        <h2>{{ plan.plan_type.display_name }} Plan <span class="price"> &#8377; {{ plan.discounted_price }}/-</span></h2>
         <p>🎉 You're One Step Closer to Your Dream Job!</p>
         <br>
-        <button class="pay-btn" onclick="startPayment('{{ plan.discounted_price }}')">
-            Pay via credit/debit card or net banking
-        </button>        
+        <button class="pay-btn" onclick="startPaymentRazorpay('{{ plan.discounted_price }}')">
+            Pay via Razorpay (Credit/Debit card, Net Banking)
+        </button>
+        <p>Or Choose</p>
+        <button class="pay-btn" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
+            Pay via Cashfree (Credit/Debit card, UPI)
+        </button>
+        {% comment %} <p>Or Choose</p>
+        <button class="pay-btn" onclick="startPaymentPayU('{{ plan.discounted_price }}')">
+            Pay via PayU (Credit/Debit card, UPI)
+        </button> {% endcomment %}
     </div>
   </div>
   {% endif %}
@@ -111,6 +119,7 @@
 
 {% block extra_js %}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script>
   // Global variable to store the current plan ID
   let currentPlanId = null;
@@ -133,64 +142,118 @@
       });
   });
 
-  function startPayment(amount) {
-      fetch("{% url 'create_order' %}", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-              "X-CSRFToken": "{{ csrf_token }}"
-          },
-          body: new URLSearchParams({ amount: amount })
-      })
-      .then(response => response.json())
-      .then(order => {
-          var options = {
-              "key": "{{ settings.RAZORPAY_KEY_ID }}",
-              "amount": order.amount,
-              "currency": "INR",
-              "name": "Reader Club",
-              "description": "Subscription Payment",
-              "order_id": order.id,
-              "image": "{% static 'images/yearly.png' %}",
-              "handler": function (response) {
-                  // Call payment_success endpoint with the captured plan ID
-                  fetch("{% url 'payment_success' %}", {
-                      method: "POST",
-                      headers: {
-                          "Content-Type": "application/x-www-form-urlencoded",
-                          "X-CSRFToken": "{{ csrf_token }}"
-                      },
-                      body: new URLSearchParams({
-                          "razorpay_payment_id": response.razorpay_payment_id,
-                          "razorpay_order_id": response.razorpay_order_id,
-                          "plan_id": currentPlanId,   // use the stored plan id
-                          "amount": order.amount / 100  // convert paise back to rupees
-                      })
-                  })
-                  .then(res => res.json())
-                  .then(data => {
-                      if (data.status === "success") {
-                          alert("Payment successful and subscription updated!");
-                      } else {
-                          alert("Payment processed, but there was an error updating the subscription.");
-                      }
-                  })
-                  .catch(error => console.error("Error:", error));
-              },
-              "prefill": {
-                  "name": "Reader Club",
-                  "email": "rc@gmail.com",
-                  "contact": "1234567890"
-              },
-              "theme": {
-                  "color": "#077BC3"
-              }
-          };
-          var rzp1 = new Razorpay(options);
-          rzp1.open();
-      })
-      .catch(error => console.error("Error:", error));
-  }
+    function startPaymentRazorpay(amount) {
+        fetch("{% url 'create_order' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({ amount: amount })
+        })
+        .then(response => response.json())
+        .then(order => {
+            var options = {
+                "key": "{{ settings.RAZORPAY_KEY_ID }}",
+                "amount": order.amount,
+                "currency": "INR",
+                "name": "Reader Club",
+                "description": "Subscription Payment",
+                "order_id": order.id,
+                "image": "{% static 'images/yearly.png' %}",
+                "handler": function (response) {
+                    // Handle success
+                    handlePaymentSuccess(response, order, 'razorpay');
+                },
+                "prefill": {
+                    "name": "Reader Club",
+                    "email": "rc@gmail.com",
+                    "contact": "1234567890"
+                },
+                "theme": {
+                    "color": "#077BC3"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        })
+        .catch(error => {
+            // If Razorpay fails or user exits, use Cashfree as fallback
+            startPaymentCashfree(amount);
+        });
+    }
+
+    function startPaymentCashfree(amount) {
+        fetch("{% url 'create_cashfree_order' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({ amount: amount })
+        })
+        .then(response => response.json())
+        .then(order => {
+            if (order.error) {
+                console.error("Error creating order:", order.error);
+                alert("There was an error with the payment gateway. Please try again or use another payment method.");
+                return;
+            }
+    
+            // Initialize Cashfree SDK with the session ID
+            const cashfree = Cashfree({
+                mode: "sandbox" // Use "production" in production
+            });
+    
+            let checkoutOptions = {
+                paymentSessionId: order.payment_session_id,
+                redirectTarget: "_self", // Or "_blank" if you want a new window
+            };
+    
+            cashfree.checkout(checkoutOptions).then((result) => {
+                if (result.error) {
+                    console.log("Payment error or user closed the popup:", result.error);
+                }
+                if (result.paymentDetails) {
+                    // Handle successful payment
+                    handlePaymentSuccess({
+                        payment_id: result.paymentDetails.orderId,
+                        order_id: order.order_id
+                    }, order, 'cashfree');
+                }
+            });
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("There was an error connecting to the payment gateway. Please try again later.");
+        });
+    }
+    function handlePaymentSuccess(response, order, gateway) {
+        fetch("{% url 'payment_success' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({
+                "payment_id": response.razorpay_payment_id,
+                "order_id": response.razorpay_order_id,
+                "plan_id": currentPlanId,
+                "amount": order.amount / 100,
+                "gateway": gateway  // 'razorpay' or 'cashfree'
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert("Payment successful and subscription updated!");
+            } else {
+                alert("Payment processed, but there was an error updating the subscription.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+
 
   window.startPayment = startPayment;
 </script>

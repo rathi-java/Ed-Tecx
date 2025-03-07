@@ -152,13 +152,13 @@
       </li>
       <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
       <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
-      <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li>
+      {% comment %} <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li> {% endcomment %}
       {% if request.session.user_id %}
-      <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+      {% comment %} <li><a href="#"><i class="fas fa-user"></i> Profile</a></li> {% endcomment %}
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
       {% else %}
-      <li><button onclick="openModal('signup')">Sign Up</button></li>
-      <li><button onclick="openModal('login')">Log In</button></li>
+      <li><button class="signup-button-ham" onclick="openModal('signup')">Sign Up</button></li>
+      <li><button class="login-button-ham" onclick="openModal('login')">Log In</button></li>
       {% endif %}
     </ul>
   </div>
@@ -248,7 +248,7 @@
               UP 201301
             </a>
           </li>
-              </ul>        
+        </ul>        
       </div>
     </div>
     <!-- Second Row: HR + base row -->
@@ -305,7 +305,7 @@
   </div>
 
   <!-- Load All Auth JS from oauth -->
-  <script>
+  {% comment %} <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Check if we should show the login form based on form_type
       {% if form_type == 'login' %}
@@ -502,7 +502,7 @@
               return true;
           };
       });      
-  </script>
+  </script> {% endcomment %}
 </body>    
   {% block extra_js %}
   {% endblock %}

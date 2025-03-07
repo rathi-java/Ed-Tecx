@@ -1,8 +1,24 @@
 /*****************************************************
  * GLOBAL
  *****************************************************/
+/* Keep your universal override (if you must) */
+* {
+  font-family: 'Poppins', sans-serif !important;
+  /* overflow-x: hidden !important; */
+}
+/* Override for non-brand Font Awesome icons (legacy and solid) */
+.fa,
+.fa-solid, .fas {
+  font-family: 'Font Awesome 6 Free' !important;
+  font-weight: 900 !important;
+  font-style: normal !important;
+}
+/* Override for brand icons */
+.fab {
+  font-family: 'Font Awesome 6 Brands' !important;
+  font-style: normal !important;
+}
  body {
-  font-family: sans-serif;
   min-height: 100vh;
   padding-top: 1rem;
   background-color: #fff;
@@ -29,7 +45,7 @@
   z-index: 1000;
 }
 .nav-container {
-  max-width: 1200px;
+  max-width: 100%;
   height: 70px;
   margin: 0 auto;
   padding: 0 20px;
@@ -45,7 +61,7 @@
 .navbar-brand img {
   height: 295px; /* Keep original height */
   display: inline-block;
-  margin-top: -100px; /* Adjust this value to show the portion of the image you want */
+  margin-top: -106px; /* Adjust this value to show the portion of the image you want */
   margin-left: -22px;
 }
 
@@ -72,6 +88,7 @@
   text-decoration: none;
   transition: color 0.3s ease, transform 0.2s;
   padding-bottom: 25px;
+  font-family: 'Open Sans', sans-serif;
 }
 .nav-link:hover {
   color: #077bc3;
@@ -142,6 +159,8 @@
   color: white;
   margin-left: 25%;
   z-index: 10;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
 }
 .login button:hover {
   background-color: #ec8a3f;
@@ -151,6 +170,8 @@
   background-color: rgba(18, 115, 185, 0.11);
   color: black;
   text-align: right;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
 }
 .signup button:hover {
   background-color: #ec8a3f;
@@ -270,17 +291,19 @@
   font-family: Arial, sans-serif;
   padding: 20px 0 0 0;
   overflow-x: hidden;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Main footer container styles */
 .footer-container {
-  max-width: 1200px;         /* same width as your header container */
+  max-width: 100%;         /* same width as your header container */
   margin: 0 auto;            /* center it horizontally */
   padding: 0 20px;           /* optional side padding to match header spacing */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px;
+  gap: 80px;
 }
 
 /* Footer image styling */
@@ -508,6 +531,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    margin-inline: 17%;
   }
   /* Each footer section takes about half the available width */
   .footer-container > div {
@@ -518,7 +542,7 @@
   /* Adjust image margins */
   .footer-container img {
     margin-top: 20px;
-    margin-left: 0;
+    margin-left: 17%;
   }
   /* Make the horizontal line flexible */
   .footer-line {
@@ -550,12 +574,36 @@
   width: 80%;
   max-width: 300px;
   height: 100%;
-  background: #077BC3;
-  color: white;
+  background: white;
+  color: #077BC3;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   z-index: 2000;
   padding: 20px;
+
+}
+.mobile-sidebar a {
+  text-decoration: none;
+  color: rgba(128, 128, 128, 0.808);
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  ;
+}
+.mobile-sidebar button{
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  background-color:#077BC3;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: large;
+}
+.mobile-sidebar button:hover{
+  background-color: #ec8a3f;
+}
+.mobile-sidebar button.login-button-ham {
+  padding: 12px 19.5px;
 }
 .mobile-sidebar ul {
   list-style: none;

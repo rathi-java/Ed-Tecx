@@ -1,0 +1,34 @@
+{% load static %}
+<section class="study_material">
+    <header>
+        <h1 class="header-heading">One Platform, Endless Resources!</h1>
+    </header>
+  
+    <div class="background">
+        <img src="{% static 'images/sceince-hd.png' %}" alt="Background Image">
+    </div>
+  
+    <!-- Card Content -->
+    <div class="card-containerr" id="card">
+        <h2 id="subject">Science & Technology</h2>
+        <p>Most popular courses around the world for learning..</p>
+        <div class="button-containerr">
+            <button class="show-all" onclick="window.location.href='//www.readerclub.in/'">Show All</button>
+            <button class="subscribe" onclick="window.location.href='//www.readerclub.in/'">Subscribe</button>
+        </div>
+    </div>
+  
+    <!-- Auto Subject Switcher -->
+    <script>
+        const subjects = ['Science & Technology', 'Mathematics', 'History', 'Art & Design', 'Physics', 'Biology'];
+        let index = 0;
+        setInterval(() => {
+            index = (index + 1) % subjects.length;
+            document.getElementById('subject').innerText = subjects[index];
+        }, 3000);
+    </script>
+  
+    <footer>
+        <p><i>Access magazines on every topic and ace your learning journey</i></p>
+    </footer>
+  </section>

@@ -8,7 +8,7 @@
           <div class="phone-screen">
               <h2 class="phone-text">Download the <br> App now</h2>
               <img src="{% static 'assets/footer.png' %}" alt="Download Icon" class="download-icon">
-              <button class="get-started">Download</button>
+              <a href="{% url 'maintenance_view' %}" class="get-started">Download</a>
           </div>
       </div>
 
@@ -23,13 +23,15 @@
           </p>
 
           <div class="download-buttons">
-            <a href="#" class="download-btn apple-btn">
-              <i class="fab fa-apple fa-2x"></i> Download Now
+            <a href="{% url 'maintenance_view' %}" class="download-btn apple-btn">
+              <i class="fab fa-apple fa-2x !important"></i> Download Now
             </a>
-            <a href="#" class="download-btn android-btn">
+            <a href="{% url 'maintenance_view' %}" class="download-btn android-btn">
               <i class="fab fa-google-play fa-2x"></i> Download Now
             </a>
         </div>        
       </div>
   </div>
 </section>
+
+

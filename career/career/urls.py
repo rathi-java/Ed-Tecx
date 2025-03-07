@@ -17,9 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from job_portal.views import *
+from .views import maintenance_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('job_portal/', include('job_portal.urls')),
     path('', home, name='home'),
+    path('maintenence/', maintenance_view, name='maintenance_view'),
+    path('policies/',include('policies.urls')),
+    # path('oauth/', include('oauth.urls')),
+    # path('oauth/', include('django.contrib.auth.urls')),
 ]

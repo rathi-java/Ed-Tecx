@@ -5,24 +5,17 @@
 
 {% block extra_css %}
 <!-- Importing Google Fonts -->
-<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/faqs.css' %}">
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
 
 <style>
-  /* Base body font for everything unless overridden */
-  body {
-    font-family: 'Open Sans', sans-serif;
-    color: #333; /* A slightly darker default text color for contrast */
-    margin: 0;
-    padding: 0;
-  }
-
   /* Container styling can remain the same or slightly tweaked */
   .about_us_container {
-    max-width: 1200px;
-    width: 90%;
+    max-width: 100%%;
+    {% comment %} width: 90%; {% endcomment %}
     margin: 58px auto 4px auto;
     background-color: #fff;
-    padding: 5pt 20pt 20pt 20pt; /* More consistent padding */
+    padding: 15pt;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
@@ -117,6 +110,7 @@
 
 {% include 'faq.html' %}
 {% include 'app.html' %}
+
 {% endblock content %}
 {% block extra_js %}
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
