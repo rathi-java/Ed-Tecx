@@ -335,62 +335,6 @@ function filterStudents() {
     }
 }
 
-if (page === 'manage_jobs') {
-    document.querySelector('[data-page-name="manage_jobs"]').classList.add('active');
-    document.querySelector('[data-page-name="manage_jobs"]').click();
-}
-
-function filterJobs() {
-    let searchInput = document.getElementById("jobSearch").value.toLowerCase();
-    let jobRows = document.querySelectorAll("#jobTable tbody tr");
-
-    jobRows.forEach(row => {
-        let profile = row.querySelector(".job-profile")?.textContent.toLowerCase() || "";
-        let company = row.querySelector(".company-name")?.textContent.toLowerCase() || "";
-        let aboutJob = row.querySelector(".about-job")?.textContent.toLowerCase() || "";
-
-        if (profile.includes(searchInput) || company.includes(searchInput) || aboutJob.includes(searchInput)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    });
-}
-
-function editJob(id, logoUrl, profile, companyName, state, city, minExp, maxExp, minPackage, maxPackage, employmentTypes, aboutJob, qualification) {
-    // ✅ Ensure employmentTypes is an array
-    if (!Array.isArray(employmentTypes)) {
-        try {
-            if (typeof employmentTypes === "string") {
-                try {
-                    employmentTypes = JSON.parse(employmentTypes);
-                } catch (e) {
-                    employmentTypes = employmentTypes.split(",").map(t => t.trim());
-                }
-            }
-        } catch (e) {
-            employmentTypes = [];
-        }
-    }
-
-    // ✅ Populate form fields
-    document.getElementById("job_id").value = id;
-    document.getElementById("profile").value = profile;
-    document.getElementById("company_name").value = companyName;
-    document.getElementById("state").value = state;
-    document.getElementById("city").value = city;
-    document.getElementById("experience_min").value = minExp;
-    document.getElementById("experience_max").value = maxExp;
-    document.getElementById("package_min").value = minPackage;
-    document.getElementById("package_max").value = maxPackage;
-    document.getElementById("employment_types").value = employmentTypes.join(", ");  // ✅ Display correctly
-    document.getElementById("about_job").value = aboutJob;
-    document.getElementById("qualification").value = qualification;
-
-    // ✅ Show the "Add Job" section
-    setActive(document.querySelector('[data-page-name="add_jobs"]'));
-}
-
 function loadProfileData() {
     fetch("{% url 'get_superadmin_profile' %}")
     .then(response => response.json())
