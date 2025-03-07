@@ -13,7 +13,7 @@
   background: #ffffff;
   /* border-radius: 10px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 31px;
+  margin-top:5px;
 }
 
 .faq-title {
@@ -23,7 +23,7 @@
   background: linear-gradient(to right, #007bc3, #0F5683);
   /* margin-bottom: 10px; */
   color: white;
-  margin-top: -20px;
+  margin-top: -18px;
 }
 
 .faq-subheading {

@@ -4,12 +4,14 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poltawski Nowy";
+
   }
 
   body {
     background-color: #f1f3f9;
     min-height: 100vh;
     padding: 20px;
+    overflow-x: hidden;
   }
 
   .campus-section {

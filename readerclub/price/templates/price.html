@@ -84,10 +84,10 @@
         <button class="pay-btn" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
             Pay via Cashfree (Credit/Debit card, UPI)
         </button>
-        {% comment %} <p>Or Choose</p>
+        <p>Or Choose</p>
         <button class="pay-btn" onclick="startPaymentPayU('{{ plan.discounted_price }}')">
-            Pay via PayU (Credit/Debit card, UPI)
-        </button> {% endcomment %}
+            Pay via PayU (Credit/Debit card, UPI, Net Banking)
+        </button>
     </div>
   </div>
   {% endif %}
@@ -108,14 +108,32 @@
             <p class="sec3-pricing-desc">Ideal for students who want full access without a long-term commitment. Pay as you go and enjoy exclusive content, premium tools, and priority support.</p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/ywaerly.jpg' %}" alt="Yearly Plan">
+            <img src="{% static 'images/calander.jpg' %}" alt="Yearly Plan">
             <h3 class="sec3-pricing-title">Yearly</h3>
             <p class="sec3-pricing-desc">For students who are dedicated to upskilling and securing better opportunities. Get a full year of premium benefits at the lowest cost per month!</p>
         </div>
     </div>
 </section>
+<!-- Display Order ID (if present) -->
+{% if request.GET.order_id %}
+  <div class="order-confirmation">
+      <p>Payment for Order ID: {{ request.GET.order_id }} has been successfully processed.</p>
+  </div>
+{% endif %}
+
+{% if request.GET.status %}
+    <div class="alert alert-{{ request.GET.status }}">
+        {% if request.GET.status == 'success' %}
+            Payment was successful! Your subscription has been updated.
+        {% elif request.GET.status == 'error' %}
+            There was an error processing your payment. Please try again.
+        {% endif %}
+    </div>
+{% endif %}
 
 {% endblock content %}
+
+
 
 {% block extra_js %}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -207,25 +225,33 @@
     
             let checkoutOptions = {
                 paymentSessionId: order.payment_session_id,
-                redirectTarget: "_self", // Or "_blank" if you want a new window
+                redirectTarget: "_modal", // Open in modal
+
             };
     
             cashfree.checkout(checkoutOptions).then((result) => {
-                if (result.error) {
-                    console.log("Payment error or user closed the popup:", result.error);
+                if(result.error){
+                    // This will be true whenever user clicks on close icon inside the modal or any error happens during the payment
+                    console.log("User has closed the popup or there is some payment error, Check for Payment Status");
+                    console.log(result.error);
                 }
-                if (result.paymentDetails) {
-                    // Handle successful payment
-                    handlePaymentSuccess({
-                        payment_id: result.paymentDetails.orderId,
-                        order_id: order.order_id
-                    }, order, 'cashfree');
+                if(result.redirect){
+                    // This will be true when the payment redirection page couldnt be opened in the same window
+                    // This is an exceptional case only when the page is opened inside an inAppBrowser
+                    // In this case the customer will be redirected to return url once payment is completed
+                    console.log("Payment will be redirected");
+                }
+                if(result.paymentDetails){
+                    // This will be called whenever the payment is completed irrespective of transaction status
+                    console.log("Payment has been completed, Check for Payment Status");
+                    console.log(result.paymentDetails.paymentMessage);
                 }
             });
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("There was an error connecting to the payment gateway. Please try again later.");
+            alert("There was an error connecting to the payment gateway. Please try PayU instead.");
+            startPaymentPayU(amount);
         });
     }
     function handlePaymentSuccess(response, order, gateway) {
@@ -240,21 +266,66 @@
                 "order_id": response.razorpay_order_id,
                 "plan_id": currentPlanId,
                 "amount": order.amount / 100,
-                "gateway": gateway  // 'razorpay' or 'cashfree'
+                "gateway": razorpay  
             })
         })
         .then(res => res.json())
         .then(data => {
             if (data.status === "success") {
-                alert("Payment successful and subscription updated!");
+                window.location.href = "{% url 'price' %}?status=success";  // Redirect to price.html with success
             } else {
-                alert("Payment processed, but there was an error updating the subscription.");
+                window.location.href = "{% url 'price' %}?status=error";  // Redirect to price.html with error
             }
         })
-        .catch(error => console.error("Error:", error));
+        .catch(error => {
+            console.error("Error:", error);
+            window.location.href = "{% url 'price' %}?status=error";  // Redirect to price.html with error on failure
+        });
     }
-
-
+    
+    function startPaymentPayU(amount) {
+        fetch("{% url 'create_payu_order' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({
+                amount: amount,
+                plan_id: currentPlanId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error("Error creating PayU order:", data.error);
+                alert("There was an error with the PayU payment gateway. Please try again or use another payment method.");
+                return;
+            }
+    
+            // Create a form and submit it to PayU's payment page
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = data.payment_url;
+    
+            // Add all necessary fields to the form
+            for (const key in data.form_data) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = data.form_data[key];
+                form.appendChild(input);
+            }
+    
+            // Append the form to the body and submit
+            document.body.appendChild(form);
+            form.submit();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("There was an error connecting to the PayU payment gateway. Please try again later.");
+        });
+    }
   window.startPayment = startPayment;
 </script>
 {% endblock extra_js %}

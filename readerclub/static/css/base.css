@@ -98,8 +98,8 @@
 /*****************************************************
  * Conditional nav-links margin (logged-in vs. logged-out)
  *****************************************************/
-.navbar.logged-in .nav-links {
-  padding-left: 350px;
+ .navbar.logged-in .nav-links {
+  padding-left: 10%;
 }
 
 /*****************************************************
@@ -293,6 +293,7 @@
   overflow-x: hidden;
   justify-content: center;
   align-items: center;
+  
 }
 
 /* Main footer container styles */
@@ -413,7 +414,6 @@
   margin: 0;                    /* remove default paragraph margin */
   white-space: nowrap;          /* keep it on one line */
   font-size: 12px;
-  margin-left: -800px;
 }
 
 /* Footer practice links hover effects */

@@ -1,11 +1,11 @@
 section.pamper-section {
+    margin-top: 5px;
+    background: white;
     overflow-x: hidden;
-    background-color: white;
 }
-
-.pamper-section h2 {
+.pamper-section h2{
     font-family: 'Carattere';
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     color: #FF7900;
     margin: 0;
 }
@@ -28,17 +28,19 @@ section.pamper-section {
     display: flex;
     justify-content: space-evenly;
     background-color: #FFFFFF;
-    animation: scroll-left 5s linear infinite; 
+    /* animation: scroll-left 5s linear infinite;  */
     width: 100%;
     position: relative;
     width: max-content;  /* ✅ FIXED */
-}
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 10s linear infinite;
 
+}
 .sub {
     border-radius: 5px;
     height: 42px;
     object-fit: cover;
-    margin-inline: -15%;
 }
 
 /* book container */
@@ -63,7 +65,7 @@ section.pamper-section {
     width: 360px; 
     height: 400px; 
     padding: 15px;
-    height: 424px;
+    height: 389px;
     flex: 0 0 300px;  /* ✅ FIXED */
 }
 
@@ -114,10 +116,13 @@ section.pamper-section {
 .pamper-both {
     display: flex
 ;
-    gap: 121px;
+    gap: 63px;
     align-items: center;
-    margin-block: 10%;
+    margin-block: 8%;
+    line-height: 17px;
 }
+
+
 
 
 
@@ -192,6 +197,49 @@ section.pamper-section {
     .pamper-stars {
         font-size: 14px;
         display: inline-block;
-        color: darkgreen;
+        color: #04aa6d;
         
+    }
+
+
+    span.reader-mag {
+        font-size: 14px;
+        color: black;
+        font-style: normal;
+    }
+    .pamper-section {
+        overflow-x: hidden;
+    }
+    
+    .pamper-book-container {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;  
+        width: max-content; /* ✅ Ensures container stretches */
+        padding: 10px 0;
+        scroll-behavior: smooth;
+    }
+    
+    .pamper-book-container::-webkit-scrollbar {
+        display: none; /* Hide scrollbar */
+    }
+    
+    .pamper-book-card {
+        flex: 0 0 255px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        text-align: center;
+        height: 409px;
+    }
+    @keyframes scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
     }
