@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: localhost    Database: readerclub
+-- Host: localhost    Database: ed_tecx
 -- ------------------------------------------------------
 -- Server version	8.0.40
 
@@ -702,6 +702,138 @@ INSERT INTO `examportol_subject` VALUES (1,'C0002-S0001','Aptitute',2),(2,'C0002
 UNLOCK TABLES;
 
 --
+-- Table structure for table `jobportal_category`
+--
+
+DROP TABLE IF EXISTS `jobportal_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jobportal_category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `category_code` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `category_code` (`category_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobportal_category`
+--
+
+LOCK TABLES `jobportal_category` WRITE;
+/*!40000 ALTER TABLE `jobportal_category` DISABLE KEYS */;
+INSERT INTO `jobportal_category` VALUES (5,'Software Development','C0001'),(6,'other name','C0002');
+/*!40000 ALTER TABLE `jobportal_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jobportal_company`
+--
+
+DROP TABLE IF EXISTS `jobportal_company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jobportal_company` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `about` text,
+  `working_employees` int NOT NULL,
+  `established_year` int NOT NULL,
+  `company_code` varchar(6) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `company_code` (`company_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobportal_company`
+--
+
+LOCK TABLES `jobportal_company` WRITE;
+/*!40000 ALTER TABLE `jobportal_company` DISABLE KEYS */;
+INSERT INTO `jobportal_company` VALUES (4,'Tech Corp','123 Tech Street','contact@techcorpunique.com','1234567890','company_logos/Screenshot_2025-03-06_001833_iIsjQQa.png','Leading tech company.',50,2001,'CO0001','2025-03-07 06:02:38','2025-03-07 07:33:32'),(5,'CINCOONI','SAJANDSJA','AA@GMAIL.COM','12211212','','121',1,1,'CO0002','2025-03-07 07:11:33','2025-03-07 07:32:43');
+/*!40000 ALTER TABLE `jobportal_company` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jobportal_domain`
+--
+
+DROP TABLE IF EXISTS `jobportal_domain`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jobportal_domain` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `domain_code` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `domain_code` (`domain_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobportal_domain`
+--
+
+LOCK TABLES `jobportal_domain` WRITE;
+/*!40000 ALTER TABLE `jobportal_domain` DISABLE KEYS */;
+INSERT INTO `jobportal_domain` VALUES (1,'Information Technology','D0001'),(2,'Information Technology','D0002'),(3,'Information Technology','D0003'),(4,'Information Technology','D0004'),(5,'Information Technology','D0005'),(6,'wswqw','D0006'),(7,'wswqw','D0007');
+/*!40000 ALTER TABLE `jobportal_domain` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jobportal_job`
+--
+
+DROP TABLE IF EXISTS `jobportal_job`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jobportal_job` (
+  `job_id` int NOT NULL AUTO_INCREMENT,
+  `category_id` int NOT NULL,
+  `company_id` int NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `responsibilities` text NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `eligibility` text NOT NULL,
+  `job_type` varchar(50) NOT NULL,
+  `salary_per_annum` decimal(10,2) NOT NULL,
+  `required_experience` varchar(255) NOT NULL,
+  `job_description` text NOT NULL,
+  `required_skills` text NOT NULL,
+  `vacancy` int NOT NULL,
+  `job_code` varchar(5) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`job_id`),
+  UNIQUE KEY `job_code` (`job_code`),
+  KEY `category_id` (`category_id`),
+  KEY `company_id` (`company_id`),
+  CONSTRAINT `jobportal_job_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `jobportal_category` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `jobportal_job_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `jobportal_company` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jobportal_job`
+--
+
+LOCK TABLES `jobportal_job` WRITE;
+/*!40000 ALTER TABLE `jobportal_job` DISABLE KEYS */;
+INSERT INTO `jobportal_job` VALUES (2,5,4,'fullstack','saasas','saass','saasas','Full-time',12.00,'12','21211','122112',21,'J0001','2025-03-07 07:10:05','2025-03-07 07:10:05'),(3,5,4,'sAasSAS','saASAS','SA','SAASAS','Full-time',12.00,'12','1212121221','2121212',12,'J0002','2025-03-07 07:10:43','2025-03-07 07:10:43');
+/*!40000 ALTER TABLE `jobportal_job` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `jobportol_job`
 --
 
@@ -1149,4 +1281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-04 18:07:55
+-- Dump completed on 2025-03-07 14:41:42
