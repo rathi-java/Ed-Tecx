@@ -120,3 +120,21 @@ class JobApplication(models.Model):
 
     class Meta:
         db_table = 'jobportal_jobapplication'
+
+class JobSeeker(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    phone = models.CharField(max_length=20)
+    resume = models.FileField(upload_to='resumes/')
+    skills = models.TextField()
+    experience = models.TextField(blank=True, null=True)
+    education = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+    class Meta:
+        db_table = 'jobportal_jobseeker'
