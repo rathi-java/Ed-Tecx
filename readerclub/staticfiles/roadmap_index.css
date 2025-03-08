@@ -1,0 +1,148 @@
+/* General Styling */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  font-style: italic;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  line-height: 1.5;
+  background: linear-gradient(90deg, rgba(49, 132, 205, 1) 0%, rgba(0, 77, 144, 1) 100%);
+}
+
+/* Container */
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 40px 0;
+}
+  
+/* Headings */
+.main-heading {
+    color: #1c3d6e;
+    font-size: 28px;
+}
+  
+.sub-heading {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+  
+/* Card Container */
+.card-container {
+    display: flex;
+    gap: 45px; 
+    margin-bottom: 30px;
+    justify-content: center;
+}
+  
+/* Card */
+.info-card {
+    width: 300px; 
+    max-width: 100%;
+    margin-top: 5%;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    border: 1px solid #ddd; /* Light border to enhance separation */
+}
+  
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-container a {
+    text-decoration: none;
+}
+  
+/* Image Section */
+.card-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+    border-bottom: 2px solid #ddd;
+}
+  
+.card-image img {
+    width: 65px;
+}
+  
+/* Gradient Backgrounds Adjusted for Better Theme Consistency */
+.it-bg {
+    background: linear-gradient(to top, #007bff, #3399ff); /* Blue gradient */
+}
+  
+.management-bg {
+    background: linear-gradient(to top, #ffb84d, #ff9933); /* Orange gradient */
+}
+  
+/* Content Section */
+.card-content {
+    background: white;
+    padding: 20px;
+}
+  
+.card-title {
+    font-size: 20px;
+    color: #0a3d62;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+    margin-bottom: 10px;
+} 
+  
+.card-description {
+    font-size: 16px;
+    color: #555;
+    text-align:center;
+}
+  
+/* CTA Button */
+.cta-btn {
+    display: inline-block;
+    text-align: center;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    margin: 5% auto;
+    width: fit-content;
+}
+  
+.cta-btn:hover {
+    background-color: #0056b3;
+}
+  
+.card-link {
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+  
+.card-link:hover {
+    transform: scale(1.05);
+}
+  
+/* Responsive Design */
+@media (max-width: 992px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+  
+@media (max-width: 600px) {
+    .cta-btn {
+        width: 80%;
+    }
+}

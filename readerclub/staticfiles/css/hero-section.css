@@ -1,0 +1,553 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poltawski Nowy";
+
+  }
+
+  body {
+    background-color: #f1f3f9;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  .campus-section {
+    background: linear-gradient(240.76deg, rgba(90, 166, 237, 0.67) -97.82%, rgba(255, 255, 255, 0.67) 45.11%);
+    /* border-radius: 16px; */
+    padding: 40px 5%;
+    margin: 0 auto;
+    /* max-width: 1400px; */
+    margin-top: 53px;
+  }
+
+  .campus-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    position: relative;
+    width:100%;
+  }
+
+  .campus-content {
+    flex: 1 1 60%;
+    min-width: 300px;
+    font-family: "Poppins";
+  }
+
+  .campus-section h1 {
+font-size: clamp(32px, 4vw, 56px);
+color: #333;
+line-height: 1.2;
+font-weight: 500;
+font-size: 42px;
+}
+
+.campus-highlight {
+color: #0f70ac;
+font-weight: 500;
+display: block;
+font-size: 56px;
+}
+
+.campus-section p {
+    color: #4d4b4b;
+    font-family: "Poppins";
+    font-weight: 600;
+    font-size: clamp(14px, 2vw, 18px);
+    margin: 20px 0;
+    line-height: 1.5;
+  }
+
+  .campus-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 40px 0;
+  }
+
+  .campus-feature-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 209px;
+  }
+
+  .campus-feature-box img {
+    height: 55px;
+    width: auto;
+  }
+
+  .campus-image-container {
+    flex: 1 1 35%;
+    position: relative;
+    min-width: 300px;
+  }
+
+  .campus-image-container img {
+    width: 128%;
+    height: 127%;
+    max-height: unset;
+    object-fit: contain;
+    right: 10%;
+    margin-left: -8%;
+  }
+
+  .campus-floating-boxes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .campus-floating-box {
+    position: absolute;
+    animation: bounce 1.5s infinite ease-in-out;
+  }
+  /* floating animation */
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .box1 {
+    top: 0%;
+    right: 59%;
+    /* display: none; */
+    width: 173px;
+  }
+
+  .box2 {
+    top: 27%;
+    right: -6%;
+    width: 111px;
+  }
+  .box3 {
+    top: 1%;
+    right: -6%;
+    width: 153px;
+  }
+  .campus-expll {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .campus-expll img {
+    max-width: 200px;
+    height: auto;
+  }
+  @media (max-width: 1204px) {
+  .campus-section  p {
+color: #4d4b4b;
+font-family: "Poppins";
+font-weight: 600;
+font-size: clamp(14px, 2vw, 14px);
+margin: 20px 0;
+line-height: 1.5;
+}
+    .box2 {
+      top: 16%;
+      right: 31%;
+      width: 97px;
+    }
+    .campus-feature-box img {
+      height: 35px;
+      width: auto;
+    }
+
+    .campus-features {
+      display: flex;
+      /* flex-wrap: wrap; */
+      gap: 0px;
+      margin: 33px 0;
+      width: 639px;
+    }
+    .box1 {
+      top: 0%;
+      right: 61%;
+      /* display: none; */
+      width: 129px;
+    }
+    .box3 {
+    top: 0%;
+    right: 0%;
+    width: 122px;
+}
+    .campus-image-container img {
+      width: 145%;
+      height: 146%;
+      max-height: unset;
+      object-fit: contain;
+      right: 10%;
+      margin-left: -15%;
+    }
+  }
+  @media (max-width: 768px) {
+    .campus-section {
+      padding: 30px 5%;
+      height: auto;
+      margin-bottom: -6%;
+    }
+
+    .campus-container {
+      flex-direction: column;
+    }
+
+    .campus-content {
+      margin-left: 0;
+      text-align: center;
+    }
+
+    .campus-features {
+      justify-content: center;
+    }
+
+    .campus-image-container {
+      margin: 0 auto;
+    }
+
+    .campus-floating-box {
+      display: none;
+    }
+
+    .campus-highlight {
+      font-size: clamp(36px, 8vw, 56px);
+    }
+    .campus-image-container img {
+    width: 112%;
+    height: 146%;
+    max-height: unset;
+    object-fit: contain;
+    right: 10%;
+    /* margin-left: -15%; */
+}
+  }
+
+  @media (max-width: 480px) {
+    .campus-achievers-section {
+      position: static;
+  }
+    .campus-section h1 {
+    font-size: 35px;
+    line-height: 1.3;
+    text-align: center;
+}
+
+.campus-highlight {
+    font-size: 33px;
+    line-height: 1.2;
+}
+    .campus-content {
+    text-align: left;
+    width: 100%;
+}
+.campus-features {
+    /* justify-content: center; */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+.campus-floating-box{
+  display: nonecampus-;
+}
+.campus-section p{
+  text-align: center;
+
+}
+.campus-expll img {
+max-width: 174px;
+height: auto;
+width: -15%;
+margin-left: 18%;
+}
+
+.campus-feature-box{
+max-width: 260px;
+}
+  }
+
+  /* New media query for 320px */
+  @media (max-width: 320px) {
+    .campus-section {
+padding: 20px 5%;
+border-radius: 12px;
+max-width: 100%;
+overflow: hidden;
+margin-top: 21%;
+}
+
+.campus-section h1 {
+font-size: 21px;
+line-height: 1.3;
+text-align: center;
+width: 100%; /* Full width */
+margin: 0 auto;
+word-wrap: break-word; /* Text wrap hoga */
+}
+
+.campus-highlight {
+font-size: 24px;
+line-height: 1.3;
+margin-top: 5px;
+}
+
+.campus-content {
+width: 100%;
+text-align: center;
+margin: 20px auto;
+padding: 0 5%;
+margin-inline: -10%;
+}
+
+.campus-section p {
+font-size: 14px;
+margin: 15px 0;
+width: 100%;
+padding: 0 5%;
+word-wrap: break-word; /* Long words wrap honge */
+}
+
+.campus-features {
+gap: 15px;
+margin: 20px 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+}
+
+.campus-feature-box {
+flex-direction: column;
+text-align: center;
+gap: 10px;
+max-width: 90%;
+}
+
+.campus-feature-box img {
+height: 40px;
+}
+
+.campus-expll img {
+max-width: 160px;
+}
+
+/* Extra fix for overflowing images */
+.campus-image-container {
+width: 100%;
+overflow: hidden;
+display: flex;
+justify-content: center;
+}
+
+.campus-image-container img {
+width: 100%;
+max-width: 280px;
+height: auto;
+object-fit: contain;
+}
+}
+
+
+  /* achivers section */
+  .campus-achievers-section {
+    /* max-width: 1400px; */
+    width: 100%;
+
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 71px;
+    z-index: 1000;
+    background-color: white;
+    /* border: 1px solid gray; */
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .campus-title {
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    gap: -8%;
+    align-items: center;
+    color: rgb(97, 98, 105);
+}
+  .campus-title > img {
+    width: 30%;
+    margin-right: 1%;
+    margin-inline: 5%;
+}
+  /* Achievers Wrapper */
+  .campus-achievers-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 20px;
+  }
+
+  /* Achievers Container */
+  .campus-achievers-container {
+    display: flex;
+    gap: 15px;
+    width: max-content;
+    white-space: nowrap;
+    animation: slideRightToLeft 20s linear infinite;
+  }
+
+  /* Achiever Card */
+  .campus-achiever-card {
+    width: 280px;
+    /* height: 71.24px; */
+    background: white;
+    padding: 4px 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border: 1px solid #ddd;
+    white-space: normal;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    /* background-color: aqua; */
+  }
+
+  /* Image Placeholder */
+  .campus-image-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .campus-badge-placeholder {
+    width: 50px;
+    height: 50px;
+  }
+  .campus-badge-placeholder > img {
+    width: 100%;
+  }
+  .campus-image-placeholder > img {
+    width: 100%;
+  }
+
+  /* Achiever Info */
+  .campus-achiever-info {
+    text-align: left;
+  }
+
+  .campus-achiever-info h3 {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .campus-achiever-info p {
+    margin: 2px 0;
+    font-size: 12px;
+    color: #666;
+  }
+
+  /* Infinite Scrolling Animation */
+  @keyframes slideRightToLeft {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes slideBottomToTop {
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
+
+  /* Stop Animation on Hover */
+  .campus-achievers-container:hover {
+    animation-play-state: paused;
+  }
+  .campus-achievers-container{
+    animation: scroll 10s linear infinite;
+  }
+
+  /* Responsive Animations */
+  @media (min-width: 481px) {
+    
+    .campus-achievers-container {
+      display: flex;
+      flex-direction: row;
+      animation: slideRightToLeft 10s linear infinite;
+      animation: scroll 10s linear infinite;
+    }
+  }
+  @keyframes scroll {
+    from{
+      transform: translateX(0);
+    }
+    to{
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .campus-achievers-section {
+      flex-direction: column;
+      position: static;
+    }
+    .campus-achievers-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      animation: slideBottomToTop 20s linear infinite;
+      width: 100%;
+    }
+    .campus-achiever-card {
+      width: 100%; /* Full width on small screens */
+    }
+  }
+  /* ----------description------------------------------------------ */
+  .landing-achiever-card {
+    position: relative; /* Ensure the card can hold the dropdown elements */
+  }
+  
+  .landing-achiever-info {
+    position: relative;
+    padding-bottom: 20px; /* Add some space at the bottom to fit the dropdown */
+  }
+  
+  .landing-achiever-info .company-name {
+    display: none; /* Initially hide the company names */
+    position: absolute; /* Absolutely position them inside the card */
+    bottom: -30px; /* Position the description box below the last line of text */
+    left: 0;
+    width: 100%; /* Ensure it covers the full width of the container */
+    background-color: #fff; /* White background to make the description box look like a dropdown */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a "dropdown" effect */
+    font-weight: bold;
+    color: #333;
+    font-size: 14px; /* Adjust the font size as needed */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for opacity and positioning */
+    opacity: 0; /* Make it invisible by default */
+    transform: translateY(10px); /* Start with a slight downward shift */
+  }
+  
+  .landing-achiever-card:hover .landing-achiever-info .company-name {
+    display: block; /* Show the company names when the card is hovered */
+    opacity: 1; /* Make the description box visible */
+    transform: translateY(0); /* Move the box into its final position */
+  }
+  /* ============================================================ */
+  /* General Styling */

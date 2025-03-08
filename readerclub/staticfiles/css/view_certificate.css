@@ -1,0 +1,89 @@
+body {
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.certificate-container {
+width: 900px;
+height: 600px;
+background: white !important; /* Force white background */
+margin: 30px auto;
+padding: 50px;
+border: 20px solid rgb(152, 11, 240);
+box-shadow: none !important; /* Remove unwanted shadows */
+position: relative;
+}
+
+.certificate-header {
+    font-size: 40px;
+    font-weight: bold;
+    color: #4a3828;
+    margin-bottom: 20px;
+}
+
+.certificate-content {
+    font-size: 22px;
+    color: #444;
+    margin: 10px 0;
+}
+
+.recipient-name {
+    font-size: 30px;
+    font-weight: bold;
+    color: #4a3828;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.certificate-footer {
+    font-size: 16px;
+    color: #555;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.signature {
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
+    text-align: center;
+}
+
+.signature img {
+    width: 200px;
+    display: block;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logo img {
+    width: 150px;
+}
+
+.seal {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+}
+
+.seal img {
+    width: 120px;
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    color: rgba(0, 0, 0, 0.05);
+    font-weight: bold;
+}

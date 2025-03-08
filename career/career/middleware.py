@@ -13,6 +13,7 @@ class CheckReaderclubSessionMiddleware:
         current_url = resolve(request.path_info).url_name
         
         if not request.session.get('user_id') and current_url not in public_urls:
-            return redirect('http://127.0.0.1:8001' + request.path)
+            # Update the redirect URL to use the existing domain
+            return redirect('https://career.readerclub.in' + request.path)
             
         return self.get_response(request)

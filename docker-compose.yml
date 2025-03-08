@@ -15,7 +15,7 @@ services:
   readerclub:
     build:
       context: ./readerclub
-    command: gunicorn --chdir /app --bind 0.0.0.0:8000 readerclub.wsgi:application
+    command: sh -c "python manage.py collectstatic --noinput && gunicorn --chdir /app --bind 0.0.0.0:8000 readerclub.wsgi:application"
     volumes:
       - ./readerclub:/app
       - ./readerclub/staticfiles:/app/staticfiles
@@ -34,7 +34,7 @@ services:
   career:
     build:
       context: ./career
-    command: gunicorn --chdir /app --bind 0.0.0.0:8001 career.wsgi:application
+    command: sh -c "python manage.py collectstatic --noinput && gunicorn --chdir /app --bind 0.0.0.0:8001 career.wsgi:application"
     volumes:
       - ./career:/app
     ports:
