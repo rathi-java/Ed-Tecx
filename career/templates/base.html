@@ -1,10 +1,17 @@
 {% load static %}
 <html>
 <head>
-    <title>{% block title %}Career{% endblock %}</title>
+  <title>{% block title %}Welcome | ReaderClub, We always learn..{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/index.css">
     {% block extra_css %}
     {% endblock %}
+    <link class = "favicon" rel="icon" type="image/x-icon" href="{% static 'image/favicon.png' %}">
+
+    <meta property="og:title" content="Welcome | ReaderClub, We always learn.." />
+    <meta property="og:description" content="Discover the best in campus-to-corporate opportunities!" />
+    <meta property="og:image" content="{% static 'assets/footer.png' %}" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:type" content="website" />  
 </head>
 
 <body>
@@ -15,7 +22,7 @@
             <a href="{% url 'job_page' %}"><button class="find-job">Find Job</button></a>
             <a href="{% url 'maintenance_view' %}"> <button class="hire-talent">Hire Talent</button></a>
         {% else %}
-            <a href="http://127.0.0.1:8000/"><button class="hire-talent">Login</button></a>
+            <a href="https://www.readerclub.in/"><button class="hire-talent">Login</button></a>
         {% endif %}
     </div>
 </header>

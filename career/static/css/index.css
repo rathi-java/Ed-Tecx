@@ -4,6 +4,11 @@
   margin: 0;
   padding: 0;
 }
+img.favicon {
+  width: 32px;  /* Adjust as needed */
+  height: 32px;
+  border-radius: 50%;
+}
 
 body {
   font-family: "Poppins", sans-serif;
