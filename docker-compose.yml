@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -7,12 +5,13 @@ services:
       - mysql_data:/var/lib/mysql
     restart: always
     environment:
+    
       MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     env_file:
       - .env
+    ports:
+      - "3307:3306"
 
   readerclub:
     build:
