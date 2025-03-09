@@ -2,13 +2,44 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import CategoryForm, CompanyForm, JobForm  # Import forms
 from .models import Category, Company, Domain, Job, JobApplication
+from django.db.models import Q
+
+from django.shortcuts import render
+from .models import Job
 
 def job_page(request):
-    if request.method == 'POST':
-        # Handle form submission or filtering logic here
-        pass
-
     jobs = Job.objects.all()
+
+    location = request.GET.get('location')
+    package = request.GET.get('package')
+    opening_date = request.GET.get('opening_date')
+    experience = request.GET.get('experience')
+
+    if location:
+        jobs = jobs.filter(company__address__icontains=location)
+
+    if package:
+        try:
+            min_package, max_package = map(float, package.split('-'))
+            jobs = jobs.filter(salary_per_annum__gte=min_package, salary_per_annum__lte=max_package)
+        except ValueError:
+            pass  # Ignore invalid values
+
+    if opening_date:
+        try:
+            jobs = jobs.filter(created_at__month=int(opening_date))
+        except ValueError:
+            pass  # Ignore invalid values
+
+    if experience:
+        if experience.lower() in ['fresher', 'mid', 'senior']:  # Adjust as needed
+            jobs = jobs.filter(required_experience__icontains=experience)
+        else:
+            try:
+                jobs = jobs.filter(required_experience__gte=int(experience))
+            except ValueError:
+                pass  # Ignore invalid values
+
     return render(request, 'job_page.html', {'jobs': jobs})
 
 def home(request):

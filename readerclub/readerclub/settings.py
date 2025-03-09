@@ -13,9 +13,8 @@ import os
 from pathlib import Path
 import pymysql
 pymysql.install_as_MySQLdb()
-
-from dotenv import load_dotenv
-load_dotenv(".env")
+import dotenv
+dotenv.load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +28,7 @@ SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [".mydev.local", "127.0.0.1"] 
+ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
 AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 

@@ -205,47 +205,50 @@
             </nav>
         </header> {% endcomment %}
         <div class="filter-controls">
-            <div class="dropdown-container">
-                <img src="{% static 'job_page/location.png' %}" alt="Location Icon" class="dropdown-icon">
-                <select id="locationFilter">
-                    <option value="">Select Location</option>
-                    <option value="new-delhi">New Delhi, India</option>
-                    <option value="noida">Noida, Uttar Pradesh</option>
-                    <option value="bangalore">Bangalore, India</option>
-                </select>
-            </div>
-        
-            <div class="dropdown-container">
-                <img src="{% static 'job_page/salary.png' %}" alt="Salary Icon" class="dropdown-icon">
-                <select id="salaryFilter">
-                    <option value="">Package</option>
-                    <option value="3-5">3.5 LPA to 5 LPA</option>
-                    <option value="5-7">5 LPA to 7 LPA</option>
-                    <option value="7-10">7 LPA to 10 LPA</option>
-                </select>
-            </div>
-        
-            <div class="dropdown-container">
-                <img src="{% static 'job_page/dropdown.png' %}" alt="Date Icon" class="dropdown-icon">
-                <select id="openingDateFilter">
-                    <option value="">Opening Date</option>
-                    <option value="jan">January</option>
-                    <option value="feb">February</option>
-                    <option value="mar">March</option>
-                </select>
-            </div>
-        
-            <div class="dropdown-container">
-                <img src="{% static 'job_page/salary.png' %}" alt="Experience Icon" class="dropdown-icon">
-                <select id="experienceFilter">
-                    <option value="">Experience Level</option>
-                    <option value="fresher">Fresher</option>
-                    <option value="mid">Mid-Level</option>
-                    <option value="senior">Senior</option>
-                </select>
-            </div>
-        
-            <button id="applyFilter">Apply Filter</button>
+            <form method="GET" id="filterForm">
+                <div class="dropdown-container">
+                    <img src="{% static 'job_page/location.png' %}" alt="Location Icon" class="dropdown-icon">
+                    <select name="location" id="locationFilter">
+                        <option value="">Select Location</option>
+                        <option value="new-delhi">New Delhi, India</option>
+                        <option value="noida">Noida, Uttar Pradesh</option>
+                        <option value="bangalore">Bangalore, India</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-container">
+                    <img src="{% static 'job_page/salary.png' %}" alt="Salary Icon" class="dropdown-icon">
+                    <select name="package" id="salaryFilter">
+                        <option value="">Package</option>
+                        <option value="3.5-5">3.5 LPA to 5 LPA</option>
+                        <option value="5-7">5 LPA to 7 LPA</option>
+                        <option value="7-10">7 LPA to 10 LPA</option>
+                    </select>
+                </div>
+
+                <div class="dropdown-container">
+                    <img src="{% static 'job_page/dropdown.png' %}" alt="Date Icon" class="dropdown-icon">
+                    <select name="opening_date" id="openingDateFilter">
+                        <option value="">Opening Date</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <!-- Add other months as needed -->
+                    </select>
+                </div>
+
+                <div class="dropdown-container">
+                    <img src="{% static 'job_page/salary.png' %}" alt="Experience Icon" class="dropdown-icon">
+                    <select name="experience" id="experienceFilter">
+                        <option value="">Experience Level</option>
+                        <option value="fresher">Fresher</option>
+                        <option value="mid">Mid-Level</option>
+                        <option value="senior">Senior</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="applyFilter">Apply Filter</button>
+            </form>
         </div>
     
         <div class="main-content">
