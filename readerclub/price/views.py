@@ -14,7 +14,10 @@ from django.shortcuts import get_object_or_404
 import hashlib
 import uuid
 from urllib.parse import urlencode
+from django.http import HttpResponse
 from django.urls import reverse
+import hmac
+import hashlib
 
 razorpay_client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
@@ -141,6 +144,44 @@ def create_order(request):
         order = razorpay_client.order.create(data)
 
         return JsonResponse(order)
+    
+@csrf_exempt
+def razorpay_webhook(request):
+    if request.method == 'POST':
+        payload = request.body
+        received_signature = request.headers.get('X-Razorpay-Signature')
+
+        # Fetch the webhook secret from settings
+        webhook_secret = getattr(settings, 'RAZORPAY_WEBHOOK_SECRET', None)
+
+        if not webhook_secret:
+            return HttpResponse("Webhook secret not configured", status=500)
+
+        expected_signature = hmac.new(webhook_secret.encode(), payload, hashlib.sha256).hexdigest()
+
+        if received_signature == expected_signature:
+            try:
+                data = json.loads(payload)
+                event = data.get('event')
+
+                if event == 'payment.captured':
+                    payment_id = data['payload']['payment']['entity']['id']
+                    order_id = data['payload']['payment']['entity']['order_id']
+                    amount = data['payload']['payment']['entity']['amount']
+                    print(f"Payment captured: {payment_id}, Order ID: {order_id}, Amount: {amount}")
+
+                elif event == 'payment.failed':
+                    payment_id = data['payload']['payment']['entity']['id']
+                    print(f"Payment failed: {payment_id}")
+
+                return HttpResponse(status=200)
+
+            except json.JSONDecodeError:
+                return HttpResponse("Invalid JSON", status=400)
+        else:
+            return HttpResponse("Invalid signature", status=400)
+
+    return HttpResponse(status=405)
 
 
 @csrf_exempt
@@ -218,86 +259,115 @@ def cashfree_payment_success(request):
         return redirect(f"/price/?order_id={order_id}")
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
+@csrf_exempt
+def payu_payment_failure(request):
+    if request.method == "POST":
+        txnid = request.POST.get("txnid")
+        status = request.POST.get("status")
+        error_message = request.POST.get("error_Message", "No error message from PayU")
+        
+        print(f"PAYU FAILURE RESPONSE: {request.POST}")  # Debugging
+        
+        return redirect(f"/price/?status=error&order_id={txnid}&reason={error_message}")
+    
+    return redirect("/price/")
 
 @csrf_exempt
 def create_payu_order(request):
-    """
-    Create a PayU order.
-    """
     if request.method == "POST":
         try:
-            amount = request.POST.get('amount')
+            # Extract required parameters
+            # amount = request.POST.get('amount')
+            amount = 1
             plan_id = request.POST.get('plan_id')
             if not amount or not plan_id:
                 return JsonResponse({"error": "Amount and Plan ID are required"}, status=400)
 
+            # Generate a unique transaction ID
             txnid = f"txn_{uuid.uuid4().hex[:10]}"
+
+            # Prepare product info and other required fields
             productinfo = f"Subscription Plan {plan_id}"
-            firstname = "Customer"
-            email = "customer@example.com"
+            firstname = "Customer"  # Replace with actual customer name if available
+            email = "customer@example.com"  # Replace with actual customer email if available
+
+            # Build success and failure URLs
             success_url = request.build_absolute_uri(reverse('payu_payment_success'))
             failure_url = request.build_absolute_uri(reverse('payu_payment_failure'))
 
+            # Prepare the data dictionary for PayU
             data = {
                 'key': settings.PAYU_MERCHANT_KEY,
                 'txnid': txnid,
-                'amount': amount,
+                'amount': 1,
                 'productinfo': productinfo,
                 'firstname': firstname,
                 'email': email,
                 'surl': success_url,
                 'furl': failure_url,
                 'service_provider': 'payu_paisa',
-                'udf1': plan_id,
-                'udf2': '',
+                'udf1': plan_id,  # Custom field for plan ID
+                'udf2': '',  # Additional custom fields (if needed)
                 'udf3': '',
                 'udf4': '',
                 'udf5': '',
             }
 
-            # Generate hash
+            # Generate the hash string as per PayU documentation
             hash_string = (
-                f"{settings.PAYU_MERCHANT_KEY}|{txnid}|{amount}|{productinfo}|"
-                f"{firstname}|{email}|{plan_id}||||||||||{settings.PAYU_SALT}"
+                f"{data['key']}|{data['txnid']}|{data['amount']}|{data['productinfo']}|"
+                f"{data['firstname']}|{data['email']}|{data['udf1']}|{data['udf2']}|"
+                f"{data['udf3']}|{data['udf4']}|{data['udf5']}||||||{settings.PAYU_SALT}"
             )
-            data['hash'] = hashlib.sha512(hash_string.encode('utf-8')).hexdigest()
 
+            # Compute the SHA-512 hash and convert to lowercase
+            data['hash'] = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
+
+            # Log the data being sent to PayU (for debugging)
+            print(f"Hash String: {hash_string}")
+            print(f"Data being sent to PayU: {data}")
+
+            # Return the payment URL and form data
             return JsonResponse({
                 'payment_url': settings.PAYU_BASE_URL,
                 'form_data': data
             })
         except Exception as e:
-            logger.error(f"Error creating PayU order: {str(e)}", exc_info=True)
-            return JsonResponse({"error": "Internal server error"}, status=500)
-        
+            # Log the error and return a 500 response
+            print(f"Error creating PayU order: {str(e)}")
+            return JsonResponse({"error": "Internal server error"}, status=500) 
+                 
 @csrf_exempt
 def payu_payment_success(request):
-    """
-    Handle successful PayU payments.
-    """
     if request.method == "POST":
         try:
+            # Extract parameters from the POST request
             txnid = request.POST.get('txnid')
             amount = request.POST.get('amount')
             status = request.POST.get('status')
             posted_hash = request.POST.get('hash')
             plan_id = request.POST.get('udf1')
 
-            # Verify hash
+            # Prepare the hash string for verification
             hash_string = (
-                f"{settings.PAYU_SALT}|{status}||||||{request.POST.get('udf5', '')}|"
+                f"{settings.PAYU_SALT}|{status}|||||||||{request.POST.get('udf5', '')}|"
                 f"{request.POST.get('udf4', '')}|{request.POST.get('udf3', '')}|"
                 f"{request.POST.get('udf2', '')}|{plan_id}|{request.POST.get('email', '')}|"
                 f"{request.POST.get('firstname', '')}|{request.POST.get('productinfo', '')}|"
                 f"{amount}|{txnid}|{settings.PAYU_MERCHANT_KEY}"
             )
+
+            # Compute the hash and convert to lowercase
             calculated_hash = hashlib.sha512(hash_string.encode('utf-8')).hexdigest().lower()
 
+            # Verify the hash
             if posted_hash.lower() == calculated_hash and status == 'success':
+                # Payment is successful
                 user = request.user
                 plan = get_object_or_404(SubscriptionPlan, id=plan_id)
                 user.set_subscription(plan)
 
+                # Record the payment transaction
                 PaymentTransaction.objects.create(
                     user=user,
                     subscription_plan=plan,
@@ -311,18 +381,21 @@ def payu_payment_success(request):
 
                 return redirect(f"/price/?status=success&order_id={txnid}")
             else:
+                # Hash verification failed or payment status is not 'success'
                 return redirect("/price/?status=error")
         except Exception as e:
-            logger.error(f"Error handling PayU success: {str(e)}", exc_info=True)
+            # Log the error and redirect to the error page
+            print(f"Error handling PayU success: {str(e)}")
             return redirect("/price/?status=error")
-
 @csrf_exempt
 def payu_payment_failure(request):
-    """
-    Handle failed PayU payments.
-    """
     if request.method == "POST":
-        txnid = request.POST.get('txnid')
-        return redirect(f"/price/?status=error&order_id={txnid}")
+        txnid = request.POST.get("txnid")
+        status = request.POST.get("status")
+        error_message = request.POST.get("error_Message", "No error message from PayU")
+        
+        print(f"PAYU FAILURE RESPONSE: {request.POST}")  # Debugging
+        
+        return redirect(f"/price/?status=error&order_id={txnid}&reason={error_message}")
+    
     return redirect("/price/")
-

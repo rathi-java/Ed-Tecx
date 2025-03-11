@@ -108,7 +108,7 @@
             <p class="sec3-pricing-desc">Ideal for students who want full access without a long-term commitment. Pay as you go and enjoy exclusive content, premium tools, and priority support.</p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/calander.jpg' %}" alt="Yearly Plan">
+            <img src="{% static 'images/yearly.png' %}" alt="Yearly Plan">
             <h3 class="sec3-pricing-title">Yearly</h3>
             <p class="sec3-pricing-desc">For students who are dedicated to upskilling and securing better opportunities. Get a full year of premium benefits at the lowest cost per month!</p>
         </div>
@@ -178,7 +178,7 @@
                 "name": "Reader Club",
                 "description": "Subscription Payment",
                 "order_id": order.id,
-                "image": "{% static 'images/yearly.png' %}",
+                "image": "{% static 'images/readerclub.png' %}",
                 "handler": function (response) {
                     // Handle success
                     handlePaymentSuccess(response, order, 'razorpay');

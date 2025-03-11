@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': os.getenv("DB_NAME"),
         'USER': os.getenv("DB_USER"),
         'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
+        'HOST': os.getenv( "DB_HOST"),
         'PORT': os.getenv("DB_PORT"),
     }
 }
@@ -144,5 +144,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'     # same name
-SESSION_COOKIE_DOMAIN = "127.0.0.1"
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN").split(",")
 SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs'
