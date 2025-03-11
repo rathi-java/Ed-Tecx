@@ -25,10 +25,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('job_portal/', include('job_portal.urls')),
     path('', home, name='home'),
+    path('home/', home, name='home'),   
     path('maintenence/', maintenance_view, name='maintenance_view'),
     path('policies/',include('policies.urls')),
-  
-    # path('oauth/', include('oauth.urls')),
+    path('auth/',include('oauth.urls')),
+    path('accounts/', include('allauth.urls')),  # <-- Add this line
+
+
+    path('oauth/', include('oauth.urls')),
     # path('oauth/', include('django.contrib.auth.urls')),
 ]
 

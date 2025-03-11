@@ -135,7 +135,6 @@
 
         input, select {
             padding: 8px;
-            {% comment %} border: 1px solid #a3c4e7; {% endcomment %}
             border-radius: 4px;
             font-size: 14px;
             background-color: #ffffff;
@@ -188,6 +187,64 @@
         .hidden {
             display: none;
         }
+
+        /* this is form styling */
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+#applicationModal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    margin: auto;
+    width: 50%;
+}
+
+
+
     </style>
 </head>
 <body>
@@ -263,7 +320,7 @@
                     {% endif %}
                     <div class="job-info">
                         <h3>{{ job.role }}</h3>
-                        <p>{{ job.company.name }}</p>
+                        <p class="techh">{{ job.company.name }}</p>
                         <div class="tags">
                             <span class="tag">{{ job.company.address }}</span>
                             <span class="tag">{{ job.job_type }}</span>
@@ -278,8 +335,7 @@
 
             <!-- Right Section for Job Details -->
             <div class="right-section" id="jobDetails">
-                <h2>Job Details</h2>
-                <p>Select a job to see details.</p>
+              
             </div>
         </div>
     </div>
@@ -290,7 +346,9 @@
             <button class="modal-close-btn" onclick="closeModal()">×</button>
 
             <!-- Entire job_application form below -->
-            <div class="container job-app-container">
+            <div class="container job-app-container " id="jobAppForm">
+                <button class="close-btn" onclick="closeApplicationForm()">✖</button>
+
                 <div class="heading">
                     <h3 class="heading-txt">Job Application</h3>
                     <p class="para-txt">Note: Fields with * are necessary to fill. All the details must be accurate</p>
@@ -455,74 +513,74 @@
             <!-- End of job_application content -->
         </div>
     </div>
-    
+
     <script>
         // -----------------------------
         // JOB DETAILS + APPLY FUNCTION
         // -----------------------------
         function showJobDetails(element) {
-            const company = element.getAttribute('data-company');
-            const role = element.getAttribute('data-role');
-            const location = element.getAttribute('data-location');
-            const updated = element.getAttribute('data-updated');
-            const eligibility = element.getAttribute('data-eligibility');
-            const jobType = element.getAttribute('data-job-type');
-            const salary = element.getAttribute('data-salary');
-            const experience = element.getAttribute('data-experience');
-            const description = element.getAttribute('data-description');
-            const skills = element.getAttribute('data-skills');
-            const companyAbout = element.getAttribute('data-company-about');
-            const companyEmployees = element.getAttribute('data-company-employees');
-            const companyIndustry = element.getAttribute('data-company-industry');
-            const companyEstablished = element.getAttribute('data-company-established');
+    const company = element.getAttribute('data-company');
+    const role = element.getAttribute('data-role');
+    const location = element.getAttribute('data-location');
+    const updated = element.getAttribute('data-updated');
+    const eligibility = element.getAttribute('data-eligibility');
+    const jobType = element.getAttribute('data-job-type');
+    const salary = element.getAttribute('data-salary');
+    const experience = element.getAttribute('data-experience');
+    const description = element.getAttribute('data-description');
+    const skills = element.getAttribute('data-skills');
+    const companyAbout = element.getAttribute('data-company-about');
+    const companyEmployees = element.getAttribute('data-company-employees');
+    const companyIndustry = element.getAttribute('data-company-industry');
+    const companyEstablished = element.getAttribute('data-company-established');
 
-            document.getElementById('jobDetails').innerHTML = `
-                <div class="job-details-container">
-                    <div class="job-header">
-                        {% if company.logo %}
-                        <img src="${company.logo.url}" alt="${company} Logo" class="company-logo">
-                        {% else %}
-                        <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo" class="company-logo">
-                        {% endif %}
-                        <div class="job-title">
-                            <h2>${role}</h2>
-                            <p>${company}</p>
-                        </div>
-                        <button class="applyy-btn" onclick="openModal()">Apply job</button>
-                    </div>
-                    <div class="job-meta">
-                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
-                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location">  Updated on: ${new Date(updated).toLocaleDateString()}</p>
-                    </div>
-                    <hr>
-                    <p class="comp-deatil">Eligibility</p>
-                    <p>${eligibility}</p>
-                    <hr>
-                    <p class="comp-deatil">About the Job</p>
-                    <div class="job-inffo">
-                        <p class="detail"><strong>Job Type:</strong> ${jobType}</p>
-                        <p class="detail"><strong>Salary:</strong> ${salary}/y</p>
-                        <p class="detail"><strong>Experience:</strong> ${experience}</p>
-                    </div>
-                    <p class="jd"><u>Job Description</u></p>
-                    <p class="detail">${description}</p>
-                    <p class="jd"><u>Skills Required</u></p>
-                    <ul>
-                        ${skills.split(',').map(skill => <li>${skill}</li>).join('')}
-                    </ul>
-                    <hr>        
-                    <p class="comp-deatil">About the Company</p>
-                    <p class="detail"><strong>Company Overview</strong></p>
-                    <p class="para">${companyAbout}</p>
-                    <div class="company-info">
-                        <p><strong>Employees:</strong> ${companyEmployees} employees</p>
-                        <p><strong>Industry:</strong> ${companyIndustry}</p>
-                        <p><strong>Established on:</strong> ${companyEstablished}</p>
-                    </div>
+    document.getElementById('jobDetails').innerHTML = `
+        <div class="job-details-container">
+            <div class="job-header">
+                <img src="{% static 'job_page/apple.png' %}" alt="${company} Logo" class="company-logo">
+                <div class="job-title">
+                    <h2>${role}</h2>
+                    <p>${company}</p>
                 </div>
-            `;
-        }
+                <button class="applyy-btn" onclick="openApplicationForm()">Apply Now</button>
 
+            </div>
+            <div class="job-meta">
+                <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
+                <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> Updated on: ${new Date(updated).toLocaleDateString()}</p>
+            </div>
+            <hr>
+            <p class="comp-deatil">Eligibility</p>
+            <p class="comp-deatil1">${eligibility}</p>
+            <hr>
+            <p class="comp-deatil">About the Job</p>
+            <div class="job-inffo">
+                <p class="detail"><strong>Job Type:</strong> ${jobType}</p>
+                <p class="detail"><strong>Salary:</strong> ${salary}/y</p>
+                <p class="detail"><strong>Experience:</strong> ${experience}</p>
+            </div>
+            <p class="jd"><u>Job Description</u></p>
+            <p class="detail">${description}</p>
+            <p class="jd"><u>Skills Required</u></p>
+            <ul>
+                ${skills.split(',').map(skill => `<li>${skill}</li>`).join('')}
+            </ul>
+            <hr>        
+            <p class="comp-deatil">About the Company</p>
+            <p class="detail"><strong>Company Overview</strong></p>
+            <p class="para">${companyAbout}</p>
+            <div class="company-info">
+                <p><strong>Employees:</strong> ${companyEmployees} employees</p>
+                <p><strong>Industry:</strong> ${companyIndustry}</p>
+                <p><strong>Established on:</strong> ${companyEstablished}</p>
+            </div>
+        </div>
+    `;
+}
+
+function applyNow() {
+    window.location.href = '/apply';  // Change '/apply' to your actual application URL
+}
         // -----------------------------
         // MODAL CONTROL
         // -----------------------------
@@ -595,6 +653,30 @@
                 container.removeChild(newEntry);
             });
         });
+        // *************first card already opened
+        document.addEventListener("DOMContentLoaded", function () {
+    let firstJobCard = document.querySelector(".job-card");
+
+    if (firstJobCard) {
+        showJobDetails(firstJobCard); // Automatically pehli job ki details show karenge
+    }
+});
+function openForm() {
+    document.getElementById("applyForm").style.display = "block";
+}
+
+function closeForm() {
+    document.getElementById("applyForm").style.display = "none";
+}
+function openApplicationForm() {
+    document.getElementById("applicationModal").style.display = "block";
+}
+
+function closeApplicationForm() {
+    document.getElementById("jobAppForm").style.display = "none";
+}
+
+
     </script>
 
 </body>

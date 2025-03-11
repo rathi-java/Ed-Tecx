@@ -33,7 +33,6 @@
                           <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
                       </div>
                   </div>
-              </div>
             </div>
             <div class="pamper-book-card">
               <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/image8.jpg' %}" alt="mag3" class="mag1"></a></div>
@@ -100,99 +99,66 @@
                     </div>
                 </div>
             </div>
-            <div class="pamper-book-card">
-              <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/imagine4.jpg' %}" alt="mag5" class="mag1"></a></div>
-                <p class="pamper-title">2024-25 RRB Stage-II Technician</p>
-                <div class="pamper-both">
-                  <p class="pamper-date">March 27, 2025 <br> 
-                      <span class="pamper-stars">★ ★ ★ ★ ☆</span> 
-                      <span class="reader-mag">783454+ readers</span>
-                  </p> 
-                    <div class="pamper-icon1">
-                        <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
-                    </div>
-                </div>
-            </div>
-            <div class="pamper-book-card">
-              <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/magine1.jpg' %}" alt="mag6" class="mag1"></a></div>
-                <p class="pamper-title">2024-25 RRB Stage-II Technician</p>
-                <div class="pamper-both">
-                  <p class="pamper-date">March 27, 2025 <br> 
-                      <span class="pamper-stars">★ ★ ★ ★ ☆</span> 
-                      <span class="reader-mag">56354+ readers</span>
-                  </p> 
-                    <div class="pamper-icon1">
-                        <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
-                    </div>
-                </div>
-            </div>
-            <div class="pamper-book-card">
-              <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/magine2.jpg' %}" alt="mag7" class="mag1"></a></div>
-                <p class="pamper-title">2024-25 RRB Stage-II Technician</p>
-                <div class="pamper-both">
-                  <p class="pamper-date">March 27, 2025 <br> 
-                      <span class="pamper-stars">★ ★ ★ ★ ☆</span> 
-                      <span class="reader-mag">673454+ readers</span>
-                  </p> 
-                    <div class="pamper-icon1">
-                        <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
-                    </div>
-                </div>
-            </div>
-            <div class="pamper-book-card">
-              <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/imagine4.jpg' %}" alt="mag5" class="mag1"></a></div>
-                <p class="pamper-title">2024-25 RRB Stage-II Technician</p>
-                <div class="pamper-both">
-                  <p class="pamper-date">March 27, 2025 <br> 
-                      <span class="pamper-stars">★ ★ ★ ★ ☆</span> 
-                      <span class="reader-mag">783454+ readers</span>
-                  </p> 
-                    <div class="pamper-icon1">
-                        <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
-                    </div>
-                </div>
-            </div>
-            <div class="pamper-book-card">
-              <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/magine1.jpg' %}" alt="mag6" class="mag1"></a></div>
-                <p class="pamper-title">2024-25 RRB Stage-II Technician</p>
-                <div class="pamper-both">
-                  <p class="pamper-date">March 27, 2025 <br> 
-                      <span class="pamper-stars">★ ★ ★ ★ ☆</span> 
-                      <span class="reader-mag">56354+ readers</span>
-                  </p> 
-                    <div class="pamper-icon1">
-                        <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
-                    </div>
-                </div>
-            </div>
-            <div class="pamper-book-card">
-              <div class="pamper-pamp1"> <a target="_blank" href="https://library.readerclub.in/"><img src="{% static 'magazine_images/magine2.jpg' %}" alt="mag7" class="mag1"></a></div>
-                <p class="pamper-title">2024-25 RRB Stage-II Technician</p>
-                <div class="pamper-both">
-                  <p class="pamper-date">March 27, 2025 <br> 
-                      <span class="pamper-stars">★ ★ ★ ★ ☆</span> 
-                      <span class="reader-mag">673454+ readers</span>
-                  </p> 
-                    <div class="pamper-icon1">
-                        <img src="{% static 'magazine_images/subscribe.jpg' %}" alt="" class="sub">
-                    </div>
-                </div>
-            </div>
-      </div>
-       
+        </div>
     </div>
   </section>
 
   <script>
-    const sliderTrack = document.querySelector('.pamper-book-container');
-    const slides = Array.from(sliderTrack.children);
-    
-    function cloneSlides() {
-        slides.forEach(slide => {
-            const clone = slide.cloneNode(true);
-            sliderTrack.appendChild(clone);
-        });
-    }
-    
-    cloneSlides();
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.pamper-book-container');
+      const pamplet = document.querySelector('.pamper-pamplet');
+      const cards = Array.from(container.querySelectorAll('.pamper-book-card'));
+      const cardWidth = cards[0].offsetWidth + 20; // Card width + gap
+      
+      // Clone cards and add to container for seamless loop
+      cards.forEach(card => {
+          const clone = card.cloneNode(true);
+          container.appendChild(clone);
+      });
+      
+      // Set up animation
+      let scrollPosition = 0;
+      const totalWidth = cardWidth * cards.length;
+      
+      function scrollCards() {
+          scrollPosition -= 3; // Speed of scroll
+          
+          // Reset position when we've scrolled one set of cards
+          if (Math.abs(scrollPosition) >= totalWidth) {
+              scrollPosition = 0;
+          }
+          
+          container.style.transform = `translateX(${scrollPosition}px)`;
+          requestAnimationFrame(scrollCards);
+      }
+      
+      // Start animation
+      scrollCards();
+      
+      // Pause animation on hover
+      pamplet.addEventListener('mouseenter', () => {
+          container.style.animationPlayState = 'paused';
+      });
+      
+      pamplet.addEventListener('mouseleave', () => {
+          container.style.animationPlayState = 'running';
+      });
+      
+      // Check if cards need to be added
+      function checkAndAddCards() {
+          const lastCardRight = container.lastElementChild.getBoundingClientRect().right;
+          const containerRight = pamplet.getBoundingClientRect().right;
+          
+          // If the last card is about to enter the viewport, add more cards
+          if (lastCardRight - containerRight < totalWidth) {
+              cards.forEach(card => {
+                  const clone = card.cloneNode(true);
+                  container.appendChild(clone);
+              });
+          }
+      }
+      
+      // Check periodically if we need to add more cards
+      setInterval(checkAndAddCards, 2000);
+  });
 </script>

@@ -43,7 +43,37 @@ INSTALLED_APPS = [
     'job_portal',
     'policies',
     'widget_tweaks',
+    'oauth',
+    # for Google auth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
+
+# for Google auth
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+        "OAUTH_PKCE_ENABLED": True,
+        "APP": {
+            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+        }
+    },
+    "github": {
+        "SCOPE": ["read:user", "user:email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+        "OAUTH_PKCE_ENABLED": True,
+        "APP": {
+            "client_id": os.getenv("GITHUB_CLIENT_ID"),
+            "secret": os.getenv("GITHUB_CLIENT_SECRET"),
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,8 +84,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'career.middleware.CheckReaderclubSessionMiddleware',
+    'allauth.account.middleware.AccountMiddleware',  # for Google auth
+    'career.middleware.LoginRequiredMiddleware',
+    'career.middleware.EnsureUserIdMiddleware',
+
 ]
+SITE_ID = 1
 
 ROOT_URLCONF = 'career.urls'
 
@@ -70,6 +104,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'oauth.context_processors.college_list',
+                'oauth.context_processors.current_user'
             ],
         },
     },
@@ -144,5 +180,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'     # same name
+
 SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN").split(",")
 SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs'
+
+MAIN_SITE_URL = os.getenv(
+    "MAIN_SITE_URL", 
+    "http://127.0.0.1:8000"  # fallback if env var is not set
+)
+
+AUTH_USER_MODEL = 'oauth.UsersDB'
+
+PUBLIC_PATHS = [
+    '/',
+    '/signup',
+    # Add any other unrestricted paths
+]
+
+
+

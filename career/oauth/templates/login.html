@@ -1,0 +1,56 @@
+{% load socialaccount %}
+{% load static %}
+<div id="loginForm" class="form-content">
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="message-container">
+        {% if messages %}
+          {% for message in messages %}
+            {% if "login" in message.tags %}
+              {% ifchanged message %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+              {% endifchanged %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="text" name="username" placeholder="Username" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <!-- Default type="password" so user input is hidden -->
+      <input type="password" name="password" id="login-password" placeholder="Password" required />
+      <!-- Eye icon is 'fa-eye-slash' by default (closed eye) -->
+      <span class="toggle-eye" onclick="togglePassword('login-password','toggleIconLoginPass')"><i id="toggleIconLoginPass" class="fa fa-eye-slash"></i></span>
+    </div>
+
+    <a href="#" id="forgotPasswordLink" class="forgot-password">Forgot Password?</a>
+
+    <button class="btn">Login</button>
+
+    <div class="or">
+      <span>OR</span>
+    </div>
+
+    <!-- GitHub Button -->
+    <a class="auth-btn github-btn" href="{% provider_login_url 'github' %}">
+      <img src="{% static 'images/github.jpeg' %}" alt="GitHub Icon">
+      Continue with GitHub
+    </a>
+
+    <!-- Google Button -->
+    <a class="auth-btn google-btn" href="{% provider_login_url 'google' %}">
+      <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Icon">
+      Continue with Google
+    </a>
+
+    {% comment %} <div class="bottom-text">
+      Don't have an account?
+      <a href="#" onclick="switchTab('signup')">Sign up</a>
+    </div> {% endcomment %}
+  </form>
+</div>

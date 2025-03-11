@@ -276,6 +276,8 @@ PUBLIC_PATHS = [
     '/accounts/google/login/',
     '/accounts/github/login/',
     '/accounts/social-auth/',
+    '/price/',
+
 ]
 
 LOGIN_URL = '/login/'
