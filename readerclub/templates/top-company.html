@@ -2,73 +2,60 @@
 <section class="top-company-section">
     <div class="top-company-company-conatiner">
         <div class="top-company-content1">
-
-            <!-- <div class="divider1"></div> -->
             <div class="top-company-company-slider1">
+                <!-- CONTAINER 1: UNIVERSITIES -->
                 <div class="top-company-companies1">
                     <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
                         <div class="top-company-circle-conatiner1">
                             <img src="{% static 'images/uni1.png' %}" alt="university">
                         </div>
                     </div>
                     <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
+                        <div class="top-company-circle-conatiner1">
                             <img src="{% static 'images/uni1.png' %}" alt="university">
                         </div>
                     </div>
                     <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
+                        <div class="top-company-circle-conatiner1">
                             <img src="{% static 'images/uni1.png' %}"  alt="university">
                         </div>
                     </div>
                     <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
-                            <img src="{% static 'images/uni1.png' %}" alt="university">
-                        </div>
-                    </div>
-                    <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
-                            <img src="{% static 'images/uni1.png' %}" alt="university">
-                        </div>
-                    </div>
-                    <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
-                            <img src="{% static 'images/uni1.png' %}" alt="university">
-                        </div>
-                    </div>
-                    <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
-                            <img src="{% static 'images/uni1.png' %}" alt="university">
-                        </div>
-                    </div>
-                    <div class="top-company-company1">
-                        <!-- <span class="job-count">20+ Jobs</span> -->
                         <div class="top-company-circle-conatiner1">
                             <img src="{% static 'images/uni1.png' %}" alt="university">
                         </div>
                     </div>
                     <div class="top-company-company1">
-                        
-                        
-                        <!-- <span class="job-count">20+ Jobs</span> -->
-                        <div class="top-company-circle-conatiner">
+                        <div class="top-company-circle-conatiner1">
                             <img src="{% static 'images/uni1.png' %}" alt="university">
                         </div>
                     </div>
-                 
+                    <div class="top-company-company1">
+                        <div class="top-company-circle-conatiner1">
+                            <img src="{% static 'images/uni1.png' %}" alt="university">
+                        </div>
+                    </div>
+                    <div class="top-company-company1">
+                        <div class="top-company-circle-conatiner1">
+                            <img src="{% static 'images/uni1.png' %}" alt="university">
+                        </div>
+                    </div>
+                    <div class="top-company-company1">
+                        <div class="top-company-circle-conatiner1">
+                            <img src="{% static 'images/uni1.png' %}" alt="university">
+                        </div>
+                    </div>
+                    <div class="top-company-company1">
+                        <div class="top-company-circle-conatiner1">
+                            <img src="{% static 'images/uni1.png' %}" alt="university">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="top-company-header-mn">
                 <img src="{% static 'images/corporate (1).png' %}" alt="university">
-                <div class="top-company-header1">Top <span> Universities </span></div>
-               </div>
+                <div class="top-company-header1">Top <span>Universities</span></div>
+            </div>
         </div>
         <div class="top-company-com-lower1">Trusted by 1k+ Universities all over the globe</div>
     </div>
@@ -76,7 +63,9 @@
     <div class="top-company-company-conatiner">
         <div class="top-company-content">
             <img src="/static/images/corporate%20(1).png" alt="university" class="hire">
-            <div class="top-company-header">Top <br>Companies</div>
+            <div class="top-company-header">Top <br> Companies</div>
+            
+            <!-- CONTAINER 2: COMPANIES -->
             <div class="top-company-company-slider">
                 <div class="top-company-companies">
                     <div class="top-company-company">
@@ -144,6 +133,66 @@
         </div>
         <div class="top-company-com-lower">Trusted by 1k+ Companies all over the globe</div>
     </div>
-  
-    
 </section>
+
+<!-- Infinite Scroll JS -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Generic function to enable infinite scroll on a horizontal container
+    function initInfiniteScroll(wrapperSelector, containerSelector, itemSelector, scrollSpeed) {
+        const wrapper = document.querySelector(wrapperSelector);
+        if (!wrapper) return; // fallback if the element doesn't exist
+
+        const container = wrapper.querySelector(containerSelector);
+        if (!container) return;
+
+        const items = Array.from(container.querySelectorAll(itemSelector));
+        if (!items.length) return;
+
+        // Calculate the item width + gap. 
+        // Because the 'gap' can vary, you might need to tweak or just do offsetWidth + a fixed number
+        const firstItemWidth = items[0].offsetWidth;
+        const computedStyle = window.getComputedStyle(container);
+        // A little hack to parse gap if it exists — or set a fallback to 20
+        const gap = parseFloat(computedStyle.columnGap || computedStyle.gap || '20');
+        const itemWidth = firstItemWidth + gap;
+
+        // Clone all original items once to allow seamless scroll
+        items.forEach((item) => {
+            const clone = item.cloneNode(true);
+            container.appendChild(clone);
+        });
+
+        let scrollPosition = 0;
+        const totalWidth = itemWidth * items.length; // width of 1 full “set” of items
+        
+        function scrollAnimation() {
+            scrollPosition -= scrollSpeed;
+            // If we've scrolled one full set's width, reset
+            if (Math.abs(scrollPosition) >= totalWidth) {
+                scrollPosition = 0;
+            }
+            container.style.transform = `translateX(${scrollPosition}px)`;
+            requestAnimationFrame(scrollAnimation);
+        }
+
+        scrollAnimation();
+    }
+
+    // 1) Infinite scroll for the "universities" row
+    initInfiniteScroll(
+      '.top-company-company-slider1',   // outer wrapper
+      '.top-company-companies1',        // container that holds items
+      '.top-company-company1',          // each individual card
+      2                                 // scroll speed
+    );
+
+    // 2) Infinite scroll for the "companies" row
+    initInfiniteScroll(
+      '.top-company-company-slider',    
+      '.top-company-companies',         
+      '.top-company-company',           
+      2
+    );
+});
+</script>

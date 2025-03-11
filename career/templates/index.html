@@ -7,6 +7,13 @@
   <link href="https://fonts.googleapis.com/css?family=Kite+One" rel="stylesheet">
   <!-- Static CSS files -->
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="stylesheet" href="{% static 'css/faqs.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <link rel="stylesheet" href="{% static 'css/maintenence.css' %}">
+  <link rel="stylesheet" href="{% static 'css/top-company.css' %}">
+
+  <script src="{% static 'js/faq.js' %}"></script>
+
   <!-- If your SVG file is used as a stylesheet/icon, adjust accordingly -->
   <link rel="stylesheet" href="{% static 'svg/gold-badge.svg' %}">
   {% endblock %}
@@ -126,47 +133,48 @@
     <script>
       const jobData = {
         "IT & Software": [
-          { name: "Web Development", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Data Science", img: "{% static 'image/computer-sheild-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-like-message-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-like-message-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-like-message-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
+          { name: "Web Development", img: "{% static 'image/web-development.png' %}" },
+          { name: "Software Engineering", img: "{% static 'image/software-development.svg' %}" },
+          { name: "Data Science & Analytics", img: "{% static 'image/data-science.svg' %}" },
+          { name: "Cybersecurity", img: "{% static 'image/cyber-security.svg' %}" },
+          { name: "Mobile App Development", img: "{% static 'image/app-development.png' %}" },
+          { name: "Artificial Intelligence & Machine Learning", img: "{% static 'image/AIML.svg' %}" },
+          { name: "Blockchain & Web3", img: "{% static 'image/blockchain.png' %}" },
+          { name: "Database Administration", img: "{% static 'image/database-file.png' %}" },
+          { name: "Cloud Computing", img: "{% static 'image/CLOUD-COMPUTING.svg' %}" },
         ],
         "Management & Business": [
-          { name: "Business Analysis", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
-          { name: "Project Management", img:"{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-sheild-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/computer-sheild-jobdata.jpeg' %}" },
-          { name: "Web Development", img:"{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img:"{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Data Science", img: "{% static 'image/computer-sheild-jobdata.jpeg' %}" },
+          { name: "Business Administration", img: "{% static 'image/business-administrative.png' %}" },
+          { name: "Finance & Accounting", img:"{% static 'image/finance_accounting.png' %}" },
+          { name: "Project Management", img: "{% static 'image/project-management.svg' %}" },
+          { name: "Product Management", img: "{% static 'image/product-management.png' %}" },
+          { name: "Human Resources", img:"{% static 'image/hr-manager.png' %}" },
+          { name: "Consulting & Strategy", img:"{% static 'image/consultation.png' %}" },
+          { name: "Entrepreneurship & Startups", img: "{% static 'image/enterpreneurship.png' %}" },
+          { name: "Operations & Supply Chain Management", img: "{% static 'image/supply-chain.png' %}" },
+          // { name: "Risk Management", img: "{% static 'image/computer-sheild-jobdata.jpeg' %}" },
         ],
         "Sales & Marketing": [
-          { name: "Digital Marketing", img: "{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Sales Executive", img:"{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Web Development", img:"{% static 'image/computer-like-message-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img:"{% static 'image/computer-sheild-jobdata.jpeg' %}" },
-          { name: "Web Development", img:"{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
-          { name: "Web Development", img:"{% static 'image/pink-block-inside-square-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/mobile-setting-jobdata.jpeg' %}" }
+          { name: "Digital Marketing", img: "{% static 'image/digital-marketing.png' %}" },
+          { name: "Sales Management", img:"{% static 'image/sales-management.png' %}" },
+          { name: "Branding & Brand Strategy", img:"{% static 'image/branding.png' %}" },
+          { name: "Market Research & Analysis", img:"{% static 'image/market-research.png' %}" },
+          { name: "Social Media Marketing", img:"{% static 'image/social-media-marketing.png' %}" },
+          { name: "Content Marketing", img: "{% static 'image/content-marketing.png' %}" },
+          { name: "E-commerce Marketing", img:"{% static 'image/e-commerce.png' %}" },
+          { name: "Influencer Marketing", img: "{% static 'image/influencer-marketing.png' %}" },
+          { name: "Promotion", img: "{% static 'image/promotion.png' %}" }
         ],
         "Content & Creative": [
-          { name: "Digital Marketing", img: "{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Graphic Design", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
-          { name: "Content Writing", img: "{% static 'image/computer-sheild-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/mobile-setting-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/pink-block-inside-square-jobdata.jpeg' %}" },
-          { name: "Web Development", img:"{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/computer-correct-wrong-tool-jobdata.jpeg' %}" },
-          { name: "Web Development", img: "{% static 'image/computer-setting-wrong-correct-jobdata.jpeg' %}" },
-          { name: "Software Engineering", img: "{% static 'image/pink-block-inside-square-jobdata.jpeg' %}" }
+          { name: "Content Writing & Copywriting", img: "{% static 'image/content-writting.png' %}" },
+          { name: "Graphic Design", img: "{% static 'image/graphic-design.png' %}" },
+          { name: "Video Production & Editing", img: "{% static 'image/video-editing.png' %}" },
+          { name: "UI/UX Design", img: "{% static 'image/user-experience.png' %}" },
+          { name: "Photography", img: "{% static 'image/photography.png' %}" },
+          { name: "Animation & Motion Graphics", img:"{% static 'image/animation-designing.png' %}" },
+          { name: "Illustration & Digital Art", img: "{% static 'image/digital-art.png' %}" },
+          { name: "Creative Writing & Storytelling", img: "{% static 'image/storytelling.png' %}" },
+          { name: "Audio Production & Sound Design", img: "{% static 'image/audio-production.png' %}" }
         ]
       };
 
@@ -205,7 +213,7 @@
       }
 
       document.addEventListener("DOMContentLoaded", function() {
-        updateJobs("IT &amp; Software");
+        updateJobs("IT & Software");
       });
     </script>
   </section>
@@ -312,7 +320,7 @@
     </script>
   </section>
 
-  <section class="page">
+  {% comment %} <section class="page">
     <div class="company-conatiner">
       <div class="content">
         <div class="header">Top <br>Companies <br> Hiring</div>
@@ -355,7 +363,9 @@
       </div>
       <div class="com-lower">Trusted by 1k+ Companies all over the globe</div>
     </div>
-  </section>
+  </section> {% endcomment %}
+
+  {% include 'top-company.html' %}
 
   <section id="page4">
     <div class="flow-container">
@@ -424,5 +434,7 @@
     </script>
   </section>
 
+  {% include 'faq.html' %}
+  {% include 'app.html' %}
 
   {% endblock %}

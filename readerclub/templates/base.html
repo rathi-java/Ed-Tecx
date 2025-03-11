@@ -28,7 +28,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}?v=1">
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
 
   <meta property="og:title" content="Welcome | ReaderClub, We always learn.." />
   <meta property="og:description" content="Discover the best in campus-to-corporate opportunities!" />
@@ -193,12 +193,12 @@
         <p class="footer-para">Useful Links</p>
         <ul>
           <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
-          <li><a href="{% url 'maintenance_view' %}" class="no-underline">Contact Us</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Contact Us</a></li>
           <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')" class="no-underline">Placement Stories</a></li>
-          <li><a href="{% url 'maintenance_view' %}" class="no-underline">Career</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Career</a></li>
           <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
           <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms & Conditions</a></li>
-          <li><a href="{% url 'maintenance_view' %}" class="no-underline">Child Policy</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Child Policy</a></li>
         </ul>
       </div>
       <div class="footer-practice">
@@ -229,8 +229,8 @@
           <p class="footer-para">Jobs & Opportunities</p>
           <ul class="footer-iii">
             <div class="footer-v">
-              <li><a href="{% url 'maintenance_view' %}" class="job-footer-link">Popular Internships</a></li>
-              <li><a href="{% url 'maintenance_view' %} " class="job-footer-link">Popular Jobs</a></li>          
+              <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Internships</a></li>
+              <li><a href="{% url 'maintenance_view' %} " onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Jobs</a></li>          
             </div>
           </ul>
         </div>
@@ -317,7 +317,7 @@
   </div>
 
   <!-- Load All Auth JS from oauth -->
-   {% comment %} <script>
+   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Check if we should show the login form based on form_type
       {% if form_type == 'login' %}
@@ -334,7 +334,7 @@
       }
     });
 
-      document.addEventListener('DOMContentLoaded', function() {
+      {% comment %} document.addEventListener('DOMContentLoaded', function() {
           /**********************************************************
            * OS/Browser detection (optional, to tailor logic)
            **********************************************************/
@@ -513,8 +513,8 @@
               // Return true means we handle it (prevent console output)
               return true;
           };
-      });      
-  </script>  {% endcomment %}
+      });       {% endcomment %}
+  </script> 
 </body>    
   {% block extra_js %}
   {% endblock %}

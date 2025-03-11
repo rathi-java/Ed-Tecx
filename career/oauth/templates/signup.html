@@ -1,0 +1,91 @@
+
+{% load socialaccount %}
+{% load static %}
+<div id="signupForm" class="form-content" style="display: none;">
+  <form method="POST" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <div class="message-container">
+        {% if messages %}
+          {% for message in messages %}
+            {% if "signup" in message.tags %}
+              {% ifchanged message %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+              {% endifchanged %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-user"></i>
+      <input type="text" name="full_name" placeholder="Full Name" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-envelope"></i>
+      <input type="email" name="email" placeholder="Email" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-phone"></i>
+      <input type="tel" name="phone_number" placeholder="Phone number" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="password" id="signup-password" placeholder="Password" required />
+      <span class="toggle-eye" onclick="togglePassword('signup-password','toggleIconSignupPass')"><i id="toggleIconSignupPass" class="fa fa-eye-slash"></i></span>
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-lock"></i>
+      <input type="password" name="re_password" id="signup-repassword" placeholder="Re-enter Password" required />
+      <span class="toggle-eye" onclick="togglePassword('signup-repassword','toggleIconSignupRePass')"><i id="toggleIconSignupRePass" class="fa fa-eye-slash"></i></span>
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-university"></i>
+      <select name="college_name" required>
+        <option value="" disabled selected>College Name</option>
+        {% if colleges %}
+          {% for college in colleges %}
+            <option value="{{ college.college_name }}">{{ college.college_name }}</option>
+          {% endfor %}
+        {% endif %}
+      </select>
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-calendar-alt"></i>
+      <input type="date" name="dob" required />
+    </div>
+
+    <div class="input-box">
+      <i class="fa fa-user-friends"></i>
+      <input type="text" name="referral_code" placeholder="Referral Code (optional)" />
+    </div>
+
+    <button class="btn" type="submit">Submit</button>
+
+    <div class="or">
+      <span>OR</span>
+    </div>
+
+    <!-- GitHub Button -->
+    <a class="auth-btn github-btn" href="{% provider_login_url 'github' %}">
+      <img src="{% static 'images/github.jpeg' %}" alt="GitHub Icon">
+      Continue with GitHub
+    </a>
+
+    <!-- Google Button -->
+    <a class="auth-btn google-btn" href="{% provider_login_url 'google' %}">
+      <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Icon">
+      Continue with Google
+    </a>
+
+    {% comment %} <div class="bottom-text">
+      Already have an account?
+      <a href="#" onclick="switchTab('login')">Login</a>
+    </div> {% endcomment %}
+  </form>
+</div>

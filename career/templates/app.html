@@ -1,0 +1,37 @@
+{% load static %}
+<!-- Download App Section -->
+<section class="app-section">
+  <div class="app-container">
+      <!-- Phone Mockup -->
+      <div class="phone-mockup">
+          <button class="get-show"></button>
+          <div class="phone-screen">
+              <h2 class="phone-text">Download the <br> App now</h2>
+              <img src="{% static 'assets/footer.png' %}" alt="Download Icon" class="download-icon">
+              <a href="{% url 'maintenance_view' %}" class="get-started">Download</a>
+          </div>
+      </div>
+
+      <!-- App Info -->
+      <div class="app-info">
+          <h1 class="app-title">Download Our App</h1>
+          <p class="app-description">
+              Take your experience to the next level with our mobile app!<br><br>
+              Stay connected, access features on the go, and enjoy seamless navigation 
+              right from your smartphone—whether you’re learning new skills, 
+              applying for internships, or exploring job opportunities.
+          </p>
+
+          <div class="download-buttons">
+            <a href="{% url 'maintenance_view' %}" class="download-btn apple-btn">
+              <i class="fab fa-apple fa-2x !important"></i> Download Now
+            </a>
+            <a href="{% url 'maintenance_view' %}" class="download-btn android-btn">
+              <i class="fab fa-google-play fa-2x"></i> Download Now
+            </a>
+        </div>        
+      </div>
+  </div>
+</section>
+
+
