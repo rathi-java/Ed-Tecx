@@ -1,18 +1,23 @@
 #!/bin/sh
-set -e
 
-# Run migrations (if needed)
+# Run Django migrations
 python manage.py migrate --noinput
 
 # Collect static files
-python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput --clear
 
-LOG_DIR="/var/log/readerclub"
-mkdir -p $LOG_DIR
-# Start Gunicorn server – this replaces the CMD instruction in the Dockerfile
-exec gunicorn --chdir /app \
+# Create log directory
+mkdir -p /app/logs
+touch /app/logs/gunicorn.log
+touch /app/logs/gunicorn-access.log
+
+# Start Gunicorn server
+exec gunicorn \
+    --name readerclub \
+    --workers 9 \
+    --timeout 120 \
     --bind 0.0.0.0:8000 \
-    --workers 4 \
-    --access-logfile "$LOG_DIR/gunicorn_access.log" \
-    --error-logfile "$LOG_DIR/gunicorn_error.log" \
+    --log-level info \
+    --log-file /app/logs/gunicorn.log \
+    --access-logfile /app/logs/gunicorn-access.log \
     readerclub.wsgi:application

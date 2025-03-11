@@ -1,11 +1,23 @@
 #!/bin/sh
-set -e
 
-# Run migrations (if needed)
+# Run Django migrations
 python manage.py migrate --noinput
 
 # Collect static files
-python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput --clear
 
-# Start Gunicorn server – this replaces the CMD instruction in the Dockerfile
-exec gunicorn --chdir /app --bind 0.0.0.0:8001 career.wsgi:application
+# Create log directory
+mkdir -p /app/logs
+touch /app/logs/gunicorn.log
+touch /app/logs/gunicorn-access.log
+
+# Start Gunicorn server
+exec gunicorn \
+    --name career \
+    --workers 9 \
+    --timeout 120 \
+    --bind 0.0.0.0:8000 \
+    --log-level info \
+    --log-file /app/logs/gunicorn.log \
+    --access-logfile /app/logs/gunicorn-access.log \
+    career.wsgi:application
