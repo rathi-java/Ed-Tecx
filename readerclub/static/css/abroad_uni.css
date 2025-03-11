@@ -1,0 +1,69 @@
+.container-university {
+    background: white;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    /* max-width: 1100px;  */
+    margin: 0;
+    width: 100%;
+}
+
+.title-university {
+    font-family: 'prociono';
+    font-size: 24px;
+    font-weight: bold;
+    color: #077bc3;
+}
+
+.subtitle-university {
+    font-family: 'Poppins';
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* Wrapper that hides anything that scrolls out of view */
+.slider-wrapper {
+    position: relative;
+    overflow: hidden; 
+    width: 100%;
+}
+
+/* Actual slider row:
+   - inline-flex & white-space: nowrap to create a single horizontal row
+   - remove justify-content & align-items so it can move freely
+*/
+.slider-university {
+    display: inline-flex;
+    white-space: nowrap;
+    transition: transform 0.1s linear; /* not strictly needed, but can smooth out movement */
+}
+
+/* University Card */
+.card-university {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 200px; 
+    height: 80px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 14px 10px;
+    border: 2px solid rgba(183, 189, 193, 1);
+    flex: 0 0 auto; /* ensures no wrapping */
+}
+
+.card-university img {
+    margin-top: 12px;
+    width: 170px;
+    height: 43px;
+    object-fit: contain;
+}
+
+.card-university p {
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 5px;
+}

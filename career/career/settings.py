@@ -181,21 +181,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'     # same name
 
-SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN").split(",")
+SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN")
 SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs'
-
-MAIN_SITE_URL = os.getenv(
-    "MAIN_SITE_URL", 
-    "http://127.0.0.1:8000"  # fallback if env var is not set
-)
 
 AUTH_USER_MODEL = 'oauth.UsersDB'
 
 PUBLIC_PATHS = [
     '/',
-    '/signup',
+    '/oauth/',
+    '/login/',
+    '/policies/',
+
     # Add any other unrestricted paths
 ]
-
 
 
