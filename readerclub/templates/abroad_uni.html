@@ -1,0 +1,34 @@
+{% load static %}
+<div class="container-university">
+    <h2 class="title-university">Top Abroad Universities</h2>
+    <p class="subtitle-university">
+      Get admission into top ranked universities around the globe.
+    </p>
+  
+    <!-- Wrapper to hide overflow -->
+    <div class="slider-wrapper">
+      <div class="slider-university">
+        <div class="card-university">
+          <img src="{% static 'images/abroad_uni1.png' %}" alt="Princeton University">
+        </div>
+        <div class="card-university">
+          <img src="{% static 'images/abroad_uni2.png' %}" alt="University of Houston">
+        </div>
+        <div class="card-university">
+          <img src="{% static 'images/abroad_uni3.png' %}" alt="University of Pennsylvania">
+        </div>
+        <div class="card-university">
+          <img src="{% static 'images/abroad_uni4.png' %}" alt="American University">
+        </div>
+        <div class="card-university">
+          <img src="{% static 'images/abroad_uni5.png' %}" alt="Michigan State University">
+        </div>
+        {% comment %} <div class="card-university">
+          <img src="{% static 'images/abroad_uni2.png' %}" alt="Michigan State University">
+        </div> {% endcomment %}
+      </div>
+    </div>
+  </div>
+  
+  <script src="{% static 'js/abroad_uni.js' %}"></script>
+  

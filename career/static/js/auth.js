@@ -88,45 +88,124 @@ window.onclick = function(event) {
   }
 };
 
-// ===============
-// AUTH CHECK
-// ===============
-function handleAuthCheck(event, linkUrl) {
+// // ===============
+// // AUTH CHECK
+// // ===============
+// function handleAuthCheck(event, linkUrl) {
+//     // If user is logged in, allow the link to proceed
+//     if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+//       // Optionally, you can navigate to the linkUrl here
+//       window.location.href = linkUrl;
+//       return;
+//     }
+//     // Otherwise, prevent default and show the sign-in pop-up
+//     event.preventDefault();
+//     const authPop = document.getElementById('authPopUp');
+//     if (authPop) {
+//       authPop.style.display = 'flex';
+//     }
+// }  
+
+// // Local login/signup modal triggers
+// function showLoginModal() {
+//   const authPop = document.getElementById('authPopUp');
+//   if (authPop) authPop.style.display = 'none';
+//   openModal('login');
+// }
+// function showSignupModal() {
+//   const authPop = document.getElementById('authPopUp');
+//   if (authPop) authPop.style.display = 'none';
+//   openModal('signup');
+// }
+
+// // Close the auth pop-up if user clicks outside it
+// const authPopUp = document.getElementById('authPopUp');
+// if (authPopUp) {
+//   authPopUp.addEventListener('click', function(event) {
+//     if (event.target === authPopUp) {
+//       authPopUp.style.display = 'none';
+//     }
+//   });
+// }
+
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the auth pop-up element
+  const authPopUp = document.getElementById('authPopUp');
+  
+  if (authPopUp) {
+    // Event listener for clicking the overlay (outside the pop-up box)
+    authPopUp.addEventListener('click', function(event) {
+      // Check if the clicked element is the overlay itself, not its children
+      if (event.target === authPopUp) {
+        authPopUp.style.display = 'none';
+      }
+    });
+    
+    // Add a close button for better UX (optional)
+    const popupBox = authPopUp.querySelector('.popup-box');
+    if (popupBox) {
+      const closeButton = document.createElement('button');
+      closeButton.innerHTML = ''; // × symbol
+      closeButton.className = 'popup-close-btn';
+      closeButton.onclick = function() {
+        authPopUp.style.display = 'none';
+      };
+      popupBox.appendChild(closeButton);
+      
+      // Add CSS for the close button
+      const style = document.createElement('style');
+      style.textContent = `
+        .popup-close-btn {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: none;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          color: #777;
+        }
+        .popup-close-btn:hover {
+          color: #333;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+  
+  // Function to show the auth pop-up
+  window.showAuthPopUp = function() {
+    if (authPopUp) {
+      authPopUp.style.display = 'flex';
+    }
+  };
+  
+  // Function to handle auth check and show pop-up
+  window.handleAuthCheck = function(event, linkUrl) {
     // If user is logged in, allow the link to proceed
     if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
-      // Optionally, you can navigate to the linkUrl here
       window.location.href = linkUrl;
       return;
     }
     // Otherwise, prevent default and show the sign-in pop-up
     event.preventDefault();
-    const authPop = document.getElementById('authPopUp');
-    if (authPop) {
-      authPop.style.display = 'flex';
+    if (authPopUp) {
+      authPopUp.style.display = 'flex';
     }
-}  
+  };
 
-// Local login/signup modal triggers
-function showLoginModal() {
-  const authPop = document.getElementById('authPopUp');
-  if (authPop) authPop.style.display = 'none';
-  openModal('login');
-}
-function showSignupModal() {
-  const authPop = document.getElementById('authPopUp');
-  if (authPop) authPop.style.display = 'none';
-  openModal('signup');
-}
-
-// Close the auth pop-up if user clicks outside it
-const authPopUp = document.getElementById('authPopUp');
-if (authPopUp) {
-  authPopUp.addEventListener('click', function(event) {
-    if (event.target === authPopUp) {
-      authPopUp.style.display = 'none';
-    }
-  });
-}
+  // Functions for login/signup modal triggers
+  window.showLoginModal = function() {
+    if (authPopUp) authPopUp.style.display = 'none';
+    openModal('login');
+  };
+  
+  window.showSignupModal = function() {
+    if (authPopUp) authPopUp.style.display = 'none';
+    openModal('signup');
+  };
+});
 
 // ===================
 // PASSWORD TOGGLE

@@ -219,9 +219,9 @@ section.top-company-section {
   img.hire {
     width: 44px;
     height: 44px;
-    left: 6%;
+    left: 8.5%;
     position: absolute;
-    margin-block: 48px;
+    margin-block: 33px;
     margin-left: -1%;
     font-weight: bold;
     color: #768f93;

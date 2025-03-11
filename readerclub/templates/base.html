@@ -14,10 +14,15 @@
   <!-- Pop-Up CSS -->
   <link rel="stylesheet" href="{% static 'css/popup.css' %}">
 
+  <script src="{% static 'js/abroad_uni.js' %}"></script>
+
   <script>
     var isLoggedIn = {% if request.session.user_id %} true {% else %} false {% endif %};
   </script>
   
+  <link href='https://fonts.googleapis.com/css?family=Alkatra' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Prociono' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
   <!-- External libraries (optional) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
@@ -47,7 +52,7 @@
   <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
-        <img src="{% static 'assets/header.png' %}" alt="header Logo"/>
+        <img src="{% static 'assets/career-header.svg' %}" alt="header Logo"/>
       </a>
 
       <!-- Desktop Nav -->

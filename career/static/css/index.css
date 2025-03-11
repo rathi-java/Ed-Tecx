@@ -50,6 +50,50 @@ header {
   align-items: center;
 }
 
+/*****************************************************
+ * SIGNUP / LOGIN BUTTONS
+ *****************************************************/
+ .signup,
+ .login {
+   display: inline-block;
+   margin-left: 10px;
+ }
+ .signup button,
+ .login button {
+   position: relative;
+   padding: 8px 24px;
+   width: 105px;
+   border-radius: 10px;
+   border: none;
+   font-weight: 400;
+   font-size: 16px;
+   cursor: pointer;
+ }
+ /* Log In button */
+ .login button {
+   background-color: #1273b9;
+   color: white;
+   margin-left: 25%;
+   z-index: 10;
+   font-family: 'Open Sans', sans-serif;
+   font-size: 15px;
+ }
+ .login button:hover {
+   background-color: #ec8a3f;
+ }
+ /* Sign Up button */
+ .signup button {
+   background-color: rgba(18, 115, 185, 0.11);
+   color: black;
+   text-align: right;
+   font-family: 'Open Sans', sans-serif;
+   font-size: 15px;
+ }
+ .signup button:hover {
+   background-color: #ec8a3f;
+   color: white;
+ }
+
 .buttons button {
   margin-left: 13px;
   padding: 10px 20px;
@@ -182,7 +226,7 @@ h2 {
 }
 
 .discover-search-bar button {
-  margin-top: -9px;
+  margin-top: -12px;
   padding: 10px 20px;
   background: linear-gradient(90deg, #077bc3 40.63%, #44a7e4 93.06%);
   color: white;
@@ -193,6 +237,8 @@ h2 {
   font-weight: 500;
   font-size: 1rem;
   transition: all 0.3s ease;
+  margin-left: 40px;
+  position: relative;
 }
 
 .discover-search-bar button:hover {
