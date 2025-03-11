@@ -1,12 +1,12 @@
 .pricing-container {
-    width: 85%;
+    width: 84.3%;
     box-sizing: border-box;
     background: #fff;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 94px;
-    margin-top: 10px;
+    margin-left: 98.2px;
+    margin-top: 3px;
 }
 
 .pricing-container h1 {
@@ -281,7 +281,8 @@
 
 
 .sec3-pricing-section {
-    width: 79.5%;
+    
+    width: 79.1%;
     /* max-width: 900px; */
     margin: 50px auto;
     background: #fff;
@@ -289,8 +290,8 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin-top: 10px;
-    margin-left: 98px;
+    margin-top: 3px;
+    margin-left: 95.7px;
 }
 
 .sec3-pricing-header {
@@ -342,8 +343,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    width: 80.5%;
-    margin-left:6%;
+    width: 80%;
+    margin-left:6.7%;
 }
 .arrow{
     width: 100px;
@@ -410,17 +411,21 @@
             width: 81%;
             margin-left: 94px;
         }
-        /* .sec3-pricing-section {
-             width: 100%; 
-             /* max-width: 1121px;  */
-            /* margin: 50px auto;
+        .pricing-container {
+            width: 85%;
+            box-sizing: border-box;
             background: #fff;
-            padding: 90px;
+            padding: 40px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            margin-top: 10px;
-            margin-left: 98px; */
+            margin-left: 93.3px;
+            margin-top: 4px;
+        }
+        .sec3-pricing-section {
+            width: 79.2%;
+            margin-left: 93.7px;
+        }
+        
         
     }
 
@@ -430,6 +435,10 @@
         justify-content: center;
         gap: 15px; 
         padding: 0 1px;
+    }
+    .container {
+        margin-left: 2%;
+        width: 90%;
     }
 
     .plan {
@@ -454,25 +463,18 @@
         font-size: 18px; 
         padding: 10px;
     }
-    .container {
-        margin-left: 71px;
-    }
+    
     .pricing-container {
-        width: 99%;
-        padding: 40px;
-        margin-top: 10px;
-        margin-left: 0px;
+        margin-left: 2.2%;
+        width: 95.6%;
 }
 .sec3-pricing-section {
-    width: 79%;
-    margin-left: 63px;
+    width: 87%;
+    margin-left: 2.4%;
 }
 }
 @media (max-width: 768px) {
-    .container {
-        margin-left: 76px;
-        height: 155px;
-    }
+   
     .text-content h2 {
         font-family: 'Poppins', sans-serif;
         font-size: 28px;
@@ -492,69 +494,172 @@
     .container {
         flex-direction: column;
         text-align: center;
+        margin-left: 3%;
+        width: 86%;
+    }
+    .pricing-container {
+        margin-top: 3px;
+        margin-left: 23.5px;
+        width: 93.6%;
     }
     .illustration-container {
         flex-direction: column;
         align-items: center;
     }
-     .bell {
-        /* width: 60px;
-        height: 60px; */
-        margin-top: -163px;
-        margin-left: 97px;
-    }
-    .photo {
-        width: 200px;
-        margin-left: 489px;
-        margin-top: -153px;
-    }
+    .bell{
+    margin-top: -93px;
+    width: 59px;
+    height: 50px;
+    margin-left: -128px;
 }
-@media (max-width: 768px) {
-    .container{
-width: 147%;
-    margin-left: -4px;}
     .photo {
-        width: 145px;
-        margin-left: 420px;
-        margin-top: -104px;
-    }
-    .pricing-container {
-        margin-left: 84px;
+        
+            /* height: 16%; */
+            width: 23%;
+            margin-left: 505px;
+            margin-top: -163px;
+        
     }
     .sec3-pricing-section {
-        width: 106%;
-        margin-left: 33px;}
-}
-@media (max-width: 320px) {
-.text-content h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
-    color: #333;
-    text-align: left;
-    margin-top: -122px;
-    margin-left: 0px;
-}
-.bell {
-    margin-top: -195px;
-    margin-left: 283px;
-    width: 68px;
-}
-.photo {
-    width: 126px;
-        margin-left: 337px;
-        margin-top: -71px;
+        width: 82.8%;
+        margin-left: 3.3%
     }
+}
+    
+@media (max-width: 426px) {
+.text-content h2 {
+    
+        margin-top: -121px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 27px;
+        color: #333;
+        text-align: left;
+        margin-left: -5px;
+    
+}
+
+.container {
+    width: 78%;
+}
+
+.bell {
+    height: 14%;
+    width: 11%;
+    margin-top: -112px;
+    margin-left: 135px;
+}
+.pricing-container {
+    margin-top: 4px;
+    margin-left: 13.6px;
+    width: 92.8%;
+}
+
  .text-content p a {
             font-size: 17px;
             text-align: left;
             /* margin-right: 330px; */
-            margin-right: 101px;
+            margin-right: 10px;
         }
-        .sec3-pricing-desc {
-            font-family: 'Poppins';
-            font-size: 14px;
-            color: #555;
-             padding-left: 0px; 
-             padding-right: 0px; 
+        .sec3-pricing-section {
+            margin-top: 4px;
+            width: 73.8%;
+            margin-left: 3.3%;
         }
+        .photo {
+            width: 78px;
+            margin-left: 299px;
+            margin-top: -61px;
+        }
+        .pricing-container h1 {
+           
+                font-size: 31px;
+            margin-top:0px;
+        }
+}
+@media (max-width: 376px){
+    .photo {
+        width: 67px;
+        margin-left: 203px;
+        margin-top: -45px;
+    }
+    .text-content h2 {
+        margin-top: -121px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        color: #333;
+        text-align: left;
+        margin-left: 0px;
+    }
+    .bell {
+        margin-top: -96px;
+        margin-left: 93px;
+    }
+    .photo {
+        width: 67px;
+        margin-left: 203px;
+        margin-top: -61px;
+    }
+    .text-content p {
+        margin-left: -15px;
+        font-family: 'Kite One', sans-serif;
+        font-size: 15px;
+        color: #077bc3;
+        margin-top: -3px;
+    }
+    .pricing-container h1 {
+        margin-top: -14px;
+        top: 10%;
+        font-family: 'Inter';
+        /* margin-bottom: 5px; */
+        color: #3d3d3d;
+        font-size: 26px;
+        text-align: center;
+    }
+    .sec3-pricing-section {
+        margin-top: 4px;
+        width: 70.8%;
+        margin-left: 4%;
+    }
+}
+@media (max-width: 321px){
+    .text-content h2 {
+        /* margin-top: -121px; */
+        font-family: 'Poppins', sans-serif;
+        font-size: 17px;
+        color: #333;
+        text-align: left;
+        margin-left: 0px;
+    }
+    .container {
+        margin-left: 5.1%;
+        width: 71.7%;
+    }
+    .pricing-container h1 {
+        margin-top: -14px;
+        top: 10%;
+        font-family: 'Inter';
+        /* margin-bottom: 5px; */
+        color: #3d3d3d;
+        font-size: 22px;
+        text-align: center;
+    }
+    .pricing-container p {
+        font-family: 'Kite One';
+        color: #0f5683;
+        margin-bottom: 10px;
+        font-size: 19px;
+        text-align: center;
+    }
+    .sec3-pricing-header {
+       
+        font-size: 23px;
+       
+    }
+    .sec3-pricing-section {
+        margin-top: 4px;
+        width: 65.8%;
+        margin-left: 5%;
+    }
+    .sec3-pricing-container {
+        margin-left: -43px;}
 }

@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs'
+SECRET_KEY = os.getenv("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG",True)
 
 ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
 AUTH_USER_MODEL = 'oauth.UsersDB'
@@ -72,8 +73,8 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {"access_type": "online"},
         "OAUTH_PKCE_ENABLED": True,
         "APP": {
-            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-            "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+            "client_id": os.getenv("READERCLUB_GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("READERCLUB_GOOGLE_CLIENT_SECRET"),
         }
     },
     "github": {
@@ -81,8 +82,8 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {"access_type": "online"},
         "OAUTH_PKCE_ENABLED": True,
         "APP": {
-            "client_id": os.getenv("GITHUB_CLIENT_ID"),
-            "secret": os.getenv("GITHUB_CLIENT_SECRET"),
+            "client_id": os.getenv("READERCLUB_GITHUB_CLIENT_ID"),
+            "secret": os.getenv("READERCLUB_GITHUB_CLIENT_SECRET"),
         }
     }
 }
@@ -138,7 +139,7 @@ DATABASES = {
         'NAME': os.getenv("DB_NAME"),
         'USER': os.getenv("DB_USER"),
         'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv("DB_HOST"),
+        'HOST': os.getenv( "DB_HOST"),
         'PORT': os.getenv("DB_PORT"),
     }
 }
@@ -247,13 +248,13 @@ SOCIALACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = False
 
 # Secrets securely access
-RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID")
-RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET")
+RAZORPAY_KEY_ID = os.getenv("READERCLUB_RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET = os.getenv("READERCLUB_RAZORPAY_KEY_SECRET")
 
 
 # Email Configuration
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.getenv("READERCLUB_EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("READERCLUB_EMAIL_HOST_PASSWORD")
 # Settings for social auth
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',

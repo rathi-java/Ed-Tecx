@@ -6,7 +6,7 @@ services:
       - ./readerclub:/app
       - ./readerclub/staticfiles:/app/staticfiles
     ports:
-      - "8000:8000"
+      - "8000:80"
     env_file:
       - .env
 
@@ -16,8 +16,9 @@ services:
       context: ./career
     volumes:
       - ./career:/app
+      - ./career/staticfiles:/app/staticfiles
     ports:
-      - "8001:8001"
+      - "8001:80"
 
     env_file:
       - .env
