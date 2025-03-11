@@ -27,7 +27,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG",True)
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
 AUTH_USER_MODEL = 'oauth.UsersDB'
@@ -211,11 +212,15 @@ SESSION_SAVE_EVERY_REQUEST = True
 # Session settings
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed sessions
 SESSION_COOKIE_NAME = 'sessionid'  # Name of the session cookie
-SESSION_COOKIE_SECURE = False  # Set to True if using HTTPS
+SESSION_COOKIE_SECURE = TRUE  # Set to True if using HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session cookie
 SESSION_COOKIE_SAMESITE = 'Lax'  # Adjust as needed ('Lax', 'Strict', 'None')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
 SESSION_COOKIE_AGE = 1209600  # Session expiry in seconds (2 weeks)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = os.getenv("READERCLUB_CSRF_TRUSTED_ORIGINS").split(" ")
+CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN")
 
 # settings.py
 LOGGING = {
