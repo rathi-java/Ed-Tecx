@@ -14,7 +14,7 @@ touch /app/logs/gunicorn-access.log
 # Start Gunicorn server
 exec gunicorn \
     --name readerclub \
-    --workers 9 \
+    --workers 4 \
     --timeout 120 \
     --bind 0.0.0.0:8000 \
     --log-level info \
