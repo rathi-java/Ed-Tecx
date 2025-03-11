@@ -35,6 +35,12 @@
 /*****************************************************
  * NAVBAR & HEADERS 
  *****************************************************/
+ .discover-logo {
+  max-height: 40px;
+}
+.discover-logo:hover {
+  transform: scale(1.1);
+}
 .navbar {
   position: fixed;
   top: 0;
@@ -54,15 +60,11 @@
   justify-content: space-between;
 }
 .navbar-brand {
-  height: 80px; /* Set your desired header height */
-  overflow: hidden; /* Hide any overflow */
+  max-height: 40px;
 }
 
 .navbar-brand img {
-  height: 295px; /* Keep original height */
-  display: inline-block;
-  margin-top: -106px; /* Adjust this value to show the portion of the image you want */
-  margin-left: -22px;
+  max-height: 40px;
 }
 
 /*****************************************************
@@ -505,6 +507,9 @@
     width: 100%;
     margin: 10px 0;
   }
+  .discover-logo {
+    max-height: 30px;
+  }
   
   /* Stack the base row items vertically */
   .footer-base {
@@ -635,13 +640,16 @@
   .hamburger {
     display: block;
   }
+  .navbar-brand img {
+    max-height: 30px;
+  }
 }
 
 /* Additional breakpoints */
 @media (max-width: 425px) {
-  .navbar-brand img {
-    height: 295px;
-  }
+  /* .navbar-brand img {
+    height: 30px;
+  } */
   .signup button,
   .login button {
     width: 90px;
@@ -649,9 +657,9 @@
   }
 }
 @media (max-width: 375px) {
-  .navbar-brand img {
-    height: 295px;
-  }
+  /* .navbar-brand img {
+    height: 25px;
+  } */
   .signup button,
   .login button {
     width: 85px;
@@ -659,9 +667,9 @@
   }
 }
 @media (max-width: 320px) {
-  .navbar-brand img {
-    height: 295px;
-  }
+  /* .navbar-brand img {
+    height: 20px;
+  } */
   .signup button,
   .login button {
     width: 80px;

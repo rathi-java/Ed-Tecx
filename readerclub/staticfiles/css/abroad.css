@@ -1,0 +1,185 @@
+.abroad-studies {
+    background: white;
+    padding: 20px; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 550px;
+    margin-top:5px;
+}
+.images-abroad {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.secondary-image-abroad {
+    width: 90%;
+    /* max-width: 250px; */
+    border-radius: 10px;
+    margin-bottom: 0px;
+    margin-left: 22px;
+    position: static;
+}
+
+.content-abroad {
+    flex: 1;
+    padding: 10px;
+}
+.subheading-abroad {
+    font-family: 'alkatra';
+    color: #077bc3;
+    font-size: 35px;
+    font-weight: 400;
+    
+}
+.heading-abroad {
+    
+
+color: rgba(48, 47, 47, 1);
+
+    font-family: 'Prociono';
+     font-weight: 400;
+   font-size: 37px;
+         line-height: 51px;
+       letter-spacing: 0%;
+
+}
+.description-abroad {
+    color:#536774;
+    font-family: 'Poppins';
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.benefits-list-abroad {
+    
+    list-style: none;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.benefits-list-abroad li {
+    color:#536774;
+    margin: 5px 0;
+    font-family: 'Poppins';
+}
+.cta-button-abroad {
+    font-family: 'Poppins';
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bc3;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.checkmark-abroad {
+    color: #077bc3;
+}
+@media(max-width:2560px){
+    .secondary-image-abroad {
+        width: 55%;}
+}
+@media(max-width:2000px){
+    .secondary-image-abroad {
+        width: 70%;}
+}
+@media (max-width: 1440px) {
+    .secondary-image-abroad {
+        width: 91%;
+    }
+}
+@media(max-width:1024px){
+    .heading-abroad {
+        color: rgba(48, 47, 47, 1);
+        font-family: 'Prociono';
+        font-weight: 400;
+        font-size: 36px;
+        line-height: 51px;
+        letter-spacing: 0%;
+    }
+}
+
+@media (max-width: 768px) {
+    .abroad-studies {
+        background: white;
+        padding: 20px; 
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 550px;
+        margin-top:5px;
+    }
+    
+    .images-abroad{
+        flex-direction: row;
+        justify-content: center;
+    }
+    .secondary-image-abroad {
+        width: 348px;
+        /* max-width: 250px; */
+        border-radius: 10px;
+        margin-bottom: 0px;
+        margin-left: 22px;
+        position: static;
+    }
+    .subheading-abroad {
+        font-size: 25px;}
+        .heading-abroad {
+            font-size: 28px;
+            line-height: 33px;
+            text-align: left;
+        
+}
+.benefits-list-abroad li {
+    text-align: left;
+}
+.description-abroad {
+    text-align: left;
+}
+.cta-button-abroad {
+    margin-right: 46px;
+}
+}
+@media (max-width: 430px) {
+    
+.abroad-studies {
+    text-align: center;
+    flex-direction: column-reverse;
+}
+.abroad-studies {
+    background: white;
+    padding: 20px;
+    width: 100%;
+    display: flex
+;
+    align-items: center;
+    gap: 20px;
+    height: 768px;
+    margin-top: 5px;
+}
+}
+@media (max-width: 380px) {
+.subheading-abroad {
+    font-size: 22px;
+}
+.heading-abroad {
+    font-size: 26px;}
+}
+@media (max-width: 330px) {
+.heading-abroad {
+    font-size: 20px;
+}
+.secondary-image-abroad {
+    width: 275px;
+    /* max-width: 250px; */
+    border-radius: 10px;
+    margin-bottom: 0px;
+    margin-left: 8px;
+    position: static;
+}
+}

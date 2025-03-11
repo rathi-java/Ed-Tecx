@@ -66,11 +66,12 @@
   }
   
   .phone-text {
-    font-size: 34px;
+    font-size: 28px;
     font-weight: bold;
     text-align: left;
     color: #077bc3;
     font-family: 'Koh Santepheap';
+    margin-top: 20px;
   }
   
   .download-icon {

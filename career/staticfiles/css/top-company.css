@@ -68,7 +68,7 @@ section.top-company-section {
   /* We no longer do CSS-based marquee animation; we use JS transform instead. */
   .top-company-company-slider,
   .top-company-company-slider1 {
-    width: 80%;
+    width: 93%;
     overflow: hidden;
     white-space: nowrap;
     position: relative;

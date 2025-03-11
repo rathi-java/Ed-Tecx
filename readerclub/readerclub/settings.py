@@ -208,11 +208,10 @@ SOCIALACCOUNT_LOGIN_ON_GET =True
 SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
-
 # Session settings
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed sessions
 SESSION_COOKIE_NAME = 'sessionid'  # Name of the session cookie
-SESSION_COOKIE_SECURE = TRUE  # Set to True if using HTTPS
+SESSION_COOKIE_SECURE = True  # Set to True if using HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session cookie
 SESSION_COOKIE_SAMESITE = 'Lax'  # Adjust as needed ('Lax', 'Strict', 'None')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
