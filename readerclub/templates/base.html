@@ -52,7 +52,7 @@
   <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
-        <img src="{% static 'assets/career-header.svg' %}" alt="header Logo"/>
+        <img src="{% static 'assets/header.svg' %}" alt="header Logo"/>
       </a>
 
       <!-- Desktop Nav -->
@@ -91,50 +91,51 @@
             <a class="nav-link" href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a>
           </li> {% endcomment %}
         </ul>
-      </div>
-
-      {% if request.session.user_id %}
-      <!-- Profile Dropdown -->
-      <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
-        <div class="avatar">
-          {% if logged_in_user and logged_in_user.full_name %}
-            {{ logged_in_user.full_name|slice:":1"|upper }}
-          {% else %}
-            ?
-          {% endif %}
-        </div>        
-        <div id="profile-menu" class="profile-dropdown-content">
-          <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
-          {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
-          <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
-          <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
-          <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-
-          <div class="profile-info-links">
-            <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
-            <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
-            <a href="{% url 'about_us' %}">About</a>
-            <a href="{% url 'maintenance_view' %}">Career</a>
-            {% comment %} <a href="#">Blog</a> {% endcomment %}
+        {% if request.session.user_id %}
+        <!-- Profile Dropdown -->
+        <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
+          <div class="avatar">
+            {% if logged_in_user and logged_in_user.full_name %}
+              {{ logged_in_user.full_name|slice:":1"|upper }}
+            {% else %}
+              ?
+            {% endif %}
+          </div>        
+          <div id="profile-menu" class="profile-dropdown-content">
+            <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+            {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
+            <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+            <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+            <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+  
+            <div class="profile-info-links">
+              <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
+              <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+              <a href="{% url 'about_us' %}">About</a>
+              <a href="{% url 'maintenance_view' %}">Career</a>
+              {% comment %} <a href="#">Blog</a> {% endcomment %}
+            </div>
+            {% comment %} <div class="profile-social-icons">
+              <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+              <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div> {% endcomment %}
           </div>
-          {% comment %} <div class="profile-social-icons">
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-          </div> {% endcomment %}
         </div>
+        {% else %}
+        <!-- Sign Up & Log In Buttons -->
+        <div class="login">
+          <button onclick="openModal('login')">Login</button>
+        </div>
+        <div class="signup">
+          <button onclick="openModal('signup')">Sign Up</button>
+        </div>
+        {% endif %}
       </div>
-      {% else %}
-      <!-- Sign Up & Log In Buttons -->
-      <div class="login">
-        <button onclick="openModal('login')">Login</button>
-      </div>
-      <div class="signup">
-        <button onclick="openModal('signup')">Sign Up</button>
-      </div>
-      {% endif %}
+
+
 
       <!-- Hamburger (for mobile) -->
       <div class="hamburger" id="hamburger">

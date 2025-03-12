@@ -14,7 +14,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 900px;
-    height: 600px;
+    height: auto;
     padding-left: 5%;
     padding-right: 5%;
     margin: auto;
@@ -139,7 +139,11 @@ h2 {
   box-sizing: border-box;
 }
 
-
+.profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
 
 .save-button,
 .cancel-button {
@@ -187,6 +191,9 @@ h2 {
     }
     .wave-profile {
         width: 100%;
+    }
+    .profile-buttons {
+        display: flex !important; /* Ensures visibility on all screen sizes */
     }
 }
 
@@ -256,11 +263,3 @@ h2 {
     color: #000000; 
   }
   
-  .profile-buttons {
-    display: none;  
-  }
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}

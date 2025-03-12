@@ -98,6 +98,8 @@
   margin: 0;
   padding: 0;
   white-space: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 .nav-link {
   color: rgba(128, 128, 128, 0.808);
@@ -211,6 +213,7 @@
   font-size: 20px;
   font-weight: bold;
   margin-right: 15px;
+
 }
 .profile-dropdown {
   position: relative;
@@ -432,6 +435,7 @@
   margin: 0;                    /* remove default paragraph margin */
   white-space: nowrap;          /* keep it on one line */
   font-size: 12px;
+  margin-left: -600px;
 }
 
 /* Footer practice links hover effects */

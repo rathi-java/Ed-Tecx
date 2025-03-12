@@ -11,12 +11,12 @@ html,body {
 }
 form#filterForm {
     display: flex;
-    gap: 17px;
+    gap: 49px;
+    margin-inline: 3%;
 }
 .container {
     width: 100%;
     margin: 0 0;
-    padding: 9px;
 }
 
 header { 
@@ -37,7 +37,7 @@ header {
     margin-bottom: 7px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    width: 96%;
+    width: 94%;
     margin-top: -5px;
     margin-left: 3px;
 }
@@ -140,6 +140,11 @@ header {
     /* border-radius: 10px; */
     margin-top:15px;
 }
+select {
+    font-size: 14px;
+}
+
+
 
 p {
     display: flex;
@@ -204,36 +209,39 @@ border-radius: 8px;
 }
 
 .company-logo {
-width: 60px;
-height: 60px;
+    width: 79px;
+    height: 79px;
+    margin-block: 0%;
+    margin-inline: -1%;
 }
 
 .job-title h2 {
-font-family: 'Poppins';
-font-size: 22px;
-color: #03629C;
-margin-right: 340px;
-margin-top:-2px;
+    font-family: 'Poppins';
+    font-size: 32px;
+    color: #03629C;
+    margin-right: 552px;
+    margin-top: -2px;
 }
 
 .job-title p {
-margin: 0;
-font-size: 22px;
-color: #000000;
-margin-top:-17px;
+    margin: 0;
+    font-size: 24px;
+    color: #000000;
+    margin-top: -38px;
+    font-weight: 600;
 }
 
 .applyy-btn {
-font-family:'Poppins';
-background: #007bff;
-color: white;
-padding: 8px 12px;
-border-radius: 5px;
-font-weight: bold;
-cursor: pointer;
-border: none;
-transition: 0.3s ease;
-font-size: 18px;
+    font-family: 'Poppins';
+    background: #077BC3;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+    font-size: 20px;
 }
 
 .applyy-btn:hover {
@@ -241,9 +249,9 @@ background: #0056b3;
 }
 
 .job-meta {
-margin: 10px 0;
-font-size: 14px;
-color: #555;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #3C464B;
 }
 
 h3 {
@@ -279,10 +287,17 @@ margin-top: 20px;
 font-family:'Poppins';
 font-size:16px;
 }
-.detail strong{
+.detail strong {
     font-weight: bold;
-    text-decoration: underline;
     color: black;
+    text-decoration: underline;
+}
+button#applyFilter{
+    background-color: #0F8E2A;
+    color: white;
+    border: none;
+    padding: 2px 25px;
+    border-radius: 37px;
 }
 .jd u {
     font-weight: 900;
@@ -346,15 +361,15 @@ width: 20px;
 height: 20px;
 margin-right: 10px;
 }
-button#applyFilter {
-background: #0F8E2A;
-color: white;
-padding: 10px 20px;
-border: none;
-border-radius: 30px;
-cursor: pointer;
-font-size: 16px;
-font-weight: bold;
+utton#applyFilter {
+    background: #0F8E2A;
+    color: white;
+    padding: 0px 17px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
 }
     button#applyFilter:hover {
 background: #055a90;
@@ -382,6 +397,7 @@ padding: 5px 10px;
 border: 1px solid #077bc3;
 width: 260px;
 height:46px;
+
 }
 .dropdown-container select {
 flex-grow: 1;
@@ -425,49 +441,63 @@ flex-grow: 1;
     font-size: 12px;
     margin-left: 5px;
     }
-@media screen and (max-width: 1440px){
-.nav-links {
-    display: flex;
-    gap: 20px;
-    padding-right: 51px;
-}
-.logo img {
-    height: 40px;
-    margin-right: 12px;
-}
-.filter-controls {
+    .nav-links {
+        display: flex;
+        gap: 20px;
+        padding-right: 51px;
+    }
+    .logo img {
+        height: 40px;
+        margin-right: 12px;
+    }
+    .filter-controls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+                    /* padding: 13px; */
+        background: white;
+        /* margin-top: 53px; */
+                    margin-bottom: 15px;
+                    padding-left: 11px;
+                    margin-left: 23px;
+                    width: 100%;
+                    margin-inline: -1%;
+    }
+    .dropdown-container {
+    font-family: 'Poppins';
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
-                /* padding: 13px; */
-    background: white;
-    /* margin-top: 53px; */
-                margin-bottom: 15px;
-                padding-left: 11px;
-                margin-left: 23px;
-                width: 93%;
-}
-.dropdown-container {
-font-family: 'Poppins';
-position: relative;
-display: flex;
-align-items: center;
-background: #fff;
-border-radius: 30px;
-padding: 5px 10px;
-border: 1px solid #077bc3;
-width: 260px;}
-
+    background: #fff;
+    border-radius: 30px;
+    padding: 5px 10px;
+    border: 1px solid #077bc3;
+    width: 260px;}
+    
     .right-section {
-        width: 737px;
-        margin-right: 54px;
-        margin-top: 15px;
+        width: 100%;
+    }
+@media (max-width: 1440px) {
+    form#filterForm {
+        display: flex;
+        gap: 23px;
+        margin-inline: 3%;
+    }
+    
     
 }
-}
 @media screen and (max-width: 1024px) {
-
+    .job-header {
+        gap: 17px;
+    }
+    button#applyFilter {
+        background-color: #0F8E2A;
+        color: white;
+        border: none;
+        padding: 5px 40px;
+        border-radius: 41px;
+    }
 .filter-controls {
     display: flex;
                 align-items: center;
@@ -485,8 +515,8 @@ width: 260px;}
     width: 48%;
 }
 .right-section {
-    width: 514px;
-    margin-right: 19px;
+    width: 484px;
+    margin-right: 53px;
     margin-top: 5px;
 }
 .left-section {
@@ -497,12 +527,22 @@ width: 260px;}
     position: sticky;
     /* top: 100px; */
     margin-top: -9px;
+    
 }
-
 .job-title h2 {
-    margin-right: 0;
+    margin-right: 117px;
+    font-size: 28px;
+    position: static;
+    margin-inline: -50%;
 }
-
+.job-title p {
+    margin: 0;
+    font-size: 24px;
+    color: #000000;
+    margin-top: -38px;
+    font-weight: 600;
+    margin-inline: -51%;
+}
 .job-listings {
     width: 100%;
 }
@@ -514,12 +554,15 @@ width: 260px;}
 .job-card {
     width: 96%;
 }
+select {
+    font-size: 11px;
+}
 
+
+}
 
 @media screen and (max-width: 768px) {
-body {
-    margin: 10px;
-}
+
 
 .filter-controls {
     display: flex;
@@ -534,8 +577,8 @@ body {
                 margin-left: -6px;
                 width: 96%;
 }
-select{
-    font-size: 11px;
+select {
+    font-size: 14px;
 }
 
 .dropdown-container {
@@ -543,14 +586,25 @@ select{
     height:32px;
 }
 
-
+.job-info p {
+    margin: 5px 0;
+    color: #000000;
+    font-size: 10px;
+}
+.tag {
+    background: #e3f7ec;
+    color: #2b8a3e;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 8px;
+}
 .left-section, .right-section {
     width: 100%;
     padding: 10px;
 }
 
 .right-section {
-    width: 514px;
+    width: 1226px;
     margin-right: 6px;
     margin-top: 15px;
 }
@@ -579,8 +633,11 @@ select{
     text-align: center;
     margin-left: -11px;
     margin-top: 15px;
+    width: 93%;
 }
-
+form#filterForm {
+    gap: 10px;
+}
 .job-card img {
     position: static;
     margin-bottom: 10px;
@@ -595,12 +652,75 @@ select{
 }
 }
 
-/* Extra small screens (Very small mobile devices - 480px and below) */
-@media screen and (max-width: 480px) {
-    button#applyFilter {
-        width: 71%;
-        margin-inline: 56%;
+
+
+@media (max-width: 769px) {
+    input, select {
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 8px;
+        background-color: #ffffff;
     }
+    select {
+        font-size: 9px;
+    }
+    button#applyFilter {
+        background-color: #0F8E2A;
+        color: white;
+        border: none;
+        padding: 4px 24px;
+        border-radius: 41px;
+        font-size: 11px;
+    }
+    .job-title p {
+        font-size: 16px;
+        text-align: center;
+        line-height: 73px;
+        margin-inline: 7%;
+        margin-bottom: -42%;
+    }
+    .job-title h2 {
+        font-size: 20px;
+        /* text-align: center; */
+        margin-inline: 7%;
+    }
+    .applyy-btn {
+        font-size: 16px;
+        padding: 3px 7px;
+        /* margin-inline: 28%; */
+        position: static;
+        top: 48%;
+        right: 14%;
+        margin-block: -1%;
+    }
+    .job-meta {
+        margin: 42px 0;
+        font-size: 16px;
+        color: #3C464B;
+    }
+
+}
+
+/* Extra small screens (Very small mobile devices - 480px and below) */
+@media  (max-width: 480px) {
+    .detailll {
+        font-size: 12px;
+    }
+    .job-header {
+        gap: 17px;
+        flex-direction: column;
+    }
+    button#applyFilter {
+        background-color: #0F8E2A;
+        color: white;
+        border: none;
+        padding: 9px 24px;
+        border-radius: 41px;
+        font-size: 11px;
+        margin-inline: 3%;
+        width: 217%;
+    }
+   
     form#filterForm {
         display: flex;
         gap: 7px;
@@ -634,12 +754,14 @@ select{
     font-size: 16px;
 }
 .tags {
-    display: flex
-;
+    display: flex;
     gap: 4px;
     margin: 10px 0;
     margin-left: -66px;
-    width: 2px;
+    width: 169px;
+}
+.tag{
+    font-size: 6px;
 }
 .job-card {
     /* flex-direction: column; */
@@ -651,11 +773,15 @@ select{
     width: 149px;
     margin-bottom: -9%;
 }
+
 .right-section {
     margin-right: 2px;
+    width: 126%;
+    margin-right: 6px;
+    margin-top: 15px;
 }
 .dropdown-container {
-    width: 179%;
+    width: 209%;
     height: 47px;
 }
 .divider {
@@ -678,7 +804,7 @@ select{
         margin-left: -50px;
     }
     .job-info p {
-        margin: 2px -67px;
+        margin: 1px -74px;
         color: #000000;
         flex-wrap: wrap;
         font-size: 10px;
@@ -687,16 +813,20 @@ select{
     p.techh {
         margin-inline: -36%;
     }
-}
-
-
-}
-@media (max-width: 769px) {
     select {
-        font-size: 9px;
+        font-size: 11px;
     }
 }
-@media screen and (max-width: 380px) {
+@media  (max-width: 380px) {
+    .right-section {
+        margin-right: 2px;
+        width: 161%;
+        margin-right: 6px;
+        margin-top: 15px;
+    }
+    button#applyFilter {
+        width: 188%;
+    }
     .job-header {
         flex-direction: column;
     }
@@ -758,10 +888,28 @@ select{
         .job-info h3 {
             font-size: 13px;
             margin-right: 127px;
-            margin-top: -72px;}
+            margin-top: -72px;
+        }
+        .dropdown-container {
+            width: 181%;
+            height: 47px;
+        }
+        select {
+            font-size: 11px;
+        }
+    
     }
 
     @media screen and (max-width: 330px) {
+        button#applyFilter {
+            margin-inline: 1%;
+            width: 100%;
+        }
+        .job-meta {
+            margin: 42px 0;
+            font-size: 11px;
+            color: #3C464B;
+        }
         .job-header {
             flex-direction: column;
         }
@@ -786,9 +934,7 @@ select{
             width: 66px;
             flex-direction: column;
         }
-        button#applyFilter {
-            margin-inline: 13%;
-        }
+        
         .dropdown-container {
             width: 93%;
             height: 45px;
