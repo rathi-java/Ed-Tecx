@@ -14,9 +14,9 @@ touch /app/logs/gunicorn-access.log
 # Start Gunicorn server
 exec gunicorn \
     --name career \
-    --workers 9 \
+    --workers 4 \
     --timeout 120 \
-    --bind 0.0.0.0:8000 \
+    --bind 0.0.0.0:8001 \
     --log-level info \
     --log-file /app/logs/gunicorn.log \
     --access-logfile /app/logs/gunicorn-access.log \

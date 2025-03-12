@@ -4,6 +4,11 @@
   margin: 0;
   padding: 0;
 }
+img.favicon {
+  width: 32px;  /* Adjust as needed */
+  height: 32px;
+  border-radius: 50%;
+}
 
 body {
   font-family: "Poppins", sans-serif;
@@ -36,11 +41,58 @@ header {
 .discover-logo {
   max-height: 40px;
 }
+.discover-logo:hover {
+  transform: scale(1.1);
+}
 
 .buttons {
   display: flex;
   align-items: center;
 }
+
+/*****************************************************
+ * SIGNUP / LOGIN BUTTONS
+ *****************************************************/
+ .signup,
+ .login {
+   display: inline-block;
+   margin-left: 10px;
+ }
+ .signup button,
+ .login button {
+   position: relative;
+   padding: 8px 24px;
+   width: 105px;
+   border-radius: 10px;
+   border: none;
+   font-weight: 400;
+   font-size: 16px;
+   cursor: pointer;
+ }
+ /* Log In button */
+ .login button {
+   background-color: #1273b9;
+   color: white;
+   margin-left: 25%;
+   z-index: 10;
+   font-family: 'Open Sans', sans-serif;
+   font-size: 15px;
+ }
+ .login button:hover {
+   background-color: #ec8a3f;
+ }
+ /* Sign Up button */
+ .signup button {
+   background-color: rgba(18, 115, 185, 0.11);
+   color: black;
+   text-align: right;
+   font-family: 'Open Sans', sans-serif;
+   font-size: 15px;
+ }
+ .signup button:hover {
+   background-color: #ec8a3f;
+   color: white;
+ }
 
 .buttons button {
   margin-left: 13px;
@@ -72,10 +124,11 @@ header {
 
 /* Main section styles */
 .discover-main {
-  background: linear-gradient(180deg, #ffffff 9.71%, #b1caff 145.89%);
-  width: 95%;
-  margin: 18px auto;
+  width: 100%;
+  margin: 5px 0;
   border-radius: 12px;
+  background: #fff;
+  padding-bottom: 20px;
   overflow: hidden;
 }
 section.page1 {
@@ -136,6 +189,7 @@ section.page1 {
   height: 69px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+  border: 2px solid #077bc3;
 }
 
 .con {
@@ -172,7 +226,7 @@ h2 {
 }
 
 .discover-search-bar button {
-  margin-top: -9px;
+  margin-top: -12px;
   padding: 10px 20px;
   background: linear-gradient(90deg, #077bc3 40.63%, #44a7e4 93.06%);
   color: white;
@@ -183,6 +237,8 @@ h2 {
   font-weight: 500;
   font-size: 1rem;
   transition: all 0.3s ease;
+  margin-left: 40px;
+  position: relative;
 }
 
 .discover-search-bar button:hover {
@@ -211,7 +267,7 @@ h2 {
   max-width: 500px;
   position: relative;
   z-index: 1;
-  
+  left: 3%;
   
 }
 
@@ -222,9 +278,9 @@ h2 {
 }
 
 .job {
-  top: 30px;
-  right: 22%;
-
+  /* top: 15px; */
+  right: 24%;
+  margin-top: -100px;
   animation: bounce 1.5s infinite ease-in-out;
   width: 23%;
 }
@@ -309,8 +365,8 @@ h2 {
 #page2 {
   background-color: #fff;
   border-radius: 12px;
-  width: 95%;
-  margin: -11px auto;
+  width: 100%;
+  margin: 5px 0;
   padding: 30px 20px 50px;
 }
 
@@ -367,12 +423,13 @@ h2 {
   width: 90%;
   margin: 20px auto;
   padding: 30px;
-  border: 3px dotted #2062ae;
-  background: #f5f9ff;
+  border: 3px dotted #077BC3;
+  background: white;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  
 }
 
 .job-card {
@@ -532,8 +589,8 @@ h2 {
 /* Popular Jobs Section */
 #page-3 {
   background: white;
-  width: 95%;
-  margin: 15px auto;
+  width: 100%;
+  margin: 0 0 5px 0;
   padding: 74px;
   border-radius: 12px;
 }
@@ -588,7 +645,7 @@ h2 {
 
 .job-slider {
   display: flex;
-  gap: 30px;
+  gap: 36px;
   transition: transform 0.01s ease-in-out;
   padding: 10px;
 }
@@ -753,8 +810,8 @@ h2 {
 }
 /* How It Works Section */
 #page4 {
-  width: 95%;
-  margin: 12px auto;
+  width: 100%;
+  margin: 5px 0px;
   background-color: white;
   border-radius: 12px;
   padding: 30px;
@@ -870,7 +927,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 40px;
+  gap: 90px;
 }
 
 /* Footer image styling */
@@ -981,6 +1038,7 @@ h2 {
   white-space: no wrap;          /* keep it on one line */
   font-size: 12px;
   text-align: center;
+  margin-left: -915px;
 }
 
 /* Footer practice links hover effects */
@@ -1041,6 +1099,10 @@ h2 {
     /* flex-wrap: wrap; */
     justify-content: center;
     gap: 0px;
+  }
+  .job-slider {
+    gap: 10px;
+  }
 }
 
   /* Each footer section takes about half the available width */
@@ -1056,7 +1118,7 @@ h2 {
   }
   /* Make the horizontal line flexible */
   .footer-line {
-    width: 90%;
+    /* width: 90%; */
     margin: 10px auto;
   }
   /* Stack base row items vertically */
@@ -1067,7 +1129,7 @@ h2 {
     justify-content: center;
     align-items: center;
   }
-}
+
 @media (max-width: 768px) {
   /* Stack footer sections vertically */
   .footer-container {
@@ -1171,11 +1233,14 @@ h2 {
   }
 }
 /* Media Queries for Responsive Design */
-@media (max-width: 1440px) {
+@media (min-width: 1025px) and (max-width: 1440px) {
   .job-flow {
     width: 74%;
     overflow: hidden;
     margin-left: 6%;
+  }
+  .job-slider {
+    gap: 29px;
   }
 }
 @media (max-width: 1200px) {
@@ -1307,6 +1372,7 @@ element.style {
     width: 80%;
     max-width: 400px;
     margin: 20px auto;
+    left: 0%;
   }
 
   .job,

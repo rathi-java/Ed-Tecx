@@ -1,0 +1,227 @@
+/* ----------------------------faq section------------------------------------- */
+
+.breadcrumb {
+  background-color: #eaeaea;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.faq-section {
+  /* max-width: 1200px; */ 
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  /* border-radius: 10px; */
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+  margin-top:5px;
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  background: linear-gradient(to right, #007bc3, #0F5683);
+  /* margin-bottom: 10px; */
+  color: white;
+  margin-top: -18px;
+}
+
+.faq-subheading {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  font-weight: 500;
+  margin-top: 15px;
+}
+
+.faq-description {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #444;
+  margin-top: 20px;
+}
+
+.faq-image-section {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 25px;
+}
+
+.faq-image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: -16px;
+}
+
+.faq-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: nowrap;
+  margin-top: -18px;
+}
+
+.faq-category {
+  width: 48%;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: all 0.3s ease-in-out;
+}
+
+
+
+.faq-category:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.faq-category-title {
+  font-size: 22px;
+  color: #333;
+  border-bottom: 2px solid #077bc3;
+  padding-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.faq-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.faq-list li {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.faq-list a {
+  text-decoration: none;
+  color: #077bc3;
+  font-weight: 500;
+  cursor: pointer;
+  display: block;
+  padding: 12px 10px;
+  transition: background 0.3s ease;
+  position: relative;
+  font-size: 16px;
+}
+
+.faq-list a:hover {
+  background: #e6f2ff;
+  border-radius: 5px;
+}
+
+/* Dropdown Content Styling - Improved */
+.dropdown-content {
+  display: none;
+  padding: 15px;
+  margin: 0 10px 10px 10px;
+  border: 1px solid #e0e0e0;
+  background: #f9f9f9;
+  border-radius: 5px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  z-index: 5;
+  /* Ensure content stays above other elements */
+}
+
+.dropdown-content p {
+  margin: 0;
+  color: #555;
+  font-size: 15px;
+  line-height: 1.6;
+  pointer-events: none;
+  /* Prevents clicks on paragraph text from triggering events */
+}
+
+/* e6f2ff */
+/* Style for active FAQ item */
+.faq-list li.faq-active a {
+  /* background: #e6f2ff; */
+  border-radius: 5px 5px 0 0;
+  color: #0056b3;
+  font-weight: 600;
+}
+
+/* Add an indicator for dropdown state */
+.faq-list a::after {
+  content: '+';
+  position: absolute;
+  right: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.faq-list li.faq-active a::after {
+  content: '−';
+  transform: rotate(0deg);
+}
+
+.faq-list li.faq-active .dropdown-content {
+  display: block !important;
+  opacity: 1 !important;
+  max-height: 500px !important;
+  /* Larger max-height to accommodate content */
+  overflow: visible !important;
+  background: #e6f2ff;
+}
+
+.faq-list li.faq-active {
+  z-index: 6;
+  /* Higher z-index for active items */
+  position: relative;
+  /* Establish stacking context */
+}
+@media (max-width: 1204px) {
+  .faq-title{
+    margin-top: 0px;
+  }
+}
+@media (max-width: 768px) {
+  .faq-section {
+    width: 100%;
+  }
+}
+
+@media(max-width:430px) {
+  .faq-section {
+    width: 100%;
+  }
+ 
+  .faq-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    background: linear-gradient(to right, #007bc3, #0F5683);
+    /* margin-bottom: 10px; */
+    margin-top: 12px;
+    color: white;}
+  .faq-content {
+    flex-wrap: wrap;
+  }
+}
+.faq-category {
+  width: 100%;}
+  .faq-list a {
+    font-size: 15px;
+}
+@media(max-width:380px) {
+  .faq-section {
+    width: 100%;
+  }
+}
+
+@media(max-width:330px) {
+  .faq-section {
+    width: 100%;
+  }
+}

@@ -9,7 +9,10 @@ html,body {
     overflow:auto; 
     scrollbar-width: none;
 }
-
+form#filterForm {
+    display: flex;
+    gap: 17px;
+}
 .container {
     width: 100%;
     margin: 0 0;
@@ -195,7 +198,7 @@ display: none;
 display: flex;
 align-items: center;
 justify-content: space-between;
-background: #f8f9fa;
+/* background: #f8f9fa; */
 padding: 15px;
 border-radius: 8px;
 }
@@ -266,21 +269,33 @@ font-size: 15px;
 color: #485157;
 margin-top: 20px;
 }
-.detail{
-font-family:'Poppins';
-color:#485157;
+.detail {
+    font-family: 'Poppins';
+    color: #555;
+    justify-content: unset;
+    gap: 24px;
 }
 .detail ul, li{
 font-family:'Poppins';
 font-size:16px;
 }
-
+.detail strong{
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+}
+.jd u {
+    font-weight: 900;
+}
 .comp-deatil{
 font-family: 'Poppins';
 font-size: 18px;
 color: #03629c;
 margin-top: 20px;
-
+font-weight: 900;
+}
+p.comp-deatil1 {
+    margin-top: -18px;
 }
 
 .company-info p {
@@ -288,6 +303,11 @@ font-family: 'Poppins';
 font-size: 14px;
 color: #555;
 display: block; 
+}
+.company-info strong{
+    color: #000; 
+font-weight: 900;
+margin-right:15px
 }
 
 .job-listings {
@@ -301,10 +321,12 @@ display: block;
 font-family:'Poppins';
 color:#485157;
 gap: 8px;
+font-weight: 800;
 }
-.detailll img{
-    width: 18px; 
-    height: 18px;
+.detailll img {
+    width: 18px;
+    height: 23px;
+    margin-block: -7px;
 }
 .filter-controls {
     display: flex;
@@ -364,22 +386,45 @@ height:46px;
 .dropdown-container select {
 flex-grow: 1;
 }
-
-
-/* @media screen and (max-width: 2560px){ */
-/* .filter-controls {
-display: flex;
-align-items: center;
-gap: 124px;
-flex-wrap: wrap;
-padding: 14px;
-background: white;
-margin-top: 17px;
-margin-bottom: 15px;
-padding-left: 66px;
-margin-left: 22px;
-width: 90%;
-}} */
+.navbar {
+    display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+        padding: 10px 20px;
+        height: 70px;
+        width: 92%;
+        margin-left: 23px;
+       
+    }
+    .logo {
+    display: flex;
+    }
+    .logo img {
+    height: 40px;
+    margin-left: 32px;
+    }
+    .logo span {
+    font-size: 12px;
+    color: gray;
+    display: block;
+    }
+    .nav-links {
+    display: flex;
+    gap: 20px;
+    padding-right: 105px;
+    }
+    .nav-links a {
+    text-decoration: none;
+    color:grey;
+    font-size: 16px;
+    position: relative;
+    }
+    .nav-links a::after {
+    content: "▼";
+    font-size: 12px;
+    margin-left: 5px;
+    }
 @media screen and (max-width: 1440px){
 .nav-links {
     display: flex;
@@ -416,7 +461,7 @@ width: 260px;}
 
     .right-section {
         width: 737px;
-        margin-right: 51px;
+        margin-right: 54px;
         margin-top: 15px;
     
 }
@@ -552,13 +597,21 @@ select{
 
 /* Extra small screens (Very small mobile devices - 480px and below) */
 @media screen and (max-width: 480px) {
-
+    button#applyFilter {
+        width: 71%;
+        margin-inline: 56%;
+    }
+    form#filterForm {
+        display: flex;
+        gap: 7px;
+        flex-direction: column;
+    }
 .container{
     padding:0px;
 }
 .filter-controls {
     padding: 10px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
 
 .dropdown-container {
@@ -596,13 +649,17 @@ select{
     margin-left: -9px;
     margin-top: 15px;
     width: 149px;
+    margin-bottom: -9%;
+}
+.right-section {
+    margin-right: 2px;
 }
 .dropdown-container {
-    width: 43%;
-    height: 52px;
+    width: 179%;
+    height: 47px;
 }
 .divider {
-    width: 90%;
+    width: 96%;
     height: 1px;
     background: #ccc;
     margin: 3px 0;
@@ -621,24 +678,56 @@ select{
         margin-left: -50px;
     }
     .job-info p {
-        margin: 5px 0;
+        margin: 2px -67px;
         color: #000000;
         flex-wrap: wrap;
         font-size: 10px;
+        flex-direction: column;
+    }
+    p.techh {
+        margin-inline: -36%;
     }
 }
 
 
 }
+@media (max-width: 769px) {
+    select {
+        font-size: 9px;
+    }
+}
 @media screen and (max-width: 380px) {
+    .job-header {
+        flex-direction: column;
+    }
+    .tags {
+        display: flex;
+        gap: 4px;
+        margin: 10px 0;
+        margin-left: -66px;
+        width: 65px;
+        flex-direction: column;
+    }
+    p.techh {
+        margin-inline: -35%;
+    }
+    .left-section {
+        margin-top: 4%;
+    }
+    
     .job-card {
         /* flex-direction: column; */
         /* align-items: center; */
         /* margin-left: 142px; */
         /* text-align: center; */
         margin-left: -9px;
-        margin-top: 15px;
-        width: 114px;}
+        margin-top: -9px;
+        width: 114px;
+    }
+
+        .divider {
+            width: 76%;
+        }
      p .timee {
             margin-left: -54px;
         }
@@ -655,13 +744,12 @@ select{
             text-decoration: none;
             margin-left: 11px;
         }
-    
-        .job-info p {
+        .job-info .time {
             margin: 5px 0;
             color: #000000;
             flex-wrap: wrap;
             font-size: 10px;
-            margin-left: -62px;
+            margin-left: -91px;
         }
         .job-card img {
             position: static;
@@ -674,13 +762,47 @@ select{
     }
 
     @media screen and (max-width: 330px) {
-        .right-section {
-            width: 377px;
-            margin-right: 6px;
-            margin-top: 15px;
+        .job-header {
+            flex-direction: column;
+        }
+        .tags {
+            margin-left: -26px;
+            width: 73px;
+            flex-direction: column;
+        }
+        .job-info p {
+            margin: 2px -92px;
+            color: #000000;
+            flex-wrap: wrap;
+            font-size: 10px;
+            flex-direction: column;
+        }
+        p.techh {
+            margin-inline: -36%;
+        }
+        .tags {
+            margin: 11px 0px;
+            margin-left: -30px;
+            width: 66px;
+            flex-direction: column;
+        }
+        button#applyFilter {
+            margin-inline: 13%;
         }
         .dropdown-container {
-            width: 40%;
+            width: 93%;
+            height: 45px;
+        }
+        form#filterForm {
+            width: 100%;
+        }
+        .right-section {
+            width: 377px;
+            margin-right: -1px;
+            margin-top: 12px;
+        }
+        .dropdown-container {
+            width: 93%;
             height: 52px;
         }
         .job-card {
@@ -689,46 +811,12 @@ select{
             /* margin-left: 142px; */
             /* text-align: center; */
             margin-left: -9px;
-            margin-top: 15px;
-            width: 109px;
+            margin-top: -10px;
+            width: 115px;
+        }
+        .left-section, .right-section {
+            width: 110%;
+            padding: 10px;
+            margin-top: 16px;
         }
     }
-.navbar {
-display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    padding: 10px 20px;
-    height: 70px;
-    width: 92%;
-    margin-left: 23px;
-   
-}
-.logo {
-display: flex;
-}
-.logo img {
-height: 40px;
-margin-left: 32px;
-}
-.logo span {
-font-size: 12px;
-color: gray;
-display: block;
-}
-.nav-links {
-display: flex;
-gap: 20px;
-padding-right: 105px;
-}
-.nav-links a {
-text-decoration: none;
-color:grey;
-font-size: 16px;
-position: relative;
-}
-.nav-links a::after {
-content: "▼";
-font-size: 12px;
-margin-left: 5px;
-}
