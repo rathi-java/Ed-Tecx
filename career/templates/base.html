@@ -11,8 +11,7 @@
     {% block extra_css %}
     {% endblock %}
 
-    <script src="{% static 'js/auth.js' %}"></script>
-    <script src="{% static 'js/forgot_password.js' %}"></script>
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
@@ -150,7 +149,8 @@
       </div>
     </div>
   </div>
-
+  
+</body>
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -169,6 +169,7 @@
     }
   });
 </script>
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/forgot_password.js' %}"></script>
 {% endblock %}
-</body>
 </html>

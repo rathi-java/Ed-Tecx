@@ -60,8 +60,8 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {"access_type": "online"},
         "OAUTH_PKCE_ENABLED": True,
         "APP": {
-            "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-            "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
+            "client_id": os.getenv("READERCLUB_GOOGLE_CLIENT_ID"),
+            "secret": os.getenv("READERCLUB_GOOGLE_CLIENT_SECRET"),
         }
     },
     "github": {
@@ -69,8 +69,8 @@ SOCIALACCOUNT_PROVIDERS = {
         "AUTH_PARAMS": {"access_type": "online"},
         "OAUTH_PKCE_ENABLED": True,
         "APP": {
-            "client_id": os.getenv("GITHUB_CLIENT_ID"),
-            "secret": os.getenv("GITHUB_CLIENT_SECRET"),
+            "client_id": os.getenv("READERCLUB_GITHUB_CLIENT_ID"),
+            "secret": os.getenv("READERCLUB_GITHUB_CLIENT_SECRET"),
         }
     }
 }
@@ -196,3 +196,4 @@ PUBLIC_PATHS = [
 ]
 
 
+SOCIALACCOUNT_LOGIN_ON_GET = True
