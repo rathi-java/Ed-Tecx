@@ -77,13 +77,17 @@ class ExamResult(models.Model):
 
     def __str__(self):
         return f"Exam Result - {self.user if self.user else 'Guest'} - Score: {self.score}%"
+    class Meta:
+        db_table = 'examportol_examresult'
+
+from django.db import models
 
 class Exam(models.Model):
     name = models.CharField(max_length=255)
     questions = models.ManyToManyField(Question, related_name='exams')
     duration = models.PositiveIntegerField(help_text="Duration in minutes")
-    
     exam_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # New field
 
     def save(self, *args, **kwargs):
         if not self.exam_code:
@@ -91,3 +95,7 @@ class Exam(models.Model):
             new_id = int(last_exam.exam_code[1:]) + 1 if last_exam and last_exam.exam_code else 1
             self.exam_code = f'E{new_id:04d}'
         super().save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'examportol_exam'
+
