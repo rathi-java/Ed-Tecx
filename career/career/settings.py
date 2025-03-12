@@ -202,3 +202,4 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://career.readerclub.in']
 
+LOGOUT_REDIRECT_URL = "/"

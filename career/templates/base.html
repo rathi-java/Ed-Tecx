@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/forgot_password.css' %}">
     <!-- Pop-Up CSS -->
     <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/profile_dropdown.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
     {% block extra_css %}
     {% endblock %}
 
@@ -26,92 +31,261 @@
 </head>
 
 <body>
-  <header>
-    <a href="/"><img src="{% static 'image/career-header.svg' %}" class="discover-logo" alt=""></a>
-    <div class="buttons">
-        {% if request.session.user_id %}
-            <a href="{% url 'job_page' %}"><button class="find-job">Find Job</button></a>
-            <a href="{% url 'maintenance_view' %}"> <button class="hire-talent">Hire Talent</button></a>
-        {% else %}
-        <!-- Sign Up & Log In Buttons -->
-        <div class="login">
-          <button onclick="openModal('login')">Login</button>
-        </div>
-        <div class="signup">
-          <button onclick="openModal('signup')">Sign Up</button>
-        </div>
-        {% endif %}
-    </div>
-</header>
 
+<!-- Navigation Bar, Mobile Sidebar, etc. -->
+<nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
+    <div class="nav-container">
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'assets/header.svg' %}" alt="header Logo"/>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="nav-links" id="navbarNav">
+          <ul>
+            {% comment %} <li><a class="nav-link" href="/">Home</a></li> {% endcomment %}
+            {% comment %} <li class="dropdown">
+              <a class="nav-link" href="#">
+                Solution <i class="fa-solid fa-caret-down"></i>
+              </a>
+              <div class="solution-dropdown-content">
+                <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a>
+                <a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a>
+                <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a>
+                <a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a>
+                <a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a>
+                <a href="https://library.readerclub.in/">Library</a> 
+              </div>
+            </li> {% endcomment %}
+            <li>
+              {% comment %} <a class="nav-link" href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a> {% endcomment %}
+            </li>
+            <li>
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li>
+              <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
+            </li>
+            <li>
+              <a class="nav-link" href="#">Internship</a>
+            </li>
+            <li>
+              {% comment %} <a class="nav-link" href="{% url 'price' %}">Pricing</a> {% endcomment %}
+            </li>
+            <li>
+              {% comment %} <a class="nav-link" href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a> {% endcomment %}
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <a class="nav-link" href="https://career.readerclub.in/" >Hire Talent</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{% url 'job_page' %}" >Find Jobs</a>
+            </li>
+          </ul>
+
+          {% if request.session.user_id %}
+          <!-- Profile Dropdown -->
+          <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
+            <div class="avatar">
+              {% if logged_in_user and logged_in_user.full_name %}
+                {{ logged_in_user.full_name|slice:":1"|upper }}
+              {% else %}
+                ?
+              {% endif %}
+            </div>        
+            <div id="profile-menu" class="profile-dropdown-content">
+              <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+              {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
+              <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+              <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+              <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+    
+              <div class="profile-info-links">
+                <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
+                <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                <a href="{% url 'about_us' %}">About</a>
+                <a href="{% url 'maintenance_view' %}">Career</a>
+                {% comment %} <a href="#">Blog</a> {% endcomment %}
+              </div>
+              {% comment %} <div class="profile-social-icons">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+              </div> {% endcomment %}
+            </div>
+          </div>
+          {% else %}
+          <!-- Sign Up & Log In Buttons -->
+          <div class="login">
+            <button onclick="openModal('login')">Login</button>
+          </div>
+          <div class="signup">
+            <button onclick="openModal('signup')">Sign Up</button>
+          </div>
+          {% endif %}
+
+      </div>
+
+
+
+      <!-- Hamburger (for mobile) -->
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+</nav>
+
+<!-- MOBILE SIDEBAR -->
+<div class="mobile-sidebar" id="mobileSidebar">
+    <div class="close-btn" id="closeBtn">
+      <i class="fas fa-times"></i>
+    </div>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li class="dropdown">
+        <a href="#">Solution <i class="fa-solid fa-caret-down"></i></a>
+        <ul>
+          {% comment %} <li><a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a></li>
+          <li><a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a></li>
+          <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a></li>
+          <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a></li>
+          <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a></li> {% endcomment %}
+          <li><a href="https://library.readerclub.in/">Library</a></li>
+        </ul>
+      </li>
+      {% comment %} <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li> {% endcomment %}
+      <li>
+        {% comment %} <a class="nav-link" href="https://career.readerclub.in/" >Job</a> {% endcomment %}
+      </li>
+      <li>
+        <a class="nav-link" href="https://library.readerclub.in/">Library</a>
+      </li>
+      {% comment %} <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li> {% endcomment %}
+      {% comment %} <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li> {% endcomment %}
+      {% if request.session.user_id %}
+      {% comment %} <li><a href="#"><i class="fas fa-user"></i> Profile</a></li> {% endcomment %}
+      <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+      {% else %}
+      <li><button class="signup-button-ham" onclick="openModal('signup')">Sign Up</button></li>
+      <li><button class="login-button-ham" onclick="openModal('login')">Log In</button></li>
+      {% endif %}
+    </ul>
+</div>
 
 <div class="main-content">
     {% block content %}
     {% endblock %}
 </div>
 
-{% comment %} {% include '' %} {% endcomment %}
-
-<section id="page-5">
-    <footer class="footer">
-      <!-- First Row: main links -->
-      <div class="footer-container">
-        <div class="footer-left">
-          <img src="{% static 'image/footer.png' %}" alt="Icon">
+<!-- FOOTER -->
+<footer class="footer">
+    <!-- First Row: main links -->
+    <div class="footer-container">
+      <div class="footer-left">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'assets/footer.png' %}" alt="Icon">
+        </a>        
+      </div>
+      <div class="footer-links">
+        <p class="footer-para">Useful Links</p>
+        <ul>
+          <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
+          {% comment %} <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Contact Us</a></li> {% endcomment %}
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Blogs</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Career</a></li>
+          <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
+          <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms & Conditions</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Child Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Job Categories</p>
+        <ul>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">IT & Software</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Management & Business</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Sales & Marketing</a></li>
+          <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Content & Creative</a></li>
+        </ul>
+      </div>
+      <div class="footer-ccc">
+        <div class="footer-top">
+          <p class="footer-para">Job & Opportunities</p>
+          <ul class="footer-iii">
+            <li>
+              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Full time Jobs</a>
+            </li>
+            <li>
+              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Part time Jobs</a>
+            </li>
+            <li class="footer-i">
+              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Remote Jobs</a>
+            </li>
+            <li>
+              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Work From Home Jobs</a>
+            </li>
+            <li class="footer-i">
+              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Internships</a>
+            </li>
+          </ul>          
         </div>
-        <div class="footer-links">
-          <p class="footer-para">Useful Links</p>
-          <ul>
-            <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
-            {% comment %} <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Contact Us</a></li> {% endcomment %}
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Blogs</a></li>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Career</a></li>
-            <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
-            <li><a href="{% url 'terms_and_conditions' %}" class="no-underline">Terms &amp; Conditions</a></li>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Child Policy</a></li>
+        {% comment %} <div class="footer-down">
+          <p class="footer-para">Jobs & Opportunities</p>
+          <ul class="footer-iii">
+            <div class="footer-v">
+              {% comment %} <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Internships</a></li>
+              <li><a href="{% url 'maintenance_view' %} " onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Jobs</a></li>   
+            </div>
           </ul>
-        </div>
-        <div class="footer-practice">
-          <p class="footer-para">Job categories</p>
-          <ul>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">IT &amp; Software</a></li>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Management &amp; Business</a></li>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Sales &amp; Marketing</a></li>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Content &amp; Creative</a></li>
-          </ul>
-        </div>
-        <div class="footer-ccc">
-          <div class="footer-top">
-            <p class="footer-para">Job &amp; Opportunities</p>
-            <ul class="footer-iii">
-              <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Full time jobs</a></li>
-              <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Part time jobs</a></li>
-              <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Remote jobs</a></li>
-              <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Work from home jobs</a></li>
-              <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Internships</a></li>
-              {% comment %} <li class="footer-i"><a href="compile_code.html">JS Compiler</a></li> {% endcomment %}
-            </ul>
+        </div> {% endcomment %}
+      </div>
+      <div class="footer-practice">
+        <p class="footer-para">Contact US</p>
+        <ul class="social-links">
+          <li>
+            <i class="fa fa-phone"></i>
+            <a href="tel:+91-9911775525" class="contact-link">+91-9911775525</a>
+          </li>
+          <li>
+            <i class="fa fa-envelope"></i>
+            <a href="mailto:contact@readerclub.in" class="contact-link email">contact@readerclub.in</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <a 
+              href="https://www.google.com/maps/search/?api=1&query=G1+Plot+No.+A-61+Sector-16+Noida+Gautam+Buddh+Nagar+UP+201301" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="contact-link"
+            >
+              G1, Plot No. A-61,<br>
+              Sector-16, Noida,<br>
+              Gautam Buddh Nagar,<br>
+              UP 201301
+            </a>
+          </li>
+        </ul>        
+      </div>
+    </div>
+    <!-- Second Row: HR + base row -->
+    <div class="footer-container footer-column">
+      <hr class="footer-line">
+      <div class="footer-base">
+        <p>© 2018-25 Readerclub. All rights reserved</p>
+        {% comment %} <div class="footer-logos">
+          <div class="fac">
+            <img src="{% static 'assets/facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
           </div>
-        </div>
-        <div class="footer-practice">
-          <p class="footer-para">Contact US</p>
-          <ul class="social-links">
-            <li><i class="fa fa-phone"></i> +91-9911775525</li>
-            <li><i class="fa fa-envelope"></i> contact@readerclub.in</li>
-            <li><i class="fa-solid fa-location-dot"></i> G1, Plot No. A-61, Sector-16, Noida, Gautam Buddh Nagar, UP 201301</li>
-          </ul>
-        </div>
+          <img src="{% static 'assets/instagram.png' %}" alt="Instagram" style="width: 30px; height: 30px;">
+          <img src="{% static 'assets/twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px;">
+          <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;">
+        </div> {% endcomment %}
       </div>
-      <!-- Second Row: HR + base row -->
-      <div class="footer-container footer-column">
-        <hr class="footer-line">
-        <div class="footer-base">
-          <p>© 2018-25 Readerclub. All rights reserved</p>
-          <!-- Footer Logos commented out -->
-        </div>
-      </div>
-    </footer>
-  </section>
+    </div>
+</footer>
+
 
   <!-- MODAL (LOGIN/SIGNUP) -->
   <div id="Modal" class="modal" style="display: none;">
@@ -151,6 +325,7 @@
   </div>
 
 </body>
+
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -170,6 +345,5 @@
   });
 </script>
 <script src="{% static 'js/auth.js' %}"></script>
-<script src="{% static 'js/forgot_password.js' %}"></script>
 {% endblock %}
 </html>

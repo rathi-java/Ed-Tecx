@@ -37,7 +37,7 @@ header {
     margin-bottom: 7px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    width: 96%;
+    width: 94%;
     margin-top: -5px;
     margin-left: 3px;
 }
@@ -555,7 +555,7 @@ flex-grow: 1;
     width: 96%;
 }
 select {
-    font-size: 14px;
+    font-size: 11px;
 }
 
 
@@ -652,8 +652,57 @@ form#filterForm {
 }
 }
 
+
+
+@media (max-width: 769px) {
+    input, select {
+        padding: 8px;
+        border-radius: 4px;
+        font-size: 8px;
+        background-color: #ffffff;
+    }
+    select {
+        font-size: 9px;
+    }
+    button#applyFilter {
+        background-color: #0F8E2A;
+        color: white;
+        border: none;
+        padding: 4px 24px;
+        border-radius: 41px;
+        font-size: 11px;
+    }
+    .job-title p {
+        font-size: 16px;
+        text-align: center;
+        line-height: 73px;
+        margin-inline: 7%;
+        margin-bottom: -42%;
+    }
+    .job-title h2 {
+        font-size: 20px;
+        /* text-align: center; */
+        margin-inline: 7%;
+    }
+    .applyy-btn {
+        font-size: 16px;
+        padding: 3px 7px;
+        /* margin-inline: 28%; */
+        position: static;
+        top: 48%;
+        right: 14%;
+        margin-block: -1%;
+    }
+    .job-meta {
+        margin: 42px 0;
+        font-size: 16px;
+        color: #3C464B;
+    }
+
+}
+
 /* Extra small screens (Very small mobile devices - 480px and below) */
-@media screen and (max-width: 480px) {
+@media  (max-width: 480px) {
     .detailll {
         font-size: 12px;
     }
@@ -665,11 +714,11 @@ form#filterForm {
         background-color: #0F8E2A;
         color: white;
         border: none;
-        padding: 4px 24px;
+        padding: 9px 24px;
         border-radius: 41px;
         font-size: 11px;
-        margin-inline: 92%;
-        width: 71%;
+        margin-inline: 3%;
+        width: 217%;
     }
    
     form#filterForm {
@@ -732,7 +781,7 @@ form#filterForm {
     margin-top: 15px;
 }
 .dropdown-container {
-    width: 229%;
+    width: 209%;
     height: 47px;
 }
 .divider {
@@ -755,7 +804,7 @@ form#filterForm {
         margin-left: -50px;
     }
     .job-info p {
-        margin: 2px -67px;
+        margin: 1px -74px;
         color: #000000;
         flex-wrap: wrap;
         font-size: 10px;
@@ -764,57 +813,20 @@ form#filterForm {
     p.techh {
         margin-inline: -36%;
     }
-}
-
-
-
-@media (max-width: 769px) {
-    input, select {
-        padding: 8px;
-        border-radius: 4px;
-        font-size: 8px;
-        background-color: #ffffff;
-    }
     select {
-        font-size: 9px;
-    }
-    button#applyFilter {
-        background-color: #0F8E2A;
-        color: white;
-        border: none;
-        padding: 4px 24px;
-        border-radius: 41px;
         font-size: 11px;
     }
-    .job-title p {
-        font-size: 16px;
-        text-align: center;
-        line-height: 73px;
-        margin-inline: 7%;
-        margin-bottom: -42%;
-    }
-    .job-title h2 {
-        font-size: 20px;
-        /* text-align: center; */
-        margin-inline: 7%;
-    }
-    .applyy-btn {
-        font-size: 16px;
-        padding: 3px 7px;
-        /* margin-inline: 28%; */
-        position: static;
-        top: 48%;
-        right: 14%;
-        margin-block: -1%;
-    }
-    .job-meta {
-        margin: 42px 0;
-        font-size: 16px;
-        color: #3C464B;
-    }
-
 }
 @media  (max-width: 380px) {
+    .right-section {
+        margin-right: 2px;
+        width: 161%;
+        margin-right: 6px;
+        margin-top: 15px;
+    }
+    button#applyFilter {
+        width: 188%;
+    }
     .job-header {
         flex-direction: column;
     }
@@ -879,12 +891,20 @@ form#filterForm {
             margin-top: -72px;
         }
         .dropdown-container {
-            width: 203%;
+            width: 181%;
             height: 47px;
         }
+        select {
+            font-size: 11px;
+        }
+    
     }
 
     @media screen and (max-width: 330px) {
+        button#applyFilter {
+            margin-inline: 1%;
+            width: 100%;
+        }
         .job-meta {
             margin: 42px 0;
             font-size: 11px;
@@ -914,9 +934,7 @@ form#filterForm {
             width: 66px;
             flex-direction: column;
         }
-        button#applyFilter {
-            margin-inline: 13%;
-        }
+        
         .dropdown-container {
             width: 93%;
             height: 45px;

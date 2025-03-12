@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Referral Code{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/refer_friend.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<div class="refcode-container">
+  <div class="refcode-wrapper">
+    <div class="refcode-title-container">
+      <span class="refcode-header-text">REFFERAL CODE</span>
+      <span class="refcode-icon">
+        <img src="{% static 'images/referal.svg' %}" alt="Referral Icon">
+      </span>
+    </div>
+    <div class="refcode-form-container">
+      <p>Please enter referral code</p>
+      <div class="form-group">
+        <input type="text" class="refcode-input" placeholder="Referral Code">
+      </div>
+      <div class="refcode-button-container">
+        <button class="refcode-apply-btn">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

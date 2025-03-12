@@ -18,110 +18,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Header styles */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 5%;
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  /* margin-bottom: 13px; */
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-.content {
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-.discover-logo {
-  max-height: 40px;
-}
-.discover-logo:hover {
-  transform: scale(1.1);
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-}
-
-/*****************************************************
- * SIGNUP / LOGIN BUTTONS
- *****************************************************/
- .signup,
- .login {
-   display: inline-block;
-   margin-left: 10px;
- }
- .signup button,
- .login button {
-   position: relative;
-   padding: 8px 24px;
-   width: 105px;
-   border-radius: 10px;
-   border: none;
-   font-weight: 400;
-   font-size: 16px;
-   cursor: pointer;
- }
- /* Log In button */
- .login button {
-   background-color: #1273b9;
-   color: white;
-   margin-left: 25%;
-   z-index: 10;
-   font-family: 'Open Sans', sans-serif;
-   font-size: 15px;
- }
- .login button:hover {
-   background-color: #ec8a3f;
- }
- /* Sign Up button */
- .signup button {
-   background-color: rgba(18, 115, 185, 0.11);
-   color: black;
-   text-align: right;
-   font-family: 'Open Sans', sans-serif;
-   font-size: 15px;
- }
- .signup button:hover {
-   background-color: #ec8a3f;
-   color: white;
- }
-
-.buttons button {
-  margin-left: 13px;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-family: "Poppins";
-  font-size: 15px;
-  transition: all 0.3s ease;
-}
-
-.find-job {
-  background-color: #077bc3;
-  color: white;
-  border: none;
-}
-
-.hire-talent {
-  color: #007bff;
-  background-color: white;
-  border: 1px solid #007bff;
-  text-decoration: none;
-}
-
-.buttons button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
 /* Main section styles */
 .discover-main {
   width: 100%;
@@ -714,13 +610,7 @@ h2 {
   padding: 30px;
 }
 
-.header {
-  font-size: 171%;
-  margin-left: 2%;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: rgb(7, 123, 195);
-}
+
 
 .divider {
   height: 2px;
@@ -906,280 +796,6 @@ h2 {
   display: block;
   margin-left: 4%;
 }
-/*****************************************************
- * FOOTER
- *****************************************************/
-.footer {
-  display: flex;
-  flex-direction: column;
-  color: white;
-  background: linear-gradient(90deg, rgba(49, 132, 205, 1) 0%, rgba(0, 77, 144, 1) 100%);
-  font-family: Arial, sans-serif;
-  padding: 20px 0 0 0;
-  overflow-x: hidden;
-}
-
-/* Main footer container styles */
-.footer-container {
-  max-width: 1200px;         /* same width as your header container */
-  margin: 0 auto;            /* center it horizontally */
-  padding: 0 20px;           /* optional side padding to match header spacing */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 90px;
-}
-
-/* Footer image styling */
-.footer-container img {
-  width: 165px;
-  height: auto;
-  margin-top: 37px;
-}
-
-/* Second row container using column layout for hr + base row */
-.footer-column {
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-/* Left section of the footer */
-.footer-left {
-  flex: 1;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  min-width: 220px;
-}
-
-/* Footer link groups */
-.footer-links,
-.footer-practice,
-.footer-ccc {
-  flex: 1;
-  min-width: 200px;
-  text-align: left;
-  margin-top: 20px;
-}
-
-/* Section header in the footer */
-.footer-para {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 6px;
-  border-bottom: 2px solid white;
-  display: inline-block;
-  padding-bottom: 4px;
-}
-
-/* Remove underline from links */
-.no-underline {
-  text-decoration: none;
-  color: #fff;
-}
-
-/* Social links list styling */
-.social-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px; /* Adjust spacing between icons */
-}
-
-.social-links li a {
-  text-decoration: none;
-  font-size: 20px; /* Increase icon size */
-  transition: transform 0.3s ease;
-}
-
-.social-links li a:hover {
-  transform: scale(1.1);
-}
-
-/* Remove default list styles in footer containers */
-.footer-container ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.footer-container ul li {
-  margin: 3px 0;
-  padding: 3px;
-  transition: 0.3s;
-}
-
-/* Horizontal line in the footer */
-.footer-line {
-  width: 1200px;
-  margin-left: 1%;
-  border: 1px solid white;
-  margin: 10px 0;  /* or as you prefer */
-}
-
-/* Footer base row styling */
-.footer-base {
-  max-width: 1200px;         /* same width as your header container */
-  margin: 0 auto;            /* center it horizontally */
-  padding: 0 20px;           /* optional side padding to match header spacing */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 793px;
-  /* margin-left: -2% !important; */
-  text-align: center;
-}
-
-.footer-base p {
-  padding-bottom: 10px;
-  margin: 0;                    /* remove default paragraph margin */
-  white-space: no wrap;          /* keep it on one line */
-  font-size: 12px;
-  text-align: center;
-  margin-left: -915px;
-}
-
-/* Footer practice links hover effects */
-.footer-practice ul li a {
-  text-decoration: none;
-  color: inherit; /* inherits text color */
-}
-.footer-practice ul li a:hover {
-  text-decoration: none;
-}
-
-/* Footer logos styling */
-.footer-logos {
-  display: flex;
-  gap: 15px;
-  margin-right: 10px;
-  margin-top: -25px;
-}
-
-.fac img {
-  width: 55px;
-  height: 55px;
-  vertical-align: middle;
-}
-
-/* Footer list items without default styles */
-.footer-iii {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Individual list item spacing */
-.footer-iii li {
-  margin-bottom: 10px;
-}
-
-/* Anchor styling for footer items */
-.footer-iii li a {
-  text-decoration: none;
-  color: #fff; 
-}
-
-/* Hover and focus effects for footer links */
-.footer-iii li a:hover,
-.footer-iii li a:focus {
-  color: #fff;
-}
-
-/*****************************************************
- * RESPONSIVE FOOTER STYLES
- * Adjust footer layout on smaller screens
- *****************************************************/
- /* Laptop screens (max-width: 1024px) */
-@media (max-width: 1024px) {
-  /* Allow sections to wrap and center them */
-  .footer-container {
-    /* flex-wrap: wrap; */
-    justify-content: center;
-    gap: 0px;
-  }
-  .job-slider {
-    gap: 10px;
-  }
-}
-
-  /* Each footer section takes about half the available width */
-  .footer-container > div {
-    flex: 1 1 45%;
-    text-align: left;
-    margin: 7px -19px;
-}
-  /* Adjust image margins */
-  .footer-container img {
-    margin-top: 20px;
-    margin-left: 0;
-  }
-  /* Make the horizontal line flexible */
-  .footer-line {
-    /* width: 90%; */
-    margin: 10px auto;
-  }
-  /* Stack base row items vertically */
-  .footer-base {
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 0;
-    justify-content: center;
-    align-items: center;
-  }
-
-@media (max-width: 768px) {
-  /* Stack footer sections vertically */
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  /* Center align each section within the footer */
-  .footer-container > div {
-    text-align: center;
-  }
-  
-  /* Adjust the footer image margin for smaller screens */
-  .footer-container img {
-    margin-top: 20px;
-    margin-left: 32px;
-}
-  
-  /* Adjust horizontal line width to be more flexible */
-  .footer-line {
-    width: 90%;
-    margin: 10px auto;
-  }
-  
-  /* Stack the base row items vertically */
-  .footer-base {
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 0;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-/* Optional: Additional breakpoints for very small devices */
-@media (max-width: 425px) {
-  .footer-container img {
-    margin-top: 20px;
-    margin-left: 27px;
-}
-  .footer-para {
-    font-size: 1rem;
-  }
-  
-  .footer-container,
-  .footer-base {
-    padding: 0 10px;
-  }
-}
 /* Animation keyframes */
 @keyframes bounce {
   0%,
@@ -1252,8 +868,6 @@ h2 {
     width: 98%;
   }
   
-element.style {
-}
 .job-cardd {
     padding: 20px;
     width: 269px;
@@ -1435,7 +1049,7 @@ element.style {
     max-height: 30px;
   }
 
-  .buttons button {
+  .header-buttons button {
     padding: 8px 12px;
     font-size: 14px;
   }
@@ -1540,7 +1154,7 @@ element.style {
     font-size: 1.2rem;
     margin-bottom: -39%;
   }
-  .buttons {
+  .header-buttons {
     width: 100%;
     justify-content: center;
   }

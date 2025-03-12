@@ -1,34 +1,134 @@
+# career/oauth/views.py
+
+import os
+import random
+import time
+import smtplib
+from datetime import date
+from dotenv import load_dotenv
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import JsonResponse
 from django.db import IntegrityError
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import logout
 from django.utils.timezone import now
-from django.http import JsonResponse
-import random
-import time
-import smtplib
-import os
 
-from dotenv import load_dotenv
-load_dotenv("secrets.env")
+# If you need these (for role-based login) import them:
+# from admin_portal.models import SuperAdminDB, AdminDB, ManagerDB, EmployeeDB
 
 from oauth.models import UsersDB, Otpdb, CollegesDb
 
+load_dotenv("secrets.env")
+
 
 def home(request):
-    """
-    Basic homepage view
-    """
+    """Basic homepage view."""
     return render(request, 'index.html')
+
+
+def profile(request):
+    """
+    Display user profile info.
+    """
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            request.session.flush()  # Clear session if user not found
+            messages.error(request, "Session expired. Please login again.")
+            return redirect('/')
+    return render(request, 'profile.html', {'user': user})
+
+
+def update_profile(request):
+    """
+    Update user profile fields like full_name, course, dob, email, etc.
+    """
+    if request.method == "POST":
+        user_id = request.session.get('user_id')
+        if not user_id:
+            messages.error(request, "You must be logged in to update your profile.")
+            return redirect('login')
+
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            messages.error(request, "User not found. Please log in again.")
+            return redirect('login')
+
+        # Get form data with fallbacks to current values
+        new_full_name = request.POST.get('full_name', user.full_name)
+        new_course = request.POST.get('course', user.course)
+        new_dob = request.POST.get('dob', user.dob)
+        new_college = request.POST.get('college_name', user.college_name)
+        new_gender = request.POST.get('gender', user.gender)
+        new_phone_number = request.POST.get('phone_number', user.phone_number)
+        new_email = request.POST.get('email', user.email)
+
+        # Email validation
+        if new_email != user.email:
+            if UsersDB.objects.filter(email=new_email).exclude(id=user_id).exists():
+                messages.error(request, "This email is already registered.")
+                return redirect('profile')
+
+        # Update fields
+        user.full_name = new_full_name
+        user.course = new_course
+        user.college_name = new_college
+        user.gender = new_gender
+        user.phone_number = new_phone_number
+        user.email = new_email
+
+        # Handle date of birth (may be empty)
+        if new_dob:
+            try:
+                user.dob = new_dob
+            except (ValueError, TypeError):
+                messages.warning(request, "Invalid date format. Date of birth was not updated.")
+
+        try:
+            user.save()
+            messages.success(request, "Profile updated successfully!")
+        except Exception as e:
+            messages.error(request, f"Error updating profile: {str(e)}")
+
+        return redirect('profile')
+    else:
+        # Redirect to profile page if not a POST request
+        return redirect('profile')
+
+
+def logout_page(request):
+    """
+    Logs the user out by clearing the session.
+    """
+    logout(request)
+    messages.success(request, "You have been logged out successfully.")
+    return redirect('/')
+
+
+def report_issue(request):
+    """
+    Simple view for reporting an issue.
+    """
+    return render(request, 'report_issue.html')
+
+
+def refer_friend(request):
+    """
+    Simple view for referring a friend.
+    """
+    return render(request, 'refer_friend.html')
 
 
 def signup(request):
     """
-    Create a new user account using UsersDB model.
-    Uses college_name as a text field (CHAR).
-    If the form is submitted (POST), it attempts to create the user
-    and sets session messages upon success/failure.
+    Create a new user account in UsersDB.
     """
     if request.method == "POST":
         full_name = request.POST.get('full_name')
@@ -68,7 +168,7 @@ def signup(request):
         # Hash the password
         hashed_password = make_password(password)
 
-        # Save the college's NAME into the user model
+        # Save the user
         try:
             new_user = UsersDB.objects.create(
                 full_name=full_name,
@@ -83,8 +183,11 @@ def signup(request):
             messages.error(request, f"Error creating account: {str(e)}", extra_tags='signup')
             return render(request, 'index.html', {'form_type': 'signup'})
 
-        messages.success(request, f"Account created successfully for {new_user.full_name}. Please login.",
-                         extra_tags='login')
+        messages.success(
+            request,
+            f"Account created successfully for {new_user.full_name}. Please login.",
+            extra_tags='login'
+        )
         return render(request, 'index.html', {'form_type': 'login'})
 
     # If GET, show the signup page with a list of colleges
@@ -94,45 +197,85 @@ def signup(request):
 
 def user_login(request):
     """
-    Logs a user in using either email, phone_number, or username from the UsersDB model.
-    Saves user_id in session manually. 
-    (Alternative: use `django.contrib.auth.login(request, user)` for a more standard approach.)
+    Logs a user in using either email, phone_number, or username from UsersDB.
+    Mirrors readerclub's approach by optionally detecting roles.
     """
     if request.method == "POST":
-        user_input = request.POST.get('username')  # Could be email, phone, or username
+        user_input = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = (UsersDB.objects.filter(email=user_input).first() or
-                UsersDB.objects.filter(phone_number=user_input).first() or
-                UsersDB.objects.filter(username=user_input).first())
-        if user and check_password(password, user.password):
-            # Logged in successfully
-            request.session['user_id'] = user.id
+        user = None
+        role = None
+        valid_password = False
 
-            # Update last_login
+        # If you need the same role-based logic as readerclub, uncomment & import from admin_portal
+        """
+        if user_input.startswith("SAD"):
+            user = SuperAdminDB.objects.filter(username=user_input).first()
+            if user:
+                valid_password = check_password(password, user.password)
+                role = "superadmin"
+
+        elif user_input.startswith("ADM"):
+            user = AdminDB.objects.filter(username=user_input).first()
+            if user:
+                valid_password = check_password(password, user.password)
+                role = "admin"
+
+        elif user_input.startswith("MGR"):
+            user = ManagerDB.objects.filter(username=user_input).first()
+            if user:
+                valid_password = check_password(password, user.password)
+                role = "manager"
+
+        elif user_input.startswith("EMP"):
+            user = EmployeeDB.objects.filter(username=user_input).first()
+            if user:
+                valid_password = check_password(password, user.password)
+                role = "employee"
+        
+        else:
+        """
+        # Simple user check for email, phone, or username
+        user = (
+            UsersDB.objects.filter(email=user_input).first() or
+            UsersDB.objects.filter(phone_number=user_input).first() or
+            UsersDB.objects.filter(username=user_input).first()
+        )
+        if user:
+            valid_password = check_password(password, user.password)
+            role = "user"
+
+        if user and valid_password:
+            request.session['user_id'] = user.id
+            request.session['role'] = role  # Store role in session
+
             user.last_login = now()
             user.save()
 
             messages.success(request, f"Welcome back, {user.full_name}!")
-            return redirect('home')
+
+            # If you want to replicate the same role-based redirects from readerclub:
+            redirect_urls = {
+                "superadmin": "/dashboard/",
+                "admin": "/adm_dashboard/",
+                "manager": "/mgr_dashboard/",
+                "employee": "/emp_dashboard/",
+                "user": "home"
+            }
+            return redirect(redirect_urls.get(role, '/'))
         else:
             messages.error(request, "Invalid username or password. Please try again.")
             return render(request, 'index.html', {'form_type': 'login'})
 
-    # If GET, show the login form on index page
+    # If GET, show the login form
     return render(request, 'index.html', {'form_type': 'login'})
 
 
-def logout_page(request):
-    """
-    Logs the user out by clearing the session.
-    """
-    logout(request)
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('/')
-
-
 def generate_otp(request):
+    """
+    Step 1: Generate an OTP for the user's email and store it in Otpdb.
+    """
     if request.method == "POST":
         email = request.POST.get("email")
         try:
@@ -149,6 +292,9 @@ def generate_otp(request):
 
 
 def verify_otp(request):
+    """
+    Step 2: Verify the OTP the user entered.
+    """
     if request.method == "POST":
         email = request.POST.get("email")
         entered_otp = request.POST.get("otp")
@@ -173,6 +319,9 @@ def verify_otp(request):
 
 
 def reset_password(request):
+    """
+    Step 3: Reset the user's password after OTP is verified.
+    """
     if request.method == "POST":
         email = request.POST.get("email")
         new_password = request.POST.get("new_password")
