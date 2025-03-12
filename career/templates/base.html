@@ -11,8 +11,7 @@
     {% block extra_css %}
     {% endblock %}
 
-    <script src="{% static 'js/auth.js' %}"></script>
-    <script src="{% static 'js/forgot_password.js' %}"></script>
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
@@ -64,7 +63,7 @@
           <p class="footer-para">Useful Links</p>
           <ul>
             <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
-            <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Contact Us</a></li>
+            {% comment %} <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Contact Us</a></li> {% endcomment %}
             <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Blogs</a></li>
             <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Career</a></li>
             <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
@@ -151,6 +150,7 @@
     </div>
   </div>
 
+</body>
 {% block extra_js %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -169,6 +169,7 @@
     }
   });
 </script>
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/forgot_password.js' %}"></script>
 {% endblock %}
-</body>
 </html>

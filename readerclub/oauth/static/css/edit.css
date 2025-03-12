@@ -20,6 +20,7 @@
     margin: auto;
     overflow: hidden;
     margin-top: 30px;
+    margin-bottom: 1%;
 }
 
 h2 {
@@ -138,11 +139,7 @@ h2 {
   box-sizing: border-box;
 }
 
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+
 
 .save-button,
 .cancel-button {
@@ -256,6 +253,14 @@ h2 {
     left: 10px;
     top: 70%;
     transform: translateY(-50%);
-    color: #000000; /* Adjust to your preferred color */
+    color: #000000; 
   }
   
+  .profile-buttons {
+    display: none;  
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
