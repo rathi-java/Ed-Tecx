@@ -1020,3 +1020,24 @@ form#filterForm {
         padding: 0.35rem;
     }
 }
+
+.autocomplete-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+  }
+  .autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+  }
+  .autocomplete-item:hover {
+    background-color: #f0f0f0;
+  }

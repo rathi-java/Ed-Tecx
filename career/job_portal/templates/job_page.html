@@ -258,38 +258,37 @@
             </nav>
         </header> {% endcomment %}
         <div class="filter-controls">
-            <form method="GET" id="filterForm">
-                <div class="input-container">
-                  <label for="locationFilter">Location:</label>
-                  <input type="text" name="location" id="locationFilter" placeholder="Enter location">
-                </div>
-              
-                <div class="input-container">
-                  <label for="packageFilter">Package (LPA):</label>
-                  <input type="text" name="package" id="packageFilter" placeholder="e.g. 3.5-5">
-                </div>
-              
-                <div class="input-container">
-                  <label for="openingDateFilter">Opening Date (Month):</label>
-                  <input type="text" name="opening_date" id="openingDateFilter" placeholder="Enter month (e.g. 3)">
-                </div>
-              
-                <div class="input-container">
-                  <label for="experienceFilter">Experience Level:</label>
-                  <input type="text" name="experience" id="experienceFilter" placeholder="e.g. fresher, mid, senior">
-                </div>
-              
-                <div class="input-container">
-                  <label for="q">Search Jobs:</label>
-                  <input type="text" name="q" id="q" placeholder="Search by role, description..." autocomplete="off">
-                  <!-- Optionally, attach JS for autocomplete which calls the autocomplete endpoint -->
-                </div>
-              
-                <button type="submit" id="applyFilter">Apply Filter</button>
-              </form>
-              
-              
-        </div>
+            <form method="GET" id="filterForm" style="position: relative;">
+              <div class="input-container">
+                <label for="locationFilter">Location:</label>
+                <input type="text" name="location" id="locationFilter" placeholder="Enter location">
+              </div>
+            
+              <div class="input-container">
+                <label for="packageFilter">Package (LPA):</label>
+                <input type="text" name="package" id="packageFilter" placeholder="e.g. 3.5-5">
+              </div>
+            
+              <div class="input-container">
+                <label for="openingDateFilter">Opening Date (Month):</label>
+                <input type="text" name="opening_date" id="openingDateFilter" placeholder="Enter month (e.g. 3)">
+              </div>
+            
+              <div class="input-container">
+                <label for="experienceFilter">Experience Level:</label>
+                <input type="text" name="experience" id="experienceFilter" placeholder="e.g. fresher, mid, senior">
+              </div>
+            
+              <div class="input-container" style="position: relative;">
+                <label for="q">Search Jobs:</label>
+                <input type="text" name="q" id="q" placeholder="Search by role, description..." autocomplete="on">
+                <!-- Autocomplete dropdown container -->
+                <div id="autocomplete-results" class="autocomplete-results"></div>
+              </div>
+            
+              <button type="submit" id="applyFilter">Apply Filter</button>
+            </form>
+          </div>
     
         <div class="main-content">
             <!-- Left Section for Job Listings -->
@@ -297,7 +296,7 @@
                 {% for job in jobs %}
                 <div class="job-card"
                      onclick="showJobDetails(this)"
-                     data-logo="{% if job.company.logo %}{{ job.company.logo.url }}{% else %}{% static 'job_page/default_logo.png' %}{% endif %}"
+                     data-logo="{% if job.company.logo %}{{ job.company.logo }}{% else %}{% static 'job_page/default_logo.png' %}{% endif %}"
                      data-company="{{ job.company.name }}"
                      data-role="{{ job.role }}"
                      data-location="{{ job.company.address }}"
@@ -313,11 +312,11 @@
                      data-company-industry="Information & Technology"
                      data-company-established="{{ job.company.established_year }}">
                      
-                    {% if job.company.logo %}
-                      <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }} Logo">
-                    {% else %}
-                      <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
-                    {% endif %}
+                     {% if job.company.logo %}
+                     <img src="{{ job.company.logo }}" alt="{{ job.company.name }} Logo">
+                   {% else %}
+                     <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
+                   {% endif %}
                     
                     <div class="job-info">
                       <h3>{{ job.role }}</h3>
@@ -518,57 +517,52 @@
 
     <script>
         // Add this to your <script> section in the HTML template
-document.getElementById('q').addEventListener('input', function(e) {
-    const searchTerm = e.target.value;
-    
-    if (searchTerm.length > 2) {
-        fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
-            .then(response => response.json())
-            .then(suggestions => {
-                // Implement your UI to show suggestions
-                console.log(suggestions); // For testing
-                // You can show these in a dropdown under the search input
+            const searchInput = document.getElementById('q');
+            const autocompleteResults = document.getElementById('autocomplete-results');
+            const filterForm = document.getElementById('filterForm');
+            
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.trim();
+                console.log("Search term:", searchTerm); // Debug log
+              
+                if (searchTerm.length > 2) {
+                  fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
+                    .then(response => response.json())
+                    .then(suggestions => {
+                      console.log("Suggestions received:", suggestions); // Debug log
+                      if (suggestions && suggestions.length > 0) {
+                        autocompleteResults.innerHTML = suggestions
+                          .map(suggestion => `<div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`)
+                          .join('');
+                        autocompleteResults.style.display = 'block';
+                      } else {
+                        autocompleteResults.style.display = 'none';
+                      }
+                    })
+                    .catch(err => {
+                      console.error('Autocomplete fetch error:', err);
+                      autocompleteResults.style.display = 'none';
+                    });
+                } else {
+                  autocompleteResults.style.display = 'none';
+                }
+              });
+              
+            
+            function selectSuggestion(suggestion) {
+              searchInput.value = suggestion;
+              autocompleteResults.style.display = 'none';
+              // Optionally trigger the form submission after selecting a suggestion:
+              filterForm.submit();
+            }
+            
+            // Hide suggestions when clicking outside the input or suggestion box
+            document.addEventListener('click', function(e) {
+              if (!e.target.closest('#autocomplete-results') && !e.target.closest('#q')) {
+                autocompleteResults.style.display = 'none';
+              }
             });
-    }
-});
-// Update the JavaScript to show/hide suggestions
-const autocompleteResults = document.getElementById('autocomplete-results');
-
-document.getElementById('q').addEventListener('input', function(e) {
-    const searchTerm = e.target.value;
-    
-    if (searchTerm.length > 2) {
-        fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
-            .then(response => response.json())
-            .then(suggestions => {
-                autocompleteResults.innerHTML = suggestions
-                    .map(suggestion => `
-                        <div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">
-                            ${suggestion}
-                        </div>
-                    `).join('');
-                autocompleteResults.style.display = 'block';
-            });
-    } else {
-        autocompleteResults.style.display = 'none';
-    }
-});
-
-function selectSuggestion(suggestion) {
-    document.getElementById('q').value = suggestion;
-    autocompleteResults.style.display = 'none';
-    // Optionally trigger search
-    document.getElementById('filterForm').submit();
-}
-
-// Hide suggestions when clicking outside
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('#autocomplete-results') && 
-        !e.target.closest('#q')) {
-        autocompleteResults.style.display = 'none';
-    }
-});
-        // -----------------------------
+               // -----------------------------
         // JOB DETAILS + APPLY FUNCTION
         // -----------------------------
         function showJobDetails(element) {

@@ -1,17 +1,22 @@
 #!/bin/sh
-python manage.py search_index --rebuild
-# Run Django migrations
+
+# Wait for Elasticsearch to be available on the correct host
+echo "Waiting for Elasticsearch to start..."
+until curl -s http://elasticsearch:9200 > /dev/null; do
+    echo "Elasticsearch not available yet. Waiting 2 seconds..."
+    sleep 2
+done
+echo "Elasticsearch is up and running."
+
+# Continue with your startup commands...
+python manage.py search_index --rebuild -f
+
 python manage.py migrate --noinput
-
-# Collect static files
 python manage.py collectstatic --noinput --clear
-
-# Create log directory
 mkdir -p /app/logs
 touch /app/logs/gunicorn.log
 touch /app/logs/gunicorn-access.log
 
-# Start Gunicorn server
 exec gunicorn \
     --name career \
     --workers 4 \

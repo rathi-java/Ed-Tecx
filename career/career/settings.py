@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl',
     'job_portal',
     'policies',
     'widget_tweaks',
@@ -127,12 +127,14 @@ DATABASES = {
         'PORT': os.getenv("DB_PORT"),
     }
 }
-# ELASTICSEARCH_DSL = {
-#     'default': {
-#         'hosts':os.getenv("ELASTICSEARCH_HOST") 
-#            },
-# }
-
+ELASTICSEARCH_DSL = {
+    'default': {
+        # 'hosts': ['http://localhost:9200'],
+        'hosts': [os.getenv("ELASTICSEARCH_HOST")],
+        # 'http_auth': ('elastic', 'password'),
+        'verify_certs': False,
+    },
+}
 
 
 # Password validation
