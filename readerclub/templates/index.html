@@ -24,6 +24,12 @@
   <link rel="stylesheet" href="{% static 'css/magazine.css' %}">
   <link rel="stylesheet" href="{% static 'css/abroad.css' %}">
   <link rel="stylesheet" href="{% static 'css/abroad_uni.css' %}">
+
+  <!--abroad-->
+  <link href='https://fonts.googleapis.com/css?family=Alkatra' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Prociono' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
 <style>
   /* Hide scrollbar but keep manual scrolling */
   .achiever-list {
@@ -61,6 +67,7 @@
 {% include 'top-company.html' %}
 
 {% include 'abroad.html' %}
+
 {% include 'abroad_uni.html' %}
 
 {% include 'magazine.html' %}
@@ -81,6 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
   {% endif %}
 });
 </script>
+
+<script src="{% static 'js/abroad_uni.js' %}"></script>
  
 {% endblock %}
 

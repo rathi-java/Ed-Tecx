@@ -2,6 +2,9 @@
 {% load static %}
   {% block extra_css %}
   <title>Job Portal</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Kite+One" rel="stylesheet">
@@ -21,6 +24,7 @@
   {% block content %}
 <body style="margin: 0 auto;">
   <section class="page1">
+
     <div class="discover-main">
       <section class="discover-hero">
         <div class="discover-text-content">
@@ -69,6 +73,7 @@
           </div>
         </div>
       </section>
+    
     </div>
     <script>
       const roles = [
@@ -114,22 +119,22 @@
   </section>
 
   <section id="page2">
-    <div class="categories">
-      <div class="category" data-category="IT &amp; Software" onmouseover="updateJobs('IT &amp; Software')">
-        <img src="{% static 'image/it-and-software.png' %}" alt="IT &amp; Software">IT &amp; Software
+      <div class="categories">
+        <div class="category" data-category="IT &amp; Software" onmouseover="updateJobs('IT &amp; Software')">
+          <img src="{% static 'image/it-and-software.png' %}" alt="IT &amp; Software">IT &amp; Software
+        </div>
+        <div class="category" data-category="Management &amp; Business" onmouseover="updateJobs('Management &amp; Business')">
+          <img src="{% static 'image/management-and-business.png' %}" alt="Management &amp; Business">Management &amp; Business
+        </div>
+        <div class="category" data-category="Sales &amp; Marketing" onmouseover="updateJobs('Sales &amp; Marketing')">
+          <img src="{% static 'image/sales-and-marketing.png' %}" alt="Sales &amp; Marketing">Sales &amp; Marketing
+        </div>
+        <div class="category" data-category="Content &amp; Creative" onmouseover="updateJobs('Content &amp; Creative')">
+          <img src="{% static 'image/content-and-creative-computer.png' %}" alt="Content &amp; Creative">Content &amp; Creative
+        </div>
+        <div id="slider" class="slider"></div>
       </div>
-      <div class="category" data-category="Management &amp; Business" onmouseover="updateJobs('Management &amp; Business')">
-        <img src="{% static 'image/management-and-business.png' %}" alt="Management &amp; Business">Management &amp; Business
-      </div>
-      <div class="category" data-category="Sales &amp; Marketing" onmouseover="updateJobs('Sales &amp; Marketing')">
-        <img src="{% static 'image/sales-and-marketing.png' %}" alt="Sales &amp; Marketing">Sales &amp; Marketing
-      </div>
-      <div class="category" data-category="Content &amp; Creative" onmouseover="updateJobs('Content &amp; Creative')">
-        <img src="{% static 'image/content-and-creative-computer.png' %}" alt="Content &amp; Creative">Content &amp; Creative
-      </div>
-      <div id="slider" class="slider"></div>
-    </div>
-    <div id="job-container" class="job-container"></div>
+      <div id="job-container" class="job-container"></div>
     <script>
       const jobData = {
         "IT & Software": [
@@ -219,65 +224,65 @@
   </section>
 
   <section id="page-3">
-    <div class="partt2-container">
-      <div class="part2-left-sec">
-        <div class="textt">
-          <div class="part2title">Explore<br> Popular Jobs</div>
-          <button class="btnnn">IT &amp; Software →</button>
-        </div>
-        <div class="job-flow">
-          <div class="job-slider">
-            <div class="job-cardd">
-              <h3>Data Scientist</h3>
-              <p>Microsoft <img class="company-logo" src="{% static 'image/microsoft.png' %}" alt="logo"></p>
-              <div class="line-with-dots"></div>
-              <p class="info">
-                <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
-              </p>
-              <p class="info">
-                <img src="{% static 'image/experience-envolope.png' %}" alt="Experience"> 3-5 years
-              </p>
-              <p class="info">
-                <img src="{% static 'image/salary-package.png' %}" alt="Salary"> 12 LPA - 18 LPA
-              </p>
-              <p class="key-skills">Key Skills: <span>Python, Machine Learning</span></p>
-            </div>
-    
-            <div class="job-cardd">
-              <h3>Frontend Developer</h3>
-              <p>Google <img class="company-logo" src="{% static 'image/microsoft.png' %}" alt="logo"></p>
-              <div class="line-with-dots"></div>
-              <p class="info">
-                <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
-              </p>
-              <p class="info">
-                <img src="{% static 'image/experience-envolope.png' %}" alt="Experience"> 3-5 years
-              </p>
-              <p class="info">
-                <img src="{% static 'image/salary-package.png' %}" alt="Salary"> 12 LPA - 18 LPA
-              </p>
-              <p class="key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
-            </div>
-    
-            <div class="job-cardd">
-              <h3>Backend Developer</h3>
-              <p>Amazon <img class="company-logo" src="{% static 'image/microsoft.png' %}" alt="logo"></p>
-              <div class="line-with-dots"></div>
-              <p class="info">
-                <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
-              </p>
-              <p class="info">
-                <img src="{% static 'image/experience-envolope.png' %}" alt="Experience"> 3-5 years
-              </p>
-              <p class="info">
-                <img src="{% static 'image/salary-package.png' %}" alt="Salary"> 12 LPA - 18 LPA
-              </p>
-              <p class="key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
+      <div class="partt2-container">
+        <div class="part2-left-sec">
+          <div class="textt">
+            <div class="part2title">Explore<br> Popular Jobs</div>
+            <button class="btnnn">IT &amp; Software →</button>
+          </div>
+          <div class="job-flow">
+            <div class="job-slider">
+              <div class="job-cardd">
+                <h3>Data Scientist</h3>
+                <p>Microsoft <img class="company-logo" src="{% static 'image/microsoft.png' %}" alt="logo"></p>
+                <div class="line-with-dots"></div>
+                <p class="info">
+                  <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="info">
+                  <img src="{% static 'image/experience-envolope.png' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="info">
+                  <img src="{% static 'image/salary-package.png' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="key-skills">Key Skills: <span>Python, Machine Learning</span></p>
+              </div>
+      
+              <div class="job-cardd">
+                <h3>Frontend Developer</h3>
+                <p>Google <img class="company-logo" src="{% static 'image/microsoft.png' %}" alt="logo"></p>
+                <div class="line-with-dots"></div>
+                <p class="info">
+                  <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="info">
+                  <img src="{% static 'image/experience-envolope.png' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="info">
+                  <img src="{% static 'image/salary-package.png' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
+              </div>
+      
+              <div class="job-cardd">
+                <h3>Backend Developer</h3>
+                <p>Amazon <img class="company-logo" src="{% static 'image/microsoft.png' %}" alt="logo"></p>
+                <div class="line-with-dots"></div>
+                <p class="info">
+                  <img src="{% static 'image/location.png' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="info">
+                  <img src="{% static 'image/experience-envolope.png' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="info">
+                  <img src="{% static 'image/salary-package.png' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const slider = document.querySelector(".job-slider");
@@ -365,50 +370,50 @@
     </div>
   </section> {% endcomment %}
 
-  {% include 'top-company.html' %}
+  {% include 'top-company.html' %} 
 
   <section id="page4">
-    <div class="flow-container">
-      <div class="image-section">
-        <img src="{% static 'image/analytics-illustration-how-it-works-section.png' %}" alt="Illustration">
-      </div>
-      <div class="content-section">
-        <div class="ddd">
-          <h2>How It <span>Works</span></h2>
-          <p>Finding your dream job has never been easier! Follow these simple <br> steps to create your profile, explore opportunities, and apply <br>&nbsp;effortlessly.</p>
+      <div class="flow-container">
+        <div class="image-section">
+          <img src="{% static 'image/analytics-illustration-how-it-works-section.png' %}" alt="Illustration">
         </div>
-        <ul class="steps">
-          <li>
-            <img src="{% static 'image/create-account.png' %}" alt="create-account.png">
-            <div>
-              <a href="#">Create an account</a>
-              <span>Sign up easily using your email and some details to get started.</span>
-            </div>
-          </li>
-          <li>
-            <img src="{% static 'image/search.png' %}" alt="icon">
-            <div>
-              <a href="#">Find suitable Job</a>
-              <span>Browse through job listings to find the one that matches your skills.</span>
-            </div>
-          </li>
-          <li>
-            <img src="{% static 'image/upload-cv-resume.png' %}" alt="icon">
-            <div>
-              <a href="#">Upload CV &amp; Details</a>
-              <span>Update profile with your resume and key details to stand out to employers.</span>
-            </div>
-          </li>
-          <li>
-            <img src="{% static 'image/apply-for-job-tick.png' %}" alt="icon">
-            <div>
-              <a href="#">Apply for Job</a>
-              <span>Submit your application with one click and take the next step in your career!</span>
-            </div>
-          </li>
-        </ul>
+        <div class="content-section">
+          <div class="ddd">
+            <h2>How It <span>Works</span></h2>
+            <p>Finding your dream job has never been easier! Follow these simple <br> steps to create your profile, explore opportunities, and apply <br>&nbsp;effortlessly.</p>
+          </div>
+          <ul class="steps">
+            <li>
+              <img src="{% static 'image/create-account.png' %}" alt="create-account.png">
+              <div>
+                <a href="#">Create an account</a>
+                <span>Sign up easily using your email and some details to get started.</span>
+              </div>
+            </li>
+            <li>
+              <img src="{% static 'image/search.png' %}" alt="icon">
+              <div>
+                <a href="#">Find suitable Job</a>
+                <span>Browse through job listings to find the one that matches your skills.</span>
+              </div>
+            </li>
+            <li>
+              <img src="{% static 'image/upload-cv-resume.png' %}" alt="icon">
+              <div>
+                <a href="#">Upload CV &amp; Details</a>
+                <span>Update profile with your resume and key details to stand out to employers.</span>
+              </div>
+            </li>
+            <li>
+              <img src="{% static 'image/apply-for-job-tick.png' %}" alt="icon">
+              <div>
+                <a href="#">Apply for Job</a>
+                <span>Submit your application with one click and take the next step in your career!</span>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         $(document).ready(function(){
@@ -436,5 +441,5 @@
 
   {% include 'faq.html' %}
   {% include 'app.html' %}
-
+   
   {% endblock %}

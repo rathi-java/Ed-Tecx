@@ -116,7 +116,7 @@ h3{
 .card:hover .icon.white {
     opacity: 1;
 }
-.text {
+.internship-text {
     position: absolute;
     bottom: 10px;
     left: 50%;
@@ -164,7 +164,7 @@ h3{
 }
 
 @media (max-width: 768px) {
-    .text {
+    .internship-text {
         position: absolute;
         bottom: 3px;
     }
@@ -193,7 +193,7 @@ h3{
             padding-block: 0;
         }
     
-    .text {
+    .internship-text {
        
         font-size: 13px;}
     .content {

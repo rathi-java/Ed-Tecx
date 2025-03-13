@@ -9,7 +9,6 @@
 body {
   background-color: #f1f3f9;
   min-height: 100vh;
-  padding: 20px;
   overflow-x: hidden;
 }
 
@@ -87,7 +86,7 @@ font-size: 56px;
 }
 
 .campus-image-container img {
-  width: 128%;
+  width: 123%;
   height: 127%;
   max-height: unset;
   object-fit: contain;
@@ -105,17 +104,6 @@ font-size: 56px;
 
 .campus-floating-box {
   position: absolute;
-  animation: bounce 1.5s infinite ease-in-out;
-}
-/* floating animation */
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
 
 .box1 {
@@ -145,6 +133,13 @@ font-size: 56px;
   height: auto;
 }
 @media (max-width: 1204px) {
+  .nav-container {
+    max-width: 96%;
+  }
+  .navbar-brand img {
+    max-height: 40px;
+    margin-left: -14%;
+  }
 .campus-section  p {
 color: #4d4b4b;
 font-family: "Poppins";
@@ -227,8 +222,12 @@ line-height: 1.5;
   max-height: unset;
   object-fit: contain;
   right: 10%;
-  /* margin-left: -15%; */
+  margin-left: -15%;
+  margin-top: 7%;
 }
+  .campus-title {
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -256,7 +255,7 @@ line-height: 1.5;
   align-items: center;
 }
 .campus-floating-box{
-display: nonecampus-;
+display: none;
 }
 .campus-section p{
 text-align: center;
@@ -276,6 +275,9 @@ max-width: 260px;
 
 /* New media query for 320px */
 @media (max-width: 320px) {
+  .campus-container {
+    align-items: anchor-center;
+  }
   .campus-section {
 padding: 20px 5%;
 border-radius: 12px;
@@ -399,11 +401,11 @@ object-fit: contain;
   gap: 15px;
   width: max-content;
   white-space: nowrap;
-  animation: slideRightToLeft 20s linear infinite;
 }
 
 /* Achiever Card */
 .campus-achiever-card {
+  flex: 0 0 auto;
   width: 280px;
   /* height: 71.24px; */
   background: white;
@@ -453,78 +455,17 @@ object-fit: contain;
   color: #666;
 }
 
-/* Infinite Scrolling Animation */
-@keyframes slideRightToLeft {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-}
 
-/* @keyframes slideBottomToTop {
-  from {
-    transform: translateY(0%);
-  }
-  to {
-    transform: translateY(-100%);
-  }
-} */
 
-/* Stop Animation on Hover */
-.campus-achievers-container:hover {
-  animation-play-state: paused;
-}
-.campus-achievers-container{
-  animation: scroll 10s linear infinite;
-}
-
-/* Responsive Animations */
 @media (min-width: 481px) {
   
   .campus-achievers-container {
     display: flex;
     flex-direction: row;
-    animation: slideRightToLeft 10s linear infinite;
-    animation: scroll 20s linear infinite;
-  }
-}
-@keyframes scroll {
-  from{
-    transform: translateX(0);
-  }
-  to{
-    transform: translateX(-50%);
   }
 }
 
 @media (max-width: 480px) {
-  /* .campus-achievers-section {
-    flex-direction: column;
-    position: static;
-  }
-  .campus-achievers-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    animation: slideRightToLeft 10slinear infinite;
-    width: 100%;
-}
-  .campus-achiever-card {
-    width: 100%; /* Full width on small screens */
-  } */
-
-    /* .campus-achievers-wrapper {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background-color: white;
-        padding: 10px 0;
-    } */
-
-
     .campus-title {
       font-size: 10px;
     }
@@ -550,20 +491,19 @@ object-fit: contain;
   font-weight: bold;
   color: #333;
   font-size: 14px; /* Adjust the font size as needed */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for opacity and positioning */
   opacity: 0; /* Make it invisible by default */
-  transform: translateY(10px); /* Start with a slight downward shift */
 }
 
 .landing-achiever-card:hover .landing-achiever-info .company-name {
   display: block; /* Show the company names when the card is hovered */
   opacity: 1; /* Make the description box visible */
-  transform: translateY(0); /* Move the box into its final position */
 }
 /* ============================================================ */
 /* General Styling */
 
 @media(max-width:430px){
   .campus-title {
-    font-size: 10px;}
+    font-size: 10px;
+  }
+}
 }

@@ -1,3 +1,6 @@
+body {
+  overflow-x: hidden;
+}
 /* =============== SECTION WRAPPER =============== */
 section.top-company-section {
   margin-top: 5px;
@@ -85,7 +88,6 @@ section.top-company-section {
   margin: auto;
   width: max-content; /* ensures the content can stretch horizontally */
   /* No CSS animation here — JS will drive the marquee. */
-  transform: translateX(0);
 }
 
 /* =============== COMPANY/UNIVERSITY CARDS =============== */
@@ -139,7 +141,6 @@ section.top-company-section {
   margin-top: 1px;
   margin-right: 3px;
   display: inline-block;
-  animation: colorChange 2s infinite alternate;
 }
 
 @keyframes colorChange {
@@ -227,11 +228,14 @@ section.top-company-section {
     color: #768f93;
 }
  }
- @media (max-width: 1440px){
+ @media (max-width: 1440px) and (min-width: 1023px){
+  .campus-image-container img {
+    width: 122%;
+  }
   img.hire{
   width: 44px;
     height: 44px;
-    left: 10%;
+    left: 9%;
     position: absolute;
     margin-block: 28px;
     margin-left: -1%;
@@ -347,11 +351,13 @@ section.top-company-section {
 
 
 @media (max-width: 768px) {
-  
+  .pamper-book-card {
+    height: 429px;
+  }
   img.hire {
     width: 40px;
     height: 40px;
-    left: 16%;
+    left: 13%;
     position: absolute;
     margin-block: 1%;
 }
@@ -446,11 +452,9 @@ img.hire {
   margin-top: -4px;
 }
 .top-company-header-mn img {
-  margin-inline: -363px;
+  margin-inline: -400px;
   
 }
-  
-
 }
 
   
@@ -552,7 +556,7 @@ img.hire {
 }  */
  @media (max-width: 376px){
 .top-company-header-mn img {
-        margin-inline: -321px;
+        margin-inline: -357px;
 }
 img.hire {
   width: 40px;
@@ -564,6 +568,9 @@ img.hire {
 
 }
 @media (max-width: 321px) {
+  .footer-container img {
+    margin-left: 20%;
+  }
   .top-company-header1 {
     width: 0%;
     font-size: 171%;

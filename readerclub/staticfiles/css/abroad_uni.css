@@ -35,7 +35,6 @@
 .slider-university {
     display: inline-flex;
     white-space: nowrap;
-    transition: transform 0.1s linear; /* not strictly needed, but can smooth out movement */
 }
 
 /* University Card */

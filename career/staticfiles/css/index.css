@@ -15,7 +15,7 @@ body {
   background-color: #f1f3f9;
   width: 100%;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 /* Main section styles */
@@ -848,6 +848,42 @@ h2 {
     color: green;
   }
 }
+@media (min-width: 1441px) {
+  .footer-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 160px;
+  }
+  
+  .footer-base {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  p.footer-bottom-text {
+    margin-left: -1407px;
+    font-size: 10px;
+  }
+  
+  .footer-container img {
+    width: 165px;
+    height: auto;
+    margin-top: 37px;
+    margin-left: 44px;
+  }
+  
+  .footer-link-four {
+    gap: 160px;
+  }
+}
 /* Media Queries for Responsive Design */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .job-flow {
@@ -979,7 +1015,7 @@ h2 {
     max-width: 100%;
     text-align: center;
     padding: 20px 0;
-    margin-top: -6%;
+    margin-top: -20%;
   }
 
   .discover-hero-image {
@@ -1143,21 +1179,6 @@ h2 {
 }
 
 @media (max-width: 576px) {
-  header {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .header {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    font-weight: bold;
-    margin-bottom: 40px;
-    font-size: 1.2rem;
-    margin-bottom: -39%;
-  }
-  .header-buttons {
-    width: 100%;
-    justify-content: center;
-  }
 
   .discover-text-content h1 {
     font-size: 1.8rem;
@@ -1198,7 +1219,8 @@ h2 {
 
   .discover-search-bar button {
     width: 100%;
-    margin-left: 0;
+    margin-left: 30px;
+    padding: 10px !important;
   }
 
   .company {
@@ -1353,4 +1375,8 @@ h2 {
     flex-shrink: 0;
 }
 
+}
+.twelvehundredpixels {
+  max-width: 1200px;
+  margin: 0 auto;
 }

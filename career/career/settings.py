@@ -191,7 +191,7 @@ PUBLIC_PATHS = [
     '/oauth/',
     '/login/',
     '/policies/',
-
+    '/maintenence/'
     # Add any other unrestricted paths
 ]
 

@@ -3,48 +3,68 @@ document.addEventListener('DOMContentLoaded', function() {
   const wrapper = document.querySelector('.slider-wrapper');
   if (!slider || !wrapper) return;
   
-  // Clone all items once (we'll handle the infinite effect differently)
-  const cards = slider.querySelectorAll('.card-university');
-  const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginLeft) + 
-                   parseInt(getComputedStyle(cards[0]).marginRight);
+  // Get all original cards
+  const cards = Array.from(slider.querySelectorAll('.card-university'));
+  const cardWidth = cards[0].offsetWidth + 
+                    parseInt(getComputedStyle(cards[0]).marginLeft) + 
+                    parseInt(getComputedStyle(cards[0]).marginRight);
   const totalWidth = cardWidth * cards.length;
   
-  // Clone enough cards to fill the container width plus buffer
-  // This ensures we always have cards to scroll into view
-  const requiredClones = Math.ceil((wrapper.offsetWidth * 2) / totalWidth) + 1;
+  // Clone cards and add to slider for initial seamless loop
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    slider.appendChild(clone);
+  });
   
-  for (let i = 0; i < requiredClones; i++) {
-    cards.forEach(card => {
-      const clone = card.cloneNode(true);
-      slider.appendChild(clone);
-    });
-  }
+  // Set up animation
+  let scrollPosition = 0;
   
-  let currentPosition = 0;
-  const speed = 2.5; // Adjust scrolling speed
-  
-  function animateSlider() {
-    currentPosition += speed;
+  function scrollCards() {
+    scrollPosition -= 2.5; // Speed of scroll
     
-    // Check if we need to reset position (when first set of cards moves out of view)
-    if (currentPosition >= totalWidth) {
-      // Instead of jumping to 0, shift back by the width of the original set
-      // This creates the illusion of infinite scrolling
-      currentPosition = currentPosition - totalWidth;
+    // Reset position when we've scrolled one set of cards
+    if (Math.abs(scrollPosition) >= totalWidth) {
+      scrollPosition = 0;
     }
     
-    slider.style.transform = `translateX(-${currentPosition}px)`;
-    requestAnimationFrame(animateSlider);
+    slider.style.transform = `translateX(${scrollPosition}px)`;
+    
+    // Check if we need to add more cards
+    checkAndAddCards();
+    
+    requestAnimationFrame(scrollCards);
   }
   
-  animateSlider();
+  // Start animation
+  scrollCards();
   
-  // Optional: Pause animation on hover
-  slider.addEventListener('mouseenter', () => {
-    slider.style.animationPlayState = 'paused';
+  // Pause animation on hover
+  wrapper.addEventListener('mouseenter', () => {
+    // We can't use animationPlayState since we're using requestAnimationFrame
+    // Instead, we'll store the current state and position
+    slider.setAttribute('data-paused', 'true');
   });
   
-  slider.addEventListener('mouseleave', () => {
-    slider.style.animationPlayState = 'running';
+  wrapper.addEventListener('mouseleave', () => {
+    slider.removeAttribute('data-paused');
   });
+  
+  // Function to check if we need to add more cards
+  function checkAndAddCards() {
+    // Don't add cards if animation is paused
+    if (slider.getAttribute('data-paused') === 'true') {
+      return;
+    }
+    
+    const lastCardRight = slider.lastElementChild.getBoundingClientRect().right;
+    const wrapperRight = wrapper.getBoundingClientRect().right;
+    
+    // If the last card is about to enter the viewport, add more cards
+    if (lastCardRight - wrapperRight < totalWidth * 2) {
+      cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        slider.appendChild(clone);
+      });
+    }
+  }
 });
