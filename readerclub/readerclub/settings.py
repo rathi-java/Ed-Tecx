@@ -281,6 +281,8 @@ PUBLIC_PATHS = [
     '/accounts/github/login/',
     '/accounts/social-auth/',
     '/price/',
+    '/policies/',
+    '/maintenence/',
 
 ]
 

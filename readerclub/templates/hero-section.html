@@ -147,15 +147,80 @@
 </div>
 </section>
 <script>
-  const sliderTrack = document.querySelector('.campus-achievers-container');
-  const slides = Array.from(sliderTrack.children);
-  
-  function cloneSlides() {
-      slides.forEach(slide => {
-          const clone = slide.cloneNode(true);
-          sliderTrack.appendChild(clone);
-      });
-  }
-  
-  cloneSlides();
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.campus-achievers-container');
+    const wrapper = document.querySelector('.campus-achievers-wrapper');
+    const cards = Array.from(container.querySelectorAll('.campus-achiever-card'));
+    
+    if (!container || !cards.length) return;
+    
+    // Get the width of a card including gap/margin
+    const card = cards[0];
+    const cardStyle = window.getComputedStyle(card);
+    const cardWidth = card.offsetWidth + 
+                      parseInt(cardStyle.marginLeft || 0) + 
+                      parseInt(cardStyle.marginRight || 0) +
+                      parseInt(cardStyle.marginLeft || 0);
+    const gapSize = 15; // Match the gap in CSS
+    const totalCardWidth = cardWidth + gapSize;
+    
+    // Clone enough cards to fill the container twice (for seamless looping)
+    const totalInitialWidth = totalCardWidth * cards.length;
+    
+    // Clone all cards and append to container
+    cards.forEach(card => {
+      const clone = card.cloneNode(true);
+      container.appendChild(clone);
+    });
+    
+    // Animation variables
+    let position = 0;
+    let animationId = null;
+    let isPaused = false;
+    
+    function scroll() {
+      if (!isPaused) {
+        // Move cards by small increments for smooth scrolling
+        position -= 1;
+        
+        // Reset position when we've scrolled the width of all original cards
+        if (Math.abs(position) >= totalInitialWidth) {
+          position = 0;
+        }
+        
+        container.style.transform = `translateX(${position}px)`;
+      }
+      
+      animationId = requestAnimationFrame(scroll);
+    }
+    
+    // Start animation
+    animationId = requestAnimationFrame(scroll);
+    
+    // Pause animation on hover
+    wrapper.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+    
+    wrapper.addEventListener('mouseleave', () => {
+      isPaused = false;
+    });
+    
+    // Check if we need to add more cards
+    function checkAndAddCards() {
+      const containerRect = container.getBoundingClientRect();
+      const wrapperRect = wrapper.getBoundingClientRect();
+      
+      // If we're running out of cards to show, add more clones
+      if (containerRect.right < wrapperRect.right + totalInitialWidth) {
+        cards.forEach(card => {
+          const clone = card.cloneNode(true);
+          container.appendChild(clone);
+        });
+      }
+    }
+    
+    // Periodically check if we need more cards
+    setInterval(checkAndAddCards, 2000);
+  });
 </script>

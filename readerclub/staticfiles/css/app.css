@@ -9,6 +9,7 @@
     padding: 40px 20px;
     margin-top:5px;
     background-color: white;
+    height: 691px;
   }
   
   /* Main Content Layout */
@@ -376,6 +377,7 @@
   
   
                 .app-section {
+                  height: 903px;
                     width: 100%;}
     }
   

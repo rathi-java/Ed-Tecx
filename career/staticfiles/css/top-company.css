@@ -410,6 +410,7 @@ section.top-company-section {
       flex-direction: column;
       justify-content: space-between;
       width: 110%;
+      margin-top: 20px;
     }
     .top-company-content {
       display: flex;
@@ -588,9 +589,9 @@ section.top-company-section {
   img.hire {
     width: 40px;
     height: 43px;
-    left: 44%;
+    left: 35%;
     position: absolute;
-    margin-block: -4%;
+    margin-block: -2%;
   }
     
   }

@@ -1,12 +1,12 @@
 .abroad-studies {
     background: white;
-    padding: 20px; 
+    padding: 20px;
     width: 100%;
     display: flex;
     align-items: center;
     gap: 20px;
-    height: 550px;
-    margin-top:5px;
+    height: 650px;
+    position: relative;
 }
 .images-abroad {
     flex: 1;
@@ -15,49 +15,39 @@
     align-items: center;
     gap: 10px;
     padding: 10px;
+    position: relative;
 }
-
 .secondary-image-abroad {
-    width: 90%;
-    /* max-width: 250px; */
+    width: 67%;
     border-radius: 10px;
-    margin-bottom: 0px;
-    margin-left: 22px;
-    position: static;
+    margin-left: 77px;
+    position: relative;
 }
-
 .content-abroad {
     flex: 1;
     padding: 10px;
 }
 .subheading-abroad {
-    font-family: 'alkatra';
+    font-family: 'Alkatra' !important;
     color: #077bc3;
     font-size: 35px;
     font-weight: 400;
-    
 }
 .heading-abroad {
-    
-
-color: rgba(48, 47, 47, 1);
-
-    font-family: 'Prociono';
-     font-weight: 400;
-   font-size: 37px;
-         line-height: 51px;
-       letter-spacing: 0%;
-
+    color: rgba(48, 47, 47, 1);
+    font-family: 'Prociono' !important;
+    font-weight: 400;
+    font-size: 37px;
+    line-height: 43px;
+    margin-top: -29px;
 }
 .description-abroad {
     color:#536774;
-    font-family: 'Poppins';
+    font-family: 'Poppins' !important;
     font-size: 16px;
-    margin-bottom: 20px;
     margin-top: 20px;
 }
 .benefits-list-abroad {
-    
     list-style: none;
     font-size: 16px;
     margin-bottom: 15px;
@@ -65,121 +55,317 @@ color: rgba(48, 47, 47, 1);
 .benefits-list-abroad li {
     color:#536774;
     margin: 5px 0;
-    font-family: 'Poppins';
+    font-family: 'Poppins' !important;
 }
 .cta-button-abroad {
-    font-family: 'Poppins';
+    font-family: 'Poppins' !important;
     display: inline-block;
-    padding: 10px 15px;
-    background-color: #007bc3;
-    color: white;
+    padding: 14px 0px;
+    background-color: white;
+    color: #077bc3;
     text-decoration: none;
     border-radius: 5px;
+    padding-left:14px;
+    border:2px solid #077bc3;
+    width:196px;
 }
-.checkmark-abroad {
-    color: #077bc3;
+.arrow-abroad {
+    background: #077bc3;
+    color: white;
+    padding: 13px 29px;
+    border-radius: 5px;
+    font-size: 1.5em;
+    margin-left: 50px;
 }
-@media(max-width:2560px){
-    .secondary-image-abroad {
-        width: 55%;}
+.info-box {
+    position: absolute;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 160px;
+    border: 2px solid lightgrey;
+    text-align: center;
+    color: rgba(95, 102, 107, 1);
 }
-@media(max-width:2000px){
-    .secondary-image-abroad {
-        width: 70%;}
+.info-box img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
 }
-@media (max-width: 1440px) {
-    .secondary-image-abroad {
-        width: 91%;
-    }
+.top-left {
+    top:3%;
+    left: 60%;
+    width: 175px;
+    height: 61px;
 }
-@media(max-width:1024px){
-    .heading-abroad {
-        color: rgba(48, 47, 47, 1);
-        font-family: 'Prociono';
-        font-weight: 400;
-        font-size: 36px;
-        line-height: 51px;
-        letter-spacing: 0%;
-    }
+.bottom-right {
+    bottom: 0%;
+    left: 45%;
+    width: 175px;
+    height: 61px;
 }
 
-@media (max-width: 768px) {
+img.primary-image-abroad {
+    margin-left: 295px;
+    margin-top: -51px;
+    margin-bottom: 35px;
+}
+
+.cta-button-abroad {
+    display: inline-flex
+;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 23px;
+    background-color: white;
+    color: #077bc3;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 2px solid #077bc3;
+    width: 200px;
+    font-family: 'Poppins' !important;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+}
+
+.third-box {
+    top: 61%;
+left: 24%;
+transform: translateY(-50%);
+width: auto;
+min-width: 40px;
+max-width: 89px;
+height: 80px;
+padding: 5px;
+z-index: 10;
+}
+.third-box img{ 
+width: 20px;
+height: 50px;
+object-fit: contain;
+margin-top: -68px;
+margin-left: 24px;}
+
+p.congrats {
+    font-family: 'Poppins' !important;
+    font-size: 14px;
+    text-align: center;
+    margin-left: -52px;
+    margin-top: 13px;
+}
+
+
+
+
+
+
+.cta-button {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border: 2px solid #077bc3;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 200px; /* Adjust as needed */
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.text {
+    flex: 1;
+    background-color: white;
+    color: #077bc3;
+    padding: 12px;
+    text-align: center;
+}
+
+.arrow-box {
+    background: #077bc3;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.2em;
+}
+
+ @media(max-width:1440px){
     .abroad-studies {
-        background: white;
-        padding: 20px; 
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        height: 550px;
-        margin-top:5px;
+        height: 430px;
     }
-    
-    .images-abroad{
-        flex-direction: row;
-        justify-content: center;
-    }
+ }
+@media(max-width:1024px){
     .secondary-image-abroad {
-        width: 348px;
-        /* max-width: 250px; */
-        border-radius: 10px;
-        margin-bottom: 0px;
-        margin-left: 22px;
-        position: static;
+        width: 100%;
     }
-    .subheading-abroad {
-        font-size: 25px;}
+    .third-box {
+        top: 61%;
+        left: 5%;}
+}
+
+    @media (max-width: 768px) {
+        .cta-button {
+            width: 155px;
+            font-size: 14px;
+            margin-left: 176px;
+        }
+    
+        .text {
+            padding: 10px;
+        }
+    
+        .arrow-box {
+            padding: 10px 18px;
+            font-size: 1em; /* Adjust arrow size */
+        }
+    
+        .abroad-studies {
+            flex-direction: column;
+            text-align: center;
+            height: auto;
+            padding: 15px;
+        }
+    
+        .images-abroad {
+            flex-direction: row;
+            justify-content: center;
+            width: 586px;
+            margin-left: 6pc;
+        }
+    
+        .subheading-abroad {
+            font-size: 25px;
+        }
+    
         .heading-abroad {
             font-size: 28px;
             line-height: 33px;
-            text-align: left;
-        
-}
-.benefits-list-abroad li {
-    text-align: left;
-}
-.description-abroad {
-    text-align: left;
-}
-.cta-button-abroad {
-    margin-right: 46px;
-}
-}
-@media (max-width: 430px) {
+            text-align: center;
+        }
     
-.abroad-studies {
-    text-align: center;
-    flex-direction: column-reverse;
-}
-.abroad-studies {
-    background: white;
-    padding: 20px;
-    width: 100%;
-    display: flex
-;
-    align-items: center;
-    gap: 20px;
-    height: 768px;
-    margin-top: 5px;
-}
-}
-@media (max-width: 380px) {
-.subheading-abroad {
-    font-size: 22px;
-}
-.heading-abroad {
-    font-size: 26px;}
-}
-@media (max-width: 330px) {
-.heading-abroad {
-    font-size: 20px;
-}
-.secondary-image-abroad {
-    width: 275px;
-    /* max-width: 250px; */
-    border-radius: 10px;
-    margin-bottom: 0px;
-    margin-left: 8px;
-    position: static;
-}
-}
+        .info-box {
+            position: relative;
+            margin: 10px auto;
+            width: auto;
+            min-width: 140px; /* Adjusting width */
+        }
+    
+        .top-left {
+            font-size: 13px;
+            top: -173px;
+            left: -236px;
+        }
+    
+        .bottom-right {
+            bottom: -176px;
+            left: -272px;
+            font-size: 14px;
+        }
+    
+        .third-box {
+            width: 45px;
+            height: 90px;
+            left: -845px;
+            margin-top: 162px;
+        }
+     
+     
+    .secondary-image-abroad {
+        width: 100%;
+        border-radius: 10px;
+        margin-left: 420px;
+        position: relative;
+    }
+    }
+
+
+
+
+    
+    
+    @media (max-width: 430px) {
+        .secondary-image-abroad {
+            width: 319px;
+        }
+        .top-left {
+            font-size: 13px;
+            top: -115px;
+            left: -159px;
+        }    .bottom-right {
+            bottom: -118px;
+            left: -418px;
+            font-size: 14px;
+        }
+        .third-box {
+            width: 33px;
+            height: 82px;
+            left: -692px;
+            margin-top: 162px;
+        }
+        .images-abroad {
+            flex-direction: row;
+            justify-content: center;
+            width: 289px;
+        }
+        .third-box img {
+            width: 20px;
+            height: 50px;
+            /* object-fit: contain; */
+            margin-top: -68px;
+            margin-left: 55px;
+        }
+        p.congrats {
+            margin-left: -76px;
+            margin-top: 13px;
+        }
+        .cta-button {
+            margin-left: 104px;
+        }
+    }
+    @media (max-width: 380px) {
+        .secondary-image-abroad {
+            width: 294px;
+        }
+        .images-abroad {
+            flex-direction: row;
+            justify-content: center;
+            width: 230px;
+        }
+        img.primary-image-abroad {
+            margin-left: 260px;
+        }
+        .third-box {
+            left: -641px;
+        }
+    }
+    @media (max-width: 330px) {
+        .secondary-image-abroad {
+            width: 243px;
+            margin-left: 369px;
+        }
+        .images-abroad {
+            flex-direction: row;
+            justify-content: center;
+            width: 201px;
+        }
+        .bottom-right {
+            bottom: -118px;
+            left: -302px;
+        }
+        .subheading-abroad {
+            font-size: 20px;
+        }
+        img.primary-image-abroad {
+            margin-left: 206px;
+            width: 36px;
+        }
+        .cta-button {
+            margin-left: 35px;
+        }
+        .third-box {
+            left: -573px;
+        }
+    }

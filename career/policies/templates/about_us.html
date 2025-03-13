@@ -11,8 +11,8 @@
   /* Container styling can remain the same or slightly tweaked */
   .about_us_container {
     max-width: 100%%;
-    width: 90%;
-    margin: 4px auto 4px auto;
+    width: 100%;
+    margin: 56px 0 4px 0;
     background-color: #fff;
     padding: 5pt 20pt 20pt 20pt; /* More consistent padding */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -107,6 +107,8 @@
     {% comment %} <hr class="policies-hr-line"> {% endcomment %}
 </div>
 
+{% include 'faq.html' %}
+{% include 'app.html' %}
 
 {% endblock content %}
 {% block extra_js %}
