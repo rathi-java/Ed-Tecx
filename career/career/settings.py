@@ -26,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
-
+# DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+DEBUG = True
 ALLOWED_HOSTS = ['career.readerclub.in', '127.0.0.1', 'localhost']
 
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django_elasticsearch_dsl',
     'job_portal',
     'policies',
     'widget_tweaks',
@@ -126,6 +127,12 @@ DATABASES = {
         'PORT': os.getenv("DB_PORT"),
     }
 }
+# ELASTICSEARCH_DSL = {
+#     'default': {
+#         'hosts':os.getenv("ELASTICSEARCH_HOST") 
+#            },
+# }
+
 
 
 # Password validation

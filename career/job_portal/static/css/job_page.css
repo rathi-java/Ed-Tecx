@@ -966,3 +966,57 @@ form#filterForm {
             margin-top: 16px;
         }
     }
+    /* Base styles for input containers */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.input-container label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.input-container input,
+.input-container select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustments for medium screens */
+@media (max-width: 768px) {
+    .input-container label {
+        font-size: 0.9rem;
+    }
+    
+    .input-container input,
+    .input-container select {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 480px) {
+    .input-container {
+        margin-bottom: 0.75rem;
+    }
+    
+    .input-container label {
+        font-size: 0.85rem;
+    }
+    
+    .input-container input,
+    .input-container select {
+        font-size: 0.85rem;
+        padding: 0.35rem;
+    }
+}

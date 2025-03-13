@@ -259,74 +259,80 @@
         </header> {% endcomment %}
         <div class="filter-controls">
             <form method="GET" id="filterForm">
-                <div class="dropdown-container">
-                    <img src="{% static 'job_page/location.png' %}" alt="Location Icon" class="dropdown-icon">
-                    <select name="location" id="locationFilter">
-                        <option value="">Select Location</option>
-                        <option value="new-delhi">New Delhi, India</option>
-                        <option value="noida">Noida, Uttar Pradesh</option>
-                        <option value="bangalore">Bangalore, India</option>
-                    </select>
+                <div class="input-container">
+                  <label for="locationFilter">Location:</label>
+                  <input type="text" name="location" id="locationFilter" placeholder="Enter location">
                 </div>
-
-                <div class="dropdown-container">
-                    <img src="{% static 'job_page/salary.png' %}" alt="Salary Icon" class="dropdown-icon">
-                    <select name="package" id="salaryFilter">
-                        <option value="">Package</option>
-                        <option value="3.5-5">3.5 LPA to 5 LPA</option>
-                        <option value="5-7">5 LPA to 7 LPA</option>
-                        <option value="7-10">7 LPA to 10 LPA</option>
-                    </select>
+              
+                <div class="input-container">
+                  <label for="packageFilter">Package (LPA):</label>
+                  <input type="text" name="package" id="packageFilter" placeholder="e.g. 3.5-5">
                 </div>
-
-                <div class="dropdown-container">
-                    <img src="{% static 'job_page/dropdown.png' %}" alt="Date Icon" class="dropdown-icon">
-                    <select name="opening_date" id="openingDateFilter">
-                        <option value="">Opening Date</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
-                        <!-- Add other months as needed -->
-                    </select>
+              
+                <div class="input-container">
+                  <label for="openingDateFilter">Opening Date (Month):</label>
+                  <input type="text" name="opening_date" id="openingDateFilter" placeholder="Enter month (e.g. 3)">
                 </div>
-
-                <div class="dropdown-container">
-                    <img src="{% static 'job_page/salary.png' %}" alt="Experience Icon" class="dropdown-icon">
-                    <select name="experience" id="experienceFilter">
-                        <option value="">Experience Level</option>
-                        <option value="fresher">Fresher</option>
-                        <option value="mid">Mid-Level</option>
-                        <option value="senior">Senior</option>
-                    </select>
+              
+                <div class="input-container">
+                  <label for="experienceFilter">Experience Level:</label>
+                  <input type="text" name="experience" id="experienceFilter" placeholder="e.g. fresher, mid, senior">
                 </div>
-
+              
+                <div class="input-container">
+                  <label for="q">Search Jobs:</label>
+                  <input type="text" name="q" id="q" placeholder="Search by role, description..." autocomplete="off">
+                  <!-- Optionally, attach JS for autocomplete which calls the autocomplete endpoint -->
+                </div>
+              
                 <button type="submit" id="applyFilter">Apply Filter</button>
-            </form>
+              </form>
+              
+              
         </div>
     
         <div class="main-content">
             <!-- Left Section for Job Listings -->
             <div class="left-section">
                 {% for job in jobs %}
-                <div class="job-card" onclick="showJobDetails(this)" data-company="{{ job.company.name }}" data-role="{{ job.role }}" data-location="{{ job.company.address }}" data-updated="{{ job.updated_at }}" data-eligibility="{{ job.eligibility }}" data-job-type="{{ job.job_type }}" data-salary="{{ job.salary_per_annum }}" data-experience="{{ job.required_experience }}" data-description="{{ job.job_description }}" data-skills="{{ job.required_skills }}" data-company-about="{{ job.company.about }}" data-company-employees="{{ job.company.working_employees }}" data-company-industry="Information & Technology" data-company-established="{{ job.company.established_year }}">
+                <div class="job-card"
+                     onclick="showJobDetails(this)"
+                     data-logo="{% if job.company.logo %}{{ job.company.logo.url }}{% else %}{% static 'job_page/default_logo.png' %}{% endif %}"
+                     data-company="{{ job.company.name }}"
+                     data-role="{{ job.role }}"
+                     data-location="{{ job.company.address }}"
+                     data-updated="{{ job.updated_at }}"
+                     data-eligibility="{{ job.eligibility }}"
+                     data-job-type="{{ job.job_type }}"
+                     data-salary="{{ job.salary_per_annum }}"
+                     data-experience="{{ job.required_experience }}"
+                     data-description="{{ job.job_description }}"
+                     data-skills="{{ job.required_skills }}"
+                     data-company-about="{{ job.company.about }}"
+                     data-company-employees="{{ job.company.working_employees }}"
+                     data-company-industry="Information & Technology"
+                     data-company-established="{{ job.company.established_year }}">
+                     
                     {% if job.company.logo %}
-                    <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }} Logo">
+                      <img src="{{ job.company.logo.url }}" alt="{{ job.company.name }} Logo">
                     {% else %}
-                    <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
+                      <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
                     {% endif %}
+                    
                     <div class="job-info">
-                        <h3>{{ job.role }}</h3>
-                        <p class="techh">{{ job.company.name }}</p>
-                        <div class="tags">
-                            <span class="tag">{{ job.company.address }}</span>
-                            <span class="tag">{{ job.job_type }}</span>
-                            <span class="tag">{{ job.salary_per_annum }}/y</span>
-                        </div>
-                        <div class="divider"></div>
-                        <p class="timee">{{ job.created_at|timesince }} ago <a href="#" class="apply-btn">Apply Now →</a></p>
+                      <h3>{{ job.role }}</h3>
+                      <p class="techh">{{ job.company.name }}</p>
+                      <div class="tags">
+                          <span class="tag">{{ job.company.address }}</span>
+                          <span class="tag">{{ job.job_type }}</span>
+                          <span class="tag">{{ job.salary_per_annum }}/y</span>
+                      </div>
+                      <div class="divider"></div>
+                      <p class="timee">{{ job.created_at|timesince }} ago <a href="#" class="apply-btn">Apply Now →</a></p>
                     </div>
                 </div>
                 {% endfor %}
+                
             </div>
 
             <!-- Right Section for Job Details -->
@@ -511,68 +517,120 @@
     </div>
 
     <script>
+        // Add this to your <script> section in the HTML template
+document.getElementById('q').addEventListener('input', function(e) {
+    const searchTerm = e.target.value;
+    
+    if (searchTerm.length > 2) {
+        fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(suggestions => {
+                // Implement your UI to show suggestions
+                console.log(suggestions); // For testing
+                // You can show these in a dropdown under the search input
+            });
+    }
+});
+// Update the JavaScript to show/hide suggestions
+const autocompleteResults = document.getElementById('autocomplete-results');
+
+document.getElementById('q').addEventListener('input', function(e) {
+    const searchTerm = e.target.value;
+    
+    if (searchTerm.length > 2) {
+        fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(suggestions => {
+                autocompleteResults.innerHTML = suggestions
+                    .map(suggestion => `
+                        <div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">
+                            ${suggestion}
+                        </div>
+                    `).join('');
+                autocompleteResults.style.display = 'block';
+            });
+    } else {
+        autocompleteResults.style.display = 'none';
+    }
+});
+
+function selectSuggestion(suggestion) {
+    document.getElementById('q').value = suggestion;
+    autocompleteResults.style.display = 'none';
+    // Optionally trigger search
+    document.getElementById('filterForm').submit();
+}
+
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('#autocomplete-results') && 
+        !e.target.closest('#q')) {
+        autocompleteResults.style.display = 'none';
+    }
+});
         // -----------------------------
         // JOB DETAILS + APPLY FUNCTION
         // -----------------------------
         function showJobDetails(element) {
-    const company = element.getAttribute('data-company');
-    const role = element.getAttribute('data-role');
-    const location = element.getAttribute('data-location');
-    const updated = element.getAttribute('data-updated');
-    const eligibility = element.getAttribute('data-eligibility');
-    const jobType = element.getAttribute('data-job-type');
-    const salary = element.getAttribute('data-salary');
-    const experience = element.getAttribute('data-experience');
-    const description = element.getAttribute('data-description');
-    const skills = element.getAttribute('data-skills');
-    const companyAbout = element.getAttribute('data-company-about');
-    const companyEmployees = element.getAttribute('data-company-employees');
-    const companyIndustry = element.getAttribute('data-company-industry');
-    const companyEstablished = element.getAttribute('data-company-established');
-
-    document.getElementById('jobDetails').innerHTML = `
-        <div class="job-details-container">
-            <div class="job-header">
-                <img src="{% static 'job_page/apple.png' %}" alt="${company} Logo" class="company-logo">
-                <div class="job-title">
-                    <h2>${role}</h2>
-                    <p>${company}</p>
+            const logo = element.getAttribute('data-logo');
+            const company = element.getAttribute('data-company');
+            const role = element.getAttribute('data-role');
+            const location = element.getAttribute('data-location');
+            const updated = element.getAttribute('data-updated');
+            const eligibility = element.getAttribute('data-eligibility');
+            const jobType = element.getAttribute('data-job-type');
+            const salary = element.getAttribute('data-salary');
+            const experience = element.getAttribute('data-experience');
+            const description = element.getAttribute('data-description');
+            const skills = element.getAttribute('data-skills');
+            const companyAbout = element.getAttribute('data-company-about');
+            const companyEmployees = element.getAttribute('data-company-employees');
+            const companyIndustry = element.getAttribute('data-company-industry');
+            const companyEstablished = element.getAttribute('data-company-established');
+        
+            document.getElementById('jobDetails').innerHTML = `
+                <div class="job-details-container">
+                    <div class="job-header">
+                        <img src="${logo}" alt="${company} Logo">
+                        <div class="job-title">
+                            <h2>${role}</h2>
+                            <p>${company}</p>
+                        </div>
+                        <button class="applyy-btn" onclick="openApplicationForm()">Apply Now</button>
+                    </div>
+                    <div class="job-meta">
+                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
+                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> Updated on: ${new Date(updated).toLocaleDateString()}</p>
+                    </div>
+                    <hr>
+                    <p class="comp-deatil">Eligibility</p>
+                    <p class="comp-deatil1">${eligibility}</p>
+                    <hr>
+                    <p class="comp-deatil">About the Job</p>
+                    <div class="job-inffo">
+                        <p class="detail"><strong>Job Type:</strong> ${jobType}</p>
+                        <p class="detail"><strong>Salary:</strong> ${salary}/y</p>
+                        <p class="detail"><strong>Experience:</strong> ${experience}</p>
+                    </div>
+                    <p class="jd"><u>Job Description</u></p>
+                    <p class="detail">${description}</p>
+                    <p class="jd"><u>Skills Required</u></p>
+                    <ul>
+                        ${skills.split(',').map(skill => `<li>${skill.trim()}</li>`).join('')}
+                    </ul>
+                    <hr>        
+                    <p class="comp-deatil">About the Company</p>
+                    <p class="detail"><strong>Company Overview</strong></p>
+                    <p class="para">${companyAbout}</p>
+                    <div class="company-info">
+                        <p><strong>Employees:</strong> ${companyEmployees} employees</p>
+                        <p><strong>Industry:</strong> ${companyIndustry}</p>
+                        <p><strong>Established on:</strong> ${companyEstablished}</p>
+                    </div>
                 </div>
-                <button class="applyy-btn" onclick="openApplicationForm()">Apply Now</button>
-
-            </div>
-            <div class="job-meta">
-                <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
-                <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> Updated on: ${new Date(updated).toLocaleDateString()}</p>
-            </div>
-            <hr>
-            <p class="comp-deatil">Eligibility</p>
-            <p class="comp-deatil1">${eligibility}</p>
-            <hr>
-            <p class="comp-deatil">About the Job</p>
-            <div class="job-inffo">
-                <p class="detail"><strong>Job Type:</strong> ${jobType}</p>
-                <p class="detail"><strong>Salary:</strong> ${salary}/y</p>
-                <p class="detail"><strong>Experience:</strong> ${experience}</p>
-            </div>
-            <p class="jd"><u>Job Description</u></p>
-            <p class="detail">${description}</p>
-            <p class="jd"><u>Skills Required</u></p>
-            <ul>
-                ${skills.split(',').map(skill => `<li>${skill}</li>`).join('')}
-            </ul>
-            <hr>        
-            <p class="comp-deatil">About the Company</p>
-            <p class="detail"><strong>Company Overview</strong></p>
-            <p class="para">${companyAbout}</p>
-            <div class="company-info">
-                <p><strong>Employees:</strong> ${companyEmployees} employees</p>
-                <p><strong>Industry:</strong> ${companyIndustry}</p>
-                <p><strong>Established on:</strong> ${companyEstablished}</p>
-            </div>
-        </div>
-    `;
-}
+            `;
+        }
+        
 
 function applyNow() {
     window.location.href = '/apply';  // Change '/apply' to your actual application URL

@@ -1,5 +1,5 @@
 #!/bin/sh
-
+python manage.py search_index --rebuild
 # Run Django migrations
 python manage.py migrate --noinput
 
