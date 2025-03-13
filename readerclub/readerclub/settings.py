@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
+CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001') 
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+DEBUG = os.getenv("READERCLUB_DEBUG", "False").lower() == "true"
 
 
 ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
@@ -137,11 +138,11 @@ WSGI_APPLICATION = 'readerclub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv( "DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
+        'NAME': os.getenv("READERCLUB_DB_NAME"),
+        'USER': os.getenv("READERCLUB_DB_USER"),
+        'PASSWORD': os.getenv("READERCLUB_DB_PASSWORD"),
+        'HOST': os.getenv( "READERCLUB_DB_HOST"),
+        'PORT': os.getenv("READERCLUB_DB_PORT"),
     }
 }
 
