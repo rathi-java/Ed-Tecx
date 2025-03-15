@@ -21,13 +21,12 @@ dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001') 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
-
+DEBUG = os.getenv("CAREER_DEBUG", "False").lower() == "true"
 ALLOWED_HOSTS = ['career.readerclub.in', '127.0.0.1', 'localhost']
 
 
@@ -40,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_elasticsearch_dsl',
     'job_portal',
     'policies',
     'widget_tweaks',
     'oauth',
+    'internship_portal',
+    'abroad_studies',
     # for Google auth
     'django.contrib.sites',
     'allauth',
@@ -119,12 +121,20 @@ WSGI_APPLICATION = 'career.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': os.getenv( "DB_HOST"),
-        'PORT': os.getenv("DB_PORT"),
+        'NAME': os.getenv("CAREER_DB_NAME"),
+        'USER': os.getenv("CAREER_DB_USER"),
+        'PASSWORD': os.getenv("CAREER_DB_PASSWORD"),
+        'HOST': os.getenv( "CAREER_DB_HOST"),
+        'PORT': os.getenv("CAREER_DB_PORT"),
     }
+}
+ELASTICSEARCH_DSL = {
+    'default': {
+        # 'hosts': ['http://localhost:9200'],
+        'hosts': [os.getenv("CAREER_ELASTICSEARCH_HOST")],
+        # 'http_auth': ('elastic', 'password'),
+        'verify_certs': False,
+    },
 }
 
 

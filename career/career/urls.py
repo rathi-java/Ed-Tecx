@@ -20,7 +20,7 @@ from job_portal.views import *
 from .views import maintenance_view
 from django.conf import settings
 from django.conf.urls.static import static
-
+from job_portal.views import autocomplete
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('job_portal/', include('job_portal.urls')),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('policies/',include('policies.urls')),
     path('auth/',include('oauth.urls')),
     path('accounts/', include('allauth.urls')),  # <-- Add this line
+    path('autocomplete/', autocomplete, name='autocomplete'),
 
 
     path('oauth/', include('oauth.urls')),
