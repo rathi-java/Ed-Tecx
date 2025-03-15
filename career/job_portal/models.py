@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -96,45 +97,76 @@ class Domain(models.Model):
         db_table = 'jobportal_domain'
 
 
-class JobApplication(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    resume = models.FileField(upload_to='resumes/')
-    education = models.CharField(max_length=255)
-    specialization = models.CharField(max_length=255, blank=True, null=True)
-    passing_year = models.CharField(max_length=4, blank=True, null=True)
-    score = models.CharField(max_length=50, blank=True, null=True)
-    skills = models.TextField()
-    certificate = models.FileField(upload_to='certificates/')
-    job_role = models.CharField(max_length=255)
-    company_name = models.CharField(max_length=255)
-    joining_date = models.CharField(max_length=4, blank=True, null=True)
-    ending_date = models.CharField(max_length=4, blank=True, null=True)
-    ctc = models.CharField(max_length=50, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.first_name} {self.last_name} - {self.job_role}"
-
-    class Meta:
-        db_table = 'jobportal_jobapplication'
-
+# ---------------------------
+# JobSeeker Model (User Profile)
+# ---------------------------
 class JobSeeker(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # OAuth User link
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20)
-    resume = models.FileField(upload_to='resumes/')
-    skills = models.TextField()
-    experience = models.TextField(blank=True, null=True)
-    education = models.CharField(max_length=255)
+    skills = models.TextField()  # List of skills entered by user
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} ({self.user.email})"
 
     class Meta:
         db_table = 'jobportal_jobseeker'
+
+
+# ---------------------------
+# JobSeekerEducation Model (Multiple Educations)
+# ---------------------------
+class JobSeekerEducation(models.Model):
+    job_seeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE, related_name="educations")
+    degree = models.CharField(max_length=255)  # e.g., "B.Tech", "M.Sc"
+    specialization = models.CharField(max_length=255, blank=True, null=True)  # e.g., "Computer Science"
+    institution = models.CharField(max_length=255)  # e.g., "MIT", "Stanford University"
+    passing_year = models.CharField(max_length=4)  # e.g., "2024"
+    score = models.CharField(max_length=50, blank=True, null=True)  # e.g., "85%"
+
+    def __str__(self):
+        return f"{self.degree} in {self.specialization} from {self.institution}"
+
+    class Meta:
+        db_table = 'jobportal_jobseeker_education'
+
+
+# ---------------------------
+# JobSeekerExperience Model (Multiple Work Experiences)
+# ---------------------------
+class JobSeekerExperience(models.Model):
+    job_seeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE, related_name="experiences")
+    company = models.CharField(max_length=255)  # Company name as text
+    role = models.CharField(max_length=255)  # Role/position held
+    start_date = models.DateField()
+    end_date = models.DateField(blank=True, null=True)  # Leave null if currently employed
+    description = models.TextField(blank=True, null=True)  # Job responsibilities or summary
+    achievements = models.TextField(blank=True, null=True)  # Optional: achievements or notable contributions
+
+    def __str__(self):
+        return f"{self.role} at {self.company}"
+
+    class Meta:
+        db_table = 'jobportal_jobseeker_experience'
+
+
+# ---------------------------
+# JobApplication Model
+# ---------------------------
+class JobApplication(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # OAuth User
+    job_seeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    skills = models.TextField()  # Skills relevant to the job application
+    expected_ctc = models.CharField(max_length=50, blank=True, null=True)  # e.g., "8 LPA"
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.job_seeker.first_name} {self.job_seeker.last_name} - {self.job.role}"
+
+    class Meta:
+        db_table = 'jobportal_jobapplication'
