@@ -175,11 +175,15 @@ class Otpdb(models.Model):
 class PaymentTransaction(models.Model):
     user = models.ForeignKey(UsersDB, on_delete=models.CASCADE)
     subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True)
-    # Using a string reference for the exam model to avoid circular import issues.
     exam = models.ForeignKey('examportol.Exam', on_delete=models.SET_NULL, null=True)
-    razorpay_order_id = models.CharField(max_length=100)
-    razorpay_payment_id = models.CharField(max_length=100)
+
+    order_id = models.CharField(max_length=100)  # Renamed from razorpay_order_id
+    payment_id = models.CharField(max_length=100)  # Renamed from razorpay_payment_id
+    
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=10, default="INR")
     status = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.order_id} - {self.status}"
