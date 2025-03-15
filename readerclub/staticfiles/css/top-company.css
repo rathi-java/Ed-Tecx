@@ -568,9 +568,6 @@ img.hire {
 
 }
 @media (max-width: 321px) {
-  .footer-container img {
-    margin-left: 20%;
-  }
   .top-company-header1 {
     width: 0%;
     font-size: 171%;

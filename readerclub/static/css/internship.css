@@ -191,6 +191,7 @@ h3{
             grid-template-columns: 1fr;
             width: 100%;
             padding-block: 0;
+            margin-bottom: 50px;
         }
     
     .internship-text {

@@ -39,6 +39,8 @@ section.page1 {
   padding: 0 5%;
   position: relative;
   padding-bottom: 80px;
+  margin-top: 40px;
+  margin-top: 40px;
 }
 
 .discover-text-content {
@@ -848,42 +850,6 @@ h2 {
     color: green;
   }
 }
-@media (min-width: 1441px) {
-  .footer-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 160px;
-  }
-  
-  .footer-base {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  p.footer-bottom-text {
-    margin-left: -1407px;
-    font-size: 10px;
-  }
-  
-  .footer-container img {
-    width: 165px;
-    height: auto;
-    margin-top: 37px;
-    margin-left: 44px;
-  }
-  
-  .footer-link-four {
-    gap: 160px;
-  }
-}
 /* Media Queries for Responsive Design */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .job-flow {
@@ -1063,15 +1029,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .header {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    font-weight: bold;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-  }
-  header {
-    padding: 10px 3%;
-  }
   .part2title {
     font-size: 28px;
     margin: 10px auto;

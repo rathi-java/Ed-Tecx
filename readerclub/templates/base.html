@@ -6,52 +6,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Welcome | ReaderClub, We always learn..{% endblock %}</title>
 
-  <!-- Site-Wide Base CSS -->
+  <!-- Core CSS -->
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  <!-- Auth Modals CSS -->
+  
+  <!-- Additional CSS files -->
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
   <link rel="stylesheet" href="{% static 'css/forgot_password.css' %}">
-  <!-- Pop-Up CSS -->
   <link rel="stylesheet" href="{% static 'css/popup.css' %}">
 
-
+  <!-- JavaScript variables -->
   <script>
     var isLoggedIn = {% if request.session.user_id %} true {% else %} false {% endif %};
   </script>
   
+  <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Alkatra' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Prociono' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- External libraries (optional) -->
+  <!-- External libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/theme/dracula.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/clike/clike.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
-
+  
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
 
+  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Welcome | ReaderClub, We always learn.." />
   <meta property="og:description" content="Discover the best in campus-to-corporate opportunities!" />
   <meta property="og:image" content="{% static 'assets/footer.png' %}" />
   <meta property="og:url" content="{{ request.build_absolute_uri }}" />
-  <meta property="og:type" content="website" />  
+  <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;600&display=swap" rel="stylesheet">
-
+  <!-- Extra CSS block for child templates -->
   {% block extra_css %}{% endblock %}
 </head>
 
 <body>
-  <!-- Navigation Bar, Mobile Sidebar, etc. -->
+  <!-- Navigation Bar -->
   <nav class="navbar {% if request.session.user_id %}logged-in{% else %}logged-out{% endif %}">
     <div class="nav-container">
       <a class="navbar-brand" href="/">
-        <img src="{% static 'assets/header.svg' %}" alt="header Logo"/>
+        <img src="{% static 'assets/header.svg' %}" alt="ReaderClub Logo"/>
       </a>
 
       <!-- Desktop Nav -->
@@ -78,7 +77,7 @@
             <a class="nav-link" href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a>
           </li>
           <li>
-            <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
+            <a class="nav-link" href="https://career.readerclub.in/">Job</a>
           </li>
           <li>
             <a class="nav-link" href="https://library.readerclub.in/">Library</a>
@@ -86,12 +85,10 @@
           <li>
             <a class="nav-link" href="{% url 'price' %}">Pricing</a>
           </li>
-          {% comment %} <li>
-            <a class="nav-link" href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a>
-          </li> {% endcomment %}
         </ul>
+        
         {% if request.session.user_id %}
-        <!-- Profile Dropdown -->
+        <!-- Profile Dropdown (Logged in) -->
         <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
           <div class="avatar">
             {% if logged_in_user and logged_in_user.full_name %}
@@ -102,7 +99,6 @@
           </div>        
           <div id="profile-menu" class="profile-dropdown-content">
             <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
-            {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
             <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
             <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
             <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
@@ -111,20 +107,11 @@
               <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
               <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
               <a href="{% url 'about_us' %}">About US</a>
-              {% comment %} <a href="{% url 'maintenance_view' %}">Career</a> {% endcomment %}
-              {% comment %} <a href="#">Blog</a> {% endcomment %}
             </div>
-            {% comment %} <div class="profile-social-icons">
-              <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-              <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-              <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-            </div> {% endcomment %}
           </div>
         </div>
         {% else %}
-        <!-- Sign Up & Log In Buttons -->
+        <!-- Sign Up & Log In Buttons (Logged out) -->
         <div class="login">
           <button onclick="openModal('login')">Login</button>
         </div>
@@ -134,8 +121,6 @@
         {% endif %}
       </div>
 
-
-
       <!-- Hamburger (for mobile) -->
       <div class="hamburger" id="hamburger">
         <i class="fas fa-bars"></i>
@@ -143,7 +128,7 @@
     </div>
   </nav>
 
-  <!-- MOBILE SIDEBAR -->
+  <!-- Mobile Sidebar -->
   <div class="mobile-sidebar" id="mobileSidebar">
     <div class="close-btn" id="closeBtn">
       <i class="fas fa-times"></i>
@@ -162,16 +147,11 @@
         </ul>
       </li>
       <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
-      <li>
-        <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
-      </li>
-      <li>
-        <a class="nav-link" href="https://library.readerclub.in/">Library</a>
-      </li>
-      <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
-      {% comment %} <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li> {% endcomment %}
+      <li><a href="https://career.readerclub.in/">Job</a></li>
+      <li><a href="https://library.readerclub.in/">Library</a></li>
+      <li><a href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
+      
       {% if request.session.user_id %}
-      {% comment %} <li><a href="#"><i class="fas fa-user"></i> Profile</a></li> {% endcomment %}
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
       {% else %}
       <li><button class="signup-button-ham" onclick="openModal('signup')">Sign Up</button></li>
@@ -180,27 +160,26 @@
     </ul>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- Main Content Area -->
   <main class="main-content">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- FOOTER -->
+  <!-- Footer -->
   <footer class="footer">
-    <!-- First Row: main links -->
+    <!-- Main Footer Content -->
     <div class="footer-container">
       <div class="footer-left">
         <a href="{% url 'home' %}">
-          <img src="{% static 'assets/footer.png' %}" alt="Icon">
+          <img src="{% static 'assets/footer.png' %}" alt="ReaderClub Logo">
         </a>        
       </div>
       <div class="footer-link-four">
-
+        <!-- Useful Links -->
         <div class="footer-links">
           <p class="footer-para">Useful Links</p>
           <ul>
             <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
-            {% comment %} <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Contact Us</a></li> {% endcomment %}
             <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')" class="no-underline">Placement Stories</a></li>
             <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Career</a></li>
             <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
@@ -208,6 +187,8 @@
             <li><a href="{% url 'maintenance_view' %}" class="no-underline">Child Policy</a></li>
           </ul>
         </div>
+        
+        <!-- Practice Questions -->
         <div class="footer-practice">
           <p class="footer-para">Top Practice Ques</p>
           <ul>
@@ -217,6 +198,8 @@
             <li><a href="{% url 'coding_practice' %}" onclick="handleAuthCheck(event, '{% url 'coding_practice' %}')">Coding</a></li>        
           </ul>
         </div>
+        
+        <!-- Online Compiler & Jobs -->
         <div class="footer-ccc">
           <div class="footer-top">
             <p class="footer-para">Online Compiler</p>
@@ -237,13 +220,15 @@
             <ul class="footer-iii">
               <div class="footer-v">
                 <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Internships</a></li>
-                <li><a href="{% url 'maintenance_view' %} " onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Jobs</a></li>          
+                <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Popular Jobs</a></li>          
               </div>
             </ul>
           </div>
         </div>
+        
+        <!-- Contact Information -->
         <div class="footer-contact-us">
-          <p class="footer-para">Useful Links</p>
+          <p class="footer-para">Contact Us</p>
           <ul>
             <li>
               <i class="fa fa-phone"></i>
@@ -271,24 +256,24 @@
         </div>
       </div>
     </div>
-    <!-- Second Row: HR + base row -->
+    
+    <!-- Footer Base -->
     <div class="footer-container footer-column">
       <div class="footer-base">
-        {% comment %} <div class="footer-logos">
-          <div class="fac">
-            <img src="{% static 'assets/facebook.png' %}" alt="Facebook" style="width: 30px; height: 30px;">
-          </div>
-          <img src="{% static 'assets/instagram.png' %}" alt="Instagram" style="width: 30px; height: 30px;">
-          <img src="{% static 'assets/twitter.png' %}" alt="Twitter" style="width: 30px; height: 30px;">
-          <img src="{% static 'assets/linkedin.png' %}" alt="LinkedIn" style="width: 30px; height: 30px;">
-        </div> {% endcomment %}
+        <!-- Space for social media icons if needed later -->
       </div>
     </div>
+    
+    <!-- HR line outside the container with 100% width -->
     <hr class="footer-line">
-    <p class="footer-bottom-text">© 2018-25 Readerclub. All rights reserved</p>
+    
+    <!-- Copyright text within a container -->
+    <div class="footer-container">
+      <p class="footer-bottom-text">© 2018-25 Readerclub. All rights reserved</p>
+    </div>
   </footer>
     
-  <!-- MODAL (LOGIN/SIGNUP) -->
+  <!-- Auth Modals -->
   <div id="Modal" class="modal" style="display: none;">
     <div class="container" id="popupContainer">
       <!-- Header that changes via JS -->
@@ -303,15 +288,14 @@
         <button id="signupTab" class="tab-button" onclick="switchTab('signup')">Signup</button>
       </div>
 
-      <!-- Partial Templates for Each Form -->
+      <!-- Include login/signup templates -->
       {% include 'login.html' %}
       {% include 'signup.html' %}
-
     </div>
   </div>
   {% include 'forgot_password.html' %}
 
-  <!-- "Please Sign-in" Pop-up -->
+  <!-- Authentication Required Popup -->
   <div id="authPopUp" class="popup-overlay">
     <div class="popup-box">
       <img src="{% static 'images/padlock.png' %}" alt="Lock" class="popup-lock">
@@ -324,8 +308,8 @@
     </div>
   </div>
 
-  <!-- Load All Auth JS from oauth -->
-   <script>
+  <!-- JavaScript -->
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Check if we should show the login form based on form_type
       {% if form_type == 'login' %}
@@ -333,199 +317,72 @@
       {% elif form_type == 'signup' %}
         openModal('signup');
       {% endif %}
-    });
-    document.addEventListener('DOMContentLoaded', function() {
+      
       // If the query param says ?form_type=login, open the pop-up
       const params = new URLSearchParams(window.location.search);
       if (params.get('form_type') === 'login') {
         openModal('login');
       }
     });
-
-      {% comment %} document.addEventListener('DOMContentLoaded', function() {
-          /**********************************************************
-           * OS/Browser detection (optional, to tailor logic)
-           **********************************************************/
-          const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-          // We could attempt to detect specific browsers, e.g. Chrome vs. Safari, but that’s complex.
-          // const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-          // const isFirefox = typeof InstallTrigger !== 'undefined';
-      
-          /**********************************************************
-           * 1. BLOCK COMMON KEYBOARD SHORTCUTS FOR DEV TOOLS
-           **********************************************************/
-          document.addEventListener('keydown', function(e) {
-              // General dev tool shortcuts across Windows/Linux (Ctrl) & macOS (Meta).
-              // We'll handle both e.ctrlKey and e.metaKey for cross-platform coverage.
-              // Also handle shiftKey and altKey combos for further restriction.
-      
-              // Most common dev tools / view source shortcuts:
-              // - Windows: Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+Shift+C, F12
-              // - Mac: Cmd+Opt+I, Cmd+Opt+J, Cmd+Shift+C, etc.
-              // - Firefox: Ctrl+Shift+K or Cmd+Shift+K
-      
-              // We'll compile a broad list of combos, then see if the event matches any.
-      
-              const blockedCombinations = [
-                  // Windows/Linux combos:
-                  { ctrl: true, shift: true, keyCode: 67 },  // Ctrl + Shift + C
-                  { ctrl: true, shift: true, keyCode: 73 },  // Ctrl + Shift + I
-                  { ctrl: true, shift: true, keyCode: 74 },  // Ctrl + Shift + J
-                  { ctrl: true, keyCode: 85 },               // Ctrl + U
-                  { ctrl: true, alt: true,  keyCode: 67 },   // Ctrl + Alt + C
-                  { keyCode: 123 },                          // F12
-      
-                  // Firefox specifically: Ctrl+Shift+K
-                  { ctrl: true, shift: true, keyCode: 75 },  // Ctrl + Shift + K
-      
-                  // Mac combos: (We'll also check for e.metaKey below in “metaCombinations”)
-                  // We won't rely solely on these because we do a separate meta check below.
-      
-                  // Prevent saving or printing
-                  { ctrl: true, keyCode: 83 }, // Ctrl+S
-                  { ctrl: true, keyCode: 80 }, // Ctrl+P
-                  { ctrl: true, shift: true, keyCode: 80 } // Ctrl+Shift+P
-              ];
-      
-              // This checks if the pressed keys match a known blocked combo (for Windows/Linux).
-              const windowsLinuxMatch = blockedCombinations.some(combo =>
-                  (combo.ctrl    ? e.ctrlKey : true) &&
-                  (combo.shift   ? e.shiftKey : true) &&
-                  (combo.alt     ? e.altKey  : true) &&
-                  (combo.keyCode ? e.keyCode === combo.keyCode : true)
-              );
-      
-              // For macOS, we also want to block typical "Command +" combos.
-              // Because e.metaKey indicates "Command" on Mac.
-              // Additional dev tools combos might be:
-              //   Cmd+Alt+I => meta+alt+I => e.metaKey && e.altKey && keyCode=73
-              //   Cmd+Opt+J => e.metaKey && e.altKey && e.keyCode=74
-              //   Cmd+Shift+C => e.metaKey && e.shiftKey && e.keyCode=67
-              //   etc.
-              // Also block "View Source" => Cmd+U => e.metaKey && e.keyCode=85
-              // Also block saving/printing => Cmd+S => e.metaKey && e.keyCode=83, Cmd+P => e.metaKey && e.keyCode=80
-              // Also Firefox on Mac => Cmd+Shift+K => e.metaKey && e.shiftKey && e.keyCode=75
-              const metaCombinations = [
-                  // Dev Tools / Source
-                  { meta: true, shift: true, keyCode: 67  }, // Cmd+Shift+C
-                  { meta: true, alt: true,   keyCode: 73  }, // Cmd+Alt+I
-                  { meta: true, alt: true,   keyCode: 74  }, // Cmd+Alt+J
-                  { meta: true, keyCode: 85 },               // Cmd+U
-                  { meta: true, shift: true, keyCode: 75  }, // Cmd+Shift+K (Firefox Mac)
-      
-                  // Save/Print
-                  { meta: true, keyCode: 83 },  // Cmd+S
-                  { meta: true, keyCode: 80 },  // Cmd+P
-                  { meta: true, shift: true, keyCode: 80 } // Cmd+Shift+P
-              ];
-      
-              const macMatch = metaCombinations.some(combo =>
-                  (combo.meta    ? e.metaKey : true) &&
-                  (combo.shift   ? e.shiftKey : true) &&
-                  (combo.alt     ? e.altKey  : true) &&
-                  (combo.keyCode ? e.keyCode === combo.keyCode : true)
-              );
-      
-              if (windowsLinuxMatch || (isMac && macMatch)) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  // Optionally alert or do something:
-                  // alert("Developer tools shortcuts are disabled.");
-                  return false;
-              }
-          }, true);
-      
-          /**********************************************************
-           * 2. DISABLE RIGHT‑CLICK, TEXT SELECTION, COPY, CUT
-           **********************************************************/
-          document.addEventListener('contextmenu', function(e) {
-              e.preventDefault();
-              return false;
-          }, true);
-      
-          //document.addEventListener('selectstart', function(e) {
-          //    e.preventDefault();
-          //    return false;
-          //}, true);
-      
-          //document.addEventListener('copy', function(e) {
-          //    e.preventDefault();
-          //    return false;
-          //}, true);
-      
-          //document.addEventListener('cut', function(e) {
-          //    e.preventDefault();
-          //    return false;
-          //}, true);
-      
-          /**********************************************************
-           * 3. PERIODIC DEV TOOLS DETECTION
-           **********************************************************/
-          function detectDevTools() {
-              let devToolsOpen = false;
-              const consoleRef = { ...console };
-      
-              // Overwrite console.log to see if dev tools intercepts logs
-              console.log = function() {
-                  devToolsOpen = true;
-                  consoleRef.log.apply(consoleRef, arguments);
-              };
-      
-              // Use timing of 'debugger' to see if dev tools step in
-              const start = performance.now();
-              debugger;
-              const end = performance.now();
-      
-              // If stepping took too long, dev tools might be open
-              if ((end - start) > 100 || devToolsOpen) {
-                  // Reaction: redirect, blank out page, etc.
-                  window.location.href = '/';
-              }
-          }
-          setInterval(detectDevTools, 1000);
-      
-          /**********************************************************
-           * 4. ATTEMPT TO DISABLE console
-           **********************************************************/
-          try {
-              Object.defineProperty(window, 'console', {
-                  get: function() {
-                      throw new Error('Console is disabled.');
-                  }
-              });
-          } catch (err) {
-              // Some browsers won't allow redefining window.console
-          }
-      
-          // Alternatively, forcibly override console methods:
-          // console.log = console.warn = console.error = console.info = function() {
-          //     throw new Error('Console methods are disabled.');
-          // };
-      
-          /**********************************************************
-           * 5. STOP CTRL+S, CTRL+P, CMD+S, CMD+P AGAIN (Failsafe)
-           **********************************************************/
-          window.addEventListener('keydown', function(e) {
-              // Cross-platform check for S or P with Ctrl or Meta
-              if ((e.ctrlKey || e.metaKey) && (e.keyCode === 83 || e.keyCode === 80)) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  return false;
-              }
-          }, true);
-      
-          /**********************************************************
-           * 6. GLOBAL ERROR HANDLER
-           **********************************************************/
-          window.onerror = function(message, source, lineno, colno, error) {
-              // Return true means we handle it (prevent console output)
-              return true;
-          };
-      });       {% endcomment %}
-  </script> 
-</body>    
-  {% block extra_js %}
-  {% endblock %}
-  <script src="{% static 'js/auth.js' %}"></script> 
+  </script>
+  
+  <!-- External libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.14/mode/javascript/javascript.min.js"></script>
+  
+  <!-- Mobile sidebar functionality -->
+  <script>
+    // Toggle mobile sidebar
+    document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('mobileSidebar').style.transform = 'translateX(0)';
+    });
+    
+    document.getElementById('closeBtn').addEventListener('click', function() {
+      document.getElementById('mobileSidebar').style.transform = 'translateX(-100%)';
+    });
+    
+    // Profile dropdown
+    function toggleProfileDropdown(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('profile-menu');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    // Close dropdown when clicking elsewhere
+    document.addEventListener('click', function() {
+      const dropdown = document.getElementById('profile-menu');
+      if (dropdown) {
+        dropdown.style.display = 'none';
+      }
+    });
+    
+    // Auth check for protected routes
+    function handleAuthCheck(event, url) {
+      if (!isLoggedIn) {
+        event.preventDefault();
+        document.getElementById('authPopUp').style.display = 'flex';
+        return false;
+      }
+      return true;
+    }
+    
+    function showLoginModal() {
+      document.getElementById('authPopUp').style.display = 'none';
+      openModal('login');
+    }
+    
+    function showSignupModal() {
+      document.getElementById('authPopUp').style.display = 'none';
+      openModal('signup');
+    }
+  </script>
+  
+  <!-- Additional JavaScript for child templates -->
+  {% block extra_js %}{% endblock %}
+  
+  <!-- Auth JS -->
+  <script src="{% static 'js/auth.js' %}"></script>
 </body>
 </html>

@@ -1,27 +1,40 @@
 /*****************************************************
- * GLOBAL
+ * TABLE OF CONTENTS
+ * 1. Global Styles
+ * 2. Navbar & Header
+ * 3. Navigation Links
+ * 4. Dropdowns
+ * 5. Signup/Login Buttons
+ * 6. Profile Dropdown
+ * 7. Footer
+ * 8. Mobile Sidebar & Responsiveness
  *****************************************************/
-/* Keep your universal override (if you must) */
-* {
+
+/*****************************************************
+ * 1. GLOBAL STYLES
+ *****************************************************/
+ * {
   font-family: 'Poppins', sans-serif !important;
-  /* overflow-x: hidden !important; */
+  overflow-x: visible;
 }
-/* Override for non-brand Font Awesome icons (legacy and solid) */
+
+/* Override for non-brand Font Awesome icons */
 .fa,
 .fa-solid, .fas {
   font-family: 'Font Awesome 6 Free' !important;
   font-weight: 900 !important;
   font-style: normal !important;
 }
+
 /* Override for brand icons */
 .fab {
   font-family: 'Font Awesome 6 Brands' !important;
   font-style: normal !important;
 }
- body {
+
+body {
   min-height: 100vh;
   padding-top: 1rem;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -44,23 +57,26 @@
   -webkit-font-smoothing: antialiased;
 }
 
-
 .main-content {
   flex: 1;
+  padding-top: 56px; /* To account for fixed navbar */
 }
 
 /*****************************************************
- * NAVBAR & HEADERS 
+ * 2. NAVBAR & HEADER
  *****************************************************/
- .hire-talent-and-find-jobs{
+.hire-talent-and-find-jobs {
   margin-left: 20px !important;
- }
- .discover-logo {
+}
+
+.discover-logo {
   max-height: 40px;
 }
+
 .discover-logo:hover {
   transform: scale(1.1);
 }
+
 .navbar {
   position: fixed;
   top: 0;
@@ -70,8 +86,10 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
+
 .nav-container {
   max-width: 100%;
+  width: 100%;
   height: 70px;
   margin: 0 auto;
   padding: 0 20px;
@@ -79,6 +97,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .navbar-brand {
   max-height: 40px;
 }
@@ -87,14 +106,18 @@
   max-height: 40px;
 }
 
-/*****************************************************
- * NAV LINKS
- *****************************************************/
+.navbar-brand img:hover {
+  transform: scale(1.1);
+}
 
+/*****************************************************
+ * 3. NAVIGATION LINKS
+ *****************************************************/
 .nav-links {
   display: flex;
   margin-left: auto;
 }
+
 .nav-links ul {
   list-style: none;
   display: flex;
@@ -105,6 +128,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .nav-link {
   color: rgba(128, 128, 128, 0.808);
   font-size: 18px;
@@ -114,21 +138,24 @@
   padding-bottom: 25px;
   font-family: 'Open Sans', sans-serif;
 }
+
 .nav-link:hover {
   color: #077bc3;
   transform: scale(1.05);
 }
 
-/*****************************************************
- * Conditional nav-links margin (logged-in vs. logged-out)
- *****************************************************/
- .navbar.logged-in .nav-links {
+/* Conditional nav-links margin (logged-in vs. logged-out) */
+.navbar.logged-in .nav-links {
   padding-left: 10%;
 }
 
 /*****************************************************
- * DROPDOWN
+ * 4. DROPDOWNS
  *****************************************************/
+.dropdown {
+  position: relative;
+}
+
 .solution-dropdown-content {
   display: none;
   position: absolute;
@@ -153,19 +180,21 @@
   transition: background-color 0.2s;
   text-align: left;
 }
+
 .solution-dropdown-content a:hover {
   background-color: #f1f1f1;
   color: #ec8a3f !important;
 }
 
 /*****************************************************
- * SIGNUP / LOGIN BUTTONS
+ * 5. SIGNUP/LOGIN BUTTONS
  *****************************************************/
 .signup,
 .login {
   display: inline-block;
   margin-left: 10px;
 }
+
 .signup button,
 .login button {
   position: relative;
@@ -177,6 +206,7 @@
   font-size: 16px;
   cursor: pointer;
 }
+
 /* Log In button */
 .login button {
   background-color: #1273b9;
@@ -186,9 +216,11 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
 }
+
 .login button:hover {
   background-color: #ec8a3f;
 }
+
 /* Sign Up button */
 .signup button {
   background-color: rgba(18, 115, 185, 0.11);
@@ -197,15 +229,16 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
 }
+
 .signup button:hover {
   background-color: #ec8a3f;
   color: white;
 }
 
 /*****************************************************
- * PROFILE DROPDOWN
+ * 6. PROFILE DROPDOWN
  *****************************************************/
- .avatar {
+.avatar {
   width: 50px;
   height: 50px;
   background: #077BC3;
@@ -218,8 +251,8 @@
   font-weight: bold;
   margin-right: 15px;
   margin-left: 15px;
-
 }
+
 .profile-dropdown {
   position: relative;
   display: inline-block;
@@ -228,6 +261,7 @@
   color: black;
   font-size: 18px;
 }
+
 .profile-dropdown-content {
   display: none;
   position: absolute;
@@ -253,12 +287,15 @@
   font-weight: 600;
   transition: background 0.3s;
 }
+
 .profile-dropdown-content a i {
   margin-right: 10px;
 }
+
 .profile-dropdown-content a:hover {
   background: #f1f1f1;
 }
+
 .profile-info-links {
   font-size: 12px;
   color: gray;
@@ -270,29 +307,16 @@
   border-bottom: 1px solid #ddd;
   justify-content: center;
 }
+
 .profile-info-links a {
   color: gray;
   text-decoration: none;
   padding: 2px 4px;
 }
+
 .profile-info-links a:hover {
   text-decoration: underline;
 }
-/* .profile-social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-  background: #fafafa;
-}
-.profile-social-icons a {
-  color: #077bc3;
-  font-size: 18px;
-  transition: transform 0.2s;
-}
-.profile-social-icons a:hover {
-  transform: scale(1.1);
-} */
 
 /* Make the name clickable like the icon */
 .hello-user {
@@ -301,15 +325,16 @@
   font-size: 16px;
   align-self: center;
 }
+
 .hello-user p {
   color: #077BC3;
   font-weight: 500;
 }
 
 /*****************************************************
- * FOOTER
+ * 7. FOOTER
  *****************************************************/
- .footer {
+.footer {
   display: flex;
   flex-direction: column;
   color: white;
@@ -323,13 +348,14 @@
 
 /* Main footer container styles */
 .footer-container {
-  max-width: 1200px;         /* same width as your header container */
-  margin: 0 auto;            /* center it horizontally */
-  padding: 0 20px;           /* optional side padding to match header spacing */
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 160px;
+  gap: calc(min(120px, 10%)); /* Adjusted for better alignment */
 }
 
 /* Footer image styling */
@@ -337,7 +363,7 @@
   width: 165px;
   height: auto;
   margin-top: 37px;
-  margin-left: 44px;
+  margin-left: 0;
 }
 
 /* Second row container using column layout for hr + base row */
@@ -353,7 +379,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  min-width: 220px;
+  min-width: 180px;
+  max-width: 180px;
 }
 
 /* Footer link groups */
@@ -364,20 +391,9 @@
   flex: 1;
   text-align: left;
   margin-top: 20px;
+  min-width: 132px;
 }
 
-.footer-contact-us{
-  min-width: 211px;
-}
-.footer-ccc {
-  min-width: 191px;
-}
-.footer-practice {
-  min-width: 174px;
-}
-.footer-links {
-  min-width: 162px;
-}
 /* Section header in the footer */
 .footer-para {
   font-size: 1.2rem;
@@ -401,12 +417,12 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1px; /* Adjust spacing between icons */
+  gap: 1px;
 }
 
 .social-links li a {
   text-decoration: none;
-  font-size: 20px; /* Increase icon size */
+  font-size: 20px;
   transition: transform 0.3s ease;
 }
 
@@ -428,57 +444,45 @@
 
 /* Horizontal line in the footer */
 .footer-line {
-  width: 10000%;
-  /* margin-left: 1%; */
-  /* border: 1px solid white; */
-  margin: 10px 0;  /* or as you prefer */
+  width: 100%;
+  max-width: 100%;
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Footer base row styling */
 .footer-base {
-  max-width: 1200px;         /* same width as your header container */
-  margin: 0 auto;            /* center it horizontally */
-  padding: 0 20px;           /* optional side padding to match header spacing */
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 793px;
-  margin-left: -2% !important;
+  align-items: center;
 }
 
 .footer-base p {
   padding-bottom: 10px;
-  margin: 0;                    /* remove default paragraph margin */
-  white-space: nowrap;          /* keep it on one line */
+  margin: 0;
   font-size: 12px;
-  margin-left: -800px;
 }
 
 p.footer-bottom-text {
-  margin-left: -1207px;
-  font-size: 10px;
+  font-size: 8px;
+  text-align: left;
+  width: 100%;
+  margin: 15px 0;
 }
+
 /* Footer practice links hover effects */
 .footer-practice ul li a {
   text-decoration: none;
-  color: inherit; /* inherits text color */
+  color: inherit;
 }
+
 .footer-practice ul li a:hover {
   text-decoration: none;
-}
-
-/* Footer logos styling */
-.footer-logos {
-  display: flex;
-  gap: 15px;
-  margin-right: 10px;
-  margin-top: -25px;
-}
-
-.fac img {
-  width: 55px;
-  height: 55px;
-  vertical-align: middle;
 }
 
 /* Footer list items without default styles */
@@ -504,226 +508,44 @@ p.footer-bottom-text {
 .footer-iii li a:focus {
   color: #fff;
 }
+
 .job-footer-link {
-  text-decoration: none;      /* Remove the underline */
-  color: #333;                /* Use any color you prefer */
+  text-decoration: none;
+  color: #fff;
 }
 
 .job-footer-link:hover {
-  text-decoration: none; /* Optional: underline on hover */
+  text-decoration: none;
 }
+
 .contact-link {
   font-size: 12.5pt !important;
   text-decoration: none;
 }
-.contact-link.email{
+
+.contact-link.email {
   font-size: 11.3pt !important;
 }
-/*****************************************************
- * RESPONSIVE FOOTER STYLES
- * Adjust footer layout on smaller screens
- *****************************************************/
- @media (max-width: 2560) {
-  .footer-container {
-    max-width: 100%;         /* same width as your header container */
-    margin: 0 auto;            /* center it horizontally */
-    padding: 0 20px;           /* optional side padding to match header spacing */
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 160px;
-  }
-  p.footer-bottom-text {
-    margin-left: -1019px;
-    font-size: 11px;
-}
-.footer-container img {
-  width: 165px;
-  height: auto;
-  margin-top: 29px;
-  margin-left: 44px;
-}
-.footer-link-four {
-  gap: 200px;
-}
-}
-@media (min-width: 1441px) {
-.footer-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 200px;
-}
-
-.footer-base {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-p.footer-bottom-text {
-  margin-left: -1407px;
-  font-size: 10px;
-}
-
-.footer-container img {
-  width: 165px;
-  height: auto;
-  margin-top: 37px;
-  margin-left: 44px;
-}
 
 .footer-link-four {
-  gap: 160px !important;
+  display: flex;
+  flex-direction: row;
+  gap: calc(min(60px, 5%)); /* Responsive gap based on container width */
+  margin-right: 0;
+  flex: 1;
+  justify-content: space-between;
+  font-size: 18px;
 }
-}
- @media (max-width: 1440px) {
-  .footer-container {
-      max-width: 100%;         /* same width as your header container */
-      margin: 0 auto;            /* center it horizontally */
-      padding: 0 20px;           /* optional side padding to match header spacing */
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 70px;
-    }
-    p.footer-bottom-text {
-      margin-left: -1019px;
-      font-size: 11px;
-  }
-  .footer-container img {
-    width: 165px;
-    height: auto;
-    margin-top: 29px;
-    margin-left: 44px;
-}
- }
-
-/* Laptop screens (max-width: 1024px) */
-@media (max-width: 1024px) {
-  /* Allow sections to wrap and center them */
-  .footer-container {
-    /* flex-wrap: wrap; */
-    justify-content: center;
-    margin-inline: 17%;
-  }
-  /* Each footer section takes about half the available width */
-  .footer-container > div {
-    flex: 1 1 45%;
-    text-align: center;
-    margin: 10px 0;
-    margin-left: -4%;
-  }
-  /* Adjust image margins */
-  .footer-container img {
-    margin-top: 26px;
-    margin-left: 48%;
-    width: 145px;
-}
-  /* Make the horizontal line flexible */
-  .footer-line {
-    width: 100%;
-    margin: 10px 0;
-    margin-top: -20px;
-  }
-  /* Stack base row items vertically */
-  .footer-base {
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 0;
-    justify-content: center;
-    align-items: center;
-  }
-  p.footer-bottom-text {
-      margin-left: -720px;
-      font-size: 10px;
-  }
-  .footer-link-four {
-      display: flex;
-      flex-direction: row;
-      gap: 10px !important;
-      margin-right: 20px;
-      font-size: 14px;
-  }
-  .footer-para {
-    font-size: 14px;
-  }
-  .footer {
-    padding: 0px !important;
-  }
-}
-@media (max-width: 768px) {
-  /* Stack footer sections vertically */
-  .footer-container {
-    flex-direction: column;
-    align-items: center !important;
-    gap: 20px;
-  }
-  
-  /* Center align each section within the footer */
-  .footer-container > div {
-    text-align: center;
-  }
-  
-  /* Adjust the footer image margin for smaller screens */
-  .footer-container img {
-    margin-top: 20px;
-    margin-left: 0;
-  }
-  
-  /* Adjust horizontal line width to be more flexible */
-  .footer-line {
-    width: 100%;
-    margin: 10px 0;
-  }
-  .discover-logo {
-    max-height: 30px;
-  }
-  
-  /* Stack the base row items vertically */
-  .footer-base {
-    flex-direction: column;
-    gap: 10px;
-    margin-left: 0;
-    justify-content: center;
-    align-items: center;
-  }
-  .footer-link-four {
-      display: flex;
-      flex-direction: column !important;
-      gap: 20px;
-      margin-right: 45px;
-  }
-}
-
-/* Optional: Additional breakpoints for very small devices */
-@media (max-width: 425px) {
-  .footer-para {
-    font-size: 1rem;
-  }
-  .footer-container {
-    flex-direction: column;
-    align-items: center !important;
-    gap: 20px;
-  }
-}
-
-
 
 /*****************************************************
- * HAMBURGER & MOBILE SIDEBAR
+ * 8. MOBILE SIDEBAR & RESPONSIVENESS
  *****************************************************/
 .hamburger {
   display: none;
   font-size: 24px;
   cursor: pointer;
 }
+
 .mobile-sidebar {
   position: fixed;
   top: 0;
@@ -737,39 +559,44 @@ p.footer-bottom-text {
   transition: transform 0.3s ease;
   z-index: 2000;
   padding: 20px;
-
 }
+
 .mobile-sidebar a {
   text-decoration: none;
   color: rgba(128, 128, 128, 0.808);
   font-weight: 600;
   font-family: 'Open Sans', sans-serif;
-  ;
 }
-.mobile-sidebar button{
+
+.mobile-sidebar button {
   font-family: 'Open Sans', sans-serif;
   color: white;
-  background-color:#077BC3;
+  background-color: #077BC3;
   padding: 12px;
   border: none;
   border-radius: 5px;
   font-weight: 600;
   font-size: large;
 }
-.mobile-sidebar button:hover{
+
+.mobile-sidebar button:hover {
   background-color: #ec8a3f;
 }
+
 .mobile-sidebar button.login-button-ham {
   padding: 12px 19.5px;
 }
+
 .mobile-sidebar ul {
   list-style: none;
   padding: 0;
 }
+
 .mobile-sidebar ul li {
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 .mobile-sidebar .close-btn {
   text-align: right;
   font-size: 24px;
@@ -777,91 +604,292 @@ p.footer-bottom-text {
   margin-bottom: 20px;
 }
 
-.footer-link-four {
-  display: flex;
-  flex-direction: row;
-  gap: 76px;
-  margin-right: 45px;
+/* Large screens (min-width: 1441px) */
+@media (min-width: 1441px) {
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+  }
+  
+  p.footer-bottom-text {
+    text-align: left;
+  }
+  
+  .footer-link-four {
+    gap: calc(min(60px, 5%)) !important;
+  }
 }
-/* On screens ≤ 768px, hide nav-links, show hamburger */
+
+/* Desktop screens (max-width: 1440px) */
+@media (max-width: 1440px) {
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+  }
+  
+  .footer-container {
+    gap: calc(min(70px, 6%));
+  }
+  
+  .footer-link-four {
+    gap: calc(min(50px, 5%));
+  }
+  
+  p.footer-bottom-text {
+    font-size: 8px;
+  }
+}
+
+/* Laptop screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+  }
+
+  .footer-container {
+    justify-content: center;
+    padding: 0 15px;
+    gap: calc(min(30px, 4%));
+  }
+  
+  .footer-container > div {
+    flex: 1 1 45%;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .footer-container img {
+    margin-top: 26px;
+    width: 145px;
+  }
+  
+  .footer-line {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .footer-base {
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  p.footer-bottom-text {
+    text-align: left;
+  }
+  
+  .footer-link-four {
+    display: flex;
+    flex-direction: row;
+    gap: calc(min(20px, 3%)) !important;
+    margin-right: 0;
+    font-size: 13px;
+  }
+  
+  .footer-para {
+    font-size: 14px;
+  }
+  
+  .footer {
+    padding: 0px !important;
+  }
+}
+
+/* Tablet screens (max-width: 768px) */
 @media (max-width: 768px) {
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+  }
+
   .signup,
   .login {
     display: none;
   }
+  
   .nav-links {
     display: none;
   }
+  
   .hamburger {
     display: block;
   }
+  
   .navbar-brand img {
     max-height: 30px;
   }
-  .footer-base p{
-    margin-left: 0px;
+  
+  .footer-container {
+    flex-direction: column;
+    align-items: center !important;
+    gap: calc(min(20px, 4%));
+  }
+  
+  .footer-container > div {
     text-align: center;
   }
+  
+  .footer-container img {
+    margin-top: 20px;
+    margin-left: -60px;
+  }
+  
+  .footer-base {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .footer-base p {
+    text-align: left;
+  }
+  
   p.footer-bottom-text {
-      margin-left: 0px;
-      font-size: 10px;
+    font-size: 8px;
+    text-align: left;
+  }
+  
+  .footer-link-four {
+    display: flex;
+    flex-direction: column !important;
+    gap: 20px;
+    margin-right: 0;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .footer-link-four > div {
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  .footer-link-four > div p, 
+  .footer-link-four > div ul {
+    text-align: left;
+  }
+  
+  .discover-logo {
+    max-height: 30px;
+  }
+  
+  .footer-line {
+    width: 100%;
+    max-width: 100%;
   }
 }
 
-
-/* Additional breakpoints */
+/* Mobile screens (max-width: 425px) */
 @media (max-width: 425px) {
-  /* .navbar-brand img {
-    height: 30px;
-  } */
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .footer-para {
+    font-size: 1rem;
+  }
+  
+  .footer-container {
+    flex-direction: column;
+    align-items: center !important;
+    gap: 20px;
+  }
+  
   .signup button,
   .login button {
     width: 90px;
     font-size: 14px;
   }
+  
   p.footer-bottom-text {
-      margin-left: 0px;
-      font-size: 8px;
+    font-size: 8px;
+    text-align: left;
+  }
+  
+  .footer-link-four > div {
+    width: 90%;
+  }
+  
+  .footer-line {
+    width: 100%;
+    max-width: 100%;
   }
 }
+
+/* Small mobile screens (max-width: 375px) */
 @media (max-width: 375px) {
-  /* .navbar-brand img {
-    height: 25px;
-  } */
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
   .signup button,
   .login button {
     width: 85px;
     font-size: 13px;
   }
+  
   p.footer-bottom-text {
-      margin-left: 0px;
-      font-size: 8px;
+    font-size: 8px;
+    text-align: left;
   }
+  
   .footer-container {
     flex-direction: column;
     align-items: center !important;
     gap: 20px;
   }
+  
+  .footer-line {
+    width: 100%;
+    max-width: 100%;
+  }
 }
+
+/* Extra small mobile screens (max-width: 320px) */
 @media (max-width: 320px) {
-  /* .navbar-brand img {
-    height: 20px;
-  } */
+  .nav-container,
+  .footer-container,
+  .footer-base {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
   .signup button,
   .login button {
     width: 80px;
     font-size: 12px;
   }
+  
   p.footer-bottom-text {
-      margin-left: 0px;
-      font-size: 8px;
+    font-size: 8px;
+    text-align: left;
   }
+  
   .footer-container {
     flex-direction: column;
     align-items: center !important;
     gap: 20px;
   }
-}
-.navbar-brand img:hover{
-  transform: scale(1.1);
+  
+  .footer-line {
+    width: 100%;
+    max-width: 100%;
+  }
+  .footer-container img {
+    margin-top: 20px;
+    margin-left: -46px;
+  }
 }
