@@ -47,6 +47,7 @@
 .exam-left-section, .exam-right-section {
     flex: 1;
     padding: 10px 30px;
+    margin-bottom: -85px;
 }
 
 .exam-left-section {

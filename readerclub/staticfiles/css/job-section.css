@@ -17,6 +17,7 @@
     align-items: center;
     padding: 50px;
     align-content: center;
+    padding-top: 0;
 }
 .jobs-card {
     position: relative;
