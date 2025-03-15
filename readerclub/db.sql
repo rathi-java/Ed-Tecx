@@ -282,7 +282,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,7 +291,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can view permission',1,'view_permission'),(5,'Can add group',2,'add_group'),(6,'Can change group',2,'change_group'),(7,'Can delete group',2,'delete_group'),(8,'Can view group',2,'view_group'),(9,'Can add content type',3,'add_contenttype'),(10,'Can change content type',3,'change_contenttype'),(11,'Can delete content type',3,'delete_contenttype'),(12,'Can view content type',3,'view_contenttype'),(13,'Can add code submission',4,'add_codesubmission'),(14,'Can change code submission',4,'change_codesubmission'),(15,'Can delete code submission',4,'delete_codesubmission'),(16,'Can view code submission',4,'view_codesubmission'),(17,'Can add students db',5,'add_studentsdb'),(18,'Can change students db',5,'change_studentsdb'),(19,'Can delete students db',5,'delete_studentsdb'),(20,'Can view students db',5,'view_studentsdb'),(21,'Can add category',6,'add_category'),(22,'Can change category',6,'change_category'),(23,'Can delete category',6,'delete_category'),(24,'Can view category',6,'view_category'),(25,'Can add subject',7,'add_subject'),(26,'Can change subject',7,'change_subject'),(27,'Can delete subject',7,'delete_subject'),(28,'Can view subject',7,'view_subject'),(29,'Can add question',8,'add_question'),(30,'Can change question',8,'change_question'),(31,'Can delete question',8,'delete_question'),(32,'Can view question',8,'view_question'),(33,'Can add exam result',9,'add_examresult'),(34,'Can change exam result',9,'change_examresult'),(35,'Can delete exam result',9,'delete_examresult'),(36,'Can view exam result',9,'view_examresult'),(37,'Can add placement stories',10,'add_placementstories'),(38,'Can change placement stories',10,'change_placementstories'),(39,'Can delete placement stories',10,'delete_placementstories'),(40,'Can view placement stories',10,'view_placementstories'),(41,'Can add job',11,'add_job'),(42,'Can change job',11,'change_job'),(43,'Can delete job',11,'delete_job'),(44,'Can view job',11,'view_job'),(45,'Can add colleges db',12,'add_collegesdb'),(46,'Can change colleges db',12,'change_collegesdb'),(47,'Can delete colleges db',12,'delete_collegesdb'),(48,'Can view colleges db',12,'view_collegesdb'),(49,'Can add users db',13,'add_usersdb'),(50,'Can change users db',13,'change_usersdb'),(51,'Can delete users db',13,'delete_usersdb'),(52,'Can view users db',13,'view_usersdb'),(53,'Can add otpdb',14,'add_otpdb'),(54,'Can change otpdb',14,'change_otpdb'),(55,'Can delete otpdb',14,'delete_otpdb'),(56,'Can view otpdb',14,'view_otpdb'),(57,'Can add super admin db',15,'add_superadmindb'),(58,'Can change super admin db',15,'change_superadmindb'),(59,'Can delete super admin db',15,'delete_superadmindb'),(60,'Can view super admin db',15,'view_superadmindb'),(61,'Can add admin db',16,'add_admindb'),(62,'Can change admin db',16,'change_admindb'),(63,'Can delete admin db',16,'delete_admindb'),(64,'Can view admin db',16,'view_admindb'),(65,'Can add manager db',17,'add_managerdb'),(66,'Can change manager db',17,'change_managerdb'),(67,'Can delete manager db',17,'delete_managerdb'),(68,'Can view manager db',17,'view_managerdb'),(69,'Can add employee db',18,'add_employeedb'),(70,'Can change employee db',18,'change_employeedb'),(71,'Can delete employee db',18,'delete_employeedb'),(72,'Can view employee db',18,'view_employeedb'),(73,'Can add certificate',19,'add_certificate'),(74,'Can change certificate',19,'change_certificate'),(75,'Can delete certificate',19,'delete_certificate'),(76,'Can view certificate',19,'view_certificate'),(77,'Can add plan type',20,'add_plantype'),(78,'Can change plan type',20,'change_plantype'),(79,'Can delete plan type',20,'delete_plantype'),(80,'Can view plan type',20,'view_plantype'),(81,'Can add subscription plan',21,'add_subscriptionplan'),(82,'Can change subscription plan',21,'change_subscriptionplan'),(83,'Can delete subscription plan',21,'delete_subscriptionplan'),(84,'Can view subscription plan',21,'view_subscriptionplan'),(85,'Can add email address',22,'add_emailaddress'),(86,'Can change email address',22,'change_emailaddress'),(87,'Can delete email address',22,'delete_emailaddress'),(88,'Can view email address',22,'view_emailaddress'),(89,'Can add email confirmation',23,'add_emailconfirmation'),(90,'Can change email confirmation',23,'change_emailconfirmation'),(91,'Can delete email confirmation',23,'delete_emailconfirmation'),(92,'Can view email confirmation',23,'view_emailconfirmation'),(93,'Can add log entry',24,'add_logentry'),(94,'Can change log entry',24,'change_logentry'),(95,'Can delete log entry',24,'delete_logentry'),(96,'Can view log entry',24,'view_logentry'),(97,'Can add session',25,'add_session'),(98,'Can change session',25,'change_session'),(99,'Can delete session',25,'delete_session'),(100,'Can view session',25,'view_session'),(101,'Can add site',26,'add_site'),(102,'Can change site',26,'change_site'),(103,'Can delete site',26,'delete_site'),(104,'Can view site',26,'view_site'),(105,'Can add social account',27,'add_socialaccount'),(106,'Can change social account',27,'change_socialaccount'),(107,'Can delete social account',27,'delete_socialaccount'),(108,'Can view social account',27,'view_socialaccount'),(109,'Can add social application',28,'add_socialapp'),(110,'Can change social application',28,'change_socialapp'),(111,'Can delete social application',28,'delete_socialapp'),(112,'Can view social application',28,'view_socialapp'),(113,'Can add social application token',29,'add_socialtoken'),(114,'Can change social application token',29,'change_socialtoken'),(115,'Can delete social application token',29,'delete_socialtoken'),(116,'Can view social application token',29,'view_socialtoken'),(117,'Can add exam',30,'add_exam'),(118,'Can change exam',30,'change_exam'),(119,'Can delete exam',30,'delete_exam'),(120,'Can view exam',30,'view_exam'),(121,'Can add payment transaction',31,'add_paymenttransaction'),(122,'Can change payment transaction',31,'change_paymenttransaction'),(123,'Can delete payment transaction',31,'delete_paymenttransaction'),(124,'Can view payment transaction',31,'view_paymenttransaction'),(125,'Can add category',32,'add_category'),(126,'Can change category',32,'change_category'),(127,'Can delete category',32,'delete_category'),(128,'Can view category',32,'view_category'),(129,'Can add company',33,'add_company'),(130,'Can change company',33,'change_company'),(131,'Can delete company',33,'delete_company'),(132,'Can view company',33,'view_company'),(133,'Can add job',34,'add_job'),(134,'Can change job',34,'change_job'),(135,'Can delete job',34,'delete_job'),(136,'Can view job',34,'view_job'),(137,'Can add domain',35,'add_domain'),(138,'Can change domain',35,'change_domain'),(139,'Can delete domain',35,'delete_domain'),(140,'Can view domain',35,'view_domain'),(141,'Can add job application',36,'add_jobapplication'),(142,'Can change job application',36,'change_jobapplication'),(143,'Can delete job application',36,'delete_jobapplication'),(144,'Can view job application',36,'view_jobapplication'),(145,'Can add job seeker',37,'add_jobseeker'),(146,'Can change job seeker',37,'change_jobseeker'),(147,'Can delete job seeker',37,'delete_jobseeker'),(148,'Can view job seeker',37,'view_jobseeker'),(149,'Can add job seeker experience',38,'add_jobseekerexperience'),(150,'Can change job seeker experience',38,'change_jobseekerexperience'),(151,'Can delete job seeker experience',38,'delete_jobseekerexperience'),(152,'Can view job seeker experience',38,'view_jobseekerexperience'),(153,'Can add job seeker education',39,'add_jobseekereducation'),(154,'Can change job seeker education',39,'change_jobseekereducation'),(155,'Can delete job seeker education',39,'delete_jobseekereducation'),(156,'Can view job seeker education',39,'view_jobseekereducation');
+INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can view permission',1,'view_permission'),(5,'Can add group',2,'add_group'),(6,'Can change group',2,'change_group'),(7,'Can delete group',2,'delete_group'),(8,'Can view group',2,'view_group'),(9,'Can add content type',3,'add_contenttype'),(10,'Can change content type',3,'change_contenttype'),(11,'Can delete content type',3,'delete_contenttype'),(12,'Can view content type',3,'view_contenttype'),(13,'Can add code submission',4,'add_codesubmission'),(14,'Can change code submission',4,'change_codesubmission'),(15,'Can delete code submission',4,'delete_codesubmission'),(16,'Can view code submission',4,'view_codesubmission'),(17,'Can add students db',5,'add_studentsdb'),(18,'Can change students db',5,'change_studentsdb'),(19,'Can delete students db',5,'delete_studentsdb'),(20,'Can view students db',5,'view_studentsdb'),(21,'Can add category',6,'add_category'),(22,'Can change category',6,'change_category'),(23,'Can delete category',6,'delete_category'),(24,'Can view category',6,'view_category'),(25,'Can add subject',7,'add_subject'),(26,'Can change subject',7,'change_subject'),(27,'Can delete subject',7,'delete_subject'),(28,'Can view subject',7,'view_subject'),(29,'Can add question',8,'add_question'),(30,'Can change question',8,'change_question'),(31,'Can delete question',8,'delete_question'),(32,'Can view question',8,'view_question'),(33,'Can add exam result',9,'add_examresult'),(34,'Can change exam result',9,'change_examresult'),(35,'Can delete exam result',9,'delete_examresult'),(36,'Can view exam result',9,'view_examresult'),(37,'Can add placement stories',10,'add_placementstories'),(38,'Can change placement stories',10,'change_placementstories'),(39,'Can delete placement stories',10,'delete_placementstories'),(40,'Can view placement stories',10,'view_placementstories'),(41,'Can add job',11,'add_job'),(42,'Can change job',11,'change_job'),(43,'Can delete job',11,'delete_job'),(44,'Can view job',11,'view_job'),(45,'Can add colleges db',12,'add_collegesdb'),(46,'Can change colleges db',12,'change_collegesdb'),(47,'Can delete colleges db',12,'delete_collegesdb'),(48,'Can view colleges db',12,'view_collegesdb'),(49,'Can add users db',13,'add_usersdb'),(50,'Can change users db',13,'change_usersdb'),(51,'Can delete users db',13,'delete_usersdb'),(52,'Can view users db',13,'view_usersdb'),(53,'Can add otpdb',14,'add_otpdb'),(54,'Can change otpdb',14,'change_otpdb'),(55,'Can delete otpdb',14,'delete_otpdb'),(56,'Can view otpdb',14,'view_otpdb'),(57,'Can add super admin db',15,'add_superadmindb'),(58,'Can change super admin db',15,'change_superadmindb'),(59,'Can delete super admin db',15,'delete_superadmindb'),(60,'Can view super admin db',15,'view_superadmindb'),(61,'Can add admin db',16,'add_admindb'),(62,'Can change admin db',16,'change_admindb'),(63,'Can delete admin db',16,'delete_admindb'),(64,'Can view admin db',16,'view_admindb'),(65,'Can add manager db',17,'add_managerdb'),(66,'Can change manager db',17,'change_managerdb'),(67,'Can delete manager db',17,'delete_managerdb'),(68,'Can view manager db',17,'view_managerdb'),(69,'Can add employee db',18,'add_employeedb'),(70,'Can change employee db',18,'change_employeedb'),(71,'Can delete employee db',18,'delete_employeedb'),(72,'Can view employee db',18,'view_employeedb'),(73,'Can add certificate',19,'add_certificate'),(74,'Can change certificate',19,'change_certificate'),(75,'Can delete certificate',19,'delete_certificate'),(76,'Can view certificate',19,'view_certificate'),(77,'Can add plan type',20,'add_plantype'),(78,'Can change plan type',20,'change_plantype'),(79,'Can delete plan type',20,'delete_plantype'),(80,'Can view plan type',20,'view_plantype'),(81,'Can add subscription plan',21,'add_subscriptionplan'),(82,'Can change subscription plan',21,'change_subscriptionplan'),(83,'Can delete subscription plan',21,'delete_subscriptionplan'),(84,'Can view subscription plan',21,'view_subscriptionplan'),(85,'Can add email address',22,'add_emailaddress'),(86,'Can change email address',22,'change_emailaddress'),(87,'Can delete email address',22,'delete_emailaddress'),(88,'Can view email address',22,'view_emailaddress'),(89,'Can add email confirmation',23,'add_emailconfirmation'),(90,'Can change email confirmation',23,'change_emailconfirmation'),(91,'Can delete email confirmation',23,'delete_emailconfirmation'),(92,'Can view email confirmation',23,'view_emailconfirmation'),(93,'Can add log entry',24,'add_logentry'),(94,'Can change log entry',24,'change_logentry'),(95,'Can delete log entry',24,'delete_logentry'),(96,'Can view log entry',24,'view_logentry'),(97,'Can add session',25,'add_session'),(98,'Can change session',25,'change_session'),(99,'Can delete session',25,'delete_session'),(100,'Can view session',25,'view_session'),(101,'Can add site',26,'add_site'),(102,'Can change site',26,'change_site'),(103,'Can delete site',26,'delete_site'),(104,'Can view site',26,'view_site'),(105,'Can add social account',27,'add_socialaccount'),(106,'Can change social account',27,'change_socialaccount'),(107,'Can delete social account',27,'delete_socialaccount'),(108,'Can view social account',27,'view_socialaccount'),(109,'Can add social application',28,'add_socialapp'),(110,'Can change social application',28,'change_socialapp'),(111,'Can delete social application',28,'delete_socialapp'),(112,'Can view social application',28,'view_socialapp'),(113,'Can add social application token',29,'add_socialtoken'),(114,'Can change social application token',29,'change_socialtoken'),(115,'Can delete social application token',29,'delete_socialtoken'),(116,'Can view social application token',29,'view_socialtoken'),(117,'Can add exam',30,'add_exam'),(118,'Can change exam',30,'change_exam'),(119,'Can delete exam',30,'delete_exam'),(120,'Can view exam',30,'view_exam'),(121,'Can add payment transaction',31,'add_paymenttransaction'),(122,'Can change payment transaction',31,'change_paymenttransaction'),(123,'Can delete payment transaction',31,'delete_paymenttransaction'),(124,'Can view payment transaction',31,'view_paymenttransaction'),(125,'Can add category',32,'add_category'),(126,'Can change category',32,'change_category'),(127,'Can delete category',32,'delete_category'),(128,'Can view category',32,'view_category'),(129,'Can add company',33,'add_company'),(130,'Can change company',33,'change_company'),(131,'Can delete company',33,'delete_company'),(132,'Can view company',33,'view_company'),(133,'Can add job',34,'add_job'),(134,'Can change job',34,'change_job'),(135,'Can delete job',34,'delete_job'),(136,'Can view job',34,'view_job'),(137,'Can add domain',35,'add_domain'),(138,'Can change domain',35,'change_domain'),(139,'Can delete domain',35,'delete_domain'),(140,'Can view domain',35,'view_domain'),(141,'Can add job application',36,'add_jobapplication'),(142,'Can change job application',36,'change_jobapplication'),(143,'Can delete job application',36,'delete_jobapplication'),(144,'Can view job application',36,'view_jobapplication'),(145,'Can add job seeker',37,'add_jobseeker'),(146,'Can change job seeker',37,'change_jobseeker'),(147,'Can delete job seeker',37,'delete_jobseeker'),(148,'Can view job seeker',37,'view_jobseeker'),(149,'Can add job seeker experience',38,'add_jobseekerexperience'),(150,'Can change job seeker experience',38,'change_jobseekerexperience'),(151,'Can delete job seeker experience',38,'delete_jobseekerexperience'),(152,'Can view job seeker experience',38,'view_jobseekerexperience'),(153,'Can add job seeker education',39,'add_jobseekereducation'),(154,'Can change job seeker education',39,'change_jobseekereducation'),(155,'Can delete job seeker education',39,'delete_jobseekereducation'),(156,'Can view job seeker education',39,'view_jobseekereducation'),(157,'Can add internship application',40,'add_internshipapplication'),(158,'Can change internship application',40,'change_internshipapplication'),(159,'Can delete internship application',40,'delete_internshipapplication'),(160,'Can view internship application',40,'view_internshipapplication'),(161,'Can add internship category',41,'add_internshipcategory'),(162,'Can change internship category',41,'change_internshipcategory'),(163,'Can delete internship category',41,'delete_internshipcategory'),(164,'Can view internship category',41,'view_internshipcategory'),(165,'Can add internship',42,'add_internship'),(166,'Can change internship',42,'change_internship'),(167,'Can delete internship',42,'delete_internship'),(168,'Can view internship',42,'view_internship'),(169,'Can add internship seeker',43,'add_internshipseeker'),(170,'Can change internship seeker',43,'change_internshipseeker'),(171,'Can delete internship seeker',43,'delete_internshipseeker'),(172,'Can view internship seeker',43,'view_internshipseeker'),(173,'Can add internship company',44,'add_internshipcompany'),(174,'Can change internship company',44,'change_internshipcompany'),(175,'Can delete internship company',44,'delete_internshipcompany'),(176,'Can view internship company',44,'view_internshipcompany');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,7 +403,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -412,7 +412,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (22,'account','emailaddress'),(23,'account','emailconfirmation'),(24,'admin','logentry'),(16,'admin_portal','admindb'),(18,'admin_portal','employeedb'),(17,'admin_portal','managerdb'),(15,'admin_portal','superadmindb'),(2,'auth','group'),(1,'auth','permission'),(19,'certificate_management','certificate'),(4,'compiler','codesubmission'),(3,'contenttypes','contenttype'),(5,'exam_registration','studentsdb'),(6,'examportol','category'),(30,'examportol','exam'),(9,'examportol','examresult'),(8,'examportol','question'),(7,'examportol','subject'),(32,'job_portal','category'),(33,'job_portal','company'),(35,'job_portal','domain'),(34,'job_portal','job'),(36,'job_portal','jobapplication'),(37,'job_portal','jobseeker'),(39,'job_portal','jobseekereducation'),(38,'job_portal','jobseekerexperience'),(11,'jobportol','job'),(12,'oauth','collegesdb'),(14,'oauth','otpdb'),(31,'oauth','paymenttransaction'),(13,'oauth','usersdb'),(10,'placement_stories','placementstories'),(20,'price','plantype'),(21,'price','subscriptionplan'),(25,'sessions','session'),(26,'sites','site'),(27,'socialaccount','socialaccount'),(28,'socialaccount','socialapp'),(29,'socialaccount','socialtoken');
+INSERT INTO `django_content_type` VALUES (22,'account','emailaddress'),(23,'account','emailconfirmation'),(24,'admin','logentry'),(16,'admin_portal','admindb'),(18,'admin_portal','employeedb'),(17,'admin_portal','managerdb'),(15,'admin_portal','superadmindb'),(2,'auth','group'),(1,'auth','permission'),(19,'certificate_management','certificate'),(4,'compiler','codesubmission'),(3,'contenttypes','contenttype'),(5,'exam_registration','studentsdb'),(6,'examportol','category'),(30,'examportol','exam'),(9,'examportol','examresult'),(8,'examportol','question'),(7,'examportol','subject'),(42,'internship_portal','internship'),(40,'internship_portal','internshipapplication'),(41,'internship_portal','internshipcategory'),(44,'internship_portal','internshipcompany'),(43,'internship_portal','internshipseeker'),(32,'job_portal','category'),(33,'job_portal','company'),(35,'job_portal','domain'),(34,'job_portal','job'),(36,'job_portal','jobapplication'),(37,'job_portal','jobseeker'),(39,'job_portal','jobseekereducation'),(38,'job_portal','jobseekerexperience'),(11,'jobportol','job'),(12,'oauth','collegesdb'),(14,'oauth','otpdb'),(31,'oauth','paymenttransaction'),(13,'oauth','usersdb'),(10,'placement_stories','placementstories'),(20,'price','plantype'),(21,'price','subscriptionplan'),(25,'sessions','session'),(26,'sites','site'),(27,'socialaccount','socialaccount'),(28,'socialaccount','socialapp'),(29,'socialaccount','socialtoken');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -429,7 +429,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -438,7 +438,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-02-28 06:15:28.889492'),(2,'contenttypes','0002_remove_content_type_name','2025-02-28 06:15:28.962130'),(3,'auth','0001_initial','2025-02-28 06:15:29.294127'),(4,'auth','0002_alter_permission_name_max_length','2025-02-28 06:15:29.375221'),(5,'auth','0003_alter_user_email_max_length','2025-02-28 06:15:29.382866'),(6,'auth','0004_alter_user_username_opts','2025-02-28 06:15:29.389972'),(7,'auth','0005_alter_user_last_login_null','2025-02-28 06:15:29.396713'),(8,'auth','0006_require_contenttypes_0002','2025-02-28 06:15:29.400289'),(9,'auth','0007_alter_validators_add_error_messages','2025-02-28 06:15:29.405901'),(10,'auth','0008_alter_user_username_max_length','2025-02-28 06:15:29.412668'),(11,'auth','0009_alter_user_last_name_max_length','2025-02-28 06:15:29.420544'),(12,'auth','0010_alter_group_name_max_length','2025-02-28 06:15:29.434925'),(13,'auth','0011_update_proxy_permissions','2025-02-28 06:15:29.449887'),(14,'auth','0012_alter_user_first_name_max_length','2025-02-28 06:15:29.455157'),(15,'oauth','0001_initial','2025-02-28 06:15:30.056991'),(16,'account','0001_initial','2025-02-28 06:17:51.284499'),(17,'account','0002_email_max_length','2025-02-28 06:17:51.303170'),(18,'account','0003_alter_emailaddress_create_unique_verified_email','2025-02-28 06:17:51.331075'),(19,'account','0004_alter_emailaddress_drop_unique_email','2025-02-28 06:17:51.359716'),(20,'account','0005_emailaddress_idx_upper_email','2025-02-28 06:17:51.384995'),(21,'account','0006_emailaddress_lower','2025-02-28 06:17:51.406581'),(22,'account','0007_emailaddress_idx_email','2025-02-28 06:17:51.445724'),(23,'account','0008_emailaddress_unique_primary_email_fixup','2025-02-28 06:17:51.462515'),(24,'account','0009_emailaddress_unique_primary_email','2025-02-28 06:17:51.470485'),(25,'admin','0001_initial','2025-02-28 06:17:57.241819'),(26,'admin','0002_logentry_remove_auto_add','2025-02-28 06:17:57.250315'),(27,'admin','0003_logentry_add_action_flag_choices','2025-02-28 06:17:57.259109'),(28,'sessions','0001_initial','2025-02-28 06:17:57.295658'),(29,'sites','0001_initial','2025-02-28 06:17:57.318151'),(30,'sites','0002_alter_domain_unique','2025-02-28 06:17:57.335806'),(31,'socialaccount','0001_initial','2025-02-28 06:17:57.928886'),(32,'socialaccount','0002_token_max_lengths','2025-02-28 06:17:57.980921'),(33,'socialaccount','0003_extra_data_default_dict','2025-02-28 06:17:57.990551'),(34,'socialaccount','0004_app_provider_id_settings','2025-02-28 06:17:58.144217'),(35,'socialaccount','0005_socialtoken_nullable_app','2025-02-28 06:17:58.297166'),(36,'socialaccount','0006_alter_socialaccount_extra_data','2025-02-28 06:17:58.373478'),(37,'compiler','0001_initial','2025-02-28 06:22:40.350506'),(38,'examportol','0001_initial','2025-02-28 06:30:26.453782'),(39,'exam_registration','0001_initial','2025-02-28 06:33:53.527652'),(40,'placement_stories','0001_initial','2025-02-28 06:34:54.344530'),(41,'jobportol','0001_initial','2025-02-28 06:35:27.755819'),(42,'admin_portal','0001_initial','2025-02-28 06:35:48.391335'),(43,'certificate_management','0001_initial','2025-02-28 06:36:08.843992'),(44,'price','0001_initial','2025-02-28 06:36:25.775072'),(45,'oauth','0002_alter_otpdb_user_alter_usersdb_college_name','2025-02-28 06:47:51.248302'),(46,'exam_registration','0002_alter_table_changes','2025-03-03 17:01:27.645107'),(47,'exam_registration','0003_add_exam_domain_field','2025-03-03 17:06:37.027363'),(48,'exam_registration','0004_alter_studentsdb_exam_domain_and_more','2025-03-03 17:12:32.692819'),(49,'oauth','0002_alter_usersdb_subscription_plan','2025-03-04 06:23:59.230526'),(50,'oauth','0003_alter_usersdb_subscription_plan_paymenttransaction','2025-03-04 07:10:32.102241'),(51,'job_portal','0001_initial','2025-03-15 10:05:17.978218');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-02-28 06:15:28.889492'),(2,'contenttypes','0002_remove_content_type_name','2025-02-28 06:15:28.962130'),(3,'auth','0001_initial','2025-02-28 06:15:29.294127'),(4,'auth','0002_alter_permission_name_max_length','2025-02-28 06:15:29.375221'),(5,'auth','0003_alter_user_email_max_length','2025-02-28 06:15:29.382866'),(6,'auth','0004_alter_user_username_opts','2025-02-28 06:15:29.389972'),(7,'auth','0005_alter_user_last_login_null','2025-02-28 06:15:29.396713'),(8,'auth','0006_require_contenttypes_0002','2025-02-28 06:15:29.400289'),(9,'auth','0007_alter_validators_add_error_messages','2025-02-28 06:15:29.405901'),(10,'auth','0008_alter_user_username_max_length','2025-02-28 06:15:29.412668'),(11,'auth','0009_alter_user_last_name_max_length','2025-02-28 06:15:29.420544'),(12,'auth','0010_alter_group_name_max_length','2025-02-28 06:15:29.434925'),(13,'auth','0011_update_proxy_permissions','2025-02-28 06:15:29.449887'),(14,'auth','0012_alter_user_first_name_max_length','2025-02-28 06:15:29.455157'),(15,'oauth','0001_initial','2025-02-28 06:15:30.056991'),(16,'account','0001_initial','2025-02-28 06:17:51.284499'),(17,'account','0002_email_max_length','2025-02-28 06:17:51.303170'),(18,'account','0003_alter_emailaddress_create_unique_verified_email','2025-02-28 06:17:51.331075'),(19,'account','0004_alter_emailaddress_drop_unique_email','2025-02-28 06:17:51.359716'),(20,'account','0005_emailaddress_idx_upper_email','2025-02-28 06:17:51.384995'),(21,'account','0006_emailaddress_lower','2025-02-28 06:17:51.406581'),(22,'account','0007_emailaddress_idx_email','2025-02-28 06:17:51.445724'),(23,'account','0008_emailaddress_unique_primary_email_fixup','2025-02-28 06:17:51.462515'),(24,'account','0009_emailaddress_unique_primary_email','2025-02-28 06:17:51.470485'),(25,'admin','0001_initial','2025-02-28 06:17:57.241819'),(26,'admin','0002_logentry_remove_auto_add','2025-02-28 06:17:57.250315'),(27,'admin','0003_logentry_add_action_flag_choices','2025-02-28 06:17:57.259109'),(28,'sessions','0001_initial','2025-02-28 06:17:57.295658'),(29,'sites','0001_initial','2025-02-28 06:17:57.318151'),(30,'sites','0002_alter_domain_unique','2025-02-28 06:17:57.335806'),(31,'socialaccount','0001_initial','2025-02-28 06:17:57.928886'),(32,'socialaccount','0002_token_max_lengths','2025-02-28 06:17:57.980921'),(33,'socialaccount','0003_extra_data_default_dict','2025-02-28 06:17:57.990551'),(34,'socialaccount','0004_app_provider_id_settings','2025-02-28 06:17:58.144217'),(35,'socialaccount','0005_socialtoken_nullable_app','2025-02-28 06:17:58.297166'),(36,'socialaccount','0006_alter_socialaccount_extra_data','2025-02-28 06:17:58.373478'),(37,'compiler','0001_initial','2025-02-28 06:22:40.350506'),(38,'examportol','0001_initial','2025-02-28 06:30:26.453782'),(39,'exam_registration','0001_initial','2025-02-28 06:33:53.527652'),(40,'placement_stories','0001_initial','2025-02-28 06:34:54.344530'),(41,'jobportol','0001_initial','2025-02-28 06:35:27.755819'),(42,'admin_portal','0001_initial','2025-02-28 06:35:48.391335'),(43,'certificate_management','0001_initial','2025-02-28 06:36:08.843992'),(44,'price','0001_initial','2025-02-28 06:36:25.775072'),(45,'oauth','0002_alter_otpdb_user_alter_usersdb_college_name','2025-02-28 06:47:51.248302'),(46,'exam_registration','0002_alter_table_changes','2025-03-03 17:01:27.645107'),(47,'exam_registration','0003_add_exam_domain_field','2025-03-03 17:06:37.027363'),(48,'exam_registration','0004_alter_studentsdb_exam_domain_and_more','2025-03-03 17:12:32.692819'),(49,'oauth','0002_alter_usersdb_subscription_plan','2025-03-04 06:23:59.230526'),(50,'oauth','0003_alter_usersdb_subscription_plan_paymenttransaction','2025-03-04 07:10:32.102241'),(51,'job_portal','0001_initial','2025-03-15 10:05:17.978218'),(52,'internship_portal','0001_initial','2025-03-15 10:22:42.417698');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -700,6 +700,169 @@ LOCK TABLES `examportol_subject` WRITE;
 /*!40000 ALTER TABLE `examportol_subject` DISABLE KEYS */;
 INSERT INTO `examportol_subject` VALUES (1,'C0002-S0001','Aptitute',2),(2,'C0002-S0002','Human resource',2),(3,'C0001-S0001','SQL',1),(4,'C0002-S0003','Digital Marketing',2),(5,'C0002-S0004','Operation Handling',2),(6,'C0002-S0005','Entrepreneurship',2),(7,'C0001-S0002','DevOps',1),(8,'C0001-S0003','Cyber Security',1);
 /*!40000 ALTER TABLE `examportol_subject` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `internship_portal_application`
+--
+
+DROP TABLE IF EXISTS `internship_portal_application`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `internship_portal_application` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `skills` longtext NOT NULL,
+  `cover_letter` longtext,
+  `created_at` datetime(6) NOT NULL,
+  `internship_id` int NOT NULL,
+  `user_id` bigint NOT NULL,
+  `seeker_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `internship_portal_ap_internship_id_5866382f_fk_internshi` (`internship_id`),
+  KEY `internship_portal_ap_user_id_2f548ea3_fk_oauth_use` (`user_id`),
+  KEY `internship_portal_ap_seeker_id_9c01965a_fk_internshi` (`seeker_id`),
+  CONSTRAINT `internship_portal_ap_internship_id_5866382f_fk_internshi` FOREIGN KEY (`internship_id`) REFERENCES `internship_portal_internship` (`internship_id`),
+  CONSTRAINT `internship_portal_ap_seeker_id_9c01965a_fk_internshi` FOREIGN KEY (`seeker_id`) REFERENCES `internship_portal_seeker` (`id`),
+  CONSTRAINT `internship_portal_ap_user_id_2f548ea3_fk_oauth_use` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `internship_portal_application`
+--
+
+LOCK TABLES `internship_portal_application` WRITE;
+/*!40000 ALTER TABLE `internship_portal_application` DISABLE KEYS */;
+/*!40000 ALTER TABLE `internship_portal_application` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `internship_portal_category`
+--
+
+DROP TABLE IF EXISTS `internship_portal_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `internship_portal_category` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `category_code` varchar(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `category_code` (`category_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `internship_portal_category`
+--
+
+LOCK TABLES `internship_portal_category` WRITE;
+/*!40000 ALTER TABLE `internship_portal_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `internship_portal_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `internship_portal_company`
+--
+
+DROP TABLE IF EXISTS `internship_portal_company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `internship_portal_company` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `address` longtext NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `about` longtext NOT NULL,
+  `established_year` int NOT NULL,
+  `company_code` varchar(6) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `company_code` (`company_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `internship_portal_company`
+--
+
+LOCK TABLES `internship_portal_company` WRITE;
+/*!40000 ALTER TABLE `internship_portal_company` DISABLE KEYS */;
+/*!40000 ALTER TABLE `internship_portal_company` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `internship_portal_internship`
+--
+
+DROP TABLE IF EXISTS `internship_portal_internship`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `internship_portal_internship` (
+  `internship_id` int NOT NULL AUTO_INCREMENT,
+  `role` varchar(255) NOT NULL,
+  `responsibilities` longtext NOT NULL,
+  `duration` varchar(50) NOT NULL,
+  `stipend` decimal(10,2) DEFAULT NULL,
+  `required_skills` longtext NOT NULL,
+  `openings` int NOT NULL,
+  `internship_code` varchar(6) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `category_id` bigint NOT NULL,
+  `company_id` bigint NOT NULL,
+  PRIMARY KEY (`internship_id`),
+  UNIQUE KEY `internship_code` (`internship_code`),
+  KEY `internship_portal_in_category_id_ad28e29f_fk_internshi` (`category_id`),
+  KEY `internship_portal_in_company_id_6294fa68_fk_internshi` (`company_id`),
+  CONSTRAINT `internship_portal_in_category_id_ad28e29f_fk_internshi` FOREIGN KEY (`category_id`) REFERENCES `internship_portal_category` (`id`),
+  CONSTRAINT `internship_portal_in_company_id_6294fa68_fk_internshi` FOREIGN KEY (`company_id`) REFERENCES `internship_portal_company` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `internship_portal_internship`
+--
+
+LOCK TABLES `internship_portal_internship` WRITE;
+/*!40000 ALTER TABLE `internship_portal_internship` DISABLE KEYS */;
+/*!40000 ALTER TABLE `internship_portal_internship` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `internship_portal_seeker`
+--
+
+DROP TABLE IF EXISTS `internship_portal_seeker`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `internship_portal_seeker` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `skills` longtext NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  CONSTRAINT `internship_portal_seeker_user_id_27302ccb_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `internship_portal_seeker`
+--
+
+LOCK TABLES `internship_portal_seeker` WRITE;
+/*!40000 ALTER TABLE `internship_portal_seeker` DISABLE KEYS */;
+/*!40000 ALTER TABLE `internship_portal_seeker` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1405,4 +1568,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-15 15:37:40
+-- Dump completed on 2025-03-15 15:52:52
