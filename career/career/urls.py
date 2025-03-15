@@ -24,6 +24,7 @@ from job_portal.views import autocomplete
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('job_portal/', include('job_portal.urls')),
+    path('internship_portal/', include('internship_portal.urls')),
     path('abroad_studies/', include('abroad_studies.urls')),
     path('', home, name='home'),
     path('home/', home, name='home'),   

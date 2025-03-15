@@ -90,52 +90,52 @@ def elastic_job_search(request):
 
     # Render the same template, passing the ES results instead of ORM objects.
     return render(request, 'job_page.html', {'jobs': jobs})
-def job_page(request):
-    """
-    Display jobs with optional filtering using Django ORM.
-    """
-    # Retrieve filter parameters from the request
-    location = request.GET.get('location')
-    package = request.GET.get('package')
-    opening_date = request.GET.get('opening_date')
-    experience = request.GET.get('experience')
-    query = request.GET.get('q')
+# def job_page(request):
+#     """
+#     Display jobs with optional filtering using Django ORM.
+#     """
+#     # Retrieve filter parameters from the request
+#     location = request.GET.get('location')
+#     package = request.GET.get('package')
+#     opening_date = request.GET.get('opening_date')
+#     experience = request.GET.get('experience')
+#     query = request.GET.get('q')
 
-    jobs = Job.objects.all()
+#     jobs = Job.objects.all()
 
-    if query:
-        jobs = jobs.filter(
-            Q(role__icontains=query) |
-            Q(job_description__icontains=query) |
-            Q(required_skills__icontains=query) |
-            Q(eligibility__icontains=query)
-        )
+#     if query:
+#         jobs = jobs.filter(
+#             Q(role__icontains=query) |
+#             Q(job_description__icontains=query) |
+#             Q(required_skills__icontains=query) |
+#             Q(eligibility__icontains=query)
+#         )
 
-    if location:
-        jobs = jobs.filter(company__address__icontains=location)
+#     if location:
+#         jobs = jobs.filter(company__address__icontains=location)
 
-    if package:
-        try:
-            min_package, max_package = map(float, package.split('-'))
-            jobs = jobs.filter(salary_per_annum__gte=min_package, salary_per_annum__lte=max_package)
-        except ValueError:
-            pass
+#     if package:
+#         try:
+#             min_package, max_package = map(float, package.split('-'))
+#             jobs = jobs.filter(salary_per_annum__gte=min_package, salary_per_annum__lte=max_package)
+#         except ValueError:
+#             pass
 
-    if opening_date:
-        try:
-            month = int(opening_date)
-            year = datetime.datetime.now().year
-            start_date = datetime.datetime(year, month, 1)
-            last_day = calendar.monthrange(year, month)[1]
-            end_date = datetime.datetime(year, month, last_day, 23, 59, 59)
-            jobs = jobs.filter(created_at__range=(start_date, end_date))
-        except ValueError:
-            pass
+#     if opening_date:
+#         try:
+#             month = int(opening_date)
+#             year = datetime.datetime.now().year
+#             start_date = datetime.datetime(year, month, 1)
+#             last_day = calendar.monthrange(year, month)[1]
+#             end_date = datetime.datetime(year, month, last_day, 23, 59, 59)
+#             jobs = jobs.filter(created_at__range=(start_date, end_date))
+#         except ValueError:
+#             pass
 
-    if experience:
-        jobs = jobs.filter(required_experience__icontains=experience)
+#     if experience:
+#         jobs = jobs.filter(required_experience__icontains=experience)
 
-    return render(request, 'job_page.html', {'jobs': jobs})
+#     return render(request, 'job_page.html', {'jobs': jobs})
 
 
 def home(request):

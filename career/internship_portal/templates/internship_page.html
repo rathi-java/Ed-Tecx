@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Opportunities</title>
+  <link rel="stylesheet" href="{% static 'css/job_page.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  
+  <style>
+    /* Maintain existing styles with minor adjustments */
+    .internship-specs {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .spec-item {
+      text-align: center;
+      padding: 15px;
+      background: #f3f8fc;
+      border-radius: 10px;
+      flex: 1;
+    }
+    .skill-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .skill-tag {
+      background: #077bc3;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 15px;
+      font-size: 0.9em;
+    }
+    .responsibilities ul {
+      padding-left: 20px;
+    }
+    .responsibilities li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="filter-controls">
+      <form method="GET" id="filterForm">
+        <div class="input-container">
+          <label for="locationFilter">Location:</label>
+          <input type="text" name="location" placeholder="Company location" 
+                 value="{{ request.GET.location }}">
+        </div>
+
+        <div class="input-container">
+          <label for="durationFilter">Duration:</label>
+          <input type="text" name="duration" placeholder="e.g. 3 Months" 
+                 value="{{ request.GET.duration }}">
+        </div>
+
+        <div class="input-container">
+          <label for="stipendFilter">Stipend:</label>
+          <input type="text" name="stipend" placeholder="e.g. 5000-10000" 
+                 value="{{ request.GET.stipend }}">
+        </div>
+
+        <div class="input-container">
+          <label for="skillsFilter">Skills:</label>
+          <input type="text" name="skills" placeholder="Enter required skills" 
+                 value="{{ request.GET.skills }}">
+        </div>
+
+        <button type="submit">Apply Filters</button>
+      </form>
+    </div>
+
+    <div class="main-content">
+      <!-- Internship Listings Container (note the id "internshipList") -->
+      <div class="left-section" id="internshipList">
+        {% for internship in internships %}
+        <div class="job-card"
+             onclick="showInternshipDetails(this)"
+             data-logo="{% if internship.company.logo %}{{ internship.company.logo }}{% else %}{% static 'job_page/default_logo.png' %}{% endif %}"
+             data-company="{{ internship.company.name }}"
+             data-role="{{ internship.role }}"
+             data-location="{{ internship.company.address }}"
+             data-duration="{{ internship.duration }}"
+             data-stipend="{{ internship.stipend|default:0 }}"
+             data-openings="{{ internship.openings }}"
+             data-skills="{{ internship.required_skills|join:',' }}"
+             data-responsibilities="{{ internship.responsibilities|join:'\n' }}"
+             data-created="{{ internship.created_at|date:'Y-m-d' }}"
+             data-company-about="{{ internship.company.about }}"
+             data-company-established="{{ internship.company.established_year }}">
+          
+          {% if internship.company.logo %}
+          <img src="{{ internship.company.logo }}" alt="{{ internship.company.name }} Logo">
+          {% else %}
+          <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
+          {% endif %}
+          
+          <div class="job-info">
+            <h3>{{ internship.role }}</h3>
+            <p class="techh">{{ internship.company.name }}</p>
+            <div class="tags">
+              <span class="tag">{{ internship.company.address|truncatechars:20 }}</span>
+              <span class="tag">{{ internship.duration }}</span>
+              <span class="tag">
+                {% if internship.stipend %}
+                  ₹{{ internship.stipend }}/month
+                {% else %}
+                  Unpaid
+                {% endif %}
+              </span>
+            </div>
+            <div class="divider"></div>
+            <p class="timee">
+              {{ internship.created_at|timesince }} ago 
+              <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('{{ internship.id }}')">
+                Apply Now →
+              </a>
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Internship Details Section -->
+      <div class="right-section" id="internshipDetails">
+        <div class="default-details">
+          <h2>Select an internship to view details</h2>
+          <p>Click on any internship listing on the left to see detailed information</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Modal -->
+  <div id="applicationModal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal()">×</button>
+      <!-- Application Form (Similar to Job Template) -->
+      <div class="container job-app-container" id="jobAppForm">
+        <!-- Keep the existing application form structure -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Internship Details Display
+    function showInternshipDetails(element) {
+      const data = {
+        logo: element.dataset.logo,
+        company: element.dataset.company,
+        role: element.dataset.role,
+        location: element.dataset.location,
+        duration: element.dataset.duration,
+        stipend: element.dataset.stipend,
+        openings: element.dataset.openings,
+        skills: element.dataset.skills,
+        responsibilities: element.dataset.responsibilities,
+        created: new Date(element.dataset.created).toLocaleDateString(),
+        about: element.dataset.companyAbout,
+        established: element.dataset.companyEstablished
+      };
+
+      const detailsHTML = `
+        <div class="job-details-container">
+          <div class="job-header">
+            <img src="${data.logo}" alt="${data.company} Logo">
+            <div class="job-title">
+              <h2>${data.role}</h2>
+              <p>${data.company}</p>
+            </div>
+            <button class="applyy-btn" onclick="openApplicationForm()">Apply Now</button>
+          </div>
+          
+          <div class="job-meta">
+            <p class="detailll">
+              <img src="{% static 'job_page/location.png' %}" alt="Location"> 
+              ${data.location}
+            </p>
+            <p class="detailll">
+              <img src="{% static 'job_page/clock.png' %}" alt="Posted"> 
+              Posted ${data.created}
+            </p>
+          </div>
+          <hr>
+          
+          <div class="internship-specs">
+            <div class="spec-item">
+              <h4>Duration</h4>
+              <p>${data.duration}</p>
+            </div>
+            <div class="spec-item">
+              <h4>Stipend</h4>
+              <p>${data.stipend > 0 ? '₹'+data.stipend+'/month' : 'Unpaid'}</p>
+            </div>
+            <div class="spec-item">
+              <h4>Openings</h4>
+              <p>${data.openings} position${data.openings > 1 ? 's' : ''}</p>
+            </div>
+          </div>
+          <hr>
+          
+          <h3>About the Internship</h3>
+          <div class="responsibilities">
+            <h4>Responsibilities:</h4>
+            <ul>
+              ${data.responsibilities.split('\n').map(r => `<li>${r.trim()}</li>`).join('')}
+            </ul>
+          </div>
+          
+          <div class="required-skills">
+            <h4>Required Skills:</h4>
+            <div class="skill-tags">
+              ${data.skills.split(',').map(skill => `<span class="skill-tag">${skill.trim()}</span>`).join('')}
+            </div>
+          </div>
+          <hr>
+          
+          <div class="company-info">
+            <h3>About ${data.company}</h3>
+            <p>${data.about}</p>
+            <div class="company-meta">
+              <p><strong>Established:</strong> ${data.established}</p>
+              <p><strong>Location:</strong> ${data.location}</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('internshipDetails').innerHTML = detailsHTML;
+    }
+
+    // Modal Control
+    function openApplicationForm(internshipId) {
+      document.getElementById("applicationModal").style.display = "block";
+      // Add logic to handle internshipId if needed
+    }
+
+    function closeModal() {
+      document.getElementById("applicationModal").style.display = "none";
+    }
+
+    // Preserve existing form navigation logic
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function nextStep() {
+      if (currentStep < totalSteps) {
+        document.getElementById(`step${currentStep}`).classList.add('hidden');
+        currentStep++;
+        document.getElementById(`step${currentStep}`).classList.remove('hidden');
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        document.getElementById(`step${currentStep}`).classList.add('hidden');
+        currentStep--;
+        document.getElementById(`step${currentStep}`).classList.remove('hidden');
+      }
+    }
+
+    // Infinite Scroll Logic
+    let currentPage = 1; // initial page loaded
+    const limit = 40;    // adjust to match your view settings
+    let isLoading = false;
+
+    function loadMoreInternships() {
+      if (isLoading) return; // prevent multiple requests
+      isLoading = true;
+      currentPage += 1;
+      const params = new URLSearchParams(window.location.search);
+      params.set('page', currentPage);
+      params.set('limit', limit);
+      
+      fetch(`${window.location.pathname}?${params.toString()}`, {
+        headers: {'X-Requested-With': 'XMLHttpRequest'}
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.internships && data.internships.length > 0) {
+          const internshipList = document.getElementById('internshipList');
+          data.internships.forEach(internship => {
+            const jobCard = document.createElement('div');
+            jobCard.classList.add('job-card');
+            jobCard.setAttribute('data-id', internship.id);
+            jobCard.setAttribute('data-logo', internship.company.logo || "{% static 'job_page/default_logo.png' %}");
+            jobCard.setAttribute('data-company', internship.company.name);
+            jobCard.setAttribute('data-role', internship.role);
+            jobCard.setAttribute('data-location', internship.company.address);
+            jobCard.setAttribute('data-duration', internship.duration);
+            jobCard.setAttribute('data-stipend', internship.stipend || 0);
+            jobCard.setAttribute('data-openings', internship.openings);
+            jobCard.setAttribute('data-skills', internship.required_skills.join(','));
+            jobCard.setAttribute('data-responsibilities', internship.responsibilities.join('\n'));
+            jobCard.setAttribute('data-created', internship.created_at.substring(0, 10));
+            jobCard.setAttribute('data-company-about', internship.company.about);
+            jobCard.setAttribute('data-company-established', internship.company.established_year);
+
+            jobCard.onclick = function() { showInternshipDetails(this); };
+
+            jobCard.innerHTML = `
+              ${ internship.company.logo 
+                  ? `<img src="${internship.company.logo}" alt="${internship.company.name} Logo">`
+                  : `<img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">` }
+              <div class="job-info">
+                <h3>${internship.role}</h3>
+                <p class="techh">${internship.company.name}</p>
+                <div class="tags">
+                  <span class="tag">${internship.company.address.substring(0,20)}</span>
+                  <span class="tag">${internship.duration}</span>
+                  <span class="tag">${internship.stipend ? '₹' + internship.stipend + '/month' : 'Unpaid'}</span>
+                </div>
+                <div class="divider"></div>
+                <p class="timee">
+                  ${internship.created_at} ago 
+                  <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('${internship.id}')">
+                    Apply Now →
+                  </a>
+                </p>
+              </div>
+            `;
+            internshipList.appendChild(jobCard);
+          });
+        }
+      })
+      .catch(error => console.error('Error loading more internships:', error))
+      .finally(() => {
+        isLoading = false;
+      });
+    }
+
+    // Listen for scroll events to trigger loading more internships when near the bottom of the page
+    window.addEventListener('scroll', () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+        loadMoreInternships();
+      }
+    });
+
+    // Initialize first internship details
+    document.addEventListener("DOMContentLoaded", function() {
+      const firstInternship = document.querySelector(".job-card");
+      if (firstInternship) showInternshipDetails(firstInternship);
+    });
+  </script>
+</body>
+</html>
