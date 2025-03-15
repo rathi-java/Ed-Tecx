@@ -75,19 +75,47 @@
   <div class="modal-overlay" id="{{ plan.plan_type.code }}-modal">
     <div class="modal-content">
         <h2>{{ plan.plan_type.display_name }} Plan <span class="price"> &#8377; {{ plan.discounted_price }}/-</span></h2>
-        <p>🎉 You're One Step Closer to Your Dream Job!</p>
+        <p class="payment-head-p">🎉 You're One Step Closer to Your Dream Job!</p>
         <br>
-        <button class="pay-btn" onclick="startPaymentRazorpay('{{ plan.discounted_price }}')">
-            Pay via Razorpay (Credit/Debit card, Net Banking)
+
+        <div id="payment-sub-container">
+
+        <button class="pay-btn" id="payment-box-1" onclick="startPaymentRazorpay('{{ plan.discounted_price }}')">
+            <div class="payment-img">           
+                <img src="{% static 'images/razorpay.png' %}" alt="✔">
+            </div>
+            <div class="payment-text">
+                <span>Pay via Razorpay</span>
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
         </button>
-        <p>Or Choose</p>
-        <button class="pay-btn" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
-            Pay via Cashfree (Credit/Debit card, UPI)
+        <p>OR</p>
+        <button class="pay-btn" id="payment-box-3" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
+            <div class="payment-img">
+                <img src="{% static 'images/cashfree.png' %}" alt="✔">
+            </div>
+            <div class="payment-text">
+                <span>Pay via Cashfree</span>
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
         </button>
-        <p>Or Choose</p>
-        <button class="pay-btn" onclick="startPaymentPayU('{{ plan.discounted_price }}')">
-            Pay via PayU (Credit/Debit card, UPI, Net Banking)
-        </button>
+        {% comment %} <p>OR</p>
+            <!-- PayU -->
+            <form action="{% url 'initiate_payment' %}" method="POST" class="pay-btn-form">
+                {% csrf_token %}
+                <input type="hidden" name="plan_id" value="{{ plan.id }}">
+                <input type="hidden" name="amount" value="{{ plan.discounted_price }}">
+                <button type="submit" class="pay-btn">
+                    <div class="payment-img">
+                        <img src="{% static 'images/payu.png' %}" alt="PayU">
+                    </div>
+                    <div class="payment-text">
+                        <span>Pay via PayU (Credit/Debit card, UPI)</span>
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </button>
+            </form> {% endcomment %}
+        </div>
     </div>
   </div>
   {% endif %}
@@ -114,218 +142,254 @@
         </div>
     </div>
 </section>
-<!-- Display Order ID (if present) -->
-{% if request.GET.order_id %}
-  <div class="order-confirmation">
-      <p>Payment for Order ID: {{ request.GET.order_id }} has been successfully processed.</p>
-  </div>
-{% endif %}
 
-{% if request.GET.status %}
-    <div class="alert alert-{{ request.GET.status }}">
-        {% if request.GET.status == 'success' %}
-            Payment was successful! Your subscription has been updated.
-        {% elif request.GET.status == 'error' %}
-            There was an error processing your payment. Please try again.
+<!-- Payment Success Modal -->
+{% if request.GET.order_id or request.GET.status %}
+<div class="payment-success-overlay" id="paymentSuccessModal">
+    <div class="payment-success-modal">
+        {% if request.GET.status == 'error' %}
+            <div class="error-icon">❌</div>
+            <h2>Payment Failed</h2>
+            <p>There was an error processing your payment. Please try again.</p>
+        {% else %}
+            <div class="success-icon">✅</div>
+            <h2>Payment Successful!</h2>
+            <p>Your subscription has been successfully updated.</p>
+            {% if request.GET.order_id %}
+                <div class="order-id">
+                    Order ID: {{ request.GET.order_id }}
+                </div>
+            {% endif %}
+            <p>You now have access to all premium features. Start exploring now!</p>
         {% endif %}
+        <button class="close-modal-btn" onclick="closePaymentModal()">Got it!</button>
     </div>
+</div>
 {% endif %}
 
 {% endblock content %}
-
-
 
 {% block extra_js %}
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script>
-  // Global variable to store the current plan ID
-  let currentPlanId = null;
+// Global variable to store the current plan ID
+let currentPlanId = null;
 
-  // When a purchase button is clicked, store its data-plan-id
-  document.querySelectorAll(".purchase-btn").forEach(button => {
-      button.addEventListener("click", () => {
-          currentPlanId = button.dataset.planId; // capture the plan id
-          const planType = button.id.replace("-btn", "");
-          document.getElementById(planType + "-modal").style.display = "flex";
-      });
-  });
+// When a purchase button is clicked, store its data-plan-id
+document.querySelectorAll(".purchase-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        currentPlanId = button.dataset.planId; // capture the plan id
+        const planType = button.id.replace("-btn", "");
+        document.getElementById(planType + "-modal").style.display = "flex";
+    });
+});
 
-  // Hide modal when clicking outside content
-  document.querySelectorAll(".modal-overlay").forEach(modal => {
-      modal.addEventListener("click", (e) => {
-          if (e.target === modal) {
-              modal.style.display = "none";
-          }
-      });
-  });
+// Hide modal when clicking outside content
+document.querySelectorAll(".modal-overlay").forEach(modal => {
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+});
 
-    function startPaymentRazorpay(amount) {
-        fetch("{% url 'create_order' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: new URLSearchParams({ amount: amount })
-        })
-        .then(response => response.json())
-        .then(order => {
-            var options = {
-                "key": "{{ settings.RAZORPAY_KEY_ID }}",
-                "amount": order.amount,
-                "currency": "INR",
-                "name": "Reader Club",
-                "description": "Subscription Payment",
-                "order_id": order.id,
-                "image": "{% static 'images/readerclub.png' %}",
-                "handler": function (response) {
-                    // Handle success
-                    handlePaymentSuccess(response, order, 'razorpay');
-                },
-                "prefill": {
-                    "name": "Reader Club",
-                    "email": "rc@gmail.com",
-                    "contact": "1234567890"
-                },
-                "theme": {
-                    "color": "#077BC3"
-                }
-            };
-            var rzp1 = new Razorpay(options);
-            rzp1.open();
-        })
-        .catch(error => {
-            // If Razorpay fails or user exits, use Cashfree as fallback
-            startPaymentCashfree(amount);
-        });
+// Function to close payment success modal
+function closePaymentModal() {
+    const paymentModal = document.getElementById("paymentSuccessModal");
+    if (paymentModal) {
+        paymentModal.style.display = "none";
+        
+        // Remove the query parameters from the URL
+        let url = new URL(window.location.href);
+        url.search = "";
+        window.history.replaceState({}, document.title, url);
     }
+}
 
-    function startPaymentCashfree(amount) {
-        fetch("{% url 'create_cashfree_order' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": "{{ csrf_token }}"
+function startPaymentRazorpay(amount) {
+    // Show loading indicator
+    document.getElementById("payment-box-1").innerHTML = '<span>Processing...</span>';
+    
+    fetch("{% url 'create_order' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: new URLSearchParams({ amount: amount })
+    })
+    .then(response => response.json())
+    .then(order => {
+        // Restore button content
+        document.getElementById("payment-box-1").innerHTML = `
+            <div class="payment-img">           
+                <img src="{% static 'images/razorpay.png' %}" alt="✔">
+            </div>
+            <div class="payment-text">
+                <span>Pay via Razorpay</span>
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+        `;
+        
+        var options = {
+            "key": "{{ settings.RAZORPAY_KEY_ID }}",
+            "amount": order.amount,
+            "currency": "INR",
+            "name": "Reader Club",
+            "description": "Subscription Payment",
+            "order_id": order.id,
+            "image": "{% static 'images/readerclub.png' %}",
+            "handler": function (response) {
+                // Handle success
+                handlePaymentSuccess(response, order, 'razorpay');
             },
-            body: new URLSearchParams({ amount: amount })
-        })
-        .then(response => response.json())
-        .then(order => {
-            if (order.error) {
-                console.error("Error creating order:", order.error);
-                alert("There was an error with the payment gateway. Please try again or use another payment method.");
-                return;
+            "prefill": {
+                {% if user %}
+                "name": "{{ user.full_name }}",
+                "email": "{{ user.email }}",
+                "contact": "{{ user.phone_number|default:'' }}"
+                {% else %}
+                "name": "",
+                "email": "",
+                "contact": ""
+                {% endif %}
+            },
+            "theme": {
+                "color": "#077BC3"
             }
-    
-            // Initialize Cashfree SDK with the session ID
-            const cashfree = Cashfree({
-                mode: "sandbox" // Use "production" in production
-            });
-    
-            let checkoutOptions = {
-                paymentSessionId: order.payment_session_id,
-                redirectTarget: "_modal", // Open in modal
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error with Razorpay. Please try Cashfree instead.");
+        
+        // Restore button content
+        document.getElementById("payment-box-1").innerHTML = `
+            <div class="payment-img">           
+                <img src="{% static 'images/razorpay.png' %}" alt="✔">
+            </div>
+            <div class="payment-text">
+                <span>Pay via Razorpay</span>
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+        `;
+    });
+}
 
-            };
+function startPaymentCashfree(amount) {
+    // Show loading indicator
+    document.getElementById("payment-box-3").innerHTML = '<span>Processing...</span>';
     
-            cashfree.checkout(checkoutOptions).then((result) => {
-                if(result.error){
-                    // This will be true whenever user clicks on close icon inside the modal or any error happens during the payment
-                    console.log("User has closed the popup or there is some payment error, Check for Payment Status");
-                    console.log(result.error);
-                }
-                if(result.redirect){
-                    // This will be true when the payment redirection page couldnt be opened in the same window
-                    // This is an exceptional case only when the page is opened inside an inAppBrowser
-                    // In this case the customer will be redirected to return url once payment is completed
-                    console.log("Payment will be redirected");
-                }
-                if(result.paymentDetails){
-                    // This will be called whenever the payment is completed irrespective of transaction status
-                    console.log("Payment has been completed, Check for Payment Status");
-                    console.log(result.paymentDetails.paymentMessage);
-                }
-            });
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("There was an error connecting to the payment gateway. Please try PayU instead.");
-            startPaymentPayU(amount);
+    fetch("{% url 'create_cashfree_order' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: new URLSearchParams({ amount: amount })
+    })
+    .then(response => response.json())
+    .then(order => {
+        // Restore button content
+        document.getElementById("payment-box-3").innerHTML = `
+            <div class="payment-img">
+                <img src="{% static 'images/cashfree.png' %}" alt="✔">
+            </div>
+            <div class="payment-text">
+                <span>Pay via Cashfree</span>
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+        `;
+        
+        if (order.error) {
+            console.error("Error creating order:", order.error);
+            alert("There was an error with the payment gateway. Please try again or use another payment method.");
+            return;
+        }
+
+        // Initialize Cashfree SDK with the session ID
+        const cashfree = Cashfree({
+            mode: "sandbox" // Use "production" in production
         });
-    }
-    function handlePaymentSuccess(response, order, gateway) {
-        fetch("{% url 'payment_success' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: new URLSearchParams({
-                "payment_id": response.razorpay_payment_id,
-                "order_id": response.razorpay_order_id,
-                "plan_id": currentPlanId,
-                "amount": order.amount / 100,
-                "gateway": razorpay  
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === "success") {
-                window.location.href = "{% url 'price' %}?status=success";  // Redirect to price.html with success
-            } else {
-                window.location.href = "{% url 'price' %}?status=error";  // Redirect to price.html with error
+
+        let checkoutOptions = {
+            paymentSessionId: order.payment_session_id,
+            redirectTarget: "_modal", // Open in modal
+        };
+
+        cashfree.checkout(checkoutOptions).then((result) => {
+            if(result.error){
+                // This will be true whenever user clicks on close icon inside the modal or any error happens during the payment
+                console.log("User has closed the popup or there is some payment error, Check for Payment Status");
+                console.log(result.error);
             }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            window.location.href = "{% url 'price' %}?status=error";  // Redirect to price.html with error on failure
+            if(result.redirect){
+                // This will be true when the payment redirection page couldnt be opened in the same window
+                // This is an exceptional case only when the page is opened inside an inAppBrowser
+                // In this case the customer will be redirected to return url once payment is completed
+                console.log("Payment will be redirected");
+            }
+            if(result.paymentDetails){
+                // This will be called whenever the payment is completed irrespective of transaction status
+                console.log("Payment has been completed, Check for Payment Status");
+                console.log(result.paymentDetails.paymentMessage);
+            }
         });
-    }
-    
-    function startPaymentPayU(amount) {
-        fetch("{% url 'create_payu_order' %}", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": "{{ csrf_token }}"
-            },
-            body: new URLSearchParams({
-                amount: amount,
-                plan_id: currentPlanId
-            })
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error connecting to the payment gateway. Please try again later.");
+        
+        // Restore button content
+        document.getElementById("payment-box-3").innerHTML = `
+            <div class="payment-img">
+                <img src="{% static 'images/cashfree.png' %}" alt="✔">
+            </div>
+            <div class="payment-text">
+                <span>Pay via Cashfree</span>
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+        `;
+    });
+}
+
+function handlePaymentSuccess(response, order, gateway) {
+    fetch("{% url 'payment_success' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: new URLSearchParams({
+            "payment_id": response.razorpay_payment_id,
+            "order_id": response.razorpay_order_id,
+            "plan_id": currentPlanId,
+            "amount": order.amount / 100,
+            "gateway": gateway  // Razorpay or Cashfree
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error("Error creating PayU order:", data.error);
-                alert("There was an error with the PayU payment gateway. Please try again or use another payment method.");
-                return;
-            }
-    
-            // Create a form and submit it to PayU's payment page
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = data.payment_url;
-    
-            // Add all necessary fields to the form
-            for (const key in data.form_data) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = data.form_data[key];
-                form.appendChild(input);
-            }
-    
-            // Append the form to the body and submit
-            document.body.appendChild(form);
-            form.submit();
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("There was an error connecting to the PayU payment gateway. Please try again later.");
-        });
-    }
-  window.startPayment = startPayment;
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            window.location.href = "{% url 'price' %}?status=success";  // Redirect to price.html with success
+        } else {
+            window.location.href = "{% url 'price' %}?status=error";  // Redirect to price.html with error
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        window.location.href = "{% url 'price' %}?status=error";  // Redirect to price.html with error on failure
+    });
+}
+
+// Auto-close payment success modal after 5 seconds (changed from 10)
+if (document.getElementById("paymentSuccessModal")) {
+    setTimeout(() => {
+        closePaymentModal();
+    }, 5000); // 5 seconds
+}
 </script>
 {% endblock extra_js %}

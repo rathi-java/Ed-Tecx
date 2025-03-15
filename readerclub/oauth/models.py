@@ -175,7 +175,7 @@ class Otpdb(models.Model):
 class PaymentTransaction(models.Model):
     user = models.ForeignKey(UsersDB, on_delete=models.CASCADE)
     subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True)
-    exam = models.ForeignKey('examportol.Exam', on_delete=models.SET_NULL, null=True)
+    exam = models.ForeignKey('examportol.Exam', on_delete=models.SET_NULL, null=True ,blank=True)
 
     order_id = models.CharField(max_length=100)  # Renamed from razorpay_order_id
     payment_id = models.CharField(max_length=100)  # Renamed from razorpay_payment_id

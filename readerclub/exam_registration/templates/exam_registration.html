@@ -2,6 +2,7 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/exam_register.css' %}">
+<link rel="stylesheet" href="{% static 'css/price.css' %}">
 <style>
     .alert {
         padding: 10px;
@@ -22,7 +23,7 @@
         {% if user %}
         <form method="POST">
             {% csrf_token %}
-            <div class="message-container">
+            <div class="message-container_exam">
                 {% if messages %}
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">
@@ -49,18 +50,19 @@
             </div>
             <div>
                 <label class="form-label">Select Exam</label>
-                <select name="exam_domain" id="exam_domain" required>
+                <select name="exam_domain" id="exam_domain" required onchange="updateExamPrice()">
                     <option value="">Select</option>
                     {% for exam in exams %}
-                    <option value="{{ exam.id }}">{{ exam.name }}</option>
+                    <option value="{{ exam.id }}" data-price="{{ exam.price }}">{{ exam.name }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div>
                 <label class="form-label">Payment</label>
-                <input type="text" class="payment" name="payment" value="INR 999.00" readonly>
+                <input type="text" class="payment" id="payment_amount" name="payment" value="INR 0.00" readonly>
             </div>
-            <button type="submit" class="btn-register">Register</button>
+            <!-- Pay Now Button -->
+            <button type="button" class="btn-register" id="pay-now-btn">Pay Now</button>
         </form>
         {% else %}
         <p>Hi Guest, please log in before registering for an exam!</p>
@@ -68,5 +70,249 @@
     </div>
 </div>
 
-<script src="{% static 'js/script.js' %}"></script>
+<!-- Payment Modal -->
+<div class="modal-overlay" id="payment-modal">
+    <div class="modal-content">
+        <h2>Complete Payment</h2>
+        <p>Choose your preferred payment method:</p>
+        <div id="payment-sub-container_exam">
+            <button class="pay-btn" id="payment-box-1">
+                <div class="payment-img">           
+                    <img src="{% static 'images/razorpay.png' %}" alt="Razorpay">
+                </div>
+                <div class="payment-text">
+                    <span>Pay via Razorpay</span>
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </button>
+            <p>OR</p>
+            <button class="pay-btn" id="payment-box-3">
+                <div class="payment-img">
+                    <img src="{% static 'images/cashfree.png' %}" alt="Cashfree">
+                </div>
+                <div class="payment-text">
+                    <span>Pay via Cashfree</span>
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Success Modal -->
+<div class="payment-success-overlay" id="paymentSuccessModal">
+    <div class="payment-success-modal">
+        <div class="success-icon">✅</div>
+        <h2>Registration Successful!</h2>
+        <p id="countdown-text">Redirecting to Exam Home in <span id="countdown">5</span> seconds...</p>
+        <button class="close-modal-btn" onclick="closePaymentModal()">Got it!</button>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<script>
+
+    function updateExamPrice() {
+        const examSelect = document.getElementById('exam_domain');
+        if (examSelect.selectedIndex > 0) {
+            const selectedOption = examSelect.options[examSelect.selectedIndex];
+            const examPrice = selectedOption.getAttribute('data-price');
+            document.getElementById('payment_amount').value = `INR ${parseFloat(examPrice).toFixed(2)}`;
+        } else {
+            document.getElementById('payment_amount').value = 'INR 0.00';
+        }
+    }
+
+// Pay Now Button Event Listener
+document.getElementById('pay-now-btn').addEventListener('click', () => {
+    const examDomain = document.getElementById('exam_domain').value;
+    if (!examDomain) {
+        alert('Please select an exam before proceeding to payment.');
+        return;
+    }
+    
+    // Get the selected exam price from the dropdown
+    const examSelect = document.getElementById('exam_domain');
+    const selectedOption = examSelect.options[examSelect.selectedIndex];
+    const examPrice = parseFloat(selectedOption.getAttribute('data-price'));
+
+    // Store the selected exam ID and create a payment order
+    fetch("{% url 'create_exam_order' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: new URLSearchParams({ 
+            exam_id: examDomain,
+            amount: examPrice
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            document.getElementById('payment-modal').style.display = 'flex';
+        } else {
+            alert(data.message || "Failed to store exam selection. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+    });
+    });
+
+    // Close Payment Modal
+    document.getElementById('payment-modal').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('payment-modal')) {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+    });
+
+    // Close Payment Success Modal
+    function closePaymentModal() {
+        document.getElementById('paymentSuccessModal').style.display = 'none';
+    }
+
+    // Razorpay Payment
+    function startPaymentRazorpay(amount) {
+        fetch("{% url 'create_order' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({ amount: amount })
+        })
+        .then(response => response.json())
+        .then(order => {
+            var options = {
+                "key": "{{ settings.RAZORPAY_KEY_ID }}",
+                "amount": order.amount,
+                "currency": "INR",
+                "name": "Exam Registration",
+                "description": "Exam Registration Payment",
+                "order_id": order.id,
+                "handler": function (response) {
+                    handlePaymentSuccess(response, order, 'razorpay');
+                },
+                "prefill": {
+                    "name": "{{ user.full_name }}",
+                    "email": "{{ user.email }}",
+                    "contact": "{{ user.phone_number }}"
+                },
+                "theme": {
+                    "color": "#077BC3"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("There was an error with Razorpay. Please try Cashfree instead.");
+        });
+    }
+
+    // Cashfree Payment
+    function startPaymentCashfree(amount) {
+        fetch("{% url 'create_cashfree_order' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+            body: new URLSearchParams({ amount: amount })
+        })
+        .then(response => response.json())
+        .then(order => {
+            const cashfree = Cashfree({ mode: "sandbox" }); // Use "production" in production
+            cashfree.checkout({
+                paymentSessionId: order.payment_session_id,
+                redirectTarget: "_modal"
+            });
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("There was an error with Cashfree. Please try Razorpay instead.");
+        });
+    }
+
+    // Close Payment Success Modal with redirect
+    function closePaymentModal() {
+        document.getElementById('paymentSuccessModal').style.display = 'none';
+        window.location.href = "{% url 'exam_home' %}";
+    }
+
+
+   // Handle Payment Success
+   function handlePaymentSuccess(response, order, gateway) {
+    // Determine payment ID and order ID based on the gateway
+    let paymentId, orderId;
+    
+    if (gateway === 'razorpay') {
+        paymentId = response.razorpay_payment_id;
+        orderId = response.razorpay_order_id;
+    } else if (gateway === 'cashfree') {
+        // Adjust these based on what Cashfree returns
+        paymentId = response.cf_payment_id || response.payment_id;
+        orderId = response.cf_order_id || response.order_id;
+    }
+    
+    fetch("{% url 'handle_exam_payment_success' %}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: new URLSearchParams({
+            "payment_id": paymentId,
+            "order_id": orderId,
+            "amount": order.amount / 100,
+            "gateway": gateway
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            document.getElementById('payment-modal').style.display = 'none';
+            document.getElementById('paymentSuccessModal').style.display = 'flex';
+            
+            // Start countdown
+            let seconds = 5;
+            const countdownElement = document.getElementById('countdown');
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = "{% url 'exam_home' %}";
+                }
+            }, 1000);
+        } else {
+            alert(data.message || "Payment failed. Please try again.");
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Payment processing failed. Please try again.");
+    });
+}
+
+// Add event listeners for payment buttons
+document.getElementById('payment-box-1').addEventListener('click', function() {
+    const examSelect = document.getElementById('exam_domain');
+    const selectedOption = examSelect.options[examSelect.selectedIndex];
+    const examPrice = parseFloat(selectedOption.getAttribute('data-price'));
+    startPaymentRazorpay(examPrice);
+});
+
+document.getElementById('payment-box-3').addEventListener('click', function() {
+    const examSelect = document.getElementById('exam_domain');
+    const selectedOption = examSelect.options[examSelect.selectedIndex];
+    const examPrice = parseFloat(selectedOption.getAttribute('data-price'));
+    startPaymentCashfree(examPrice);
+});
+</script>
 {% endblock %}

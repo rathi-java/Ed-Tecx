@@ -3,10 +3,132 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from .models import StudentsDB
 from examportol.models import Exam
-from oauth.models import UsersDB
+from oauth.models import PaymentTransaction, UsersDB
 import logging
 
 logger = logging.getLogger(__name__)
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import uuid
+
+@csrf_exempt
+def create_exam_order(request):
+    """
+    Create a payment order for exam registration.
+    """
+    if request.method == "POST":
+        try:
+            # Get the user from the session
+            user_id = request.session.get('user_id')
+            if not user_id:
+                return JsonResponse({"status": "error", "message": "User not found in session."})
+
+            user = UsersDB.objects.get(id=user_id)
+
+            # Get the selected exam from the POST request
+            exam_id = request.POST.get("exam_id")
+            if not exam_id:
+                return JsonResponse({"status": "error", "message": "Exam not selected."})
+
+            exam = Exam.objects.get(id=exam_id)
+
+            # Store the exam ID in the session for later use
+            request.session['selected_exam_id'] = exam_id
+
+            # Return success response with exam details
+            return JsonResponse({
+                "status": "success",
+                "message": "Exam selected successfully.",
+                "exam_id": exam_id,
+                "exam_name": exam.name,
+                "amount": exam.price,
+            })
+
+        except UsersDB.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "User not found."})
+        except Exam.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Exam not found."})
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)})
+
+    return JsonResponse({"status": "error", "message": "Invalid request method."})
+
+
+@csrf_exempt
+def handle_exam_payment_success(request):
+    """
+    Handle successful payment for exam registration.
+    """
+    if request.method == "POST":
+        try:
+            # Extract payment details from the request
+            payment_id = request.POST.get("payment_id")
+            order_id = request.POST.get("order_id")
+            amount = request.POST.get("amount")
+            gateway = request.POST.get("gateway")
+
+            # Get the user from the session
+            user_id = request.session.get('user_id')
+            if not user_id:
+                return JsonResponse({"status": "error", "message": "User not found in session."})
+
+            user = UsersDB.objects.get(id=user_id)
+
+            # Get the selected exam from the session
+            exam_id = request.session.get('selected_exam_id')
+            if not exam_id:
+                return JsonResponse({"status": "error", "message": "Exam not selected."})
+
+            exam = Exam.objects.get(id=exam_id)
+
+            # Create a new entry in StudentsDB
+            student = StudentsDB(
+                user=user,
+                username=user.username,
+                full_name=user.full_name,
+                email=user.email,
+                phone_number=user.phone_number,
+                exam_domain=exam,
+                payment=f"INR {amount}",
+                registration_code=str(uuid.uuid4())[:12]  # Generate a unique registration code
+            )
+            student.save()
+
+            # Store payment transaction details in the existing PaymentTransaction model
+            transaction = PaymentTransaction(
+                user=user,
+                exam=exam,
+                subscription_plan=None,  # Set to None since this is an exam payment
+                order_id=order_id,
+                payment_id=payment_id,
+                amount=amount,
+                currency="INR",
+                status="success"
+            )
+            transaction.save()
+
+            # Clear the selected exam ID from the session
+            if 'selected_exam_id' in request.session:
+                del request.session['selected_exam_id']
+
+            # Return success response
+            return JsonResponse({
+                "status": "success",
+                "message": "Registration successful! Proceed for the Exam.",
+                "student_id": student.studentId,
+                "registration_code": student.registration_code
+            })
+
+        except UsersDB.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "User not found."})
+        except Exam.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Exam not found."})
+        except Exception as e:
+            logger.error(f"Payment processing error: {str(e)}")
+            return JsonResponse({"status": "error", "message": str(e)})
+
+    return JsonResponse({"status": "error", "message": "Invalid request method."})
 
 def get_user_from_session(request):
     """Helper function to get user from session"""
