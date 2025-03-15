@@ -1,0 +1,489 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  Document
+{% endblock title %}
+
+{% block extra_css %}
+  <!-- Your custom CSS & fonts -->
+  <link rel="stylesheet" href="{% static 'css/abroad_studies.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Alkatra" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Prociono" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+{% endblock extra_css %}
+
+
+{% block content %}
+<div class="abroad-landing-page">
+
+  <!-- ===== Section 1: Hero / Landing ===== -->
+  <div class="discover-main-abroad-sec1">
+    <section class="discover-hero-abroad-sec1" >
+      <div class="discover-text-content-abroad-sec1">
+        <h1>Start your journey<br>to study 
+          <span class="discover-highlight-abroad-sec1">Abroad</span>
+        </h1>
+        <p class="discover-sub-heading-abroad-sec1">
+          Dreaming of studying in top universities across the world? We're here
+          to turn your aspirations into reality!
+        </p>
+        <div class="discover-search-bar-abroad-sec1">
+          <div class="con-abroad-sec1">
+            <input
+              type="text"
+              placeholder="+ &nbsp; Search for College"
+              class="discover-searchs-abroad-sec1"
+            />
+            <span class="span2-abroad-sec1">|</span>
+            <input
+              type="text"
+              placeholder="+ &nbsp; Add Experience"
+              class="exp"
+            />
+            <button>Search</button>
+          </div>
+          <div>  
+            <p class="popular1-abroad-sec1">
+              Fill Out Our Enquiry Form Now & Get FREE Counselling! 
+            </p>      
+            <a href="#" class="cta-button-abroad-sec1">
+              <span class="text-abroad-sec1">Learn more</span>
+              <div class="arrow-box-abroad-sec1">→</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <img 
+        class="discover-hero-image-abroad-sec1" 
+        src="{% static 'abroad_studies_images/main-image.svg' %}" 
+        alt="women-holding-books"
+      >
+    </section>
+  </div>
+
+  <!-- ===== Info Card ===== -->
+  <div class="info-card-abroad-card">
+    <div class="icon-abroad-card">
+      <img src="{% static 'abroad_studies_images/education 1.png' %}" alt="Graduation Cap">
+    </div>
+    <div class="content-abroad-card">
+      <h3>Admission in top abroad colleges</h3>
+      <p>Achieving a globally recognized MBBS degree can help you fulfill your dreams.</p>
+    </div>
+    <button class="contact-btn-abroad-card">Contact us</button>
+  </div>
+
+  <!-- ===== Section 2 ===== -->
+  <div class="container-abroad-sec2">
+    <div class="image-section-abroad-sec2">
+      <img src="{% static 'abroad_studies_images/section2_abroad.png' %}" alt="Students discussing">
+      <div class="info-box-abroad-sec2 top-left-abroad-sec2">
+        <img src="{% static 'abroad_studies_images/admission-icon.png' %}" alt="Admission Assistance Icon">
+        Admission Assistance
+      </div>
+      <div class="info-box-abroad-sec2 bottom-right-abroad-sec2">
+        <img src="{% static 'abroad_studies_images/visa.png' %}" alt="Visa Guidance Icon">
+        Visa Guidance
+      </div>
+    </div>
+    <div class="content-section-abroad-sec2">
+      <h2>0% Commission, 100% Guidance!</h2>
+      <p class="highlight-abroad-sec2">Tired of paying extra fees while planning your study abroad journey?</p>
+      <p class="abroad_para1-abroad-sec2">
+        We believe education should be accessible, not expensive. That's why we offer 0% commission — no hidden charges, no extra costs — just honest support throughout your journey.
+      </p>
+      <p class="abroad_para2-abroad-sec2">
+        With our 100% expert guidance, you'll get personalized assistance at every step.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== Section 3: Guidance / Cards ===== -->
+  <div class="jobs-container-abroad-sec3">
+    <div class="jobs-content-abroad-sec3">
+      <p><span>Expert Guidance on Every Step</span></p>
+      <p class="jobs-subtext-abroad-sec3">From selecting the best university to securing admission and beyond</p>
+    </div>
+    <div class="jobs-cards-abroad-sec3">
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/education 1.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/education 2.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">University<br>Section</div>
+      </div>
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/agreement 2.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/agreement 3.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Application<br>Assistance</div>
+      </div>
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/flight-document 2.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/flight-document 3.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Visa<br>Support</div>
+      </div>
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/accomodation 1.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/accomodation 2.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Accomodation<br>Support</div>
+      </div>
+    </div>
+    <div class="jobs-cards-abroad-sec3">
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/communication 1.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/communication 2.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Career<br>Counselling</div>
+      </div>
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/money 1.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/money 2.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Financial<br>Planning</div>
+      </div>
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/identity-card 1.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/identity-card 2.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Document<br>Prepration</div>
+      </div>
+      <div class="jobs-card-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/health-insurance 1.png' %}" class="jobs-icon-abroad-sec3 blue-abroad-sec3">
+        <img src="{% static 'abroad_studies_images/health-insurance 2.png' %}" class="jobs-icon-abroad-sec3 white-abroad-sec3">
+        <div class="jobs-wave-abroad-sec3"></div>
+        <div class="jobs-text-abroad-sec3">Health<br>Assurance</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Section 4: Study Destinations ===== -->
+  <div class="abroad-section4">
+    <p class="para-abroad-sec4">Explore Top Study <br> Destinations Worldwide</p>
+    
+    <div class="nav-tabs-abroad-sec4">
+      <button class="tab-abroad-sec4 active-abroad-sec4" onclick="setActiveTab(this)">Asia</button>
+      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Africa</button>
+      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">North America</button>
+      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">South America</button>
+      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Antarctica</button>
+      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Australia</button>
+      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Europe</button>
+    </div>
+    
+    <div class="card-container-abroad-sec4">
+      <!-- Asia Cards -->
+      <div class="card-abroad-sec4" data-region="asia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Ukraine">
+        <div class="card-title-abroad-sec4">Ukraine</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="asia">
+        <img src="{% static 'abroad_studies_images/japan 1.png' %}" alt="Japan">
+        <div class="card-title-abroad-sec4">Japan</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="asia">
+        <img src="{% static 'abroad_studies_images/australia 1.png' %}" alt="australia">
+        <div class="card-title-abroad-sec4">Australia</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="asia">
+        <img src="{% static 'abroad_studies_images/canada 1.png' %}" alt="Canada">
+        <div class="card-title-abroad-sec4">Canada</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="asia">
+        <img src="{% static 'abroad_studies_images/germany 1.png' %}" alt="germany">
+        <div class="card-title-abroad-sec4">germany</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="asia">
+        <img src="{% static 'abroad_studies_images/england 1.png' %}" alt="england">
+        <div class="card-title-abroad-sec4">england</div>
+      </div>
+
+      <!-- Africa Cards -->
+      <div class="card-abroad-sec4" data-region="africa">
+        <img src="{% static 'abroad_studies_images/tunisia.png' %}" alt="Tunisia">
+      </div>
+      <div class="card-abroad-sec4" data-region="africa">
+        <img src="{% static 'abroad_studies_images/egypt.png' %}" alt="Egypt">
+      </div>
+      <div class="card-abroad-sec4" data-region="africa">
+        <img src="{% static 'abroad_studies_images/morocco.png' %}" alt="Morocco">
+      </div>
+      <div class="card-abroad-sec4" data-region="africa">
+        <img src="{% static 'abroad_studies_images/algeria.png' %}" alt="Algeria">
+      </div>
+      <div class="card-abroad-sec4" data-region="africa">
+        <img src="{% static 'abroad_studies_images/morocco.png' %}" alt="Morocco">
+      </div>
+      <div class="card-abroad-sec4" data-region="africa">
+        <img src="{% static 'abroad_studies_images/south-africa 1.png' %}" alt="South Africa">
+      </div>
+
+      <!-- North America Cards -->
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="USA">
+        <div class="card-title-abroad-sec4">USA</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Canada">
+        <div class="card-title-abroad-sec4">Canada</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Mexico">
+        <div class="card-title-abroad-sec4">Mexico</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Costa Rica">
+        <div class="card-title-abroad-sec4">Costa Rica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Jamaica">
+        <div class="card-title-abroad-sec4">Jamaica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Cuba">
+        <div class="card-title-abroad-sec4">Cuba</div>
+      </div>
+
+      <!-- South America Cards -->
+      <div class="card-abroad-sec4" data-region="south_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Brazil">
+        <div class="card-title-abroad-sec4">Brazil</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="south_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Argentina">
+        <div class="card-title-abroad-sec4">Argentina</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="south_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Chile">
+        <div class="card-title-abroad-sec4">Chile</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="south_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Peru">
+        <div class="card-title-abroad-sec4">Peru</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="south_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Colombia">
+        <div class="card-title-abroad-sec4">Colombia</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="south_america">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Ecuador">
+        <div class="card-title-abroad-sec4">Ecuador</div>
+      </div>
+
+      <!-- Antarctica Cards -->
+      <div class="card-abroad-sec4" data-region="antarctica">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
+        <div class="card-title-abroad-sec4">Antarctica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="antarctica">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
+        <div class="card-title-abroad-sec4">Antarctica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="antarctica">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
+        <div class="card-title-abroad-sec4">Antarctica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="antarctica">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
+        <div class="card-title-abroad-sec4">Antarctica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="antarctica">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
+        <div class="card-title-abroad-sec4">Antarctica</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="antarctica">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
+        <div class="card-title-abroad-sec4">Antarctica</div>
+      </div>
+
+      <!-- Australia Cards -->
+      <div class="card-abroad-sec4" data-region="australia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Australia">
+        <div class="card-title-abroad-sec4">Australia</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="australia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="New Zealand">
+        <div class="card-title-abroad-sec4">New Zealand</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="australia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Fiji">
+        <div class="card-title-abroad-sec4">Fiji</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="australia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Papua New Guinea">
+        <div class="card-title-abroad-sec4">Papua New Guinea</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="australia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Samoa">
+        <div class="card-title-abroad-sec4">Samoa</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="australia">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Tonga">
+        <div class="card-title-abroad-sec4">Tonga</div>
+      </div>
+
+      <!-- Europe Cards -->
+      <div class="card-abroad-sec4" data-region="europe">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="England">
+        <div class="card-title-abroad-sec4">England</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="europe">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Germany">
+        <div class="card-title-abroad-sec4">Germany</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="europe">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="France">
+        <div class="card-title-abroad-sec4">France</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="europe">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Italy">
+        <div class="card-title-abroad-sec4">Italy</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="europe">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Spain">
+        <div class="card-title-abroad-sec4">Spain</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="europe">
+        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Netherlands">
+        <div class="card-title-abroad-sec4">Netherlands</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Section 5: Form ===== -->
+  <div class="wk-container">
+    <div class="leftt-sectionn">
+      <span>Have Questions? <strong>We're Here to Help!</strong></span>
+      <p>Get personalized guidance for your study abroad journey. Fill out the form below, and our experts will connect with you.</p>
+      <div class="image-containerrr">
+        <img src="{% static 'abroad_studies_images/student-image.svg' %}" alt="Students">
+      </div>
+      <div class="floating-label college-discovery">
+        <img src="{% static 'abroad_studies_images/college-icon.svg' %}" alt="College">
+        College</br> Discovery
+      </div>
+      <div class="floating-label admission-assistance">
+        <img src="{% static 'abroad_studies_images/admission-icon.svg' %}" alt="Admission">
+        Admission </br>Assistance
+      </div>
+      <div class="floating-label visa-guidance">
+        <img src="{% static 'abroad_studies_images/visa.png' %}" alt="Visa">
+        Visa </br>Guidance
+      </div>
+    </div>
+    <div class="form-container">
+      <h2>Get free Counselling</h2>
+      <p class="enquiry-link">Fill Out Our Enquiry Form Now & Get FREE Counselling!</p>
+      
+      <!-- Example: Switch to Django form if needed -->
+      <label for="name">Your Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+      
+      <label for="phone">Your Phone No.</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" required>
+      
+      <label for="email">Your Email</label>
+      <input type="email" id="email" placeholder="Enter your email" required>
+      
+      <label for="location">Set Location</label>
+      <input type="text" id="location" placeholder="Enter your location" required>
+      
+      <button>Receive a call back</button>
+    </div>
+  </div>
+
+  <!-- ===== Section 5 Stats ===== -->
+  <div class="container-abroad-sec5">
+    <p class="title-abroad-sec5">Building Futures</p>
+    <p class="main-heading-abroad-sec5">with Trust & Success</p>
+    <p class="description-abroad-sec5">
+      Thousands of students have trusted us to guide their study abroad journey — and the results speak for themselves!
+    </p>
+
+    <div class="stats-container-abroad-sec5">
+      <div class="stat-box-abroad-sec5">
+        <img src="{% static 'abroad_studies_images/contact.png' %}" alt="Students Benefited" class="contact-img-abroad-sec5">
+        <div class="text-content-abroad-sec5">
+          <p class="number-abroad-sec5">10k+</p>
+          <p class="label-abroad-sec5">Students <br>Benefited</p>
+        </div>
+      </div>
+      <div class="stat-box-abroad-sec5">
+        <img src="{% static 'abroad_studies_images/scholar.png' %}" alt="University Collaboration">
+        <div class="text-content-abroad-sec5">
+          <p class="number-abroad-sec5">10k+</p>
+          <p class="label-abroad-sec5">University <br>Collaboration</p>
+        </div>
+      </div>
+      <div class="stat-box-abroad-sec5">
+        <img src="{% static 'abroad_studies_images/visa.png' %}" alt="Visa Success Rate">
+        <div class="text-content-abroad-sec5">
+          <p class="number-abroad-sec5">10k+</p>
+          <p class="label-abroad-sec5">Visa Success <br>Rate</p>
+        </div>
+      </div>
+      <div class="stat-box-abroad-sec5">
+        <img src="{% static 'abroad_studies_images/scholar.png' %}" alt="Years of Experience">
+        <div class="text-content-abroad-sec5">
+          <p class="number-abroad-sec5">10k+</p>
+          <p class="label-abroad-sec5">Years of<br> Experience</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Section 6: Testimonials ===== -->
+  <div class="section6_abroad">
+    <p class="main-heading-sect6-abroad-sec6">Our Customer Feedback</p>
+    <p class="sub-heading-sect6-abroad-sec6">
+      Don’t take our word for it. Trust our customers who achieve their dreams
+    </p>
+
+    <div class="slider-container-abroad-sec6">
+      <div class="slider-abroad-sec6">
+        <div class="card-abroad-sec6">
+          <img src="{% static 'abroad_studies_images/testimonial2 1.png' %}" alt="User">
+          <h3>Abhishek Mahato</h3>
+          <p>Central Columbus University</p>
+          <p class="second_para-abroad-sec6">
+            hiii this side abhishek mahato,you all are reading my testimonial.
+            hiii this side abhishek mahato,you all are reading my testimonial.
+            hiii this side abhishek mahato,you all are reading my testimonial.
+          </p>
+          <div class="stars-abroad-sec6">★★★★★</div>
+        </div>
+        <div class="card-abroad-sec6">
+          <img src="{% static 'abroad_studies_images/testimonial2 1.png' %}" alt="User">
+          <h3>Abhishek Mahato</h3>
+          <p>Central Columbus University</p>
+          <p class="second_para-abroad-sec6">
+            hiii this side abhishek mahato,you all are reading my testimonial..
+            hiii this side abhishek mahato,you all are reading my testimonial.
+            hiii this side abhishek mahato,you all are reading my testimonial.
+          </p>
+          <div class="stars-abroad-sec6">★★★★☆</div>
+        </div>
+        <div class="card-abroad-sec6">
+          <img src="{% static 'abroad_studies_images/testimonial2 1.png' %}" alt="User">
+          <h3>Abhishek Mahato</h3>
+          <p>Central Columbus University</p>
+          <p class="second_para-abroad-sec6">
+            hiii this side abhishek mahato,you all are reading my testimonial.
+            hiii this side abhishek mahato,you all are reading my testimonial.
+            hiii this side abhishek mahato,you all are reading my testimonial.
+          </p>
+          <div class="stars-abroad-sec6">★★★☆☆</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div> <!-- End .abroad-landing-page -->
+{% endblock content %}
+
+
+{% block extra_js %}
+<script src="{% static 'js/abroad_studies.js' %}"></script>
+{% endblock extra_js %}
