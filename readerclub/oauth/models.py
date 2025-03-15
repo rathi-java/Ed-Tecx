@@ -1,9 +1,14 @@
-# oauth/models.py (OAuth App)
 from django.db import models
 from datetime import date, timedelta
 from django.utils.timezone import now
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from price.models import SubscriptionPlan
+
+# Removed the direct import of Exam from examportol.models to avoid circular dependency.
+# Instead, use a dynamic lookup when needed.
+def get_exam_model():
+    from django.apps import apps
+    return apps.get_model('examportol', 'Exam')
 
 class UsersDBManager(BaseUserManager):
     def create_user(self, email, full_name, password=None, **extra_fields):
@@ -47,6 +52,7 @@ class CollegesDb(models.Model):
 
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
+
 class UsersDB(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
@@ -165,9 +171,12 @@ class Otpdb(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - OTP Count: {self.otp_count}"
+
 class PaymentTransaction(models.Model):
     user = models.ForeignKey(UsersDB, on_delete=models.CASCADE)
     subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.SET_NULL, null=True)
+    # Using a string reference for the exam model to avoid circular import issues.
+    exam = models.ForeignKey('examportol.Exam', on_delete=models.SET_NULL, null=True)
     razorpay_order_id = models.CharField(max_length=100)
     razorpay_payment_id = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
