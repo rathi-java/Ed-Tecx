@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'policies',
     'widget_tweaks',
     'oauth',
+    'internship_portal',
+    'abroad_studies',
     # for Google auth
     'django.contrib.sites',
     'allauth',
