@@ -19,9 +19,9 @@ from admin_portal.models import *
 # Load environment variables from secrets.env
 import os
 from dotenv import load_dotenv
-load_dotenv("secrets.env")
+load_dotenv(".env")
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html',{"CAREER_URL": settings.CAREER_URL})
 def update_profile(request):
     if request.method == "POST":
         user_id = request.session.get('user_id')

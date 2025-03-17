@@ -79,6 +79,23 @@ header {
     border-radius: 15px;
     font-size: 12px;
 }
+.filter-controls #filterForm button{
+    font-family: 'Poppins';
+    background: #077BC3;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+    font-size: 20px;
+}
+.job-header img {
+    border-radius: 50%;
+    width: 53%;
+    height: 20%;
+}
 
 .divider {
     width: 100%;

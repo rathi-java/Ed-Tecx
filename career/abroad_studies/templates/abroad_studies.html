@@ -38,7 +38,7 @@
             <span class="span2-abroad-sec1">|</span>
             <input
               type="text"
-              placeholder="+ &nbsp; Add Experience"
+              placeholder="+ &nbsp; Country"
               class="exp"
             />
             <button>Search</button>
@@ -48,7 +48,7 @@
               Fill Out Our Enquiry Form Now & Get FREE Counselling! 
             </p>      
             <a href="#" class="cta-button-abroad-sec1">
-              <span class="text-abroad-sec1">Learn more</span>
+              <span class="text-abroad-sec1">Fill Enquiry</span>
               <div class="arrow-box-abroad-sec1">→</div>
             </a>
           </div>
@@ -63,6 +63,8 @@
   </div>
 
   <!-- ===== Info Card ===== -->
+   <div class="info-card-abroad-card-main">
+    <div class="divider-left"></div>
   <div class="info-card-abroad-card">
     <div class="icon-abroad-card">
       <img src="{% static 'abroad_studies_images/education 1.png' %}" alt="Graduation Cap">
@@ -73,6 +75,8 @@
     </div>
     <button class="contact-btn-abroad-card">Contact us</button>
   </div>
+  <div class="divider-right"></div> 
+</div>
 
   <!-- ===== Section 2 ===== -->
   <div class="container-abroad-sec2">
@@ -168,7 +172,7 @@
       <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Africa</button>
       <button class="tab-abroad-sec4" onclick="setActiveTab(this)">North America</button>
       <button class="tab-abroad-sec4" onclick="setActiveTab(this)">South America</button>
-      <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Antarctica</button>
+      {% comment %} <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Antarctica</button> {% endcomment %}
       <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Australia</button>
       <button class="tab-abroad-sec4" onclick="setActiveTab(this)">Europe</button>
     </div>
@@ -176,28 +180,28 @@
     <div class="card-container-abroad-sec4">
       <!-- Asia Cards -->
       <div class="card-abroad-sec4" data-region="asia">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Ukraine">
-        <div class="card-title-abroad-sec4">Ukraine</div>
+        <img src="{% static 'abroad_studies_images/russia.png' %}" alt="russia">
+        <div class="card-title-abroad-sec4">Russia</div>
       </div>
       <div class="card-abroad-sec4" data-region="asia">
         <img src="{% static 'abroad_studies_images/japan 1.png' %}" alt="Japan">
         <div class="card-title-abroad-sec4">Japan</div>
       </div>
       <div class="card-abroad-sec4" data-region="asia">
-        <img src="{% static 'abroad_studies_images/australia 1.png' %}" alt="australia">
-        <div class="card-title-abroad-sec4">Australia</div>
+        <img src="{% static 'abroad_studies_images/china 1.png' %}" alt="china">
+        <div class="card-title-abroad-sec4">China</div>
       </div>
       <div class="card-abroad-sec4" data-region="asia">
-        <img src="{% static 'abroad_studies_images/canada 1.png' %}" alt="Canada">
-        <div class="card-title-abroad-sec4">Canada</div>
+        <img src="{% static 'abroad_studies_images/indonesia 1.png' %}" alt="indonesia">
+        <div class="card-title-abroad-sec4">Indonesia</div>
       </div>
       <div class="card-abroad-sec4" data-region="asia">
-        <img src="{% static 'abroad_studies_images/germany 1.png' %}" alt="germany">
-        <div class="card-title-abroad-sec4">germany</div>
+        <img src="{% static 'abroad_studies_images/saudi-arabia 1.png' %}" alt="saudi">
+        <div class="card-title-abroad-sec4">Saudi-Arabia</div>
       </div>
       <div class="card-abroad-sec4" data-region="asia">
-        <img src="{% static 'abroad_studies_images/england 1.png' %}" alt="england">
-        <div class="card-title-abroad-sec4">england</div>
+        <img src="{% static 'abroad_studies_images/malaysia 1.png' %}" alt="malaysia">
+        <div class="card-title-abroad-sec4">Malaysia</div>
       </div>
 
       <!-- Africa Cards -->
@@ -222,58 +226,58 @@
 
       <!-- North America Cards -->
       <div class="card-abroad-sec4" data-region="north_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="USA">
-        <div class="card-title-abroad-sec4">USA</div>
-      </div>
-      <div class="card-abroad-sec4" data-region="north_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Canada">
+        <img src="{% static 'abroad_studies_images/canada 1.png' %}" alt="canada">
         <div class="card-title-abroad-sec4">Canada</div>
       </div>
       <div class="card-abroad-sec4" data-region="north_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Mexico">
+        <img src="{% static 'abroad_studies_images/usa 1.png' %}" alt="usa">
+        <div class="card-title-abroad-sec4">United States</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/mexico 1.png' %}" alt="Mexico">
         <div class="card-title-abroad-sec4">Mexico</div>
       </div>
       <div class="card-abroad-sec4" data-region="north_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Costa Rica">
-        <div class="card-title-abroad-sec4">Costa Rica</div>
+        <img src="{% static 'abroad_studies_images/dominican 1.png' %}" alt="dominican">
+        <div class="card-title-abroad-sec4">Dominican</div>
       </div>
       <div class="card-abroad-sec4" data-region="north_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Jamaica">
+        <img src="{% static 'abroad_studies_images/bahamas 1.png' %}" alt="bahamas">
+        <div class="card-title-abroad-sec4">Bahamas</div>
+      </div>
+      <div class="card-abroad-sec4" data-region="north_america">
+        <img src="{% static 'abroad_studies_images/jamaica 1.png' %}" alt="jamaica">
         <div class="card-title-abroad-sec4">Jamaica</div>
-      </div>
-      <div class="card-abroad-sec4" data-region="north_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Cuba">
-        <div class="card-title-abroad-sec4">Cuba</div>
       </div>
 
       <!-- South America Cards -->
       <div class="card-abroad-sec4" data-region="south_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Brazil">
+        <img src="{% static 'abroad_studies_images/brazil1 1.png' %}" alt="Brazil">
         <div class="card-title-abroad-sec4">Brazil</div>
       </div>
       <div class="card-abroad-sec4" data-region="south_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Argentina">
+        <img src="{% static 'abroad_studies_images/argentina 1.png' %}" alt="Argentina">
         <div class="card-title-abroad-sec4">Argentina</div>
       </div>
       <div class="card-abroad-sec4" data-region="south_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Chile">
+        <img src="{% static 'abroad_studies_images/chile 1.png' %}" alt="Chile">
         <div class="card-title-abroad-sec4">Chile</div>
       </div>
       <div class="card-abroad-sec4" data-region="south_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Peru">
+        <img src="{% static 'abroad_studies_images/peru 1.png' %}" alt="Peru">
         <div class="card-title-abroad-sec4">Peru</div>
       </div>
       <div class="card-abroad-sec4" data-region="south_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Colombia">
+        <img src="{% static 'abroad_studies_images/colombia 1.png' %}" alt="Colombia">
         <div class="card-title-abroad-sec4">Colombia</div>
       </div>
       <div class="card-abroad-sec4" data-region="south_america">
-        <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Ecuador">
-        <div class="card-title-abroad-sec4">Ecuador</div>
+        <img src="{% static 'abroad_studies_images/bolivia 1.png' %}" alt="bolivia">
+        <div class="card-title-abroad-sec4">Bolivia</div>
       </div>
 
       <!-- Antarctica Cards -->
-      <div class="card-abroad-sec4" data-region="antarctica">
+      {% comment %} <div class="card-abroad-sec4" data-region="antarctica">
         <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
         <div class="card-title-abroad-sec4">Antarctica</div>
       </div>
@@ -296,7 +300,7 @@
       <div class="card-abroad-sec4" data-region="antarctica">
         <img src="{% static 'abroad_studies_images/ukraine 1.png' %}" alt="Antarctica">
         <div class="card-title-abroad-sec4">Antarctica</div>
-      </div>
+      </div> {% endcomment %}
 
       <!-- Australia Cards -->
       <div class="card-abroad-sec4" data-region="australia">
@@ -374,25 +378,29 @@
       </div>
     </div>
     <div class="form-container">
-      <h2>Get free Counselling</h2>
-      <p class="enquiry-link">Fill Out Our Enquiry Form Now & Get FREE Counselling!</p>
-      
-      <!-- Example: Switch to Django form if needed -->
-      <label for="name">Your Name</label>
-      <input type="text" id="name" placeholder="Enter your name" required>
-      
-      <label for="phone">Your Phone No.</label>
-      <input type="tel" id="phone" placeholder="Enter your phone number" required>
-      
-      <label for="email">Your Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
-      
-      <label for="location">Set Location</label>
-      <input type="text" id="location" placeholder="Enter your location" required>
-      
-      <button>Receive a call back</button>
+      <form method="POST" action="{% url 'enquiry' %}">
+        {% csrf_token %}
+        <h2>Get Free Counselling</h2>
+        <p class="enquiry-link">Fill Out Our Enquiry Form Now & Get FREE Counselling!</p>
+        
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+        <label for="phone">Your Phone No.</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+     
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+    
+        <label for="college">Suggest College</label>
+        <input type="text" id="college" name="college" placeholder="Enter your college" required>
+        
+        <label for="referral_code">Referral Code</label>
+        <input type="text" id="referral_code" name="referral_code" placeholder="Enter Referral Code">
+        
+        <button type="submit">Receive a call back</button>
+      </form>
     </div>
-  </div>
 
   <!-- ===== Section 5 Stats ===== -->
   <div class="container-abroad-sec5">
@@ -404,28 +412,28 @@
 
     <div class="stats-container-abroad-sec5">
       <div class="stat-box-abroad-sec5">
-        <img src="{% static 'abroad_studies_images/contact.png' %}" alt="Students Benefited" class="contact-img-abroad-sec5">
+        <img src="{% static 'abroad_studies_images/student-contact.svg' %}" alt="Students Benefited" class="contact-img-abroad-sec5">
         <div class="text-content-abroad-sec5">
           <p class="number-abroad-sec5">10k+</p>
           <p class="label-abroad-sec5">Students <br>Benefited</p>
         </div>
       </div>
       <div class="stat-box-abroad-sec5">
-        <img src="{% static 'abroad_studies_images/scholar.png' %}" alt="University Collaboration">
+        <img src="{% static 'abroad_studies_images/educationn.svg' %}" alt="University Collaboration">
         <div class="text-content-abroad-sec5">
           <p class="number-abroad-sec5">10k+</p>
           <p class="label-abroad-sec5">University <br>Collaboration</p>
         </div>
       </div>
       <div class="stat-box-abroad-sec5">
-        <img src="{% static 'abroad_studies_images/visa.png' %}" alt="Visa Success Rate">
+        <img src="{% static 'abroad_studies_images/visaa.svg' %}" alt="Visa Success Rate">
         <div class="text-content-abroad-sec5">
           <p class="number-abroad-sec5">10k+</p>
           <p class="label-abroad-sec5">Visa Success <br>Rate</p>
         </div>
       </div>
       <div class="stat-box-abroad-sec5">
-        <img src="{% static 'abroad_studies_images/scholar.png' %}" alt="Years of Experience">
+        <img src="{% static 'abroad_studies_images/star.svg' %}" alt="Years of Experience">
         <div class="text-content-abroad-sec5">
           <p class="number-abroad-sec5">10k+</p>
           <p class="label-abroad-sec5">Years of<br> Experience</p>
@@ -479,8 +487,41 @@
       </div>
     </div>
   </div>
-
+  <section class="app-section">
+    <div class="app-container">
+        <!-- Phone Mockup -->
+        <div class="phone-mockup">
+            <button class="get-show"></button>
+            <div class="phone-screen">
+                <h2 class="phone-text">Download the <br> App now</h2>
+                <img src="{% static 'assets/footer.png' %}" alt="Download Icon" class="download-icon">
+                <a href="{% url 'maintenance_view' %}" class="get-started">Download</a>
+            </div>
+        </div>
+  
+        <!-- App Info -->
+        <div class="app-info">
+            <h1 class="app-title">Download Our App</h1>
+            <p class="app-description">
+                Take your experience to the next level with our mobile app!<br><br>
+                Stay connected, access features on the go, and enjoy seamless navigation 
+                right from your smartphone—whether you’re learning new skills, 
+                applying for internships, or exploring job opportunities.
+            </p>
+  
+            <div class="download-buttons">
+              <a href="{% url 'maintenance_view' %}" class="download-btn apple-btn">
+                <i class="fab fa-apple fa-2x !important"></i> Download Now
+              </a>
+              <a href="{% url 'maintenance_view' %}" class="download-btn android-btn">
+                <i class="fab fa-google-play fa-2x"></i> Download Now
+              </a>
+          </div>        
+        </div>
+    </div>
+  </section>
 </div> <!-- End .abroad-landing-page -->
+
 {% endblock content %}
 
 

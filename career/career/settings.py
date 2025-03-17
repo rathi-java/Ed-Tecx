@@ -213,3 +213,4 @@ CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://career.readerclub.in']
 
 LOGOUT_REDIRECT_URL = "/"
+CAREER_URL=os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
