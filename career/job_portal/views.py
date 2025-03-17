@@ -7,6 +7,174 @@ from .forms import CategoryForm, CompanyForm, JobForm
 from .models import Category, Company, Job, JobApplication
 from django.http import JsonResponse
 from .documents import JobDocument
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import JsonResponse
+from .models import JobSeeker, JobSeekerEducation, JobSeekerExperience, JobApplication, Job
+import json
+from datetime import datetime
+
+def submit_application_job(request):
+    """View to handle job application form submission"""
+    print("=" * 50)
+    print("SUBMIT APPLICATION JOB VIEW STARTED")
+    print(f"Request method: {request.method}")
+    print(f"User: {request.user}")
+    
+    if request.method != 'POST':
+        return redirect('job_page')
+    
+    try:
+        # Print all POST data for debugging
+        print("Form data received:")
+        for key, value in request.POST.items():
+            print(f"  {key}: {value}")
+        
+        # Get job_id from form
+        job_id = request.POST.get('job_id')
+        print(f"Original job_id from form: {job_id}")
+        
+        # Try to find the job by job_code
+        if job_id:
+            try:
+                job = get_object_or_404(Job, job_code=job_id)
+                print(f"Found job by exact match: {job.job_code} - {job.role}")
+            except Http404:
+                print(f"No job found with job_code: {job_id}")
+                messages.error(request, f"No job found with ID: {job_id}")
+                return redirect('job_page')
+        else:
+            print("No job_id provided in form")
+            messages.error(request, "No job selected. Please select a job before applying.")
+            return redirect('job_page')
+        
+        # Personal details
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phone = request.POST.get('phone')
+        skills = request.POST.get('skills')
+        
+        # Get or create JobSeeker
+        job_seeker, created = JobSeeker.objects.get_or_create(
+            user=request.user,
+            defaults={
+                'first_name': first_name,
+                'last_name': last_name,
+                'phone': phone,
+                'skills': skills
+            }
+        )
+        
+        # Update if already exists
+        if not created:
+            job_seeker.first_name = first_name
+            job_seeker.last_name = last_name
+            job_seeker.phone = phone
+            job_seeker.skills = skills
+            job_seeker.save()
+        
+        # Process Education data
+        # Clear existing education entries if updating
+        if not created:
+            JobSeekerEducation.objects.filter(job_seeker=job_seeker).delete()
+        
+        # Find all education entries from the form
+        education_data = {}
+        for key, value in request.POST.items():
+            if key.startswith('education['):
+                parts = key.replace('education[', '').replace(']', '').split('[')
+                index = parts[0]
+                field = parts[1]
+                
+                if index not in education_data:
+                    education_data[index] = {}
+                
+                education_data[index][field] = value
+        
+        # Create new education entries
+        for edu_entry in education_data.values():
+            if edu_entry.get('degree') and edu_entry.get('institution') and edu_entry.get('passing_year'):
+                JobSeekerEducation.objects.create(
+                    job_seeker=job_seeker,
+                    degree=edu_entry.get('degree'),
+                    specialization=edu_entry.get('specialization', ''),
+                    institution=edu_entry.get('institution'),
+                    passing_year=edu_entry.get('passing_year'),
+                    score=edu_entry.get('score', '')
+                )
+        
+        # Process Experience data
+        # Clear existing experience entries if updating
+        if not created:
+            JobSeekerExperience.objects.filter(job_seeker=job_seeker).delete()
+        
+        # Find all experience entries from the form
+        experience_data = {}
+        for key, value in request.POST.items():
+            if key.startswith('experience['):
+                parts = key.replace('experience[', '').replace(']', '').split('[')
+                index = parts[0]
+                field = parts[1]
+                
+                if index not in experience_data:
+                    experience_data[index] = {}
+                
+                experience_data[index][field] = value
+        
+        # Create new experience entries
+        for exp_entry in experience_data.values():
+            if exp_entry.get('company') and exp_entry.get('role') and exp_entry.get('start_date'):
+                start_date = datetime.strptime(exp_entry.get('start_date'), '%Y-%m-%d').date()
+                end_date = None
+                if exp_entry.get('end_date'):
+                    end_date = datetime.strptime(exp_entry.get('end_date'), '%Y-%m-%d').date()
+                
+                JobSeekerExperience.objects.create(
+                    job_seeker=job_seeker,
+                    company=exp_entry.get('company'),
+                    role=exp_entry.get('role'),
+                    start_date=start_date,
+                    end_date=end_date,
+                    description=exp_entry.get('description', ''),
+                    achievements=exp_entry.get('achievements', '')
+                )
+        
+        # Create JobApplication
+        application_skills = request.POST.get('application_skills')
+        expected_ctc = request.POST.get('expected_ctc', '')
+        
+        # Check if application for this job already exists
+        existing_application = JobApplication.objects.filter(
+            user=request.user,
+            job_seeker=job_seeker,
+            job=job
+        ).first()
+        
+        if existing_application:
+            existing_application.skills = application_skills
+            existing_application.expected_ctc = expected_ctc
+            existing_application.save()
+            messages.success(request, "Your application has been updated successfully!")
+        else:
+            JobApplication.objects.create(
+                user=request.user,
+                job_seeker=job_seeker,
+                job=job,
+                skills=application_skills,
+                expected_ctc=expected_ctc
+            )
+            messages.success(request, "Your application has been submitted successfully!")
+            
+        print(f"Application submitted for job: {job.job_code} - {job.role}")
+        return redirect('job_page')
+    
+    except Exception as e:
+        print(f"ERROR IN SUBMISSION: {str(e)}")
+        import traceback
+        print(traceback.format_exc())
+        messages.error(request, f"Error submitting application: {str(e)}")
+        return redirect('job_page')
 
 def autocomplete(request):
     term = request.GET.get('term', '')

@@ -5,258 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Listings</title>
-
-    <!-- Original job page CSS -->
     <link rel="stylesheet" href="{% static 'css/job_page.css' %}">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
-    <!-- OPTIONAL: If you'd prefer to keep job_application.css external, use:
-         <link rel="stylesheet" href="{% static 'css/job_application.css' %}">
-         And remove the <style> block below.
-    -->
-
-    <!-- Embedded job_application.css so you can copy one file in full -->
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
-        /* Modal overlay (the dark/grey background) */
-        .modal-overlay {
-            display: none;           /* Hidden by default */
-            position: fixed;         /* Stay in place */
-            z-index: 9998;           /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%;             /* Full width */
-            height: 100%;            /* Full height */
-            overflow: auto;          /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
-        }
-
-        /* The Modal itself (popup content) */
-        .modal-content {
-            background-color: #fff;
-            margin: 5% auto;         /* 5% from the top and centered */
-            border-radius: 16px;
-            border: 3px solid #077bc3;
-            padding: 20px;
-            max-width: 750px;        /* Could be a fixed width or 100% for responsive */
-            position: relative;      /* So we can position the close button */
-            font-family: 'Inter', sans-serif; 
-        }
-
-        /* Close button (X) in top-right corner */
-        .modal-close-btn {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* job_application.css content below */
-        .container.job-app-container {
-            width: auto; /* override to let .modal-content control width */
-            border: none; /* we'll rely on .modal-content's border */
-            box-shadow: none; /* rely on .modal-content box shadow if desired */
-            margin: 0;
-            padding: 0;
-        }
-
-        .heading h3 {
-            font-size: 22px;
-            font-weight: 600;
-        }
-
-        .heading-txt {
-            font-size: 22px;
-            text-align: center;
-            margin-top: 1%;
-        }
-
-        .para-txt {
-            font-size: 14px;
-            color: #7B8085;
-        }
-
-        .input-box {
-            background-color: #F3F8FC;
-            border-radius: 14px;
-            padding: 3%;
-            margin-top: 2%;
-        }
-
-        .form-container h2 {
-            color: #077bc3;
-            font-size: 17px;
-            font-weight: 500;
-            margin-top: 0%;
-        }
-
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            width: 44%;
-            gap: 1;
-        }
-        .form-row1 {
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        .short-width {
-            flex: 1;  /* Ensures equal width for all fields */
-            min-width: 150px;
-            width: 25%;
-        }
-
-        .full-width {
-            width: 100%;
-            margin-bottom: 3%;
-        }
-
-        label {
-            margin-bottom: 5px;
-            font-size: 14px;
-            font-weight: lighter;
-        }
-
-        label span {
-            color: red;
-        }
-
-        input, select {
-            padding: 8px;
-            border-radius: 4px;
-            background-color: #ffffff;
-        }
-        .form-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2%;
-        }
-
-        #next1 {
-            margin-left: 88%;
-        }
-
-        #submit-btn {
-            background-color: green;
-        }
-        
-        .add-education {
-            cursor:pointer;
-            font-weight: 500;
-        }
-        
-        .remove-education {
-            color: rgb(164, 5, 5); 
-            border:none; 
-            background:none; 
-            cursor:pointer;
-            margin-top: 3%;
-        }
-
-        button {
-            background-color: #077bc3;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 0;
-        }
-
-        button:hover {
-            background-color: #0665a0;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* this is form styling */
-        .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px;
-    width: 50%;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.close {
-    float: right;
-    font-size: 25px;
-    cursor: pointer;
-}
-.hidden {
-    display: none;
-}
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-#applicationModal {
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-    background: white;
-    padding: 20px;
-    margin: auto;
-    width: 50%;
-}
-
-
-
-    </style>
 </head>
 <body>
     <div class="container">
-{% comment %} 
-        <header class="navbar">
-            <a href="#" class="logo">
-                <img src="{% static 'job_page/logo.png' %}" alt="ReaderClub">
-            </a>
-            <nav class="nav-links">
-                <a href="#">IT & Software</a>
-                <a href="#">Management & Business</a>
-                <a href="#">Sales & Marketing</a>
-                <a href="#">Content & Creative</a>
-            </nav>
-        </header> {% endcomment %}
         <div class="filter-controls">
             <form method="GET" id="filterForm" style="position: relative;">
               <div class="input-container">
@@ -282,13 +35,12 @@
               <div class="input-container" style="position: relative;">
                 <label for="q">Search Jobs:</label>
                 <input type="text" name="q" id="q" placeholder="Search by role, description..." autocomplete="on">
-                <!-- Autocomplete dropdown container -->
                 <div id="autocomplete-results" class="autocomplete-results"></div>
               </div>
             
               <button type="submit" id="applyFilter">Apply Filter</button>
             </form>
-          </div>
+        </div>
     
         <div class="main-content">
             <!-- Left Section for Job Listings -->
@@ -310,13 +62,14 @@
                      data-company-about="{{ job.company.about }}"
                      data-company-employees="{{ job.company.working_employees }}"
                      data-company-industry="Information & Technology"
-                     data-company-established="{{ job.company.established_year }}">
-                     
-                     {% if job.company.logo %}
+                     data-company-established="{{ job.company.established_year }}"
+                     data-job-id="{{ job.job_code }}">
+                    
+                    {% if job.company.logo %}
                      <img src="{{ job.company.logo }}" alt="{{ job.company.name }} Logo">
-                   {% else %}
+                    {% else %}
                      <img src="{% static 'job_page/default_logo.png' %}" alt="Default Logo">
-                   {% endif %}
+                    {% endif %}
                     
                     <div class="job-info">
                       <h3>{{ job.role }}</h3>
@@ -331,7 +84,6 @@
                     </div>
                 </div>
                 {% endfor %}
-                
             </div>
 
             <!-- Right Section for Job Details -->
@@ -346,169 +98,133 @@
         <div class="modal-content">
             <button class="modal-close-btn" onclick="closeModal()">×</button>
 
-            <!-- Entire job_application form below -->
-            <div class="container job-app-container " id="jobAppForm">
-                <button class="close-btn" onclick="closeApplicationForm()">✖</button>
-
+            <!-- Updated single form job application -->
+            <div class="container job-app-container" id="jobAppForm">
                 <div class="heading">
                     <h3 class="heading-txt">Job Application</h3>
                     <p class="para-txt">Note: Fields with * are necessary to fill. All the details must be accurate</p>
                 </div>
 
-                <!-- Step 1: Personal Details -->
-                <div class="input-box form-step" id="step1">
+                <div class="input-box">
                     <div class="form-container">
-                        <h2>Personal Details</h2>
-                        <form>
+                        <form method="POST" action="{% url 'submit_application_job' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" id="job_id" name="job_id" value="J00001">
+                            
+                            <h2>Personal Details</h2>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="first-name">First Name <span>*</span></label>
-                                    <input type="text" id="first-name" required>
+                                    <label for="first_name">First Name <span>*</span></label>
+                                    <input type="text" id="first_name" name="first_name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="last-name">Last Name <span>*</span></label>
-                                    <input type="text" id="last-name" required>
+                                    <label for="last_name">Last Name <span>*</span></label>
+                                    <input type="text" id="last_name" name="last_name" required>
                                 </div>
                             </div>
 
                             <div class="form-row">
-                                <div class="form-group">
-                                    <label for="email">Email Address <span>*</span></label>
-                                    <input type="email" id="email" required>
-                                </div>
                                 <div class="form-group">
                                     <label for="phone">Phone no. <span>*</span></label>
-                                    <input type="tel" id="phone" required>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="skills">Skills <span>*</span></label>
+                                    <input type="text" id="skills" name="skills" required>
                                 </div>
                             </div>
 
+                            <h2>Education</h2>
+                            <div class="education-section">
+                                <div class="education-entry">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="degree">Degree <span>*</span></label>
+                                            <input type="text" id="degree" name="education[0][degree]" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="specialization">Specialization</label>
+                                            <input type="text" id="specialization" name="education[0][specialization]">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="institution">Institution <span>*</span></label>
+                                            <input type="text" id="institution" name="education[0][institution]" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="passing_year">Year of Passing <span>*</span></label>
+                                            <input type="text" id="passing_year" name="education[0][passing_year]" placeholder="YYYY" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="score">Score</label>
+                                            <input type="text" id="score" name="education[0][score]" placeholder="CGPA / Percentage">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="add_education" class="add-more-btn">Add Another Education</button>
+
+                            <h2>Experience</h2>
+                            <div class="experience-section">
+                                <div class="experience-entry">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="company">Company Name <span>*</span></label>
+                                            <input type="text" id="company" name="experience[0][company]" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="role">Role/Position <span>*</span></label>
+                                            <input type="text" id="role" name="experience[0][role]" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="start_date">Start Date <span>*</span></label>
+                                            <input type="date" id="start_date" name="experience[0][start_date]" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end_date">End Date</label>
+                                            <input type="date" id="end_date" name="experience[0][end_date]">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="description">Description</label>
+                                            <textarea id="description" name="experience[0][description]" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group full-width">
+                                            <label for="achievements">Achievements</label>
+                                            <textarea id="achievements" name="experience[0][achievements]" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="add_experience" class="add-more-btn">Add Another Experience</button>
+
+                            <h2>Job Application Details</h2>
                             <div class="form-row">
                                 <div class="form-group full-width">
-                                    <label for="resume">Add CV / Resume <span>*</span></label>
-                                    <input type="file" id="resume" required>
+                                    <label for="application_skills">Relevant Skills for this Job <span>*</span></label>
+                                    <textarea id="application_skills" name="application_skills" rows="3" required></textarea>
                                 </div>
                             </div>
-                        </form>
-                        <div class="form-navigation">
-                            <button type="button" class="next-btn" id="next1" onclick="nextStep()">Next →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2: Qualification Details -->
-                <div class="input-box form-step hidden" id="step2">
-                    <div class="form-container">
-                        <h2>Qualification</h2>
-                        <form>
-                            <div class="form-group full-width">
-                                <label for="education">Highest Education <span>*</span></label>
-                                <select id="education" required>
-                                    <option value="">Select</option>
-                                    <option value="PHD">PHD</option>
-                                    <option value="Master">Master's</option>
-                                    <option value="Bachelor">Bachelor's</option>
-                                    <option value="HighSchool">High School</option>
-                                </select>
-                            </div>
-
-                            <div class="form-row1">
-                                <div class="form-group short-width">
-                                    <label for="specialization">Specialization</label>
-                                    <select id="specialization">
-                                        <option value="">Select</option>
-                                        <option value="CSE">CSE</option>
-                                        <option value="IT">IT</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group short-width">
-                                    <label for="passing-year">Year of Passing</label>
-                                    <input type="number" id="passing-year" placeholder="YYYY">
-                                </div>
-
-                                <div class="form-group short-width">
-                                    <label for="score">Score</label>
-                                    <input type="text" id="score" placeholder="CGPA / Percentage">
-                                </div>
-                            </div>
-
-                            <!-- Dynamic Education Section -->
-                            <h4 class="add-education" id="add-education">Education +</h4>
-                            <div id="education-container"></div>
-                        </form>
-                        <div class="form-navigation">
-                            <button type="button" onclick="prevStep()">← Previous</button>
-                            <button type="button" class="next-btn" onclick="nextStep()">Next →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 3: Skills Details -->
-                <div class="input-box form-step hidden" id="step3">
-                    <div class="form-container">
-                        <h2>Skills</h2>
-                        <form>
-                            <div class="form-group full-width">
-                                <label for="skill">Add Skill <span>*</span></label>
-                                <input type="text" id="skill" required>
-                            </div>
-
-                            <div class="form-group full-width">
-                                <label for="certificate">Add Certificate <span>*</span></label>
-                                <input type="file" id="rcertificate" required>
-                            </div>
-                        </form>
-                        <div class="form-navigation">
-                            <button type="button" onclick="prevStep()">← Previous</button>
-                            <button type="button" class="next-btn" onclick="nextStep()">Next →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 4: Experience Details -->
-                <div class="input-box form-step hidden" id="step4">
-                    <div class="form-container">
-                        <form>
-                            <h2>Experience</h2>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="job-role">Job Role/Position<span>*</span></label>
-                                    <input type="text" id="job-role" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="company">Company Name<span>*</span></label>
-                                    <input type="text" id="company" required>
+                                    <label for="expected_ctc">Expected CTC</label>
+                                    <input type="text" id="expected_ctc" name="expected_ctc" placeholder="e.g. 8 LPA">
                                 </div>
                             </div>
 
-                            <div class="form-row1">
-                                <div class="form-group short-width">
-                                    <label for="joining-date">Joining date</label>
-                                    <input type="number" id="joining-date" placeholder="YYYY">
-                                </div>
-
-                                <div class="form-group short-width">
-                                    <label for="ending date">Ending Date</label>
-                                    <input type="number" id="ending-date" placeholder="YYYY">
-                                </div>
-
-                                <div class="form-group short-width">
-                                    <label for="ctc">CTC</label>
-                                    <input type="text" id="ctc" placeholder="Annual CTC">
-                                </div>
+                            <div class="form-navigation">
+                                <button type="submit" class="submit-btn">Submit Application</button>
                             </div>
                         </form>
-                        <div class="form-navigation">
-                            <button type="button" onclick="prevStep()">← Previous</button>
-                            <button type="button" class="next-btn" id="submit-btn" onclick="nextStep()">Submit</button>
-                        </div>
                     </div>
-                </div>
-
-                <!-- Step 5: Confirmation -->
-                <div class="input-box form-step hidden" id="step5">
-                    <h2>Confirmation</h2>
-                    <p>Thank you for submitting your application. We will get back to you soon.</p>
                 </div>
             </div>
             <!-- End of job_application content -->
@@ -516,55 +232,50 @@
     </div>
 
     <script>
-        // Add this to your <script> section in the HTML template
-            const searchInput = document.getElementById('q');
-            const autocompleteResults = document.getElementById('autocomplete-results');
-            const filterForm = document.getElementById('filterForm');
+        // Search autocomplete functionality
+        const searchInput = document.getElementById('q');
+        const autocompleteResults = document.getElementById('autocomplete-results');
+        const filterForm = document.getElementById('filterForm');
+        
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim();
             
-            searchInput.addEventListener('input', function(e) {
-                const searchTerm = e.target.value.trim();
-                console.log("Search term:", searchTerm); // Debug log
-              
-                if (searchTerm.length > 2) {
-                  fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
-                    .then(response => response.json())
-                    .then(suggestions => {
-                      console.log("Suggestions received:", suggestions); // Debug log
-                      if (suggestions && suggestions.length > 0) {
-                        autocompleteResults.innerHTML = suggestions
-                          .map(suggestion => `<div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`)
-                          .join('');
-                        autocompleteResults.style.display = 'block';
-                      } else {
-                        autocompleteResults.style.display = 'none';
-                      }
-                    })
-                    .catch(err => {
-                      console.error('Autocomplete fetch error:', err);
-                      autocompleteResults.style.display = 'none';
-                    });
-                } else {
+            if (searchTerm.length > 2) {
+              fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
+                .then(response => response.json())
+                .then(suggestions => {
+                  if (suggestions && suggestions.length > 0) {
+                    autocompleteResults.innerHTML = suggestions
+                      .map(suggestion => `<div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`)
+                      .join('');
+                    autocompleteResults.style.display = 'block';
+                  } else {
+                    autocompleteResults.style.display = 'none';
+                  }
+                })
+                .catch(err => {
+                  console.error('Autocomplete fetch error:', err);
                   autocompleteResults.style.display = 'none';
-                }
-              });
-              
-            
-            function selectSuggestion(suggestion) {
-              searchInput.value = suggestion;
+                });
+            } else {
               autocompleteResults.style.display = 'none';
-              // Optionally trigger the form submission after selecting a suggestion:
-              filterForm.submit();
             }
-            
-            // Hide suggestions when clicking outside the input or suggestion box
-            document.addEventListener('click', function(e) {
-              if (!e.target.closest('#autocomplete-results') && !e.target.closest('#q')) {
-                autocompleteResults.style.display = 'none';
-              }
-            });
-               // -----------------------------
-        // JOB DETAILS + APPLY FUNCTION
-        // -----------------------------
+        });
+        
+        function selectSuggestion(suggestion) {
+          searchInput.value = suggestion;
+          autocompleteResults.style.display = 'none';
+          filterForm.submit();
+        }
+        
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('#autocomplete-results') && !e.target.closest('#q')) {
+            autocompleteResults.style.display = 'none';
+          }
+        });
+
+        // Job details display function
         function showJobDetails(element) {
             const logo = element.getAttribute('data-logo');
             const company = element.getAttribute('data-company');
@@ -581,6 +292,7 @@
             const companyEmployees = element.getAttribute('data-company-employees');
             const companyIndustry = element.getAttribute('data-company-industry');
             const companyEstablished = element.getAttribute('data-company-established');
+            const jobId = element.getAttribute('data-job-id');
         
             document.getElementById('jobDetails').innerHTML = `
                 <div class="job-details-container">
@@ -590,7 +302,7 @@
                             <h2>${role}</h2>
                             <p>${company}</p>
                         </div>
-                        <button class="applyy-btn" onclick="openApplicationForm()">Apply Now</button>
+                        <button class="applyy-btn" onclick="openApplicationForm('${jobId}')">Apply Now</button>
                     </div>
                     <div class="job-meta">
                         <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
@@ -623,16 +335,12 @@
                     </div>
                 </div>
             `;
+            console.log("Job ID for apply:", jobId); // Add debug logging
         }
         
-
-function applyNow() {
-    window.location.href = '/apply';  // Change '/apply' to your actual application URL
-}
-        // -----------------------------
-        // MODAL CONTROL
-        // -----------------------------
-        function openModal() {
+        function openApplicationForm(jobId) {
+            console.log("Setting job ID to:", jobId);
+            document.getElementById("job_id").value = jobId;
             document.getElementById("applicationModal").style.display = "block";
         }
 
@@ -640,7 +348,7 @@ function applyNow() {
             document.getElementById("applicationModal").style.display = "none";
         }
 
-        // Close the modal if user clicks outside of the modal content
+        // Close modal when clicking outside
         window.onclick = function(event) {
             let modal = document.getElementById("applicationModal");
             if (event.target === modal) {
@@ -648,84 +356,99 @@ function applyNow() {
             }
         }
 
-        // -----------------------------
-        // MULTISTEP FORM FUNCTIONS
-        // -----------------------------
-        function nextStep() {
-            var currentStep = document.querySelector('.form-step:not(.hidden)');
-            var nextStep = currentStep.nextElementSibling;
-
-            if (nextStep && nextStep.classList.contains('form-step')) {
-                currentStep.classList.add('hidden');
-                nextStep.classList.remove('hidden');
-            }
-        }
-
-        function prevStep() {
-            var currentStep = document.querySelector('.form-step:not(.hidden)');
-            var prevStep = currentStep.previousElementSibling;
-
-            if (prevStep && prevStep.classList.contains('form-step')) {
-                currentStep.classList.add('hidden');
-                prevStep.classList.remove('hidden');
-            }
-        }
-
-        // Add education fields
-        document.getElementById("add-education").addEventListener("click", function () {
-            let container = document.getElementById("education-container");
-
-            let newEntry = document.createElement("div");
-            newEntry.classList.add("form-row1");
-
-            newEntry.innerHTML = `
-                <div class="form-group short-width">
-                    <label>Course</label>
-                    <input type="text" id="course" placeholder="Course">
+        // Add education fields dynamically
+        let educationCounter = 1;
+        document.getElementById("add_education").addEventListener("click", function() {
+            const educationSection = document.querySelector(".education-section");
+            const newEducation = document.createElement("div");
+            newEducation.classList.add("education-entry");
+            newEducation.innerHTML = `
+                <hr>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="degree${educationCounter}">Degree <span>*</span></label>
+                        <input type="text" id="degree${educationCounter}" name="education[${educationCounter}][degree]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialization${educationCounter}">Specialization</label>
+                        <input type="text" id="specialization${educationCounter}" name="education[${educationCounter}][specialization]">
+                    </div>
                 </div>
-                <div class="form-group short-width">
-                    <label>Year of Passing</label>
-                    <input type="text" placeholder="YYYY">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="institution${educationCounter}">Institution <span>*</span></label>
+                        <input type="text" id="institution${educationCounter}" name="education[${educationCounter}][institution]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="score${educationCounter}">Score</label>
+                        <input type="text" id="score${educationCounter}" name="education[${educationCounter}][score]" placeholder="CGPA / Percentage">
+                    </div>
                 </div>
-                <div class="form-group short-width">
-                    <label>Score</label>
-                    <input type="text" placeholder="CGPA / Percentage">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="passing_year${educationCounter}">Year of Passing <span>*</span></label>
+                        <input type="text" id="passing_year${educationCounter}" name="education[${educationCounter}][passing_year]" placeholder="YYYY" required>
+                    </div>
                 </div>
-                <button class="remove-education">Remove</button>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
             `;
-
-            container.appendChild(newEntry);
-
-            // Remove entry when "Remove" is clicked
-            newEntry.querySelector(".remove-education").addEventListener("click", function () {
-                container.removeChild(newEntry);
-            });
+            educationSection.appendChild(newEducation);
+            educationCounter++;
         });
-        // *************first card already opened
-        document.addEventListener("DOMContentLoaded", function () {
-    let firstJobCard = document.querySelector(".job-card");
 
-    if (firstJobCard) {
-        showJobDetails(firstJobCard); // Automatically pehli job ki details show karenge
-    }
-});
-function openForm() {
-    document.getElementById("applyForm").style.display = "block";
-}
+        // Add experience fields dynamically
+        let experienceCounter = 1;
+        document.getElementById("add_experience").addEventListener("click", function() {
+            const experienceSection = document.querySelector(".experience-section");
+            const newExperience = document.createElement("div");
+            newExperience.classList.add("experience-entry");
+            newExperience.innerHTML = `
+                <hr>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company${experienceCounter}">Company Name <span>*</span></label>
+                        <input type="text" id="company${experienceCounter}" name="experience[${experienceCounter}][company]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="role${experienceCounter}">Role/Position <span>*</span></label>
+                        <input type="text" id="role${experienceCounter}" name="experience[${experienceCounter}][role]" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="start_date${experienceCounter}">Start Date <span>*</span></label>
+                        <input type="date" id="start_date${experienceCounter}" name="experience[${experienceCounter}][start_date]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date${experienceCounter}">End Date</label>
+                        <input type="date" id="end_date${experienceCounter}" name="experience[${experienceCounter}][end_date]">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="description${experienceCounter}">Description</label>
+                        <textarea id="description${experienceCounter}" name="experience[${experienceCounter}][description]" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="achievements${experienceCounter}">Achievements</label>
+                        <textarea id="achievements${experienceCounter}" name="experience[${experienceCounter}][achievements]" rows="3"></textarea>
+                    </div>
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+            `;
+            experienceSection.appendChild(newExperience);
+            experienceCounter++;
+        });
 
-function closeForm() {
-    document.getElementById("applyForm").style.display = "none";
-}
-function openApplicationForm() {
-    document.getElementById("applicationModal").style.display = "block";
-}
-
-function closeApplicationForm() {
-    document.getElementById("jobAppForm").style.display = "none";
-}
-
-
+        // Auto-open first job's details
+        document.addEventListener("DOMContentLoaded", function() {
+            let firstJobCard = document.querySelector(".job-card");
+            if (firstJobCard) {
+                showJobDetails(firstJobCard);
+            }
+        });
     </script>
-
 </body>
 </html>

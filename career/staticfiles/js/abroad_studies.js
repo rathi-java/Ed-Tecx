@@ -57,3 +57,58 @@ function setActiveTab(selectedTab) {
 
 // setInterval(updateSlider, 3000);
 // </script> //
+
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   const slider = document.querySelector('.slider-abroad-sec6');
+//   const wrapper = document.querySelector('.slider-container-abroad-sec6');
+//   if (!slider || !wrapper) return;
+
+//   const cards = Array.from(slider.querySelectorAll('.card-abroad-sec6'));
+//   if (cards.length === 0) return;
+
+//   const cardWidth = cards[0].offsetWidth + 
+//                     parseInt(getComputedStyle(cards[0]).marginLeft) + 
+//                     parseInt(getComputedStyle(cards[0]).marginRight);
+
+//   let scrollPosition = 0;
+
+//   // Clone the cards multiple times to prevent gaps
+//   const cloneCards = () => {
+//     const totalCardsNeeded = Math.ceil(wrapper.offsetWidth / cardWidth) + 2; // Ensure enough clones
+//     for (let i = 0; i < totalCardsNeeded; i++) {
+//       cards.forEach(card => {
+//         const clone = card.cloneNode(true);
+//         slider.appendChild(clone);
+//       });
+//     }
+//   };
+  
+//   cloneCards(); // Clone initially
+
+//   function scrollCards() {
+//     scrollPosition -= 1.5; // Adjust speed if needed
+//     slider.style.transform = `translateX(${scrollPosition}px)`;
+
+//     // Reset scroll when first set is completely out of view
+//     if (Math.abs(scrollPosition) >= cardWidth * cards.length) {
+//       scrollPosition = 0;
+//       slider.style.transform = `translateX(0px)`;
+//     }
+
+//     requestAnimationFrame(scrollCards);
+//   }
+
+//   // Start animation
+//   scrollCards();
+
+//   // Pause animation on hover
+//   wrapper.addEventListener('mouseenter', () => {
+//     slider.style.animationPlayState = 'paused';
+//   });
+
+//   wrapper.addEventListener('mouseleave', () => {
+//     slider.style.animationPlayState = 'running';
+//   });
+// });

@@ -4,6 +4,13 @@ from .documents import InternshipDocument
 import datetime
 import calendar
 
+
+def internship_landing_page(request):
+    """
+    Render the internship portal page.
+    """
+    return render(request, 'internship_landing_page.html')
+
 def autocomplete_internship(request):
     term = request.GET.get('term', '')
     suggestions = []
@@ -28,9 +35,6 @@ def autocomplete_internship(request):
                 suggestions.append(option.text)
     
     return JsonResponse(suggestions, safe=False)
-from django.shortcuts import render
-from django.http import JsonResponse
-from .documents import InternshipDocument
 
 def elastic_internship_search(request):
     """
@@ -120,5 +124,8 @@ def elastic_internship_search(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return JsonResponse({'internships': internships})
     
-    # For the initial load render the page with internships
-    return render(request, 'internship_page.html', {'internships': internships})
+def internship_landing_page(request):
+    """
+    Render the internship portal page.
+    """
+    return render(request, 'internship_landing_page.html')
