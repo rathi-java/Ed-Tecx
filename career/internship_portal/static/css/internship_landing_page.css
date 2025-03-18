@@ -133,7 +133,7 @@ body {
   }
   @media (max-width: 1440px) {
     .intern-container{
-      width: 97%;
+      width: 100%;
     }
     .inter4{
       margin-bottom: 0.5%;
@@ -257,7 +257,6 @@ body {
   ;
     justify-content: center;
     align-items: center;
-    padding: 4px 23px;
     background: #f9f9f9;
     padding-bottom: 0.2rem;
   }
@@ -272,8 +271,11 @@ body {
         /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
         padding: 40px;
         /* margin-block: -3.4%; */
+        margin-top: 2px;
     }
-    
+    .fa-1:before {
+      color: #2d7fc4;
+    }
   .intern2-img-sec {
     flex: 1;
     display: flex;
@@ -402,12 +404,15 @@ body {
     }
     .intern2-section {
      
-      padding: 3px 31px;
+      padding: 2px 1px;
       
   }
     .card-default img {
       width: 48px;
       height: 48px;
+    }
+    .btn-btn-btn{
+      margin-bottom: 4%;
     }
   }
   @media (max-width: 768px) {
@@ -427,7 +432,7 @@ body {
         height: 120px;
     }
     .intern2-section {
-      padding: 3px 24px;
+      padding: 3px 0px;
   }
   .intern2-img-sec img {
     width: 80%;
@@ -460,7 +465,7 @@ body {
       background: #f9f9f9;
   }
   .intern2-section {
-    padding: 3px 12px;
+    padding: 3px 0px;
   }
   }
   @media (max-width: 426px) {
@@ -636,6 +641,12 @@ body {
   .inter3-fourth .inter3-top-container {
     background: plum;
   }
+  @media (max-width: 2561px) {
+    .curvee {
+      position: absolute;
+      right: 9%;
+    }
+  }
   @media (max-width: 1024px){
     .inter3-benefit {
       background: #fff;
@@ -689,6 +700,7 @@ body {
         width: 90%;
         height: auto;
     }
+   
   }
   
   @media (max-width: 600px) {
@@ -710,8 +722,7 @@ body {
   
   @media (max-width: 320px){
     .inter3-container {
-      
-      width: 92%;
+      width: 100%;
   }
   .inter3-benefit {
     width: 85%;
@@ -1341,7 +1352,7 @@ body {
   }
   @media (max-width:320px){
     .inter4 {
-      width: 92%;
+      width: 100%;
   }
   }
   
@@ -1737,7 +1748,7 @@ body {
   
   .curvee {
     position: absolute;
-    right: -26%;
+    right: -21%;
     z-index: 1; /* Lower z-index so it goes behind the image */
     width: 500px;
     height: 78px;
