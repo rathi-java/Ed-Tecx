@@ -118,7 +118,7 @@ body {
   margin-left: auto;
 }
 
-.nav-links ul {
+.nav-links .header-nav-links-ul {
   list-style: none;
   display: flex;
   gap: 20px;
@@ -476,12 +476,12 @@ p.footer-bottom-text {
 }
 
 /* Footer practice links hover effects */
-.footer-practice ul li a {
+.footer-practice .base-footer-practice-ul li a {
   text-decoration: none;
   color: inherit;
 }
 
-.footer-practice ul li a:hover {
+.footer-practice .base-footer-practice-ul li a:hover {
   text-decoration: none;
 }
 
@@ -587,12 +587,12 @@ p.footer-bottom-text {
   padding: 12px 19.5px;
 }
 
-.mobile-sidebar ul {
+.mobile-sidebar .base-mobile-sidebar-ul {
   list-style: none;
   padding: 0;
 }
 
-.mobile-sidebar ul li {
+.mobile-sidebar .base-mobile-sidebar-ul li {
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
