@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import elastic_internship_search, autocomplete_internship
+from .views import *
 
 urlpatterns = [
     path('internships/', elastic_internship_search, name='internship_search'),
     path('autocomplete/internships/', autocomplete_internship, name='autocomplete_internship'),
+    path('', internship_landing_page, name='internship_landing_page'),
 ]
