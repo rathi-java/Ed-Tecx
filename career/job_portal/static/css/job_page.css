@@ -431,10 +431,12 @@ button#applyFilter {
 
 
 
+
 @media (max-width: 1440px) {
     form#filterForm {
-        display: flex;
-        gap: 23px;
+        display: flex
+;
+        gap: 20px;
         margin-inline: 3%;
     }
     .right-section {
@@ -467,8 +469,11 @@ button#applyFilter {
         margin-top: -5px;
         margin-left: 4px;
     }
-    .filter-controls {
-        width: 99%;
+    .job-header img {
+        width: 12%;
+    }
+    .job-title p{
+        margin-top: -23px;
     }
 }
 @media screen and (max-width: 1024px) {
@@ -481,6 +486,15 @@ button#applyFilter {
         border: none;
         padding: 5px 40px;
         border-radius: 41px;
+    }
+    .filter-controls {
+        width: 99%;
+    }
+
+    form#filterForm {
+        display: flex
+;
+        gap: 13px;
     }
 
 
@@ -507,7 +521,8 @@ button#applyFilter {
     margin: 0;
     font-size: 24px;
     color: #000000;
-    margin-top: -26px;
+   
+    margin-top: -18px;
     font-weight: 600;
 }
 button#applyFilter {
@@ -610,7 +625,7 @@ form#filterForm {
 }
 .job-card img {
     position: static;
-    margin-top: -97px;
+    margin-top: -63px;
 }
 
 .job-info {
@@ -660,14 +675,15 @@ form#filterForm {
     .job-title p {
         font-size: 16px;
         text-align: center;
-        line-height: 73px;
+       
         margin-inline: 7%;
         margin-bottom: -18%;
+        line-height: 39px;
     }
     .job-title h2 {
-        font-size: 14px;
+        font-size: 18px;
         /* text-align: center; */
-        margin-inline: 7%;
+        margin-inline: 0%;
     }
     .applyy-btn {
         font-size: 16px;
@@ -692,23 +708,33 @@ form#filterForm {
         margin-top: -18px;
         font-size: 10px;
     }
-    .detail {
-        font-size: 10px;
-    }
+ 
     .detail .job-carrer-ul li {
         font-family: 'Poppins';
         font-size: 11px;
+    }
+    .detailll {
+        font-size: 14px;
+        margin-top: -25px;
+        margin-bottom: 35px;
     }
 }
 
 /* Extra small screens (Very small mobile devices - 480px and below) */
 @media  (max-width: 480px) {
+    .job-header img {
+        width: 38%;
+    }
     .detailll {
         font-size: 12px;
     }
     .job-header {
         gap: 17px;
         flex-direction: column;
+    }
+    .job-card img {
+        position: static;
+        margin-bottom: 16px;
     }
     button#applyFilter {
         background-color: #0F8E2A;
@@ -734,6 +760,13 @@ form#filterForm {
     /* flex-wrap: wrap; */
     padding-bottom: 41px;
 
+}
+.right-section {
+    margin-right: 2px;
+    width: 500px;
+    margin-right: -6px;
+    margin-top: 15px;
+    overflow-x: hidden;
 }
 
 
@@ -832,9 +865,11 @@ form#filterForm {
         margin-left: 201px;
     }
 }
-@media(max-width:380px){
+@media(max-width:480px){
    
-    
+    .job-info p {
+        margin: 1px 13px;
+    }
     
 }
 @media  (max-width: 380px) {
@@ -859,8 +894,8 @@ form#filterForm {
         flex-direction: column;
     }
     .job-info p {
-     
-        margin-left: -105px;
+        margin-left: -43px;
+        width: 50%;
     }
     .job-header img {
         width: 73%;
@@ -967,7 +1002,6 @@ form#filterForm {
             flex-direction: column;
         }
         .job-info p {
-            margin: 2px -92px;
             color: #000000;
             flex-wrap: wrap;
             font-size: 10px;
@@ -1040,6 +1074,18 @@ form#filterForm {
         font-size: 0.9rem;
         padding: 0.4rem;
     }
+    .left-section, .right-section {
+        width: 100%;
+        padding: 10px;
+        overflow-x: hidden;
+    }
+    .internship-specs {
+        display: flex
+    ;
+        gap: 20px;
+        margin: 20px 0;
+        flex-direction: column;
+    }
 }
 
 /* Responsive adjustments for small screens */
@@ -1056,6 +1102,24 @@ form#filterForm {
     .input-container select {
         font-size: 0.85rem;
         padding: 0.35rem;
+    }
+    .right-section {
+        margin-right: 2px;
+        width: 500px;
+        margin-right: 17px;
+        margin-top: 15px;
+        overflow-x: hidden;
+    }
+    .internship-specs {
+        display: flex
+    ;
+        gap: 20px;
+        margin: 20px 0;
+        flex-direction: column;
+    }
+    .job-card img {
+        position: static;
+        margin-bottom: 24px;
     }
 }
 
