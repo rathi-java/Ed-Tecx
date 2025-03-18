@@ -450,7 +450,7 @@ body {
 .footer-line {
   width: 100%;
   max-width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -473,7 +473,7 @@ body {
 }
 
 p.footer-bottom-text {
-  font-size: 8px;
+  font-size: 15px;
   text-align: left;
   width: 100%;
   margin: 15px 0;
@@ -642,7 +642,7 @@ p.footer-bottom-text {
   }
   
   p.footer-bottom-text {
-    font-size: 8px;
+    font-size: 15px;
   }
 }
 
@@ -686,6 +686,7 @@ p.footer-bottom-text {
   
   p.footer-bottom-text {
     text-align: left;
+    font-size: 12px;
   }
   
   .footer-link-four {
@@ -817,7 +818,7 @@ p.footer-bottom-text {
   }
   
   p.footer-bottom-text {
-    font-size: 8px;
+    font-size: 9px;
     text-align: left;
   }
   

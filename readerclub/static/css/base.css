@@ -144,10 +144,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Conditional nav-links margin (logged-in vs. logged-out) */
-.navbar.logged-in .nav-links {
-  padding-left: 10%;
-}
+
 
 /*****************************************************
  * 4. DROPDOWNS
@@ -447,7 +444,7 @@ body {
 .footer-line {
   width: 100%;
   max-width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -470,7 +467,7 @@ body {
 }
 
 p.footer-bottom-text {
-  font-size: 8px;
+  font-size: 15px;
   text-align: left;
   width: 100%;
   margin: 15px 0;

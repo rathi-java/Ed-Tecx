@@ -450,7 +450,7 @@ body {
 .footer-line {
   width: 100%;
   max-width: 100%;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -473,7 +473,7 @@ body {
 }
 
 p.footer-bottom-text {
-  font-size: 8px;
+  font-size: 15px;
   text-align: left;
   width: 100%;
   margin: 15px 0;
@@ -897,4 +897,7 @@ p.footer-bottom-text {
     margin-top: 20px;
     margin-left: -46px;
   }
+}.fa-bars:before, .fa-navicon:before {
+  content: "\f0c9";
+  color: black;
 }
