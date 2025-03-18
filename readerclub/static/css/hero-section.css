@@ -125,6 +125,8 @@ font-size: 56px;
 .campus-expll {
   text-align: center;
   margin-top: 30px;
+  margin-inline: 25%;
+  width: 25%;
 }
 
 .campus-expll img {
@@ -132,6 +134,7 @@ font-size: 56px;
   height: auto;
 }
 @media (max-width: 1204px) {
+  
   .nav-container {
     max-width: 96%;
   }
@@ -176,8 +179,8 @@ line-height: 1.5;
   width: 122px;
 }
   .campus-image-container img {
-    width: 145%;
-    height: 146%;
+    width: 130%;
+        height: 157%;
     max-height: unset;
     object-fit: contain;
     right: 10%;
@@ -227,6 +230,9 @@ line-height: 1.5;
   .campus-title {
     font-size: 13px;
   }
+  .campus-expll{
+    margin-inline: 12%;
+  }
 }
 
 @media (max-width: 480px) {
@@ -265,6 +271,9 @@ max-width: 174px;
 height: auto;
 width: -15%;
 margin-left: 18%;
+}
+.campus-expll {
+  margin-inline: 0%;
 }
 
 .campus-feature-box{
@@ -370,6 +379,8 @@ object-fit: contain;
   background-color: white;
   /* border: 1px solid gray; */
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+ 
+  z-index: 999; /* Ensure it stays below the dropdown */
 }
 
 .campus-title {

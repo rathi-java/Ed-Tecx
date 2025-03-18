@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 94px;
+    padding-bottom: 5%;
 }
 
 .exam-title {
@@ -52,7 +53,7 @@
 
 .exam-left-section {
     text-align: left;
-    margin-bottom: 6%;
+    margin-top: -10%;
 }
 
 .exam-left-section p {
@@ -237,6 +238,12 @@ position: relative;
         width: 95%;
 }
 
+}
+@media (max-width: 2560px) {
+    .exam-container{
+        
+        padding-bottom: 10%;
+    }
 }
 @media (max-width: 1024px) {
     .exam-content-wrapper {

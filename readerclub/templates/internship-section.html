@@ -38,7 +38,11 @@
                 <li>✅ Enhance your portfolio with impactful projects.</li>
                 <li>✅ Get certified & boost your resume for career success.</li>
             </ul>
-            <button class="explore-btn" onclick="window.location.href='{{CAREER_URL}}/internship-portal/'">Explore internship →</button>
+            {% comment %} <button class="explore-btn" onclick="window.location.href='{{CAREER_URL}}/internship-portal/'">Explore internship →</button> {% endcomment %}
+            <a href="{{CAREER_URL}}/internship-portal/" class="cta-button exploreintern">
+                <span class="text">Explore internship</span>
+                <div class="arrow-box">→</div>
+            </a>
         </div>
     </div>
     </section>

@@ -11,8 +11,11 @@
             <li>✅ Secure a rewarding career with growth opportunities.</li>
         </ul>
       
-        <button class="jobs-explore-btn" onclick="window.location.href='{{CAREER_URL}}'">Explore Jobs →</button>
-       
+        {% comment %} <button class="jobs-explore-btn cta-button" onclick="window.location.href='{{CAREER_URL}}'">Explore Jobs →</button> {% endcomment %}
+        <a href="{{CAREER_URL}}" class="cta-button ">
+            <span class="text">Explore </span>
+            <div class="arrow-box">→</div>
+        </a>
     </div>
      <div class="jobs-cards">
         <div class="jobs-card">
