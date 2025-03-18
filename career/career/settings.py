@@ -192,7 +192,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'     # same name
 
 SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN")
-SECRET_KEY = 'django-insecure-mp$6t+(&#r+f5z97ggc%l0_%2efeg%bj713nhu-y=f16y_pmgs'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 AUTH_USER_MODEL = 'oauth.UsersDB'
 
@@ -210,7 +210,11 @@ LOGIN_REDIRECT_URL = '/'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://career.readerclub.in']
+CSRF_TRUSTED_ORIGINS = os.getenv("CAREER_CSRF_TRUSTED_ORIGINS").split(" ")
+CSRF_COOKIE_DOMAIN = os.getenv("CSRF_COOKIE_DOMAIN")
 
 LOGOUT_REDIRECT_URL = "/"
 CAREER_URL=os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
