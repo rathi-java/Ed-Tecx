@@ -255,6 +255,18 @@ def elastic_job_search(request):
     # Execute the search
     response = search.execute()
     jobs = response.hits
+    
+    # Process jobs to extract city from address
+    for job in jobs:
+        if hasattr(job, 'company') and hasattr(job.company, 'address'):
+            try:
+                address_parts = job.company.address.split(',')
+                if len(address_parts) > 1:
+                    job.company.city = address_parts[1].strip()
+                else:
+                    job.company.city = job.company.address
+            except Exception:
+                job.company.city = job.company.address
 
     # Render the same template, passing the ES results instead of ORM objects.
     return render(request, 'job_page.html', {'jobs': jobs})

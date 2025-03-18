@@ -898,3 +898,7 @@ p.footer-bottom-text {
     margin-left: -46px;
   }
 }
+.fa-bars:before, .fa-navicon:before {
+  content: "\f0c9";
+  color: black;
+}

@@ -27,8 +27,12 @@
         </div>
       </div>
 
-      <div class="campus-expll" onclick="window.location.href='https://career.readerclub.in/'" style="cursor: pointer;">
-        <img src="{% static 'images/explore.svg' %}" alt="Explore Button" />
+      <div class="campus-expll" onclick="window.location.href='{{CAREER_URL}}'" style="cursor: pointer;">
+        {% comment %} <img src="{% static 'images/explore.svg' %}" alt="Explore Button" /> {% endcomment %}
+<a href="{{CAREER_URL}}" class="cta-button explore-button">
+          <span class="text">Explore </span>
+          <div class="arrow-box">→</div>
+      </a>
     </div>
     </div>
 

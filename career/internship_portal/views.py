@@ -50,12 +50,23 @@ def elastic_internship_search(request):
     
     internships = []
     for hit in response:
+        # Extract city from location
+        city = hit.location
+        if hit.location and ',' in hit.location:
+            try:
+                address_parts = hit.location.split(',')
+                if len(address_parts) > 1:
+                    city = address_parts[1].strip()
+            except Exception:
+                city = hit.location
+                
         internship = {
             'id': hit.meta.id,
             'role': hit.role,
             'company': {
                 'name': hit.company_name,
                 'address': hit.location,
+                'city': city,  # Add the extracted city
                 'logo': hit.company_logo,
                 'about': hit.company_about,
                 'established_year': hit.company_established_year,
@@ -74,7 +85,6 @@ def elastic_internship_search(request):
         return JsonResponse({'internships': internships})
     else:
         return render(request, 'internship_page.html', {'internships': internships})
-
 def internship_landing_page(request):
     """
     Render the internship portal page.

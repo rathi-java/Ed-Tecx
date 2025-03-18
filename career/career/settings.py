@@ -191,8 +191,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'     # same name
 
-SESSION_COOKIE_DOMAIN = os.getenv("SESSION_COOKIE_DOMAIN")
 SECRET_KEY = os.getenv("SECRET_KEY")
+
+SESSION_COOKIE_DOMAIN = os.getenv("CAREER_SESSION_COOKIE_DOMAIN")
+
 
 AUTH_USER_MODEL = 'oauth.UsersDB'
 

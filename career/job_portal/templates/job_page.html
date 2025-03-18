@@ -71,15 +71,15 @@
                     {% endif %}
                     
                     <div class="job-info">
-                      <h3>{{ job.role }}</h3>
-                      <p class="techh">{{ job.company.name }}</p>
-                      <div class="tags">
-                          <span class="tag">{{ job.company.address }}</span>
-                          <span class="tag">{{ job.job_type }}</span>
-                          <span class="tag">{{ job.salary_per_annum }}/y</span>
-                      </div>
-                      <div class="divider"></div>
-                      <p class="timee">{{ job.created_at|timesince }} ago <a href="#" class="apply-btn">Apply Now →</a></p>
+                        <h3>{{ job.role }}</h3>
+                        <p class="techh">{{ job.company.name }}</p>
+                        <div class="tags">
+                            <span class="tag">{{ job.company.city }}</span>
+                            <span class="tag">{{ job.job_type }}</span>
+                            <span class="tag">{{ job.salary_per_annum }}/y</span>
+                        </div>
+                        <div class="divider"></div>
+                        <p class="timee">{{ job.created_at|timesince }} ago <a href="#" class="apply-btn">Apply Now →</a></p>
                     </div>
                 </div>
                 {% endfor %}

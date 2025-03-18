@@ -66,7 +66,40 @@
 <!-- top-company section-->
 {% include 'top-company.html' %}
 
-{% include 'abroad.html' %}
+{% load static %}
+<section class="abroad-studies">
+    <div class="images-abroad">
+        <img src="{% static 'abroad_images/abroad.png' %}" alt="University" class="secondary-image-abroad">
+        <div class="info-box top-left">
+            <img src="{% static 'abroad_images/admission-icon.png' %}" alt="Admission Assistance Icon">
+            Admission Assistance
+        </div>
+        <div class="info-box bottom-right">
+            <img src="{% static 'abroad_images/visa.png' %}" alt="Visa Guidance Icon">
+            Visa Guidance
+        </div>
+        <div class="info-box third-box">
+            <img src="{% static 'abroad_images/tick.png' %}" alt="Scholarship Icon">
+           <p class="congrats"><b>Congrats</b><br>You are selected</p> 
+        </div>
+    </div>
+    <div class="content-abroad">
+        <h3 class="subheading-abroad">Easy Study Abroad </h3>
+        <img src="{% static 'abroad_images/abroadimage.png' %}" alt="University" class="primary-image-abroad">
+        <h1 class="heading-abroad">Dreaming of studying in <br>Top Universities<br> Abroad?</h1>
+        <p class="description-abroad">We make it easier than ever by providing end-to-end support.</p>
+        <ul class="benefits-list-abroad">
+            <li><span>&#10004;</span> Immigration & Visa Consulting</li>
+            <li><span>&#10004;</span> Direct Online Interview</li>
+            <li><span>&#10004;</span> 99% Visa Approvals</li>
+        </ul>
+        <a href="{{CAREER_URL}}/abroad-studies/" class="cta-button">
+            <span class="text">Learn more</span>
+            <div class="arrow-box">→</div>
+        </a>
+        
+    </div>
+</section>
 
 {% include 'abroad_uni.html' %}
 

@@ -9,7 +9,7 @@ urlpatterns = [
     path('devops/', views.devops, name='devops'),
     path('management/', views.management_page, name='management_page'),
     path('finance/', views.finance, name='finance'),
-    path('digital_marketing/', views.digitalmarketing, name='digitalmarketing'),
+    path('digital-marketing/', views.digitalmarketing, name='digitalmarketing'),
     path('operationsmanagement/', views.operationsmanagement, name='operationsmanagement'),
     path('entrepreneurship/', views.entrepreneurship, name='entrepreneurship'),
 ]
