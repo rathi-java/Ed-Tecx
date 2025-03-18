@@ -14,13 +14,13 @@ from django.utils.timezone import now
 import random, time, smtplib
 from oauth.models import UsersDB, Otpdb
 
-
+import os
+from django.conf import settings
 from admin_portal.models import *
 # Load environment variables from secrets.env
-import os
-from dotenv import load_dotenv
-load_dotenv(".env")
+
 def home(request):
+    
     return render(request, 'index.html',{"CAREER_URL": settings.CAREER_URL})
 def update_profile(request):
     if request.method == "POST":
@@ -90,8 +90,8 @@ def profile(request):
     return render(request, 'profile.html', {'user': user})
 
 
-def home(request):
-    return render(request, 'index.html')
+# def home(request):
+#     return render(request, 'index.html')
 
 
 def logout_page(request):

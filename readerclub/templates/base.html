@@ -77,7 +77,7 @@
             <a class="nav-link" href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a>
           </li>
           <li>
-            <a class="nav-link" href="https://career.readerclub.in/">Job</a>
+            <a class="nav-link" href="{{CAREER_URL}}">Job</a>
           </li>
           <li>
             <a class="nav-link" href="https://library.readerclub.in/">Library</a>
@@ -147,7 +147,7 @@
         </ul>
       </li>
       <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
-      <li><a href="https://career.readerclub.in/">Job</a></li>
+      <li><a href="{{CAREER_URL}}">Job</a></li>
       <li><a href="https://library.readerclub.in/">Library</a></li>
       <li><a href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
       

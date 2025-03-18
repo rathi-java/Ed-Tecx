@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 <section class="abroad-studies">
     <div class="images-abroad">
         <img src="{% static 'abroad_images/abroad.png' %}" alt="University" class="secondary-image-abroad">
@@ -25,10 +25,10 @@
             <li><span>&#10004;</span> Direct Online Interview</li>
             <li><span>&#10004;</span> 99% Visa Approvals</li>
         </ul>
-        <a href="https://127.0.0.1:8001/abroad_studies/" class="cta-button">
+        <a href="{{ CAREER_URL }}/abroad_studies/" class="cta-button">
             <span class="text">Learn more</span>
             <div class="arrow-box">→</div>
         </a>
         
     </div>
-</section>
+</section> {% endcomment %}
