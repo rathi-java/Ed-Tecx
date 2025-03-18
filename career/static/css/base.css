@@ -118,9 +118,11 @@ body {
 .nav-links {
   display: flex;
   margin-left: auto;
+  justify-content: flex-end;
+  width: auto;
 }
 
-.nav-links ul {
+.nav-links .header-nav-links-ul {
   list-style: none;
   display: flex;
   gap: 20px;
@@ -146,9 +148,9 @@ body {
   transform: scale(1.05);
 }
 
-/* Conditional nav-links margin (logged-in vs. logged-out) */
-.navbar.logged-in .nav-links {
-  padding-left: 10%;
+.navbar .nav-links {
+  padding-left: 0;
+  margin-left: auto;
 }
 
 /*****************************************************
@@ -589,12 +591,12 @@ p.footer-bottom-text {
   padding: 12px 19.5px;
 }
 
-.mobile-sidebar ul {
+.mobile-sidebar .mobile-sidebar-ul {
   list-style: none;
   padding: 0;
 }
 
-.mobile-sidebar ul li {
+.mobile-sidebar .mobile-sidebar-ul li {
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
