@@ -112,3 +112,15 @@ function setActiveTab(selectedTab) {
 //     slider.style.animationPlayState = 'running';
 //   });
 // });
+
+const sliderTrack = document.querySelector('.slider-abroad-sec6');
+const slides = Array.from(sliderTrack.children);
+
+function cloneSlides() {
+    slides.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        sliderTrack.appendChild(clone);
+    });
+}
+
+cloneSlides();

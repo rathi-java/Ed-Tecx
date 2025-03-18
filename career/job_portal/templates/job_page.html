@@ -1,15 +1,14 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
+    {% block extra_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Listings</title>
     <link rel="stylesheet" href="{% static 'css/job_page.css' %}">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-</head>
-<body>
-    <div class="container">
+    {% endblock %}
+{% block content %}
+    <div class="job-container">
         <div class="filter-controls">
             <form method="GET" id="filterForm" style="position: relative;">
               <div class="input-container">
@@ -42,7 +41,7 @@
             </form>
         </div>
     
-        <div class="main-content">
+        <div class="job-main-content">
             <!-- Left Section for Job Listings -->
             <div class="left-section">
                 {% for job in jobs %}
@@ -230,7 +229,8 @@
             <!-- End of job_application content -->
         </div>
     </div>
-
+{% endblock %}
+{% block extra_js %}
     <script>
         // Search autocomplete functionality
         const searchInput = document.getElementById('q');
@@ -321,7 +321,7 @@
                     <p class="jd"><u>Job Description</u></p>
                     <p class="detail">${description}</p>
                     <p class="jd"><u>Skills Required</u></p>
-                    <ul>
+                    <ul class="job-carrer-ul">
                         ${skills.split(',').map(skill => `<li>${skill.trim()}</li>`).join('')}
                     </ul>
                     <hr>        
@@ -450,5 +450,4 @@
             }
         });
     </script>
-</body>
-</html>
+{% endblock %}
