@@ -24,14 +24,12 @@
   font-family: 'Font Awesome 6 Free' !important;
   font-weight: 900 !important;
   font-style: normal !important;
-  color: white;
 }
 
 /* Override for brand icons */
 .fab {
   font-family: 'Font Awesome 6 Brands' !important;
   font-style: normal !important;
-  color: white;
 }
 
 body {
@@ -118,11 +116,9 @@ body {
 .nav-links {
   display: flex;
   margin-left: auto;
-  justify-content: flex-end;
-  width: auto;
 }
 
-.nav-links .header-nav-links-ul {
+.nav-links ul {
   list-style: none;
   display: flex;
   gap: 20px;
@@ -148,10 +144,7 @@ body {
   transform: scale(1.05);
 }
 
-.navbar .nav-links {
-  padding-left: 0;
-  margin-left: auto;
-}
+
 
 /*****************************************************
  * 4. DROPDOWNS
@@ -166,9 +159,10 @@ body {
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 1000;
   top: 100%;
   border-top: 2px solid #1273b9;
+  margin-top: 21px;
 }
 
 .dropdown:hover .solution-dropdown-content {
@@ -232,6 +226,7 @@ body {
   text-align: right;
   font-family: 'Open Sans', sans-serif;
   font-size: 15px;
+  margin-right: 25px;
 }
 
 .signup button:hover {
@@ -253,7 +248,7 @@ body {
   border-radius: 50%;
   font-size: 20px;
   font-weight: bold;
-  margin-right: 15px;
+  margin-right: 25px;
   margin-left: 15px;
 }
 
@@ -348,6 +343,7 @@ body {
   overflow-x: hidden;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 /* Main footer container styles */
@@ -359,7 +355,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: calc(min(120px, 10%)); /* Adjusted for better alignment */
+  gap: calc(min(200px, 10%)); /* Adjusted for better alignment */
 }
 
 /* Footer image styling */
@@ -367,7 +363,7 @@ body {
   width: 165px;
   height: auto;
   margin-top: 37px;
-  margin-left: 0;
+  margin-left: 25px;
 }
 
 /* Second row container using column layout for hr + base row */
@@ -477,12 +473,13 @@ p.footer-bottom-text {
   text-align: left;
   width: 100%;
   margin: 15px 0;
+  margin-left: 25px;
 }
 
 /* Footer practice links hover effects */
 .footer-practice ul li a {
   text-decoration: none;
-  color: white;
+  color: inherit;
 }
 
 .footer-practice ul li a:hover {
@@ -591,12 +588,12 @@ p.footer-bottom-text {
   padding: 12px 19.5px;
 }
 
-.mobile-sidebar .mobile-sidebar-ul {
+.mobile-sidebar ul {
   list-style: none;
   padding: 0;
 }
 
-.mobile-sidebar .mobile-sidebar-ul li {
+.mobile-sidebar ul li {
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -634,7 +631,7 @@ p.footer-bottom-text {
   }
   
   .footer-container {
-    gap: calc(min(70px, 6%));
+    gap: calc(min(100px, 6%));
   }
   
   .footer-link-four {
@@ -642,7 +639,8 @@ p.footer-bottom-text {
   }
   
   p.footer-bottom-text {
-    font-size: 8px;
+    font-size: 10px;
+    
   }
 }
 
@@ -657,7 +655,7 @@ p.footer-bottom-text {
   .footer-container {
     justify-content: center;
     padding: 0 15px;
-    gap: calc(min(30px, 4%));
+    gap: calc(min(50px, 4%));
   }
   
   .footer-container > div {
@@ -742,7 +740,7 @@ p.footer-bottom-text {
   
   .footer-container img {
     margin-top: 20px;
-    margin-left: -60px;
+    margin-left: 20px; /* Remove the negative margin */
   }
   
   .footer-base {
@@ -753,12 +751,13 @@ p.footer-bottom-text {
   }
   
   .footer-base p {
-    text-align: left;
+    text-align: center;
   }
   
   p.footer-bottom-text {
     font-size: 8px;
-    text-align: left;
+    text-align: center;
+    margin-left: 0; /* Remove the left margin */
   }
   
   .footer-link-four {
@@ -773,11 +772,40 @@ p.footer-bottom-text {
   .footer-link-four > div {
     width: 80%;
     max-width: 300px;
+    text-align: center;
   }
   
+  /* Change text alignment to center for all text elements in footer */
   .footer-link-four > div p, 
-  .footer-link-four > div ul {
-    text-align: left;
+  .footer-link-four > div ul,
+  .footer-link-four > div li,
+  .footer-link-four > div a,
+  .footer-iii li,
+  .footer-iii li a,
+  .footer-practice ul li,
+  .footer-practice ul li a,
+  .footer-links ul li,
+  .footer-links ul li a,
+  .footer-contact-us ul li,
+  .footer-contact-us ul li a {
+    text-align: center;
+  }
+  
+  /* Make the lists display as centered blocks */
+  .footer-iii,
+  .footer-links ul,
+  .footer-practice ul,
+  .footer-contact-us ul {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+  
+  /* Center the icons with text */
+  .footer-contact-us ul li i {
+    display: block;
+    text-align: center;
+    margin: 0 auto 5px;
   }
   
   .discover-logo {
@@ -787,7 +815,6 @@ p.footer-bottom-text {
   .footer-line {
     width: 100%;
     max-width: 100%;
-    margin-top: 90px;
   }
 }
 
@@ -802,6 +829,13 @@ p.footer-bottom-text {
 
   .footer-para {
     font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    border-bottom: 2px solid white;
+    display: inline-block !important;
+    padding-bottom: 4px;
+    text-align: center;
+    width: auto !important;
   }
   
   .footer-container {
@@ -818,16 +852,78 @@ p.footer-bottom-text {
   
   p.footer-bottom-text {
     font-size: 8px;
-    text-align: left;
+    text-align: center;
+    margin-left: 0;
+  }
+  
+  .footer-link-four {
+    display: flex;
+    flex-direction: column !important;
+    gap: 20px;
+    margin-right: 0;
+    width: 100%;
+    align-items: center;
   }
   
   .footer-link-four > div {
     width: 90%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Center all text elements in footer */
+  .footer-link-four > div p, 
+  .footer-link-four > div ul,
+  .footer-link-four > div li,
+  .footer-link-four > div a,
+  .footer-iii li,
+  .footer-iii li a,
+  .footer-practice ul li,
+  .footer-practice ul li a,
+  .footer-links ul li,
+  .footer-links ul li a,
+  .footer-contact-us ul li,
+  .footer-contact-us ul li a {
+    text-align: center;
+  }
+  
+  /* Center icons with text */
+  .footer-contact-us ul li i {
+    display: block;
+    text-align: center;
+    margin: 0 auto 5px;
+  }
+  
+  /* Make lists display as centered blocks */
+  .footer-iii,
+  .footer-links ul,
+  .footer-practice ul,
+  .footer-contact-us ul {
+    display: block;
+    width: 100%;
+    padding: 0;
   }
   
   .footer-line {
     width: 100%;
     max-width: 100%;
+  }
+  
+  .footer-container img {
+    margin-left: 20px;
+    margin-right: 0;
+  }
+  
+  /* Fix for section headers to ensure they stay centered */
+  .footer-links .footer-para,
+  .footer-practice .footer-para,
+  .footer-ccc .footer-para,
+  .footer-contact-us .footer-para,
+  .footer-top .footer-para,
+  .footer-down .footer-para {
+    margin: 0 auto 10px;
   }
 }
 
@@ -848,7 +944,8 @@ p.footer-bottom-text {
   
   p.footer-bottom-text {
     font-size: 8px;
-    text-align: left;
+    text-align: center;
+    margin-left: 0;
   }
   
   .footer-container {
@@ -857,9 +954,43 @@ p.footer-bottom-text {
     gap: 20px;
   }
   
+  .footer-para {
+    font-size: 0.95rem;
+    display: inline-block !important;
+    width: auto !important;
+    text-align: center;
+    margin: 0 auto 10px;
+  }
+  
   .footer-line {
     width: 100%;
     max-width: 100%;
+  }
+  
+  .footer-container img {
+    margin-left: 20px;
+    margin-right: 0;
+  }
+  
+  /* Make links more tappable on small screens */
+  .footer-link-four > div li {
+    padding: 8px 0;
+  }
+  
+  /* Fix for section headers to ensure they stay centered */
+  .footer-links .footer-para,
+  .footer-practice .footer-para,
+  .footer-ccc .footer-para,
+  .footer-contact-us .footer-para,
+  .footer-top .footer-para,
+  .footer-down .footer-para {
+    margin: 0 auto 10px;
+  }
+  
+  .footer-link-four > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -869,7 +1000,7 @@ p.footer-bottom-text {
   .footer-container,
   .footer-base {
     max-width: 100%;
-    padding: 0 10px;
+    padding: 0 8px;
   }
 
   .signup button,
@@ -880,24 +1011,56 @@ p.footer-bottom-text {
   
   p.footer-bottom-text {
     font-size: 8px;
-    text-align: left;
+    text-align: center;
+    margin-left: 0;
   }
   
   .footer-container {
     flex-direction: column;
     align-items: center !important;
-    gap: 20px;
+    gap: 15px;
   }
   
   .footer-line {
     width: 100%;
     max-width: 100%;
   }
+  
   .footer-container img {
     margin-top: 20px;
-    margin-left: -46px;
+    margin-left: 20px;
+    margin-right: 0;
+    width: 130px; /* Slightly smaller logo for tiny screens */
   }
-}.fa-bars:before, .fa-navicon:before {
-  content: "\f0c9";
-  color: black;
+  
+  .footer-para {
+    font-size: 0.9rem;
+    display: inline-block !important;
+    width: auto !important;
+    text-align: center;
+    margin: 0 auto 8px;
+  }
+  
+  .footer-link-four > div {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Reduce spacing between items */
+  .footer-container ul li {
+    margin: 2px 0;
+    padding: 2px;
+  }
+  
+  /* Fix for section headers to ensure they stay centered */
+  .footer-links .footer-para,
+  .footer-practice .footer-para,
+  .footer-ccc .footer-para,
+  .footer-contact-us .footer-para,
+  .footer-top .footer-para,
+  .footer-down .footer-para {
+    margin: 0 auto 8px;
+  }
 }

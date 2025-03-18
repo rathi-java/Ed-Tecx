@@ -88,45 +88,45 @@ window.onclick = function(event) {
   }
 };
 
-// // ===============
-// // AUTH CHECK
-// // ===============
-// function handleAuthCheck(event, linkUrl) {
-//     // If user is logged in, allow the link to proceed
-//     if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
-//       // Optionally, you can navigate to the linkUrl here
-//       window.location.href = linkUrl;
-//       return;
-//     }
-//     // Otherwise, prevent default and show the sign-in pop-up
-//     event.preventDefault();
-//     const authPop = document.getElementById('authPopUp');
-//     if (authPop) {
-//       authPop.style.display = 'flex';
-//     }
-// }  
+// ===============
+// AUTH CHECK
+// ===============
+function handleAuthCheck(event, linkUrl) {
+    // If user is logged in, allow the link to proceed
+    if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+      // Optionally, you can navigate to the linkUrl here
+      window.location.href = linkUrl;
+      return;
+    }
+    // Otherwise, prevent default and show the sign-in pop-up
+    event.preventDefault();
+    const authPop = document.getElementById('authPopUp');
+    if (authPop) {
+      authPop.style.display = 'flex';
+    }
+}  
 
-// // Local login/signup modal triggers
-// function showLoginModal() {
-//   const authPop = document.getElementById('authPopUp');
-//   if (authPop) authPop.style.display = 'none';
-//   openModal('login');
-// }
-// function showSignupModal() {
-//   const authPop = document.getElementById('authPopUp');
-//   if (authPop) authPop.style.display = 'none';
-//   openModal('signup');
-// }
+// Local login/signup modal triggers
+function showLoginModal() {
+  const authPop = document.getElementById('authPopUp');
+  if (authPop) authPop.style.display = 'none';
+  openModal('login');
+}
+function showSignupModal() {
+  const authPop = document.getElementById('authPopUp');
+  if (authPop) authPop.style.display = 'none';
+  openModal('signup');
+}
 
-// // Close the auth pop-up if user clicks outside it
-// const authPopUp = document.getElementById('authPopUp');
-// if (authPopUp) {
-//   authPopUp.addEventListener('click', function(event) {
-//     if (event.target === authPopUp) {
-//       authPopUp.style.display = 'none';
-//     }
-//   });
-// }
+// Close the auth pop-up if user clicks outside it
+const authPopUp = document.getElementById('authPopUp');
+if (authPopUp) {
+  authPopUp.addEventListener('click', function(event) {
+    if (event.target === authPopUp) {
+      authPopUp.style.display = 'none';
+    }
+  });
+}
 
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {

@@ -14,9 +14,6 @@
     <!-- Pop-Up CSS -->
     <link rel="stylesheet" href="{% static 'css/popup.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/profile_dropdown.css' %}">
-
-
     <link rel="stylesheet" href="{% static 'css/faqs.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
 
@@ -24,6 +21,9 @@
     {% block extra_css %}
     {% endblock %}
 
+    <script>
+      var isLoggedIn = {% if request.session.user_id %} true {% else %} false {% endif %};
+    </script>
 
 
     <!-- Favicon -->
@@ -70,9 +70,9 @@
             <li>
               <a class="nav-link" href="/">Home</a>
             </li>
-            <li>
-              <a class="nav-link" href="{{CAREER_URL}}" >Job</a>
-            </li>
+            {% comment %} <li>
+              <a class="nav-link" href="{% url 'job_page' %}" >Job</a>
+            </li> {% endcomment %}
             <li>
               <a class="nav-link" href="{{CAREER_URL}}/internship-portal">Internship</a>
             </li>
@@ -226,19 +226,19 @@
           <p class="footer-para">Job & Opportunities</p>
           <ul class="footer-iii">
             <li>
-              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Full time Jobs</a>
+              <a href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Full time Jobs</a>
             </li>
             <li>
-              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Part time Jobs</a>
+              <a href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Part time Jobs</a>
             </li>
             <li class="footer-i">
-              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Remote Jobs</a>
+              <a href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Remote Jobs</a>
             </li>
             <li>
-              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Work From Home Jobs</a>
+              <a href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')" class="job-footer-link">Work From Home Jobs</a>
             </li>
             <li>
-              <a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="job-footer-link">Internships</a>
+              <a href="{% url 'internship_search' %}" onclick="handleAuthCheck(event, '{% url 'internship_search' %}')" class="job-footer-link">Internships</a>
             </li>
           </ul>          
         </div>
@@ -275,13 +275,6 @@
     </div>
   </div>
   
-  <!-- Footer Base -->
-  <div class="footer-container footer-column">
-    <div class="footer-base">
-      <!-- Space for social media icons if needed later -->
-    </div>
-  </div>
-  
   <!-- HR line outside the container with 100% width -->
   <hr class="footer-line">
   
@@ -315,20 +308,20 @@
   </div>
   {% include 'forgot_password.html' %}
 
-  <!-- "Please Sign-in" Pop-up -->
+  <!-- Authentication Required Popup -->
   <div id="authPopUp" class="popup-overlay">
     <div class="popup-box">
       <img src="{% static 'image/padlock.png' %}" alt="Lock" class="popup-lock">
       <h2>Please Sign-in to continue</h2>
       <p>You need to be logged in to access this page.</p>
       <div class="popup-buttons">
-        <a href="javascript:history.back()" class="go-back-button-maintenence">Go Back</a>
-        {% comment %} <button class="login-btn" onclick="showLoginModal()">Go back</button> {% endcomment %}
-        {% comment %} <button class="signup-btn" onclick="showSignupModal()">Signup</button> {% endcomment %}
+        <button class="login-btn" onclick="showLoginModal()">Login</button>
+        <button class="signup-btn" onclick="showSignupModal()">Signup</button>
       </div>
     </div>
   </div>
 
+  <script src="{% static 'js/auth.js' %}"></script>
 </body>
 
 {% block extra_js %}
@@ -349,6 +342,5 @@
     }
   });
 </script>
-<script src="{% static 'js/auth.js' %}"></script>
 {% endblock %}
 </html>
