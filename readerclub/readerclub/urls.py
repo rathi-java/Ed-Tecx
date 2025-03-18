@@ -34,21 +34,21 @@ urlpatterns = [
     path('roadmap/',include('roadmap.urls')),
     path('placement_stories/',include('placement_stories.urls')),
     # path('demoexam/',include('demo_exam.urls')),
-    path('practice_questions/',include('practice_question.urls')),
-    path('exam_registration/',include('exam_registration.urls')),
+    path('practice-questions/',include('practice_question.urls')),
+    path('exam-registration/',include('exam_registration.urls')),
     path('dashboard/',include('admin_portal.urls')),
     
     #Demo Test
-    path('demo_test/', demo_test, name="demo_test"),
-    path('certificate_management/',include('certificate_management.urls')),
+    path('demo-test/', demo_test, name="demo_test"),
+    path('certificate-management/',include('certificate_management.urls')),
     path('price/', price ,name="price"),
     path('policies/',include('policies.urls')),
 
     # Payment gateway
     path('pay/',include('price.urls')),
     path('maintenence/', maintenance_view, name='maintenance_view'),
-    path('adm_dashboard/', adm_dashboard, name='adm_dashboard'),
-    path('mgr_dashboard/', mgr_dashboard, name='mgr_dashboard'),
-    path('emp_dashboard/', emp_dashboard, name='emp_dashboard'),
+    path('adm-dashboard/', adm_dashboard, name='adm_dashboard'),
+    path('mgr-dashboard/', mgr_dashboard, name='mgr_dashboard'),
+    path('emp-dashboard/', emp_dashboard, name='emp_dashboard'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
