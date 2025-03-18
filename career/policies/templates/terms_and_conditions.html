@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}About Us{% endblock %}
+{% block title %}Terms and Conditions{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
@@ -714,7 +714,8 @@
         No Return, No Refund.
     </h3>
 </div>
-
+{% include 'faq.html' %}
+{% include 'app.html' %}
 {% endblock content %}
 {% block extra_js %}
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>

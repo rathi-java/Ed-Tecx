@@ -68,6 +68,9 @@ h3{
     padding: 50px;
     align-content: center;
 }
+a.cta-button.exploreintern {
+    width: 40%;
+}
 .card {
     position: relative;
     background: #339ff115;
@@ -140,6 +143,12 @@ h3{
     background: #005bb5;
     transform: scale(1.05);
 }
+@media (max-width: 1440px) {
+    a.cta-button.exploreintern {
+        width: 44%;
+    }
+}
+
 
 @media (max-width: 1024px) {
     .internship-container {
@@ -161,19 +170,31 @@ h3{
     .explore-btn {
         align-self: left;
     }
+    a.cta-button.exploreintern {
+        width: 61%;
+    }
 }
 
 @media (max-width: 768px) {
     .internship-text {
         position: absolute;
         bottom: 3px;
+        font-size: 11px;
     }
     .internship-cards {
         grid-template-columns: repeat(2, 1fr);
     }
+    a.cta-button.exploreintern {
+        width: 75%;
+        margin-inline: 2%;
+    }
 }
 
 @media (max-width: 480px) {
+    a.cta-button.exploreintern {
+        width: 57%;
+        margin-inline: 20%;
+    }
     .internship-container {
         flex-direction: column-reverse;
         text-align: center;
@@ -230,4 +251,16 @@ h3{
                 height: 120%;
             }
 }
+@media (max-width: 380px) {
+    a.cta-button.exploreintern {
+        width: 63%;
+        margin-inline: 20%;
+    }
+}
 
+@media (max-width: 330px) {
+    a.cta-button.exploreintern {
+        width: 73%;
+        margin-inline: 14%;
+    }
+}
