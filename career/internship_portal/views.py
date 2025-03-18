@@ -35,70 +35,19 @@ def autocomplete_internship(request):
                 suggestions.append(option.text)
     
     return JsonResponse(suggestions, safe=False)
-
 def elastic_internship_search(request):
-    """
-    Search internships using Elasticsearch with filters and pagination.
-    """
-    # Get filter parameters
-    location = request.GET.get('location', '')
-    duration = request.GET.get('duration', '')
-    stipend = request.GET.get('stipend', '')
-    skills = request.GET.get('skills', '')
-    query = request.GET.get('q', '')
-
-    # Pagination parameters
-    try:
-        page = int(request.GET.get('page', 1))
-    except ValueError:
-        page = 1
-    try:
-        limit = int(request.GET.get('limit', 20))
-    except ValueError:
-        limit = 40
-    start = (page - 1) * limit
-
-    # Initialize Elasticsearch search
+    # Initialize the search object from InternshipDocument
     search = InternshipDocument.search()
 
-    # Free-text search across multiple fields
-    if query:
-        search = search.query("bool", should=[
-            {"match": {"role": {"query": query, "fuzziness": "AUTO"}}},
-            {"match": {"responsibilities": {"query": query}}},
-            {"match": {"required_skills": {"query": query}}}
-        ], minimum_should_match=1)
-
-    # Location filter (company address)
+    # Optionally, add filters, queries, pagination, etc.
+    # For example:
+    location = request.GET.get('location', '')
     if location:
         search = search.filter("match", location=location)
 
-    # Duration filter (exact match)
-    if duration:
-        search = search.filter("match", duration=duration)
-
-    # Stipend range filter
-    if stipend:
-        try:
-            if '-' in stipend:
-                min_stipend, max_stipend = map(float, stipend.split('-'))
-                search = search.filter("range", stipend={"gte": min_stipend, "lte": max_stipend})
-            else:
-                search = search.filter("range", stipend={"gte": float(stipend)})
-        except ValueError:
-            pass
-
-    # Skills filter
-    if skills:
-        search = search.filter("match", required_skills=skills)
-
-    # Apply pagination slicing
-    search = search[start: start + limit]
-
-    # Execute search
+    # Execute the search
     response = search.execute()
     
-    # Prepare results for response
     internships = []
     for hit in response:
         internship = {
@@ -107,7 +56,7 @@ def elastic_internship_search(request):
             'company': {
                 'name': hit.company_name,
                 'address': hit.location,
-                'logo': hit.company_logo,  # Actual logo URL
+                'logo': hit.company_logo,
                 'about': hit.company_about,
                 'established_year': hit.company_established_year,
             },
@@ -120,10 +69,12 @@ def elastic_internship_search(request):
         }
         internships.append(internship)
 
-    # If it's an AJAX request (triggered by scrolling), return JSON data
+    # Return response based on the request type
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return JsonResponse({'internships': internships})
-    
+    else:
+        return render(request, 'internship_page.html', {'internships': internships})
+
 def internship_landing_page(request):
     """
     Render the internship portal page.
