@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <style>
         @keyframes float {
             0%, 100% {
@@ -55,6 +56,14 @@
                 transform: scale(1);
             }
         }
+        @keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-30%);
+  }
+}
 
         .badge {
             animation: float 4s ease-in-out infinite, popUp 2s ease-in-out infinite, move 3s ease-in-out infinite;
@@ -76,7 +85,7 @@
 {% endblock %}
 {% block content %}
 
-<section id="page1">
+<section id="intern-page1">
     <div class="intern-container">
         <div class="intern-content">
             <h1>WE HELP YOU <br> TO START YOUR <br> CAREER<img src="{% static 'images/bogg.svg' %}" alt="bag_img" class="suit"></h1>
@@ -94,7 +103,7 @@
             </div>
             <button class="cta">Start journey today →</button>
         </div>  
-        <div class="image-section">
+        <div class="img-sec">
             <div class="badges">
                 <img src="{% static 'images/happy10k.svg' %}" class="badge zoom-element" >
                 </img>
@@ -125,10 +134,11 @@
         setInterval(changeText, 2000); // Change text every 2 seconds
     </script>
 </section>
+
 <section class="intern2-section">
     <div class="intern2-container">
         <!-- Left Side - Image in Monitor -->
-        <div class="intern2-image-section">
+        <div class="intern2-img-sec">
             <div class="monitor-frame">
                 <img src="{% static 'images/computer.svg'    %}" alt="Internship Image">
             </div>
@@ -209,7 +219,7 @@
                         <div class="inter3-top-text b">20+ Certification</div>
                         <img src="{% static 'images/certificate 1.svg' %}" alt="Grow">
                     </div>
-                    <p>Assessment & Certification</p>
+                    <p>Certification</p>
                     <p class="inter3-p1">Prove your expertise with assessments and earn recognized certifications.</p>
                     <div class="inter3-btnn">
                         <button>Continue</button>
@@ -229,6 +239,18 @@
                     </div>
                 </div>
 
+                <!-- Card 4 -->
+                <div class="inter3-benefit inter3-fourth">
+                    <div class="inter3-top-container con1">
+                        <div class="inter3-top-text d">20+ Courses</div>
+                        <img src="{% static 'images/digital-learning.svg' %}" alt="Learn">
+                    </div>
+                    <p>Study-Materials</p>
+                    <p class="inter3-p1">Master industry-relevant skills through curated learning paths.</p>
+                    <div class="inter3-btnn">
+                        <button>Continue</button>
+                    </div>                    
+                </div>
             </div>
         </div>
     </div>
@@ -296,6 +318,100 @@
                    </p>
                    <p class="inter4key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
                </div>
+               <div class="inter4job-cardd">
+                <h3>Data Scientist</h3>
+                <p>Microsoft <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
+                <div class="inter4line-with-dots"></div>
+                <p class="inter4info">
+                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="inter4key-skills">Key Skills: <span>Python, Machine Learning</span></p>
+            </div>
+    
+            <div class="inter4job-cardd">
+                <h3>Frontend Developer</h3>
+                <p>Google <img class="inter4company-logo" src="{% static 'images/google.png' %}" alt="logo"></p>
+                <div class="inter4line-with-dots"></div>
+                <p class="inter4info">
+                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="inter4key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
+            </div>
+    
+            <div class="inter4job-cardd">
+                <h3>Backend Developer</h3>
+                <p>Amazon <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
+                <div class="inter4line-with-dots"></div>
+                <p class="inter4info">
+                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="inter4key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
+            </div>
+            <div class="inter4job-cardd">
+                <h3>Data Scientist</h3>
+                <p>Microsoft <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
+                <div class="inter4line-with-dots"></div>
+                <p class="inter4info">
+                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="inter4key-skills">Key Skills: <span>Python, Machine Learning</span></p>
+            </div>
+    
+            <div class="inter4job-cardd">
+                <h3>Frontend Developer</h3>
+                <p>Google <img class="inter4company-logo" src="{% static 'images/google.png' %}" alt="logo"></p>
+                <div class="inter4line-with-dots"></div>
+                <p class="inter4info">
+                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="inter4key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
+            </div>
+    
+            <div class="inter4job-cardd">
+                <h3>Backend Developer</h3>
+                <p>Amazon <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
+                <div class="inter4line-with-dots"></div>
+                <p class="inter4info">
+                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+                </p>
+                <p class="inter4info">
+                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+                </p>
+                <p class="inter4key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
+            </div>
        
               
               </div>
@@ -331,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
    function slideNext() {
        slider.style.transition = "transform 0.3s linear"; // Smooth and constant speed
-       slider.style.transform = `translateX(-100%)`;
+       slider.style.transform = translateX(-100%);
 
        setTimeout(() => {
            slider.appendChild(slider.firstElementChild); // Move first card to the end
@@ -343,6 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //setInterval(slideNext, 3000); // Super fast auto-slide (1s)
 });
 
+ 
 
 </script>
 </section>
@@ -406,48 +523,64 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
     <div class="popular-cards">
         <div class="popular-card">
-            <img src="{% static 'images/megaphone 1.svg' %}" alt="Marketing">
+            <img src="{% static 'images/megaphone 1.svg' %}" alt="Marketing" class="pop-img">
+            <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Marketing</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/web-programming 2.svg' %}" alt="Web Development">
+            <img src="{% static 'images/web-programming 2.svg' %}" alt="Web Development" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Web Development</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/cyber-security 1.svg' %}" alt="Cyber Security">
+            <img src="{% static 'images/cyber-security 1.svg' %}" alt="Cyber Security" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Cyber Security</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/write 1.svg' %}" alt="Content Writing">
+            <img src="{% static 'images/write 1.svg' %}" alt="Content Writing" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Content Writing</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/megaphone 1.svg' %}" alt="Marketing">
+            <img src="{% static 'images/megaphone 1.svg' %}" alt="Marketing" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Marketing</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/web-programming 2.svg' %}" alt="Web Development">
+            <img src="{% static 'images/web-programming 2.svg' %}" alt="Web Development" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Web Development</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/cyber-security 1.svg' %}" alt="Cyber Security">
+            <img src="{% static 'images/cyber-security 1.svg' %}" alt="Cyber Security" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Cyber Security</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
         <div class="popular-card">
-            <img src="{% static 'images/write 1.svg' %}" alt="Content Writing">
+            <img src="{% static 'images/write 1.svg' %}" alt="Content Writing" class="pop-img">
+              <img src="{% static 'images/curvee.svg' %}" alt="Marketing" class="curvee">
+
             <p class="category-name">Content Writing</p>
             <p class="internship-count">Over 2K + Internship</p>
         </div>
     </div>
 </section>
-{% comment %}
+
 <section id="page5">
     <div class="mainn-container">
         <div class="title">Start your search</div>
@@ -459,10 +592,9 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <!-- Dropdown Content -->
-        <div class="dropdown-content" id="dropdownContent">
+        <div class="dropdown-content1" id="dropdownContent">
             <div>
                 <h3>Browse by Location</h3>
-                <!-- <hr> -->
                 <ul>
                     <li>New Delhi</li>
                     <li>Gurugram</li>
@@ -478,7 +610,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div>
                 <h3>Browse by Type</h3>
-                <!-- <hr> -->
                 <ul>
                     <li>Part-time internship</li>
                     <li>Full-time internship</li>
@@ -490,7 +621,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div>
                 <h3>Browse by Stream</h3>
-                <!-- <hr> -->
                 <ul>
                     <li>Data Science</li>
                     <li>Software Development</li>
@@ -505,50 +635,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div>
                 <h3>Hire Interns</h3>
-                <!-- <hr> -->
                 <ul>
                     <li>TPO Registration</li>
                 </ul>
             </div>
-
-            
-            
         </div>
+
+        <!-- Toggle Up Button -->
         <div class="dropup-icon" id="dropupBtn">
             <i class="fas fa-chevron-up"></i> <!-- Up Icon -->
         </div>
     </div>
-<script>
-//    document.addEventListener('DOMContentLoaded', function () {
-//     let dropdown = document.getElementById('dropdownContent');
-//     let downIcon = document.getElementById('toggleBtn');
-//     let upIcon = document.getElementById('dropupBtn');
-
-//     console.log(dropdown, downIcon, upIcon); // Check if they are selected correctly
-
-//     dropdown.style.display = 'none';
-//     upIcon.style.display = 'none';
-
-//     downIcon.addEventListener('click', function () {
-//         console.log("Down icon clicked");
-//         dropdown.style.display = 'flex';
-//         downIcon.style.display = 'none';
-//         upIcon.style.display = 'block';
-//         document.body.style.overflow = 'auto';
-//     });
-
-//     upIcon.addEventListener('click', function () {
-//         console.log("Up icon clicked");
-//         dropdown.style.display = 'none';
-//         downIcon.style.display = 'block';
-//         upIcon.style.display = 'none';
-//         document.body.style.overflow = 'auto';
-//     });
-// });
-
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let dropdown = document.getElementById('dropdownContent');
+        let downIcon = document.getElementById('toggleBtn');
+        let upIcon = document.getElementById('dropupBtn');
+    
+        // Initially hide the dropdown content and the up icon
+        dropdown.style.display = 'none';
+        upIcon.style.display = 'none';
+    
+        // Toggle dropdown content visibility when down icon is clicked
+        downIcon.addEventListener('click', function () {
+            dropdown.style.display = 'flex';
+            downIcon.style.display = 'none';
+            upIcon.style.display = 'block';
+        });
+    
+        // Toggle dropdown content visibility when up icon is clicked
+        upIcon.addEventListener('click', function () {
+            dropdown.style.display = 'none';
+            downIcon.style.display = 'block';
+            upIcon.style.display = 'none';
+        });
+    });
 </script>
 </section>
-{% endcomment %}
+
+
 {% include 'app.html' %}
 
 {% endblock %}
