@@ -23,9 +23,9 @@ from django.conf.urls.static import static
 from job_portal.views import autocomplete
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('job_portal/', include('job_portal.urls')),
-    path('internship_portal/', include('internship_portal.urls')),
-    path('abroad_studies/', include('abroad_studies.urls')),
+    path('job-portal/', include('job_portal.urls')),
+    path('internship-portal/', include('internship_portal.urls')),
+    path('abroad-studies/', include('abroad_studies.urls')),
     path('', home, name='home'),
     path('home/', home, name='home'),   
     path('maintenence/', maintenance_view, name='maintenance_view'),
@@ -33,10 +33,7 @@ urlpatterns = [
     path('auth/',include('oauth.urls')),
     path('accounts/', include('allauth.urls')),  # <-- Add this line
     path('autocomplete/', autocomplete, name='autocomplete'),
-
-
     path('oauth/', include('oauth.urls')),
-    # path('oauth/', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

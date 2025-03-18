@@ -71,7 +71,7 @@
               <a class="nav-link" href="/">Home</a>
             </li>
             <li>
-              <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
+              <a class="nav-link" href="{{CAREER_URL}}" >Job</a>
             </li>
             <li>
               <a class="nav-link" href="#">Internship</a>
@@ -178,18 +178,8 @@
       <li>
         <a class="nav-link" href="https://readerclub.in/">Skill Development</a>
       </li>
-      {% comment %} <li><a href="#" onclick="handleAuthCheck(event, '#')">Roadmap</a></li> {% endcomment %}
-      {% comment %} <li><a href="{% url 'about_us' %}" onclick="handleAuthCheck(event, '#')">About Us</a></li> {% endcomment %}
       {% if request.session.user_id %}
-      {% comment %} <ul class="hire-talent-and-find-jobs">
-        <li>
-          <a class="nav-link" href="https://career.readerclub.in/" >Hire Talent</a>
-        </li>
-        <li>
-          <a class="nav-link" href="{% url 'job_page' %}" >Find Jobs</a>
-        </li>
-      </ul> {% endcomment %}
-      {% comment %} <li><a href="#"><i class="fas fa-user"></i> Profile</a></li> {% endcomment %}
+   
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
       {% else %}
       <li><button class="signup-button-ham" onclick="openModal('signup')">Sign Up</button></li>
