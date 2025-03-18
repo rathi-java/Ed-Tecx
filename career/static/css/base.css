@@ -24,12 +24,14 @@
   font-family: 'Font Awesome 6 Free' !important;
   font-weight: 900 !important;
   font-style: normal !important;
+  color: white;
 }
 
 /* Override for brand icons */
 .fab {
   font-family: 'Font Awesome 6 Brands' !important;
   font-style: normal !important;
+  color: white;
 }
 
 body {
@@ -478,7 +480,7 @@ p.footer-bottom-text {
 /* Footer practice links hover effects */
 .footer-practice ul li a {
   text-decoration: none;
-  color: inherit;
+  color: white;
 }
 
 .footer-practice ul li a:hover {
