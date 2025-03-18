@@ -104,22 +104,22 @@
                     {% endif %}
                     
                     <div class="job-info">
-                      <h3>{{ internship.role }}</h3>
-                      <p class="techh">{{ internship.company.name }}</p>
-                      <div class="tags">
-                          <span class="tag">{{ internship.company.address|truncatechars:20 }}</span>
-                          <span class="tag">{{ internship.duration }}</span>
-                          <span class="tag">
-                            {% if internship.stipend %}
-                              ₹{{ internship.stipend }}/month
-                            {% else %}
-                              Unpaid
-                            {% endif %}
-                          </span>
+                        <h3>{{ internship.role }}</h3>
+                        <p class="techh">{{ internship.company.name }}</p>
+                        <div class="tags">
+                            <span class="tag">{{ internship.company.city }}</span>
+                            <span class="tag">{{ internship.duration }}</span>
+                            <span class="tag">
+                              {% if internship.stipend %}
+                                ₹{{ internship.stipend }}/month
+                              {% else %}
+                                Unpaid
+                              {% endif %}
+                            </span>
+                        </div>
+                        <div class="divider"></div>
+                        <p class="timee">{{ internship.created_at|timesince }} ago <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('{{ internship.id }}')">Apply Now →</a></p>
                       </div>
-                      <div class="divider"></div>
-                      <p class="timee">{{ internship.created_at|timesince }} ago <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('{{ internship.id }}')">Apply Now →</a></p>
-                    </div>
                 </div>
                 {% endfor %}
             </div>
