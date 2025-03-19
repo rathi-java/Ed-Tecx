@@ -15,8 +15,15 @@
  *****************************************************/
  * {
   font-family: 'Poppins', sans-serif !important;
-  overflow-x: visible;
+
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
 
 /* Override for non-brand Font Awesome icons */
 .fa,
@@ -248,7 +255,7 @@ body {
   border-radius: 50%;
   font-size: 20px;
   font-weight: bold;
-  margin-right: 25px;
+  /* margin-right: 25px; */
   margin-left: 15px;
 }
 
@@ -610,7 +617,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
   }
   
   p.footer-bottom-text {
@@ -627,7 +634,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
   }
   
   .footer-container {
@@ -649,7 +656,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
   }
 
   .footer-container {
@@ -708,7 +715,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
   }
 
   .signup,
@@ -823,7 +830,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
     padding: 0 15px;
   }
 
@@ -932,7 +939,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
     padding: 0 10px;
   }
 
@@ -999,7 +1006,7 @@ p.footer-bottom-text {
   .nav-container,
   .footer-container,
   .footer-base {
-    max-width: 100%;
+    max-width: 98%;
     padding: 0 8px;
   }
 

@@ -1,3 +1,4 @@
+/* yaha main change krna h  */
 .abroad-landing-page{
   flex:1;
   width:100%;
@@ -8,14 +9,16 @@
 
 /* Main section styles */
 .discover-main-abroad-sec1 {
-  background:white;
+  background: white;
   width: 100%;
-  margin: 0px auto;
+  /* margin: 0px auto; */
   border-radius: 12px;
   overflow: hidden;
   border-radius: 0;
   position: relative;
   padding-bottom: 70px;
+  max-width: 2560px;
+  /* padding-left: 5%; */
 }
 section.page1 {
   margin-top: -13px;
@@ -26,9 +29,11 @@ section.page1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5%;
+  /* padding: 0 5%; */
   position: relative;
   padding-bottom: 80px;
+  max-width:2560px;
+  padding-left: 5%;
 }
 
 .discover-text-content-abroad-sec1 {
@@ -137,7 +142,7 @@ h2 {
   padding-top: 19px;
   font-size: 0.9rem;
   width: 100%;
-
+  margin-top: 8%;
 }
 
 .popular1-abroad-sec1 span {
@@ -152,7 +157,8 @@ h2 {
   max-width: 500px;
   position: relative;
   z-index: 1;
-  
+  /* margin-right: 5%; */
+  margin-right: 9%;
   
 }
 
@@ -189,17 +195,25 @@ h2 {
 }
 @media(max-width:1024px){
   .discover-search-bar-abroad-sec1 {
-    width: 512px;
-    /* max-width: 571px; */
+    width: 481px;
+    max-width: 571px;
     border-radius: 8px;
     position: relative;
     background-color: white;
     padding: 15px;
-    height: 69px;
+    height: 38px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+  }
+
+.discover-main-abroad-sec1 {
+ 
+    padding-bottom: 112px;
+    max-width: 2560px;
+    /* padding-left: 5%; */
 }
 }
+
 @media (max-width: 992px) {
   .discover-hero-abroad-sec1 {
     flex-direction: column;
@@ -301,25 +315,28 @@ h2 {
 
 .container-abroad-sec2 {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 50px;
-  background-color: white;
-  width:100%;
-  padding-bottom: 102px;
-  margin-top:5px;
-  /* max-width:1800px; */
+    display: flex
+;
+    align-items: center;
+    /* justify-content: center; */
+    /* padding: 50px; */
+    background-color: white;
+    width: 100%;
+    padding-bottom: 102px;
+    margin-top: 5px;
+    max-width: 2560px;
+    /* padding-left: 5%;*/
 }
 .image-section-abroad-sec2 {
   position: relative;
   width: 50%;
 }
 .image-section-abroad-sec2 img {
-  width: 100%;
+  width: 78%;
   border-radius: 10px;
   margin-bottom: -39px;
   margin-top: 62px;
+  margin-left: 10%;
 }
 .info-box-abroad-sec2 {
   position: absolute;
@@ -349,13 +366,13 @@ h2 {
   color:rgba(95, 102, 107, 1);
 }
 .content-section-abroad-sec2 {
-  width: 50%;
+  width: 25%;
   padding-left: 40px;
   margin-bottom: 6px;
 }
 .content-section-abroad-sec2 h2 {
   font-family: 'Poppins';
-  font-size: 26px;
+  font-size: 18px;
   /* margin-bottom: -13px; */
   line-height: 4.2;
   margin-top: -27px;
@@ -386,6 +403,7 @@ display: flex;
 align-items: center;
 gap: 8px;
 min-width: 160px;
+margin-left: 10%;
 }
 
 
@@ -418,15 +436,21 @@ margin-right: 8%;
 @media(max-width:1440px){
 .content-section-abroad-sec2 h2 {
 font-family: 'Poppins';
-font-size: 38px;
+font-size: 25px;
+margin-top: 10%;
 /* margin-bottom: -13px; */
 line-height: 3.2;}
 .content-section-abroad-sec2 p {
-  font-size: 30px;
+  font-size: 12xpx;
 }
   p.abroad_para1-abroad-sec2,p.abroad_para2-abroad-sec2 {
-      font-size: 26px;
+      font-size: 12px;
   }
+  .content-section-abroad-sec2 {
+    width: 45%;
+    padding-left: 40px;
+    margin-bottom: 6px;
+}
 }
 @media (max-width: 1024px) {
   .container-abroad-sec2 {
@@ -462,14 +486,15 @@ padding:0px;
 padding-top: 50%;
 }
 .top-left-abroad-sec2 {
-top: 23px;
-left: -94px;
+  top: -23px;
+  left: -101px;
 width:72%
 }
 .bottom-right-abroad-sec2 {
-bottom: -47px;
-right: -103px;
-width: 78px;}
+  bottom: -126px;
+  right: -103px;
+  width: 78px;
+}
 .content-section-abroad-sec2 {
   width: 83%;
    padding-left: 0px; 
@@ -483,9 +508,9 @@ width: 78px;}
 @media (max-width: 330px) {
 .container-abroad-sec2 {
 flex-direction: column;
-padding: 43px;
-width: 100%;
-padding-top: 31%;
+        /* padding: 43px; */
+        width: 100%;
+        padding-top: 59%;
 }
 .image-section-abroad-sec2 {
 position: relative;
@@ -497,30 +522,30 @@ left: -28px;
 width: 72%;
 }
 .bottom-right-abroad-sec2 {
-bottom: -60px;
-right: -37px;
-width: 78px;
+  bottom: -121px;
+  right: -3px;
+  width: 78px;
 }
 .content-section-abroad-sec2 {
 width: 100%;}
 .content-section-abroad-sec2 h2 {
   font-size: 22px;
   line-height: 1.2;
-  margin-top: 10px;
+  margin-top: 62px;
 }
 }
 
 .jobs-container-abroad-sec3 {
   display: flex;
   width: 100%;
-  /* max-width: 1200px; */
+  max-width: 2560px;
   background: white;
   /*border-radius: 10px;*/
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
   flex-direction: column;
-  padding-left: 4%;
+  /* padding-left: 4%; */
   margin-top:5px;
 }
 .jobs-cards-abroad-sec3  {
@@ -531,6 +556,7 @@ width: 100%;}
   align-items: center;
   padding: 50px;
   align-content: center;
+  margin-left: 5%;
 }
 .jobs-card-abroad-sec3 {
   position: relative;
@@ -597,6 +623,7 @@ width: 100%;}
   display: flex;
   flex-direction: column;
   padding: 1%;
+  margin-left: 5%;
 }
 .jobs-content-abroad-sec3 p  span {
   color: #077bc3;
@@ -642,10 +669,19 @@ width: 100%;}
       align-items: center;
       text-align: center;
   }
+  .discover-text-content-abroad-sec1 .discover-sub-heading-abroad-sec1 {
+    font-weight: 400;
+    font-size: 15px;
+  }
+  .discover-hero-image-abroad-sec1 {
+    top: 24px;
+    margin-bottom: -3%;
+    width: 36%;}
+
   .jobs-cards-abroad-sec3 {
-      grid-template-columns: repeat(4, 1fr);
-      width: 100%;
-      padding:10px;
+    grid-template-columns: repeat(4, 1fr);
+    width: 86%;
+    /* padding: 10px;*/
   }
   .jobs-content-abroad-sec3 {
       text-align: left;
@@ -662,7 +698,9 @@ width: 100%;}
       flex-direction: column;
   }
   .jobs-cards-abroad-sec3{
-      grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    padding-bottom: 5%;
   }
 }
 
@@ -670,12 +708,17 @@ width: 100%;}
   .jobs-container-abroad-sec3 {
       flex-direction: column-reverse;
       text-align: center;
-      padding: 10px;
+      /* padding: 10px; */
   }
+  .discover-hero-image-abroad-sec1 {
+    top: 24px;
+    margin-bottom: -3%;
+    width: 74%;
+}
   .jobs-cards-abroad-sec3 {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       width: 100%;
-      padding-left:18%;
+      /* padding-left:18%; */
   }
   .jobs-content-abroad-sec3 {
       order: 2;
@@ -686,11 +729,11 @@ width: 100%;}
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding-bottom: 71px;
   width: 100%;
-  /* max-width: 1800px; */
+  max-width: 2560px;
   text-align: center;
-  margin: 0 auto;
-  margin-top:5px;
-  padding-top:4%;
+  /* margin: 0 auto; */
+  margin-top: 5px;
+  padding-top: 4%;
 }
 .para-abroad-sec4 {
   font-family: 'Prociono';
@@ -708,7 +751,7 @@ width: 100%;}
   flex-wrap: wrap;
   /* background: rgba(245, 248, 251, 1); */
   padding: 10px;
-  max-width: 14 0px;
+  /* max-width: 14 0px; */
   border-radius: 8px;
   box-shadow: 0px 0px 6px grey;
   /* max-width:1700px; */
@@ -801,19 +844,22 @@ width: 100%;}
 }
 
 .wk-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 10px;
-  background-color: white;
-  gap: 60px;
-  font-family: 'Poppins';
-  /* justify-content: space-around; */
-  color: rgb(81, 80, 80);
-  margin-top:5px;
-  padding-top:5%;
-  padding-bottom:5%;
+ 
+  display: flex
+  ;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      /* padding: 10px; */
+      background-color: white;
+      gap: 60px;
+      font-family: 'Poppins';
+      /* justify-content: space-around; */
+      color: rgb(81, 80, 80);
+      margin-top: 5px;
+      padding-top: 5%;
+      padding-bottom: 5%;
+      max-width: 2560px;
 }
 .leftt-sectionn {
   flex: 1;
@@ -972,13 +1018,16 @@ display: none;
 
 .container-abroad-sec5 {
   width: 100%;
-  margin: 0px auto;
+  /* margin: 0px auto; */
   background: white;
-  padding: 30px;
+  /* padding: 30px; */
   /* border-radius: 10px; */
-  text-align: center;  
-    padding-left: 4%;
-    margin-top: 5px;
+  text-align: center;
+  /* padding-left: 4%; */
+  margin-top: 6px;
+  max-width: 2560px;
+  padding-bottom: 5%;
+  padding-top: 1%;
 }
 .title-abroad-sec5 {
   font-family: 'Poppins';
@@ -986,15 +1035,18 @@ display: none;
   color: #007bc3;
   font-weight: bold;
   text-align: left;
+  margin-left: 10%;
+  margin-bottom: -27px;
 }
 
 .main-heading-abroad-sec5 {
   font-family: 'Poppins';
   font-size: 30px;
-  
+  margin-left: 10%;
   color: #333;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   text-align: left;
+  margin-bottom: -14px;
 }
 
 .description-abroad-sec5 {
@@ -1003,6 +1055,8 @@ display: none;
   font-size: 16px;
   color: #666;
   margin-bottom: 20px;
+  /* width:100%; */
+  margin-left: 10%;
 }
 
 .stats-container-abroad-sec5 {
@@ -1012,6 +1066,9 @@ display: none;
   padding: 20px;
   justify-content: space-between;
   border:2px solid #077bc3;
+  width: 92%;
+  max-width: 2560px;
+  margin-left: 3%;
 }
 
 .stat-box-abroad-sec5 {
@@ -1060,43 +1117,61 @@ img.contact-img-abroad-sec5 {
   font-family: 'Poppins';
   font-size: 19px;
   color: #666;
+  margin-top: -50px;
 }
 @media(max-width:1024px){
-  .container-abroad-sec5 {
-      padding: 21px;
-  }
+
   .stats-container-abroad-sec5 {
       padding: 10px;
   }
 }
 @media(max-width:780px){
   .stats-container-abroad-sec5 {
-  flex-wrap:wrap;
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(2, 1fr); */
+    width: 449px;
+    margin-left: 20%;
+}
+}
+@media(max-width:380px){
+  .stats-container-abroad-sec5 {
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(2, 1fr); */
+    width: 285px;
+    margin-left: 13%;
 }
 }
 @media(max-width:330px){
 .label-abroad-sec5 {
   font-family: 'Poppins';
   font-size: 14px;}
- 
+  .stats-container-abroad-sec5 {
+    flex-wrap: wrap;
+    /* grid-template-columns: repeat(2, 1fr); */
+    width: 235px;
+    margin-left: 13%;
+}
 }
 
 
       .section6_abroad {
-          background: white;
-          width: 100%;
-          text-align: center;
-          padding: 20px 0;
-          overflow: visible;
-          padding-left:4%;
-          margin-top: 5px;
+        background: white;
+        width: 100%;
+        text-align: center;
+        /* padding: 20px 0; */
+        overflow: visible;
+        /* padding-left: 4%; */
+        margin-top: 6px;
+        max-width: 2560px;
+        padding-top: 1%;
+        padding-bottom: 1%;
       }
 
       .main-heading-sect6-abroad-sec6 {
           font-size: 30px;
           color: rgba(19, 50, 64, 1);
           text-align: left;
-          /* margin-left: 10%; */
+          margin-left: 10%;
       }
 
       .sub-heading-sect6-abroad-sec6 {
@@ -1104,7 +1179,7 @@ img.contact-img-abroad-sec5 {
           color: #077bc3;
           text-align: left;
           margin-bottom: 30px;
-          /* margin-left: 10%; */
+          margin-left: 10%;
       }
 
       .slider-container-abroad-sec6 {
@@ -1234,6 +1309,11 @@ img.contact-img-abroad-sec5 {
           .card-abroad-sec6 {
               width: 7%;
           }
+          .stats-container-abroad-sec5 {
+            margin-left: 10%;
+            flex-wrap: wrap;
+            width: 74%;
+        }
       }
 
 
@@ -1317,8 +1397,13 @@ width: 100%;
     @media(max-width:1024px){
       .info-card-abroad-card {
           top: 95%;
-          margin-top:-63px;
+          margin-top: -43px;
       }
+      .info-box-abroad-sec2 {
+        margin-bottom: -10%;
+        margin-top: -12%;
+        margin-left: 14%;
+    }
     }
     @media(max-width:770px){
       .info-card-abroad-card {
@@ -1366,16 +1451,17 @@ width: 100%;
 /* download */
 
 /* Section Container */
-.app-section {
+.app-sectionn {
 width: 100%;
 display: flex;
 justify-content: center;
 align-items: center;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-padding: 40px 20px;
+/* padding: 40px 20px; */
 margin-top:5px;
 background-color: white;
 height: 691px;
+/* max-width: 2523px; */
 }
 
 /* Main Content Layout */
@@ -1642,14 +1728,14 @@ width: 50px;
 
 @media(max-width:780px){
 
-            .app-section {
+            .app-sectionn {
                 width: 100%;}
 }
 
 @media(max-width:480px){
 
 
-            .app-section {
+            .app-sectionn {
               height: 903px;
                 width: 100%;}
 }
@@ -1680,7 +1766,7 @@ gap: 0px;
 }}
 @media(max-width:330px){
 
-    .app-section {
+    .app-sectionn {
         width: 100%;}
 
 }

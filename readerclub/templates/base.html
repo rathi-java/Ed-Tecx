@@ -135,16 +135,12 @@
     </div>
     <ul>
       <li><a href="/">Home</a></li>
-      <li class="dropdown">
-        <a href="#">Solution <i class="fa-solid fa-caret-down"></i></a>
-        <ul>
           <li><a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a></li>
           <li><a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a></li>
           <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a></li>
           <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a></li>
           <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a></li>
           <li><a href="https://library.readerclub.in/">Library</a></li>
-        </ul>
       </li>
       <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
       <li><a href="{{CAREER_URL}}">Job</a></li>

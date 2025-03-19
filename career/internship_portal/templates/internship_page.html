@@ -384,6 +384,24 @@
                 </div>
             `;
             console.log("Internship ID for apply:", internshipId);
+
+            // Mobile View: Show/hide internship details without scrolling (only for max-width: 480px)
+            if (window.innerWidth <= 480) {
+                let alreadyActive = element.classList.contains("active");
+
+                // Remove active class from all job cards
+                document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active"));
+
+                if (!alreadyActive) {
+                    // Mark clicked job card as active
+                    element.classList.add("active");
+                    element.insertAdjacentElement("afterend", document.getElementById('internshipDetails'));
+                    document.getElementById('internshipDetails').classList.add("active");
+                } else {
+                    // Hide details if clicked again
+                    document.getElementById('internshipDetails').classList.remove("active");
+                }
+            }
         }
         
         function openApplicationForm(internshipId) {
@@ -562,10 +580,10 @@
             }
         });
 
-        // Auto-open first internship's details
+        // Auto-open first internship's details on desktop only
         document.addEventListener("DOMContentLoaded", function() {
             let firstInternshipCard = document.querySelector(".job-card");
-            if (firstInternshipCard) {
+            if (firstInternshipCard && window.innerWidth > 480) {
                 showInternshipDetails(firstInternshipCard);
             }
         });
