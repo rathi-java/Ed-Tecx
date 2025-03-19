@@ -6,9 +6,7 @@ import calendar
 
 
 def internship_landing_page(request):
-    """
-    Render the internship portal page.
-    """
+
     return render(request, 'internship_landing_page.html')
 
 def autocomplete_internship(request):
@@ -85,8 +83,3 @@ def elastic_internship_search(request):
         return JsonResponse({'internships': internships})
     else:
         return render(request, 'internship_page.html', {'internships': internships})
-def internship_landing_page(request):
-    """
-    Render the internship portal page.
-    """
-    return render(request, 'internship_landing_page.html')

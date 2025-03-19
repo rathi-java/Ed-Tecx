@@ -1,6 +1,6 @@
 from django_elasticsearch_dsl import Document, Index, fields
 from django_elasticsearch_dsl.registries import registry
-from .models import Internship, InternshipCompany
+from .models import Internship, Company
 
 # Define the index settings for Elasticsearch
 internship_index = Index('internships')
@@ -35,8 +35,8 @@ class InternshipDocument(Document):
             'created_at',
         ]
         # Related models are used to trigger reindexing when InternshipCompany updates.
-        related_models = [InternshipCompany]
+        related_models = [Company]
 
     def get_instances_from_related(self, related_instance):
-        if isinstance(related_instance, InternshipCompany):
+        if isinstance(related_instance, Company):
             return related_instance.internship_set.all()

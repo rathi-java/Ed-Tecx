@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_elasticsearch_dsl',
     'job_portal',
+    'recruitment_portal',
     'policies',
     'widget_tweaks',
     'oauth',

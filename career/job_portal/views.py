@@ -11,8 +11,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
-from .models import JobSeeker, JobSeekerEducation, JobSeekerExperience, JobApplication, Job
+from .models import  Job
 import json
+from recruitment_portal.models import ApplicantDetail
 from datetime import datetime
 
 def submit_application_job(request):
