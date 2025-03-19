@@ -102,7 +102,7 @@ section.page1 {
   padding: 10px;
   border: none;
   border-bottom: 2px solid #838688;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   width: 163px;
   transition: all 0.3s ease;
@@ -853,7 +853,7 @@ h2 {
 /* Media Queries for Responsive Design */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .job-flow {
-    width: 74%;
+    width: 69%;
     overflow: hidden;
     margin-left: 6%;
   }
@@ -862,14 +862,9 @@ h2 {
   }
 }
 @media (max-width: 1200px) {
-  .discover-main,
-  #page2,
-  #page-3,
-  #page4,
-  .company-conatiner {
-    width: 98%;
-  }
-  
+  .discover-main, #page2, #page-3, #page4, .company-conatiner {
+    width: 100%;
+}
 .job-cardd {
     padding: 20px;
     width: 269px;
@@ -1171,7 +1166,7 @@ h2 {
     display: none;
   }
   .job-flow{
-    width: 104%;
+    width: 100%;
   }
 
   .discover-search-bar button {
@@ -1250,8 +1245,7 @@ h2 {
     flex-direction: column;
   }
   .job-cardd {
-    min-width: 98%;
-    transform: rotate(0deg);
+    min-width: 78%;
     width: 268px;
   }
   .circle-conatiner {

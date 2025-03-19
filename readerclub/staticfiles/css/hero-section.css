@@ -1,10 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poltawski Nowy";
-
-}
 
 body {
   background-color: #f1f3f9;
@@ -85,8 +78,8 @@ font-size: 56px;
 }
 
 .campus-image-container img {
-  width: 123%;
-  height: 127%;
+  width: 119%;
+  height: 136%;
   max-height: unset;
   object-fit: contain;
   right: 10%;
@@ -99,6 +92,18 @@ font-size: 56px;
   height: 100%;
   top: 0;
   left: 0;
+  animation: upDown 3s infinite;
+}
+@keyframes upDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px); /* Moves the box 100px up */
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .campus-floating-box {
@@ -133,14 +138,15 @@ font-size: 56px;
   max-width: 200px;
   height: auto;
 }
+p.subinternship-text {
+  margin-block: 5%;
+  color: #484F53;
+  font-size: 14px;
+}
 @media (max-width: 1204px) {
   
   .nav-container {
     max-width: 96%;
-  }
-  .navbar-brand img {
-    max-height: 40px;
-    margin-left: -14%;
   }
 .campus-section  p {
 color: #4d4b4b;
@@ -186,6 +192,7 @@ line-height: 1.5;
     right: 10%;
     margin-left: -15%;
   }
+  
 }
 @media (max-width: 768px) {
   .campus-section {
@@ -233,6 +240,13 @@ line-height: 1.5;
   .campus-expll{
     margin-inline: 12%;
   }
+  .internship-container {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+    margin-top: -26px;
+}
+
 }
 
 @media (max-width: 480px) {
@@ -390,6 +404,7 @@ object-fit: contain;
   gap: -8%;
   align-items: center;
   color: rgb(97, 98, 105);
+  padding-right: 10px;
 }
 .campus-title > img {
   width: 30%;

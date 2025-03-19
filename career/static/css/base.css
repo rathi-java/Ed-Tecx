@@ -16,6 +16,9 @@
  * {
   font-family: 'Poppins', sans-serif !important;
   overflow-x: visible;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 /* Override for non-brand Font Awesome icons */
@@ -815,6 +818,7 @@ p.footer-bottom-text {
   .footer-line {
     width: 100%;
     max-width: 100%;
+    margin-top: 85px;
   }
 }
 
@@ -909,6 +913,7 @@ p.footer-bottom-text {
   .footer-line {
     width: 100%;
     max-width: 100%;
+    margin-top: 75px;
   }
   
   .footer-container img {

@@ -26,16 +26,7 @@
     flex-direction: column;
     padding: 6%;
 }
-p  span {
-    color: #077bc3;
-    font-size:30px;
-    font-family: 'Carattere';
-    font-style: italic;
-    
-    
 
-    
-}
 h3{
     color:#4D5B64
     
@@ -143,6 +134,16 @@ a.cta-button.exploreintern {
     background: #005bb5;
     transform: scale(1.05);
 }
+.content span{
+    color: #077bc3;
+    font-size: 29px;
+    font-family: 'Carattere';
+    font-style: italic;
+    text-align: left;
+}
+span.text {
+    font-size: 16px;
+}
 @media (max-width: 1440px) {
     a.cta-button.exploreintern {
         width: 44%;
@@ -179,15 +180,22 @@ a.cta-button.exploreintern {
     .internship-text {
         position: absolute;
         bottom: 3px;
-        font-size: 11px;
+        font-size: 17px;
     }
     .internship-cards {
         grid-template-columns: repeat(2, 1fr);
     }
     a.cta-button.exploreintern {
-        width: 75%;
+        width: 31%;
         margin-inline: 2%;
     }
+    span.text {
+        font-size: 13px;
+    }
+    .content p {
+        text-align: left;
+    }
+
 }
 
 @media (max-width: 480px) {
@@ -225,8 +233,7 @@ a.cta-button.exploreintern {
     }
     .internship-section{
     width: 100%;}
-    p span {
-        font-size: 15px;}
+   
         .content ul li {
             font-size: 1rem;
             margin-bottom: 10px;
@@ -250,6 +257,19 @@ a.cta-button.exploreintern {
                 clip-path: path("M 0 100 Q 55 150, 110 0 T 310 0 V 250 H 0 Z");
                 height: 120%;
             }
+            
+}
+@media (max-width: 425px) {
+    .exam-left-section {
+        text-align: left;
+        margin-top: -6%;
+    }
+    .exam-left-section, .exam-right-section {
+        flex: 1;
+        padding: 10px 30px;
+        margin-bottom: -12px;
+    }
+
 }
 @media (max-width: 380px) {
     a.cta-button.exploreintern {

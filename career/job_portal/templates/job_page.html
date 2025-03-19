@@ -231,223 +231,247 @@
     </div>
 {% endblock %}
 {% block extra_js %}
-    <script>
-        // Search autocomplete functionality
-        const searchInput = document.getElementById('q');
-        const autocompleteResults = document.getElementById('autocomplete-results');
-        const filterForm = document.getElementById('filterForm');
-        
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.trim();
-            
-            if (searchTerm.length > 2) {
-              fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
-                .then(response => response.json())
-                .then(suggestions => {
-                  if (suggestions && suggestions.length > 0) {
-                    autocompleteResults.innerHTML = suggestions
-                      .map(suggestion => `<div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`)
-                      .join('');
-                    autocompleteResults.style.display = 'block';
-                  } else {
-                    autocompleteResults.style.display = 'none';
-                  }
-                })
-                .catch(err => {
-                  console.error('Autocomplete fetch error:', err);
-                  autocompleteResults.style.display = 'none';
-                });
+<script>
+// Search autocomplete functionality
+const searchInput = document.getElementById('q');
+const autocompleteResults = document.getElementById('autocomplete-results');
+const filterForm = document.getElementById('filterForm');
+
+searchInput.addEventListener('input', function(e) {
+    const searchTerm = e.target.value.trim();
+    
+    if (searchTerm.length > 2) {
+        fetch(`/autocomplete/?term=${encodeURIComponent(searchTerm)}`)
+        .then(response => response.json())
+        .then(suggestions => {
+            if (suggestions && suggestions.length > 0) {
+                autocompleteResults.innerHTML = suggestions
+                    .map(suggestion => `<div class="autocomplete-item" onclick="selectSuggestion('${suggestion}')">${suggestion}</div>`)
+                    .join('');
+                autocompleteResults.style.display = 'block';
             } else {
-              autocompleteResults.style.display = 'none';
+                autocompleteResults.style.display = 'none';
             }
-        });
-        
-        function selectSuggestion(suggestion) {
-          searchInput.value = suggestion;
-          autocompleteResults.style.display = 'none';
-          filterForm.submit();
-        }
-        
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(e) {
-          if (!e.target.closest('#autocomplete-results') && !e.target.closest('#q')) {
+        })
+        .catch(err => {
+            console.error('Autocomplete fetch error:', err);
             autocompleteResults.style.display = 'none';
-          }
         });
+    } else {
+        autocompleteResults.style.display = 'none';
+    }
+});
 
-        // Job details display function
-        function showJobDetails(element) {
-            const logo = element.getAttribute('data-logo');
-            const company = element.getAttribute('data-company');
-            const role = element.getAttribute('data-role');
-            const location = element.getAttribute('data-location');
-            const updated = element.getAttribute('data-updated');
-            const eligibility = element.getAttribute('data-eligibility');
-            const jobType = element.getAttribute('data-job-type');
-            const salary = element.getAttribute('data-salary');
-            const experience = element.getAttribute('data-experience');
-            const description = element.getAttribute('data-description');
-            const skills = element.getAttribute('data-skills');
-            const companyAbout = element.getAttribute('data-company-about');
-            const companyEmployees = element.getAttribute('data-company-employees');
-            const companyIndustry = element.getAttribute('data-company-industry');
-            const companyEstablished = element.getAttribute('data-company-established');
-            const jobId = element.getAttribute('data-job-id');
-        
-            document.getElementById('jobDetails').innerHTML = `
-                <div class="job-details-container">
-                    <div class="job-header">
-                        <img src="${logo}" alt="${company} Logo">
-                        <div class="job-title">
-                            <h2>${role}</h2>
-                            <p>${company}</p>
-                        </div>
-                        <button class="applyy-btn" onclick="openApplicationForm('${jobId}')">Apply Now</button>
-                    </div>
-                    <div class="job-meta">
-                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
-                        <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> Updated on: ${new Date(updated).toLocaleDateString()}</p>
-                    </div>
-                    <hr>
-                    <p class="comp-deatil">Eligibility</p>
-                    <p class="comp-deatil1">${eligibility}</p>
-                    <hr>
-                    <p class="comp-deatil">About the Job</p>
-                    <div class="job-inffo">
-                        <p class="detail"><strong>Job Type:</strong> ${jobType}</p>
-                        <p class="detail"><strong>Salary:</strong> ${salary}/y</p>
-                        <p class="detail"><strong>Experience:</strong> ${experience}</p>
-                    </div>
-                    <p class="jd"><u>Job Description</u></p>
-                    <p class="detail">${description}</p>
-                    <p class="jd"><u>Skills Required</u></p>
-                    <ul class="job-carrer-ul">
-                        ${skills.split(',').map(skill => `<li>${skill.trim()}</li>`).join('')}
-                    </ul>
-                    <hr>        
-                    <p class="comp-deatil">About the Company</p>
-                    <p class="detail"><strong>Company Overview</strong></p>
-                    <p class="para">${companyAbout}</p>
-                    <div class="company-info">
-                        <p><strong>Employees:</strong> ${companyEmployees} employees</p>
-                        <p><strong>Industry:</strong> ${companyIndustry}</p>
-                        <p><strong>Established on:</strong> ${companyEstablished}</p>
-                    </div>
+function selectSuggestion(suggestion) {
+    searchInput.value = suggestion;
+    autocompleteResults.style.display = 'none';
+    filterForm.submit();
+}
+
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('#autocomplete-results') && !e.target.closest('#q')) {
+        autocompleteResults.style.display = 'none';
+    }
+});
+
+// Job details display function with mobile support
+function showJobDetails(element) {
+    const jobDetails = document.getElementById('jobDetails');
+
+    // Fetch job details from the clicked card
+    const logo = element.getAttribute('data-logo');
+    const company = element.getAttribute('data-company');
+    const role = element.getAttribute('data-role');
+    const location = element.getAttribute('data-location');
+    const updated = element.getAttribute('data-updated');
+    const eligibility = element.getAttribute('data-eligibility');
+    const jobType = element.getAttribute('data-job-type');
+    const salary = element.getAttribute('data-salary');
+    const experience = element.getAttribute('data-experience');
+    const description = element.getAttribute('data-description');
+    const skills = element.getAttribute('data-skills');
+    const companyAbout = element.getAttribute('data-company-about');
+    const companyEmployees = element.getAttribute('data-company-employees');
+    const companyIndustry = element.getAttribute('data-company-industry');
+    const companyEstablished = element.getAttribute('data-company-established');
+    const jobId = element.getAttribute('data-job-id');
+
+    // Update job details
+    jobDetails.innerHTML = `
+        <div class="job-details-container">
+            <div class="job-header">
+                <img src="${logo}" alt="${company} Logo">
+                <div class="job-title">
+                    <h2>${role}</h2>
+                    <p>${company}</p>
                 </div>
-            `;
-            console.log("Job ID for apply:", jobId); // Add debug logging
+                <button class="applyy-btn" onclick="openApplicationForm('${jobId}')">Apply Now</button>
+            </div>
+            <div class="job-meta">
+                <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
+                <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> Updated on: ${new Date(updated).toLocaleDateString()}</p>
+            </div>
+            <hr>
+            <p class="comp-deatil">Eligibility</p>
+            <p class="comp-deatil1">${eligibility}</p>
+            <hr>
+            <p class="comp-deatil">About the Job</p>
+            <div class="job-inffo">
+                <p class="detail"><strong>Job Type:</strong> ${jobType}</p>
+                <p class="detail"><strong>Salary:</strong> ${salary}/y</p>
+                <p class="detail"><strong>Experience:</strong> ${experience}</p>
+            </div>
+            <p class="jd"><u>Job Description</u></p>
+            <p class="detail">${description}</p>
+            <p class="jd"><u>Skills Required</u></p>
+            <ul class="job-carrer-ul">
+                ${skills.split(',').map(skill => `<li>${skill.trim()}</li>`).join('')}
+            </ul>
+            <hr>        
+            <p class="comp-deatil">About the Company</p>
+            <p class="detail"><strong>Company Overview</strong></p>
+            <p class="para">${companyAbout}</p>
+            <div class="company-info">
+                <p><strong>Employees:</strong> ${companyEmployees} employees</p>
+                <p><strong>Industry:</strong> ${companyIndustry}</p>
+                <p><strong>Established on:</strong> ${companyEstablished}</p>
+            </div>
+        </div>
+    `;
+    
+    console.log("Job ID for apply:", jobId); // Debug logging
+
+    // Mobile View: Show/hide job details without scrolling (only for max-width: 480px)
+    if (window.innerWidth <= 480) {
+        let alreadyActive = element.classList.contains("active");
+
+        // Remove active class from all job cards
+        document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active"));
+
+        if (!alreadyActive) {
+            // Mark clicked job card as active
+            element.classList.add("active");
+            element.insertAdjacentElement("afterend", jobDetails);
+            jobDetails.classList.add("active");
+        } else {
+            // Hide details if clicked again
+            jobDetails.classList.remove("active");
         }
-        
-        function openApplicationForm(jobId) {
-            console.log("Setting job ID to:", jobId);
-            document.getElementById("job_id").value = jobId;
-            document.getElementById("applicationModal").style.display = "block";
-        }
+    }
+}
 
-        function closeModal() {
-            document.getElementById("applicationModal").style.display = "none";
-        }
+// Open and close application modal
+function openApplicationForm(jobId) {
+    console.log("Setting job ID to:", jobId);
+    document.getElementById("job_id").value = jobId;
+    document.getElementById("applicationModal").style.display = "block";
+}
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            let modal = document.getElementById("applicationModal");
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
+function closeModal() {
+    document.getElementById("applicationModal").style.display = "none";
+}
 
-        // Add education fields dynamically
-        let educationCounter = 1;
-        document.getElementById("add_education").addEventListener("click", function() {
-            const educationSection = document.querySelector(".education-section");
-            const newEducation = document.createElement("div");
-            newEducation.classList.add("education-entry");
-            newEducation.innerHTML = `
-                <hr>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="degree${educationCounter}">Degree <span>*</span></label>
-                        <input type="text" id="degree${educationCounter}" name="education[${educationCounter}][degree]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="specialization${educationCounter}">Specialization</label>
-                        <input type="text" id="specialization${educationCounter}" name="education[${educationCounter}][specialization]">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="institution${educationCounter}">Institution <span>*</span></label>
-                        <input type="text" id="institution${educationCounter}" name="education[${educationCounter}][institution]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="score${educationCounter}">Score</label>
-                        <input type="text" id="score${educationCounter}" name="education[${educationCounter}][score]" placeholder="CGPA / Percentage">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="passing_year${educationCounter}">Year of Passing <span>*</span></label>
-                        <input type="text" id="passing_year${educationCounter}" name="education[${educationCounter}][passing_year]" placeholder="YYYY" required>
-                    </div>
-                </div>
-                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-            `;
-            educationSection.appendChild(newEducation);
-            educationCounter++;
-        });
+// Close modal when clicking outside
+window.onclick = function(event) {
+    let modal = document.getElementById("applicationModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
 
-        // Add experience fields dynamically
-        let experienceCounter = 1;
-        document.getElementById("add_experience").addEventListener("click", function() {
-            const experienceSection = document.querySelector(".experience-section");
-            const newExperience = document.createElement("div");
-            newExperience.classList.add("experience-entry");
-            newExperience.innerHTML = `
-                <hr>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="company${experienceCounter}">Company Name <span>*</span></label>
-                        <input type="text" id="company${experienceCounter}" name="experience[${experienceCounter}][company]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="role${experienceCounter}">Role/Position <span>*</span></label>
-                        <input type="text" id="role${experienceCounter}" name="experience[${experienceCounter}][role]" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="start_date${experienceCounter}">Start Date <span>*</span></label>
-                        <input type="date" id="start_date${experienceCounter}" name="experience[${experienceCounter}][start_date]" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="end_date${experienceCounter}">End Date</label>
-                        <input type="date" id="end_date${experienceCounter}" name="experience[${experienceCounter}][end_date]">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group full-width">
-                        <label for="description${experienceCounter}">Description</label>
-                        <textarea id="description${experienceCounter}" name="experience[${experienceCounter}][description]" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group full-width">
-                        <label for="achievements${experienceCounter}">Achievements</label>
-                        <textarea id="achievements${experienceCounter}" name="experience[${experienceCounter}][achievements]" rows="3"></textarea>
-                    </div>
-                </div>
-                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-            `;
-            experienceSection.appendChild(newExperience);
-            experienceCounter++;
-        });
+// Add education fields dynamically
+let educationCounter = 1;
+document.getElementById("add_education").addEventListener("click", function() {
+    const educationSection = document.querySelector(".education-section");
+    const newEducation = document.createElement("div");
+    newEducation.classList.add("education-entry");
+    newEducation.innerHTML = `
+        <hr>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="degree${educationCounter}">Degree <span>*</span></label>
+                <input type="text" id="degree${educationCounter}" name="education[${educationCounter}][degree]" required>
+            </div>
+            <div class="form-group">
+                <label for="specialization${educationCounter}">Specialization</label>
+                <input type="text" id="specialization${educationCounter}" name="education[${educationCounter}][specialization]">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="institution${educationCounter}">Institution <span>*</span></label>
+                <input type="text" id="institution${educationCounter}" name="education[${educationCounter}][institution]" required>
+            </div>
+            <div class="form-group">
+                <label for="score${educationCounter}">Score</label>
+                <input type="text" id="score${educationCounter}" name="education[${educationCounter}][score]" placeholder="CGPA / Percentage">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="passing_year${educationCounter}">Year of Passing <span>*</span></label>
+                <input type="text" id="passing_year${educationCounter}" name="education[${educationCounter}][passing_year]" placeholder="YYYY" required>
+            </div>
+        </div>
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+    `;
+    educationSection.appendChild(newEducation);
+    educationCounter++;
+});
 
-        // Auto-open first job's details
-        document.addEventListener("DOMContentLoaded", function() {
-            let firstJobCard = document.querySelector(".job-card");
-            if (firstJobCard) {
-                showJobDetails(firstJobCard);
-            }
-        });
-    </script>
+// Add experience fields dynamically
+let experienceCounter = 1;
+document.getElementById("add_experience").addEventListener("click", function() {
+    const experienceSection = document.querySelector(".experience-section");
+    const newExperience = document.createElement("div");
+    newExperience.classList.add("experience-entry");
+    newExperience.innerHTML = `
+        <hr>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="company${experienceCounter}">Company Name <span>*</span></label>
+                <input type="text" id="company${experienceCounter}" name="experience[${experienceCounter}][company]" required>
+            </div>
+            <div class="form-group">
+                <label for="role${experienceCounter}">Role/Position <span>*</span></label>
+                <input type="text" id="role${experienceCounter}" name="experience[${experienceCounter}][role]" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="start_date${experienceCounter}">Start Date <span>*</span></label>
+                <input type="date" id="start_date${experienceCounter}" name="experience[${experienceCounter}][start_date]" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date${experienceCounter}">End Date</label>
+                <input type="date" id="end_date${experienceCounter}" name="experience[${experienceCounter}][end_date]">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="description${experienceCounter}">Description</label>
+                <textarea id="description${experienceCounter}" name="experience[${experienceCounter}][description]" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group full-width">
+                <label for="achievements${experienceCounter}">Achievements</label>
+                <textarea id="achievements${experienceCounter}" name="experience[${experienceCounter}][achievements]" rows="3"></textarea>
+            </div>
+        </div>
+        <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+    `;
+    experienceSection.appendChild(newExperience);
+    experienceCounter++;
+});
+
+// Auto-open first job's details on desktop only
+document.addEventListener("DOMContentLoaded", function() {
+    let firstJobCard = document.querySelector(".job-card");
+    if (firstJobCard && window.innerWidth > 480) {
+        showJobDetails(firstJobCard);
+    }
+});
+</script>
 {% endblock %}

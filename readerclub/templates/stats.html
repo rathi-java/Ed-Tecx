@@ -45,3 +45,76 @@
         </div>
         <div class="wavee"></div>
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all stat h3 elements
+        const statNumbers = document.querySelectorAll('.stat h3');
+        
+        // Store original values to use as targets
+        const targetValues = Array.from(statNumbers).map(el => {
+            return {
+                element: el,
+                value: parseInt(el.textContent.replace(/\D/g, '')),
+                isSatisfactionRate: el.parentElement.querySelector('p').textContent.includes('Satisfaction')
+            };
+        });
+        
+        // Reset all numbers to 0
+        targetValues.forEach(item => {
+            if (item.isSatisfactionRate) {
+                item.element.textContent = '0%';
+            } else {
+                item.element.textContent = '0+';
+            }
+        });
+        
+        // Function to animate the number
+        function animateNumber(item) {
+            const element = item.element;
+            const targetNumber = item.value;
+            const isSatisfactionRate = item.isSatisfactionRate;
+            
+            // Animation duration and timing
+            const duration = 2000; // 2 seconds
+            const startTime = performance.now();
+            
+            // Animation function
+            function updateFrame(timestamp) {
+                // Calculate progress (0 to 1)
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                
+                // Calculate current number using easeOutQuart function for smoother animation
+                const easeProgress = 1 - Math.pow(1 - progress, 4); // Ease out function
+                const currentNumber = Math.floor(targetNumber * easeProgress);
+                
+                // Add appropriate suffix
+                if (isSatisfactionRate) {
+                    element.textContent = currentNumber + '%';
+                } else {
+                    element.textContent = currentNumber + '+';
+                }
+                
+                // Continue animation until done
+                if (progress < 1) {
+                    requestAnimationFrame(updateFrame);
+                }
+            }
+            
+            // Start animation
+            requestAnimationFrame(updateFrame);
+        }
+        
+        // Set up the intersection observer to trigger animation when stats are visible
+        const observer = new IntersectionObserver((entries, obs) => {
+            if (entries[0].isIntersecting) {
+                // Animate all numbers when the container is visible
+                targetValues.forEach(animateNumber);
+                obs.disconnect(); // Stop observing after triggering
+            }
+        }, { threshold: 0.1 });
+        
+        // Observe the stats container
+        observer.observe(document.querySelector('.stats-container'));
+    });
+</script>
