@@ -203,8 +203,14 @@ PUBLIC_PATHS = [
     '/oauth/',
     '/login/',
     '/policies/',
-    '/maintenence/'
+    '/maintenence/',
+    '/abroad-studies/',
+    '/internship-portal/'
     # Add any other unrestricted paths
+]
+RESTRICTED_SUBPATHS = [
+    '/internship-portal/internships/'
+    # Add other restricted subpaths
 ]
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
