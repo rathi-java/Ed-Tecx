@@ -8,6 +8,9 @@
 <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Kite One" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/app.css' %}">
+<link rel="stylesheet" href="{% static 'css/faqs.css' %}">
+
 {% endblock %}
 
 {% block content %}
@@ -16,20 +19,34 @@
     <div class="container"> 
         <img class="arrow" src="{% static 'images/arrow.png' %}" alt="Arrow">
         <div class="text-content">
-            <h2>Get Hired Faster with <br> the Right Plan!</h2>
+            <h2>Explore the best Opportunities for your Success</h2>
             <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
         </div>
         <div class="illustration-container">
             <img class="bell" src="{% static 'images/bell.png' %}" alt="Bell Icon">
-            <img class="photo" src="{% static 'images/photo.png' %}" alt="Person climbing stairs towards trophy">
+            <img class="photo" src="{% static 'images/bulb.svg' %}" alt="Person climbing stairs towards trophy">
         </div>
     </div>
 </section>
 
 <section class="pricing-section" id="pricing">
   <div class="pricing-container">
-      <h1>Get Hired Faster with the<br> Right Plan!</h1>
-      <p>Choose Your Plan & Start Your Journey Today!</p>
+    {% comment %} ============ {% endcomment %}
+    <section class="sec1-pricing-section">
+        <div class="container1"> 
+            <img class="arrow1" src="{% static 'images/arrow.png' %}" alt="Arrow">
+            <div class="text-content1">
+                <h2>Get Hired Faster with <br> the Right Plan!</h2>
+                <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
+            </div>
+            <div class="illustration-container">
+                <img class="bell1" src="{% static 'images/bell.png' %}" alt="Bell Icon">
+                <img class="photo" src="{% static 'images/photo.png' %}" alt="Person climbing stairs towards trophy">
+            </div>
+        </div>
+    </section>
+    {% comment %} ============ {% endcomment %}
+     
       <div class="plans">
           {% for plan in subscription_plans %}
           <div class="plan">
@@ -131,12 +148,12 @@
             <p class="sec3-pricing-desc">Perfect for students who want to explore without any commitments. Get access to essential features, and see how it fits your learning style. </p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/monthly.png' %}" alt="Monthly Plan">
+            <img src="{% static 'images/june-calendar.png' %}" alt="Monthly Plan">
             <h3 class="sec3-pricing-title">Monthly</h3>
             <p class="sec3-pricing-desc">Ideal for students who want full access without a long-term commitment. Pay as you go and enjoy exclusive content, premium tools, and priority support.</p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/yearly.png' %}" alt="Yearly Plan">
+            <img src="{% static 'images/calendar-days.png' %}" alt="Yearly Plan">
             <h3 class="sec3-pricing-title">Yearly</h3>
             <p class="sec3-pricing-desc">For students who are dedicated to upskilling and securing better opportunities. Get a full year of premium benefits at the lowest cost per month!</p>
         </div>
@@ -166,6 +183,8 @@
     </div>
 </div>
 {% endif %}
+{% include 'faq.html' %}
+{% include 'app.html' %}
 
 {% endblock content %}
 

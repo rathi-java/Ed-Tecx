@@ -1,17 +1,17 @@
 .pricing-container {
-    width: 84.3%;
+    width: 100%;
     box-sizing: border-box;
     background: #fff;
-    padding: 40px;
+    /* padding: 40px; */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 98.2px;
+    /* margin-left: 98.2px; */
     margin-top: 3px;
 }
 
 .pricing-container h1 {
     font-family: 'Inter';
-    margin-bottom: 1px;
+    margin-bottom: 20px;
     color: #3d3d3d;
     font-size: 38px;
     text-align: center;
@@ -25,13 +25,14 @@
     text-align: center;
 }
 
+
 .plans {
-    display: flex;
+    display: flex
+;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding: 0 10px;
-    overflow: visible;
+    gap: 113px;
+    padding: 0px 10px;
 }
 
 .plan {
@@ -46,14 +47,14 @@
     justify-content: space-between;
     min-height: 450px;
     box-sizing: border-box;
-    border:3px solid #077bc3;
+    border: 3px solid #077bc3;
 }
 
 .plan:hover {
-    transform: scale(1.05); 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
-    transition: all 0.3s ease-in-out; 
-    border-color: #055a91; 
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    border-color: #055a91;
 }
 
 .plan-header {
@@ -61,8 +62,9 @@
     display: flex;
     justify-content: flex-start;
     gap: 1px;
-    padding: -1px;
+
 }
+
 .plan-title {
     display: flex;
     flex-direction: column;
@@ -72,7 +74,7 @@
 .plan-title h2 {
     font-style: poppins;
     font-size: 22px;
-    margin: -10px;
+
     text-align: left;
 }
 
@@ -85,6 +87,7 @@
     text-align: center;
     margin-left: 9px;
 }
+
 .pricing-amountt {
     font-family: 'Poppins';
     font-size: 2.2em;
@@ -94,10 +97,13 @@
     text-align: center;
     margin-left: 63px;
 }
-.pricing-amount span{
+
+.pricing-amount span {
     font-size: 16px;
 }
+
 .plan ul {
+    line-height: 34px;
     list-style: none;
     padding: 1px 0;
     flex-grow: 1;
@@ -109,18 +115,20 @@
     align-items: center;
     font-family: 'Poppins';
     font-size: 14px;
-    color:#353535;
+    color: #353535;
 }
 
 .plan ul li img {
     width: 10px;
     height: 10px;
     margin-right: 10px;
-   
+
 }
+
 .plan-header {
     text-align: center;
 }
+
 .badge {
     background: #e0f2fe;
     color: #077bc3;
@@ -131,14 +139,17 @@
     margin-bottom: 5px;
     margin-right: 50px;
 }
-.second-heading{
-    margin-right:10px;
+
+.second-heading {
+    margin-right: 10px;
 }
+
 .old-price {
     text-decoration: line-through;
     color: #414141;
     font-size: 19px;
 }
+
 .discount {
     background: #e0f2fe;
     color: #077bc3;
@@ -147,6 +158,7 @@
     border-radius: 30px;
     margin-left: 5px;
 }
+
 .plan button {
     background: #077bc3;
     width: 90%;
@@ -184,8 +196,9 @@
     display: none;
     align-items: center;
     justify-content: center;
-    overflow: hidden; 
+    overflow: hidden;
 }
+
 .modal-content {
     background: white;
     padding: 20px;
@@ -195,7 +208,7 @@
     position: relative;
     border: 3px solid blue;
     font-family: 'Poppins';
-    max-width: 90%; 
+    max-width: 90%;
     height: 274px;
 }
 
@@ -282,33 +295,38 @@
 /* sec3 */
 
 
+
+
 .sec3-pricing-section {
-    
     width: 79.1%;
     /* max-width: 900px; */
-    margin: 50px auto;
+    margin: o auto;
     background: #fff;
-    padding: 40px;
+    /* padding: 40px; */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     margin-top: 3px;
-    margin-left: 95.7px;
+    /* margin-left: 95.7px; */
 }
 
 .sec3-pricing-header {
+    text-align: center;
     font-family: 'Poppins';
     font-size: 27px;
     font-weight: bold;
     margin-bottom: 29px;
     color: #3d3d3d;
-    margin-top: 1px;
+    margin-top: 41px;
 }
 
 .sec3-pricing-container {
+
+    /* margin-inline: -3%; */
     display: flex;
     justify-content: space-around;
     text-align: center;
+    margin-bottom: 5%;
 }
 
 .sec3-pricing-card {
@@ -326,7 +344,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-    color:#077bc3;
+    color: #077bc3;
 }
 
 .sec3-pricing-desc {
@@ -344,109 +362,325 @@
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 80%;
-    margin-left:6.7%;
-}
-.arrow{
-    width: 100px;
-    height: 100px;
-    margin-top: 50px;
+     margin:0 auto;
+    width: 100%;
 
-} 
+}
+.container1 {
+    margin: 0 auto;
+    /* margin-left: 64px; */
+    display: flex
+;
+    justify-content: space-between;
+    width: 94%;
+}
+
+.arrow {
+    margin-left: 53px;
+    width: 107px;
+    margin-top: 50px;
+    height: 202px;
+    display:none;
+}
+
+.arrow1 {
+    margin-left: 53px;
+    width: 107px;
+    margin-top: 50px;
+    height: 202px;
+    display:none;
+   
+}
+
 .bell {
     width: 80px;
     height: 80px;
-    margin-bottom:70px;
+    margin-bottom: 70px;
+    display:none;
 }
+.bell1 {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 70px;
+   
+}
+
+
 .photo {
-    margin-bottom:-60px;
+
     width: 250px;
     height: auto;
 }
+
 .text-content {
+    margin-left: 2%;
     flex: 1;
     text-align: center;
-    padding: 0 20px;
+    padding: 31px;
+    line-height: 1.8;
 }
+
 .text-content h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 45px;
     color: #333;
     text-align: left;
 }
 
 .text-content p {
-    font-family: 'Kite One', sans-serif;
+    font-family: 'KIte One';
     font-size: 18px;
     color: #077bc3;
     margin-top: 10px;
+    text-align: left;
+
 }
+
 .text-content p a {
     font-size: 20px;
     text-decoration: none;
     color: #077bc3;
-    margin-right: 52px;
+    font-style: italic;
+    /* margin-right: 348px; */
 }
+
 .illustration-container {
     display: flex;
     align-items: center;
-    gap: 20px; 
+    /* gap: 20px; */
 }
 
 
 
 /* Responsive Design */
 
-
+/* 
 @media (max-width: 1440px){
     
         .container {
-            display: flex;         ;
-            align-items: center;
-            justify-content: space-between;
-            /* max-width: 1000px; */
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 81%;
-            margin-left: 94px;
-        }
-        .pricing-container {
-            width: 85%;
-            box-sizing: border-box;
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-left: 93.3px;
-            margin-top: 4px;
-        }
-        .sec3-pricing-section {
-            width: 79.2%;
-            margin-left: 93.7px;
-        }
+            display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    /* max-width: 1000px; */
+/* background: white;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+/* padding: 30px; */
+/* width: 100%; */
+/* margin-left: 94px; */
+.pricing-container {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    /* padding: 40px; */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* margin-left: 93.3px; */
+    margin-top: 2px;
+}
+
+
+.payment-success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.payment-success-modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.payment-success-modal h2 {
+    color: #077BC3;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.payment-success-modal p {
+    margin-bottom: 25px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: 'Inter', sans-serif;
+}
+
+.order-id {
+    font-weight: bold;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 15px 0;
+    display: inline-block;
+}
+
+.success-icon {
+    font-size: 60px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+
+.error-icon {
+    font-size: 60px;
+    color: #F44336;
+    margin-bottom: 20px;
+}
+
+.close-modal-btn {
+    background-color: #077BC3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.close-modal-btn:hover {
+    background-color: #0567a2;
+}
+
+.sec3-pricing-section {
+    margin-top: 4px;
+    width: 100%;
+    padding: 2px;
+
+}
+
+.photo {
+    margin-inline: 35px;
+    width: 390px;
+    margin-top: 0px;
+}
+
+.pricing-container h1 {
+
+    font-size: 31px;
+    margin-top: 0px;
+}
+
+.text-content1 {
+    margin-left: -10%;
+    flex: 1;
+    text-align: center;
+    padding: 30px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* @media (max-width:1440px){
+    container {
+        display: flex;
+        justify-content: space-between;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         
+        width: 100%;
         
     }
+    .arrow{
+        margin-left: 26px;
+        width: 100px;
+        height: 100px;
+        margin-top: 50px;
+    
+    } 
+    .bell {
+        width: 80px;
+        height: 80px;
+        margin-bottom:70px;
+    }
+    .photo {
+        margin-bottom:-60px;
+        width: 250px;
+        height: auto;
+    }
+    .text-content p {
+        font-family: 'Kite One', sans-serif;
+        font-size: 18px;
+        color: #077bc3;
+        margin-top: 10px;
+        margin-left:-8%;
+        
+    }
+}    */
 
 @media (max-width: 1024px) {
     .plans {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 15px; 
-        padding: 0 1px;
+        gap: 80px;
+        padding: 48px 1px;
     }
+
+    .text-content p {
+        width: 100%;
+    }
+
+    .sec3-pricing-desc {
+        font-family: 'Poppins';
+        font-size: 14px;
+        color: #555;
+        text-align: -webkit-center;
+        padding-left: 19px;
+        padding-right: 8px;
+    }
+
+    .text-content h2 {
+        /* width: 74%; */
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 28px;
+    }
+
     .container {
-        margin-left: 2%;
-        width: 90%;
+        /* margin-left: 2%; */
+        width: 100%;
     }
 
     .plan {
         width: 280px;
-        min-height: 420px; 
+        min-height: 420px;
         padding: 8px;
+    }
+
+    .arrow {
+        margin-left: 34px;
+        width: 94px;
+        margin-top: 68px;
+        height: 118px;
     }
 
     .plan-title h2 {
@@ -454,7 +688,7 @@
     }
 
     .pricing-amount {
-        font-size: 2em; 
+        font-size: 2em;
     }
 
     .plan ul li {
@@ -462,346 +696,187 @@
     }
 
     .plan button {
-        font-size: 18px; 
+        font-size: 18px;
         padding: 10px;
     }
-    
+
     .pricing-container {
-        margin-left: 2.2%;
-        width: 95.6%;
+
+        width: 100%
+    }
+
+    .sec3-pricing-section {
+        width: 100%;
+    }
+
+    .photo {
+        width: 224px;
+        margin-top: 0px;
+    }
+    .sec3-pricing-card {
+        width: 22%;
+    }
 }
-.sec3-pricing-section {
-    width: 87%;
-    margin-left: 2.4%;
-}
-}
+
 @media (max-width: 768px) {
-   
+
     .text-content h2 {
         font-family: 'Poppins', sans-serif;
-        font-size: 28px;
+        font-size: 45px;
         color: #333;
-        text-align: left;
-        margin-top: -122px;
-        margin-left: -31px;
+        text-align: center;
+
     }
-    .text-content p a {
-        margin-right: 118px;
+
+    .plans {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 31px;
     }
+
+    .text-content p {
+        margin-left: 133px;
+        text-align: center;
+        width: 60%;
+    }
+
+    
+    .photo {
+        width: 294px;
+    }
+    .container1 {
+    margin: 0 auto;
+    /* margin-left: 64px; */
+    display: flex
+;
+    justify-content: space-between;
+    width: 94%;
+    flex-direction: column;
+}
+
+
     .arrow {
         width: 60px;
         height: 60px;
         margin-right: 604px;
+        display: none;
     }
+
     .container {
         flex-direction: column;
         text-align: center;
-        margin-left: 3%;
-        width: 86%;
+        /* margin-left: 3%; */
+        width: 100%;
     }
+
     .pricing-container {
         margin-top: 3px;
-        margin-left: 23.5px;
-        width: 93.6%;
+        /* margin-left: 23.5px; */
+        width: 100%;
     }
+
     .illustration-container {
         flex-direction: column;
         align-items: center;
     }
-    .bell{
-    margin-top: -93px;
-    width: 59px;
-    height: 50px;
-    margin-left: -128px;
-}
-    .photo {
-        
-            /* height: 16%; */
-            width: 23%;
-            margin-left: 505px;
-            margin-top: -163px;
-        
+
+
+    .bell1 {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 70px;
+        display: none;
     }
-    .sec3-pricing-section {
-        width: 82.8%;
-        margin-left: 3.3%
-    }
+
 }
-    
+
 @media (max-width: 426px) {
-.text-content h2 {
-    
-        margin-top: -121px;
+    .text-content p {
+        width: 100%;
+        margin: 0px;
+    }
+
+    .sec3-pricing-container {
+        flex-direction: column;
+        width: 100%;
+        gap: 50px;
+    }
+
+    .sec3-pricing-card {
+        width: 100%;
+    }
+
+    .text-content h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 33px;
+    }
+}
+
+@media (max-width: 376px) {
+    .photo {
+        width: 67px;
+        margin-left: 203px;
+
+    }
+
+    .text-content h2 {
+
         font-family: 'Poppins', sans-serif;
         font-size: 27px;
         color: #333;
-        text-align: left;
-        margin-left: -5px;
-    
-}
+        text-align: center;
 
-.container {
-    width: 78%;
-}
+    }
 
-.bell {
-    height: 14%;
-    width: 11%;
-    margin-top: -112px;
-    margin-left: 135px;
-}
-.pricing-container {
-    margin-top: 4px;
-    margin-left: 13.6px;
-    width: 92.8%;
-}
-
- .text-content p a {
-            font-size: 17px;
-            text-align: left;
-            /* margin-right: 330px; */
-            margin-right: 10px;
-        }
-        .sec3-pricing-section {
-            margin-top: 4px;
-            width: 73.8%;
-            margin-left: 3.3%;
-        }
-        .photo {
-            width: 78px;
-            margin-left: 299px;
-            margin-top: -61px;
-        }
-        .pricing-container h1 {
-           
-                font-size: 31px;
-            margin-top:0px;
-        }
-}
-@media (max-width: 376px){
     .photo {
         width: 67px;
         margin-left: 203px;
-        margin-top: -45px;
+
     }
-    .text-content h2 {
-        margin-top: -121px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 20px;
-        color: #333;
-        text-align: left;
-        margin-left: 0px;
-    }
-    .bell {
-        margin-top: -96px;
-        margin-left: 93px;
-    }
-    .photo {
-        width: 67px;
-        margin-left: 203px;
-        margin-top: -61px;
-    }
+
     .text-content p {
-        margin-left: -15px;
+
         font-family: 'Kite One', sans-serif;
         font-size: 15px;
         color: #077bc3;
-        margin-top: -3px;
+
     }
+
     .pricing-container h1 {
-        margin-top: -14px;
+
         top: 10%;
         font-family: 'Inter';
         /* margin-bottom: 5px; */
         color: #3d3d3d;
         font-size: 26px;
         text-align: center;
+        display: none;
     }
+
     .sec3-pricing-section {
-        margin-top: 4px;
-        width: 70.8%;
-        margin-left: 4%;
+        width: 100%;
+        margin: 0px;
+
     }
-}
-@media (max-width: 321px){
-    .text-content h2 {
-        /* margin-top: -121px; */
-        font-family: 'Poppins', sans-serif;
-        font-size: 17px;
-        color: #333;
-        text-align: left;
-        margin-left: 0px;
-    }
-    .container {
-        margin-left: 5.1%;
-        width: 71.7%;
-    }
-    .pricing-container h1 {
-        margin-top: -14px;
-        top: 10%;
-        font-family: 'Inter';
-        /* margin-bottom: 5px; */
-        color: #3d3d3d;
-        font-size: 22px;
-        text-align: center;
-    }
-    .pricing-container p {
-        font-family: 'Kite One';
-        color: #0f5683;
-        margin-bottom: 10px;
-        font-size: 19px;
-        text-align: center;
-    }
-    .sec3-pricing-header {
-       
-        font-size: 23px;
-       
-    }
-    .sec3-pricing-section {
-        margin-top: 4px;
-        width: 65.8%;
-        margin-left: 5%;
-    }
+
     .sec3-pricing-container {
-        margin-left: -43px;}
-}
-
-/* Payment block */
-#payment-sub-container {
-    height: 238px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 15px;
- 
-}
-
-#payment-sub-container p {
-    color: #A2B0B8;
-}
-
-#payment-box-1, #payment-box-2, #payment-box-3 {
-    padding: 3px;
-    height: 40px;
-    width: 449px;
-    display: flex;
-    align-items: center;
-    border-radius: 12px;
-    border: 3px solid #C8CACB;
-    /* margin-top: 1rem; */
-    transition: all 0.3s ease;
-    position: relative;
-    margin-left: -2rem;
-    margin-block: 1%;
-}
-
-
-.payment-img {
-    margin-left: 3px;
-    height: 50px;
-    width: 50px;
-    object-fit: cover;
-}
-
-.payment-img img {
-    margin-left: 2px;
-    height: 45px;
-    width: 46px;
-    object-fit: cover;
-}
-
-.payment-text {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 1;
-    margin-left: 16px;
-    font-size: 14px;
-    color: #313131;
-}
-
-.payment-text span {
-    margin-left: 0px;
-    font-size: 12px;
-    color: #313131;
-}
-
-#payment-box-1 i, #payment-box-2 i, #payment-box-3 i {
-    margin-right: 1rem;
-    color: #C8CACB;
-    font-size: 20px;
-    transition: color 0.3s ease;
-}
-
-
-#payment-box-1:hover, #payment-box-2:hover, #payment-box-3:hover {
-    border: 3px solid transparent;
-    background: linear-gradient(to right, white, white) padding-box,
-                linear-gradient(to right, #5536C4, #ED4FA1) border-box;
-    border-radius: 12px;
-}
-
-#payment-box-1:hover i, #payment-box-2:hover i, #payment-box-3:hover i {
-    color: transparent;
-    background: linear-gradient(to right, #5536C4, #ED4FA1);
-    -webkit-background-clip: text;
-    background-clip: text;
-}
-
-
-@media (max-width: 426px)  {
-     .payment-container {
-        width: 90%;
-        max-width: 460px;
-        padding: 0.5rem;
-        margin: 11rem auto 0;
-        margin-top: 4rem;
+        flex-direction: column;
+        gap: 42px;
     }
 
-    .payment-head{
-        margin-left: -9.9rem;
-        margin-top: -0.8rem;
+    .sec3-pricing-header {
+        margin-inline: 0;
     }
 
-    .payment-head p{
-        margin-right: 45px;
-        font-size: 10px;
+    .text-content h2 {
+        margin-bottom: 11px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
     }
-
-    .payment-head h2 {
-        margin-left: -1rem;
-        font-size: 21px;
-    }
-    
-    .payment-container p {
-        margin-left: 0.7rem;
-    }
-
-    #payment-sub-container {
-        height: 59%;
-        margin-top: -1.5rem;
-        margin-left: 21px;
-        margin-right: 2.2rem;
-    }
-
-    #payment-box-1, #payment-box-2, #payment-box-3 {
-        width: 97%; 
-    }
-
-    .payment-img {
-        margin-left: -3px;
-    }
-
-    .payment-text span {
-        font-size: 8px;
-        margin-left: -14px;
-    }
-} 
+}
 
 
-@media (max-width: 320px) {
+@media (max-width: 426px) {
     .payment-container {
         width: 90%;
         max-width: 460px;
@@ -810,17 +885,15 @@
         margin-top: 4rem;
     }
 
-    .payment-head{
-        margin-left: -9.9rem;
-        margin-top: -0.8rem;
-    }
 
-    .payment-head p{
+
+    .payment-head p {
         margin-right: 45px;
         font-size: 10px;
     }
+
     .payment-head h2 {
-        margin-left: -1rem;
+
         font-size: 21px;
     }
 
@@ -830,103 +903,30 @@
 
     #payment-sub-container {
         height: 59%;
-        margin-top: -1.5rem;
+
         margin-left: 21px;
         margin-right: 2.2rem;
     }
 
-    #payment-box-1, #payment-box-2, #payment-box-3 {
-        width: 97%; 
+    #payment-box-1,
+    #payment-box-2,
+    #payment-box-3 {
+        width: 97%;
     }
 
-    .payment-img {
-        margin-left: -3px;
-    }
 
     .payment-text span {
         font-size: 8px;
-        margin-left: -14px;
+
     }
 
+    .photo {
+        width: 50%;
+        margin-top: 0px;
+        margin-left: 0px;
+    }
 }
-    /* Payment Success Modal Styles */
-    .payment-success-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-    
-    .payment-success-modal {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        width: 300px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .payment-success-modal h2 {
-        color: #077BC3;
-        margin-bottom: 20px;
-        font-family: 'Poppins', sans-serif;
-    }
-    
-    .payment-success-modal p {
-        margin-bottom: 25px;
-        font-size: 16px;
-        line-height: 1.5;
-        font-family: 'Inter', sans-serif;
-    }
-    
-    .order-id {
-        font-weight: bold;
-        background-color: #f5f5f5;
-        padding: 10px;
-        border-radius: 5px;
-        margin: 15px 0;
-        display: inline-block;
-    }
-    
-    .success-icon {
-        font-size: 60px;
-        color: #4CAF50;
-        margin-bottom: 20px;
-    }
-    
-    
-    .error-icon {
-        font-size: 60px;
-        color: #F44336;
-        margin-bottom: 20px;
-    }
-    
-    .close-modal-btn {
-        background-color: #077BC3;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 20px;
-    }
-    
-    .close-modal-btn:hover {
-        background-color: #0567a2;
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    @keyframes slideIn {
-        from { transform: translateY(-50px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-    }
+.text-content1 h2 {
+    font-size: 48px;
+    font-style:italic;
+}
