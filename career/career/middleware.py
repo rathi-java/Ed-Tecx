@@ -10,6 +10,8 @@ class LoginRequiredMiddleware:
         self.get_response = get_response
 
         public_paths = getattr(settings, 'PUBLIC_PATHS', [])
+        restricted_subpaths = getattr(settings, 'RESTRICTED_SUBPATHS', [])
+        
         self.allowed_paths = [
             path if path == '/' else path.rstrip('/')
             for path in public_paths
@@ -23,6 +25,10 @@ class LoginRequiredMiddleware:
             '/accounts/social-auth',
             '/complete'
         ]
+        
+        self.restricted_subpaths = [
+            path.rstrip('/') for path in restricted_subpaths
+        ]
 
     def __call__(self, request):
         if request.path.startswith('/accounts/') or request.path.startswith('/social-auth/'):
@@ -30,6 +36,12 @@ class LoginRequiredMiddleware:
 
         current_path = request.path if request.path == '/' else request.path.rstrip('/')
         is_custom_logged_in = bool(request.session.get('user_id'))
+
+        # Check if path is in restricted subpaths
+        for restricted in self.restricted_subpaths:
+            if current_path == restricted or current_path.startswith(restricted + '/'):
+                if not is_custom_logged_in:
+                    return redirect("/?form_type=login")
 
         if not is_custom_logged_in:
             if not any(
