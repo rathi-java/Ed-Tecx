@@ -32,9 +32,63 @@ def enquiry_view(request):
     
     # If not POST, just render the form page
     return render(request, 'abroad_studies.html')
-def dashboard(request):
-    enquiries = CounsellingEnquiry.objects.all()
-    username = request.session.get('username', "Guest")  # Retrieve username from session
-    print(f"Username: {username}")  # Print the username to the console
-    return render(request, 'abroadStudiesdashboard.html', {'enquiries': enquiries, 'username': username})
 
+def dashboard(request):
+    username = request.session.get('username', "Guest")
+    
+    # Get organization information
+    try:
+        organization = AbroadStudiesBtoB.objects.get(username=username)
+    except AbroadStudiesBtoB.DoesNotExist:
+        organization = None
+    
+    # Filter enquiries by the organization's referral code
+    if organization:
+        enquiries = CounsellingEnquiry.objects.filter(referral_code=organization.referral_code)
+    else:
+        enquiries = []
+    
+    # Dynamically get field names from the model
+    fields = []
+    for field in CounsellingEnquiry._meta.get_fields():
+        # Skip ManyToOneRel fields that are auto-created by Django
+        if field.is_relation and not field.concrete:
+            continue
+        if field.name == 'id':
+            continue
+        fields.append(field)
+    
+    # Prepare headers
+    headers = []
+    field_names = []
+    for field in fields:
+        # Get field name
+        field_name = field.name
+        field_names.append(field_name)
+        
+        # Format header name (capitalize and replace underscores with spaces)
+        header = field_name.replace('_', ' ').title()
+        headers.append(header)
+    
+    # Prepare data rows
+    rows = []
+    for enquiry in enquiries:
+        row = []
+        for field_name in field_names:
+            value = getattr(enquiry, field_name)
+            # Format special fields
+            if field_name == 'status':
+                value = value.status if value else "Unknown"
+            elif field_name == 'submitted_at':
+                value = value.strftime("%Y-%m-%d %H:%M")
+            row.append(value)
+        rows.append(row)
+    
+    context = {
+        'organization': organization,
+        'headers': headers,
+        'rows': rows,
+        'username': username
+    }
+    
+    return render(request, 'abroadStudiesdashboard.html', context)
