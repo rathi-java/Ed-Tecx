@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Document{% endblock %}
+{% block extra_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/freelancing_landing.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
+{% endblock %}
+{% block content %}
+<div>
+    <!-- section 1 freelancing -->
+    <div class="freelance-container">
+        <h1>Start Freelancing Journey with <span class="freelance-highlight">ReaderClub !</span></h1>
+        <p class="freelance-subheading">Empowering HR Professionals to Connect Talent with Opportunities</p>
+        <div class="freelance-main">
+            <div class="freelance-left-freelancing">
+                <div class="freelance-cta-box">Post a job today, hire tomorrow</div>
+                <p class="freelance-description">Freelancing offers you the freedom to work independently for multiple companies. Connect with talent that gets you, and hire them to take freelancing to the next level.</p>
+                <button class="freelance-start-btn">Start journey today →</button>
+            </div>
+           <div class="freelance-right-freelancing">
+            <div class="freelance-badges">
+                <img src="{% static 'images/congrats.svg' %}" class="freelance-badge bdg1">
+                <img src="{% static 'images/greate.svg' %}" alt="" class="freelance-badge bdg2">
+                <img src="{% static 'images/woww.svg' %}" alt="" class="freelance-badge bdg3">
+            </div>
+            <div class="freelance-team">
+                <img src="{% static 'images/group_people.svg' %}" alt="Team of professionals">
+            </div>
+           </div>
+        </div>
+    </div>
+    <!-- section 2 freelancing -->
+    <section class="benefits-section-sec1-freelancing">
+        <p class="benefits-title-sec1-freelancing">Benefits</p>
+        <p class="benefits-subtitle-sec1-freelancing">Unlock Opportunities, Earn More, and Grow!</p>
+
+        <div class="cards-container-sec1-freelancing">
+            <div class="card-sec1-freelancing ">
+                <img src="{% static 'images/profit 1.svg' %}" alt="Extra Income Source">
+                <p class="card-heading-sec1-freelancing">Extra Income Source</p>
+                <p>Earn attractive commissions by successfully placing candidates in multiple companies. Turn your recruitment skills into a rewarding side income.</p>
+                <a href="#" class="learn-more-sec1-freelancing">Learn more →</a>
+            </div>
+
+            <div class="card-sec1-freelancing">
+                <img src="{% static 'images/business-and-trade 1.svg' %}" alt="Boost Your Career">
+                <p class="card-heading-sec1-freelancing">Boost Your Career</p>
+                <p>Enjoy the freedom to work on your own terms. Manage job listings, postings, candidate screenings, and interviews at your preferred time and
+                    pace.</p>
+                <a href="#" class="learn-more-sec1-freelancing">Learn more →</a>
+            </div>
+
+            <div class="card-sec1-freelancing">
+                <img src="{% static 'images/business-connection 1 (1).svg' %}" alt="Expand Your Network">
+                <p class="card-heading-sec1-freelancing">Expand Your Network</p>
+                <p>Enhance your professional profile by building a strong track record in successful hiring. 
+                    Gain recognition in the industry as a trusted HR expert.</p>
+                <a href="#" class="learn-more-sec1-freelancing">Learn more →</a>
+            </div>
+
+            <div class="card-sec1-freelancing">
+                <img src="{% static 'images/processing-time 1.svg' %}" alt="Flexible Work Schedule">
+                <p class="card-heading-sec1-freelancing">Flexible Work Schedule</p>
+                <p>Connect with diverse companies across various industries in the market, opening doors to new partnerships and career opportunities.</p>
+                <a href="#" class="learn-more-sec1-freelancing">Learn more →</a>
+            </div>
+        </div>
+    </section>
+    <!-- section 3 freelancing -->
+    <div class="container-sec3-freelancing">
+        <div class="content-sec3-freelancing">
+            <div class="heading-sec3-freelancing">
+                <img src="{% static 'images/section3-01.svg' %}" alt="01">
+                <h2>Understand Company Hiring Needs</h2>
+            </div>
+            <p>By understanding the unique hiring needs of different companies, you can effectively match candidates to their ideal roles. This involves connecting with employers to identify their specific job requirements, company culture, and skill expectations.</p>
+            <p>By gaining insights into these factors, you can tailor your search to find candidates who not only meet the technical qualifications but also align with the company’s values and goals.</p>
+        </div>
+        <div class="image-container-sec3-freelancing">
+            <img src="{% static 'images/section3-freelancing-image.svg' %}" alt="Hiring Needs Image">
+        </div>
+    </div>
+    <!-- section 4 freelancing -->
+    <div class="jobs-container-freelancingg-sec3">
+        <div class="header-container-freelancingg">
+            <img src="{% static 'images/section4-02.svg' %}" alt="Step Number" class="step-img-freelancingg">
+            <div class="text-content-freelancingg">
+                <h2>Post Jobs & Shortlist Candidates</h2>
+                <p>Post job openings across various industries, manage & shortlist candidates.</p>
+            </div>
+        </div>
+         <div class="jobs-cards-freelancingg-sec3">
+            <div class="jobs-card-freelancingg-sec3">
+                <img src="{% static 'images/Rectangle 890 (1).svg' %}" class="jobs-icon-freelancingg-sec3 blue-freelancingg-sec3">
+                <img src="{% static 'images/add (1) 1 (2).svg' %}" alt="" class="icon-imagee">
+                <!-- <img src="images/calender.svg" class="jobs-icon-freelancingg-sec3 white-freelancingg-sec3"> -->
+                <div class="jobs-wave-freelancingg-sec3"></div>
+                <div class="jobs-text-freelancingg-sec3">
+                    <p class="first-heading-freelancingg">Connect & Hire<br></p>
+                 <span class="second-heading-freelancingg">Quickly post clear, detailed<br> job openings to attract the <br>right talent.</span>
+                </div> 
+            </div>
+            <div class="jobs-card-freelancingg-sec3">
+                <img src="{% static 'images/Rectangle 890 (1).svg' %}" class="jobs-icon-freelancingg-sec3 blue-freelancingg-sec3">
+                <img src="{% static 'images/promote 1 (1).svg' %}" alt="" class="iconn-imagee">
+                <!-- <img src="images/mike.svg" class="jobs-icon-freelancingg-sec3 white-freelancingg-sec3"> -->
+                <div class="jobs-wave-freelancingg-sec3"></div>
+                <div class="jobs-text-freelancingg-sec3">
+                    <p class="first-heading-freelancingg">Connect & Hire<br></p>
+                 <span class="second-heading-freelancingg">Boost visibility by sharing<br> job openings across <br>industries</span>
+                </div> 
+            </div>
+            <div class="jobs-card-freelancingg-sec3">
+                <img src="{% static 'images/Rectangle 890 (1).svg' %}"class="jobs-icon-freelancingg-sec3 blue-freelancingg-sec3">
+                <img src="{% static 'images/choosing 1 (1).svg' %}" alt="" class="icon-imagee">
+                <!-- <img src="images/student-approved.svg" class="jobs-icon-freelancingg-sec3 white-freelancingg-sec3"> -->
+                <div class="jobs-wave-freelancingg-sec3"></div>
+                <div class="jobs-text-freelancingg-sec3">
+                    <p class="first-heading-freelancingg">Connect & Hire<br></p>
+                 <span class="second-heading-freelancingg">Review applications and <br>shortlist candidates based<br> on skills</span>
+                </div> 
+            </div>
+            <div class="jobs-card-freelancingg-sec3">
+                <img src="{% static 'images/Rectangle 890 (1).svg' %}" class="jobs-icon-freelancingg-sec3 blue-freelancingg-sec3">
+                <img src="{% static 'images/social-network 1 (1).svg' %}" alt="" class="icon-imagee">
+                <!-- <img src="images/connect&hire.svg" class="jobs-icon-freelancingg-sec3 white-freelancingg-sec3"> -->
+                <div class="jobs-wave-freelancingg-sec3"></div>
+                <div class="jobs-text-freelancingg-sec3">
+                    <p class="first-heading-freelancingg">Connect & Hire<br></p>
+                 <span class="second-heading-freelancingg">Connect & schedule <br>interviews, and finalize the  <br>hiring process.</span>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!-- section 5 image and box section freelancing -->
+    <div class="freelancing-section-box-container">
+        <div class="freelancing-section-box-left-section">
+            <div class="freelancing-section-box-step-number"> <img src="{% static 'images/third.svg' %}" alt="Step Number" class="freelancing-section-box-step-img">
+            <h2 class="freelancing-section-box-headingg">Earn money for Successful Placement</h2>
+        </div>
+            <div class="freelancing-section-box-slanted-box">Get Paid for Every Successful Hire</div>
+      
+            <ul class="freelancing-section-box-listt">
+                <li class="freelancing-section-box-headingg"> <img src="{% static 'images/check (1) 1.svg' %}" alt="Step Number" class="freelancing-section-box-check-img">Boost your income by filling multiple roles</li>
+                <li class="freelancing-section-box-headingg"> <img src="{% static 'images/check (1) 1.svg' %}" alt="Step Number" class="freelancing-section-box-check-img">Earn commissions for every successful placement</li>
+                <li class="freelancing-section-box-headingg"> <img src="{% static 'images/check (1) 1.svg' %}" alt="Step Number" class="freelancing-section-box-check-img">Transparent payment system for secure transactions</li>
+            </ul>
+        </div>
+        <div class="freelancing-section-box-right-section">
+            <div class="freelancing-section-box-info-container">
+                <div class="freelancing-section-box-info-box blue">
+                    <img src="{% static 'images/like.svg' %}" alt="Success Bonus" class="freelancing-section-box-info-img">
+                    <div>
+                        <strong>Success Bonus!</strong><br>
+                        Get Paid for Connecting Talent with Opportunities.
+                    </div>
+                </div>
+                <div class="freelancing-section-box-info-box pink">
+                    <img src="{% static 'images/star.svg' %}" alt="Smart Rewards" class="freelancing-section-box-info-img">
+                    <div>
+                        <strong>Smart Rewards!</strong><br>
+                        Turn Your Hiring Skills into Income.
+                    </div>
+                </div>
+                <div class="freelancing-section-box-info-box orange">
+                    <img src="{% static 'images/tick.svg' %}" alt="Expand Your Network" class="freelancing-section-box-info-img">
+                    <div>
+                        <strong>Expand Your Network!</strong><br>
+                        Build connections with top companies.
+                    </div>
+                </div>
+            </div>
+            
+            <img src="{% static 'images/section5-main.svg' %}" alt="Professional Person" class="freelancing-section-box-person-image">
+        </div>
+    </div>
+
+<!-- section stat -->
+<div class="container-freelancinggg-sec5">
+    <p class="title-freelancinggg-sec5">Our Impacts in Numbers</p>
+    <div class="stats-container-freelancinggg-sec5">
+        <div class="stat-box-freelancinggg-sec5">
+            <img src="{% static 'images/user 1.svg' %}" alt="Students Benefited">
+            <div class="text-content-freelancinggg-sec5">
+                <p class="number-freelancinggg-sec5">500+</p>
+                <p class="label-freelancinggg-sec5">HR Professionals</p>
+            </div>
+        </div>
+        <div class="stat-box-freelancinggg-sec5">
+            <img src="{% static 'images/candidate (2) 1.svg' %}" alt="University Collaboration">
+            <div class="text-content-freelancinggg-sec5">
+                <p class="number-freelancinggg-sec5">1200+</p>
+                <p class="label-freelancinggg-sec5">Candidates hired</p>
+            </div>
+        </div>
+        <div class="stat-box-freelancinggg-sec5">
+            <img src="{% static 'images/city 1.svg' %}" alt="Visa Success Rate">
+            <div class="text-content-freelancinggg-sec5">
+                <p class="number-freelancinggg-sec5">300+</p>
+                <p class="label-freelancinggg-sec5">Companies</p>
+            </div>
+        </div>
+        <div class="stat-box-freelancinggg-sec5">
+            <img src="{% static 'images/blue-stat-star.svg' %}" alt="Years of Experience">
+            <div class="text-content-freelancinggg-sec5">
+                <p class="number-freelancinggg-sec5">100%</p>
+                <p class="label-freelancinggg-sec5">Transparency</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="cta-button-freelancinggg">
+        <span class="text-freelancinggg">Learn more</span>
+        <div class="arrow-box-freelancinggg">→</div>
+    </a>
+</div>
+<!-- monetize section -->
+<div class="container-freelancer-sec-monetize">
+    <div class="left-section-freelancer-sec-monetize">
+        <h2>Monetize Your Skills with Every Successful Hire</h2>
+    </div>
+        <div class="slanted-box-freelancer-sec-monetize">Get Verified, Start Earning!</div>
+        <div class="stats-container-freelancer-sec-monetize">
+            <div class="stat-box-freelancer-sec-monetize">
+                <img src="{% static 'images/verified.svg' %}" alt="Students Benefited" class="contact-img-freelancer-sec-monetize">
+                <div class="text-content-freelancer-sec-monetize">
+                    <p class="number-freelancer-sec-monetize">Verified Account<br>Requirements</p>
+                    <p class="label-freelancer-sec-monetize">Place 25 successful candidates to get your account verified and start earning commissions.</p>
+                </div>
+            </div>
+            <div class="stat-box-freelancer-sec-monetize">
+                <img src="{% static 'images/public.svg' %}" alt="University Collaboration">
+                <div class="text-content-freelancer-sec-monetize">
+                    <p class="number-freelancer-sec-monetize">Candidate Retention <br>Rule<p>
+                    <p class="label-freelancer-sec-monetize">Out of those 25, at least 15 candidates must complete 3 months in their respective companies.</p>
+                </div>
+            </div>
+            <div class="stat-box-freelancer-sec-monetize">
+                <img src="{% static 'images/amount.svg' %}" alt="Visa Success Rate">
+                <div class="text-content-freelancer-sec-monetize">
+                    <p class="number-freelancer-sec-monetize">Commision<br>Structure</p>
+                    <p class="label-freelancer-sec-monetize">Earn up to 40% commission from each successful placement, turn recruitment efforts into income.</p>
+                </div>
+            </div>
+        </div>
+</div>
+
+<!-- last section  -->
+<section class="free-freelancers-section">
+    <h2 class="free-top-heading">Top Rated Freelancers</h2>
+    <h3 class="free-sub-heading">Freelancers that shine on our platform</h3>
+    
+    <div class="free-slider-container">
+        <button class="free-slider-btn free-left" onclick="moveSlider(-1)">
+            <span>&#60;</span>
+        </button>
+        <div class="free-cards-container" id="free-slider">
+            <!-- Freelancer cards will be dynamically inserted here -->
+        </div>
+        <button class="free-slider-btn free-right" onclick="moveSlider(1)">
+            <span>&#62;</span>
+        </button>
+    </div>
+{% load static %}
+
+<script>
+    const slider = document.getElementById("free-slider");
+    let freelancers = [
+        { name: "Priya Mehta", location: "Bengaluru, Karnataka", rating: "4.8", placed: "280+", tags: ["E-commerce", "Design roles", "Tech Startups"], img: "freelancer1 1.png" },
+        { name: "Arjun Verma", location: "New Delhi, Delhi", rating: "4.7", placed: "300+", tags: ["Engineering", "Manufacturing", "Sales"], img: "freelancer2 1.png" },
+        { name: "Neha Kapoor", location: "Pune, Maharashtra", rating: "4.9", placed: "320+", tags: ["Healthcare", "Education", "Administrative roles"], img: "freelancer3 1.png" },
+        { name: "Rajesh Sharma", location: "Mumbai, Maharashtra", rating: "4.9", placed: "350+", tags: ["IT & Software", "Finance", "Marketing"], img: "freelancer4.png" }
+    ];
+
+    const STATIC_IMG_URL = "{% static 'images/' %}";
+
+    function createCard(freelancer) {
+        return `<div class="free-card">
+            <img src="${STATIC_IMG_URL}${freelancer.img}" alt="${freelancer.name}">
+            <div class="free-card-content">
+                <h3 class="free-heading-name">${freelancer.name}</h3>
+                <p class="free-heading-location">${freelancer.location}</p>
+                <div class="free-rating"><span>&#9733; ${freelancer.rating}</span></div>
+                <p class="free-placed">Candidates Placed: ${freelancer.placed}</p>
+                <div class="free-tags">
+                    ${freelancer.tags.map(tag => `<span>${tag}</span>`).join('')}
+                </div>
+            </div>
+        </div>`;
+    }
+    
+    // Rest of your code remains unchanged
+    function populateSlider() {
+        slider.innerHTML = freelancers.map(createCard).join('');
+        duplicateCards();
+    }
+
+    function duplicateCards() {
+        const allCards = slider.innerHTML;
+        slider.innerHTML += allCards; // Duplicate to enable infinite effect
+    }
+
+    function moveSlider(direction) {
+        const cardWidth = slider.children[0].offsetWidth + 20;
+        slider.style.transition = "transform 0.5s ease-in-out";
+        slider.style.transform = `translateX(-${cardWidth}px)`;
+        setTimeout(() => {
+            slider.appendChild(slider.children[0]); // Move first card to end
+            slider.style.transition = "none";
+            slider.style.transform = "translateX(0)";
+        }, 500);
+    }
+
+    let autoSlide = setInterval(() => moveSlider(1), 3000);
+
+    populateSlider();
+</script>
+
+</section>
+{% include 'app.html' %}
+{% endblock %}

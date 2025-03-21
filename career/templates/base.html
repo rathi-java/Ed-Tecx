@@ -87,49 +87,56 @@
               <a class="nav-link" href="{% url 'job_page' %}" >Find Jobs</a>
             </li>
             {% endif %}
-          </ul>
-          {% if request.session.user_id %}
-          <!-- Profile Dropdown -->
-          <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
-            <div class="avatar">
-              {% if logged_in_user and logged_in_user.full_name %}
-                {{ logged_in_user.full_name|slice:":1"|upper }}
-              {% else %}
-                ?
-              {% endif %}
-            </div>        
-            <div id="profile-menu" class="profile-dropdown-content">
-              <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
-              {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
-              <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
-              <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
-              <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-    
-              <div class="profile-info-links">
-                <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
-                <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
-                <a href="{% url 'about_us' %}">About US</a>
-                {% comment %} <a href="{% url 'maintenance_view' %}">Career</a> {% endcomment %}
-                {% comment %} <a href="#">Blog</a> {% endcomment %}
+            {% if request.session.user_id %}
+            <!-- Profile Dropdown -->
+            <li>
+              <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
+                <div class="avatar">
+                  {% if logged_in_user and logged_in_user.full_name %}
+                    {{ logged_in_user.full_name|slice:":1"|upper }}
+                  {% else %}
+                    ?
+                  {% endif %}
+                </div>        
+                <div id="profile-menu" class="profile-dropdown-content">
+                  <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+                  {% comment %} <a href="#"><i class="fas fa-cog"></i> Settings</a> {% endcomment %}
+                  <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+                  <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+                  <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        
+                  <div class="profile-info-links">
+                    <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
+                    <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                    <a href="{% url 'about_us' %}">About US</a>
+                    {% comment %} <a href="{% url 'maintenance_view' %}">Career</a> {% endcomment %}
+                    {% comment %} <a href="#">Blog</a> {% endcomment %}
+                  </div>
+                  {% comment %} <div class="profile-social-icons">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                  </div> {% endcomment %}
+                </div>
               </div>
-              {% comment %} <div class="profile-social-icons">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-              </div> {% endcomment %}
-            </div>
-          </div>
-          {% else %}
-          <!-- Sign Up & Log In Buttons -->
-          <div class="login">
-            <button onclick="openModal('login')">Login</button>
-          </div>
-          <div class="signup">
-            <button onclick="openModal('signup')">Sign Up</button>
-          </div>
-          {% endif %}
+            </li>
+            {% else %}
+            <!-- Sign Up & Log In Buttons -->
+            <li>
+              <div class="login">
+                <button onclick="openModal('login')">Login</button>
+              </div>
+            </li>
+            <li>
+              <div class="signup">
+                <button onclick="openModal('signup')">Sign Up</button>
+              </div>
+            </li>
+            {% endif %}
+          </ul>
+
 
       </div>
 
