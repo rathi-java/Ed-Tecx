@@ -107,7 +107,8 @@ def logout_page(request):
     """
     Logs the user out by clearing the session.
     """
-    logout(request)
+    logout(request)  # Clears the authenticated session
+    request.session.flush()  # Clears all session data
     messages.success(request, "You have been logged out successfully.")
     return redirect('/')
 
@@ -198,7 +199,7 @@ def signup(request):
 def user_login(request):
     """
     Logs a user in using either email, phone_number, or username from UsersDB.
-    Mirrors readerclub's approach by optionally detecting roles.
+    Redirects to Abroad Studies if username starts with "ABS".
     """
     if request.method == "POST":
         user_input = request.POST.get('username')
@@ -208,59 +209,40 @@ def user_login(request):
         role = None
         valid_password = False
 
-        # If you need the same role-based logic as readerclub, uncomment & import from admin_portal
-        """
-        if user_input.startswith("SAD"):
-            user = SuperAdminDB.objects.filter(username=user_input).first()
+        # Check if the username starts with "ABS"
+        if user_input.startswith("ABS"):
+            from abroad_studies.models import AbroadStudiesBtoB
+            user = AbroadStudiesBtoB.objects.filter(username=user_input).first()
             if user:
                 valid_password = check_password(password, user.password)
-                role = "superadmin"
+                role = "abroad_studies"
 
-        elif user_input.startswith("ADM"):
-            user = AdminDB.objects.filter(username=user_input).first()
-            if user:
-                valid_password = check_password(password, user.password)
-                role = "admin"
-
-        elif user_input.startswith("MGR"):
-            user = ManagerDB.objects.filter(username=user_input).first()
-            if user:
-                valid_password = check_password(password, user.password)
-                role = "manager"
-
-        elif user_input.startswith("EMP"):
-            user = EmployeeDB.objects.filter(username=user_input).first()
-            if user:
-                valid_password = check_password(password, user.password)
-                role = "employee"
-        
         else:
-        """
-        # Simple user check for email, phone, or username
-        user = (
-            UsersDB.objects.filter(email=user_input).first() or
-            UsersDB.objects.filter(phone_number=user_input).first() or
-            UsersDB.objects.filter(username=user_input).first()
-        )
-        if user:
-            valid_password = check_password(password, user.password)
-            role = "user"
+            # Simple user check for email, phone, or username
+            user = (
+                UsersDB.objects.filter(email=user_input).first() or
+                UsersDB.objects.filter(phone_number=user_input).first() or
+                UsersDB.objects.filter(username=user_input).first()
+            )
+            if user:
+                valid_password = check_password(password, user.password)
+                role = "user"
 
         if user and valid_password:
+            # Set session variables
             request.session['user_id'] = user.id
+            request.session['username'] = user.username
             request.session['role'] = role  # Store role in session
 
+            # Update last login
             user.last_login = now()
             user.save()
 
-            messages.success(request, f"Welcome back, {user.full_name}!")
+            messages.success(request, f"Welcome back, {user.name if role == 'abroad_studies' else user.full_name}!")
 
-            # If you want to replicate the same role-based redirects from readerclub:
+            # Redirect based on role
             redirect_urls = {
-                "superadmin": "/dashboard/",
-                "admin": "/adm_dashboard/",
-                "manager": "/mgr_dashboard/",
-                "employee": "/emp_dashboard/",
+                "abroad_studies": "/abroad-studies/dashboard/",  # Replace with the actual dashboard URL
                 "user": "home"
             }
             return redirect(redirect_urls.get(role, '/'))

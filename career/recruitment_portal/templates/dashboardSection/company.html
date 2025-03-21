@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Company Details</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+</head>
+<body>
+    <div class="company-form-container">
+        <h2 class="form-title">Add Company Details</h2>
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="company-name">Company Name</label>
+                    <img src="{% static 'img/company-icon.svg' %}" alt="Company Icon">
+                    <input type="text" id="company-name" placeholder="Enter Company Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company-email">Company Email</label>
+                    <img src="{% static 'img/Mail.svg' %}" alt="Email Icon">
+                    <input type="email" id="company-email" placeholder="Enter Company Email" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="company-contact">Company Contact No.</label>
+                    <img src="{% static 'img/phone.svg' %}" alt="Phone Icon">
+                    <input type="tel" id="company-contact" placeholder="Enter Company Contact No." required>
+                </div>
+                <div class="form-group">
+                    <label for="working-employees">Working Employees</label>
+                    <img src="{% static 'img/person.svg' %}" alt="Employee Icon">
+                    <input type="number" id="working-employees" placeholder="Enter No. of Employees" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="industry-type">Industry Type</label>
+                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Industry Icon">
+                    <input type="text" id="industry-type" placeholder="Select Industry Type" required>
+                </div>
+                <div class="form-group">
+                    <label for="established-date">Established Date</label>
+                    <img src="{% static 'img/calendar.svg' %}" alt="Calendar Icon">
+                    <input type="month" id="established-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="company-logo">Company Logo</label>
+                    <input type="file" id="company-logo" accept="image/*" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="plot-no">Plot No.</label>
+                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Plot Icon">
+                    <input type="text" id="plot-no" placeholder="Enter Plot No." required>
+                </div>
+                <div class="form-group">
+                    <label for="locality">Locality/Area</label>
+                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Locality Icon">
+                    <input type="text" id="locality" placeholder="Enter Locality/Area" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="City Icon">
+                    <input type="text" id="city" placeholder="Enter City" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="State Icon">
+                    <input type="text" id="state" placeholder="Enter State" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Pincode Icon">
+                    <input type="text" id="pincode" placeholder="Enter Pincode" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="about-company">About Company</label>
+                <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Info Icon" class="about-company-description">
+                <textarea id="about-company" placeholder="Add a brief description (100-200 words)" rows="3" required></textarea>
+            </div>
+
+            <div class="submit-container">
+                <button class="submit-button" type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

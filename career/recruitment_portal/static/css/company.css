@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.company-form-container {
+    width: 100%;
+    
+    background: white;
+    border-radius: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #077bc3;
+}
+.form-title {
+    text-align: left;
+    color: #095f95;
+    margin-bottom: 5px;
+}
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+.form-group {
+    flex: 1;
+    margin-bottom: 10px;
+    position: relative;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #2c2b2b;
+}
+.form-group img {
+    position: absolute;
+    left: 10px;
+    top: 58%;
+    /* transform: translateY(-50%); */
+    width: 15px;
+    height: 15px;
+    
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: gray;
+    display:flex;
+}
+.form-group input:hover, .form-group select:hover, .form-group textarea:hover,
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: #077bc3;
+    outline: none;
+}
+.form-group input[type="file"] {
+    padding: 10px;
+}
+.form-group textarea {
+    height: 50px;
+}
+.submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.submit-button {
+    /* width: 35%; */
+    padding: 6px;
+    border: none;
+    background-color: #077bc3;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+}
+.submit-button:hover {
+    background-color: #00358a;
+}
+.terms-text {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+}
+.terms-text a {
+    color: #f6991e;
+    text-decoration: none;
+}
+@media (max-width: 768px) {
+    .company-form-container {
+        width: 100%;
+    }
+    .form-row {
+        flex-direction: column;
+    }
+    header{
+        display: block;
+    }
+}

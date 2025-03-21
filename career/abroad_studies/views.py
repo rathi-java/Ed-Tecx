@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import CounsellingEnquiry
+from .models import CounsellingEnquiry, AbroadStudiesBtoB
 from django.contrib import messages
 # Create your views here.
 def abroad_studies(request):
@@ -32,3 +32,9 @@ def enquiry_view(request):
     
     # If not POST, just render the form page
     return render(request, 'abroad_studies.html')
+def dashboard(request):
+    enquiries = CounsellingEnquiry.objects.all()
+    username = request.session.get('username', "Guest")  # Retrieve username from session
+    print(f"Username: {username}")  # Print the username to the console
+    return render(request, 'abroadStudiesdashboard.html', {'enquiries': enquiries, 'username': username})
+
