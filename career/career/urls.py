@@ -35,6 +35,7 @@ urlpatterns = [
     path('autocomplete/', autocomplete, name='autocomplete'),
     path('oauth/', include('oauth.urls')),
     path('recruitment-portal/', include('recruitment_portal.urls')),
+    path('freelancing-portal/', include('freelancing_portal.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -55,7 +55,7 @@
 
       <!-- Desktop Nav -->
       <div class="nav-links" id="navbarNav">
-        <ul>
+        <ul class="header-nav-links-ul">
           <li><a class="nav-link" href="/">Home</a></li>
           <li class="dropdown">
             <a class="nav-link" href="#">
@@ -85,40 +85,47 @@
           <li>
             <a class="nav-link" href="{% url 'price' %}">Pricing</a>
           </li>
+          {% if request.session.user_id %}
+          <!-- Profile Dropdown (Logged in) -->
+          <li>
+            <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
+              <div class="avatar">
+                {% if logged_in_user and logged_in_user.full_name %}
+                  {{ logged_in_user.full_name|slice:":1"|upper }}
+                {% else %}
+                  ?
+                {% endif %}
+              </div>        
+              <div id="profile-menu" class="profile-dropdown-content">
+                <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
+                <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
+                <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      
+                <div class="profile-info-links">
+                  <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
+                  <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                  <a href="{% url 'about_us' %}">About US</a>
+                </div>
+              </div>
+            </div>
+          </li>
+          {% else %}
+          <!-- Sign Up & Log In Buttons (Logged out) -->
+          <li>
+            <div class="login">
+              <button onclick="openModal('login')">Login</button>
+            </div>
+          </li>
+          <li>
+            <div class="signup">
+              <button onclick="openModal('signup')">Sign Up</button>
+            </div>
+          </li>
+          {% endif %}
         </ul>
         
-        {% if request.session.user_id %}
-        <!-- Profile Dropdown (Logged in) -->
-        <div class="profile-dropdown" onclick="toggleProfileDropdown(event)">
-          <div class="avatar">
-            {% if logged_in_user and logged_in_user.full_name %}
-              {{ logged_in_user.full_name|slice:":1"|upper }}
-            {% else %}
-              ?
-            {% endif %}
-          </div>        
-          <div id="profile-menu" class="profile-dropdown-content">
-            <a href="{% url 'profile' %}"><i class="fas fa-user"></i> Profile</a>
-            <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
-            <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
-            <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-  
-            <div class="profile-info-links">
-              <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
-              <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
-              <a href="{% url 'about_us' %}">About US</a>
-            </div>
-          </div>
-        </div>
-        {% else %}
-        <!-- Sign Up & Log In Buttons (Logged out) -->
-        <div class="login">
-          <button onclick="openModal('login')">Login</button>
-        </div>
-        <div class="signup">
-          <button onclick="openModal('signup')">Sign Up</button>
-        </div>
-        {% endif %}
+
       </div>
 
       <!-- Hamburger (for mobile) -->
@@ -133,7 +140,7 @@
     <div class="close-btn" id="closeBtn">
       <i class="fas fa-times"></i>
     </div>
-    <ul>
+    <ul class="mobile-sidebar-ul">
       <li><a href="/">Home</a></li>
           <li><a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a></li>
           <li><a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a></li>
