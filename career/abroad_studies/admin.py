@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import CounsellingEnquiry
+from .models import *
 
 
+admin.site.register(Enquirystatus)
 admin.site.register(CounsellingEnquiry)
-# Register your models here.
+admin.site.register(AbroadStudiesBtoB)
