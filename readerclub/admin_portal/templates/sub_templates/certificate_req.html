@@ -1,0 +1,43 @@
+<!-- certificate requests -->
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}" />
+
+<div class="content current_page_action" data-page-name="request_menu">
+    <h3>&nbsp;Certificates/Manage Certificate Requests</h3>
+    <div class="container">
+        <form method="POST" action="{% url 'update_certificate_status' %}">
+            {% csrf_token %}
+            <div class="header">
+                <select name="certificate_status_action" id="certificate_status_action">
+                    <option value="">Select Action</option>
+                    <option value="approve">Approve</option>
+                    <option value="reject">Reject</option>
+                </select>
+                <button type="submit">Apply</button>
+            </div>
+
+            <!-- Table to Show Certificate Requests -->
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select_all" onclick="toggleSelectAll()"></th>
+                        <th>Name</th>
+                        <th>Certificate For</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for certificate in certificates %}
+                    <tr>
+                        <td><input type="checkbox" name="selected_certificates" class="select_certificate" value="{{ certificate.id }}"></td>
+                        <td>{{ certificate.name }}</td>
+                        <td>{{ certificate.certified_for }}</td>
+                        <td>{{ certificate.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

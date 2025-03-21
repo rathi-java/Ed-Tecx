@@ -26,6 +26,11 @@ function toggleDropdown(id, element) {
     var menu = document.getElementById(id);
     menu.style.display = (menu.style.display === "block") ? "none" : "block";
     setActive(element, 0);
+
+    menu.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+        
     let icon = element.querySelector('.icon_toggle');
     if (icon.classList.contains('fa-chevron-right')) {
         icon.classList.remove('fa-chevron-right');
@@ -364,6 +369,18 @@ function editStory(id, name, company, designation, package, batch, degree, branc
     setActive(document.querySelector('[data-page-name="add_placement_stories"]'));
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    function setActive(element) {
+        let pageName = element.getAttribute("data-page-name");
+        document.querySelectorAll(".content").forEach(page => page.classList.add("hidden"));
+        document.querySelector(`[data-page-name="${pageName}"]`).classList.remove("hidden");
+    }
+
+    let checkboxes = document.querySelectorAll(".question-checkbox");
+    document.getElementById("btnSelectAll").addEventListener("click", () => checkboxes.forEach(c => c.checked = true));
+    document.getElementById("btnDeselectAll").addEventListener("click", () => checkboxes.forEach(c => c.checked = false));
+});
+
 function openStoryForm() {
     document.querySelector('[data-page-name="manage_placement_stories"]').classList.add('hidden');
     document.querySelector('[data-page-name="add_placement_stories"]').classList.remove('hidden');
@@ -431,3 +448,5 @@ function transferEmployee(employeeId, newManagerId) {
           }
       });
 }
+
+

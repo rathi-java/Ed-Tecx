@@ -135,16 +135,16 @@ def adm_dashboard(request):
     total_admins = AdminDB.objects.count()
     total_managers = ManagerDB.objects.count()
     total_employees = EmployeeDB.objects.count()
-    total_students = StudentsDB.objects.count()
-    total_users = UsersDB.objects.count()
-    total_colleges = CollegesDb.objects.count()
-    total_questions = Question.objects.count()
-    total_subjects = Subject.objects.count()
-    total_categories = Category.objects.count()
-    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
+    # total_students = StudentsDB.objects.count()
+    # total_users = UsersDB.objects.count()
+    # total_colleges = CollegesDb.objects.count()
+    # total_questions = Question.objects.count()
+    # total_subjects = Subject.objects.count()
+    # total_categories = Category.objects.count()
+    # certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
 
     # Active users (users who logged in within the last 30 days)
-    active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
+    # active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
 
     # Premium users (assuming premium users have a specific field or condition)
     # Example: If premium users have a field `is_premium=True`
@@ -170,27 +170,27 @@ def adm_dashboard(request):
         "admins": AdminDB.objects.all(),
         "managers": ManagerDB.objects.all(),
         "employees": EmployeeDB.objects.all(),
-        "colleges": CollegesDb.objects.all(),
-        "users": UsersDB.objects.all(),
-        "questions": Question.objects.all(),
-        "subjects": Subject.objects.all(),
-        "categories": Category.objects.all(),
-        "students": StudentsDB.objects.all(),
-        "certificates": certificates,
-        "stories":PlacementStories.objects.all(),
+        # "colleges": CollegesDb.objects.all(),
+        # "users": UsersDB.objects.all(),
+        # "questions": Question.objects.all(),
+        # "subjects": Subject.objects.all(),
+        # "categories": Category.objects.all(),
+        # "students": StudentsDB.objects.all(),
+        # "certificates": certificates,
+        # "stories":PlacementStories.objects.all(),
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
         "total_admins": total_admins,
         "total_managers": total_managers,
         "total_employees": total_employees,
-        "total_students": total_students,
-        "total_users": total_users,
-        "total_colleges": total_colleges,
-        "total_questions": total_questions,
-        "total_subjects": total_subjects,
-        "total_categories": total_categories,
-        "active_users": active_users,
+        # "total_students": total_students,
+        # "total_users": total_users,
+        # "total_colleges": total_colleges,
+        # "total_questions": total_questions,
+        # "total_subjects": total_subjects,
+        # "total_categories": total_categories,
+        # "active_users": active_users,
         "premium_users": premium_users,
         "total_sales": total_sales,
         "yearly_sales": yearly_sales,
@@ -221,16 +221,16 @@ def mgr_dashboard(request):
     total_admins = AdminDB.objects.count()
     total_managers = ManagerDB.objects.count()
     total_employees = EmployeeDB.objects.count()
-    total_students = StudentsDB.objects.count()
-    total_users = UsersDB.objects.count()
-    total_colleges = CollegesDb.objects.count()
-    total_questions = Question.objects.count()
-    total_subjects = Subject.objects.count()
-    total_categories = Category.objects.count()
-    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
+    # total_students = StudentsDB.objects.count()
+    # total_users = UsersDB.objects.count()
+    # total_colleges = CollegesDb.objects.count()
+    # total_questions = Question.objects.count()
+    # total_subjects = Subject.objects.count()
+    # total_categories = Category.objects.count()
+    # certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
 
     # Active users (users who logged in within the last 30 days)
-    active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
+    # active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
 
     # Premium users (assuming premium users have a specific field or condition)
     # Example: If premium users have a field `is_premium=True`
@@ -256,27 +256,27 @@ def mgr_dashboard(request):
         "admins": AdminDB.objects.all(),
         "managers": ManagerDB.objects.all(),
         "employees": EmployeeDB.objects.all(),
-        "colleges": CollegesDb.objects.all(),
-        "users": UsersDB.objects.all(),
-        "questions": Question.objects.all(),
-        "subjects": Subject.objects.all(),
-        "categories": Category.objects.all(),
-        "students": StudentsDB.objects.all(),
-        "certificates": certificates,
-        "stories":PlacementStories.objects.all(),
+        # "colleges": CollegesDb.objects.all(),
+        # "users": UsersDB.objects.all(),
+        # "questions": Question.objects.all(),
+        # "subjects": Subject.objects.all(),
+        # "categories": Category.objects.all(),
+        # "students": StudentsDB.objects.all(),
+        # "certificates": certificates,
+        # "stories":PlacementStories.objects.all(),
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
         "total_admins": total_admins,
         "total_managers": total_managers,
         "total_employees": total_employees,
-        "total_students": total_students,
-        "total_users": total_users,
-        "total_colleges": total_colleges,
-        "total_questions": total_questions,
-        "total_subjects": total_subjects,
-        "total_categories": total_categories,
-        "active_users": active_users,
+        # "total_students": total_students,
+        # "total_users": total_users,
+        # "total_colleges": total_colleges,
+        # "total_questions": total_questions,
+        # "total_subjects": total_subjects,
+        # "total_categories": total_categories,
+        # "active_users": active_users,
         "premium_users": premium_users,
         "total_sales": total_sales,
         "yearly_sales": yearly_sales,
@@ -307,16 +307,16 @@ def emp_dashboard(request):
     total_admins = AdminDB.objects.count()
     total_managers = ManagerDB.objects.count()
     total_employees = EmployeeDB.objects.count()
-    total_students = StudentsDB.objects.count()
-    total_users = UsersDB.objects.count()
-    total_colleges = CollegesDb.objects.count()
-    total_questions = Question.objects.count()
-    total_subjects = Subject.objects.count()
-    total_categories = Category.objects.count()
-    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
+    # total_students = StudentsDB.objects.count()
+    # total_users = UsersDB.objects.count()
+    # total_colleges = CollegesDb.objects.count()
+    # total_questions = Question.objects.count()
+    # total_subjects = Subject.objects.count()
+    # total_categories = Category.objects.count()
+    # certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
 
     # Active users (users who logged in within the last 30 days)
-    active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
+    # active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
 
     # Premium users (assuming premium users have a specific field or condition)
     # Example: If premium users have a field `is_premium=True`
@@ -342,27 +342,27 @@ def emp_dashboard(request):
         "admins": AdminDB.objects.all(),
         "managers": ManagerDB.objects.all(),
         "employees": EmployeeDB.objects.all(),
-        "colleges": CollegesDb.objects.all(),
-        "users": UsersDB.objects.all(),
-        "questions": Question.objects.all(),
-        "subjects": Subject.objects.all(),
-        "categories": Category.objects.all(),
-        "students": StudentsDB.objects.all(),
-        "certificates": certificates,
-        "stories":PlacementStories.objects.all(),
+        # "colleges": CollegesDb.objects.all(),
+        # "users": UsersDB.objects.all(),
+        # "questions": Question.objects.all(),
+        # "subjects": Subject.objects.all(),
+        # "categories": Category.objects.all(),
+        # "students": StudentsDB.objects.all(),
+        # "certificates": certificates,
+        # "stories":PlacementStories.objects.all(),
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
         "total_admins": total_admins,
         "total_managers": total_managers,
         "total_employees": total_employees,
-        "total_students": total_students,
-        "total_users": total_users,
-        "total_colleges": total_colleges,
-        "total_questions": total_questions,
-        "total_subjects": total_subjects,
-        "total_categories": total_categories,
-        "active_users": active_users,
+        # "total_students": total_students,
+        # "total_users": total_users,
+        # "total_colleges": total_colleges,
+        # "total_questions": total_questions,
+        # "total_subjects": total_subjects,
+        # "total_categories": total_categories,
+        # "active_users": active_users,
         "premium_users": premium_users,
         "total_sales": total_sales,
         "yearly_sales": yearly_sales,
@@ -424,7 +424,7 @@ def manage_admin(request):
             messages.success(request, "Admin deleted successfully!")
 
         # Redirect to dashboard and open Manage Admin section
-        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_admin")
+        return HttpResponseRedirect(reverse("dashboard") + "?section=manage_admin_section")
 
     return redirect("dashboard")
 
@@ -542,26 +542,26 @@ def add_college(request):
 
         try:
             # Check if a college with the same name (case-insensitive) and location already exists
-            existing_college = CollegesDb.objects.filter(
-                college_name__iexact=college_name, college_location__iexact=college_location
-            ).first()
+            # existing_college = CollegesDb.objects.filter(
+            #     college_name__iexact=college_name, college_location__iexact=college_location
+            # ).first()
 
-            if existing_college:
-                messages.error(request, "College Already Exists!")
-                return redirect(reverse('dashboard') + "?page=manage_college")
+            # if existing_college:
+            #     messages.error(request, "College Already Exists!")
+            #     return redirect(reverse('dashboard') + "?page=manage_college")
 
             if college_id:  # Update existing college
-                college = get_object_or_404(CollegesDb, id=college_id)
-                college.college_name = college_name
-                college.college_location = college_location
-                college.save()
+                # college = get_object_or_404(CollegesDb, id=college_id)
+                # college.college_name = college_name
+                # college.college_location = college_location
+                # college.save()
                 messages.success(request, "College updated successfully!")
             else:  # Add new college
-                college = CollegesDb(
-                    college_name=college_name,
-                    college_location=college_location
-                )
-                college.save()
+                # college = CollegesDb(
+                #     college_name=college_name,
+                #     college_location=college_location
+                # )
+                # college.save()
                 messages.success(request, "College added successfully!")
 
             # Redirect to dashboard and open Manage College section
@@ -575,8 +575,8 @@ def add_college(request):
 
 def delete_college(request, college_id):
     if request.method == "POST":
-        college = get_object_or_404(CollegesDb, id=college_id)
-        college.delete()
+        # college = get_object_or_404(CollegesDb, id=college_id)
+        # college.delete()
         messages.success(request, "College deleted successfully!")
 
         # Redirect to dashboard and open Manage College section
@@ -602,50 +602,50 @@ def manage_users(request):
             try:
                 if user_id:
                     # Updating existing user
-                    user = get_object_or_404(UsersDB, id=user_id)
-                    user.full_name = full_name
-                    user.email = email
-                    user.phone_number = phone_number
-                    user.college_name = college_name
-                    user.dob = dob
-                    user.password = password  # Ideally, hash the password
-                    user.referral_code = referral_code
-                    user.save()
+                    # user = get_object_or_404(UsersDB, id=user_id)
+                    # user.full_name = full_name
+                    # user.email = email
+                    # user.phone_number = phone_number
+                    # user.college_name = college_name
+                    # user.dob = dob
+                    # user.password = password  # Ideally, hash the password
+                    # user.referral_code = referral_code
+                    # user.save()
                     messages.success(request, "User updated successfully!")
                 else:
                     # Creating a new user
-                    if UsersDB.objects.filter(email__iexact=email).exists():
-                        messages.error(request, "A user with this email already exists!")
-                    else:
-                        UsersDB.objects.create(
-                            full_name=full_name,
-                            email=email,
-                            phone_number=phone_number,
-                            college_name=college_name,
-                            dob=dob,
-                            password=password,  # Ideally, hash the password
-                            referral_code=referral_code
-                        )
+                    # if UsersDB.objects.filter(email__iexact=email).exists():
+                    #     messages.error(request, "A user with this email already exists!")
+                    # else:
+                    #     UsersDB.objects.create(
+                    #         full_name=full_name,
+                    #         email=email,
+                    #         phone_number=phone_number,
+                    #         college_name=college_name,
+                    #         dob=dob,
+                    #         password=password,  # Ideally, hash the password
+                    #         referral_code=referral_code
+                    #     )
                         messages.success(request, "User added successfully!")
             except IntegrityError as e:
                 messages.error(request, f"Error: {e}")
             
-        elif action == "delete":
-            user = get_object_or_404(UsersDB, id=user_id)
-            user.delete()
-            messages.success(request, "User deleted successfully!")
+        # elif action == "delete":
+        #     user = get_object_or_404(UsersDB, id=user_id)
+        #     user.delete()
+        #     messages.success(request, "User deleted successfully!")
         
     return redirect(reverse('dashboard') + "?page=manage_user")
 
 def get_subjects(request):
     category_id = request.GET.get('category_id')
-    subjects = Subject.objects.filter(subject_category_id=category_id).values('id', 'subject_name')
-    return JsonResponse({'subjects': list(subjects)})
+    # subjects = Subject.objects.filter(subject_category_id=category_id).values('id', 'subject_name')
+    # return JsonResponse({'subjects': list(subjects)})
 
 def delete_question(request, question_id):
     if request.method == 'POST':
-        question = get_object_or_404(Question, id=question_id)
-        question.delete()
+        # question = get_object_or_404(Question, id=question_id)
+        # question.delete()
         messages.success(request, "Question deleted successfully!")
     return redirect('manage_questions')
 
@@ -659,23 +659,23 @@ def add_question(request):
             messages.error(request, "All fields are required.")
             return redirect('add_question')
 
-        question_subject = get_object_or_404(Subject, id=question_subject_id)
+        # question_subject = get_object_or_404(Subject, id=question_subject_id)
 
         try:
             if question_id:
                 # Update existing question
-                question = get_object_or_404(Question, id=question_id)
-                question.question_text = question_text
-                question.question_subject = question_subject
-                question.save()
+                # question = get_object_or_404(Question, id=question_id)
+                # question.question_text = question_text
+                # question.question_subject = question_subject
+                # question.save()
                 messages.success(request, "Question updated successfully!")
             else:
                 # Create new question
-                question = Question(
-                    question_text=question_text,
-                    question_subject=question_subject
-                )
-                question.save()
+                # question = Question(
+                #     question_text=question_text,
+                #     question_subject=question_subject
+                # )
+                # question.save()
                 messages.success(request, "Question added successfully!")
 
             return redirect('manage_questions')
@@ -699,43 +699,43 @@ def add_student(request):
         username = request.POST.get("username", "").strip()
         if not username and full_name:
             username = full_name.lower().replace(" ", "_")  # Example: "John Doe" → "john_doe"
-        elif not username:
-            username = f"user_{str(uuid.uuid4())[:8]}"  # Example: "user_abc12345"
+        # elif not username:
+            # username = f"user_{str(uuid.uuid4())[:8]}"  # Example: "user_abc12345"
 
         if not full_name or not email:
             messages.error(request, "Full Name and Email are required.")
             return redirect(reverse('dashboard') + "?page=manage_student")
 
-        domain = get_object_or_404(Category, id=domain_id) if domain_id else None
-        subject = get_object_or_404(Subject, id=subject_id) if subject_id else None
+        # domain = get_object_or_404(Category, id=domain_id) if domain_id else None
+        # subject = get_object_or_404(Subject, id=subject_id) if subject_id else None
 
         try:
-            existing_student = StudentsDB.objects.filter(email__iexact=email).first()
-            if existing_student and not student_id:
-                messages.error(request, "A student with this email already exists!")
-                return redirect(reverse('dashboard') + "?page=manage_student")
+            # existing_student = StudentsDB.objects.filter(email__iexact=email).first()
+            # if existing_student and not student_id:
+            #     messages.error(request, "A student with this email already exists!")
+            #     return redirect(reverse('dashboard') + "?page=manage_student")
 
             if student_id:
                 # Updating existing student
-                student = get_object_or_404(StudentsDB, id=student_id)
-                student.username = username  # ✅ Assign username
-                student.full_name = full_name
-                student.email = email
-                student.domain = domain
-                student.subject = subject
-                student.payment = payment
-                student.save()
+                # student = get_object_or_404(StudentsDB, id=student_id)
+                # student.username = username  # ✅ Assign username
+                # student.full_name = full_name
+                # student.email = email
+                # student.domain = domain
+                # student.subject = subject
+                # student.payment = payment
+                # student.save()
                 messages.success(request, f"Student {full_name} updated successfully!")
             else:
                 # Creating a new student
-                StudentsDB.objects.create(
-                    username=username,  # ✅ Assign username
-                    full_name=full_name,
-                    email=email,
-                    domain=domain,
-                    subject=subject,
-                    payment=payment
-                )
+                # StudentsDB.objects.create(
+                #     username=username,  # ✅ Assign username
+                #     full_name=full_name,
+                #     email=email,
+                #     domain=domain,
+                #     subject=subject,
+                #     payment=payment
+                # )
                 messages.success(request, f"Student {full_name} added successfully!")
 
             return redirect(reverse('dashboard') + "?page=manage_student")
@@ -748,11 +748,10 @@ def add_student(request):
 
 def delete_student(request, student_id):
     if request.method == "POST":
-        student = get_object_or_404(StudentsDB, id=student_id)
-        student.delete()
+        # student = get_object_or_404(StudentsDB, id=student_id)
+        # student.delete()
         messages.success(request, "Student deleted successfully!")
     return redirect(reverse('dashboard') + "?page=manage_student")
-
 
 def update_superadmin_profile(request):
     if request.method == "POST":
@@ -812,38 +811,38 @@ def add_placement_story(request):
         try:
             if story_id:
                 # Updating existing placement story
-                story = get_object_or_404(PlacementStories, id=story_id)
-                story.name = name
-                story.company_name = company_name
-                story.designation = designation
-                story.package = package
-                story.batch = batch
-                story.degree = degree
-                story.branch = branch
-                story.description = description
+                # story = get_object_or_404(PlacementStories, id=story_id)
+                # story.name = name
+                # story.company_name = company_name
+                # story.designation = designation
+                # story.package = package
+                # story.batch = batch
+                # story.degree = degree
+                # story.branch = branch
+                # story.description = description
 
                 # Only update images if new ones are provided
-                if user_profile_pic:
-                    story.user_profile_pic = user_profile_pic
-                if hand_written_review:
-                    story.hand_written_review = hand_written_review
+                # if user_profile_pic:
+                #     story.user_profile_pic = user_profile_pic
+                # if hand_written_review:
+                #     story.hand_written_review = hand_written_review
                 
-                story.save()
+                # story.save()
                 messages.success(request, f"Placement story for {name} updated successfully!")
             else:
                 # Creating a new placement story
-                PlacementStories.objects.create(
-                    name=name,
-                    company_name=company_name,
-                    designation=designation,
-                    package=package,
-                    batch=batch,
-                    degree=degree,
-                    branch=branch,
-                    description=description,
-                    user_profile_pic=user_profile_pic,
-                    hand_written_review=hand_written_review
-                )
+                # PlacementStories.objects.create(
+                #     name=name,
+                #     company_name=company_name,
+                #     designation=designation,
+                #     package=package,
+                #     batch=batch,
+                #     degree=degree,
+                #     branch=branch,
+                #     description=description,
+                #     user_profile_pic=user_profile_pic,
+                #     hand_written_review=hand_written_review
+                # )
                 messages.success(request, f"Placement story for {name} added successfully!")
 
             return redirect(reverse('dashboard') + "?page=manage_placement_stories")
@@ -856,10 +855,97 @@ def add_placement_story(request):
 
 def delete_placement_story(request, story_id):
     if request.method == "POST":
-        story = get_object_or_404(PlacementStories, id=story_id)
-        story.delete()
+        # story = get_object_or_404(PlacementStories, id=story_id)
+        # story.delete()
         messages.success(request, "Placement story deleted successfully!")
     return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+
+def create_exam(request):
+    # categories = Category.objects.all()
+    # subjects = Subject.objects.all()
+    # questions = Question.objects.all()
+    
+    selected_category_ids = []
+    selected_subject_ids = []
+    selected_question_ids = request.GET.getlist('questions')
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        duration = request.POST.get('duration')
+        question_ids = request.POST.getlist('questions')
+        category_ids = request.POST.getlist('categories')
+        subject_ids = request.POST.getlist('subjects')
+
+        if not name or not duration or not question_ids:
+            messages.error(request, "Please fill all required fields")
+            return redirect('create_exam')
+
+        # exam = Exam.objects.create(name=name, duration=duration)
+        
+        # Assign selected questions, categories, and subjects
+        # exam.questions.add(*Question.objects.filter(id__in=question_ids))
+        # exam.categories.add(*Category.objects.filter(id__in=category_ids))
+        # exam.subjects.add(*Subject.objects.filter(id__in=subject_ids))
+
+        messages.success(request, f"Exam '{name}' created successfully!")
+        return redirect('list_exams')
+
+    else:
+        # Apply filters if selected
+        if 'categories' in request.GET:
+            selected_category_ids = request.GET.getlist('categories')
+            questions = questions.filter(question_subject__subject_category_id__in=selected_category_ids)
+            # subjects = Subject.objects.filter(subject_category_id__in=selected_category_ids)
+
+        if 'subjects' in request.GET:
+            selected_subject_ids = request.GET.getlist('subjects')
+            questions = questions.filter(question_subject_id__in=selected_subject_ids)
+
+        # Include previously selected questions in the list
+        # extra_questions = Question.objects.filter(id__in=selected_question_ids)
+        # questions = list(set(questions) | set(extra_questions))
+
+    context = {
+        # 'categories': categories,
+        # 'subjects': subjects,
+        'questions': questions,
+        'selected_category_ids': selected_category_ids,
+        'selected_subject_ids': selected_subject_ids,
+        'selected_question_ids': selected_question_ids,
+    }
+    
+    return render(request, 'dashboard.html', context)
+
+def list_exams(request):
+    user_id = request.session.get('user_id')
+    user = None
+
+    if user_id:
+        # try:
+        #     user = UsersDB.objects.get(id=user_id)
+        # except UsersDB.DoesNotExist:
+        #     request.session.flush()
+        #     messages.error(request, "Session expired. Please login again.")
+            return redirect('/login/')
+    
+    # if user and StudentsDB.objects.filter(email=user.email, exam_domain__isnull=False).exists():
+    #     registered_exam_ids = StudentsDB.objects.filter(email=user.email).values_list('exam_domain_id', flat=True)
+    #     exams = Exam.objects.filter(id__in=registered_exam_ids)
+    else:
+    #     exams = Exam.objects.all()
+    
+    # return render(request, 'dashboard.html', {'exams': exams, 'user': user})
+        return render(request, 'dashboard.html')
+
+def delete_exam(request, exam_id):
+    # if request.method == "POST":
+        # try:
+        #     exam = Exam.objects.get(id=exam_id)
+        #     exam.delete()
+        #     messages.success(request, "Exam deleted successfully.")
+        # except Exam.DoesNotExist:
+        #     messages.error(request, "Exam not found.")
+    return redirect('list_exams')
 
 def transfer_manager(request, manager_id, new_admin_id):
     if request.method == "POST":

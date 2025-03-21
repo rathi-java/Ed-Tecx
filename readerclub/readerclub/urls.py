@@ -21,7 +21,7 @@ from oauth.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 from practice_question.views import demo_test
-from price.views import price
+from price.views import *
 from admin_portal.views import adm_dashboard, mgr_dashboard, emp_dashboard
 from .views import maintenance_view
 urlpatterns = [
@@ -46,6 +46,8 @@ urlpatterns = [
 
     # Payment gateway
     path('pay/',include('price.urls')),
+    path("payu_success/", payu_success, name="payu_success"),
+    path("payu_failure/", payu_failure, name="payu_failure"),
     path('maintenence/', maintenance_view, name='maintenance_view'),
     path('adm-dashboard/', adm_dashboard, name='adm_dashboard'),
     path('mgr-dashboard/', mgr_dashboard, name='mgr_dashboard'),

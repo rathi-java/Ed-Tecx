@@ -1,0 +1,134 @@
+<!-- User Section -->
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "manage_user_section" %}
+<!-- Manage User -->
+<div class="content current_page_action" data-page-name="manage_user">
+    <h3>&nbsp;User / Manage Users</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="search-user" placeholder="Search by Name or Email..." onkeyup="filterUsers()">
+            <button class="add-button" data-page-name="add_user" onclick="setActive(this)">Add +</button>
+        </div>
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Username</th>
+                    <th class="user-name">Full Name</th>
+                    <th class="user-email">Email</th>
+                    <th>Phone No.</th>
+                    <th>College Name</th>
+                    <th>Date of Birth</th>
+                    <th>Referral Code</th>
+                    <th>Last Login</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- { for user in users %} -->
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.username }}</td>
+                    <td class="user-name">{{ user.full_name }}</td>
+                    <td class="user-email">{{ user.email }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{{ user.college_name }}</td>
+                    <td>{{ user.dob }}</td>
+                    <td>{{ user.referral_code|default:"N/A" }}</td>
+                    <td>{{ user.last_login|default:"Never" }}</td>
+                    <td>
+                        <button class="edit-btn" 
+                            onclick="editUser(
+                                '{{ user.id }}', 
+                                '{{ user.full_name|escapejs }}', 
+                                '{{ user.email|escapejs }}', 
+                                '{{ user.phone_number|escapejs }}', 
+                                '{{ user.college_name|escapejs }}', 
+                                '{{ user.dob }}', 
+                                '{{ user.referral_code|escapejs }}'
+                            )">
+                            Edit
+                        </button>
+                        <form method="POST" action="{% url 'manage_users' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <button type="submit" class="delete-btn" 
+                                onclick="return confirm('Are you sure you want to delete {{ user.full_name }}?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- { empty %} -->
+                <tr>
+                    <td colspan="10">No users found.</td>
+                </tr>
+                <!-- { endfor %} -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endif %}
+{% if section == "add_user_section" %}
+
+<!-- Add/Edit User Section -->
+<div class="content current_page_action" data-page-name="add_user">
+    <h3>&nbsp;User / Add User</h3>
+    <div class="container">
+        <div class="title">Manage Users</div>
+        <form method="POST" action="{% url 'manage_users' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_or_update">
+            <input type="hidden" id="user_id" name="user_id">
+            
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="user_full_name">Full Name</label>
+                    <input type="text" name="full_name" id="user_full_name" placeholder="Enter Full Name" required>
+                </div>
+                <div class="input-group">
+                    <label for="user_email">Email</label>
+                    <input type="email" name="email" id="user_email" placeholder="Enter Email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="user_phone_number">Phone No.</label>
+                    <input type="text" name="phone_number" id="user_phone_number" placeholder="Enter Phone No.">
+                </div>
+                <div class="input-group">
+                    <label for="user_college_name">College Name</label>
+                    <input type="text" name="college_name" id="user_college_name" placeholder="Enter College Name">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="user_dob">Date of Birth</label>
+                    <input type="date" name="dob" id="user_dob" required>
+                </div>
+                <div class="input-group">
+                    <label for="user_password">Password</label>
+                    <input type="password" name="password" id="user_password" placeholder="Enter Password" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="user_referral_code">Referral Code</label>
+                <input type="text" name="referral_code" id="user_referral_code" placeholder="Enter Referral Code (Optional)">
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+

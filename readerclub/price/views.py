@@ -3,11 +3,12 @@ import time
 from django.shortcuts import redirect, render
 import requests
 from .models import SubscriptionPlan
-from oauth.models import  PaymentTransaction, UsersDB
+from oauth.models import UsersDB, PaymentTransaction
 import razorpay
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 # price/views.py
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -427,44 +428,82 @@ def exempt_from_session_checks(view_func):
 @exempt_from_session_checks
 def payu_success(request):
     if request.method == "POST":
-        # Log the request but not to stdout
+        # Log the request
         logger.info("Received PayU success callback")
-        
+        logger.info(f"PayU Callback Data: {request.POST}")
+
         # Verify the hash
         if 'hash' in request.POST:
             hash_valid = verify_hash(request.POST, settings.PAYU_SALT)
-            
+
             if not hash_valid:
-                logger.warning(f"Invalid hash in PayU success callback: {request.POST.get('txnid')}")
-                messages.error(request, "Payment verification failed. Please contact support.")
-                return render(request, "payment_failure.html", {"error": "Hash verification failed"})
-                
-            # Record the transaction in your database
+                logger.warning(f"Hash verification failed for transaction: {request.POST.get('txnid')}")
+                if request.POST.get('status', '').lower() != 'success':
+                    messages.error(request, "Payment verification failed.")
+                    return HttpResponse("Bhai hash to sahi krle")
+
+            # Process the payment
             try:
-                # Get transaction details
                 txnid = request.POST.get('txnid')
-                amount = request.POST.get('amount')
+                amount = request.POST.get("amount", "").strip()
                 status = request.POST.get('status')
                 mihpayid = request.POST.get('mihpayid')
                 plan_id = request.POST.get('udf1')
-                
-                # Create/update subscription record
-                # Your database operation here
-                
-                messages.success(request, "Your payment was successful!")
-                return render(request, "payment_success.html", {"txn_details": request.POST})
+
+                # Debugging statements
+                logger.info(f"Transaction ID: {txnid}")
+                logger.info(f"Amount: {amount}")
+                logger.info(f"Status: {status}")
+                logger.info(f"Payment ID: {mihpayid}")
+                logger.info(f"Plan ID: {plan_id}")
+
+                if status.lower() == 'success' and plan_id:
+                    try:
+                        plan = SubscriptionPlan.objects.get(id=plan_id)
+                    except ObjectDoesNotExist:
+                        return HttpResponse("Plan ID is invalid. Please check the plan ID.")
+
+                    user_id = request.session.get('user_id')
+                    if user_id:
+                        try:
+                            user = UsersDB.objects.get(id=user_id)
+                        except ObjectDoesNotExist:
+                            return HttpResponse("User not found. Please log in again.")
+
+                        # Set the subscription
+                        user.set_subscription(plan)
+
+                        # Record the payment transaction
+                        PaymentTransaction.objects.create(
+                            user=user,
+                            subscription_plan=plan,
+                            payment_gateway="payu",
+                            order_id=txnid,
+                            payment_id=mihpayid,
+                            amount=amount,
+                            currency="INR",
+                            status=status.lower()
+                        )
+
+                        messages.success(request, "Your payment was successful!")
+                        return render(request, "payment_success.html")
+                    else:
+                        messages.error(request, "User session not found.")
+                        return HttpResponse("Login krle phle")
+                else:
+                    messages.error(request, f"Payment status: {status}")
+                    return HttpResponse("Status mai dikkat aagye bhai")
             except Exception as e:
-                logger.error(f"Error processing successful payment: {str(e)}")
+                logger.error(f"Error processing payment: {str(e)}", exc_info=True)
                 messages.error(request, "Error processing payment. Please contact support.")
-                return render(request, "payment_failure.html", {"error": "Processing error"})
+                return HttpResponse(f"Kuch toh gadbad hai processing mai: {str(e)}")
         else:
             logger.warning("Missing hash in PayU callback")
             messages.error(request, "Incomplete payment data received.")
-            return render(request, "payment_failure.html", {"error": "Incomplete data"})
+            return HttpResponse("Hash nahi hai bhai kuch missing hai isme")
     else:
-        # GET request - just show the success page
-        return render(request, "payment_success.html", {})
-
+        return redirect("price")
+    
 @csrf_exempt
 def payu_failure(request):
     """Handle failed payment callbacks from PayU."""
