@@ -31,4 +31,4 @@ def enquiry_view(request):
         return redirect('abroad_studies')  # or 'home' or wherever you want to redirect
     
     # If not POST, just render the form page
-    return render(request, 'your_template.html')
+    return render(request, 'abroad_studies.html')

@@ -1,0 +1,141 @@
+
+<!-- Student Section -->
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "manage_student_section" %}
+<!-- Manage Students -->
+<div class="content current_page_action" data-page-name="manage_student">
+    <h3>&nbsp;Students / Manage Students</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="search-student" placeholder="Search by Name or Email..." onkeyup="filterStudents()">
+            <button class="add-button" data-page-name="add_student" onclick="setActive(this)">Add +</button>
+        </div>
+        <table id="student-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th class="student-name">Username</th>
+                    <th class="student-email">Email</th>
+                    <th>Domain</th>
+                    <th>Subject</th>
+                    <th>Payment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="student-name">{{ student.username }}</td>
+                    <td class="student-email">{{ student.email }}</td>
+                    <td>{{ student.domain.category_name }}</td>
+                    <td>{{ student.subject.subject_name }}</td>
+                    <td>{{ student.payment }}</td>
+                    <td>
+                        <button class="edit-btn" 
+                        onclick="editStudent(
+                            '{{ student.id }}', 
+                            '{{ student.full_name|escapejs }}', 
+                            '{{ student.email|escapejs }}', 
+                            '{{ student.phone_number|default:""|escapejs }}', 
+                            '{{ student.alt_phone_number|default:""|escapejs }}', 
+                            '{{ student.domain.id|default:""|escapejs }}', 
+                            '{{ student.subject.id|default:""|escapejs }}', 
+                            '{{ student.payment|default:""|escapejs }}'
+                        )">
+                        Edit
+                        </button>
+                        <form class ="form-edit" method="POST" action="{% url 'delete_student' student.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn" 
+                                onclick="return confirm('Are you sure you want to delete {{ student.username }}?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class ="form-data" colspan="8" >No students found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% if section == "add_student_section" %}
+<!-- Add Student Section -->
+<div class="content current_page_action" data-page-name="add_student">
+    <h3>&nbsp;Students / Add Student</h3>
+    <div class="container">
+        <div class="title">Manage Students</div>
+        <form method="POST" action="{% url 'add_student' %}">
+            {% csrf_token %}
+            <input type="hidden" name="student_id" id="student_id">
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="student_full_name">Student Name</label>
+                    <input type="text" id="student_full_name" name="full_name" placeholder="Enter Student Name" required>
+                </div>
+                <div class="input-group">
+                    <label for="student_email">Email</label>
+                    <input type="email" id="student_email" name="email" placeholder="Enter Email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="student_phone_number">Phone No.</label>
+                    <input type="text" id="student_phone_number" name="student_phone_number" placeholder="Enter phone no.">
+                </div>
+                <div class="input-group">
+                    <label for="student_alt_phone_number">Alt. Phone No.</label>
+                    <input type="text" id="student_alt_phone_number" name="student_alt_phone_number" placeholder="Enter alt. phone no.">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="domain">Domain</label>
+                    <select id="domain" name="domain" required>
+                        <option value="" disabled selected>Select Domain</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="student_subject">Subject</label>
+                    <select id="student_subject" name="subject" required>
+                        <option value="" disabled selected>Select Subject</option>
+                        {% for subject in subjects %}
+                        <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="payment">Payment</label>
+                    <input type="text" id="payment" name="payment" value="INR 999" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="student_password">Password</label>
+                    <input type="password" name="student_password" id="student_password" placeholder="Enter Password" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="student_aadhar_number">Aadhar No.</label>
+                <input type="text" name="student_aadhar_number" id="student_aadhar_number" placeholder="Enter Aadhar No." required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}

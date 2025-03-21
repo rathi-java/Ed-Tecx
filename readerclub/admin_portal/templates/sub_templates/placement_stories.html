@@ -1,0 +1,156 @@
+<!-- Placement Stories Section -->
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "manage_placement_story_section" %}
+<!-- Manage Placement Stories -->
+<div class="content current_page_action" data-page-name="manage_placement_stories">
+    <h3>&nbsp;Placement Stories / Manage Stories</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="search-story" placeholder="Search by Name, Company, or Branch..." onkeyup="filterStories()">
+            <button class="add-button" data-page-name="add_placement_stories" onclick="setActive(this)">Add +</button>
+        </div>
+        <table id="placement-stories-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Profile Pic</th>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Designation</th>
+                    <th>Package</th>
+                    <th>Batch</th>
+                    <th>Degree</th>
+                    <th>Branch</th>
+                    <th>Handwritten Review</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for story in stories %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% if story.user_profile_pic %}
+                        <img src="{{ story.user_profile_pic.url }}" alt="Profile Pic" width="50">
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td class="story-name">{{ story.name }}</td>
+                    <td>{{ story.company_name }}</td>
+                    <td>{{ story.designation }}</td>
+                    <td>{{ story.package }} LPA</td>
+                    <td>{{ story.batch }}</td>
+                    <td>{{ story.degree }}</td>
+                    <td>{{ story.branch }}</td>
+                    <td>
+                        {% if story.hand_written_review %}
+                        <a href="{{ story.hand_written_review.url }}" target="_blank">View</a>
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="edit-btn" 
+                            onclick="editStory(
+                                '{{ story.id }}', 
+                                '{{ story.name|escapejs }}', 
+                                '{{ story.company_name|escapejs }}', 
+                                '{{ story.designation|escapejs }}', 
+                                '{{ story.package }}', 
+                                '{{ story.batch|escapejs }}', 
+                                '{{ story.degree|escapejs }}', 
+                                '{{ story.branch|escapejs }}', 
+                                '{% if story.user_profile_pic %}{{ story.user_profile_pic.url|escapejs }}{% else %}{% endif %}',
+                                '{% if story.hand_written_review %}{{ story.hand_written_review.url|escapejs }}{% else %}{% endif %}',
+                            )">
+                            Edit
+                        </button>
+                        <form class ="form-edit" method="POST" action="{% url 'delete_story' story.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ story.name|escapejs }}?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class ="form-data" colspan="11">No placement stories found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% if section == "add_placement_story_section" %}
+<!-- Add Placement Story Section -->
+
+<div class="content current_page_action" data-page-name="add_placement_stories">
+    <h3>&nbsp;Placement Stories / Add Story</h3>
+    <div class="container">
+        <div class="title">Manage Placement Stories</div>
+        <form method="POST" action="{% url 'add_placement_stories' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="story_id" id="story_id">
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="story_name">Name</label>
+                    <input type="text" id="story_name" name="name" placeholder="Enter Name" required>
+                </div>
+                <div class="input-group">
+                    <label for="company_name">Company</label>
+                    <input type="text" id="company_name" name="company_name" placeholder="Enter Company Name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="designation">Designation</label>
+                    <input type="text" id="designation" name="designation" placeholder="Enter Designation" required>
+                </div>
+                <div class="input-group">
+                    <label for="package">Package</label>
+                    <input type="number" id="package" name="package" placeholder="Enter Package (INR)" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="batch">Batch</label>
+                    <input type="text" id="batch" name="batch" placeholder="Enter Batch" required>
+                </div>
+                <div class="input-group">
+                    <label for="degree">Degree</label>
+                    <input type="text" id="degree" name="degree" placeholder="Enter Degree" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="branch">Branch</label>
+                    <input type="text" id="branch" name="branch" placeholder="Enter Branch" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="user_profile_pic">Profile Picture</label>
+                    <input type="file" id="user_profile_pic" name="user_profile_pic" accept="image/*">
+                </div>
+                <div class="input-group">
+                    <label for="hand_written_review">Handwritten Review</label>
+                    <input type="file" id="hand_written_review" name="hand_written_review" accept="image/*">
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4" placeholder="Enter Story Description" required></textarea>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}

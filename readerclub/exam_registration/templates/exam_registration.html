@@ -95,6 +95,22 @@
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
             </button>
+            <p>OR</p>
+            <!-- PayU -->
+            <form action="{% url 'initiate_payment' %}" method="POST" class="pay-btn-form">
+                {% csrf_token %}
+                <input type="hidden" name="plan_id" value="{{ plan.id }}">
+                <input type="hidden" name="amount" value="{{ plan.discounted_price }}">
+                <button type="submit" class="pay-btn">
+                    <div class="payment-img">
+                        <img src="{% static 'images/payu.png' %}" alt="PayU">
+                    </div>
+                    <div class="payment-text">
+                        <span>Pay via PayU (Credit/Debit card, UPI)</span>
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </button>
+            </form>
         </div>
     </div>
 </div>

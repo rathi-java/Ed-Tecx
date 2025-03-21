@@ -1,0 +1,109 @@
+<!-- Exam Section -->
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "add_exam_section" %}
+<!-- Create Exam Section -->
+<div class="content current_page_action" data-page-name="create_exam">
+    <h3>&nbsp;Exam / Create Exam</h3>
+    
+    <div class="container">
+        <div class="title">Create New Exam</div>
+        <form method="POST" action="{% url 'create_exam' %}" id="examForm">
+            {% csrf_token %}
+            
+            <!-- Hidden field for updating an exam (if applicable) -->
+            <input type="hidden" id="exam_id" name="exam_id">
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="name">Exam Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter Exam Name" required>
+                </div>
+                <div class="input-group">
+                    <label for="duration">Duration (minutes)</label>
+                    <input type="number" id="duration" name="duration" min="1" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="categories">Categories</label>
+                    <select id="categories" name="categories" multiple>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="subjects">Subjects</label>
+                    <select id="subjects" name="subjects" multiple>
+                        {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{ subject.subject_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="submit" class="save-btn">Create Exam</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% if section == "manage_exam_section" %}
+<!-- Manage Exams -->
+<div class="content current_page_action" data-page-name="manage_exam">
+    <h3>&nbsp;Exams / Manage Exams</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="searchExam" placeholder="Search by Exam Name..." onkeyup="filterExams()">
+            <button class="add-button" data-page-name="create_exam" onclick="setActive(this)">Create +</button>
+        </div>
+        <table id="examTable">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Exam Name</th>
+                    <th>Duration (Minutes)</th>
+                    <th>Categories</th>
+                    <th>Subjects</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exam in exams %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ exam.name }}</td>
+                    <td>{{ exam.duration }}</td>
+                    <td>
+                        {% for category in exam.categories.all %}
+                            {{ category.category_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for subject in exam.subjects.all %}
+                            {{ subject.subject_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <button class="edit-btn" onclick="editExam('{{ exam.id }}', '{{ exam.name|escapejs }}', '{{ exam.duration }}')">Edit</button>
+                        <form class="form-edit" method="POST" action="{% url 'delete_exam' exam.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ exam.name }}?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="form-data" colspan="6">No exams found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}

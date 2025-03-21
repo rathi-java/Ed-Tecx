@@ -214,7 +214,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed se
 SESSION_COOKIE_NAME = 'sessionid'  # Name of the session cookie
 SESSION_COOKIE_SECURE = True  # Set to True if using HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session cookie
-SESSION_COOKIE_SAMESITE = 'Lax'  # Adjust as needed ('Lax', 'Strict', 'None')
+SESSION_COOKIE_SAMESITE = 'None'  # Adjust as needed ('Lax', 'Strict', 'None')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
 SESSION_COOKIE_AGE = 1209600  # Session expiry in seconds (2 weeks)
 SESSION_COOKIE_SECURE = True
@@ -259,9 +259,9 @@ RAZORPAY_KEY_SECRET = os.getenv("READERCLUB_RAZORPAY_KEY_SECRET")
 CASHFREE_KEY_ID = os.getenv("READERCLUB_CASHFREE_KEY_ID")
 CASHFREE_SECRET_KEY = os.getenv("READERCLUB_CASHFREE_SECRET_KEY")
 
-PAYU_KEY_ID = os.getenv("READERCLUB_PAYU_KEY_ID")
-PAYU_SECRET_KEY = os.getenv("READERCLUB_PAYU_SECRET_KEY")
-
+PAYU_KEY = os.getenv("READERCLUB_PAYU_KEY")
+PAYU_SALT = os.getenv("READERCLUB_PAYU_SALT")
+PAYU_MODE = os.getenv("READERCLUB_PAYU_MODE")
 # Email Configuration
 EMAIL_HOST_USER = os.getenv("READERCLUB_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("READERCLUB_EMAIL_HOST_PASSWORD")
@@ -301,5 +301,5 @@ SESSION_COOKIE_AGE = 1209600  # etc.
 SESSION_SAVE_EVERY_REQUEST = True
 
 SESSION_COOKIE_HTTPONLY = True 
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'None'
 

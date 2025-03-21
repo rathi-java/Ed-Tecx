@@ -16,32 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `abroad_studies_counsellingenquiry`
+-- Table structure for table `abroadstudiesbtob`
 --
 
-DROP TABLE IF EXISTS `abroad_studies_counsellingenquiry`;
+DROP TABLE IF EXISTS `abroadstudiesbtob`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `abroad_studies_counsellingenquiry` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
+CREATE TABLE `abroadstudiesbtob` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `phone` varchar(20) NOT NULL,
   `email` varchar(254) NOT NULL,
-  `college` varchar(200) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(100) NOT NULL,
   `referral_code` varchar(50) NOT NULL,
-  `submitted_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `revenue` varchar(50) NOT NULL,
+  `no_of_students` varchar(50) NOT NULL,
+  `submitted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_referral_code` (`referral_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `abroad_studies_counsellingenquiry`
+-- Dumping data for table `abroadstudiesbtob`
 --
 
-LOCK TABLES `abroad_studies_counsellingenquiry` WRITE;
-/*!40000 ALTER TABLE `abroad_studies_counsellingenquiry` DISABLE KEYS */;
-INSERT INTO `abroad_studies_counsellingenquiry` VALUES (4,'ss','7894561230','ss@gmail.com','ss','ss','2025-03-17 09:47:33.980058');
-/*!40000 ALTER TABLE `abroad_studies_counsellingenquiry` ENABLE KEYS */;
+LOCK TABLES `abroadstudiesbtob` WRITE;
+/*!40000 ALTER TABLE `abroadstudiesbtob` DISABLE KEYS */;
+/*!40000 ALTER TABLE `abroadstudiesbtob` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -240,8 +242,100 @@ CREATE TABLE `admin_portal_superadmindb` (
 
 LOCK TABLES `admin_portal_superadmindb` WRITE;
 /*!40000 ALTER TABLE `admin_portal_superadmindb` DISABLE KEYS */;
-INSERT INTO `admin_portal_superadmindb` VALUES (1,'SAD00001','alpha','alpha@rathitech.me','0000000000','0000000001','pbkdf2_sha256$870000$5bd7rVfY0NNNo9PUucAmcJ$8qTua3wShsvO8UonlpJ23R9waRewJ5D6l6BDzcDJKXw=','321112341234','2025-03-04 11:46:27',1);
+INSERT INTO `admin_portal_superadmindb` VALUES (1,'SAD00001','alpha','alpha@rathitech.me','0000000000','0000000001','pbkdf2_sha256$870000$5bd7rVfY0NNNo9PUucAmcJ$8qTua3wShsvO8UonlpJ23R9waRewJ5D6l6BDzcDJKXw=','321112341234','2025-03-21 06:24:37',1);
 /*!40000 ALTER TABLE `admin_portal_superadmindb` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `applicant_details`
+--
+
+DROP TABLE IF EXISTS `applicant_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `applicant_details` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `skills` longtext NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`),
+  CONSTRAINT `applicant_details_user_id_d8b35412_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applicant_details`
+--
+
+LOCK TABLES `applicant_details` WRITE;
+/*!40000 ALTER TABLE `applicant_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `applicant_details` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `applicant_education`
+--
+
+DROP TABLE IF EXISTS `applicant_education`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `applicant_education` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `degree` varchar(255) NOT NULL,
+  `specialization` varchar(255) DEFAULT NULL,
+  `institution` varchar(255) NOT NULL,
+  `passing_year` varchar(4) NOT NULL,
+  `score` varchar(50) DEFAULT NULL,
+  `applicant_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `applicant_education_applicant_id_9e2daf3a_fk_applicant` (`applicant_id`),
+  CONSTRAINT `applicant_education_applicant_id_9e2daf3a_fk_applicant` FOREIGN KEY (`applicant_id`) REFERENCES `applicant_details` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applicant_education`
+--
+
+LOCK TABLES `applicant_education` WRITE;
+/*!40000 ALTER TABLE `applicant_education` DISABLE KEYS */;
+/*!40000 ALTER TABLE `applicant_education` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `applicant_experience`
+--
+
+DROP TABLE IF EXISTS `applicant_experience`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `applicant_experience` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `company` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date DEFAULT NULL,
+  `description` longtext,
+  `achievements` longtext,
+  `applicant_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `applicant_experience_applicant_id_c0139949_fk_applicant` (`applicant_id`),
+  CONSTRAINT `applicant_experience_applicant_id_c0139949_fk_applicant` FOREIGN KEY (`applicant_id`) REFERENCES `applicant_details` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applicant_experience`
+--
+
+LOCK TABLES `applicant_experience` WRITE;
+/*!40000 ALTER TABLE `applicant_experience` DISABLE KEYS */;
+/*!40000 ALTER TABLE `applicant_experience` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -311,7 +405,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -320,7 +414,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can view permission',1,'view_permission'),(5,'Can add group',2,'add_group'),(6,'Can change group',2,'change_group'),(7,'Can delete group',2,'delete_group'),(8,'Can view group',2,'view_group'),(9,'Can add content type',3,'add_contenttype'),(10,'Can change content type',3,'change_contenttype'),(11,'Can delete content type',3,'delete_contenttype'),(12,'Can view content type',3,'view_contenttype'),(13,'Can add code submission',4,'add_codesubmission'),(14,'Can change code submission',4,'change_codesubmission'),(15,'Can delete code submission',4,'delete_codesubmission'),(16,'Can view code submission',4,'view_codesubmission'),(17,'Can add students db',5,'add_studentsdb'),(18,'Can change students db',5,'change_studentsdb'),(19,'Can delete students db',5,'delete_studentsdb'),(20,'Can view students db',5,'view_studentsdb'),(21,'Can add category',6,'add_category'),(22,'Can change category',6,'change_category'),(23,'Can delete category',6,'delete_category'),(24,'Can view category',6,'view_category'),(25,'Can add subject',7,'add_subject'),(26,'Can change subject',7,'change_subject'),(27,'Can delete subject',7,'delete_subject'),(28,'Can view subject',7,'view_subject'),(29,'Can add question',8,'add_question'),(30,'Can change question',8,'change_question'),(31,'Can delete question',8,'delete_question'),(32,'Can view question',8,'view_question'),(33,'Can add exam result',9,'add_examresult'),(34,'Can change exam result',9,'change_examresult'),(35,'Can delete exam result',9,'delete_examresult'),(36,'Can view exam result',9,'view_examresult'),(37,'Can add placement stories',10,'add_placementstories'),(38,'Can change placement stories',10,'change_placementstories'),(39,'Can delete placement stories',10,'delete_placementstories'),(40,'Can view placement stories',10,'view_placementstories'),(41,'Can add job',11,'add_job'),(42,'Can change job',11,'change_job'),(43,'Can delete job',11,'delete_job'),(44,'Can view job',11,'view_job'),(45,'Can add colleges db',12,'add_collegesdb'),(46,'Can change colleges db',12,'change_collegesdb'),(47,'Can delete colleges db',12,'delete_collegesdb'),(48,'Can view colleges db',12,'view_collegesdb'),(49,'Can add users db',13,'add_usersdb'),(50,'Can change users db',13,'change_usersdb'),(51,'Can delete users db',13,'delete_usersdb'),(52,'Can view users db',13,'view_usersdb'),(53,'Can add otpdb',14,'add_otpdb'),(54,'Can change otpdb',14,'change_otpdb'),(55,'Can delete otpdb',14,'delete_otpdb'),(56,'Can view otpdb',14,'view_otpdb'),(57,'Can add super admin db',15,'add_superadmindb'),(58,'Can change super admin db',15,'change_superadmindb'),(59,'Can delete super admin db',15,'delete_superadmindb'),(60,'Can view super admin db',15,'view_superadmindb'),(61,'Can add admin db',16,'add_admindb'),(62,'Can change admin db',16,'change_admindb'),(63,'Can delete admin db',16,'delete_admindb'),(64,'Can view admin db',16,'view_admindb'),(65,'Can add manager db',17,'add_managerdb'),(66,'Can change manager db',17,'change_managerdb'),(67,'Can delete manager db',17,'delete_managerdb'),(68,'Can view manager db',17,'view_managerdb'),(69,'Can add employee db',18,'add_employeedb'),(70,'Can change employee db',18,'change_employeedb'),(71,'Can delete employee db',18,'delete_employeedb'),(72,'Can view employee db',18,'view_employeedb'),(73,'Can add certificate',19,'add_certificate'),(74,'Can change certificate',19,'change_certificate'),(75,'Can delete certificate',19,'delete_certificate'),(76,'Can view certificate',19,'view_certificate'),(77,'Can add plan type',20,'add_plantype'),(78,'Can change plan type',20,'change_plantype'),(79,'Can delete plan type',20,'delete_plantype'),(80,'Can view plan type',20,'view_plantype'),(81,'Can add subscription plan',21,'add_subscriptionplan'),(82,'Can change subscription plan',21,'change_subscriptionplan'),(83,'Can delete subscription plan',21,'delete_subscriptionplan'),(84,'Can view subscription plan',21,'view_subscriptionplan'),(85,'Can add email address',22,'add_emailaddress'),(86,'Can change email address',22,'change_emailaddress'),(87,'Can delete email address',22,'delete_emailaddress'),(88,'Can view email address',22,'view_emailaddress'),(89,'Can add email confirmation',23,'add_emailconfirmation'),(90,'Can change email confirmation',23,'change_emailconfirmation'),(91,'Can delete email confirmation',23,'delete_emailconfirmation'),(92,'Can view email confirmation',23,'view_emailconfirmation'),(93,'Can add log entry',24,'add_logentry'),(94,'Can change log entry',24,'change_logentry'),(95,'Can delete log entry',24,'delete_logentry'),(96,'Can view log entry',24,'view_logentry'),(97,'Can add session',25,'add_session'),(98,'Can change session',25,'change_session'),(99,'Can delete session',25,'delete_session'),(100,'Can view session',25,'view_session'),(101,'Can add site',26,'add_site'),(102,'Can change site',26,'change_site'),(103,'Can delete site',26,'delete_site'),(104,'Can view site',26,'view_site'),(105,'Can add social account',27,'add_socialaccount'),(106,'Can change social account',27,'change_socialaccount'),(107,'Can delete social account',27,'delete_socialaccount'),(108,'Can view social account',27,'view_socialaccount'),(109,'Can add social application',28,'add_socialapp'),(110,'Can change social application',28,'change_socialapp'),(111,'Can delete social application',28,'delete_socialapp'),(112,'Can view social application',28,'view_socialapp'),(113,'Can add social application token',29,'add_socialtoken'),(114,'Can change social application token',29,'change_socialtoken'),(115,'Can delete social application token',29,'delete_socialtoken'),(116,'Can view social application token',29,'view_socialtoken'),(117,'Can add exam',30,'add_exam'),(118,'Can change exam',30,'change_exam'),(119,'Can delete exam',30,'delete_exam'),(120,'Can view exam',30,'view_exam'),(121,'Can add payment transaction',31,'add_paymenttransaction'),(122,'Can change payment transaction',31,'change_paymenttransaction'),(123,'Can delete payment transaction',31,'delete_paymenttransaction'),(124,'Can view payment transaction',31,'view_paymenttransaction'),(125,'Can add category',32,'add_category'),(126,'Can change category',32,'change_category'),(127,'Can delete category',32,'delete_category'),(128,'Can view category',32,'view_category'),(129,'Can add company',33,'add_company'),(130,'Can change company',33,'change_company'),(131,'Can delete company',33,'delete_company'),(132,'Can view company',33,'view_company'),(133,'Can add job',34,'add_job'),(134,'Can change job',34,'change_job'),(135,'Can delete job',34,'delete_job'),(136,'Can view job',34,'view_job'),(137,'Can add domain',35,'add_domain'),(138,'Can change domain',35,'change_domain'),(139,'Can delete domain',35,'delete_domain'),(140,'Can view domain',35,'view_domain'),(141,'Can add job application',36,'add_jobapplication'),(142,'Can change job application',36,'change_jobapplication'),(143,'Can delete job application',36,'delete_jobapplication'),(144,'Can view job application',36,'view_jobapplication'),(145,'Can add job seeker',37,'add_jobseeker'),(146,'Can change job seeker',37,'change_jobseeker'),(147,'Can delete job seeker',37,'delete_jobseeker'),(148,'Can view job seeker',37,'view_jobseeker'),(149,'Can add job seeker experience',38,'add_jobseekerexperience'),(150,'Can change job seeker experience',38,'change_jobseekerexperience'),(151,'Can delete job seeker experience',38,'delete_jobseekerexperience'),(152,'Can view job seeker experience',38,'view_jobseekerexperience'),(153,'Can add job seeker education',39,'add_jobseekereducation'),(154,'Can change job seeker education',39,'change_jobseekereducation'),(155,'Can delete job seeker education',39,'delete_jobseekereducation'),(156,'Can view job seeker education',39,'view_jobseekereducation'),(157,'Can add internship application',40,'add_internshipapplication'),(158,'Can change internship application',40,'change_internshipapplication'),(159,'Can delete internship application',40,'delete_internshipapplication'),(160,'Can view internship application',40,'view_internshipapplication'),(161,'Can add internship category',41,'add_internshipcategory'),(162,'Can change internship category',41,'change_internshipcategory'),(163,'Can delete internship category',41,'delete_internshipcategory'),(164,'Can view internship category',41,'view_internshipcategory'),(165,'Can add internship',42,'add_internship'),(166,'Can change internship',42,'change_internship'),(167,'Can delete internship',42,'delete_internship'),(168,'Can view internship',42,'view_internship'),(169,'Can add internship seeker',43,'add_internshipseeker'),(170,'Can change internship seeker',43,'change_internshipseeker'),(171,'Can delete internship seeker',43,'delete_internshipseeker'),(172,'Can view internship seeker',43,'view_internshipseeker'),(173,'Can add internship company',44,'add_internshipcompany'),(174,'Can change internship company',44,'change_internshipcompany'),(175,'Can delete internship company',44,'delete_internshipcompany'),(176,'Can view internship company',44,'view_internshipcompany'),(177,'Can add counselling enquiry',45,'add_counsellingenquiry'),(178,'Can change counselling enquiry',45,'change_counsellingenquiry'),(179,'Can delete counselling enquiry',45,'delete_counsellingenquiry'),(180,'Can view counselling enquiry',45,'view_counsellingenquiry');
+INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can view permission',1,'view_permission'),(5,'Can add group',2,'add_group'),(6,'Can change group',2,'change_group'),(7,'Can delete group',2,'delete_group'),(8,'Can view group',2,'view_group'),(9,'Can add content type',3,'add_contenttype'),(10,'Can change content type',3,'change_contenttype'),(11,'Can delete content type',3,'delete_contenttype'),(12,'Can view content type',3,'view_contenttype'),(13,'Can add code submission',4,'add_codesubmission'),(14,'Can change code submission',4,'change_codesubmission'),(15,'Can delete code submission',4,'delete_codesubmission'),(16,'Can view code submission',4,'view_codesubmission'),(17,'Can add students db',5,'add_studentsdb'),(18,'Can change students db',5,'change_studentsdb'),(19,'Can delete students db',5,'delete_studentsdb'),(20,'Can view students db',5,'view_studentsdb'),(21,'Can add category',6,'add_category'),(22,'Can change category',6,'change_category'),(23,'Can delete category',6,'delete_category'),(24,'Can view category',6,'view_category'),(25,'Can add subject',7,'add_subject'),(26,'Can change subject',7,'change_subject'),(27,'Can delete subject',7,'delete_subject'),(28,'Can view subject',7,'view_subject'),(29,'Can add question',8,'add_question'),(30,'Can change question',8,'change_question'),(31,'Can delete question',8,'delete_question'),(32,'Can view question',8,'view_question'),(33,'Can add exam result',9,'add_examresult'),(34,'Can change exam result',9,'change_examresult'),(35,'Can delete exam result',9,'delete_examresult'),(36,'Can view exam result',9,'view_examresult'),(37,'Can add placement stories',10,'add_placementstories'),(38,'Can change placement stories',10,'change_placementstories'),(39,'Can delete placement stories',10,'delete_placementstories'),(40,'Can view placement stories',10,'view_placementstories'),(41,'Can add job',11,'add_job'),(42,'Can change job',11,'change_job'),(43,'Can delete job',11,'delete_job'),(44,'Can view job',11,'view_job'),(45,'Can add colleges db',12,'add_collegesdb'),(46,'Can change colleges db',12,'change_collegesdb'),(47,'Can delete colleges db',12,'delete_collegesdb'),(48,'Can view colleges db',12,'view_collegesdb'),(49,'Can add users db',13,'add_usersdb'),(50,'Can change users db',13,'change_usersdb'),(51,'Can delete users db',13,'delete_usersdb'),(52,'Can view users db',13,'view_usersdb'),(53,'Can add otpdb',14,'add_otpdb'),(54,'Can change otpdb',14,'change_otpdb'),(55,'Can delete otpdb',14,'delete_otpdb'),(56,'Can view otpdb',14,'view_otpdb'),(57,'Can add super admin db',15,'add_superadmindb'),(58,'Can change super admin db',15,'change_superadmindb'),(59,'Can delete super admin db',15,'delete_superadmindb'),(60,'Can view super admin db',15,'view_superadmindb'),(61,'Can add admin db',16,'add_admindb'),(62,'Can change admin db',16,'change_admindb'),(63,'Can delete admin db',16,'delete_admindb'),(64,'Can view admin db',16,'view_admindb'),(65,'Can add manager db',17,'add_managerdb'),(66,'Can change manager db',17,'change_managerdb'),(67,'Can delete manager db',17,'delete_managerdb'),(68,'Can view manager db',17,'view_managerdb'),(69,'Can add employee db',18,'add_employeedb'),(70,'Can change employee db',18,'change_employeedb'),(71,'Can delete employee db',18,'delete_employeedb'),(72,'Can view employee db',18,'view_employeedb'),(73,'Can add certificate',19,'add_certificate'),(74,'Can change certificate',19,'change_certificate'),(75,'Can delete certificate',19,'delete_certificate'),(76,'Can view certificate',19,'view_certificate'),(77,'Can add plan type',20,'add_plantype'),(78,'Can change plan type',20,'change_plantype'),(79,'Can delete plan type',20,'delete_plantype'),(80,'Can view plan type',20,'view_plantype'),(81,'Can add subscription plan',21,'add_subscriptionplan'),(82,'Can change subscription plan',21,'change_subscriptionplan'),(83,'Can delete subscription plan',21,'delete_subscriptionplan'),(84,'Can view subscription plan',21,'view_subscriptionplan'),(85,'Can add email address',22,'add_emailaddress'),(86,'Can change email address',22,'change_emailaddress'),(87,'Can delete email address',22,'delete_emailaddress'),(88,'Can view email address',22,'view_emailaddress'),(89,'Can add email confirmation',23,'add_emailconfirmation'),(90,'Can change email confirmation',23,'change_emailconfirmation'),(91,'Can delete email confirmation',23,'delete_emailconfirmation'),(92,'Can view email confirmation',23,'view_emailconfirmation'),(93,'Can add log entry',24,'add_logentry'),(94,'Can change log entry',24,'change_logentry'),(95,'Can delete log entry',24,'delete_logentry'),(96,'Can view log entry',24,'view_logentry'),(97,'Can add session',25,'add_session'),(98,'Can change session',25,'change_session'),(99,'Can delete session',25,'delete_session'),(100,'Can view session',25,'view_session'),(101,'Can add site',26,'add_site'),(102,'Can change site',26,'change_site'),(103,'Can delete site',26,'delete_site'),(104,'Can view site',26,'view_site'),(105,'Can add social account',27,'add_socialaccount'),(106,'Can change social account',27,'change_socialaccount'),(107,'Can delete social account',27,'delete_socialaccount'),(108,'Can view social account',27,'view_socialaccount'),(109,'Can add social application',28,'add_socialapp'),(110,'Can change social application',28,'change_socialapp'),(111,'Can delete social application',28,'delete_socialapp'),(112,'Can view social application',28,'view_socialapp'),(113,'Can add social application token',29,'add_socialtoken'),(114,'Can change social application token',29,'change_socialtoken'),(115,'Can delete social application token',29,'delete_socialtoken'),(116,'Can view social application token',29,'view_socialtoken'),(117,'Can add exam',30,'add_exam'),(118,'Can change exam',30,'change_exam'),(119,'Can delete exam',30,'delete_exam'),(120,'Can view exam',30,'view_exam'),(121,'Can add payment transaction',31,'add_paymenttransaction'),(122,'Can change payment transaction',31,'change_paymenttransaction'),(123,'Can delete payment transaction',31,'delete_paymenttransaction'),(124,'Can view payment transaction',31,'view_paymenttransaction'),(125,'Can add category',32,'add_category'),(126,'Can change category',32,'change_category'),(127,'Can delete category',32,'delete_category'),(128,'Can view category',32,'view_category'),(129,'Can add company',33,'add_company'),(130,'Can change company',33,'change_company'),(131,'Can delete company',33,'delete_company'),(132,'Can view company',33,'view_company'),(133,'Can add job',34,'add_job'),(134,'Can change job',34,'change_job'),(135,'Can delete job',34,'delete_job'),(136,'Can view job',34,'view_job'),(137,'Can add domain',35,'add_domain'),(138,'Can change domain',35,'change_domain'),(139,'Can delete domain',35,'delete_domain'),(140,'Can view domain',35,'view_domain'),(141,'Can add job application',36,'add_jobapplication'),(142,'Can change job application',36,'change_jobapplication'),(143,'Can delete job application',36,'delete_jobapplication'),(144,'Can view job application',36,'view_jobapplication'),(145,'Can add job seeker',37,'add_jobseeker'),(146,'Can change job seeker',37,'change_jobseeker'),(147,'Can delete job seeker',37,'delete_jobseeker'),(148,'Can view job seeker',37,'view_jobseeker'),(149,'Can add job seeker experience',38,'add_jobseekerexperience'),(150,'Can change job seeker experience',38,'change_jobseekerexperience'),(151,'Can delete job seeker experience',38,'delete_jobseekerexperience'),(152,'Can view job seeker experience',38,'view_jobseekerexperience'),(153,'Can add job seeker education',39,'add_jobseekereducation'),(154,'Can change job seeker education',39,'change_jobseekereducation'),(155,'Can delete job seeker education',39,'delete_jobseekereducation'),(156,'Can view job seeker education',39,'view_jobseekereducation'),(157,'Can add internship application',40,'add_internshipapplication'),(158,'Can change internship application',40,'change_internshipapplication'),(159,'Can delete internship application',40,'delete_internshipapplication'),(160,'Can view internship application',40,'view_internshipapplication'),(161,'Can add internship category',41,'add_internshipcategory'),(162,'Can change internship category',41,'change_internshipcategory'),(163,'Can delete internship category',41,'delete_internshipcategory'),(164,'Can view internship category',41,'view_internshipcategory'),(165,'Can add internship',42,'add_internship'),(166,'Can change internship',42,'change_internship'),(167,'Can delete internship',42,'delete_internship'),(168,'Can view internship',42,'view_internship'),(169,'Can add internship seeker',43,'add_internshipseeker'),(170,'Can change internship seeker',43,'change_internshipseeker'),(171,'Can delete internship seeker',43,'delete_internshipseeker'),(172,'Can view internship seeker',43,'view_internshipseeker'),(173,'Can add internship company',44,'add_internshipcompany'),(174,'Can change internship company',44,'change_internshipcompany'),(175,'Can delete internship company',44,'delete_internshipcompany'),(176,'Can view internship company',44,'view_internshipcompany'),(177,'Can add counselling enquiry',45,'add_counsellingenquiry'),(178,'Can change counselling enquiry',45,'change_counsellingenquiry'),(179,'Can delete counselling enquiry',45,'delete_counsellingenquiry'),(180,'Can view counselling enquiry',45,'view_counsellingenquiry'),(181,'Can add domain',46,'add_domain'),(182,'Can change domain',46,'change_domain'),(183,'Can delete domain',46,'delete_domain'),(184,'Can view domain',46,'view_domain'),(185,'Can add applicant experience',47,'add_applicantexperience'),(186,'Can change applicant experience',47,'change_applicantexperience'),(187,'Can delete applicant experience',47,'delete_applicantexperience'),(188,'Can view applicant experience',47,'view_applicantexperience'),(189,'Can add company',48,'add_company'),(190,'Can change company',48,'change_company'),(191,'Can delete company',48,'delete_company'),(192,'Can view company',48,'view_company'),(193,'Can add applicant detail',49,'add_applicantdetail'),(194,'Can change applicant detail',49,'change_applicantdetail'),(195,'Can delete applicant detail',49,'delete_applicantdetail'),(196,'Can view applicant detail',49,'view_applicantdetail'),(197,'Can add applicant education',50,'add_applicanteducation'),(198,'Can change applicant education',50,'change_applicanteducation'),(199,'Can delete applicant education',50,'delete_applicanteducation'),(200,'Can view applicant education',50,'view_applicanteducation'),(201,'Can add category',51,'add_category'),(202,'Can change category',51,'change_category'),(203,'Can delete category',51,'delete_category'),(204,'Can view category',51,'view_category'),(205,'Can add abroad studies bto b',52,'add_abroadstudiesbtob'),(206,'Can change abroad studies bto b',52,'change_abroadstudiesbtob'),(207,'Can delete abroad studies bto b',52,'delete_abroadstudiesbtob'),(208,'Can view abroad studies bto b',52,'view_abroadstudiesbtob'),(209,'Can add enquirystatus',53,'add_enquirystatus'),(210,'Can change enquirystatus',53,'change_enquirystatus'),(211,'Can delete enquirystatus',53,'delete_enquirystatus'),(212,'Can view enquirystatus',53,'view_enquirystatus');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,6 +451,31 @@ LOCK TABLES `certificate_management_certificate` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `company_domain`
+--
+
+DROP TABLE IF EXISTS `company_domain`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `company_domain` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `domain_code` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `domain_code` (`domain_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `company_domain`
+--
+
+LOCK TABLES `company_domain` WRITE;
+/*!40000 ALTER TABLE `company_domain` DISABLE KEYS */;
+/*!40000 ALTER TABLE `company_domain` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `compiler_codesubmission`
 --
 
@@ -385,6 +504,39 @@ LOCK TABLES `compiler_codesubmission` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `counsellingenquiries`
+--
+
+DROP TABLE IF EXISTS `counsellingenquiries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `counsellingenquiries` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `college` varchar(200) NOT NULL,
+  `referral_code` varchar(50) NOT NULL,
+  `status_id` int DEFAULT '1',
+  `price` varchar(250) NOT NULL,
+  `submitted_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `counsellingenquiries_status_fk` (`status_id`),
+  CONSTRAINT `counsellingenquiries_status_fk` FOREIGN KEY (`status_id`) REFERENCES `enquirystatus` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `counsellingenquiries`
+--
+
+LOCK TABLES `counsellingenquiries` WRITE;
+/*!40000 ALTER TABLE `counsellingenquiries` DISABLE KEYS */;
+INSERT INTO `counsellingenquiries` VALUES (1,'sameer','9882471828','ss@gmail.com','saasas','321323',1,'','2025-03-21 01:59:58');
+/*!40000 ALTER TABLE `counsellingenquiries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `django_admin_log`
 --
 
@@ -406,7 +558,7 @@ CREATE TABLE `django_admin_log` (
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`),
   CONSTRAINT `django_admin_log_chk_1` CHECK ((`action_flag` >= 0))
-) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=348 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +567,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (200,'2025-03-04 06:25:01.551029','3','basic',1,'[{\"added\": {}}]',20,4),(201,'2025-03-04 06:25:18.863630','3','basic - ₹0.00/m',1,'[{\"added\": {}}]',21,4),(202,'2025-03-04 06:30:14.669043','4','monthly',1,'[{\"added\": {}}]',20,4),(203,'2025-03-04 06:30:31.180474','4','monthly - ₹284.05/m',1,'[{\"added\": {}}]',21,4),(204,'2025-03-04 09:12:53.622024','1','PaymentTransaction object (1)',3,'',31,4),(205,'2025-03-04 09:15:58.569254','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(206,'2025-03-04 09:16:13.861441','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(207,'2025-03-04 09:21:12.114605','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\", \"Subscription start\", \"Subscription end\"]}}]',13,4),(208,'2025-03-04 09:22:04.748515','4','monthly - ₹284.05/m',2,'[]',21,4),(209,'2025-03-04 09:22:27.521978','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(210,'2025-03-04 11:44:43.776079','1','SAD00001',1,'[{\"added\": {}}]',15,4),(211,'2025-03-04 12:30:25.628063','3','basic - ₹0.00/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(212,'2025-03-04 12:32:47.505329','4','monthly - ₹284.05/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(213,'2025-03-04 12:33:37.395975','3','basic - ₹0.00/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(214,'2025-03-12 06:10:12.003927','6','Exam object (6)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(215,'2025-03-12 06:10:32.928321','5','Exam object (5)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(216,'2025-03-12 06:11:26.694717','4','Exam object (4)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(217,'2025-03-12 06:11:31.617713','3','Exam object (3)',2,'[]',30,4),(218,'2025-03-12 06:12:05.903116','2','Exam object (2)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(219,'2025-03-12 06:12:26.120133','1','Exam object (1)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(220,'2025-03-12 06:12:30.324949','1','Exam object (1)',2,'[]',30,4),(221,'2025-03-12 06:12:34.142090','6','Exam object (6)',2,'[]',30,4),(222,'2025-03-12 06:12:37.702102','5','Exam object (5)',2,'[]',30,4),(223,'2025-03-12 06:12:41.203951','4','Exam object (4)',2,'[]',30,4),(224,'2025-03-12 06:12:44.780110','2','Exam object (2)',2,'[]',30,4),(225,'2025-03-12 06:13:11.895021','3','Exam object (3)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(226,'2025-03-15 10:38:01.378576','3','Exam Result - USR00001 - Score: 13.333333333333334%',3,'',9,4),(227,'2025-03-15 11:09:42.961290','1','IT',1,'[{\"added\": {}}]',41,4),(228,'2025-03-15 11:10:16.360823','2','Management',1,'[{\"added\": {}}]',41,4),(229,'2025-03-15 11:10:54.742729','1','asasa',1,'[{\"added\": {}}]',44,4),(230,'2025-03-15 11:16:56.937091','5','xxxxx at asasa',1,'[{\"added\": {}}]',42,4),(231,'2025-03-15 12:41:30.695415','6','asssaa at asasa',1,'[{\"added\": {}}]',42,4),(232,'2025-03-15 12:42:07.026929','2','qwe',1,'[{\"added\": {}}]',44,4),(233,'2025-03-15 12:42:36.710578','7','sasass at qwe',1,'[{\"added\": {}}]',42,4),(234,'2025-03-15 13:14:39.158263','2','qwe',3,'',44,4),(235,'2025-03-15 13:14:39.158399','1','asasa',3,'',44,4),(236,'2025-03-15 13:24:47.223308','4','Beta Innovations',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(237,'2025-03-15 13:24:56.970032','3','Alpha Tech',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(238,'2025-03-15 13:47:38.596127','15','Nu Nexus',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(239,'2025-03-15 13:47:49.244738','14','Mu Microsystems',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(240,'2025-03-15 13:48:00.198813','13','Lambda Labs',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(241,'2025-03-15 13:48:12.708360','12','Kappa Konnect',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(242,'2025-03-15 13:48:23.190051','10','Theta Tech',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(243,'2025-03-15 13:48:28.296493','11','Iota Innovations',2,'[]',44,4),(244,'2025-03-15 13:48:39.104309','8','Epsilon Enterprises',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(245,'2025-03-15 13:51:46.835468','6','Gamma Global',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(246,'2025-03-15 13:52:07.905148','11','Iota Innovations',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(247,'2025-03-15 13:52:12.557595','10','Theta Tech',2,'[]',44,4),(248,'2025-03-15 13:52:16.624850','15','Nu Nexus',2,'[]',44,4),(249,'2025-03-15 13:52:19.723963','14','Mu Microsystems',2,'[]',44,4),(250,'2025-03-15 13:52:23.024965','13','Lambda Labs',2,'[]',44,4),(251,'2025-03-15 13:52:41.092622','9','Zeta Solutions',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(252,'2025-03-15 13:52:45.154122','9','Zeta Solutions',2,'[]',44,4),(253,'2025-03-15 13:52:58.228427','7','Delta Dynamics',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(254,'2025-03-15 15:08:18.137570','1','sameer parmar (alpha@rathitech.me)',1,'[{\"added\": {}}]',37,4),(255,'2025-03-15 15:08:42.473545','1','sasas at sasas',1,'[{\"added\": {}}]',38,4),(256,'2025-03-15 15:08:59.545445','1','ss in ssasa from sasaassa',1,'[{\"added\": {}}]',39,4),(257,'2025-03-15 15:54:42.321011','4','PaymentTransaction object (4)',3,'',31,4),(258,'2025-03-15 15:54:42.321183','3','PaymentTransaction object (3)',3,'',31,4),(259,'2025-03-15 15:54:42.321250','2','PaymentTransaction object (2)',3,'',31,4),(260,'2025-03-17 09:29:55.694991','3','saassa - ss@gmail.com',3,'',45,4),(261,'2025-03-17 09:29:55.695120','2','saassa - ss@gmail.com',3,'',45,4),(262,'2025-03-17 09:29:55.695190','1','saassa - ss@gmail.com',3,'',45,4);
+INSERT INTO `django_admin_log` VALUES (200,'2025-03-04 06:25:01.551029','3','basic',1,'[{\"added\": {}}]',20,4),(201,'2025-03-04 06:25:18.863630','3','basic - ₹0.00/m',1,'[{\"added\": {}}]',21,4),(202,'2025-03-04 06:30:14.669043','4','monthly',1,'[{\"added\": {}}]',20,4),(203,'2025-03-04 06:30:31.180474','4','monthly - ₹284.05/m',1,'[{\"added\": {}}]',21,4),(204,'2025-03-04 09:12:53.622024','1','PaymentTransaction object (1)',3,'',31,4),(205,'2025-03-04 09:15:58.569254','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(206,'2025-03-04 09:16:13.861441','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(207,'2025-03-04 09:21:12.114605','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\", \"Subscription start\", \"Subscription end\"]}}]',13,4),(208,'2025-03-04 09:22:04.748515','4','monthly - ₹284.05/m',2,'[]',21,4),(209,'2025-03-04 09:22:27.521978','4','USR00001',2,'[{\"changed\": {\"fields\": [\"Subscription plan\"]}}]',13,4),(210,'2025-03-04 11:44:43.776079','1','SAD00001',1,'[{\"added\": {}}]',15,4),(211,'2025-03-04 12:30:25.628063','3','basic - ₹0.00/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(212,'2025-03-04 12:32:47.505329','4','monthly - ₹284.05/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(213,'2025-03-04 12:33:37.395975','3','basic - ₹0.00/m',2,'[{\"changed\": {\"fields\": [\"Features\"]}}]',21,4),(214,'2025-03-12 06:10:12.003927','6','Exam object (6)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(215,'2025-03-12 06:10:32.928321','5','Exam object (5)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(216,'2025-03-12 06:11:26.694717','4','Exam object (4)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(217,'2025-03-12 06:11:31.617713','3','Exam object (3)',2,'[]',30,4),(218,'2025-03-12 06:12:05.903116','2','Exam object (2)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(219,'2025-03-12 06:12:26.120133','1','Exam object (1)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(220,'2025-03-12 06:12:30.324949','1','Exam object (1)',2,'[]',30,4),(221,'2025-03-12 06:12:34.142090','6','Exam object (6)',2,'[]',30,4),(222,'2025-03-12 06:12:37.702102','5','Exam object (5)',2,'[]',30,4),(223,'2025-03-12 06:12:41.203951','4','Exam object (4)',2,'[]',30,4),(224,'2025-03-12 06:12:44.780110','2','Exam object (2)',2,'[]',30,4),(225,'2025-03-12 06:13:11.895021','3','Exam object (3)',2,'[{\"changed\": {\"fields\": [\"Name\"]}}]',30,4),(226,'2025-03-15 10:38:01.378576','3','Exam Result - USR00001 - Score: 13.333333333333334%',3,'',9,4),(227,'2025-03-15 11:09:42.961290','1','IT',1,'[{\"added\": {}}]',41,4),(228,'2025-03-15 11:10:16.360823','2','Management',1,'[{\"added\": {}}]',41,4),(229,'2025-03-15 11:10:54.742729','1','asasa',1,'[{\"added\": {}}]',44,4),(230,'2025-03-15 11:16:56.937091','5','xxxxx at asasa',1,'[{\"added\": {}}]',42,4),(231,'2025-03-15 12:41:30.695415','6','asssaa at asasa',1,'[{\"added\": {}}]',42,4),(232,'2025-03-15 12:42:07.026929','2','qwe',1,'[{\"added\": {}}]',44,4),(233,'2025-03-15 12:42:36.710578','7','sasass at qwe',1,'[{\"added\": {}}]',42,4),(234,'2025-03-15 13:14:39.158263','2','qwe',3,'',44,4),(235,'2025-03-15 13:14:39.158399','1','asasa',3,'',44,4),(236,'2025-03-15 13:24:47.223308','4','Beta Innovations',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(237,'2025-03-15 13:24:56.970032','3','Alpha Tech',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(238,'2025-03-15 13:47:38.596127','15','Nu Nexus',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(239,'2025-03-15 13:47:49.244738','14','Mu Microsystems',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(240,'2025-03-15 13:48:00.198813','13','Lambda Labs',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(241,'2025-03-15 13:48:12.708360','12','Kappa Konnect',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(242,'2025-03-15 13:48:23.190051','10','Theta Tech',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(243,'2025-03-15 13:48:28.296493','11','Iota Innovations',2,'[]',44,4),(244,'2025-03-15 13:48:39.104309','8','Epsilon Enterprises',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(245,'2025-03-15 13:51:46.835468','6','Gamma Global',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(246,'2025-03-15 13:52:07.905148','11','Iota Innovations',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(247,'2025-03-15 13:52:12.557595','10','Theta Tech',2,'[]',44,4),(248,'2025-03-15 13:52:16.624850','15','Nu Nexus',2,'[]',44,4),(249,'2025-03-15 13:52:19.723963','14','Mu Microsystems',2,'[]',44,4),(250,'2025-03-15 13:52:23.024965','13','Lambda Labs',2,'[]',44,4),(251,'2025-03-15 13:52:41.092622','9','Zeta Solutions',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(252,'2025-03-15 13:52:45.154122','9','Zeta Solutions',2,'[]',44,4),(253,'2025-03-15 13:52:58.228427','7','Delta Dynamics',2,'[{\"changed\": {\"fields\": [\"Logo\"]}}]',44,4),(254,'2025-03-15 15:08:18.137570','1','sameer parmar (alpha@rathitech.me)',1,'[{\"added\": {}}]',37,4),(255,'2025-03-15 15:08:42.473545','1','sasas at sasas',1,'[{\"added\": {}}]',38,4),(256,'2025-03-15 15:08:59.545445','1','ss in ssasa from sasaassa',1,'[{\"added\": {}}]',39,4),(257,'2025-03-15 15:54:42.321011','4','PaymentTransaction object (4)',3,'',31,4),(258,'2025-03-15 15:54:42.321183','3','PaymentTransaction object (3)',3,'',31,4),(259,'2025-03-15 15:54:42.321250','2','PaymentTransaction object (2)',3,'',31,4),(260,'2025-03-17 09:29:55.694991','3','saassa - ss@gmail.com',3,'',45,4),(261,'2025-03-17 09:29:55.695120','2','saassa - ss@gmail.com',3,'',45,4),(262,'2025-03-17 09:29:55.695190','1','saassa - ss@gmail.com',3,'',45,4),(263,'2025-03-19 08:45:06.508308','21','Business Consultant at TechNova Solutions',3,'',34,4),(264,'2025-03-19 08:45:06.508342','20','Strategic Planning Lead at DataDriven Analytics',3,'',34,4),(265,'2025-03-19 08:45:06.508353','19','Cloud Architect at TechNova Solutions',3,'',34,4),(266,'2025-03-19 08:45:06.508362','18','Financial Analyst at Global Management Partners',3,'',34,4),(267,'2025-03-19 08:45:06.508371','17','DevOps Engineer at TechNova Solutions',3,'',34,4),(268,'2025-03-19 08:45:06.508379','16','Cloud Architect at MediHealth Systems',3,'',34,4),(269,'2025-03-19 08:45:06.508396','15','Investment Banker at DataDriven Analytics',3,'',34,4),(270,'2025-03-19 08:45:06.508403','14','Medical Technician at TechNova Solutions',3,'',34,4),(271,'2025-03-19 08:45:06.508410','13','Cloud Architect at DataDriven Analytics',3,'',34,4),(272,'2025-03-19 08:45:06.508418','12','HR Manager at DataDriven Analytics',3,'',34,4),(273,'2025-03-19 08:45:06.508425','11','Software Engineer at DataDriven Analytics',3,'',34,4),(274,'2025-03-19 08:45:06.508431','10','UI/UX Designer at Global Management Partners',3,'',34,4),(275,'2025-03-19 08:45:06.508438','9','Medical Technician at MediHealth Systems',3,'',34,4),(276,'2025-03-19 08:45:06.508446','8','Cloud Architect at Global Management Partners',3,'',34,4),(277,'2025-03-19 08:45:06.508453','7','Risk Assessment Manager at FinanceForward LLC',3,'',34,4),(278,'2025-03-19 08:45:14.739344','13','DataDriven Analytics',3,'',33,4),(279,'2025-03-19 08:45:14.739372','12','Global Management Partners',3,'',33,4),(280,'2025-03-19 08:45:14.739382','11','FinanceForward LLC',3,'',33,4),(281,'2025-03-19 08:45:14.739391','10','MediHealth Systems',3,'',33,4),(282,'2025-03-19 08:45:14.739398','9','TechNova Solutions',3,'',33,4),(283,'2025-03-19 08:45:21.756063','17','Project Management',3,'',35,4),(284,'2025-03-19 08:45:21.756110','16','Investment Banking',3,'',35,4),(285,'2025-03-19 08:45:21.756148','15','Financial Analysis',3,'',35,4),(286,'2025-03-19 08:45:21.756170','14','Nursing',3,'',35,4),(287,'2025-03-19 08:45:21.756189','13','Medical Research',3,'',35,4),(288,'2025-03-19 08:45:21.756208','12','UI/UX Design',3,'',35,4),(289,'2025-03-19 08:45:21.756227','11','Cloud Computing',3,'',35,4),(290,'2025-03-19 08:45:21.756245','10','Data Science',3,'',35,4),(291,'2025-03-19 08:45:21.756263','9','Mobile Development',3,'',35,4),(292,'2025-03-19 08:45:21.756280','8','Web Development',3,'',35,4),(293,'2025-03-19 08:45:35.963154','1','sameer parmar (alpha@rathitech.me)',3,'',37,4),(294,'2025-03-19 08:47:17.411202','3','https://career.readerclub.in',1,'[{\"added\": {}}]',26,4),(295,'2025-03-19 08:52:21.029346','13','Management',3,'',32,4),(296,'2025-03-19 08:52:21.029393','12','Finance',3,'',32,4),(297,'2025-03-19 08:52:21.029425','11','IT',3,'',32,4),(298,'2025-03-19 08:52:21.029437','10','Healthcare',3,'',32,4),(299,'2025-03-19 08:52:37.748866','15','Nu Nexus',3,'',44,4),(300,'2025-03-19 08:52:37.748895','14','Mu Microsystems',3,'',44,4),(301,'2025-03-19 08:52:37.748904','13','Lambda Labs',3,'',44,4),(302,'2025-03-19 08:52:37.748912','12','Kappa Konnect',3,'',44,4),(303,'2025-03-19 08:52:37.748919','11','Iota Innovations',3,'',44,4),(304,'2025-03-19 08:52:37.748926','10','Theta Tech',3,'',44,4),(305,'2025-03-19 08:52:37.748933','9','Zeta Solutions',3,'',44,4),(306,'2025-03-19 08:52:37.748941','8','Epsilon Enterprises',3,'',44,4),(307,'2025-03-19 08:52:37.748948','7','Delta Dynamics',3,'',44,4),(308,'2025-03-19 08:52:37.748955','6','Gamma Global',3,'',44,4),(309,'2025-03-19 08:52:37.748963','4','Beta Innovations',3,'',44,4),(310,'2025-03-19 08:52:37.748970','3','Alpha Tech',3,'',44,4),(311,'2025-03-19 08:52:39.626185','15','Nu Nexus',3,'',44,4),(312,'2025-03-19 08:52:39.626233','14','Mu Microsystems',3,'',44,4),(313,'2025-03-19 08:52:39.626259','13','Lambda Labs',3,'',44,4),(314,'2025-03-19 08:52:39.626282','12','Kappa Konnect',3,'',44,4),(315,'2025-03-19 08:52:39.626304','11','Iota Innovations',3,'',44,4),(316,'2025-03-19 08:52:39.626325','10','Theta Tech',3,'',44,4),(317,'2025-03-19 08:52:39.626345','9','Zeta Solutions',3,'',44,4),(318,'2025-03-19 08:52:39.626364','8','Epsilon Enterprises',3,'',44,4),(319,'2025-03-19 08:52:39.626383','7','Delta Dynamics',3,'',44,4),(320,'2025-03-19 08:52:39.626401','6','Gamma Global',3,'',44,4),(321,'2025-03-19 08:52:39.626434','4','Beta Innovations',3,'',44,4),(322,'2025-03-19 08:52:39.626463','3','Alpha Tech',3,'',44,4),(323,'2025-03-19 08:53:03.940473','12','Sales',3,'',41,4),(324,'2025-03-19 08:53:03.940501','11','HR',3,'',41,4),(325,'2025-03-19 08:53:03.940510','10','Finance',3,'',41,4),(326,'2025-03-19 08:53:03.940517','9','Operations',3,'',41,4),(327,'2025-03-19 08:53:03.940523','8','Customer Support',3,'',41,4),(328,'2025-03-19 08:53:03.940531','7','Design',3,'',41,4),(329,'2025-03-19 08:53:03.940538','6','Product Management',3,'',41,4),(330,'2025-03-19 08:53:03.940544','5','Data Science',3,'',41,4),(331,'2025-03-19 08:53:03.940551','4','Marketing',3,'',41,4),(332,'2025-03-19 08:53:03.940557','3','Engineering',3,'',41,4),(333,'2025-03-19 08:53:03.940564','2','Management',3,'',41,4),(334,'2025-03-19 08:53:03.940570','1','IT',3,'',41,4),(335,'2025-03-19 10:35:13.738956','1','Management',1,'[{\"added\": {}}]',51,4),(336,'2025-03-19 10:39:09.596624','4','Sameer Parmar',1,'[{\"added\": {}}]',48,4),(337,'2025-03-19 10:40:06.684818','1','xxxxx at Sameer Parmar',1,'[{\"added\": {}}]',34,4),(338,'2025-03-19 10:41:19.021405','1','saasassaas at Sameer Parmar',1,'[{\"added\": {}}]',42,4),(339,'2025-03-19 11:58:42.553417','4','Sameer Parmar',3,'',48,4),(340,'2025-03-19 11:59:03.871763','4','Sameer Parmar',3,'',48,4),(341,'2025-03-21 05:45:32.769043','5','yearly',1,'[{\"added\": {}}]',20,4),(342,'2025-03-21 05:45:41.560040','5','yearly',3,'',20,4),(343,'2025-03-21 05:46:56.397495','6','yearly',1,'[{\"added\": {}}]',20,4),(344,'2025-03-21 05:47:17.259573','5','yearly - ₹1800.00/m',1,'[{\"added\": {}}]',21,4),(345,'2025-03-21 05:50:39.947286','3','basic - ₹0.00/m',3,'',21,4),(346,'2025-03-21 06:41:53.164530','3','basic - ₹0.00/m',3,'',21,4),(347,'2025-03-21 07:29:28.149171','1','pending',1,'[{\"added\": {}}]',53,4);
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -432,7 +584,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +593,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (45,'abroad_studies','counsellingenquiry'),(22,'account','emailaddress'),(23,'account','emailconfirmation'),(24,'admin','logentry'),(16,'admin_portal','admindb'),(18,'admin_portal','employeedb'),(17,'admin_portal','managerdb'),(15,'admin_portal','superadmindb'),(2,'auth','group'),(1,'auth','permission'),(19,'certificate_management','certificate'),(4,'compiler','codesubmission'),(3,'contenttypes','contenttype'),(5,'exam_registration','studentsdb'),(6,'examportol','category'),(30,'examportol','exam'),(9,'examportol','examresult'),(8,'examportol','question'),(7,'examportol','subject'),(42,'internship_portal','internship'),(40,'internship_portal','internshipapplication'),(41,'internship_portal','internshipcategory'),(44,'internship_portal','internshipcompany'),(43,'internship_portal','internshipseeker'),(32,'job_portal','category'),(33,'job_portal','company'),(35,'job_portal','domain'),(34,'job_portal','job'),(36,'job_portal','jobapplication'),(37,'job_portal','jobseeker'),(39,'job_portal','jobseekereducation'),(38,'job_portal','jobseekerexperience'),(11,'jobportol','job'),(12,'oauth','collegesdb'),(14,'oauth','otpdb'),(31,'oauth','paymenttransaction'),(13,'oauth','usersdb'),(10,'placement_stories','placementstories'),(20,'price','plantype'),(21,'price','subscriptionplan'),(25,'sessions','session'),(26,'sites','site'),(27,'socialaccount','socialaccount'),(28,'socialaccount','socialapp'),(29,'socialaccount','socialtoken');
+INSERT INTO `django_content_type` VALUES (52,'abroad_studies','abroadstudiesbtob'),(45,'abroad_studies','counsellingenquiry'),(53,'abroad_studies','enquirystatus'),(22,'account','emailaddress'),(23,'account','emailconfirmation'),(24,'admin','logentry'),(16,'admin_portal','admindb'),(18,'admin_portal','employeedb'),(17,'admin_portal','managerdb'),(15,'admin_portal','superadmindb'),(2,'auth','group'),(1,'auth','permission'),(19,'certificate_management','certificate'),(4,'compiler','codesubmission'),(3,'contenttypes','contenttype'),(5,'exam_registration','studentsdb'),(6,'examportol','category'),(30,'examportol','exam'),(9,'examportol','examresult'),(8,'examportol','question'),(7,'examportol','subject'),(42,'internship_portal','internship'),(40,'internship_portal','internshipapplication'),(41,'internship_portal','internshipcategory'),(44,'internship_portal','internshipcompany'),(43,'internship_portal','internshipseeker'),(32,'job_portal','category'),(33,'job_portal','company'),(35,'job_portal','domain'),(34,'job_portal','job'),(36,'job_portal','jobapplication'),(37,'job_portal','jobseeker'),(39,'job_portal','jobseekereducation'),(38,'job_portal','jobseekerexperience'),(11,'jobportol','job'),(12,'oauth','collegesdb'),(14,'oauth','otpdb'),(31,'oauth','paymenttransaction'),(13,'oauth','usersdb'),(10,'placement_stories','placementstories'),(20,'price','plantype'),(21,'price','subscriptionplan'),(49,'recruitment_portal','applicantdetail'),(50,'recruitment_portal','applicanteducation'),(47,'recruitment_portal','applicantexperience'),(51,'recruitment_portal','category'),(48,'recruitment_portal','company'),(46,'recruitment_portal','domain'),(25,'sessions','session'),(26,'sites','site'),(27,'socialaccount','socialaccount'),(28,'socialaccount','socialapp'),(29,'socialaccount','socialtoken');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -458,7 +610,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -467,7 +619,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-02-28 06:15:28.889492'),(2,'contenttypes','0002_remove_content_type_name','2025-02-28 06:15:28.962130'),(3,'auth','0001_initial','2025-02-28 06:15:29.294127'),(4,'auth','0002_alter_permission_name_max_length','2025-02-28 06:15:29.375221'),(5,'auth','0003_alter_user_email_max_length','2025-02-28 06:15:29.382866'),(6,'auth','0004_alter_user_username_opts','2025-02-28 06:15:29.389972'),(7,'auth','0005_alter_user_last_login_null','2025-02-28 06:15:29.396713'),(8,'auth','0006_require_contenttypes_0002','2025-02-28 06:15:29.400289'),(9,'auth','0007_alter_validators_add_error_messages','2025-02-28 06:15:29.405901'),(10,'auth','0008_alter_user_username_max_length','2025-02-28 06:15:29.412668'),(11,'auth','0009_alter_user_last_name_max_length','2025-02-28 06:15:29.420544'),(12,'auth','0010_alter_group_name_max_length','2025-02-28 06:15:29.434925'),(13,'auth','0011_update_proxy_permissions','2025-02-28 06:15:29.449887'),(14,'auth','0012_alter_user_first_name_max_length','2025-02-28 06:15:29.455157'),(15,'oauth','0001_initial','2025-02-28 06:15:30.056991'),(16,'account','0001_initial','2025-02-28 06:17:51.284499'),(17,'account','0002_email_max_length','2025-02-28 06:17:51.303170'),(18,'account','0003_alter_emailaddress_create_unique_verified_email','2025-02-28 06:17:51.331075'),(19,'account','0004_alter_emailaddress_drop_unique_email','2025-02-28 06:17:51.359716'),(20,'account','0005_emailaddress_idx_upper_email','2025-02-28 06:17:51.384995'),(21,'account','0006_emailaddress_lower','2025-02-28 06:17:51.406581'),(22,'account','0007_emailaddress_idx_email','2025-02-28 06:17:51.445724'),(23,'account','0008_emailaddress_unique_primary_email_fixup','2025-02-28 06:17:51.462515'),(24,'account','0009_emailaddress_unique_primary_email','2025-02-28 06:17:51.470485'),(25,'admin','0001_initial','2025-02-28 06:17:57.241819'),(26,'admin','0002_logentry_remove_auto_add','2025-02-28 06:17:57.250315'),(27,'admin','0003_logentry_add_action_flag_choices','2025-02-28 06:17:57.259109'),(28,'sessions','0001_initial','2025-02-28 06:17:57.295658'),(29,'sites','0001_initial','2025-02-28 06:17:57.318151'),(30,'sites','0002_alter_domain_unique','2025-02-28 06:17:57.335806'),(31,'socialaccount','0001_initial','2025-02-28 06:17:57.928886'),(32,'socialaccount','0002_token_max_lengths','2025-02-28 06:17:57.980921'),(33,'socialaccount','0003_extra_data_default_dict','2025-02-28 06:17:57.990551'),(34,'socialaccount','0004_app_provider_id_settings','2025-02-28 06:17:58.144217'),(35,'socialaccount','0005_socialtoken_nullable_app','2025-02-28 06:17:58.297166'),(36,'socialaccount','0006_alter_socialaccount_extra_data','2025-02-28 06:17:58.373478'),(37,'compiler','0001_initial','2025-02-28 06:22:40.350506'),(38,'examportol','0001_initial','2025-02-28 06:30:26.453782'),(39,'exam_registration','0001_initial','2025-02-28 06:33:53.527652'),(40,'placement_stories','0001_initial','2025-02-28 06:34:54.344530'),(41,'jobportol','0001_initial','2025-02-28 06:35:27.755819'),(42,'admin_portal','0001_initial','2025-02-28 06:35:48.391335'),(43,'certificate_management','0001_initial','2025-02-28 06:36:08.843992'),(44,'price','0001_initial','2025-02-28 06:36:25.775072'),(45,'oauth','0002_alter_otpdb_user_alter_usersdb_college_name','2025-02-28 06:47:51.248302'),(46,'exam_registration','0002_alter_table_changes','2025-03-03 17:01:27.645107'),(47,'exam_registration','0003_add_exam_domain_field','2025-03-03 17:06:37.027363'),(48,'exam_registration','0004_alter_studentsdb_exam_domain_and_more','2025-03-03 17:12:32.692819'),(49,'oauth','0002_alter_usersdb_subscription_plan','2025-03-04 06:23:59.230526'),(50,'oauth','0003_alter_usersdb_subscription_plan_paymenttransaction','2025-03-04 07:10:32.102241'),(51,'job_portal','0001_initial','2025-03-15 10:05:17.978218'),(52,'internship_portal','0001_initial','2025-03-15 10:22:42.417698'),(53,'abroad_studies','0001_initial','2025-03-17 09:13:30.282142');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2025-02-28 06:15:28.889492'),(2,'contenttypes','0002_remove_content_type_name','2025-02-28 06:15:28.962130'),(3,'auth','0001_initial','2025-02-28 06:15:29.294127'),(4,'auth','0002_alter_permission_name_max_length','2025-02-28 06:15:29.375221'),(5,'auth','0003_alter_user_email_max_length','2025-02-28 06:15:29.382866'),(6,'auth','0004_alter_user_username_opts','2025-02-28 06:15:29.389972'),(7,'auth','0005_alter_user_last_login_null','2025-02-28 06:15:29.396713'),(8,'auth','0006_require_contenttypes_0002','2025-02-28 06:15:29.400289'),(9,'auth','0007_alter_validators_add_error_messages','2025-02-28 06:15:29.405901'),(10,'auth','0008_alter_user_username_max_length','2025-02-28 06:15:29.412668'),(11,'auth','0009_alter_user_last_name_max_length','2025-02-28 06:15:29.420544'),(12,'auth','0010_alter_group_name_max_length','2025-02-28 06:15:29.434925'),(13,'auth','0011_update_proxy_permissions','2025-02-28 06:15:29.449887'),(14,'auth','0012_alter_user_first_name_max_length','2025-02-28 06:15:29.455157'),(15,'oauth','0001_initial','2025-02-28 06:15:30.056991'),(16,'account','0001_initial','2025-02-28 06:17:51.284499'),(17,'account','0002_email_max_length','2025-02-28 06:17:51.303170'),(18,'account','0003_alter_emailaddress_create_unique_verified_email','2025-02-28 06:17:51.331075'),(19,'account','0004_alter_emailaddress_drop_unique_email','2025-02-28 06:17:51.359716'),(20,'account','0005_emailaddress_idx_upper_email','2025-02-28 06:17:51.384995'),(21,'account','0006_emailaddress_lower','2025-02-28 06:17:51.406581'),(22,'account','0007_emailaddress_idx_email','2025-02-28 06:17:51.445724'),(23,'account','0008_emailaddress_unique_primary_email_fixup','2025-02-28 06:17:51.462515'),(24,'account','0009_emailaddress_unique_primary_email','2025-02-28 06:17:51.470485'),(25,'admin','0001_initial','2025-02-28 06:17:57.241819'),(26,'admin','0002_logentry_remove_auto_add','2025-02-28 06:17:57.250315'),(27,'admin','0003_logentry_add_action_flag_choices','2025-02-28 06:17:57.259109'),(28,'sessions','0001_initial','2025-02-28 06:17:57.295658'),(29,'sites','0001_initial','2025-02-28 06:17:57.318151'),(30,'sites','0002_alter_domain_unique','2025-02-28 06:17:57.335806'),(31,'socialaccount','0001_initial','2025-02-28 06:17:57.928886'),(32,'socialaccount','0002_token_max_lengths','2025-02-28 06:17:57.980921'),(33,'socialaccount','0003_extra_data_default_dict','2025-02-28 06:17:57.990551'),(34,'socialaccount','0004_app_provider_id_settings','2025-02-28 06:17:58.144217'),(35,'socialaccount','0005_socialtoken_nullable_app','2025-02-28 06:17:58.297166'),(36,'socialaccount','0006_alter_socialaccount_extra_data','2025-02-28 06:17:58.373478'),(37,'compiler','0001_initial','2025-02-28 06:22:40.350506'),(38,'examportol','0001_initial','2025-02-28 06:30:26.453782'),(39,'exam_registration','0001_initial','2025-02-28 06:33:53.527652'),(40,'placement_stories','0001_initial','2025-02-28 06:34:54.344530'),(41,'jobportol','0001_initial','2025-02-28 06:35:27.755819'),(42,'admin_portal','0001_initial','2025-02-28 06:35:48.391335'),(43,'certificate_management','0001_initial','2025-02-28 06:36:08.843992'),(44,'price','0001_initial','2025-02-28 06:36:25.775072'),(45,'oauth','0002_alter_otpdb_user_alter_usersdb_college_name','2025-02-28 06:47:51.248302'),(46,'exam_registration','0002_alter_table_changes','2025-03-03 17:01:27.645107'),(47,'exam_registration','0003_add_exam_domain_field','2025-03-03 17:06:37.027363'),(48,'exam_registration','0004_alter_studentsdb_exam_domain_and_more','2025-03-03 17:12:32.692819'),(49,'oauth','0002_alter_usersdb_subscription_plan','2025-03-04 06:23:59.230526'),(50,'oauth','0003_alter_usersdb_subscription_plan_paymenttransaction','2025-03-04 07:10:32.102241'),(53,'abroad_studies','0001_initial','2025-03-17 09:13:30.282142'),(54,'recruitment_portal','0001_initial','2025-03-19 10:14:31.108482'),(55,'internship_portal','0001_initial','2025-03-19 10:14:31.457232'),(56,'job_portal','0001_initial','2025-03-19 10:14:31.869180');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,7 +645,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0s8mny8rmsb3oauho4kid0dbglf1yv9h','.eJxtU8uO2zAQ-xedhUAjjWw5x977BUVh-JUmbTZGbQdYYNF_Lzn2brFAD4Yy0ojikMybe67T0t5Gd1bvlvk-ubNtOe-m1-6l_f2c1u02P9Z2XkZsn79FER9T4yUHrNmLJh8FX2h8jAE11hSxipeEOhbU6iNrLahrfMDQiHvqRVAnfAI87Euo0M8V2IH9xAN-Rn9iXQGHuKg14w76yUXACX3CHmIrsDM58DfOBJzIMwIXWEK-eDuyR8kPODYL8G0-3mcN_kp-4Aw-kTwD7pGf8ceacDfybWKBUyIGz7FGYHMG0wH3rJ_38AZxA_UgL-6RO-enFuBNLZTvcz7Uph1nz98Pg7Z56-7_bHLnphwnNDUdv8fn0vHcnavwf2fbRG9TNg_Mr1AZv6iHd6w5MzXRynwwjvQac9Mf6sp8MBPmA_3nnDbzu--1acq5TWtow0yYNtSImlJ7ekad4Nc-f2067xqpZcM0ec8ivaX-xNC8-yDZMkltmSHmj94xP7vvYvkxv-kB8ZEdZsvyyDzwjmU97PkyvHrPr2U-7_kyv9NHRsz70Oz5kz1_zIFlkrljXiw_Yrm2PDEDWsHbtntu1_bjz-nUfdrru-HX9ODB-LN7_JhPw_zYllt_YsvpOF1PX-dxun85ej8BXLv1ituhzlPs6qwXCcOlyU01VWEYB8lViQPs7RCFMnZaSrnkQft-lKbuS9EcmpxH9-cvHyX9XA:1tpRW7:hKBQEurWaTdlpHKtbUTSvdIyOXapSCt_eKJHmUsMY08','2025-03-18 12:36:59.999396'),('0wdsa6bzpyntb2jrjp29yhrtn94sz60f','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttPJ9:_1zOPlw02lSOkrFh6Zh7RwRL6D-JdIJAHSkR3p3-5mM','2025-03-29 11:03:59.474723'),('1e8rtdskptj7obkdxb0oifjdz39828l5','.eJxVjsEOwiAQRP-FsyGAu-3i0bvfQJaFStW0SWlPxn9Xksbodd7MyzxV4G0tYat5CWNSJwXq8JtFlnueGkg3nq6zlnlalzHqVtE7rfoyp_w4790_QeFaPmvTY3bcIwzWyODRd7kzksRiR06cc-yOQImBiAYUiDFZ30ciQOMRm_T7EV5veUk67g:1ttO7w:2U1IBa9CdMdMRK5u9vvW8aGo1wa4CIxm9fkyKuiC_Pc','2025-03-29 09:48:20.346313'),('1s2vyu750palb2fkvwuguahi5633rxk0','.eJxVj0FuhTAMRO_iNUIJiZ2YXXuNqkL5IXxQKalI6AZx9wLlL9hZ45mnmRVS9IMbnfdxmXKTssshQb1uBbw0t-Q-THnwLg9xar5D7mO7ez5W-L-hvlNgz2aopdFSsLBkSiRGVVEBP3P8Hdow75FnjM8x7N5lOAhSVFZZIqklGaGFQakIts8CzgLNksLcnE4DN-3h_FeYjocbx0Murxrl6bneqXy7zXi_UjdU71J_cB6M7Fl2SE4Hj4i6s541kxQtdaat2DCiIvRW244kahV8pY1jp5TkY9Orrdn-ABpYcxk:1tpRJf:I1vdzZDLpvYZFtVHWkLtU6Z_7M4pZ6ewejP8axNuga0','2025-03-18 12:24:07.585366'),('23gr5fqmxb3xvq7y8xrvgy9dspvoon7t','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tu6kk:rS9tYVwIqqXtv4Mg6C56cwk1u9iMHyS2QloHR4R1Ebs','2025-03-31 09:27:22.721582'),('2ok92xnhm20vrhflpxe4wmr6pxiiox4n','.eJxVjsEOwiAQRP-FsyGAu-3i0bvfQJaFStW0SWlPxn9Xksbodd7MyzxV4G0tYat5CWNSJwXq8JtFlnueGkg3nq6zlnlalzHqVtE7rfoyp_w4790_QeFaPmvTY3bcIwzWyODRd7kzksRiR06cc-yOQImBiAYUiDFZ30ciQOMRm_T7EV5veUk67g:1ttO7D:K_tqs42-Y5tR17VhMKgmoLvUI3WyMgCpHOtng5n80Qc','2025-03-29 09:47:35.112776'),('3rl7kcfv2997fuyfi3ltcpn647wpm2sx','.eJwNyttugjAAANB_6TNdhIqob8jQOTRe2OZwWUgtZVQKhXIpSPj3-XzOACpBGOaYENHkdVjVuKYVWA5AyeT8ebL2ZWDUdvZYg-XPAAopCK2eDrj4YznQQIRrDJZ5w7kGipTQkIiIhi2VLGZUPqPfwA2qrmXUNdtE376hlqwb39l57vnL7KFy452telMvN559M8JG8dmluySBKjOq7h_wJIto_-4enbawOUYsU4fIudlptkLTpEuvCzkPYraCoXcMunsMqQ693j9g8jpJ24X4BqOmW1PDmKAZ0l-QZSATzX_H8R_rIFQ_:1tu6kZ:R_oW7Y4nVXD7yfM0Up-CNOpUO7ZRCO5wRhDz0m7py98','2025-03-31 09:27:11.388823'),('4b1bbderranmcmkhbyjjlo3dyzlcnjv8','eyJ1c2VyX2lkIjo0fQ:1tsHNy:cKsBclIIL-SgEoPvnvxvTzIZ3X4Iy9DOQNeb8p77r9E','2025-03-26 08:24:18.562515'),('57jf94nbjtbb5z8dlww3p78j08k5jhpv','.eJwNyttOgzAAANB_6TMzlPt4A6PBXQC5OIYxTVeKlDGK0MEC4d_d8zkLGDhhuMGE8Hsr0CCwoAOwF1DzG7z4LgwJi3V3GoH9vYCu54QOTwcN_2UtkECBBQZ2e28aCXRXQhHhBUUj7VnJaP-MQo4qZY4TU000bgRzABOjdr640ue1tUHNtjoiNqTHbufT_elQeuEBVdHHzmP-Nc3mIW_V15mE7yRpHFFEbq77exar-sNJw6TP5M45feJxOke5kU3WxYtuGzGRsxHwunTf5D-wStDUoKWb0FReLM1S1K32s67_Q_xTLQ:1tsecW:NmAcztZFU84WXhmdWxTELqSGNkjjp2iAcuMHMFxtlB0','2025-03-27 09:12:52.854448'),('73wp0fpjgfa1358s5nz9nyyi0c8pndq0','.eJxVTksOwiAQvQtrQ4DOQOvSvWcgDAy2aiDpZ2W8uzRpjO7eP-8lfNjW0W8Lz35K4iy0OP1qFOKDy26keyi3KmMt6zyR3CPycBd5rYmflyP7NzCGZWxto4CzQz0MhJYBOsM9KpdcjjaRCdQwYpe5MWcJAhq2qo-AFpgMtNHvR_3-AIkwO3A:1tp0Ee:8ELo3aBg7DKjprDp8uV-snw9HOidE-Q2MwUVtLW9p54','2025-03-17 07:29:08.007092'),('74rvenamj8nqhz67onl1brgnteok1mix','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1ttO3h:RLDuNStg0xP5E_50-SCskrTpR0NVT5HnXmELNmAAkgs','2025-03-29 09:43:57.111243'),('7gi3lfbwfh4sd2w80aa9oiq7t8a9ltos','.eJxVj8tKxjAQRt8l61KSNNOmWYpbV7oTCblM_1Z_E8wFBPHdbTB4mdUw58zHzAfRppZd14xJH54oIsjwd2aNe8HQgH824RJHF0NJhx2bMnaax7vo8XrT3X8Bu8n7uU0XQG4WEBujblthnXGmzjsGs-SOc274JKQ3Qkq5gRPWerYuVkoBdAVooT83ioEkvBy5YEKv8d28EjUNJJfqMZTvN-4fbulZ07nXBP1WMZcjhqxj8piIegQYGIWnzkss5vprEcU6aGlT731NpmGiZvr5BV_3Z4c:1tpPYe:vfxdNKBcPJawXLZTBKq_w5kiGtiMAuK8HUaTS3O5_P0','2025-03-18 10:31:28.803502'),('7h60n1ydfjr2zxszms92yfp8d3hfe6jb','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tsf6O:giNgvPuX-S3w-eW2PMvwbAkkID-6c5lc13n9UGXhVSY','2025-03-27 09:43:44.265972'),('9cso5307miv29ofgfxpgi25m4i40xqm7','.eJx9jkuOwyAQRO_COkKhscF4Ncp-zoDadBMzE38E9myi3D1YiiJlM7tWV72nuouyl5VnYvI8YboV0d9FwYk5r5gnzLKsX9cjkWGZRK9sc7ZgNBgJYJTS-nESy7b6P84pJibR_4OfhMd9G_1eOPt0dOHzN2D4rWtqQD84X5dKzVtOgzwq8pUW-b0Q3y6v7odgxDJW2rSD66h1AZ1SpFmjivHcERkdq8UiQLTGaIcmBNXaCFjvyIBNR411VfreCI8nPyliEg:1tnwEY:fsT4yI_EdmjQ7gF8O79F76BzcChitIUDfLVj1ZUXz0w','2025-03-14 09:00:38.475142'),('cwsxc5b694x73vyecp7t386czcv1kxa7','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttO3m:K-tMGAt8t6Rea8PlgFIXF2Yz0sqo_qe6s9-hiyAOiKQ','2025-03-29 09:44:02.139369'),('e02s8fusotrxt8uyuctrh31oz3vwp5xo','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttO3q:WgM25MGsMUnwI77pflmu2cww9OMko1uoDJrIQt4AXhg','2025-03-29 09:44:06.038025'),('e91xhhjhzka69nxblzxm71fwuq2mq2px','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttOxp:60yT_5gX35WxWYLkYFYnn0ampqNUjFX8X5ESq8WBHgk','2025-03-29 10:41:57.136878'),('eolih2y42mtimhps4e61y5zeru8xofki','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tsdTz:L-DjXhcvM6b4PWAXz6g2p0P9zQI70w1pfX1_vpiyKqo','2025-03-27 07:59:59.484907'),('gcxubbtgm67oeqfwgeqbhsdn0tnnrsiv','.eJxVjsFqxSAQRf9l1kNQ4ySaZff9glLEqGnS5kWqBgql_17zkJa3GLhzz53LfMOZQzKbh0kipLgHmO4WIIQvezOfZ8hli0c2MfmalDC99EyhoB4Fq0OEQo84XOslCWlEGrDnDEkhrzlOAkm_tsYSi93_e2Hi1Ej74q79mezFK2YIxp5lNX-vgoQHb7buIxwX8O_2eIudi0dJ29xdka7R3D1HH_anln0oWG1e6zUbKQg7klw4c4smPYSBOe84DUo4IYQVvVTeSqXUQk7Os-d6nJWSxDSRh59fTmtn8Q:1ttPJ3:grueUtFMlSkyQ2EH_2mFEK0i7h98lcjzlwL9DHRREeI','2025-03-29 11:03:53.208258'),('ghhxuqv9ppzmailcs8xezrdxr4s56yuk','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tskL9:SPvYQU0a4fPBEqMHBmpkv6RDZWrQlo38_L9aZ0FE06Y','2025-03-27 15:19:19.462360'),('h2y5l8z6ecg5t5br733glulhdqakw6wk','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttOhN:CveTsNzudNa8ZzvTWGMPDHwDhmRl9w_bfdHm77V3sqY','2025-03-29 10:24:57.128343'),('jiebwazycesjl5sl15rhq8olapru5nnl','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1tu6s2:5AmgfphVT32GEVzHuN6jSqSxO009CxhRYNgLqV7P6-I','2025-03-31 09:34:54.415817'),('ldr5g3ouhg8f33z0smk926rx6qew3x0p','.eJxVjssOwiAQRf-FdUMo8mi7dO83kAGmtlohFkhMjP8uTRpTdzP3nLmZNzFQ8mRKwtXMngykJc0xs-DuGDbgbxCukboY8jpbuil0p4leosflvLt_BROkqV5zJnDUsu17KxUKceLYSaa9Hp3yloOts5SnEeumlRUgOSrWOSGVQMtFLf392DYEX_AwOWZYzLNgynMMiQyC7eRo-bLCxmvCPl8KaE8j:1tp0DB:7tJsPPVWuLhAjhWkgHkswJAhZTK6OCucUflINvLNNyo','2025-03-17 07:27:37.916784'),('lsrz3jcjafm6nogxnquizsfy47yudmox','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tsdT4:JJZrfCHqgYWNIYT7tW6fy20Hsn1oqD4f-Td5fF_zB_A','2025-03-27 07:59:02.702254'),('mm52k3ua4fd5ka9oa3gcd52r4j7wmwho','eyJ1c2VyX2lkIjo0fQ:1tsHOD:PmJSbL7tn7T49yAVlovBY_49jY3PZm_ANzF8gVh2Cpg','2025-03-26 08:24:33.690434'),('o5pg7gcgbp235vs0i6txx4lztqfaxu2j','.eJxVUMtOxDAM_JecR1XSxnnsEXHlBDeEqrTx7haWVrSphIT4d9yl4hHlMJ6xJ-N8qDat5dyuC8_tkNVBGYW_XJf6Fx43IT-n8TRV_TSWeeiqraXa1aW6mzJfbvbefwbntJxlutaWj55MjB05trapOZD22R97l7s6dYKJmiNL5V1nE9XsdOgtOctdbcX0J6OBmvk0LIVnzi2_p1d1IKilrJnH8r3G_cOtluNlbmto31ZeyjCNSzvNmWd1eCSCDwgNogPJDYgGnuA8Yo0YESycg29gtNQaLgraKotgQF6QQWzgjCCNEOEaBAGEIAMBXpgavkYIcMKLsYez8A5RvAkU4eVNDS-kSBJHJHraM5eppMtv8uuSV2Hb0O44r3PaZPkW_fkFJ9SFKg:1tpLZ7:l9Ti-pp8vHTPQbKNA_CbbxGlfppWznZB1IG85wie_jA','2025-03-18 06:15:41.778668'),('p63ugn31q7shudoo21f38vjgx8m72kue','.eJxVjLEOgzAQQ__lZhSRcJcAY_d-A8olR6FFRAowVf33QoUqsdl-tt-wLZK7MUKrC8hpEmh_ERTQ-W0duj8Hfc3Yh5fMB4hPPz-SCmle88jqqKiTLuqeoky3s3s5GPwy7GtTovSOdNMwWUGsjNRUuuj6YCMbz7smqnrZnbOMnozYsg5IFoUNwucLvOY_zw:1tp4Rq:wiFxkFOPeA9syme6bMgBSsXindb29I6DVGxJZhJ00IE','2025-03-17 11:59:02.861207'),('s1e3iuppgbi4tdywzrmpaqdkzm3oe2jz','.eJxVjssOwiAURP-FtSE8LhRcuvcbCFwuUjU0Ke3K-O-2SWN0O2fmZF4sxHWpYe00hzGzM_Ps9JuliA9qO8j32G4Tx6kt85j4XuEH7fw6ZXpeju6foMZetzVYqyRA9sUYZaWEpME61BIQhUYppImCjEJPyhWREg6KlPalGAdDcZv0-9G_P1h_OrE:1ttO8q:xql64TqitbMh09aZAJmfLiLyaaei3WGFJ1GGHxiZZq8','2025-03-29 09:49:16.575033'),('s261cfucbmcprfx8pidy2l3r4imvz7ke','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1tu72r:WNtXm8Xk2X_WSDMRc68mRzDS2rFowUIZKXF7o_jZH3g','2025-03-31 09:46:05.857353'),('urj4zksqmr0dslu0m6hdxpyjucaomg9b','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttPGG:tUIgwwzQ5RLSWpN6PmnpTspFp39a-NfoCfc68-Vl7r8','2025-03-29 11:01:00.591076'),('wptt8hiwmbigzqd4e6x31090zqc0kvvl','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1ttPKJ:ABEgHEOP-978VPZRt3CgaYhEZOK0-loZfTjRU9DWHDs','2025-03-29 11:05:11.081084');
+INSERT INTO `django_session` VALUES ('0s8mny8rmsb3oauho4kid0dbglf1yv9h','.eJxtU8uO2zAQ-xedhUAjjWw5x977BUVh-JUmbTZGbQdYYNF_Lzn2brFAD4Yy0ojikMybe67T0t5Gd1bvlvk-ubNtOe-m1-6l_f2c1u02P9Z2XkZsn79FER9T4yUHrNmLJh8FX2h8jAE11hSxipeEOhbU6iNrLahrfMDQiHvqRVAnfAI87Euo0M8V2IH9xAN-Rn9iXQGHuKg14w76yUXACX3CHmIrsDM58DfOBJzIMwIXWEK-eDuyR8kPODYL8G0-3mcN_kp-4Aw-kTwD7pGf8ceacDfybWKBUyIGz7FGYHMG0wH3rJ_38AZxA_UgL-6RO-enFuBNLZTvcz7Uph1nz98Pg7Z56-7_bHLnphwnNDUdv8fn0vHcnavwf2fbRG9TNg_Mr1AZv6iHd6w5MzXRynwwjvQac9Mf6sp8MBPmA_3nnDbzu--1acq5TWtow0yYNtSImlJ7ekad4Nc-f2067xqpZcM0ec8ivaX-xNC8-yDZMkltmSHmj94xP7vvYvkxv-kB8ZEdZsvyyDzwjmU97PkyvHrPr2U-7_kyv9NHRsz70Oz5kz1_zIFlkrljXiw_Yrm2PDEDWsHbtntu1_bjz-nUfdrru-HX9ODB-LN7_JhPw_zYllt_YsvpOF1PX-dxun85ej8BXLv1ituhzlPs6qwXCcOlyU01VWEYB8lViQPs7RCFMnZaSrnkQft-lKbuS9EcmpxH9-cvHyX9XA:1tpRW7:hKBQEurWaTdlpHKtbUTSvdIyOXapSCt_eKJHmUsMY08','2025-03-18 12:36:59.999396'),('0wdsa6bzpyntb2jrjp29yhrtn94sz60f','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttPJ9:_1zOPlw02lSOkrFh6Zh7RwRL6D-JdIJAHSkR3p3-5mM','2025-03-29 11:03:59.474723'),('1e8rtdskptj7obkdxb0oifjdz39828l5','.eJxVjsEOwiAQRP-FsyGAu-3i0bvfQJaFStW0SWlPxn9Xksbodd7MyzxV4G0tYat5CWNSJwXq8JtFlnueGkg3nq6zlnlalzHqVtE7rfoyp_w4790_QeFaPmvTY3bcIwzWyODRd7kzksRiR06cc-yOQImBiAYUiDFZ30ciQOMRm_T7EV5veUk67g:1ttO7w:2U1IBa9CdMdMRK5u9vvW8aGo1wa4CIxm9fkyKuiC_Pc','2025-03-29 09:48:20.346313'),('1qhstmxke594r3tjma3fi1vch3vda1q9','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tup6h:cr_Nk4Q1Kztvpu7HBVhsPFAVmSjFTq2GVKax8MTpyyA','2025-04-02 08:48:59.593910'),('1s2vyu750palb2fkvwuguahi5633rxk0','.eJxVj0FuhTAMRO_iNUIJiZ2YXXuNqkL5IXxQKalI6AZx9wLlL9hZ45mnmRVS9IMbnfdxmXKTssshQb1uBbw0t-Q-THnwLg9xar5D7mO7ez5W-L-hvlNgz2aopdFSsLBkSiRGVVEBP3P8Hdow75FnjM8x7N5lOAhSVFZZIqklGaGFQakIts8CzgLNksLcnE4DN-3h_FeYjocbx0Murxrl6bneqXy7zXi_UjdU71J_cB6M7Fl2SE4Hj4i6s541kxQtdaat2DCiIvRW244kahV8pY1jp5TkY9Orrdn-ABpYcxk:1tpRJf:I1vdzZDLpvYZFtVHWkLtU6Z_7M4pZ6ewejP8axNuga0','2025-03-18 12:24:07.585366'),('23gr5fqmxb3xvq7y8xrvgy9dspvoon7t','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tu6kk:rS9tYVwIqqXtv4Mg6C56cwk1u9iMHyS2QloHR4R1Ebs','2025-03-31 09:27:22.721582'),('26kiovlkw4hpgrds3nkyrsu0www7fuk5','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tu88c:5TnuU0_aP4oNkjyh0cTB4xE6F3TrCmxCB0uuUJByMjw','2025-03-31 10:56:06.741011'),('2ok92xnhm20vrhflpxe4wmr6pxiiox4n','.eJxVjsEOwiAQRP-FsyGAu-3i0bvfQJaFStW0SWlPxn9Xksbodd7MyzxV4G0tYat5CWNSJwXq8JtFlnueGkg3nq6zlnlalzHqVtE7rfoyp_w4790_QeFaPmvTY3bcIwzWyODRd7kzksRiR06cc-yOQImBiAYUiDFZ30ciQOMRm_T7EV5veUk67g:1ttO7D:K_tqs42-Y5tR17VhMKgmoLvUI3WyMgCpHOtng5n80Qc','2025-03-29 09:47:35.112776'),('3rl7kcfv2997fuyfi3ltcpn647wpm2sx','.eJwNyttugjAAANB_6TNdhIqob8jQOTRe2OZwWUgtZVQKhXIpSPj3-XzOACpBGOaYENHkdVjVuKYVWA5AyeT8ebL2ZWDUdvZYg-XPAAopCK2eDrj4YznQQIRrDJZ5w7kGipTQkIiIhi2VLGZUPqPfwA2qrmXUNdtE376hlqwb39l57vnL7KFy452telMvN559M8JG8dmluySBKjOq7h_wJIto_-4enbawOUYsU4fIudlptkLTpEuvCzkPYraCoXcMunsMqQ693j9g8jpJ24X4BqOmW1PDmKAZ0l-QZSATzX_H8R_rIFQ_:1tu6kZ:R_oW7Y4nVXD7yfM0Up-CNOpUO7ZRCO5wRhDz0m7py98','2025-03-31 09:27:11.388823'),('4b1bbderranmcmkhbyjjlo3dyzlcnjv8','eyJ1c2VyX2lkIjo0fQ:1tsHNy:cKsBclIIL-SgEoPvnvxvTzIZ3X4Iy9DOQNeb8p77r9E','2025-03-26 08:24:18.562515'),('57jf94nbjtbb5z8dlww3p78j08k5jhpv','.eJwNyttOgzAAANB_6TMzlPt4A6PBXQC5OIYxTVeKlDGK0MEC4d_d8zkLGDhhuMGE8Hsr0CCwoAOwF1DzG7z4LgwJi3V3GoH9vYCu54QOTwcN_2UtkECBBQZ2e28aCXRXQhHhBUUj7VnJaP-MQo4qZY4TU000bgRzABOjdr640ue1tUHNtjoiNqTHbufT_elQeuEBVdHHzmP-Nc3mIW_V15mE7yRpHFFEbq77exar-sNJw6TP5M45feJxOke5kU3WxYtuGzGRsxHwunTf5D-wStDUoKWb0FReLM1S1K32s67_Q_xTLQ:1tsecW:NmAcztZFU84WXhmdWxTELqSGNkjjp2iAcuMHMFxtlB0','2025-03-27 09:12:52.854448'),('5vggj172mlhd3wj8taoa6c8hlptyv7re','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvAmc:w_SxeeafOPP_zQaHk1NrjGWV-J8OGTY1GrUD_2-9O74','2025-04-03 07:57:42.045671'),('6z5kqknbqgvyset26f7kjk6xm7lrynld','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvUzY:zOCJy5vNWRpIProNVFqDojbSgOvRw0moeCTyxviB2xg','2025-04-04 05:32:24.708837'),('71q1ujqu6f2vzwmp4eegie9774i5ja31','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvVA6:3zxMisLur6PiEjPvO9E0Kd8Ro0qLnWDDoEMjtlX6498','2025-04-04 05:43:18.469098'),('73wp0fpjgfa1358s5nz9nyyi0c8pndq0','.eJxVTksOwiAQvQtrQ4DOQOvSvWcgDAy2aiDpZ2W8uzRpjO7eP-8lfNjW0W8Lz35K4iy0OP1qFOKDy26keyi3KmMt6zyR3CPycBd5rYmflyP7NzCGZWxto4CzQz0MhJYBOsM9KpdcjjaRCdQwYpe5MWcJAhq2qo-AFpgMtNHvR_3-AIkwO3A:1tp0Ee:8ELo3aBg7DKjprDp8uV-snw9HOidE-Q2MwUVtLW9p54','2025-03-17 07:29:08.007092'),('74rvenamj8nqhz67onl1brgnteok1mix','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1ttO3h:RLDuNStg0xP5E_50-SCskrTpR0NVT5HnXmELNmAAkgs','2025-03-29 09:43:57.111243'),('7gi3lfbwfh4sd2w80aa9oiq7t8a9ltos','.eJxVj8tKxjAQRt8l61KSNNOmWYpbV7oTCblM_1Z_E8wFBPHdbTB4mdUw58zHzAfRppZd14xJH54oIsjwd2aNe8HQgH824RJHF0NJhx2bMnaax7vo8XrT3X8Bu8n7uU0XQG4WEBujblthnXGmzjsGs-SOc274JKQ3Qkq5gRPWerYuVkoBdAVooT83ioEkvBy5YEKv8d28EjUNJJfqMZTvN-4fbulZ07nXBP1WMZcjhqxj8piIegQYGIWnzkss5vprEcU6aGlT731NpmGiZvr5BV_3Z4c:1tpPYe:vfxdNKBcPJawXLZTBKq_w5kiGtiMAuK8HUaTS3O5_P0','2025-03-18 10:31:28.803502'),('7h60n1ydfjr2zxszms92yfp8d3hfe6jb','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tsf6O:giNgvPuX-S3w-eW2PMvwbAkkID-6c5lc13n9UGXhVSY','2025-03-27 09:43:44.265972'),('9cso5307miv29ofgfxpgi25m4i40xqm7','.eJx9jkuOwyAQRO_COkKhscF4Ncp-zoDadBMzE38E9myi3D1YiiJlM7tWV72nuouyl5VnYvI8YboV0d9FwYk5r5gnzLKsX9cjkWGZRK9sc7ZgNBgJYJTS-nESy7b6P84pJibR_4OfhMd9G_1eOPt0dOHzN2D4rWtqQD84X5dKzVtOgzwq8pUW-b0Q3y6v7odgxDJW2rSD66h1AZ1SpFmjivHcERkdq8UiQLTGaIcmBNXaCFjvyIBNR411VfreCI8nPyliEg:1tnwEY:fsT4yI_EdmjQ7gF8O79F76BzcChitIUDfLVj1ZUXz0w','2025-03-14 09:00:38.475142'),('cwsxc5b694x73vyecp7t386czcv1kxa7','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttO3m:K-tMGAt8t6Rea8PlgFIXF2Yz0sqo_qe6s9-hiyAOiKQ','2025-03-29 09:44:02.139369'),('e02s8fusotrxt8uyuctrh31oz3vwp5xo','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttO3q:WgM25MGsMUnwI77pflmu2cww9OMko1uoDJrIQt4AXhg','2025-03-29 09:44:06.038025'),('e91xhhjhzka69nxblzxm71fwuq2mq2px','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttOxp:60yT_5gX35WxWYLkYFYnn0ampqNUjFX8X5ESq8WBHgk','2025-03-29 10:41:57.136878'),('eolih2y42mtimhps4e61y5zeru8xofki','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tsdTz:L-DjXhcvM6b4PWAXz6g2p0P9zQI70w1pfX1_vpiyKqo','2025-03-27 07:59:59.484907'),('ez33qt1gxpud2ar4tx0vfrlmw7a21qqd','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tup7C:IFd_ldtqhgOvLBkoBkHZMQ4lbh3Dqul6PLL6CHniEZ8','2025-04-02 08:49:30.825332'),('gcxubbtgm67oeqfwgeqbhsdn0tnnrsiv','.eJxVjsFqxSAQRf9l1kNQ4ySaZff9glLEqGnS5kWqBgql_17zkJa3GLhzz53LfMOZQzKbh0kipLgHmO4WIIQvezOfZ8hli0c2MfmalDC99EyhoB4Fq0OEQo84XOslCWlEGrDnDEkhrzlOAkm_tsYSi93_e2Hi1Ej74q79mezFK2YIxp5lNX-vgoQHb7buIxwX8O_2eIudi0dJ29xdka7R3D1HH_anln0oWG1e6zUbKQg7klw4c4smPYSBOe84DUo4IYQVvVTeSqXUQk7Os-d6nJWSxDSRh59fTmtn8Q:1ttPJ3:grueUtFMlSkyQ2EH_2mFEK0i7h98lcjzlwL9DHRREeI','2025-03-29 11:03:53.208258'),('ghhxuqv9ppzmailcs8xezrdxr4s56yuk','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tskL9:SPvYQU0a4fPBEqMHBmpkv6RDZWrQlo38_L9aZ0FE06Y','2025-03-27 15:19:19.462360'),('gqg3xnrvb5po4p9j8d8y61oqhrerkecp','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tuQ7t:ZKA_mjzzHbM-2sKxfCxaTkYi1KQGIvR2uxXT1kezutI','2025-04-01 06:08:33.611216'),('h2y5l8z6ecg5t5br733glulhdqakw6wk','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttOhN:CveTsNzudNa8ZzvTWGMPDHwDhmRl9w_bfdHm77V3sqY','2025-03-29 10:24:57.128343'),('ktb6skrplcynlsvga275b3fzpyj9mdxd','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tup6S:iJSuNBkXMPF9aiXlfM7EWhD1ahYfm0i86sHXUJpUqgU','2025-04-02 08:48:44.585014'),('l79ntgfbe1p4au93jmayq36tmbul6578','eyJ1c2VyX2lkIjoxLCJyb2xlIjoic3VwZXJhZG1pbiJ9:1tuRNF:XZ_IUMbqCMF1sIK_uOsw_-j330XwDnBPS4n5ndfww4Y','2025-04-01 07:28:29.234044'),('ldr5g3ouhg8f33z0smk926rx6qew3x0p','.eJxVjssOwiAQRf-FdUMo8mi7dO83kAGmtlohFkhMjP8uTRpTdzP3nLmZNzFQ8mRKwtXMngykJc0xs-DuGDbgbxCukboY8jpbuil0p4leosflvLt_BROkqV5zJnDUsu17KxUKceLYSaa9Hp3yloOts5SnEeumlRUgOSrWOSGVQMtFLf392DYEX_AwOWZYzLNgynMMiQyC7eRo-bLCxmvCPl8KaE8j:1tp0DB:7tJsPPVWuLhAjhWkgHkswJAhZTK6OCucUflINvLNNyo','2025-03-17 07:27:37.916784'),('lpf7gipg2ep2gaf5jqp9bedestklbqsj','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvAmi:vCf6TvGgTDyyLgLvnkgMdsbAFmNJYPQvIsNvxfSap2Y','2025-04-03 07:57:48.175729'),('lsrz3jcjafm6nogxnquizsfy47yudmox','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tsdT4:JJZrfCHqgYWNIYT7tW6fy20Hsn1oqD4f-Td5fF_zB_A','2025-03-27 07:59:02.702254'),('mlmjcdl3goqtjxraz94lcmfgk5000vp7','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tuQAd:sIMSeNi8Hf710l5c1s3U98lhgxEs_GZd4P-CRADf98A','2025-04-01 06:11:23.989515'),('mm52k3ua4fd5ka9oa3gcd52r4j7wmwho','eyJ1c2VyX2lkIjo0fQ:1tsHOD:PmJSbL7tn7T49yAVlovBY_49jY3PZm_ANzF8gVh2Cpg','2025-03-26 08:24:33.690434'),('nugjrq5gtd2hto30secj9ve8v1jxzkhm','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1tvWoZ:BqdM9901XjndKxvy9lDaQHr8F1SgqXsWrhKnxgdeCMg','2025-04-04 07:29:11.892515'),('o5pg7gcgbp235vs0i6txx4lztqfaxu2j','.eJxVUMtOxDAM_JecR1XSxnnsEXHlBDeEqrTx7haWVrSphIT4d9yl4hHlMJ6xJ-N8qDat5dyuC8_tkNVBGYW_XJf6Fx43IT-n8TRV_TSWeeiqraXa1aW6mzJfbvbefwbntJxlutaWj55MjB05trapOZD22R97l7s6dYKJmiNL5V1nE9XsdOgtOctdbcX0J6OBmvk0LIVnzi2_p1d1IKilrJnH8r3G_cOtluNlbmto31ZeyjCNSzvNmWd1eCSCDwgNogPJDYgGnuA8Yo0YESycg29gtNQaLgraKotgQF6QQWzgjCCNEOEaBAGEIAMBXpgavkYIcMKLsYez8A5RvAkU4eVNDS-kSBJHJHraM5eppMtv8uuSV2Hb0O44r3PaZPkW_fkFJ9SFKg:1tpLZ7:l9Ti-pp8vHTPQbKNA_CbbxGlfppWznZB1IG85wie_jA','2025-03-18 06:15:41.778668'),('ofwudlfqkwpqypn3g7r13ofl3190ptzb','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tuQ7n:DdXovlOBceoFd7NZDoMW6nbCFI5vudL5iJMwNzxR0js','2025-04-01 06:08:27.382564'),('p63ugn31q7shudoo21f38vjgx8m72kue','.eJxVjLEOgzAQQ__lZhSRcJcAY_d-A8olR6FFRAowVf33QoUqsdl-tt-wLZK7MUKrC8hpEmh_ERTQ-W0duj8Hfc3Yh5fMB4hPPz-SCmle88jqqKiTLuqeoky3s3s5GPwy7GtTovSOdNMwWUGsjNRUuuj6YCMbz7smqnrZnbOMnozYsg5IFoUNwucLvOY_zw:1tp4Rq:wiFxkFOPeA9syme6bMgBSsXindb29I6DVGxJZhJ00IE','2025-03-17 11:59:02.861207'),('r24ep78hjz705jhz6tj4l1hrrb922v7z','eyJ1c2VyX2lkIjo4LCJyb2xlIjoidXNlciIsInNlbGVjdGVkX2V4YW1faWQiOiIyIn0:1tvWJr:G8bKqSvRBv2FCw1_hV4HSQmgRZRwEeTrrrB-1hXHnKQ','2025-04-04 06:57:27.854940'),('s1e3iuppgbi4tdywzrmpaqdkzm3oe2jz','.eJxVjssOwiAURP-FtSE8LhRcuvcbCFwuUjU0Ke3K-O-2SWN0O2fmZF4sxHWpYe00hzGzM_Ps9JuliA9qO8j32G4Tx6kt85j4XuEH7fw6ZXpeju6foMZetzVYqyRA9sUYZaWEpME61BIQhUYppImCjEJPyhWREg6KlPalGAdDcZv0-9G_P1h_OrE:1ttO8q:xql64TqitbMh09aZAJmfLiLyaaei3WGFJ1GGHxiZZq8','2025-03-29 09:49:16.575033'),('s261cfucbmcprfx8pidy2l3r4imvz7ke','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1tu72r:WNtXm8Xk2X_WSDMRc68mRzDS2rFowUIZKXF7o_jZH3g','2025-03-31 09:46:05.857353'),('tuzcy88cizpoviwddldlepc2sydhxswl','.eJydkFtzqjAURv9Lnq0DIUDwTVDxrvWGcqbDxBAggKBchNjpfz_2TOdM-9rXb317z177HZQ55SQllOZ1VnllRSpWgt47qMd0vJkk4pQny1tUrUHvzzu4Fjll5ZODNA95BjrAJxUBvaxO0w64JpR5NPeZd2cFDzgrnsXJ3L-hl_CuuSvvjpNJaNWKeRxzVZ07IlnkJNvPjzxIY-u0uLutqMVAa7L7wNMejYcO-_wVLvPVmON5eJkxLm6qO5P6j3suy1VfuDxapZvJ-LC64ZQwuJlJzrXFW3vZbw5BYGgCfHRkHUEVSbJsdCHUJENX3jqAa9nF8ftHbg79ZMzr3_pZ8iC_hpdpu2x5LKTldb0T64sn76tRW7zCeO5w82WIK99bbbfuqpoOEdkt4kO2SIblEibE4prlTE7xDAfO1qt5bFv8cZ6YilVudV3oUTk6zuOWjiS5oUkSCYGiYzWgcBa2pXL85qcoXUPT9X96zcjcNc5jMD2oi9eChr_VM0y8EBLdzHcX47DTlaFT3W5ImrLmpJiSlzc83teXS19zXWjFVvGoMjEUJ9Xerh9KfydcZiD7rOd4Q202ujb0NMF2dBwtw9PVjeyyGrdKZq0dm2yWLYROVA91Fre8xSbLlJH6XQ93IUY6hujtowPqkhUe90EPdUCRp-x562f0dPJIXUXefw7Qz-xMaMKyT-DHJAvzLs2zquDn7mel-0XL7uL5iNT86v5YEJEyek5Lusog0VUUyBINDNXQmCZRn8qqhiGFEBKoIOwThDEOVIrOZ1829DPGSJUMVfXBx191CiYs:1tvWJ9:wuSAqHzC_pBylKwVTDzI5cDOs6o14nahVfFCCvwdlik','2025-04-04 06:56:43.709953'),('tymcawej41pvjhqhq2s6ktsw396v35ko','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tuRJ2:U7tmFri95_Z6boG4kwD6wE0G11h_x562PGBJTI19lp8','2025-04-01 07:24:08.118241'),('urj4zksqmr0dslu0m6hdxpyjucaomg9b','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1ttPGG:tUIgwwzQ5RLSWpN6PmnpTspFp39a-NfoCfc68-Vl7r8','2025-03-29 11:01:00.591076'),('w51w9ptzdfock02339r569bsq80oem14','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tuQAA:O_JjhZExY8cZTVU-XyHnkukQOiSKRAjKVvA1xgEOxMQ','2025-04-01 06:10:54.019673'),('wptt8hiwmbigzqd4e6x31090zqc0kvvl','.eJxVjEsOgzAMBe_iNYpCaoPDsvueASV2KLSISHxWVe_eUqFKbGfmvRdsS5rbQaHBAuY8Jmh-CApow7b27d8DnlkM8kzTLvQRpns2kqd1HqLZE3PYxdyypvF6tKeDPiz9d21rSi7UhF1ppfPkq1RZUSmpYifOueAuyBqQmTsSjFFLX0dmJOuJFN4ftWM_TQ:1ttPKJ:ABEgHEOP-978VPZRt3CgaYhEZOK0-loZfTjRU9DWHDs','2025-03-29 11:05:11.081084'),('wswu5mqgwk888rleal5gx23gr7ldkd1c','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvVAE:X0_LpNadT2nvMLLDIqZEtA6AyE9nofEGM1kVmqienI0','2025-04-04 05:43:26.087454'),('xnasb34x3pt3ocigxk867owu6chym4d4','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tup6B:V9XvhkAlgHVWIWDfRl6Pr-p6-1TrkCJeiHwDb47twxE','2025-04-02 08:48:27.254993'),('y2fa9f9cw4l07op6lab10k8fv8px3x33','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvUzv:aURbI7-_dHWZvag7_ZVHAOcn005NfKOmSUq5Or46bHo','2025-04-04 05:32:47.501228'),('y9kw3o87ghaingyaw76twto0ryx5vh5l','eyJ1c2VyX2lkIjo0LCJyb2xlIjoidXNlciJ9:1tvV8A:hvKF1ZAV29Lz3Eim0mxUbzrhRe434AEI79NmfAtZbS8','2025-04-04 05:41:18.916328');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,7 +662,7 @@ CREATE TABLE `django_site` (
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_site_domain_a2e37b91_uniq` (`domain`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -519,8 +671,32 @@ CREATE TABLE `django_site` (
 
 LOCK TABLES `django_site` WRITE;
 /*!40000 ALTER TABLE `django_site` DISABLE KEYS */;
-INSERT INTO `django_site` VALUES (1,'example.com','example.com'),(2,'127.0.0.1:8000','localhost.com');
+INSERT INTO `django_site` VALUES (1,'example.com','example.com'),(2,'127.0.0.1:8000','localhost.com'),(3,'https://career.readerclub.in','career.readerclub.in');
 /*!40000 ALTER TABLE `django_site` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `enquirystatus`
+--
+
+DROP TABLE IF EXISTS `enquirystatus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `enquirystatus` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `status` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `enquirystatus`
+--
+
+LOCK TABLES `enquirystatus` WRITE;
+/*!40000 ALTER TABLE `enquirystatus` DISABLE KEYS */;
+INSERT INTO `enquirystatus` VALUES (1,'pending');
+/*!40000 ALTER TABLE `enquirystatus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -743,15 +919,15 @@ CREATE TABLE `internship_portal_application` (
   `skills` longtext NOT NULL,
   `cover_letter` longtext,
   `created_at` datetime(6) NOT NULL,
+  `applicantdetail_id` bigint NOT NULL,
   `internship_id` int NOT NULL,
   `user_id` bigint NOT NULL,
-  `seeker_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
+  KEY `internship_portal_ap_applicantdetail_id_339cd8b9_fk_applicant` (`applicantdetail_id`),
   KEY `internship_portal_ap_internship_id_5866382f_fk_internshi` (`internship_id`),
   KEY `internship_portal_ap_user_id_2f548ea3_fk_oauth_use` (`user_id`),
-  KEY `internship_portal_ap_seeker_id_9c01965a_fk_internshi` (`seeker_id`),
+  CONSTRAINT `internship_portal_ap_applicantdetail_id_339cd8b9_fk_applicant` FOREIGN KEY (`applicantdetail_id`) REFERENCES `applicant_details` (`id`),
   CONSTRAINT `internship_portal_ap_internship_id_5866382f_fk_internshi` FOREIGN KEY (`internship_id`) REFERENCES `internship_portal_internship` (`internship_id`),
-  CONSTRAINT `internship_portal_ap_seeker_id_9c01965a_fk_internshi` FOREIGN KEY (`seeker_id`) REFERENCES `internship_portal_seeker` (`id`),
   CONSTRAINT `internship_portal_ap_user_id_2f548ea3_fk_oauth_use` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -763,68 +939,6 @@ CREATE TABLE `internship_portal_application` (
 LOCK TABLES `internship_portal_application` WRITE;
 /*!40000 ALTER TABLE `internship_portal_application` DISABLE KEYS */;
 /*!40000 ALTER TABLE `internship_portal_application` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `internship_portal_category`
---
-
-DROP TABLE IF EXISTS `internship_portal_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `internship_portal_category` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `category_code` varchar(6) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `category_code` (`category_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `internship_portal_category`
---
-
-LOCK TABLES `internship_portal_category` WRITE;
-/*!40000 ALTER TABLE `internship_portal_category` DISABLE KEYS */;
-INSERT INTO `internship_portal_category` VALUES (1,'IT','I0001'),(2,'Management','I0002'),(3,'Engineering','I0003'),(4,'Marketing','I0004'),(5,'Data Science','I0005'),(6,'Product Management','I0006'),(7,'Design','I0007'),(8,'Customer Support','I0008'),(9,'Operations','I0009'),(10,'Finance','I0010'),(11,'HR','I0011'),(12,'Sales','I0012');
-/*!40000 ALTER TABLE `internship_portal_category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `internship_portal_company`
---
-
-DROP TABLE IF EXISTS `internship_portal_company`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `internship_portal_company` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `address` longtext NOT NULL,
-  `email` varchar(254) NOT NULL,
-  `contact_number` varchar(20) NOT NULL,
-  `logo` varchar(100) DEFAULT NULL,
-  `about` longtext NOT NULL,
-  `established_year` int NOT NULL,
-  `company_code` varchar(6) DEFAULT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `company_code` (`company_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `internship_portal_company`
---
-
-LOCK TABLES `internship_portal_company` WRITE;
-/*!40000 ALTER TABLE `internship_portal_company` DISABLE KEYS */;
-INSERT INTO `internship_portal_company` VALUES (3,'Alpha Tech','123 Alpha Road, Tech City, TX','info@alphatech.com','123-456-7890','internship_company_logos/companylogo5.png','Leading solutions in AI and Robotics',2012,'IC0001','2025-03-15 13:22:46.817276','2025-03-15 13:24:56.842184'),(4,'Beta Innovations','456 Beta Blvd, Innovation Park, CA','contact@betainnovations.com','987-654-3210','internship_company_logos/companylogo_GmeYqRY.jpeg','Pioneers in renewable energy',2015,'IC0002','2025-03-15 13:22:46.831212','2025-03-15 13:24:47.189992'),(6,'Gamma Global','789 Gamma Street, Global Hub, NY','contact@gammaglobal.com','555-123-4567','internship_company_logos/companylogo4_zuPAf3k.jpeg','Innovating global connectivity solutions',2010,'IC0003','2025-03-15 13:47:05.197672','2025-03-15 13:51:46.729999'),(7,'Delta Dynamics','321 Delta Avenue, Dynamics City, FL','hello@deltadynamics.com','555-234-5678','internship_company_logos/companylogo_1XDEtsi.jpeg','Revolutionizing dynamic engineering',2013,'IC0004','2025-03-15 13:47:05.241625','2025-03-15 13:52:58.218299'),(8,'Epsilon Enterprises','654 Epsilon Road, Enterprise Bay, WA','info@epsilonenterprises.com','555-345-6789','internship_company_logos/companylogo_JlgiJiG.jpeg','Excellence in business solutions',2008,'IC0005','2025-03-15 13:47:05.259650','2025-03-15 13:48:39.094516'),(9,'Zeta Solutions','987 Zeta Blvd, Solutions City, IL','support@zetasolutions.com','555-456-7890','internship_company_logos/companylogo5_l2r4J1K.png','Delivering innovative tech solutions',2016,'IC0006','2025-03-15 13:47:05.272127','2025-03-15 13:52:45.146166'),(10,'Theta Tech','159 Theta Street, Tech Valley, MA','careers@thetatech.com','555-567-8901','internship_company_logos/companylogo3.jpeg','Empowering technology-driven futures',2011,'IC0007','2025-03-15 13:47:05.284023','2025-03-15 13:52:12.456087'),(11,'Iota Innovations','753 Iota Drive, Innovation District, CO','connect@iotainnovations.com','555-678-9012','internship_company_logos/companylogo_9qqsisB.jpeg','Cutting-edge research and development',2014,'IC0008','2025-03-15 13:47:05.296016','2025-03-15 13:52:07.894796'),(12,'Kappa Konnect','852 Kappa Lane, Connect City, TX','info@kappakonnect.com','555-789-0123','internship_company_logos/companylogo5_xTsCkR8.png','Linking talent with opportunity',2009,'IC0009','2025-03-15 13:47:05.307592','2025-03-15 13:48:12.699121'),(13,'Lambda Labs','246 Lambda Court, Labs Town, CA','research@lambdalabs.com','555-890-1234','internship_company_logos/companylogo_1dWpmPm.jpeg','Innovative lab solutions for tomorrow',2018,'IC0010','2025-03-15 13:47:05.318791','2025-03-15 13:52:23.016325'),(14,'Mu Microsystems','135 Mu Street, Micro City, NV','info@mumicrosystems.com','555-901-2345','internship_company_logos/companylogo4_gQxPLab.jpeg','Micro innovations with macro impact',2012,'IC0011','2025-03-15 13:47:05.329546','2025-03-15 13:52:19.713256'),(15,'Nu Nexus','864 Nu Blvd, Nexus Point, OR','connect@nunexus.com','555-012-3456','internship_company_logos/companylogo5_GupGtrS.png','Creating networks for future leaders',2017,'IC0012','2025-03-15 13:47:05.341896','2025-03-15 13:52:16.613263');
-/*!40000 ALTER TABLE `internship_portal_company` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -849,11 +963,11 @@ CREATE TABLE `internship_portal_internship` (
   `company_id` bigint NOT NULL,
   PRIMARY KEY (`internship_id`),
   UNIQUE KEY `internship_code` (`internship_code`),
-  KEY `internship_portal_in_category_id_ad28e29f_fk_internshi` (`category_id`),
-  KEY `internship_portal_in_company_id_6294fa68_fk_internshi` (`company_id`),
-  CONSTRAINT `internship_portal_in_category_id_ad28e29f_fk_internshi` FOREIGN KEY (`category_id`) REFERENCES `internship_portal_category` (`id`),
-  CONSTRAINT `internship_portal_in_company_id_6294fa68_fk_internshi` FOREIGN KEY (`company_id`) REFERENCES `internship_portal_company` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `internship_portal_in_category_id_ad28e29f_fk_job_categ` (`category_id`),
+  KEY `internship_portal_in_company_id_6294fa68_fk_recuritme` (`company_id`),
+  CONSTRAINT `internship_portal_in_category_id_ad28e29f_fk_job_categ` FOREIGN KEY (`category_id`) REFERENCES `job_category` (`id`),
+  CONSTRAINT `internship_portal_in_company_id_6294fa68_fk_recuritme` FOREIGN KEY (`company_id`) REFERENCES `recuritment_portal_company_details` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -862,128 +976,34 @@ CREATE TABLE `internship_portal_internship` (
 
 LOCK TABLES `internship_portal_internship` WRITE;
 /*!40000 ALTER TABLE `internship_portal_internship` DISABLE KEYS */;
-INSERT INTO `internship_portal_internship` VALUES (8,'Software Intern','Develop features, fix bugs, participate in code reviews','3 Months',3000.00,'Python, JavaScript',3,'I0001','2025-03-15 13:23:07.841952','2025-03-15 13:23:07.841998',3,3),(9,'Software Intern','Develop features, fix bugs, participate in code reviews','3 Months',3000.00,'Python, JavaScript',3,'I0002','2025-03-15 13:25:12.838412','2025-03-15 13:25:12.838447',3,3),(10,'Marketing Intern','Manage social media, create content, analyze campaigns','6 Months',0.00,'SEO, Content Creation',1,'I0003','2025-03-15 13:25:12.949538','2025-03-15 13:25:12.949559',4,4),(11,'Software Intern','Develop features, fix bugs, participate in code reviews','3 Months',3000.00,'Python, JavaScript',3,'I0004','2025-03-15 13:51:13.476979','2025-03-15 13:51:13.477023',3,3),(12,'QA Intern','Test software, create test cases, report bugs','3 Months',2500.00,'Attention to detail, Testing',2,'I0005','2025-03-15 13:51:13.644370','2025-03-15 13:51:13.644405',3,3),(13,'Data Analyst Intern','Analyze data sets, create reports, support decision making','6 Months',3500.00,'SQL, Python, Data Visualization',1,'I0006','2025-03-15 13:51:13.727578','2025-03-15 13:51:13.727600',5,3),(14,'Digital Marketing Intern','Manage online campaigns, create content, analyze metrics','6 Months',2000.00,'SEO, Content Creation',2,'I0007','2025-03-15 13:51:13.785237','2025-03-15 13:51:13.785267',4,3),(15,'Product Intern','Assist in product strategy, conduct market research, plan features','3 Months',3000.00,'Communication, Market Research',1,'I0008','2025-03-15 13:51:13.845152','2025-03-15 13:51:13.845185',6,3),(16,'UI/UX Intern','Design interfaces, perform user testing, create wireframes','6 Months',2800.00,'Figma, Adobe XD',1,'I0009','2025-03-15 13:51:13.936635','2025-03-15 13:51:13.936669',7,3),(17,'Support Intern','Assist customers, manage support tickets, provide solutions','3 Months',1500.00,'Communication, Problem Solving',2,'I0010','2025-03-15 13:51:14.031672','2025-03-15 13:51:14.031705',8,3),(18,'Operations Intern','Coordinate projects, streamline processes, monitor workflows','3 Months',2200.00,'Organizational skills, MS Office',1,'I0011','2025-03-15 13:51:14.123784','2025-03-15 13:51:14.123825',9,3),(19,'Finance Intern','Assist with budgeting and financial analysis','3 Months',2500.00,'Excel, Financial Analysis',1,'I0012','2025-03-15 13:51:14.233512','2025-03-15 13:51:14.233560',10,3),(20,'HR Intern','Support recruitment and training sessions','3 Months',2000.00,'Communication, Organization',1,'I0013','2025-03-15 13:51:14.344519','2025-03-15 13:51:14.344574',11,3),(21,'Marketing Intern','Manage social media, create content, analyze campaigns','6 Months',0.00,'SEO, Content Creation',1,'I0014','2025-03-15 13:51:14.409955','2025-03-15 13:51:14.409976',4,4),(22,'Software Intern','Develop and maintain software modules','3 Months',3200.00,'Java, Spring Boot',2,'I0015','2025-03-15 13:51:14.460606','2025-03-15 13:51:14.460625',3,4),(23,'Data Science Intern','Analyze marketing data, build models, support campaigns','6 Months',3500.00,'Python, R',1,'I0016','2025-03-15 13:51:14.518574','2025-03-15 13:51:14.518607',5,4),(24,'Product Intern','Assist in product strategy and requirements gathering','3 Months',3000.00,'Research, Communication',1,'I0017','2025-03-15 13:51:14.600392','2025-03-15 13:51:14.600439',6,4),(25,'Graphic Design Intern','Design promotional materials and social media graphics','3 Months',2200.00,'Adobe Photoshop, Illustrator',1,'I0018','2025-03-15 13:51:14.672790','2025-03-15 13:51:14.672825',7,4),(26,'Sales Intern','Support sales team and engage with potential clients','3 Months',2000.00,'Communication, CRM',2,'I0019','2025-03-15 13:51:14.742650','2025-03-15 13:51:14.742670',12,4),(27,'HR Intern','Support recruitment and employee engagement initiatives','3 Months',1800.00,'People Skills, Organization',1,'I0020','2025-03-15 13:51:14.792012','2025-03-15 13:51:14.792032',11,4),(28,'Customer Service Intern','Handle customer queries and resolve issues','3 Months',1600.00,'Communication, Problem Solving',1,'I0021','2025-03-15 13:51:14.847338','2025-03-15 13:51:14.847358',8,4),(29,'Operations Intern','Assist in streamlining processes and managing logistics','3 Months',2200.00,'Analytical, MS Office',1,'I0022','2025-03-15 13:51:14.901474','2025-03-15 13:51:14.901495',9,4),(30,'Finance Intern','Assist with budgeting and financial planning','3 Months',2500.00,'Excel, Accounting',1,'I0023','2025-03-15 13:51:14.949670','2025-03-15 13:51:14.949691',10,4),(31,'Software Intern','Develop global connectivity solutions','3 Months',3100.00,'C++, Python',2,'I0024','2025-03-15 13:51:14.992929','2025-03-15 13:51:14.992949',3,6),(32,'Software Intern','Develop features, fix bugs, participate in code reviews','3 Months',3000.00,'Python, JavaScript',3,'I0025','2025-03-15 13:53:15.050857','2025-03-15 13:53:15.050906',3,3),(33,'QA Intern','Test software, create test cases, report bugs','3 Months',2500.00,'Attention to detail, Testing',2,'I0026','2025-03-15 13:53:15.155757','2025-03-15 13:53:15.155786',3,3),(34,'Data Analyst Intern','Analyze data sets, create reports, support decision making','6 Months',3500.00,'SQL, Python, Data Visualization',1,'I0027','2025-03-15 13:53:15.223365','2025-03-15 13:53:15.223390',5,3),(35,'Digital Marketing Intern','Manage online campaigns, create content, analyze metrics','6 Months',2000.00,'SEO, Content Creation',2,'I0028','2025-03-15 13:53:15.270081','2025-03-15 13:53:15.270103',4,3),(36,'Product Intern','Assist in product strategy, conduct market research, plan features','3 Months',3000.00,'Communication, Market Research',1,'I0029','2025-03-15 13:53:15.330618','2025-03-15 13:53:15.330643',6,3),(37,'UI/UX Intern','Design interfaces, perform user testing, create wireframes','6 Months',2800.00,'Figma, Adobe XD',1,'I0030','2025-03-15 13:53:15.393146','2025-03-15 13:53:15.393175',7,3),(38,'Support Intern','Assist customers, manage support tickets, provide solutions','3 Months',1500.00,'Communication, Problem Solving',2,'I0031','2025-03-15 13:53:15.444903','2025-03-15 13:53:15.444942',8,3),(39,'Operations Intern','Coordinate projects, streamline processes, monitor workflows','3 Months',2200.00,'Organizational skills, MS Office',1,'I0032','2025-03-15 13:53:15.568649','2025-03-15 13:53:15.568676',9,3),(40,'Finance Intern','Assist with budgeting and financial analysis','3 Months',2500.00,'Excel, Financial Analysis',1,'I0033','2025-03-15 13:53:15.630499','2025-03-15 13:53:15.630534',10,3),(41,'HR Intern','Support recruitment and training sessions','3 Months',2000.00,'Communication, Organization',1,'I0034','2025-03-15 13:53:15.697876','2025-03-15 13:53:15.697907',11,3),(42,'Marketing Intern','Manage social media, create content, analyze campaigns','6 Months',0.00,'SEO, Content Creation',1,'I0035','2025-03-15 13:53:15.766812','2025-03-15 13:53:15.766852',4,4),(43,'Software Intern','Develop and maintain software modules','3 Months',3200.00,'Java, Spring Boot',2,'I0036','2025-03-15 13:53:15.815161','2025-03-15 13:53:15.815182',3,4),(44,'Data Science Intern','Analyze marketing data, build models, support campaigns','6 Months',3500.00,'Python, R',1,'I0037','2025-03-15 13:53:15.858325','2025-03-15 13:53:15.858346',5,4),(45,'Product Intern','Assist in product strategy and requirements gathering','3 Months',3000.00,'Research, Communication',1,'I0038','2025-03-15 13:53:15.973317','2025-03-15 13:53:15.973341',6,4),(46,'Graphic Design Intern','Design promotional materials and social media graphics','3 Months',2200.00,'Adobe Photoshop, Illustrator',1,'I0039','2025-03-15 13:53:16.037549','2025-03-15 13:53:16.037576',7,4),(47,'Sales Intern','Support sales team and engage with potential clients','3 Months',2000.00,'Communication, CRM',2,'I0040','2025-03-15 13:53:16.091228','2025-03-15 13:53:16.091246',12,4),(48,'HR Intern','Support recruitment and employee engagement initiatives','3 Months',1800.00,'People Skills, Organization',1,'I0041','2025-03-15 13:53:16.133382','2025-03-15 13:53:16.133413',11,4),(49,'Customer Service Intern','Handle customer queries and resolve issues','3 Months',1600.00,'Communication, Problem Solving',1,'I0042','2025-03-15 13:53:16.251286','2025-03-15 13:53:16.251321',8,4),(50,'Operations Intern','Assist in streamlining processes and managing logistics','3 Months',2200.00,'Analytical, MS Office',1,'I0043','2025-03-15 13:53:16.315916','2025-03-15 13:53:16.315948',9,4),(51,'Finance Intern','Assist with budgeting and financial planning','3 Months',2500.00,'Excel, Accounting',1,'I0044','2025-03-15 13:53:16.382699','2025-03-15 13:53:16.382731',10,4),(52,'Software Intern','Develop global connectivity solutions','3 Months',3100.00,'C++, Python',2,'I0045','2025-03-15 13:53:16.437251','2025-03-15 13:53:16.437282',3,6),(53,'DevOps Intern','Maintain CI/CD pipelines and automate deployments','3 Months',3000.00,'Docker, Kubernetes',1,'I0046','2025-03-15 13:53:16.503433','2025-03-15 13:53:16.503464',3,6),(54,'Data Analyst Intern','Analyze network data and create dashboards','6 Months',3400.00,'SQL, Python',1,'I0047','2025-03-15 13:53:16.573862','2025-03-15 13:53:16.573901',5,6),(55,'Social Media Intern','Manage social platforms and create engaging content','3 Months',2000.00,'Content Creation, Communication',2,'I0048','2025-03-15 13:53:16.645422','2025-03-15 13:53:16.645442',4,6),(56,'Product Intern','Assist in product development and market research','3 Months',2900.00,'Analytical, Research',1,'I0049','2025-03-15 13:53:16.700928','2025-03-15 13:53:16.700948',6,6),(57,'UI/UX Intern','Design user interfaces and conduct usability testing','3 Months',2800.00,'Sketch, Figma',1,'I0050','2025-03-15 13:53:16.749501','2025-03-15 13:53:16.749522',7,6),(58,'Support Intern','Provide technical support and handle customer queries','3 Months',1500.00,'Communication, Problem Solving',2,'I0051','2025-03-15 13:53:16.794581','2025-03-15 13:53:16.794602',8,6),(59,'Operations Intern','Coordinate between teams and manage schedules','3 Months',2300.00,'Organization, Communication',1,'I0052','2025-03-15 13:53:16.836632','2025-03-15 13:53:16.836653',9,6),(60,'HR Intern','Assist with recruitment and onboarding','3 Months',1900.00,'People Skills, Organization',1,'I0053','2025-03-15 13:53:16.927978','2025-03-15 13:53:16.927999',11,6),(61,'Finance Intern','Support budgeting and financial forecasting','3 Months',2600.00,'Excel, Analytical',1,'I0054','2025-03-15 13:53:17.046065','2025-03-15 13:53:17.046100',10,6),(62,'Software Intern','Develop dynamic engineering software','3 Months',3200.00,'Java, C++',2,'I0055','2025-03-15 13:53:17.121468','2025-03-15 13:53:17.121503',3,7),(63,'Hardware Intern','Assist in hardware testing and design','3 Months',3000.00,'Electronics, PCB Design',1,'I0056','2025-03-15 13:53:17.193683','2025-03-15 13:53:17.193716',3,7),(64,'Data Analyst Intern','Analyze product data and prepare reports','6 Months',3300.00,'Python, SQL',1,'I0057','2025-03-15 13:53:17.266412','2025-03-15 13:53:17.266447',5,7),(65,'Digital Marketing Intern','Plan digital campaigns and manage content','3 Months',2100.00,'SEO, Analytics',2,'I0058','2025-03-15 13:53:17.326083','2025-03-15 13:53:17.326112',4,7),(66,'Product Intern','Support product planning and strategy','3 Months',3000.00,'Research, Communication',1,'I0059','2025-03-15 13:53:17.380600','2025-03-15 13:53:17.380625',6,7),(67,'Graphic Design Intern','Create design assets and support branding','3 Months',2500.00,'Adobe Illustrator, Photoshop',1,'I0060','2025-03-15 13:53:17.442851','2025-03-15 13:53:17.442871',7,7),(68,'Customer Service Intern','Handle client inquiries and resolve issues','3 Months',1700.00,'Communication, Empathy',2,'I0061','2025-03-15 13:53:17.489910','2025-03-15 13:53:17.489936',8,7),(69,'Operations Intern','Improve operational workflows and processes','3 Months',2300.00,'Process Optimization, Excel',1,'I0062','2025-03-15 13:53:17.532729','2025-03-15 13:53:17.532756',9,7),(70,'Finance Intern','Assist with financial analysis and reporting','3 Months',2500.00,'Excel, Accounting',1,'I0063','2025-03-15 13:53:17.644535','2025-03-15 13:53:17.644566',10,7),(71,'HR Intern','Support HR operations and employee relations','3 Months',2000.00,'Organization, Communication',1,'I0064','2025-03-15 13:53:17.704022','2025-03-15 13:53:17.704042',11,7),(72,'Software Intern','Develop business solutions software','3 Months',3100.00,'Python, Java',2,'I0065','2025-03-15 13:53:17.747776','2025-03-15 13:53:17.747798',3,8),(73,'Marketing Intern','Assist in developing marketing strategies','3 Months',2000.00,'SEO, Social Media',2,'I0066','2025-03-15 13:53:17.865853','2025-03-15 13:53:17.865883',4,8),(74,'Data Analyst Intern','Analyze enterprise data and generate insights','6 Months',3400.00,'SQL, Python',1,'I0067','2025-03-15 13:53:17.922143','2025-03-15 13:53:17.922167',5,8),(75,'Product Intern','Support product lifecycle management','3 Months',2900.00,'Project Management, Research',1,'I0068','2025-03-15 13:53:17.973000','2025-03-15 13:53:17.973024',6,8),(76,'UI/UX Intern','Design user interfaces for enterprise solutions','3 Months',2800.00,'Sketch, Figma',1,'I0069','2025-03-15 13:53:18.082801','2025-03-15 13:53:18.082836',7,8),(77,'Support Intern','Provide customer service support','3 Months',1600.00,'Communication, Problem Solving',2,'I0070','2025-03-15 13:53:18.154085','2025-03-15 13:53:18.154120',8,8),(78,'Operations Intern','Streamline enterprise operational processes','3 Months',2300.00,'Organizational skills, MS Office',1,'I0071','2025-03-15 13:53:18.226851','2025-03-15 13:53:18.226885',9,8),(79,'Finance Intern','Assist in financial reporting and analysis','3 Months',2500.00,'Excel, Financial Modeling',1,'I0072','2025-03-15 13:53:18.296822','2025-03-15 13:53:18.296859',10,8),(80,'HR Intern','Coordinate recruitment and onboarding','3 Months',2000.00,'Interpersonal skills, Organization',1,'I0073','2025-03-15 13:53:18.369768','2025-03-15 13:53:18.369808',11,8),(81,'Sales Intern','Support sales operations and client outreach','3 Months',2200.00,'Communication, CRM',1,'I0074','2025-03-15 13:53:18.438334','2025-03-15 13:53:18.438368',12,8),(82,'Software Intern','Develop innovative tech solutions','3 Months',3100.00,'Java, Python',2,'I0075','2025-03-15 13:53:18.516851','2025-03-15 13:53:18.516883',3,9),(83,'DevOps Intern','Maintain infrastructure and manage deployments','3 Months',3000.00,'Docker, Jenkins',1,'I0076','2025-03-15 13:53:18.574931','2025-03-15 13:53:18.574955',3,9),(84,'Data Analyst Intern','Analyze tech trends to support products','6 Months',3400.00,'SQL, R',1,'I0077','2025-03-15 13:53:18.634404','2025-03-15 13:53:18.634440',5,9),(85,'Digital Marketing Intern','Enhance digital presence and engagement','3 Months',2100.00,'SEO, Content Marketing',2,'I0078','2025-03-15 13:53:18.707647','2025-03-15 13:53:18.707693',4,9),(86,'Product Intern','Assist in product development processes','3 Months',2900.00,'Analytical skills, Research',1,'I0079','2025-03-15 13:53:18.771973','2025-03-15 13:53:18.772005',6,9),(87,'Graphic Design Intern','Create visual content for campaigns','3 Months',2500.00,'Adobe Creative Suite',1,'I0080','2025-03-15 13:53:18.842530','2025-03-15 13:53:18.842564',7,9),(88,'Support Intern','Provide prompt customer assistance','3 Months',1700.00,'Communication, Problem Solving',2,'I0081','2025-03-15 13:53:18.913551','2025-03-15 13:53:18.913574',8,9),(89,'Operations Intern','Support daily operations and process improvement','3 Months',2300.00,'Organization, MS Office',1,'I0082','2025-03-15 13:53:18.976059','2025-03-15 13:53:18.976111',9,9),(90,'Finance Intern','Assist with financial analysis tasks','3 Months',2500.00,'Excel, Accounting',1,'I0083','2025-03-15 13:53:19.046916','2025-03-15 13:53:19.046951',10,9),(91,'HR Intern','Support HR initiatives and recruitment','3 Months',2000.00,'Communication, Organization',1,'I0084','2025-03-15 13:53:19.108341','2025-03-15 13:53:19.108362',11,9),(92,'Software Intern','Develop advanced tech solutions','3 Months',3200.00,'Python, C#',2,'I0085','2025-03-15 13:53:19.167201','2025-03-15 13:53:19.167221',3,10),(93,'Mobile App Intern','Develop innovative mobile applications','3 Months',3000.00,'Java, Kotlin',1,'I0086','2025-03-15 13:53:19.203492','2025-03-15 13:53:19.203511',3,10),(94,'Data Analyst Intern','Analyze tech data and trends','6 Months',3400.00,'SQL, Python',1,'I0087','2025-03-15 13:53:19.303852','2025-03-15 13:53:19.303881',5,10),(95,'Social Media Intern','Manage social channels and content','3 Months',2100.00,'Content Creation, Analytics',2,'I0088','2025-03-15 13:53:19.370519','2025-03-15 13:53:19.370551',4,10),(96,'Product Intern','Assist with product strategy formulation','3 Months',2900.00,'Research, Communication',1,'I0089','2025-03-15 13:53:19.433408','2025-03-15 13:53:19.433440',6,10),(97,'UI/UX Intern','Design user-centric interfaces','3 Months',2800.00,'Sketch, Figma',1,'I0090','2025-03-15 13:53:19.498055','2025-03-15 13:53:19.498082',7,10),(98,'Support Intern','Assist customers with inquiries','3 Months',1700.00,'Communication, Problem Solving',2,'I0091','2025-03-15 13:53:19.563204','2025-03-15 13:53:19.563236',8,10),(99,'Operations Intern','Streamline tech operations','3 Months',2300.00,'Organization, MS Office',1,'I0092','2025-03-15 13:53:19.628189','2025-03-15 13:53:19.628222',9,10),(100,'Finance Intern','Support financial planning activities','3 Months',2500.00,'Excel, Financial Analysis',1,'I0093','2025-03-15 13:53:19.702652','2025-03-15 13:53:19.702689',10,10),(101,'HR Intern','Assist in HR processes and talent management','3 Months',2000.00,'Communication, Organization',1,'I0094','2025-03-15 13:53:19.764185','2025-03-15 13:53:19.764205',11,10),(102,'Software Intern','Develop innovative software solutions','3 Months',3100.00,'Python, Java',2,'I0095','2025-03-15 13:53:19.806179','2025-03-15 13:53:19.806204',3,11),(103,'Embedded Systems Intern','Work on firmware and embedded software','3 Months',3000.00,'C, Embedded C',1,'I0096','2025-03-15 13:53:19.915428','2025-03-15 13:53:19.915463',3,11),(104,'Data Analyst Intern','Analyze sensor data and performance metrics','6 Months',3400.00,'Python, SQL',1,'I0097','2025-03-15 13:53:19.978574','2025-03-15 13:53:19.978638',5,11),(105,'Digital Marketing Intern','Develop and execute digital campaigns','3 Months',2100.00,'SEO, Content Marketing',2,'I0098','2025-03-15 13:53:20.036729','2025-03-15 13:53:20.036763',4,11),(106,'Product Intern','Assist in managing product lifecycle','3 Months',2900.00,'Research, Analysis',1,'I0099','2025-03-15 13:53:20.107381','2025-03-15 13:53:20.107433',6,11),(107,'UI/UX Intern','Design intuitive interfaces and user flows','3 Months',2800.00,'Figma, Adobe XD',1,'I0100','2025-03-15 13:53:20.177138','2025-03-15 13:53:20.177180',7,11),(108,'Support Intern','Provide timely tech support','3 Months',1700.00,'Communication, Problem Solving',2,'I0101','2025-03-15 13:53:20.247666','2025-03-15 13:53:20.247698',8,11),(109,'Operations Intern','Optimize operational efficiency','3 Months',2300.00,'Organization, MS Office',1,'I0102','2025-03-15 13:53:20.314744','2025-03-15 13:53:20.314787',9,11),(110,'Finance Intern','Assist with budgeting and cost analysis','3 Months',2500.00,'Excel, Analytical',1,'I0103','2025-03-15 13:53:20.377502','2025-03-15 13:53:20.377524',10,11),(111,'HR Intern','Support HR functions and recruitment','3 Months',2000.00,'Organization, Communication',1,'I0104','2025-03-15 13:53:20.420645','2025-03-15 13:53:20.420665',11,11),(112,'Software Intern','Develop connectivity solutions','3 Months',3100.00,'Python, C++',2,'I0105','2025-03-15 13:53:20.541697','2025-03-15 13:53:20.541740',3,12),(113,'Network Intern','Assist in network optimization','3 Months',3000.00,'Networking, Linux',1,'I0106','2025-03-15 13:53:20.623567','2025-03-15 13:53:20.623603',3,12),(114,'Data Analyst Intern','Analyze connectivity performance data','6 Months',3400.00,'SQL, Python',1,'I0107','2025-03-15 13:53:20.692849','2025-03-15 13:53:20.692890',5,12),(115,'Social Media Intern','Manage social channels and online presence','3 Months',2100.00,'Content Creation, Communication',2,'I0108','2025-03-15 13:53:20.774240','2025-03-15 13:53:20.774282',4,12),(116,'Product Intern','Support product development and analysis','3 Months',2900.00,'Research, Analysis',1,'I0109','2025-03-15 13:53:20.856405','2025-03-15 13:53:20.856444',6,12),(117,'Graphic Design Intern','Design marketing materials and visuals','3 Months',2500.00,'Adobe Creative Suite',1,'I0110','2025-03-15 13:53:20.940494','2025-03-15 13:53:20.940539',7,12),(118,'Support Intern','Provide technical support and troubleshooting','3 Months',1700.00,'Communication, Problem Solving',2,'I0111','2025-03-15 13:53:21.030870','2025-03-15 13:53:21.030900',8,12),(119,'Operations Intern','Coordinate daily tasks and manage schedules','3 Months',2300.00,'Organization, MS Office',1,'I0112','2025-03-15 13:53:21.152763','2025-03-15 13:53:21.152789',9,12),(120,'Finance Intern','Assist with financial processes and reporting','3 Months',2500.00,'Excel, Accounting',1,'I0113','2025-03-15 13:53:21.201387','2025-03-15 13:53:21.201416',10,12),(121,'HR Intern','Support HR tasks and recruitment','3 Months',2000.00,'Communication, Organization',1,'I0114','2025-03-15 13:53:21.264962','2025-03-15 13:53:21.265002',11,12),(122,'Software Intern','Develop lab automation software','3 Months',3200.00,'Python, C++',2,'I0115','2025-03-15 13:53:21.346638','2025-03-15 13:53:21.346666',3,13),(123,'Hardware Intern','Assist in lab equipment testing','3 Months',3000.00,'Electronics, PCB Design',1,'I0116','2025-03-15 13:53:21.405961','2025-03-15 13:53:21.405985',3,13),(124,'Data Analyst Intern','Analyze lab experiment data','6 Months',3400.00,'Python, SQL',1,'I0117','2025-03-15 13:53:21.452490','2025-03-15 13:53:21.452517',5,13),(125,'Marketing Intern','Support lab marketing initiatives','3 Months',2100.00,'Content Creation, SEO',2,'I0118','2025-03-15 13:53:21.580954','2025-03-15 13:53:21.581041',4,13),(126,'Product Intern','Support lab product development','3 Months',2900.00,'Research, Communication',1,'I0119','2025-03-15 13:53:21.665398','2025-03-15 13:53:21.665436',6,13),(127,'UI/UX Intern','Design interfaces for lab software','3 Months',2800.00,'Figma, Sketch',1,'I0120','2025-03-15 13:53:21.753726','2025-03-15 13:53:21.753776',7,13),(128,'Support Intern','Provide technical support for lab users','3 Months',1700.00,'Communication, Problem Solving',2,'I0121','2025-03-15 13:53:21.839643','2025-03-15 13:53:21.839689',8,13),(129,'Operations Intern','Improve lab operational workflows','3 Months',2300.00,'Organizational skills, MS Office',1,'I0122','2025-03-15 13:53:21.909618','2025-03-15 13:53:21.909656',9,13),(130,'Finance Intern','Assist with lab financials','3 Months',2500.00,'Excel, Financial Analysis',1,'I0123','2025-03-15 13:53:21.986193','2025-03-15 13:53:21.986232',10,13),(131,'HR Intern','Support lab HR operations','3 Months',2000.00,'Communication, Organization',1,'I0124','2025-03-15 13:53:22.067893','2025-03-15 13:53:22.067935',11,13);
 /*!40000 ALTER TABLE `internship_portal_internship` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `internship_portal_seeker`
+-- Table structure for table `job_category`
 --
 
-DROP TABLE IF EXISTS `internship_portal_seeker`;
+DROP TABLE IF EXISTS `job_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `internship_portal_seeker` (
+CREATE TABLE `job_category` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `skills` longtext NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  `user_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`),
-  CONSTRAINT `internship_portal_seeker_user_id_27302ccb_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `internship_portal_seeker`
---
-
-LOCK TABLES `internship_portal_seeker` WRITE;
-/*!40000 ALTER TABLE `internship_portal_seeker` DISABLE KEYS */;
-/*!40000 ALTER TABLE `internship_portal_seeker` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportal_category`
---
-
-DROP TABLE IF EXISTS `jobportal_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportal_category` (
-  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `category_code` varchar(5) DEFAULT NULL,
+  `category_code` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `category_code` (`category_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jobportal_category`
+-- Dumping data for table `job_category`
 --
 
-LOCK TABLES `jobportal_category` WRITE;
-/*!40000 ALTER TABLE `jobportal_category` DISABLE KEYS */;
-INSERT INTO `jobportal_category` VALUES (10,'Healthcare','C0001'),(11,'IT','C0002'),(12,'Finance','C0003'),(13,'Management','C0004');
-/*!40000 ALTER TABLE `jobportal_category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportal_company`
---
-
-DROP TABLE IF EXISTS `jobportal_company`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportal_company` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `address` text NOT NULL,
-  `email` varchar(254) NOT NULL,
-  `contact_number` varchar(20) NOT NULL,
-  `logo` varchar(255) DEFAULT NULL,
-  `about` text,
-  `working_employees` int NOT NULL,
-  `established_year` int NOT NULL,
-  `company_code` varchar(6) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `company_code` (`company_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobportal_company`
---
-
-LOCK TABLES `jobportal_company` WRITE;
-/*!40000 ALTER TABLE `jobportal_company` DISABLE KEYS */;
-INSERT INTO `jobportal_company` VALUES (9,'TechNova Solutions','123 Innovation Way, Silicon Valley, CA 94025','info@technova.com','(650) 555-1234','company_logos/companylogo.jpeg','Leading technology solutions provider specializing in AI and cloud computing.',850,2010,'CO0001','2025-03-13 05:51:23','2025-03-13 10:14:03'),(10,'MediHealth Systems','456 Healthcare Blvd, Boston, MA 02115','contact@medihealth.org','(617) 555-9876','company_logos/companylogo2.png','Innovative healthcare technology company improving patient outcomes worldwide.',620,2008,'CO0002','2025-03-13 05:51:23','2025-03-13 10:14:11'),(11,'FinanceForward LLC','789 Wall Street, New York, NY 10005','hello@financeforward.com','(212) 555-3456','company_logos/companylogo3.jpeg','Revolutionary fintech firm specializing in blockchain and secure payments.',350,2015,'CO0003','2025-03-13 05:51:23','2025-03-13 10:14:21'),(12,'Global Management Partners','321 Corporate Plaza, Chicago, IL 60601','info@globalmanagement.co','(312) 555-7890','company_logos/companylogo4.jpeg','Premier consulting firm offering strategic management solutions.',275,2012,'CO0004','2025-03-13 05:51:23','2025-03-13 10:14:29'),(13,'DataDriven Analytics','555 Tech Avenue, Seattle, WA 98104','contact@datadriven.io','(206) 555-2468','company_logos/companylogo5.png','Data science experts transforming big data into actionable insights.',430,2014,'CO0005','2025-03-13 05:51:23','2025-03-13 10:14:37');
-/*!40000 ALTER TABLE `jobportal_company` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportal_domain`
---
-
-DROP TABLE IF EXISTS `jobportal_domain`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportal_domain` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `domain_code` varchar(5) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `domain_code` (`domain_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobportal_domain`
---
-
-LOCK TABLES `jobportal_domain` WRITE;
-/*!40000 ALTER TABLE `jobportal_domain` DISABLE KEYS */;
-INSERT INTO `jobportal_domain` VALUES (8,'Web Development','D0001'),(9,'Mobile Development','D0002'),(10,'Data Science','D0003'),(11,'Cloud Computing','D0004'),(12,'UI/UX Design','D0005'),(13,'Medical Research','D0006'),(14,'Nursing','D0007'),(15,'Financial Analysis','D0008'),(16,'Investment Banking','D0009'),(17,'Project Management','D0010');
-/*!40000 ALTER TABLE `jobportal_domain` ENABLE KEYS */;
+LOCK TABLES `job_category` WRITE;
+/*!40000 ALTER TABLE `job_category` DISABLE KEYS */;
+INSERT INTO `job_category` VALUES (1,'Management','C0001');
+/*!40000 ALTER TABLE `job_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -995,28 +1015,28 @@ DROP TABLE IF EXISTS `jobportal_job`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jobportal_job` (
   `job_id` int NOT NULL AUTO_INCREMENT,
-  `category_id` int NOT NULL,
-  `company_id` int NOT NULL,
   `role` varchar(255) NOT NULL,
-  `responsibilities` text NOT NULL,
+  `responsibilities` longtext NOT NULL,
   `position` varchar(255) NOT NULL,
-  `eligibility` text NOT NULL,
+  `eligibility` longtext NOT NULL,
   `job_type` varchar(50) NOT NULL,
   `salary_per_annum` decimal(10,2) NOT NULL,
   `required_experience` varchar(255) NOT NULL,
-  `job_description` text NOT NULL,
-  `required_skills` text NOT NULL,
+  `job_description` longtext NOT NULL,
+  `required_skills` longtext NOT NULL,
   `vacancy` int NOT NULL,
-  `job_code` varchar(5) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `job_code` varchar(6) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `category_id` bigint NOT NULL,
+  `company_id` bigint NOT NULL,
   PRIMARY KEY (`job_id`),
   UNIQUE KEY `job_code` (`job_code`),
-  KEY `category_id` (`category_id`),
-  KEY `company_id` (`company_id`),
-  CONSTRAINT `jobportal_job_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `jobportal_category` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `jobportal_job_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `jobportal_company` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+  KEY `jobportal_job_category_id_27b7137a_fk_job_category_id` (`category_id`),
+  KEY `jobportal_job_company_id_8a953135_fk_recuritme` (`company_id`),
+  CONSTRAINT `jobportal_job_category_id_27b7137a_fk_job_category_id` FOREIGN KEY (`category_id`) REFERENCES `job_category` (`id`),
+  CONSTRAINT `jobportal_job_company_id_8a953135_fk_recuritme` FOREIGN KEY (`company_id`) REFERENCES `recuritment_portal_company_details` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1025,7 +1045,6 @@ CREATE TABLE `jobportal_job` (
 
 LOCK TABLES `jobportal_job` WRITE;
 /*!40000 ALTER TABLE `jobportal_job` DISABLE KEYS */;
-INSERT INTO `jobportal_job` VALUES (7,12,11,'Risk Assessment Manager','Managing risk management projects from conception to completion. Conducting research on financial analysis. Presenting findings to stakeholders.','Mid-level','Bachelor\'s degree in Business Administration or related field. 5+ years of experience in risk management. Proficiency in accounting software.','Full-time',66237.00,'0-1 years','This role involves working with cross-functional teams to deliver high-quality solutions. The ideal candidate will have strong analytical skills and a passion for innovation.','Financial analysis, Excel, Accounting principles, Risk assessment, Investment strategies, Financial modeling',1,'J0001','2025-03-13 05:51:23','2025-03-13 05:51:23'),(8,11,12,'Cloud Architect','Coordinating with stakeholders on software initiatives. Troubleshooting issues related to infrastructure design. Documenting processes and procedures.','Senior','Advanced degree in Information Technology or equivalent experience. Track record of success in software. Expert knowledge of CI/CD pipelines.','Part-time',190059.00,'5+ years','We\'re looking for a talented professional to join our expanding team. This role offers opportunities for growth and development in a dynamic environment.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',2,'J0002','2025-03-13 05:51:23','2025-03-13 05:51:23'),(9,10,10,'Medical Technician','Developing and implementing clinical solutions. Collaborating with team members on clinical procedures. Monitoring and reporting on departmental efficiency.','Manager','Master\'s degree preferred in Public Health. Demonstrated experience in clinical. Knowledge of Electronic Health Records (EHR) and industry standards.','Part-time',163559.00,'5+ years','Join our team to help drive business growth through strategic initiatives. You\'ll be responsible for developing and implementing solutions that meet customer needs.','Patient care, Medical terminology, Health records management, Clinical procedures, Healthcare compliance',3,'J0003','2025-03-13 05:51:23','2025-03-13 05:51:23'),(10,11,12,'UI/UX Designer','Analyzing database data to identify trends. Creating reports on code quality. Working with cross-functional teams to implement solutions.','Lead','Master\'s degree preferred in Computer Science. Demonstrated experience in database. Knowledge of version control systems and industry standards.','Part-time',47583.00,'5+ years','Join our team to help drive business growth through strategic initiatives. You\'ll be responsible for developing and implementing solutions that meet customer needs.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',6,'J0004','2025-03-13 05:51:23','2025-03-13 05:51:23'),(11,11,13,'Software Engineer','Managing database projects from conception to completion. Conducting research on infrastructure design. Presenting findings to stakeholders.','Senior','Relevant degree in Software Engineering or related discipline. Previous experience in database. Ability to work with cloud platforms.','Full-time',53070.00,'3-5 years','An exciting opportunity to be part of a company that values innovation and creativity. The successful candidate will help shape the future of our products and services.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',4,'J0005','2025-03-13 05:51:23','2025-03-13 05:51:23'),(12,13,13,'HR Manager','Coordinating with stakeholders on operational initiatives. Troubleshooting issues related to project planning. Documenting processes and procedures.','Junior','Degree in Business Administration with 3-5 years of experience. Strong background in operational. Familiarity with business intelligence tools.','Part-time',62370.00,'1-3 years','This position requires a detail-oriented individual who can work independently and as part of a team. You\'ll contribute to projects that have a direct impact on our business.','Leadership, Strategic planning, Team building, Project management, Business analysis, Stakeholder management',2,'J0006','2025-03-13 05:51:23','2025-03-13 05:51:23'),(13,11,13,'Cloud Architect','Coordinating with stakeholders on network initiatives. Troubleshooting issues related to security protocols. Documenting processes and procedures.','Manager','Advanced degree in Data Science or equivalent experience. Track record of success in network. Expert knowledge of programming languages.','Full-time',31452.00,'0-1 years','We\'re looking for a talented professional to join our expanding team. This role offers opportunities for growth and development in a dynamic environment.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',4,'J0007','2025-03-13 05:51:23','2025-03-13 05:51:23'),(14,10,9,'Medical Technician','Coordinating with stakeholders on medical research initiatives. Troubleshooting issues related to medical documentation. Documenting processes and procedures.','Mid-level','Bachelor\'s degree in Health Informatics or related field. 1-2 years of experience in medical research. Proficiency in Electronic Health Records (EHR).','Full-time',60740.00,'1-3 years','This role involves working with cross-functional teams to deliver high-quality solutions. The ideal candidate will have strong analytical skills and a passion for innovation.','Patient care, Medical terminology, Health records management, Clinical procedures, Healthcare compliance',7,'J0008','2025-03-13 05:51:23','2025-03-13 05:51:23'),(15,12,13,'Investment Banker','Analyzing accounting data to identify trends. Creating reports on budget variance. Working with cross-functional teams to implement solutions.','Senior','Relevant degree in Economics or related discipline. Previous experience in accounting. Ability to work with financial software.','Full-time',37598.00,'5+ years','This role involves working with cross-functional teams to deliver high-quality solutions. The ideal candidate will have strong analytical skills and a passion for innovation.','Financial analysis, Excel, Accounting principles, Risk assessment, Investment strategies, Financial modeling',10,'J0009','2025-03-13 05:51:23','2025-03-13 05:51:23'),(16,11,10,'Cloud Architect','Developing and implementing software solutions. Collaborating with team members on system implementation. Monitoring and reporting on code quality.','Junior','Relevant degree in Cybersecurity or related discipline. Previous experience in software. Ability to work with version control systems.','Part-time',148717.00,'5+ years','This role involves working with cross-functional teams to deliver high-quality solutions. The ideal candidate will have strong analytical skills and a passion for innovation.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',3,'J0010','2025-03-13 05:51:23','2025-03-13 05:51:23'),(17,11,9,'DevOps Engineer','Leading the development of software strategies. Training team members on security protocols. Ensuring compliance with industry standards.','Junior','Degree in Computer Science with 5+ years of experience. Strong background in software. Familiarity with container technologies.','Full-time',95153.00,'5+ years','We\'re looking for a talented professional to join our expanding team. This role offers opportunities for growth and development in a dynamic environment.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',6,'J0011','2025-03-13 05:51:23','2025-03-13 05:51:23'),(18,12,12,'Financial Analyst','Coordinating with stakeholders on accounting initiatives. Troubleshooting issues related to investment strategies. Documenting processes and procedures.','Lead','Master\'s degree preferred in Business Administration. Demonstrated experience in accounting. Knowledge of financial modeling tools and industry standards.','Part-time',103890.00,'0-1 years','An exciting opportunity to be part of a company that values innovation and creativity. The successful candidate will help shape the future of our products and services.','Financial analysis, Excel, Accounting principles, Risk assessment, Investment strategies, Financial modeling',9,'J0012','2025-03-13 05:51:23','2025-03-13 05:51:23'),(19,11,9,'Cloud Architect','Leading the development of network strategies. Training team members on code development. Ensuring compliance with industry standards.','Senior','Relevant degree in Computer Science or related discipline. Previous experience in network. Ability to work with cloud platforms.','Part-time',139571.00,'1-3 years','This position requires a detail-oriented individual who can work independently and as part of a team. You\'ll contribute to projects that have a direct impact on our business.','Python, JavaScript, AWS, Docker, Kubernetes, React, SQL, NoSQL, Machine Learning',7,'J0013','2025-03-13 05:51:23','2025-03-13 05:51:23'),(20,13,13,'Strategic Planning Lead','Leading the development of team strategies. Training team members on strategic initiatives. Ensuring compliance with industry standards.','Mid-level','Relevant degree in Organizational Leadership or related discipline. Previous experience in team. Ability to work with productivity suites.','Part-time',144080.00,'0-1 years','Join our team to help drive business growth through strategic initiatives. You\'ll be responsible for developing and implementing solutions that meet customer needs.','Leadership, Strategic planning, Team building, Project management, Business analysis, Stakeholder management',3,'J0014','2025-03-13 05:51:23','2025-03-13 05:51:23'),(21,13,9,'Business Consultant','Analyzing business process data to identify trends. Creating reports on team productivity. Working with cross-functional teams to implement solutions.','Senior','Advanced degree in Human Resources or equivalent experience. Track record of success in business process. Expert knowledge of productivity suites.','Part-time',35199.00,'5+ years','We\'re looking for a talented professional to join our expanding team. This role offers opportunities for growth and development in a dynamic environment.','Leadership, Strategic planning, Team building, Project management, Business analysis, Stakeholder management',7,'J0015','2025-03-13 05:51:23','2025-03-13 05:51:23');
 /*!40000 ALTER TABLE `jobportal_job` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1041,15 +1060,15 @@ CREATE TABLE `jobportal_jobapplication` (
   `skills` longtext NOT NULL,
   `expected_ctc` varchar(50) DEFAULT NULL,
   `created_at` datetime(6) NOT NULL,
+  `applicantdetails_id` bigint NOT NULL,
+  `job_id` int NOT NULL,
   `user_id` bigint NOT NULL,
-  `job_seeker_id` bigint NOT NULL,
-  `job_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `jobportal_jobapplica_applicantdetails_id_8d0402f6_fk_applicant` (`applicantdetails_id`),
+  KEY `jobportal_jobapplication_job_id_037b7b68_fk_jobportal_job_job_id` (`job_id`),
   KEY `jobportal_jobapplication_user_id_68897ff6_fk_oauth_usersdb_id` (`user_id`),
-  KEY `jobportal_jobapplica_job_seeker_id_ba6069ef_fk_jobportal` (`job_seeker_id`),
-  KEY `fk_jobapplication_job` (`job_id`),
-  CONSTRAINT `fk_jobapplication_job` FOREIGN KEY (`job_id`) REFERENCES `jobportal_job` (`job_id`),
-  CONSTRAINT `jobportal_jobapplica_job_seeker_id_ba6069ef_fk_jobportal` FOREIGN KEY (`job_seeker_id`) REFERENCES `jobportal_jobseeker` (`id`),
+  CONSTRAINT `jobportal_jobapplica_applicantdetails_id_8d0402f6_fk_applicant` FOREIGN KEY (`applicantdetails_id`) REFERENCES `applicant_details` (`id`),
+  CONSTRAINT `jobportal_jobapplication_job_id_037b7b68_fk_jobportal_job_job_id` FOREIGN KEY (`job_id`) REFERENCES `jobportal_job` (`job_id`),
   CONSTRAINT `jobportal_jobapplication_user_id_68897ff6_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1061,139 +1080,6 @@ CREATE TABLE `jobportal_jobapplication` (
 LOCK TABLES `jobportal_jobapplication` WRITE;
 /*!40000 ALTER TABLE `jobportal_jobapplication` DISABLE KEYS */;
 /*!40000 ALTER TABLE `jobportal_jobapplication` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportal_jobseeker`
---
-
-DROP TABLE IF EXISTS `jobportal_jobseeker`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportal_jobseeker` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `skills` longtext NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  `user_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`),
-  CONSTRAINT `jobportal_jobseeker_user_id_1aead756_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobportal_jobseeker`
---
-
-LOCK TABLES `jobportal_jobseeker` WRITE;
-/*!40000 ALTER TABLE `jobportal_jobseeker` DISABLE KEYS */;
-INSERT INTO `jobportal_jobseeker` VALUES (1,'sameer','parmar','987897987','dds,s,s,sd,sd,sd,ds,','2025-03-15 15:08:18.132716','2025-03-15 15:08:18.132767',4);
-/*!40000 ALTER TABLE `jobportal_jobseeker` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportal_jobseeker_education`
---
-
-DROP TABLE IF EXISTS `jobportal_jobseeker_education`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportal_jobseeker_education` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `degree` varchar(255) NOT NULL,
-  `specialization` varchar(255) DEFAULT NULL,
-  `institution` varchar(255) NOT NULL,
-  `passing_year` varchar(4) NOT NULL,
-  `score` varchar(50) DEFAULT NULL,
-  `job_seeker_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jobportal_jobseeker__job_seeker_id_1832f936_fk_jobportal` (`job_seeker_id`),
-  CONSTRAINT `jobportal_jobseeker__job_seeker_id_1832f936_fk_jobportal` FOREIGN KEY (`job_seeker_id`) REFERENCES `jobportal_jobseeker` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobportal_jobseeker_education`
---
-
-LOCK TABLES `jobportal_jobseeker_education` WRITE;
-/*!40000 ALTER TABLE `jobportal_jobseeker_education` DISABLE KEYS */;
-INSERT INTO `jobportal_jobseeker_education` VALUES (1,'ss','ssasa','sasaassa','2122','222',1);
-/*!40000 ALTER TABLE `jobportal_jobseeker_education` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportal_jobseeker_experience`
---
-
-DROP TABLE IF EXISTS `jobportal_jobseeker_experience`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportal_jobseeker_experience` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `company` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date DEFAULT NULL,
-  `description` longtext,
-  `achievements` longtext,
-  `job_seeker_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `jobportal_jobseeker__job_seeker_id_376aa4d5_fk_jobportal` (`job_seeker_id`),
-  CONSTRAINT `jobportal_jobseeker__job_seeker_id_376aa4d5_fk_jobportal` FOREIGN KEY (`job_seeker_id`) REFERENCES `jobportal_jobseeker` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobportal_jobseeker_experience`
---
-
-LOCK TABLES `jobportal_jobseeker_experience` WRITE;
-/*!40000 ALTER TABLE `jobportal_jobseeker_experience` DISABLE KEYS */;
-INSERT INTO `jobportal_jobseeker_experience` VALUES (1,'sasas','sasas','2025-03-15','2025-03-15','ssasa','sassa,s,s,s,s,',1);
-/*!40000 ALTER TABLE `jobportal_jobseeker_experience` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `jobportol_job`
---
-
-DROP TABLE IF EXISTS `jobportol_job`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `jobportol_job` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `company_logo` varchar(100) NOT NULL,
-  `profile` varchar(255) NOT NULL,
-  `company_name` varchar(255) NOT NULL,
-  `location_state` varchar(100) NOT NULL,
-  `location_city` varchar(100) NOT NULL,
-  `min_experience` int NOT NULL,
-  `max_experience` int NOT NULL,
-  `package_min` double NOT NULL,
-  `package_max` double NOT NULL,
-  `employment_types` json NOT NULL,
-  `about_job` longtext NOT NULL,
-  `job_id` varchar(10) NOT NULL,
-  `qualification` longtext NOT NULL,
-  `posted_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `job_id` (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobportol_job`
---
-
-LOCK TABLES `jobportol_job` WRITE;
-/*!40000 ALTER TABLE `jobportol_job` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jobportol_job` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1261,21 +1147,22 @@ CREATE TABLE `oauth_paymenttransaction` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `order_id` varchar(100) NOT NULL,
   `payment_id` varchar(100) NOT NULL,
+  `payment_gateway` varchar(50) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `currency` varchar(10) NOT NULL,
+  `currency` varchar(10) NOT NULL DEFAULT 'INR',
   `status` varchar(50) NOT NULL,
-  `created_at` datetime(6) NOT NULL,
+  `created_at` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   `subscription_plan_id` bigint DEFAULT NULL,
   `user_id` bigint NOT NULL,
   `exam_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `oauth_paymenttransac_subscription_plan_id_213c470f_fk_price_sub` (`subscription_plan_id`),
-  KEY `oauth_paymenttransaction_user_id_96f38971_fk_oauth_usersdb_id` (`user_id`),
-  KEY `oauth_paymenttransaction_exam_id_fk` (`exam_id`),
-  CONSTRAINT `oauth_paymenttransac_subscription_plan_id_213c470f_fk_price_sub` FOREIGN KEY (`subscription_plan_id`) REFERENCES `price_subscriptionplan` (`id`),
-  CONSTRAINT `oauth_paymenttransaction_exam_id_fk` FOREIGN KEY (`exam_id`) REFERENCES `examportol_exam` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `oauth_paymenttransaction_user_id_96f38971_fk_oauth_usersdb_id` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `subscription_plan_id` (`subscription_plan_id`),
+  KEY `user_id` (`user_id`),
+  KEY `exam_id` (`exam_id`),
+  CONSTRAINT `oauth_paymenttransaction_ibfk_1` FOREIGN KEY (`subscription_plan_id`) REFERENCES `price_subscriptionplan` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `oauth_paymenttransaction_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `oauth_usersdb` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `oauth_paymenttransaction_ibfk_3` FOREIGN KEY (`exam_id`) REFERENCES `examportol_exam` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1284,6 +1171,7 @@ CREATE TABLE `oauth_paymenttransaction` (
 
 LOCK TABLES `oauth_paymenttransaction` WRITE;
 /*!40000 ALTER TABLE `oauth_paymenttransaction` DISABLE KEYS */;
+INSERT INTO `oauth_paymenttransaction` VALUES (1,'TXN1742540018','403993715533578934','payu',1800.00,'INR','success','2025-03-21 06:54:18.551064',5,4,NULL);
 /*!40000 ALTER TABLE `oauth_paymenttransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1330,7 +1218,7 @@ CREATE TABLE `oauth_usersdb` (
 
 LOCK TABLES `oauth_usersdb` WRITE;
 /*!40000 ALTER TABLE `oauth_usersdb` DISABLE KEYS */;
-INSERT INTO `oauth_usersdb` VALUES (4,'rathi','alpha@rathitech.me',NULL,'pbkdf2_sha256$870000$ZnX5fKuyjCTJhdg7onDPyA$mHVW5alXUbcU8LPh+hKABIz91t1BZ35LNqQvzqsDPEU=','Unknown Course','2000-01-01',NULL,'USR00001','2025-03-17 09:46:05.849546','other',NULL,NULL,1,1,1,'Unknown College',4,'2025-03-04 10:31:23','2025-04-03 10:31:23'),(5,'Sameer Parmar','sameerparmar.sp@gmail.com','0788628920','','Unknown Course','2000-01-01',NULL,'USR00002','2025-03-04 09:38:46.028912','other','114100297514272700577',NULL,1,0,0,'Unknown College',4,'2025-03-04 09:47:40','2025-04-03 09:47:40'),(6,'Sameer Parmar','sameer-parmar@github.placeholder','5726063422','','Unknown Course','2000-01-01',NULL,'USR00003','2025-03-12 05:40:05.072745','other',NULL,'85328386',1,0,0,'Unknown College',NULL,NULL,NULL),(7,'Sameer','sameerparmar.sps@gmail.com','1797400400','','Unknown Course','2000-01-01',NULL,'USR00004','2025-03-04 12:21:07.581003','other','102838661416704075136',NULL,1,0,0,'Unknown College',4,'2025-03-04 12:23:01','2025-04-03 12:23:01'),(8,'Sameer Parmar','aasasss@s.com','09882471285','pbkdf2_sha256$870000$Q4gGdxtJI3aQlZ5XZOJZXj$CfJV0pssNDhK37IYQB2BKcYLfAG4bN8KVbEfBNGGsr4=','Unknown Course','1221-11-11','','USR00005',NULL,'other',NULL,NULL,1,0,0,'Karnatak University',NULL,NULL,NULL),(9,'sam','ss@gmail.com',NULL,'pbkdf2_sha256$870000$8pg9B0GmpidBzKrT4Y6Q3u$H+0kXmmDV+0ns3KCIMPYhOK9e+keah+kSY27/WSQ0iU=','Unknown Course','2000-01-01',NULL,'USR00006','2025-03-15 09:49:16.545835','other',NULL,NULL,1,1,1,'Unknown College',NULL,NULL,NULL);
+INSERT INTO `oauth_usersdb` VALUES (4,'rathi','alpha@rathitech.me',NULL,'pbkdf2_sha256$870000$ZnX5fKuyjCTJhdg7onDPyA$mHVW5alXUbcU8LPh+hKABIz91t1BZ35LNqQvzqsDPEU=','Unknown Course','2000-01-01',NULL,'USR00001','2025-03-21 07:29:11.886359','other',NULL,NULL,1,1,1,'Unknown College',5,'2025-03-21 06:54:19','2026-03-16 06:54:19'),(5,'Sameer Parmar','sameerparmar.sp@gmail.com','0788628920','','Unknown Course','2000-01-01',NULL,'USR00002','2025-03-04 09:38:46.028912','other','114100297514272700577',NULL,1,0,0,'Unknown College',4,'2025-03-04 09:47:40','2025-04-03 09:47:40'),(6,'Sameer Parmar','sameer-parmar@github.placeholder','5726063422','','Unknown Course','2000-01-01',NULL,'USR00003','2025-03-12 05:40:05.072745','other',NULL,'85328386',1,0,0,'Unknown College',NULL,NULL,NULL),(7,'Sameer','sameerparmar.sps@gmail.com','1797400400','','Unknown Course','2000-01-01',NULL,'USR00004','2025-03-04 12:21:07.581003','other','102838661416704075136',NULL,1,0,0,'Unknown College',4,'2025-03-04 12:23:01','2025-04-03 12:23:01'),(8,'Sameer Parmar','aasasss@s.com','09882471285','pbkdf2_sha256$870000$Q4gGdxtJI3aQlZ5XZOJZXj$CfJV0pssNDhK37IYQB2BKcYLfAG4bN8KVbEfBNGGsr4=','Unknown Course','1221-11-11','','USR00005','2025-03-21 06:57:12.248406','other',NULL,NULL,1,0,0,'Karnatak University',NULL,NULL,NULL),(9,'sam','ss@gmail.com',NULL,'pbkdf2_sha256$870000$8pg9B0GmpidBzKrT4Y6Q3u$H+0kXmmDV+0ns3KCIMPYhOK9e+keah+kSY27/WSQ0iU=','Unknown Course','2000-01-01',NULL,'USR00006','2025-03-15 09:49:16.545835','other',NULL,NULL,1,1,1,'Unknown College',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `oauth_usersdb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1435,7 +1323,7 @@ CREATE TABLE `price_plantype` (
   `display_name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1444,7 +1332,7 @@ CREATE TABLE `price_plantype` (
 
 LOCK TABLES `price_plantype` WRITE;
 /*!40000 ALTER TABLE `price_plantype` DISABLE KEYS */;
-INSERT INTO `price_plantype` VALUES (3,'basic','basic'),(4,'monthly','monthly');
+INSERT INTO `price_plantype` VALUES (3,'basic','basic'),(4,'monthly','monthly'),(6,'yearly','yearly');
 /*!40000 ALTER TABLE `price_plantype` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1466,7 +1354,7 @@ CREATE TABLE `price_subscriptionplan` (
   PRIMARY KEY (`id`),
   KEY `price_subscriptionpl_plan_type_id_5cef54a8_fk_price_pla` (`plan_type_id`),
   CONSTRAINT `price_subscriptionpl_plan_type_id_5cef54a8_fk_price_pla` FOREIGN KEY (`plan_type_id`) REFERENCES `price_plantype` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1475,8 +1363,44 @@ CREATE TABLE `price_subscriptionplan` (
 
 LOCK TABLES `price_subscriptionplan` WRITE;
 /*!40000 ALTER TABLE `price_subscriptionplan` DISABLE KEYS */;
-INSERT INTO `price_subscriptionplan` VALUES (3,0.00,1,'{\"Compiler one time\": \"Compiler one time\", \"Cannot attend Practice Questions\": \"Cannot attend Practice Questions\", \"Limited access to Study material\": \"Limited access to Study material\", \"Explore and apply to jobs/Internships\": \"Explore and apply to jobs/Internships\", \"Basic profile visibility to recruiters\": \"Basic profile visibility to recruiters\"}',1,0.00,3),(4,299.00,1,'{\"Study material access\": \"Study material access\", \"Limited Compiler access\": \"Limited Compiler access\", \"Good Visibility to recruiters\": \"Good Visibility to recruiters\", \"Limited Access to Practice Questions\": \"Limited Access to Practice Questions\", \"Give exam and become eligible for shortlisting\": \"Give exam and become eligible for shortlisting\"}',1,5.00,4);
+INSERT INTO `price_subscriptionplan` VALUES (4,299.00,1,'{\"Study material access\": \"Study material access\", \"Limited Compiler access\": \"Limited Compiler access\", \"Good Visibility to recruiters\": \"Good Visibility to recruiters\", \"Limited Access to Practice Questions\": \"Limited Access to Practice Questions\", \"Give exam and become eligible for shortlisting\": \"Give exam and become eligible for shortlisting\"}',1,5.00,4),(5,2000.00,12,'{\"Study material access\": \"Study material access\", \"Limited Compiler access\": \"Limited Compiler access\", \"Good Visibility to recruiters\": \"Good Visibility to recruiters\", \"Limited Access to Practice Questions\": \"Limited Access to Practice Questions\", \"Give exam and become eligible for shortlisting\": \"Give exam and become eligible for shortlisting\"}',1,10.00,6);
 /*!40000 ALTER TABLE `price_subscriptionplan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recuritment_portal_company_details`
+--
+
+DROP TABLE IF EXISTS `recuritment_portal_company_details`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `recuritment_portal_company_details` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `address` longtext NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `about` longtext NOT NULL,
+  `working_employees` int NOT NULL,
+  `established_year` int NOT NULL,
+  `company_code` varchar(6) DEFAULT NULL,
+  `industry_type` varchar(255) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `company_code` (`company_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recuritment_portal_company_details`
+--
+
+LOCK TABLES `recuritment_portal_company_details` WRITE;
+/*!40000 ALTER TABLE `recuritment_portal_company_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recuritment_portal_company_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1608,4 +1532,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-17 15:18:30
+-- Dump completed on 2025-03-21 13:06:13

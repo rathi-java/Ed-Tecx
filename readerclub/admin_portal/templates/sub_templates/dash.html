@@ -1,0 +1,139 @@
+<!--content current page of sidebar dashboard-->
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}" />
+
+<div class="content current_page_action" data-page-name="dashboard">
+    {% if section == "profile" %}
+        <!-- Profile Section -->
+        <h3>Edit Profile</h3>
+        <div class="container">
+        <form method="POST" action="{% url 'update_superadmin_profile' %}">
+            {% csrf_token %}
+
+            <div class="form-row">
+            <label>Full Name</label>
+            <input type="text" name="full_name" value="{{ user.full_name }}" required>
+            </div>
+
+            <div class="form-row">
+            <label>Email</label>
+            <input type="email" value="{{ user.email }}" disabled>
+            </div>
+
+            <div class="form-row">
+            <label>Phone No.</label>
+            <input type="text" name="phone_number" value="{{ user.phone_number }}">
+            </div>
+
+            <div class="buttons">
+            <button type="submit" class="save-btn">Save</button>
+            <a href="{% url 'dashboard' %}" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+        </div>
+    {% else %}
+
+    <!-- Dashboard Section -->
+    <h3>&nbsp;Dashboard</h3>
+    <div class="dashboard-cards">
+        <!-- Super Admins -->
+        <div class="card" data-page-name="super_admins">
+            <h6>Total Super Admins</h6>
+            <p>{{ total_super_admins }}</p>
+        </div>
+
+        <!-- Admins -->
+        <div class="card" data-page-name="admins">
+            <h6>Total Admins</h6>
+            <p>{{ total_admins }}</p>
+        </div>
+
+        <!-- Managers -->
+        <div class="card" data-page-name="managers">
+            <h6>Total Managers</h6>
+            <p>{{ total_managers }}</p>
+        </div>
+
+        <!-- Employees -->
+        <div class="card" data-page-name="employees">
+            <h6>Total Employees</h6>
+            <p>{{ total_employees }}</p>
+        </div>
+
+        <!-- Students -->
+        <div class="card" data-page-name="students">
+            <h6>Total Students</h6>
+            <p>{{ total_students }}</p>
+        </div>
+
+        <!-- Users -->
+        <div class="card" data-page-name="users">
+            <h6>Total Users</h6>
+            <p>{{ total_users }}</p>
+        </div>
+
+        <!-- Active Users -->
+        <div class="card" data-page-name="active_users">
+            <h6>Active Users</h6>
+            <p>{{ active_users }}</p>
+        </div>
+
+        <!-- Premium Users -->
+        <div class="card" data-page-name="premium_users">
+            <h6>Premium Users</h6>
+            <p>{{ premium_users }}</p>
+        </div>
+
+        <!-- Colleges -->
+        <div class="card" data-page-name="colleges">
+            <h6>Total Colleges</h6>
+            <p>{{ total_colleges }}</p>
+        </div>
+
+        <!-- Questions -->
+        <div class="card" data-page-name="questions">
+            <h6>Total Questions</h6>
+            <p>{{ total_questions }}</p>
+        </div>
+
+        <!-- Subjects -->
+        <div class="card" data-page-name="subjects">
+            <h6>Total Subjects</h6>
+            <p>{{ total_subjects }}</p>
+        </div>
+
+        <!-- Categories -->
+        <div class="card" data-page-name="categories">
+            <h6>Total Categories</h6>
+            <p>{{ total_categories }}</p>
+        </div>
+
+        <!-- Sales -->
+        <div class="card" data-page-name="total_sales">
+            <h6>Total Sales</h6>
+            <p>{{ total_sales }}</p>
+        </div>
+
+        <div class="card" data-page-name="yearly_sales">
+            <h6>Yearly Sales</h6>
+            <p>{{ yearly_sales }}</p>
+        </div>
+
+        <div class="card" data-page-name="monthly_sales">
+            <h6>Monthly Sales</h6>
+            <p>{{ monthly_sales }}</p>
+        </div>
+
+        <div class="card" data-page-name="weekly_sales">
+            <h6>Weekly Sales</h6>
+            <p>{{ weekly_sales }}</p>
+        </div>
+
+        <div class="card" data-page-name="daily_sales">
+            <h6>Daily Sales</h6>
+            <p>{{ daily_sales }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>

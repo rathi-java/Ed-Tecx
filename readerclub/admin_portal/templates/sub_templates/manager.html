@@ -1,0 +1,113 @@
+<!-- Manager Section -->
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "manage_manager_section" %}
+<!-- Manage Manager Section -->
+<div class="content current_page_action" data-page-name="manage_manager">
+    <h3>&nbsp;Manager / Manage Manager</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="search-manager" placeholder="Search by Name or Email..." onkeyup="filterManagers()">
+            <button class="add-button" data-page-name="add_manager" onclick="setActive(this)">Add +</button>
+        </div>
+        <table id="manager-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>User Name</th>
+                    <th class="manager-name">Full Name</th>
+                    <th class="manager-email">Email</th>
+                    <th>Phone No.</th>
+                    <th>Alt. Phone No.</th>
+                    <th>Password</th>
+                    <th>Aadhar No.</th>
+                    <th>Admin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- { for manager in managers %} -->
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ manager.username }}</td>
+                    <td class="manager-name">{{ manager.full_name }}</td>
+                    <td class="manager-email">{{ manager.email }}</td>
+                    <td>{{ manager.phone_number }}</td>
+                    <td>{{ manager.alt_phone_number }}</td>
+                    <td>{{ manager.password }}</td>
+                    <td>{{ manager.aadhar_number }}</td>
+                    <td>
+                        <select onchange="transferManager('{{ manager.id }}', this.value)">
+                            <option value="">Select Admin</option>
+                            <!-- { for admin in admins %} -->
+                            <option value="{{ admin.id }}" {% if manager.admin == admin %}selected{% endif %}>{{ admin.username }}</option>
+                            <!-- { endfor %} -->
+                        </select>
+                    </td>
+                    <td>
+                        <button class="edit-btn" onclick="editManager('{{ manager.id }}', '{{ manager.full_name|escapejs }}', '{{ manager.email|escapejs }}', '{{ manager.phone_number|escapejs }}', '{{ manager.alt_phone_number|escapejs }}', '{{ manager.password|escapejs }}', '{{ manager.aadhar_number|escapejs }}')">Edit</button>
+                        <form class="form-edit" method="POST" action="{% url 'manage_manager' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="manager_id" value="{{ manager.id }}">
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this manager?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- { empty %} -->
+                <tr>
+                    <td class="form-data" colspan="10">No managers found.</td>
+                </tr>
+                <!-- { endfor %} -->
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% if section == "add_manager_section" %}
+<!-- Add/Edit Manager Section -->
+<div class="content current_page_action" data-page-name="add_manager">
+    <h3>&nbsp;Manager/Add Manager</h3>
+    <div class="container">
+        <div class="title">Manage Manager</div>
+        <form method="POST" action="{% url 'manage_manager' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_edit">
+            <input type="hidden" name="manager_id" id="manager_id">
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="manager_full_name">Full Name</label>
+                    <input type="text" name="manager_full_name" id="manager_full_name" placeholder="Enter Full Name" required>
+                </div>
+                <div class="input-group">
+                    <label for="manager_email">Email</label>
+                    <input type="email" name="manager_email" id="manager_email" placeholder="Enter Email" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="manager_phone">Phone No.</label>
+                <input type="text" name="manager_phone_number" id="manager_phone" placeholder="Enter phone no.">
+            </div>
+            <div class="input-group">
+                <label for="manager_alt_phone">Alt. Phone No.</label>
+                <input type="text" name="manager_alt_phone_number" id="manager_alt_phone" placeholder="Enter alt. phone no.">
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="manager_password">Password</label>
+                    <input type="password" name="password" id="manager_password" placeholder="Enter Password" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="manager_aadhar_number">Aadhar No.</label>
+                <input type="text" name="manager_aadhar_number" id="manager_aadhar_number" placeholder="Enter Aadhar No." required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}

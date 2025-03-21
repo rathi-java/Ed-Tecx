@@ -1,0 +1,90 @@
+<!-- College Section -->
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "manage_college_section" %}
+<!-- Manage College -->
+<div class="content current_page_action" data-page-name="manage_college">
+    <h3>&nbsp;College / Manage College</h3>
+    
+    <!-- Search Bar for College Name -->
+    <div class="container">
+        <div class="header">
+            <input type="text" id="collegeSearch" placeholder="Search College by Name..." onkeyup="filterColleges()">
+            <button class="add-button" data-page-name="add_college" onclick="setActive(this)">Add +</button>
+        </div>
+
+        <table id="collegeTable">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>College Name</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for college in colleges %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="college-name">{{ college.college_name }}</td>
+                    <td>{{ college.college_location }}</td>
+                    <td>
+                        <button class="edit-btn" 
+                            onclick="editCollege(
+                                '{{ college.id }}', 
+                                '{{ college.college_name|escapejs }}', 
+                                '{{ college.college_location|escapejs }}'
+                            )">
+                            Edit
+                        </button>
+                        <form class ="form-edit" method="POST" action="{% url 'delete_college' college.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn" 
+                                onclick="return confirm('Are you sure you want to delete {{ college.college_name|escapejs }}?')">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class ="form-data" colspan="4" >No colleges found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% if section == "add_college_section" %}
+<!-- Add College Section -->
+<div class="content current_page_action" data-page-name="add_college">
+    <h3>&nbsp;College / Add College</h3>
+    <div class="container">
+        <div class="title">Manage Colleges</div>
+        <form method="POST" action="{% url 'add_college' %}">
+            {% csrf_token %}
+            
+            <!-- Hidden field for updating a college (if applicable) -->
+            <input type="hidden" id="college_id" name="college_id">
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="college_name">College Name</label>
+                    <input type="text" id="college_name" name="college_name" placeholder="Enter College Name" required>
+                </div>
+                <div class="input-group">
+                    <label for="college_location">Location</label>
+                    <input type="text" id="college_location" name="college_location" placeholder="Enter Location" required>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}

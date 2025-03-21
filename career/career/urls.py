@@ -34,6 +34,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),  # <-- Add this line
     path('autocomplete/', autocomplete, name='autocomplete'),
     path('oauth/', include('oauth.urls')),
+    path('recruitment-portal/', include('recruitment_portal.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1189,6 +1189,18 @@ img.contact-img-abroad-sec5 {
   height: 1%;
   margin-left: 59px;
 }
+.info-card-abroad-card {
+  flex-wrap: wrap;
+  margin-top: -124px;
+  margin-left: 21%;
+}
+.info-box-abroad-sec2.bottom-right-abroad-sec2  img{
+  margin-bottom: 65px;
+  margin-top: 67px;
+}
+.info-box-abroad-sec2.top-left-abroad-sec2 img {
+  margin-bottom: 64px;
+}
 }
 @media(max-width:330px){
 .label-abroad-sec5 {
@@ -1524,7 +1536,7 @@ width: 100%;
           width: 86%;
           top: 147%;
           margin-top: -105px;
-      }
+      }    
     }
 
 /* download */
@@ -1859,7 +1871,22 @@ gap: 0px;
 
     .app-sectionn {
         width: 100%;}
-
+        .discover-search-bar-abroad-sec1 {
+          padding: 10px;
+          width: 304px;
+          height: 1%;
+          margin-left: 0px;
+        }
+        .discover-hero-abroad-sec1 {
+          flex-direction: column;
+          padding-bottom: 0px;
+      }
+      .info-box-abroad-sec2 {
+        margin-bottom: 9%;
+        margin-top: -4%;
+        margin-left: 16%;
+        width: 73%;
+    }
 }
 
     
