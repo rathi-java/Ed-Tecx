@@ -1,0 +1,225 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/jobdashboard.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <div class="dashboard-title">Welcome to Jobs Dashboard</div>
+        <div class="dashboard-cards">
+            <div class="dashboard-card post-jobs-card">
+                <div class="card-top">
+                    <img  src="{% static 'img/post-jobs.svg' %}" alt="Post Jobs">
+                </div>
+                <div class="card-content">
+                    <h4>Post Jobs</h4>
+                    <p>Post your job openings across multiple categories</p>
+                </div>
+            </div>
+            <div class="dashboard-card quality-candidates-card">
+                <div class="card-top">
+                    <img  src="{% static 'img/quality-candidates.svg' %}" alt="Quality Candidates">
+                </div>
+                <div class="card-content">
+                    <h4>Quality Candidates</h4>
+                    <p>Quality candidates from freshers to professionals</p>
+                </div>
+            </div>
+            <div class="dashboard-card recruit-faster-card">
+                <div class="card-top">
+                    <img  src="{% static 'img/recruit-faster.svg' %}" alt="Recruit Faster">
+                </div>
+                <div class="card-content">
+                    <h4>Recruit Faster</h4>
+                    <p>Get the right talent quickly and build strong teams</p>
+                </div>
+            </div>
+        </div>
+
+        <span class="add-internship-btn" onclick="toggleInternshipForm()">Add Internship <img src="{% static 'img/add.svg' %}" alt="Add Internship"></span>
+        <span class="add-jobs-btn" onclick="toggleJobForm()">Add Job <img src="{% static 'img/add.svg' %}" alt="Add Job"></span>
+
+        <h3 class="job-post">Jobs & Internships Posted</h3>
+        <div class="posted-jobs-section">  
+            <p>0 jobs posted!</p>
+        </div>
+
+        <!-- Job Form (Initially Hidden) -->
+        <div class="job-form-container" id="jobForm">
+            <h3>Add Job Details</h3>
+            <div class="form-group">
+                <label>Enter a Category</label>
+                <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                <input type="text" placeholder="Add a category for job">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Job Profile</label>
+                    <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter job profile">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter location">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Job Type</label>
+                    <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter job type">
+                </div>
+                <div class="form-group">
+                    <label>Experience Required</label>
+                    <img src="{% static '/img/jobs-icon.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter experience required">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>CTC/Package</label>
+                    <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter CTC/Package">
+                </div>
+                <div class="form-group">
+                    <label>Responsibility</label>
+                    <img src="{% static '/img/person.svg' %}"  alt="Company Icon">
+                    <input type="text" placeholder="Enter responsibilities">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Eligibility</label>
+                    <img src="{% static '/img/person.svg' %}"  alt="Company Icon">
+                    <input type="text" placeholder="Enter eligibility">
+                </div>
+                <div class="form-group">
+                    <label>No. of Openings</label>
+                    <img src="{% static '/img/person.svg' %}"  alt="Company Icon">
+                    <input type="text" placeholder="Enter number of openings">
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label>Skills Required</label>
+                <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                <input type="text" placeholder="Enter required skills">
+            </div>
+            <div class="form-group full-width">
+                <label>Job Description</label>
+                <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                <textarea placeholder="Enter job description (100-200 words)"></textarea>
+            </div>
+            <button>Add Job</button>
+        </div>
+
+        <!-- Internship Form (Initially Hidden) -->
+        <div class="job-form-container" id="internshipForm">
+            <h3>Add Internship Details</h3>
+            <div class="form-group">
+                <label>Enter a Category</label>
+                <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                <input type="text" placeholder="Add a category for internship">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Internship Role</label>
+                    <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter job profile">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter location">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Internship Type</label>
+                    <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter internship type">
+                </div>
+                <!-- <div class="form-group">
+                    <label>Experience Required</label>
+                    <img src="{% static '/img/jobs-icon.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter experience required">
+                </div> -->
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Stipend</label>
+                    <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                    <input type="text" placeholder="Enter Stipend">
+                </div>
+                <div class="form-group">
+                    <label>Responsibility</label>
+                    <img src="{% static '/img/person.svg' %}"  alt="Company Icon">
+                    <input type="text" placeholder="Enter responsibilities">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Eligibility</label>
+                    <img src="{% static '/img/person.svg' %}"  alt="Company Icon">
+                    <input type="text" placeholder="Enter eligibility">
+                </div>
+                <div class="form-group">
+                    <label>No. of Openings</label>
+                    <img src="{% static '/img/person.svg' %}"  alt="Company Icon">
+                    <input type="text" placeholder="Enter number of openings">
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label>Skills Required</label>
+                <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                <input type="text" placeholder="Enter required skills">
+            </div>
+            <div class="form-group full-width">
+                <label>Internship Description</label>
+                <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                <textarea placeholder="Enter internship description (100-200 words)"></textarea>
+            </div>
+            <button>Add Internship </button>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleJobForm() {
+            var jobForm = document.getElementById("jobForm");
+            var internshipForm = document.getElementById("internshipForm");
+            var postedJobs = document.querySelector(".posted-jobs-section");
+
+            if (jobForm.style.display === "none" || jobForm.style.display === "") {
+                jobForm.style.display = "block";
+                internshipForm.style.display = "none"; 
+                postedJobs.style.display = "none"; 
+            } else {
+                jobForm.style.display = "none";
+                postedJobs.style.display = "block"; 
+            }
+        }
+
+        function toggleInternshipForm() {
+            var internshipForm = document.getElementById("internshipForm");
+            var jobForm = document.getElementById("jobForm");
+            var postedJobs = document.querySelector(".posted-jobs-section");
+
+            if (internshipForm.style.display === "none" || internshipForm.style.display === "") {
+                internshipForm.style.display = "block";
+                jobForm.style.display = "none"; 
+                postedJobs.style.display = "none"; 
+            } else {
+                internshipForm.style.display = "none";
+                postedJobs.style.display = "block"; 
+            }
+        }
+    </script>
+
+</body>
+</html>

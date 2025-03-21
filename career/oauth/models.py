@@ -1,11 +1,8 @@
 from django.db import models
-
-# Create your models here.
-# oauth/models.py (OAuth App)
-from django.db import models
 from datetime import date, timedelta
 from django.utils.timezone import now
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.hashers import make_password
 
 class UsersDBManager(BaseUserManager):
     def create_user(self, email, full_name, password=None, **extra_fields):
@@ -49,6 +46,7 @@ class CollegesDb(models.Model):
 
     def __str__(self):
         return f"{self.college_name}, {self.college_location}"
+
 class UsersDB(AbstractBaseUser, PermissionsMixin):
     full_name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
@@ -93,6 +91,8 @@ class UsersDB(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['full_name']
 
     def save(self, *args, **kwargs):
+        if self.password and not self.password.startswith('pbkdf2_'):  # Check if password is already hashed
+            self.password = make_password(self.password)  # Hash the password
         if not self.username:
             last_user = UsersDB.objects.order_by('-id').first()
             if last_user and last_user.username.startswith("USR"):

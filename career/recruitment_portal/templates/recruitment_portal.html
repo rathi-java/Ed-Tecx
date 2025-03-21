@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Job B-B Dashboard</title>
+        <link rel="stylesheet" href="{% static 'css/recruitment_portal.css' %}">
+    </head>
+    <body>
+        <div class="dashboard-container">
+            <header class="header">
+                <div class="logo">
+                    <img src="{% static 'img/readerclub.svg' %}" alt="Logo">
+                </div>
+                <div class="user-info">
+                    <span>Hi Nidhi!</span>
+                    <img src="{% static 'img/user-profile.svg' %}" alt="User">
+                </div>
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+            </header>
+
+            <div class="content-area">
+                <nav class="sidebar" id="sidebar">
+                    <div class="company-logo">
+                        <img src="{% static 'img/google-logo.svg' %}" alt="Company Logo">
+                        <span>Company Name</span>
+                    </div>
+                    <ul>
+                        <li onclick="showSection('dashboard')">
+                            <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Dashboard" class="icon">
+                            <a href="javascript:void(0);">Dashboard</a>
+                        </li>
+                        <li onclick="showSection('jobs')">
+                            <img src="{% static 'img/jobs-icon.svg' %}" alt="Jobs" class="icon">
+                            <a href="javascript:void(0);">Jobs</a>
+                        </li>
+                        <li onclick="showSection('internship')">
+                            <img src="{% static 'img/jobs-icon.svg' %}" alt="Internship" class="icon">
+                            <a href="javascript:void(0);">Internship</a>
+                        </li>
+                        <li onclick="showSection('company')">
+                            <img src="{% static 'img/company-icon.svg' %}" alt="Company" class="icon">
+                            <a href="javascript:void(0);">Company</a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Content Sections (Initially Hidden) -->
+                <main class="main-content">
+                    <div id="dashboard" class="content-section active">
+                        {% include 'dashboardSection/jobdashboard.html' %}
+                    </div>
+                    <div id="jobs" class="content-section">
+                        {% include 'dashboardSection/jobs.html' %}
+                    </div>
+                    <div id="company" class="content-section">
+                        {% include 'dashboardSection/company.html' %}
+                    </div>
+                    <div id="internship" class="content-section">
+                        {% include 'dashboardSection/internship.html' %}
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <script>
+            function showSection(sectionId) {
+                // Hide all sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                // Show selected section
+                document.getElementById(sectionId).classList.add('active');
+            }
+
+            function toggleSidebar() {
+                document.getElementById('sidebar').classList.toggle('active');
+            }
+        </script>
+    </body>
+</html>
+
+<!-- /project_root/
+│── /recruitment_portal/
+│   ├── /static/
+│   │   ├── /css/
+│   │   │   ├── recruitment_portal.css
+│   │   ├── /image/
+│   │   ├── /js/
+│   │   │   ├── recruitment_portal.js
+│   ├── /templates/
+|   │   ├── /dashboardSection/
+|   │   │   ├── jobdashboard.html
+|   |   |   ├── jobs.html
+|   |   |   ├── company.html
+|   |   |   ├── internship.html
+│   │   ├── recruitment_portal.html
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── views.py
+│   ├── urls.py -->
