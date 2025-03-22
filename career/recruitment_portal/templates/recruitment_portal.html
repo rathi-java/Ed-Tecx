@@ -14,8 +14,17 @@
                     <img src="{% static 'img/readerclub.svg' %}" alt="Logo">
                 </div>
                 <div class="user-info">
-                    <span>Hi Nidhi!</span>
-                    <img src="{% static 'img/user-profile.svg' %}" alt="User">
+                    {% if company %}
+                        <span>Hi {{ company.name }}</span>
+                        {% if company.logo %}
+                            <img src="{{ company.logo.url }}" alt="{{ company.name }}">
+                        {% else %}
+                            <img src="{% static 'img/default-company-logo.svg' %}" alt="{{ company.name }}">
+                        {% endif %}
+                    {% else %}
+                        <span>Hi {{ request.session.name }}</span>
+                        <img src="{% static 'img/user-profile.svg' %}" alt="{{ request.session.username }}">
+                    {% endif %}
                 </div>
                 <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
             </header>
@@ -52,7 +61,7 @@
                         {% include 'dashboardSection/jobdashboard.html' %}
                     </div>
                     <div id="jobs" class="content-section">
-                        {% include 'dashboardSection/jobs.html' %}
+                        {% include 'dashboardSection/jobss.html' %}
                     </div>
                     <div id="company" class="content-section">
                         {% include 'dashboardSection/company.html' %}
@@ -96,6 +105,8 @@
 |   |   |   ├── jobs.html
 |   |   |   ├── company.html
 |   |   |   ├── internship.html
+│   │   |   ├── joblist.html
+│   │   |   ├── internshiplist.html
 │   │   ├── recruitment_portal.html
 │   ├── __init__.py
 │   ├── admin.py

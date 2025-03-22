@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/abs_dashboard.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+  <div class="dashh_main_sec">
+    <div class="dashh_mainsidebar">
+        <div class="dashh_mainlogo">
+            <img src="{% static 'images/universitylogo.svg' %}" alt="SGT University Logo">
+            <h2>
+                {% if abroad_studies_b2b %}
+                    {{ abroad_studies_b2b.name }}
+                {% else %}
+                    SGT University
+                {% endif %}
+                <br>
+                <span>
+                    {% if abroad_studies_b2b %}
+                        {{ abroad_studies_b2b.address }}
+                    {% else %}
+                        Gurgaon, Haryana
+                    {% endif %}
+                </span>
+            </h2>
+        </div>
+        <hr>
+        <ul>
+            <li><a href="#" onclick="showPage('dashh_maindashboard')"><img src="{% static 'images/dashboardlogo.svg' %}" alt=""> Dashboard</a></li>
+            <li><a href="#" onclick="showPage('dashh_mainreferral')"><img src="{% static 'images/chain.svg' %}" alt=""> Referral Code</a></li>
+            <li><a href="#" onclick="showPage('dashh_mainstudents')"><img src="{% static 'images/candidateprofile.svg' %}" alt=""> Registered Students</a></li>
+        </ul>
+    </div>
+    
+    <div class="dashh_mainmain-content">
+        <!-- Dashboard Section -->
+        <div id="dashh_maindashboard" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Dashboard</h2>
+            
+            <div class="dashh_mainstats">
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Total Students</p>
+                    <p class="dashh_mainnum">{{ total_students }}</p>
+                </div>
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Approved Students</p>
+                    <p class="dashh_mainnum">{{ approved_students }}</p>
+                </div>
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Rejected Students</p>
+                    <p class="dashh_mainnum">{{ rejected_students }}</p>
+                </div>
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Pending Students</p>
+                    <p class="dashh_mainnum">{{ pending_students }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Referral Code Section -->
+        <div id="dashh_mainreferral" class="dashh_mainpage" style="display: none;">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Referral Code</h2>
+            <div class="dashh_mainreferral-container">
+                <img src="{% static 'images/highlightchain.svg' %}" alt="">
+                <div>
+                    <p class="dashh_mainreferral-code">{{ referral_code }}</p>
+                    <p class="dashh_mainreferral-note"><span>*</span>This referral code is generated only once by the platform and should be filled at the time of registration by students.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Registered Students Section -->
+        <div id="dashh_mainstudents" class="dashh_mainpage" style="display: none;">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Registered Students</h2>
+            <p class="dashh_mainreferral-note"><span>*</span>This is the list of students who are registered using the respective Referral Code.</p>
+            <div class="dashh_mainregistered-container">
+                <table class="dashh_mainstudents-table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone no.</th>
+                        <th>College Name</th>
+                        <th>Referral Code</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for row in rows %}
+                    <tr>
+                        <td>{{ row.s_no }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.email }}</td>
+                        <td>{{ row.phone }}</td>
+                        <td>{{ row.college }}</td>
+                        <td>{{ row.referral_code }}</td>
+                        <td>
+                            <span class="dashh_mainstatus-badge dashh_mainstatus-{{ row.status|lower }}">
+                                {{ row.status }}
+                                {% if row.status == "Pending" %}
+                                <img src="{% static 'images/wall-clock 1.svg' %}" alt="">
+                                {% elif row.status == "Approved" %}
+                                <img src="{% static 'images/approve 2.svg' %}" alt="">
+                                {% elif row.status == "Rejected" %}
+                                <img src="{% static 'images/close 1.svg' %}" alt="">
+                                {% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+  <script>
+      function showPage(pageId) {
+          document.querySelectorAll('.dashh_mainpage').forEach(page => page.style.display = 'none');
+          document.getElementById(pageId).style.display = 'block';
+      }
+  </script>
+</body>
+</html>

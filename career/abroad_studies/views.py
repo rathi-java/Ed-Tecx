@@ -36,59 +36,46 @@ def enquiry_view(request):
 def dashboard(request):
     username = request.session.get('username', "Guest")
     
-    # Get organization information
+    # Get AbroadStudiesBtoB information
     try:
-        organization = AbroadStudiesBtoB.objects.get(username=username)
+        abroad_studies_b2b = AbroadStudiesBtoB.objects.get(username=username)
     except AbroadStudiesBtoB.DoesNotExist:
-        organization = None
+        abroad_studies_b2b = None
     
-    # Filter enquiries by the organization's referral code
-    if organization:
-        enquiries = CounsellingEnquiry.objects.filter(referral_code=organization.referral_code)
+    # Filter enquiries by the referral code
+    if abroad_studies_b2b:
+        enquiries = CounsellingEnquiry.objects.filter(referral_code=abroad_studies_b2b.referral_code)
     else:
         enquiries = []
     
-    # Dynamically get field names from the model
-    fields = []
-    for field in CounsellingEnquiry._meta.get_fields():
-        # Skip ManyToOneRel fields that are auto-created by Django
-        if field.is_relation and not field.concrete:
-            continue
-        if field.name == 'id':
-            continue
-        fields.append(field)
-    
-    # Prepare headers
-    headers = []
-    field_names = []
-    for field in fields:
-        # Get field name
-        field_name = field.name
-        field_names.append(field_name)
-        
-        # Format header name (capitalize and replace underscores with spaces)
-        header = field_name.replace('_', ' ').title()
-        headers.append(header)
-    
-    # Prepare data rows
-    rows = []
-    for enquiry in enquiries:
-        row = []
-        for field_name in field_names:
-            value = getattr(enquiry, field_name)
-            # Format special fields
-            if field_name == 'status':
-                value = value.status if value else "Unknown"
-            elif field_name == 'submitted_at':
-                value = value.strftime("%Y-%m-%d %H:%M")
-            row.append(value)
-        rows.append(row)
-    
+    # Prepare data for stats
+    total_students = len(enquiries)
+    approved_students = enquiries.filter(status__status="Approved").count()
+    pending_students = enquiries.filter(status__status="Pending").count()
+    rejected_students = enquiries.filter(status__status="Rejected").count()
+
+    # Prepare data for the table
+    rows = [
+        {
+            "s_no": idx + 1,
+            "name": enquiry.name,
+            "email": enquiry.email,
+            "phone": enquiry.phone,
+            "college": enquiry.college,
+            "referral_code": enquiry.referral_code,
+            "status": enquiry.status.status if enquiry.status else "Unknown",
+        }
+        for idx, enquiry in enumerate(enquiries)
+    ]
+
+    # Pass data to the template
     context = {
-        'organization': organization,
-        'headers': headers,
+        'abroad_studies_b2b': abroad_studies_b2b,
+        'total_students': total_students,
+        'approved_students': approved_students,
+        'pending_students': pending_students,
+        'rejected_students': rejected_students,
+        'referral_code': abroad_studies_b2b.referral_code if abroad_studies_b2b else "N/A",
         'rows': rows,
-        'username': username
     }
-    
-    return render(request, 'abroadStudiesdashboard.html', context)
+    return render(request, 'abs_dashboard.html', context)

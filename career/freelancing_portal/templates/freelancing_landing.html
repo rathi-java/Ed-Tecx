@@ -282,9 +282,11 @@
         return `<div class="free-card">
             <img src="${STATIC_IMG_URL}${freelancer.img}" alt="${freelancer.name}">
             <div class="free-card-content">
-                <h3 class="free-heading-name">${freelancer.name}</h3>
+               <div class="name-rating">
+                    <h3 class="free-heading-name">${freelancer.name}</h3>
+                    <p class="free-heading-rating"> &#9733;${freelancer.rating}</p>
+                </div>
                 <p class="free-heading-location">${freelancer.location}</p>
-                <div class="free-rating"><span>&#9733; ${freelancer.rating}</span></div>
                 <p class="free-placed">Candidates Placed: ${freelancer.placed}</p>
                 <div class="free-tags">
                     ${freelancer.tags.map(tag => `<span>${tag}</span>`).join('')}

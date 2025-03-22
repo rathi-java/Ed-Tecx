@@ -8,13 +8,10 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/internship.css' %}">
 </head>
-
 <body>
-
-    <div class="internshipp-listings-container">
+    <div class="internshipp-listings-container" id="main-contentt">
         <div class="internshipp-listings-header">
-            <h2 class="internshipp-listings-title">Internship Posted</h2>
-           
+            <h2 class="internshipp-listings-title">internshipp Posted</h2>
         </div>
         
         <div class="internshipp-listings-grid">
@@ -22,31 +19,41 @@
                 <span class="internshipp-category">IT and Software</span>
                 <span class="internshipp-posted-time">2 days ago</span>
                 <h3 class="internshipp-title">Frontend<br> Developer</h3>
-                <a href="#" class="internshipp-view-link">View Candidates</a>
+                <a href="javascript:void(0);" class="internshipp-view-link" onclick="showinternshippList()">View Candidates</a>
             </div>
 
             <div class="internshipp-card-box">
                 <span class="internshipp-category">IT and Software</span>
                 <span class="internshipp-posted-time">2 days ago</span>
-                <h3 class="internshipp-title">Software </br>Engineer</h3>
-                <a href="#" class="internshipp-view-link">View Candidates</a>
+                <h3 class="internshipp-title">Software <br>Engineer</h3>
+                <a href="javascript:void(0);" class="internshipp-view-link" onclick="showinternshippList()">View Candidates</a>
             </div>
 
             <div class="internshipp-card-box">
                 <span class="internshipp-category">Sales & Marketing</span>
                 <span class="internshipp-posted-time">3 days ago</span>
-                <h3 class="internshipp-title">Sales</br> Executive</h3>
-                <a href="#" class="internshipp-view-link">View Candidates</a>
+                <h3 class="internshipp-title">Sales<br> Executive</h3>
+                <a href="javascript:void(0);" class="internshipp-view-link" onclick="showinternshippList()">View Candidates</a>
             </div>
 
             <div class="internshipp-card-box">
-                <span class="internshipp-category">Management</br> & Business</span>
+                <span class="internshipp-category">Management<br> & Business</span>
                 <span class="internshipp-posted-time">5 days ago</span>
-                <h3 class="internshipp-title">Business</br> Analyst</h3>
-                <a href="#" class="internshipp-view-link">View Candidates</a>
+                <h3 class="internshipp-title">Business<br> Analyst</h3>
+                <a href="javascript:void(0);" class="internshipp-view-link" onclick="showinternshippList()">View Candidates</a>
             </div>
         </div>
     </div>
 
+    <!-- Hidden internshipp List Content -->
+    <div id="internshipplist-content" style="display: none;">
+        {% include 'dashboardSection/internshiplist.html' %}
+    </div>
+
+    <script>
+        function showinternshippList() {
+            document.getElementById('main-contentt').innerHTML = document.getElementById('internshipplist-content').innerHTML;
+        }
+    </script>
 </body>
 </html>
