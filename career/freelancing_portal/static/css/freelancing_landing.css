@@ -158,7 +158,7 @@ img.freelance-badge.bdg3 {
 }
 img.freelance-badge.bdg2 {
     position: absolute;
-    top: 50%;
+    top: 200%;
     right: 41%;
 }
 img.freelance-badge.bdg1 {
@@ -676,19 +676,19 @@ img.iconn-imagee {
 }
 img.freelance-badge.bdg1 {
 
-    top: 13%;
+    top: 35%;
     right: 0%;
 }
 
 img.freelance-badge.bdg2 {
    
-    top: 26%;
-    right: 26%;
+    top: 56%;
+    right: 40%;
 }
 img.freelance-badge.bdg3 {
    
-    top: 11%;
-    right: 16%;
+    top: 31%;
+    right: 10%;
 }
 
 
@@ -748,6 +748,7 @@ img.freelance-badge.bdg3 {
         right: 83px;
         margin-left: 287px;
     }
+ 
     img.freelance-badge.bdg1{
         top: 24%;
        right: 0%;
@@ -758,7 +759,7 @@ img.freelance-badge.bdg3 {
         right: 16%;
     }
     img.freelance-badge.bdg2 {
-        top: 52%;
+        top: 40%;
         right: 41%;
     }
     
