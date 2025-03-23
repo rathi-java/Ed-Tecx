@@ -65,7 +65,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
     'dbtools',
-    'policies',    
+    'policies',  
+    'blog',  
 ]
 
 # for Google auth
@@ -262,6 +263,7 @@ CASHFREE_SECRET_KEY = os.getenv("READERCLUB_CASHFREE_SECRET_KEY")
 PAYU_KEY = os.getenv("READERCLUB_PAYU_KEY")
 PAYU_SALT = os.getenv("READERCLUB_PAYU_SALT")
 PAYU_MODE = os.getenv("READERCLUB_PAYU_MODE")
+
 # Email Configuration
 EMAIL_HOST_USER = os.getenv("READERCLUB_EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("READERCLUB_EMAIL_HOST_PASSWORD")

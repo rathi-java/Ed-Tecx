@@ -7,4 +7,5 @@ urlpatterns=[
     path('exam-resisteration-success/', exam_resisteration_success, name="exam_resisteration_success"),
     path('create-exam-order/', create_exam_order, name='create_exam_order'),
     path('handle-exam-payment-success/', handle_exam_payment_success, name='handle_exam_payment_success'),
+    path('initiate-payu-payment/', initiate_payu_payment, name='initiate_payu_payment'),
 ]

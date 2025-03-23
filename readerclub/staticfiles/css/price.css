@@ -21,18 +21,20 @@
     font-family: 'Kite One';
     color: #0f5683;
     margin-bottom: 10px;
-    font-size: 24px;
+    font-size: 23px;
     text-align: center;
 }
 
 
 .plans {
+    margin-top: -45px;
+    /* margin-top: -8%; */
     display: flex
 ;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 113px;
-    padding: 0px 10px;
+    gap: 97px;
+    padding: 39px 10px;
 }
 
 .plan {
@@ -62,8 +64,13 @@
     display: flex;
     justify-content: flex-start;
     gap: 1px;
-
 }
+.payment-payment-img {
+    width: 175px;
+    height: 3px;
+    display:none;
+}
+
 
 .plan-title {
     display: flex;
@@ -185,72 +192,72 @@
 }
 
 /* Modal Overlay */
-.modal-overlay {
+
+.payment-modal-overlay {
+    display: none; /* Hide modals initially */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(93, 91, 91, 0.3);
-    /* backdrop-filter: blur(5px); */
-    display: none;
-    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
     justify-content: center;
-    overflow: hidden;
+    align-items: center;
 }
 
-.modal-content {
+
+.payment-modal-content {
     background: white;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     width: 670px;
     position: relative;
-    border: 3px solid blue;
+    border: 3px solid rgb(91, 91, 216);
     font-family: 'Poppins';
     max-width: 90%;
-    height: 274px;
+    height: 383px;
 }
 
-.modal-content h2 {
+.payment-modal-content h2 {
     font-size: 24px;
     margin: 3px 0;
 }
 
-.modal-content p {
+.payment-modal-content p {
     align-items: center;
     margin: 1px 0;
 }
 
-.icon-jpeg {
+.payment-icon-jpeg {
     width: 80px;
     height: 20px;
     vertical-align: middle;
     margin-left: 5px;
 }
 
-.qr-code img {
+.payment-qr-code img {
     width: 250px;
     height: 250px;
     margin: 10px 0;
     max-width: 100%;
 }
 
-.price {
+.payment-price {
     color: blue;
     font-weight: bold;
 }
 
-.expire-text {
+.payment-expire-text {
     font-size: 14px;
     color: #1e1e1e;
 }
 
-.pay-btn {
+.payment-pay-btn {
     font-family: 'Poppins';
     background: #f1faff;
-    padding: 10px;
-    width: 80%;
+    padding: 16px;
+    width: 100%;
     border-radius: 12px;
     cursor: pointer;
     margin-top: 10px;
@@ -258,7 +265,7 @@
     /* border: 1px solid red; */
 }
 
-.close-btn {
+.payment-close-btn {
     background: red;
     color: white;
     border: none;
@@ -269,7 +276,7 @@
     margin-top: 10px;
 }
 
-.or-divider {
+.payment-or-divider {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -277,15 +284,15 @@
     margin: 10px 0;
 }
 
-.or-divider::before,
-.or-divider::after {
+.payment-or-divider::before,
+.payment-or-divider::after {
     content: "";
     flex: 1;
     height: 1px;
     background-color: gray;
 }
 
-.or-divider span {
+.payment-or-divider span {
     padding: 0 10px;
     font-size: 14px;
     font-weight: bold;
@@ -293,7 +300,9 @@
 }
 
 /* sec3 */
+/* =============new====== */
 
+/* =================new=========== */
 
 
 
@@ -559,9 +568,8 @@
 }
 
 .photo {
-    margin-inline: 35px;
-    width: 390px;
-    margin-top: 0px;
+    margin-inline: 66px;
+    width: 369px;
 }
 
 .pricing-container h1 {
@@ -569,12 +577,18 @@
     font-size: 31px;
     margin-top: 0px;
 }
+.text-content1 h2 {
+    font-size: 48px;
+    padding: 3%;
+    
+}
 
 .text-content1 {
-    margin-left: -10%;
+    margin-right: 13%;
+    /* margin-left: -10%; */
     flex: 1;
     text-align: center;
-    padding: 30px;
+    padding: 2% 0%;
 }
 
 @keyframes fadeIn {
@@ -644,6 +658,9 @@
         gap: 80px;
         padding: 48px 1px;
     }
+    .text-content1 h2 {
+        font-size: 34px;
+    }
 
     .text-content p {
         width: 100%;
@@ -699,6 +716,13 @@
         font-size: 18px;
         padding: 10px;
     }
+    .pricing-container p {
+        font-family: 'Kite One';
+        color: #0f5683;
+        margin-bottom: 10px;
+        font-size: 18px;
+        text-align: center;
+    }
 
     .pricing-container {
 
@@ -726,6 +750,13 @@
         color: #333;
         text-align: center;
 
+    }
+    .text-content1 {
+         margin-right: 0%;
+        /* margin-left: -10%; */
+        flex: 1;
+        text-align: center;
+        padding: 2% 0%;
     }
 
     .plans {
@@ -789,93 +820,6 @@
     }
 
 }
-
-@media (max-width: 426px) {
-    .text-content p {
-        width: 100%;
-        margin: 0px;
-    }
-
-    .sec3-pricing-container {
-        flex-direction: column;
-        width: 100%;
-        gap: 50px;
-    }
-
-    .sec3-pricing-card {
-        width: 100%;
-    }
-
-    .text-content h2 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 33px;
-    }
-}
-
-@media (max-width: 376px) {
-    .photo {
-        width: 67px;
-        margin-left: 203px;
-
-    }
-
-    .text-content h2 {
-
-        font-family: 'Poppins', sans-serif;
-        font-size: 27px;
-        color: #333;
-        text-align: center;
-
-    }
-
-    .photo {
-        width: 67px;
-        margin-left: 203px;
-
-    }
-
-    .text-content p {
-
-        font-family: 'Kite One', sans-serif;
-        font-size: 15px;
-        color: #077bc3;
-
-    }
-
-    .pricing-container h1 {
-
-        top: 10%;
-        font-family: 'Inter';
-        /* margin-bottom: 5px; */
-        color: #3d3d3d;
-        font-size: 26px;
-        text-align: center;
-        display: none;
-    }
-
-    .sec3-pricing-section {
-        width: 100%;
-        margin: 0px;
-
-    }
-
-    .sec3-pricing-container {
-        flex-direction: column;
-        gap: 42px;
-    }
-
-    .sec3-pricing-header {
-        margin-inline: 0;
-    }
-
-    .text-content h2 {
-        margin-bottom: 11px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 24px;
-    }
-}
-
-
 @media (max-width: 426px) {
     .payment-container {
         width: 90%;
@@ -883,6 +827,28 @@
         padding: 0.5rem;
         margin: 11rem auto 0;
         margin-top: 4rem;
+    }
+    .text-content1 h2 {
+        font-size: 31px;
+    }
+    .sec3-pricing-card {
+        width: 100%;
+    }
+    .sec3-pricing-container {
+        /* margin-inline: -3%; */
+        display: flex
+    ;
+        justify-content: space-around;
+        text-align: center;
+        margin-bottom: 5%;
+        flex-direction: column;
+    }
+    .text-content1 {
+         margin-right: 0px; 
+        /* margin-left: -10%; */
+        flex: 1;
+        text-align: center;
+        padding: 2% 0%;
     }
 
 
@@ -923,10 +889,95 @@
     .photo {
         width: 50%;
         margin-top: 0px;
-        margin-left: 0px;
+        
+    }
+    /* ===modal===== */
+    .payment-modal-content {
+       
+        height: 422px;
     }
 }
-.text-content1 h2 {
-    font-size: 48px;
-    font-style:italic;
+
+
+
+@media (max-width: 376px) {
+    .photo {
+            width: 63%;
+            margin-left: 80px;
+        }
+
+    
+
+    .text-content h2 {
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 27px;
+        color: #333;
+        text-align: center;
+
+    }
+    .sec3-pricing-container {
+        /* margin-inline: -3%; */
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        margin-bottom: 5%;
+        flex-direction: column;
+    }
+    .sec3-pricing-card {
+        width: 100%;
+    }
+
+   
+
+    .text-content p {
+
+        font-family: 'Kite One', sans-serif;
+        font-size: 15px;
+        color: #077bc3;
+
+    }
+    .sec3-pricing-header {
+        font-size: 135%;
+
+    .pricing-container h1 {
+
+        top: 10%;
+        font-family: 'Inter';
+        /* margin-bottom: 5px; */
+        color: #3d3d3d;
+        font-size: 26px;
+        text-align: center;
+        display: none;
+    }
+
+    .sec3-pricing-section {
+        width: 100%;
+        margin: 0px;
+
+    }
+
+    .sec3-pricing-container {
+        flex-direction: column;
+        gap: 42px;
+    }
+
+    .sec3-pricing-header {
+        margin-inline: 0;
+    }
+
+    .text-content h2 {
+        margin-bottom: 11px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 24px;
+    }
+}
+}
+@media (max-width:320px){
+    .payment-modal-content {
+        height: 453px;
+    }
+    .text-content1 h2 {
+        font-size: 27px;
+    }   
 }

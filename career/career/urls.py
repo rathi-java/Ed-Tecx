@@ -36,6 +36,7 @@ urlpatterns = [
     path('oauth/', include('oauth.urls')),
     path('recruitment-portal/', include('recruitment_portal.urls')),
     path('freelancing-portal/', include('freelancing_portal.urls')),
+    path('blog/', include('blog.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

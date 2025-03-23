@@ -15,19 +15,6 @@
 
 {% block content %}
 
-<section class="sec1-pricing-section">
-    <div class="container"> 
-        <img class="arrow" src="{% static 'images/arrow.png' %}" alt="Arrow">
-        <div class="text-content">
-            <h2>Explore the best Opportunities for your Success</h2>
-            <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
-        </div>
-        <div class="illustration-container">
-            <img class="bell" src="{% static 'images/bell.png' %}" alt="Bell Icon">
-            <img class="photo" src="{% static 'images/bulb.svg' %}" alt="Person climbing stairs towards trophy">
-        </div>
-    </div>
-</section>
 
 <section class="pricing-section" id="pricing">
   <div class="pricing-container">
@@ -89,49 +76,49 @@
   <!-- Modals for Payments -->
   {% for plan in subscription_plans %}
   {% if plan.plan_type.code != 'basic' %}
-  <div class="modal-overlay" id="{{ plan.plan_type.code }}-modal">
-    <div class="modal-content">
+  <div class="payment-modal-overlay" id="{{ plan.plan_type.code }}-modal">
+    <div class="payment-modal-content">
         <h2>{{ plan.plan_type.display_name }} Plan <span class="price"> &#8377; {{ plan.discounted_price }}/-</span></h2>
-        <p class="payment-head-p">🎉 You're One Step Closer to Your Dream Job!</p>
+        <p class="payment-payment-head-p">🎉 You're One Step Closer to Your Dream Job!</p>
         <br>
 
-        <div id="payment-sub-container">
+        <div id="payment-payment-sub-container">
 
-        <button class="pay-btn" id="payment-box-1" onclick="startPaymentRazorpay('{{ plan.discounted_price }}')">
-            <div class="payment-img">           
+        <button class="payment-pay-btn" id="payment-payment-box-1" onclick="startPaymentRazorpay('{{ plan.discounted_price }}')">
+            <div class="payment-payment-img">           
                 <img src="{% static 'images/razorpay.png' %}" alt="✔">
             </div>
-            <div class="payment-text">
+            <div class="payment-payment-text">
                 <span>Pay via Razorpay</span>
                 <i class="fa-solid fa-circle-check"></i>
             </div>
         </button>
         <p>OR</p>
-        <button class="pay-btn" id="payment-box-3" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
-            <div class="payment-img">
+        <button class="payment-pay-btn" id="payment-payment-box-3" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
+            <div class="payment-payment-img">
                 <img src="{% static 'images/cashfree.png' %}" alt="✔">
             </div>
-            <div class="payment-text">
+            <div class="payment-payment-text">
                 <span>Pay via Cashfree</span>
                 <i class="fa-solid fa-circle-check"></i>
             </div>
         </button>
-         <p>OR</p>
+        <p>OR</p>
             <!-- PayU -->
-            <form action="{% url 'initiate_payment' %}" method="POST" class="pay-btn-form">
+            <form action="{% url 'initiate_payment' %}" method="POST" class="payment-pay-btn-form">
                 {% csrf_token %}
                 <input type="hidden" name="plan_id" value="{{ plan.id }}">
                 <input type="hidden" name="amount" value="{{ plan.discounted_price }}">
-                <button type="submit" class="pay-btn">
-                    <div class="payment-img">
+                <button type="submit" class="payment-pay-btn">
+                    <div class="payment-payment-img">
                         <img src="{% static 'images/payu.png' %}" alt="PayU">
                     </div>
-                    <div class="payment-text">
+                    <div class="payment-payment-text">
                         <span>Pay via PayU (Credit/Debit card, UPI)</span>
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
                 </button>
-            </form> 
+            </form>
         </div>
     </div>
   </div>
@@ -143,17 +130,17 @@
     <h2 class="sec3-pricing-header">Choose the Right Plan for<br> your Journey</h2>
     <div class="sec3-pricing-container">
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/free.png' %}" alt="Free Plan">
+            <img src="{% static 'images/free 1.svg' %}" alt="Free Plan">
             <h3 class="sec3-pricing-title">Basic</h3>
             <p class="sec3-pricing-desc">Perfect for students who want to explore without any commitments. Get access to essential features, and see how it fits your learning style. </p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/june-calendar.png' %}" alt="Monthly Plan">
+            <img src="{% static 'images/calendar 1.svg' %}" alt="Monthly Plan">
             <h3 class="sec3-pricing-title">Monthly</h3>
             <p class="sec3-pricing-desc">Ideal for students who want full access without a long-term commitment. Pay as you go and enjoy exclusive content, premium tools, and priority support.</p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/calendar-days.png' %}" alt="Yearly Plan">
+            <img src="{% static 'images/year.png' %}" alt="Yearly Plan">
             <h3 class="sec3-pricing-title">Yearly</h3>
             <p class="sec3-pricing-desc">For students who are dedicated to upskilling and securing better opportunities. Get a full year of premium benefits at the lowest cost per month!</p>
         </div>
@@ -205,7 +192,7 @@ document.querySelectorAll(".purchase-btn").forEach(button => {
 });
 
 // Hide modal when clicking outside content
-document.querySelectorAll(".modal-overlay").forEach(modal => {
+document.querySelectorAll(".payment-modal-overlay").forEach(modal => {
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
             modal.style.display = "none";
@@ -228,7 +215,7 @@ function closePaymentModal() {
 
 function startPaymentRazorpay(amount) {
     // Show loading indicator
-    document.getElementById("payment-box-1").innerHTML = '<span>Processing...</span>';
+    document.getElementById("payment-payment-box-1").innerHTML = '<span>Processing...</span>';
     
     fetch("{% url 'create_order' %}", {
         method: "POST",
@@ -241,7 +228,7 @@ function startPaymentRazorpay(amount) {
     .then(response => response.json())
     .then(order => {
         // Restore button content
-        document.getElementById("payment-box-1").innerHTML = `
+        document.getElementById("payment-payment-box-1").innerHTML = `
             <div class="payment-img">           
                 <img src="{% static 'images/razorpay.png' %}" alt="✔">
             </div>
@@ -286,7 +273,7 @@ function startPaymentRazorpay(amount) {
         alert("There was an error with Razorpay. Please try Cashfree instead.");
         
         // Restore button content
-        document.getElementById("payment-box-1").innerHTML = `
+        document.getElementById("payment-payment-box-1").innerHTML = `
             <div class="payment-img">           
                 <img src="{% static 'images/razorpay.png' %}" alt="✔">
             </div>
@@ -300,7 +287,7 @@ function startPaymentRazorpay(amount) {
 
 function startPaymentCashfree(amount) {
     // Show loading indicator
-    document.getElementById("payment-box-3").innerHTML = '<span>Processing...</span>';
+    document.getElementById("payment-payment-box-3").innerHTML = '<span>Processing...</span>';
     
     fetch("{% url 'create_cashfree_order' %}", {
         method: "POST",
@@ -313,7 +300,7 @@ function startPaymentCashfree(amount) {
     .then(response => response.json())
     .then(order => {
         // Restore button content
-        document.getElementById("payment-box-3").innerHTML = `
+        document.getElementById("payment-payment-box-3").innerHTML = `
             <div class="payment-img">
                 <img src="{% static 'images/cashfree.png' %}" alt="✔">
             </div>
@@ -363,7 +350,7 @@ function startPaymentCashfree(amount) {
         alert("There was an error connecting to the payment gateway. Please try again later.");
         
         // Restore button content
-        document.getElementById("payment-box-3").innerHTML = `
+        document.getElementById("payment-payment-box-3").innerHTML = `
             <div class="payment-img">
                 <img src="{% static 'images/cashfree.png' %}" alt="✔">
             </div>

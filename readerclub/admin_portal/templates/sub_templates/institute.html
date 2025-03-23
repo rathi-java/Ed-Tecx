@@ -1,0 +1,95 @@
+{% load static %} 
+
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+
+{% if section == "manage_institute_section" %}
+<!-- Manage Institute Section -->
+<div class="content current_page_action" data-page-name="manage_institute">
+    <h3>&nbsp;Institute / Manage Institute</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="search-institute" placeholder="Search by Name or Email..." onkeyup="filterInstitutes()">
+            <button class="add-button" data-page-name="add_institute" onclick="setActive(this)">Add Institute +</button>
+        </div>
+        <table id="institute-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Institute Name</th>
+                    <th class="institute-email">Email</th>
+                    <th>Phone No.</th>
+                    <th>Address</th>
+                    <th>Admin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- { for institute in institutes %} -->
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ institute.name }}</td>
+                    <td class="institute-email">{{ institute.email }}</td>
+                    <td>{{ institute.phone_number }}</td>
+                    <td>{{ institute.address }}</td>
+                    <td>
+                        <select onchange="assignAdmin('{{ institute.id }}', this.value)">
+                            <option value="">Select Admin</option>
+                            <!-- { for admin in admins %} -->
+                            <option value="{{ admin.id }}" {% if institute.admin == admin %}selected{% endif %}>{{ admin.username }}</option>
+                            <!-- { endfor %} -->
+                        </select>
+                    </td>
+                    <td>
+                        <button class="edit-btn" onclick="editInstitute('{{ institute.id }}', '{{ institute.name|escapejs }}', '{{ institute.email|escapejs }}', '{{ institute.phone_number|escapejs }}', '{{ institute.address|escapejs }}')">Edit</button>
+                        <form class="form-edit" method="POST" action="{% url 'manage_institute' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="institute_id" value="{{ institute.id }}">
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this institute?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- { empty %} -->
+                <tr>
+                    <td class="form-data" colspan="7">No institutes found.</td>
+                </tr>
+                <!-- { endfor %} -->
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% if section == "add_institute_section" %}
+<!-- Add/Edit Institute Section -->
+<div class="content current_page_action" data-page-name="add_institute">
+    <h3>&nbsp;Institute / Add Institute</h3>
+    <div class="container">
+        <div class="title">Manage Institute</div>
+        <form method="POST" action="{% url 'manage_institute' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="add_edit">
+            <input type="hidden" name="institute_id" id="institute_id">
+            <div class="input-group">
+                <label for="institute_name">Institute Name</label>
+                <input type="text" name="institute_name" id="institute_name" placeholder="Enter Institute Name" required>
+            </div>
+            <div class="input-group">
+                <label for="institute_email">Email</label>
+                <input type="email" name="institute_email" id="institute_email" placeholder="Enter Email" required>
+            </div>
+            <div class="input-group">
+                <label for="institute_phone">Phone No.</label>
+                <input type="text" name="institute_phone_number" id="institute_phone" placeholder="Enter phone no.">
+            </div>
+            <div class="input-group">
+                <label for="institute_address">Address</label>
+                <input type="text" name="institute_address" id="institute_address" placeholder="Enter Address" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
