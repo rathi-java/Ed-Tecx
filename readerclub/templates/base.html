@@ -183,6 +183,7 @@
           <p class="footer-para">Useful Links</p>
           <ul>
             <li><a href="{% url 'about_us' %}" class="no-underline">About Us</a></li>
+            <li><a href="{% url 'readerclub_blog_list' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')" class="no-underline">Blogs</a></li>
             <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')" class="no-underline">Placement Stories</a></li>
             <li><a href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')" class="no-underline">Career</a></li>
             <li><a href="{% url 'privacy_policy' %}" class="no-underline">Privacy Policy</a></li>
@@ -199,14 +200,6 @@
             <li><a href="{% url 'finance_practice' %}" onclick="handleAuthCheck(event, '{% url 'finance_practice' %}')">Management</a></li>
             <li><a href="{% url 'abstract_reasoning_practice' %}" onclick="handleAuthCheck(event, '{% url 'abstract_reasoning_practice' %}')">Aptitude</a></li>
             <li><a href="{% url 'coding_practice' %}" onclick="handleAuthCheck(event, '{% url 'coding_practice' %}')">Coding</a></li>        
-          </ul>
-        </div>
-        
-        <!-- Blogs -->
-        <div class="footer-practice">
-          <p class="footer-para">Reader Blogs</p>
-          <ul>
-              <li><a href="{% url 'readerclub_blog_list' %}" >Blogs</a></li>        
           </ul>
         </div>
 
