@@ -175,6 +175,53 @@
                     <li data-page-name="manage_placement_stories"><a class="section_items"  href="{% url 'manage-placement-story-section' %}?section=manage_placement_story_section"><span class="fas fa-clipboard-list"></span><p class="section_subheadings"> Manage Stories</p></a></li>
                     <li data-page-name="add_placement_stories"><a class="section_items"  href="{% url 'add-placement-story-section' %}?section=add_placement_story_section"><span class="fas fa-plus"></span><p class="section_subheadings"> Add Story</p></a></li>
                 </ul>
+                {% comment %} <!-- Institutes Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('institutes-menu', this)">
+                    <span class="fas fa-university"></span>
+                    <p class="section_headings">&nbsp;&nbsp;&nbsp;Institutes</p>
+                    <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="institutes-menu">
+                    <li data-page-name="manage_institutes">
+                        <a class="section_items" href="{% url 'manage_institutes' %}?section=manage_institutes_section">
+                            <span class="fas fa-clipboard-list"></span>
+                            <p class="section_subheadings">Manage Institutes</p>
+                        </a>
+                    </li>
+                    <li data-page-name="add_institute">
+                        <a class="section_items" href="{% url 'manage_institutes' %}?section=add_institutes_section">
+                            <span class="fas fa-user-plus"></span>
+                            <p class="section_subheadings"> Add Institute</p>
+                        </a>
+                    </li>
+                </ul> {% endcomment %}
+                <!-- Blogs Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('blogs-menu', this)">
+                    <span class="fas fa-blog"></span>
+                    <p class="section_headings">&nbsp;&nbsp;&nbsp;Blogs</p>
+                    <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="blogs-menu">
+                    <li data-page-name="manage_blogs">
+                        <a class="section_items" href="{% url 'readerclub_blog_list' %}?section=manage_blogs_section">
+                            <span class="fas fa-clipboard-list"></span>
+                            <p class="section_subheadings">Manage R.C. Blogs</p>
+                        </a>
+                    </li>
+                    <li data-page-name="manage_blogs">
+                        <a class="section_items" href="{% url 'career_blog_list' %}?section=manage_blogs_section">
+                            <span class="fas fa-clipboard-list"></span>
+                            <p class="section_subheadings">Manage C. Blogs</p>
+                        </a>
+                    </li>
+                    <li data-page-name="add_blog">
+                        <a class="section_items" href="{% url 'form' %}?section=add_blogs_section">
+                            <span class="fas fa-plus-circle"></span>
+                            <p class="section_subheadings"> Add Blog</p>
+                        </a>
+                    </li>
+                </ul>
+
             </ul>
         </div>
 
@@ -241,6 +288,8 @@
             {% include "sub_templates/placement_stories.html" %}
             {% elif section == "add_placement_story_section" %}
             {% include "sub_templates/placement_stories.html" %}
+            {% elif section == "manage_institutes_section" or section == "add_institutes_section" %}
+            {% include "sub_templates/institute.html" %}
             {% else %}
             {% include "sub_templates/dash.html" %}
             {% endif %}

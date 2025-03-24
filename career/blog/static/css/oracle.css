@@ -1,0 +1,243 @@
+/* oracle.css */
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
+.oracle-main {
+    background-color: white;
+    width: 100%;
+}
+
+.oracle-body {
+    background-color: white;
+    padding-top: 80px; /* Adjust based on navbar height */
+    margin-left: 300px; /* Space for TOC */
+}
+
+.oracle-navbar {
+    background-color: grey;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 10px 0;
+}
+
+.reader {
+    font-size: 20px;
+    font-weight: 700;
+    padding-inline: 6%;
+    color: black;
+}
+
+.see {
+    margin-left: 7%;
+    margin-inline: 35px;
+    line-height: 53px;
+    font-size: 22px;
+    width: 71%;
+    color: black;
+}
+
+.oracle-header-one {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6%;
+}
+
+.oracle-header-two {
+    color: black;
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    gap: 77px;
+}
+
+.oracle-header-two a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.oracle-header-two a:hover {
+    color: #007bff;
+}
+
+.oracle-header-three {
+    gap: 36px;
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.oracle-header-search, .oracle-header-list {
+    color: black;
+    width: 40px;
+    height: 60px;
+    cursor: pointer;
+}
+
+.oracle-mid1 {
+    display: flex;
+    background-color: rgb(176, 204, 243);
+    padding: 20px 6%;
+}
+
+.one {
+    width: 60%;
+}
+
+.two {
+    width: 40%;
+}
+
+.blog-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.obttns {
+    width: 100%;
+    font-size: 1.4rem;
+    margin-bottom: -1.6rem;
+    display: flex;
+    margin-left: 32px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.obttn1 {
+    border-radius: 6%;
+    padding: 1%;
+    font-size: 15px;
+    background-color: white;
+    box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    direction: row;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    align-items: center;
+    margin: 0 1.6rem 1.6rem 0;
+}
+
+.obttn1 p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.oracle-middle {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    position: relative;
+    z-index: 1;
+    padding-left: 48px;
+    padding-right: 48px;
+    margin-top: 1%;
+}
+
+.oracle-middle-part2 {
+    width: 100%;
+    padding-left: 6%;
+}
+
+.ERP {
+    max-width: 1468px;
+}
+
+.rw-ptitle {
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+    line-height: 1.6;
+}
+
+.author-section {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.author-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.author-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.meta-info {
+    margin-top: 20px;
+}
+
+.meta-info p {
+    margin: 5px 0;
+}
+
+.tags {
+    margin-top: 10px;
+}
+
+.tags span {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 0.9rem;
+}

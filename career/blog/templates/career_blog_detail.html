@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blog.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/oracle.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ul>
+            {% for section in blog.sections.all %}
+                <li><a href="#{{ section.slug }}">{{ section.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Blog Content -->
+    <div class="oracle-body">
+        <div class="oracle-mid1">
+            <div class="one">
+                <p class="see">{{ blog.short_description }}</p>
+                <div class="obttns">
+                    <div class="obttn1">
+                        <p>{{ blog.author }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="two">
+                <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-image">
+            </div>
+        </div>
+
+        <div class="oracle-middle">
+            <!-- Blog Sections -->
+            <div class="oracle-middle-part2">
+                <section class="part2-section1">
+                    <div class="ERP">
+                        <h2 class="rw-ptitle">{{ blog.title }}</h2>
+                        <p>{{ blog.content|safe }}</p> <!-- Use |safe to render HTML -->
+                    </div>
+                </section>
+
+                <!-- Dynamic Sections -->
+                {% for section in blog.sections.all %}
+                    <section id="{{ section.slug }}" class="part2-section1">
+                        <div class="ERP">
+                            <h2>{{ section.title }}</h2>
+                            <p>{{ section.content|safe }}</p> <!-- Use |safe to render HTML -->
+                        </div>
+                    </section>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Author Details -->
+        <div class="author-section">
+            <div class="author-info">
+                {% if blog.author_image %}
+                    <img src="{{ blog.author_image.url }}" alt="{{ blog.author }}">
+                {% else %}
+                    <img src="{% static 'images/author_images/default_author_image.png' %}" alt="{{ blog.author }}">
+                {% endif %}
+                <h3>{{ blog.author }}</h3>
+                <p>{{ blog.author_description }}</p>
+            </div>
+            <div class="meta-info">
+                <p><strong>Category:</strong> {{ blog.category }}</p>
+                <p><strong>Published Date:</strong> {{ blog.published_date|date:"F j, Y" }}</p>
+                <div class="tags">
+                    <strong>Tags:</strong>
+                    {% for tag in blog.tags.all %}
+                        <span>{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

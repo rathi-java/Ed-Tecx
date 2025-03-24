@@ -21,6 +21,7 @@ urlpatterns = [
     path('manage-user/', manage_users, name='manage-user-section'),
     path('manage-placement-stories/', dashboard, name='manage-placement-story-section'),
     path("manage-exam/", dashboard, name="manage-exam-section"),
+    # path('manage-institutes/', manage_institutes, name='manage_institutes'),
 
     path('certificate-req/', dashboard, name='certificate-req'),
     path("add-student/", add_student, name="add_student"),

@@ -377,8 +377,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     let checkboxes = document.querySelectorAll(".question-checkbox");
-    document.getElementById("btnSelectAll").addEventListener("click", () => checkboxes.forEach(c => c.checked = true));
-    document.getElementById("btnDeselectAll").addEventListener("click", () => checkboxes.forEach(c => c.checked = false));
+    let btnSelectAll = document.getElementById("btnSelectAll");
+    let btnDeselectAll = document.getElementById("btnDeselectAll");
+
+    if (btnSelectAll) {
+        btnSelectAll.addEventListener("click", () => checkboxes.forEach(c => c.checked = true));
+    }
+
+    if (btnDeselectAll) {
+        btnDeselectAll.addEventListener("click", () => checkboxes.forEach(c => c.checked = false));
+    }
 });
 
 function openStoryForm() {

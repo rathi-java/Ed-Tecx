@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/job.css' %}">
+</head>
+<body>
+    <div class="job-listings-container" id="main-content">
+        <div class="job-listings-header">
+            <h2 class="job-listings-title">Jobs Posted</h2>
+        </div>
+        
+        <div class="job-listings-grid">
+            <div class="job-card-box">
+                <span class="job-category">IT and Software</span>
+                <span class="job-posted-time">2 days ago</span>
+                <h3 class="job-title">Frontend<br> Developer</h3>
+                <a href="javascript:void(0);" class="job-view-link" onclick="showJobList()">View Candidates</a>
+            </div>
+
+            <div class="job-card-box">
+                <span class="job-category">IT and Software</span>
+                <span class="job-posted-time">2 days ago</span>
+                <h3 class="job-title">Software <br>Engineer</h3>
+                <a href="javascript:void(0);" class="job-view-link" onclick="showJobList()">View Candidates</a>
+            </div>
+
+            <div class="job-card-box">
+                <span class="job-category">Sales & Marketing</span>
+                <span class="job-posted-time">3 days ago</span>
+                <h3 class="job-title">Sales<br> Executive</h3>
+                <a href="javascript:void(0);" class="job-view-link" onclick="showJobList()">View Candidates</a>
+            </div>
+
+            <div class="job-card-box">
+                <span class="job-category">Management<br> & Business</span>
+                <span class="job-posted-time">5 days ago</span>
+                <h3 class="job-title">Business<br> Analyst</h3>
+                <a href="javascript:void(0);" class="job-view-link" onclick="showJobList()">View Candidates</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Job List Content -->
+    <div id="joblist-content" style="display: none;">
+        {% include 'dashboardSection/joblist.html' %}
+    </div>
+
+    <script>
+        function showJobList() {
+            document.getElementById('main-content').innerHTML = document.getElementById('joblist-content').innerHTML;
+        }
+    </script>
+
+</body>
+</html>

@@ -33,16 +33,28 @@ def profile(request):
     Display user profile info.
     """
     user_id = request.session.get('user_id')
+    role = request.session.get('role')  # Get the role from the session
     user = None
+    company_details = None
 
     if user_id:
         try:
-            user = UsersDB.objects.get(id=user_id)
-        except UsersDB.DoesNotExist:
+            if role == "company":
+                from recruitment_portal.models import Company
+                company_details = Company.objects.get(id=user_id)  # Fetch all company details
+            else:
+                user = UsersDB.objects.get(id=user_id)  # Fetch normal user details
+        except (UsersDB.DoesNotExist, Company.DoesNotExist):
             request.session.flush()  # Clear session if user not found
             messages.error(request, "Session expired. Please login again.")
             return redirect('/')
-    return render(request, 'profile.html', {'user': user})
+    
+    # Pass company details if the role is "company", otherwise pass user details
+    return render(request, 'profile.html', {
+        'user': user,
+        'company': company_details,
+        'role': role
+    })
 
 
 def update_profile(request):
@@ -217,8 +229,20 @@ def user_login(request):
                 valid_password = check_password(password, user.password)
                 role = "abroad_studies"
 
+        # Check if the username starts with "COM" (Company login)
+        elif user_input.startswith("COM"):
+            from recruitment_portal.models import Company
+            user = Company.objects.filter(username=user_input).first()
+            if user:
+                valid_password = check_password(password, user.password)
+                role = "company"
+                # Set company-specific session details
+                request.session['company_id'] = user.id
+                request.session['company_name'] = user.name
+                request.session['company_email'] = user.email
+
+        # Check for normal user login
         else:
-            # Simple user check for email, phone, or username
             user = (
                 UsersDB.objects.filter(email=user_input).first() or
                 UsersDB.objects.filter(phone_number=user_input).first() or
@@ -238,12 +262,11 @@ def user_login(request):
             user.last_login = now()
             user.save()
 
-            messages.success(request, f"Welcome back, {user.name if role == 'abroad_studies' else user.full_name}!")
-
             # Redirect based on role
             redirect_urls = {
                 "abroad_studies": "/abroad-studies/dashboard/",  # Replace with the actual dashboard URL
-                "user": "home"
+                "user": "home",
+                "company": "/recruitment-portal/"  # Redirect company users to their dashboard
             }
             return redirect(redirect_urls.get(role, '/'))
         else:

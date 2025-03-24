@@ -92,6 +92,7 @@ def dashboard(request):
         "students": StudentsDB.objects.all(),
         "certificates": certificates,
         "stories": PlacementStories.objects.all(),
+        # "institutes": InstituteDB.objects.all(),
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -114,6 +115,7 @@ def dashboard(request):
         'section': section,
         'user': user,
         'user_role': user_role,  # Add the user role to the context
+        'section': "dashboard_section",
     }
     return render(request, 'dashboard.html', context)
 
@@ -946,6 +948,53 @@ def delete_exam(request, exam_id):
         # except Exam.DoesNotExist:
         #     messages.error(request, "Exam not found.")
     return redirect('list_exams')
+
+# def manage_institutes(request):
+#     section = request.GET.get("section", "manage_institutes_section")
+#     institutes = InstituteDB.objects.all()  
+
+#     if request.method == "POST":
+#         action = request.POST.get("action")
+
+#         if action == "add_edit":
+#             institute_id = request.POST.get("institute_id")
+#             name = request.POST.get("institute_name")
+#             email = request.POST.get("institute_email")
+#             phone_number = request.POST.get("institute_phone_number")
+#             address = request.POST.get("institute_address")
+
+#             try:
+#                 if institute_id:
+#                     institute = get_object_or_404(InstituteDB, id=institute_id)
+#                     institute.name = name
+#                     institute.email = email
+#                     institute.phone_number = phone_number
+#                     institute.address = address
+#                     institute.save()
+#                     messages.success(request, "Institute updated successfully!")
+#                 else:
+#                     institute = InstituteDB(
+#                         name=name,
+#                         email=email,
+#                         phone_number=phone_number,
+#                         address=address
+#                     )
+#                     institute.save()
+#                     messages.success(request, "Institute added successfully!")
+#             except IntegrityError as e:
+#                 messages.error(request, f"Error: {e}")
+#                 return redirect("dashboard")
+
+#         elif action == "delete":
+#             institute_id = request.POST.get("institute_id")
+#             institute = get_object_or_404(InstituteDB, id=institute_id)
+#             institute.delete()
+#             messages.success(request, "Institute deleted successfully!")
+
+#         return HttpResponseRedirect(reverse("dashboard") + "?section=manage_institutes_section")
+
+#     # return render(request, "dashboard.html", {"section": section, "institutes": institutes})
+#     return redirect("dashboard")
 
 def transfer_manager(request, manager_id, new_admin_id):
     if request.method == "POST":

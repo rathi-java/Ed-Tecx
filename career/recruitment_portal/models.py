@@ -1,8 +1,13 @@
 from django.db import models
 from django.conf import settings
 
-# Create your models here.
+#   Create your models here.
+from django.db import models
+from django.conf import settings
+from django.contrib.auth.hashers import make_password
+
 class Company(models.Model):
+    username = models.CharField(max_length=200, unique=True, blank=True, null=True)
     name = models.CharField(max_length=255)
     address = models.TextField()
     email = models.EmailField(unique=True)
@@ -13,15 +18,27 @@ class Company(models.Model):
     established_year = models.IntegerField()
     company_code = models.CharField(max_length=6, unique=True, blank=True, null=True)
     industry_type = models.CharField(max_length=255)
+    password = models.CharField(max_length=128)  # Store hashed password
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        # Check and set company_code instead of category_code
+        # Ensure password is hashed
+        if not self.password.startswith('pbkdf2_sha256$'):  # Avoid re-hashing an already hashed password
+            self.password = make_password(self.password)
+
+        # Generate unique company code
         if not self.company_code:
             last_company = Company.objects.order_by('-id').first()
             new_id = int(last_company.company_code[2:]) + 1 if last_company and last_company.company_code else 1
             self.company_code = f'CO{new_id:04d}'
+
+        # Generate unique username starting with COM0000
+        if not self.username:
+            last_company = Company.objects.order_by('-id').first()
+            new_id = int(last_company.username[3:]) + 1 if last_company and last_company.username else 1
+            self.username = f'COM{new_id:04d}'
+
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -29,6 +46,7 @@ class Company(models.Model):
 
     class Meta:
         db_table = 'recuritment_portal_company_details'
+
 class ApplicantDetail(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # OAuth User link
     first_name = models.CharField(max_length=255)

@@ -145,9 +145,6 @@ p.subinternship-text {
 }
 @media (max-width: 1204px) {
   
-  .nav-container {
-    max-width: 96%;
-  }
 .campus-section  p {
 color: #4d4b4b;
 font-family: "Poppins";

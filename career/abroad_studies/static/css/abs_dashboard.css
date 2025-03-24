@@ -1,0 +1,447 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: skyblue;
+    width: 100vw;
+
+
+}
+.dashh_main_sec{
+    display: flex;
+    width: 99vw;
+}
+.dashh_mainsidebar {
+    width: 250px;
+    background: #fff;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
+}
+.dashh_mainsidebar .dashh_mainlogo h2 {
+    color: #485157;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Inter';
+    margin-inline: 5%;
+    text-align: justify;
+}
+.dashh_mainsidebar .dashh_mainlogo span {
+    color: #66737C;
+    font-size: 12px;
+}
+.dashh_mainsidebar h2 {
+    color: #007bff;
+    text-align: center;
+}
+.dashh_mainsidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.dashh_mainsidebar ul li {
+    padding: 15px;
+
+}
+.dashh_mainsidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+.dashh_mainsidebar ul li a:hover {
+    background: #077BC3;
+    color: #fff;
+}
+.dashh_mainmain-content {
+    flex: 1;
+    padding: 20px;
+}
+.dashh_mainstats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+.dashh_maincard {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background: #007bff;
+    color: #fff;
+}
+
+
+
+/* DASHBOARD */
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+/* Sidebar Styling */
+.dashh_mainsidebar {
+    width: 250px;
+    background: #fff;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+.dashh_mainsidebar h2 {
+    color: #077BC3;
+    text-align: center;
+}
+.dashh_mainsidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.dashh_mainsidebar ul li {
+    padding: 9px;
+}
+.dashh_mainsidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+.dashh_mainsidebar ul li a:hover {
+    background: #077BC3;
+    color: #fff;
+}
+#dashh_maindashboard h2 img{
+        margin-inline: 1%;
+}
+#dashh_maindashboard h2{
+    color: #485157;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.dashh_mainrd1{
+   font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #5A6369;
+    margin-block: 0px;
+
+}
+p.dashh_mainnum {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 26px;
+    margin-block: 7px;
+}
+
+
+/* Main Content Styling */
+.dashh_mainmain-content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    margin: 9px;
+    border-radius: 20px;
+}
+
+/* Dashboard Stats Grid */
+.dashh_mainstats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 40px
+}
+.dashh_maincard {
+    background: #fff;
+    /* padding: 20px; */
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    position: relative;
+    height: 68px;
+}
+/* Card Border Bottom Colors */
+.dashh_maincard:nth-child(1), .dashh_maincard:nth-child(5), .dashh_maincard:nth-child(9) { border-bottom: 5px solid #82caff; }
+.dashh_maincard:nth-child(2), .dashh_maincard:nth-child(6), .dashh_maincard:nth-child(10) { border-bottom: 5px solid #ffe599; }
+.dashh_maincard:nth-child(3), .dashh_maincard:nth-child(7), .dashh_maincard:nth-child(11) { border-bottom: 5px solid #f8a2c5; }
+.dashh_maincard:nth-child(4), .dashh_maincard:nth-child(8), .dashh_maincard:nth-child(12) { border-bottom: 5px solid #9ff5d5; }
+
+/* REFERAL CODE */
+/* Referral Code Page Styling */
+.dashh_mainreferral-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    margin: 20px auto;
+    /* border-left: 5px solid #007bff; */
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    box-shadow: 0px 0px 7.6px 1px #D0DAE0;
+
+}
+.dashh_mainpage h2 {
+    color: #485157;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+.dashh_mainpage img{
+    margin-inline: 1%;
+}
+.dashh_mainreferral-icon {
+    font-size: 50px;
+    color: #077BC3;
+}
+
+.dashh_mainreferral-code {
+    color: #485157;
+    margin-block: 0px;
+    font-family: 'Inter', sans-serif;
+font-weight: 600;
+font-size: 26px;
+line-height: 100%;
+letter-spacing: 0%;
+
+}
+
+.dashh_mainreferral-note {
+    font-size: 13px;
+    color: #5C6265;
+    margin-top: 5px;
+    font-family: 'Poppins';
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin-top: 1%;
+}
+.dashh_mainreferral-note span{
+    color: rgb(220, 6, 6);
+}
+
+
+
+/* REgistered student */
+/* Registered Students Page Styling */
+.dashh_mainregistered-container {
+    background: #fff;
+    width: 95%;
+    margin: 20px auto;
+    overflow-x: auto;
+}
+
+.dashh_mainregistered-container h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.dashh_mainregistered-container p {
+    font-size: 14px;
+    color: rgb(220, 6, 6);
+    margin-bottom: 10px;
+}
+
+/* Table Styling */
+.dashh_mainstudents-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    /* box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); */
+    border: 2px solid #077BC3;
+    border-radius: 20px;
+    
+}
+
+
+.dashh_mainstudents-table th, .dashh_mainstudents-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: gray;
+}
+.dashh_mainstudents-table th {
+    background: #F8FCFF;
+   color: #077BC3;
+}
+
+/* Status Badges */
+.dashh_mainstatus-badge {
+    padding: 6px 0px;
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 56px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.dashh_mainstatus-pending {
+    background-color: #f4f4f4;
+    color: #777;
+    border: 1px solid #ccc;
+}
+
+.dashh_mainstatus-approved {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.dashh_mainstatus-rejected {
+    background-color: #f8d7da;
+    color: rgb(220, 6, 6);
+    border: 1px solid #f5c6cb;
+}
+
+/* Icons */
+.dashh_mainstatus-icon {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+
+/* sidebarr css */
+/* Sidebar Styling */
+.dashh_mainsidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    border-radius: 20px;
+}
+
+/* Logo Section */
+.dashh_mainlogo {
+    text-align: center;
+    /* margin-bottom: 20px; */
+    display: flex;
+    /* padding-bottom: 7%; */
+    width: 97%;
+}
+.dashh_mainlogo hr {
+    color: skyblue;
+    width: 115%;
+    margin-inline: -8%;
+    
+}
+
+.dashh_mainlogo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.dashh_mainlogo h2 {
+    font-size: 18px;
+    color: #333;
+    margin: 5px 0;
+}
+
+.dashh_mainlogo p {
+    font-size: 12px;
+    color: gray;
+}
+
+/* Navigation List */
+.dashh_mainsidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* Navigation Links */
+.dashh_mainsidebar ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 15px;
+    color:  #485157;
+    padding: 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+    gap: 25px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+
+}
+
+.dashh_mainsidebar ul li a .icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* Active & Hover Effects */
+.dashh_mainsidebar ul li a:hover,
+.dashh_mainsidebar ul li a.active {
+    background-color: #077BC3;
+    color: #fff;
+}
+
+@media (max-width: 1200px) {
+
+    .dashh_mainsidebar {
+        width: 200px;
+    }
+    .dashh_mainstats {
+        display: grid
+    ;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+}
+@media (max-width: 768px) {
+    .dashh_mainstats {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+}
+@media (max-width: 426px) {
+    .dashh_main_sec {
+        display: flex
+    ;
+        width: 100vw;
+        flex-direction: column;
+    }
+    .dashh_mainsidebar {
+        width: 45%;
+        height: 15%;
+        flex-direction: column;
+        display: none;
+    }
+}

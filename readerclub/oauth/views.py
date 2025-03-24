@@ -22,6 +22,7 @@ from admin_portal.models import *
 def home(request):
     
     return render(request, 'index.html',{"CAREER_URL": settings.CAREER_URL})
+
 def update_profile(request):
     if request.method == "POST":
         user_id = request.session.get('user_id')
@@ -89,9 +90,6 @@ def profile(request):
 
     return render(request, 'profile.html', {'user': user})
 
-
-# def home(request):
-#     return render(request, 'index.html')
 
 
 def logout_page(request):

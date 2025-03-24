@@ -27,5 +27,7 @@ class RoleBasedRedirectMiddleware:
                 return redirect('/abroad-studies/dashboard/')  # Replace with actual dashboard URL
             elif role == "user" and not request.path.startswith('/home/'):
                 return redirect('/home/')  # Replace with actual home URL
+            elif role == "company" and not request.path.startswith('/recruitment-portal/'):
+                return redirect('/recruitment-portal/')  # Redirect company users to their dashboard
 
         return self.get_response(request)

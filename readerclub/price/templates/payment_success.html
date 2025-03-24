@@ -1,3 +1,17 @@
-<h2>Payment Successful</h2>
-<p>Your payment was successful. Thank you!</p>
-<button><a href="{% url 'price' %}">Go Back</a></button>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <link rel="stylesheet" href="{% static 'css/payment_success.css' %}">
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Payment Successful</h2>
+        <p>Your payment was successful. Thank you!</p>
+        <button><a href="{% url 'price' %}">Go Back</a></button>
+    </div>
+</body>
+</html>

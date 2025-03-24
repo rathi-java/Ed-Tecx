@@ -1,0 +1,244 @@
+.dashboard-wrapper {
+font-family: 'Poppins';
+padding: 10px;
+/* scrollbar-width: 1px; */
+}
+
+.dashboard-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.dashboard-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    
+}
+.dashboard-card {
+    width: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    background: white;
+    transition: 0.3s;
+    
+}
+.dashboard-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.dashboard-card .card-top {
+    text-align: center;
+    padding: 20px;
+    color: white;
+    height: 140px;
+
+}
+.dashboard-card .card-content {
+    padding: 15px;
+    text-align: center;
+    background: white;
+}
+.dashboard-card img {
+width: 110px;
+height: 79px;
+margin-top: 17px;
+}
+.post-jobs-card .card-top {
+    background: #FFF5E1E8;
+}
+.quality-candidates-card .card-top {
+    background: #E9F5FF;
+}
+.recruit-faster-card .card-top {
+    background:#E9FDF7;
+}
+.posted-jobs-section {
+    margin-top: 10px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    /* border: 1px solid rgb(118, 120, 120); */
+    text-align: center;
+    position: relative;
+    height: 160px;
+}
+.add-jobs-btn {
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 40px;
+    display:flex;
+    gap:2px;
+margin-right: 5px;
+}
+.add-internship-btn{
+    float: right;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 40px;
+    display:flex;
+    gap:2px;
+
+
+}
+.add-internship-btn img {
+    width: 20px;
+    height: 20px;
+    
+}
+.add-jobs-btn img {
+    width: 20px;
+    height: 20px;
+    
+}
+.job-post{
+    margin-top: 35px;
+}
+.job-form-container {
+display: none; /* Initially Hidden */
+background: white;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+margin-top: 20px;
+border: 1px solid rgb(232, 229, 229);
+
+}
+ .form-group {
+     display: flex;
+     flex-direction: column;
+     margin-bottom: 15px;
+     position: relative;
+ }
+ .form-row {
+     display: flex;
+     gap: 20px;
+ }
+ .form-row .form-group {
+     flex: 1;
+ }
+ label {
+   
+     margin-bottom: 5px;
+ }
+ .input-icon {
+     position: absolute;
+     left: 10px;
+     top: 50%;
+     transform: translateY(-50%);
+ }
+ input, textarea {
+     width: 100%;
+     padding: 10px 10px 10px 35px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     outline: none;
+     transition: border 0.3s;
+    
+ }
+ input:focus, textarea:focus , input:hover, textarea:hover {
+     border-color: #077bc3;
+ }
+ .full-width {
+     width: 100%;
+ }
+ button {
+     background:#077bc3;
+     color: white;
+     padding: 10px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     display: block;
+     width: 100px;
+     margin-top: 10px;
+ }
+
+
+
+.form-group img {
+     position: absolute;
+     left: 10px;
+     top: 58%;
+     /* transform: translateY(-50%); */
+     width: 15px;
+     height: 15px;
+     
+ }
+.job-form-container h3{
+margin-top: 10px;
+margin-bottom: 10px;
+}
+.dashboard-cards {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 50px;
+}
+
+/* Tablet View (max-width: 1024px) */
+@media (max-width: 768px) {
+.dashboard-cards {
+ 
+ display: grid;
+ grid-template-columns: repeat(2, 1fr);
+ grid-template-rows: auto auto;
+ gap: 20px;
+ justify-content: center;
+ width: 565px;
+ justify-items: center;
+}
+}
+
+/* Pehli row ke 2 cards */
+.dashboard-card:nth-child(1),
+.dashboard-card:nth-child(2) {
+ grid-column: span 1;
+}
+
+/* 3rd card doosri row me left side me */
+.dashboard-card:nth-child(3) {
+ grid-column: 1 / span 1;
+}
+
+
+/* Mobile View (max-width: 768px) */
+@media (max-width: 426px) {
+.dashboard-cards {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
+ padding-left: 30px;
+}
+
+.dashboard-card {
+ width: 250px; /* Card ka size change nahi hoga */
+}
+}
+
+/* Responsive Design */
+@media (max-width: 765px) {
+.form-group ,.form-row{
+ width: 100%;
+}
+}
+
+@media (max-width: 768px) {
+    .posted-jobs-section {
+        width: 100%;}
+     .job-form-container {
+         width: 100%;
+     }
+     .internship-form-container {
+        width: 100%;
+    }
+     .form-row {
+         flex-direction: column;
+     }
+     header{
+         display: block;
+     }
+ }
