@@ -95,7 +95,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -218,9 +217,9 @@ SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session 
 SESSION_COOKIE_SAMESITE = 'None'  # Adjust as needed ('Lax', 'Strict', 'None')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
 SESSION_COOKIE_AGE = 1209600  # Session expiry in seconds (2 weeks)
-SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = os.getenv("READERCLUB_CSRF_TRUSTED_ORIGINS").split(",")
+csrf_origins = os.getenv("READERCLUB_CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(",") if origin.strip()]
 CSRF_COOKIE_DOMAIN = os.getenv("READERCLUB_CSRF_COOKIE_DOMAIN")
 
 # settings.py
@@ -304,4 +303,3 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 SESSION_COOKIE_HTTPONLY = True 
 SESSION_COOKIE_SAMESITE = 'None'
-

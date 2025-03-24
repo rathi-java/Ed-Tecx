@@ -23,7 +23,8 @@ class LoginRequiredMiddleware:
             '/accounts/google',
             '/accounts/github',
             '/accounts/social-auth',
-            '/complete'
+            '/complete',
+            '/home'
         ]
         
         self.restricted_subpaths = [

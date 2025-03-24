@@ -141,6 +141,10 @@ ELASTICSEARCH_DSL = {
     },
 }
 
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -209,7 +213,8 @@ PUBLIC_PATHS = [
     '/policies/',
     '/maintenence/',
     '/abroad-studies/',
-    '/internship-portal/'
+    '/internship-portal/',
+    '/freelancing-portal/',
     # Add any other unrestricted paths
 ]
 RESTRICTED_SUBPATHS = [
@@ -222,11 +227,12 @@ LOGIN_REDIRECT_URL = '/'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = os.getenv("CAREER_CSRF_TRUSTED_ORIGINS").split(",")
+csrf_origins = os.getenv("CAREER_CSRF_TRUSTED_ORIGINS", "")
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(",") if origin.strip()]
 CSRF_COOKIE_DOMAIN = os.getenv("CAREER_CSRF_COOKIE_DOMAIN")
 
 LOGOUT_REDIRECT_URL = "/"
 CAREER_URL=os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'None'

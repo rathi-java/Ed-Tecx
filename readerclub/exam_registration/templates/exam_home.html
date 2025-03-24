@@ -2,39 +2,88 @@
 {% load static %}
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/exam_home.css' %}">
+
 {% endblock %}
 
 {% block content %}
-
-
 <body>
     <header class="header">Dream Career Portal</header>
     <h1 class="title">Unlock Your Career in IT & Management!</h1>
 
     <div class="container">
         <div class="text-box">
-            <p>Your dream career is just one step away!</p>
-            <p>Try our qualifying exam, prove your skills, and unlock exclusive internships and job opportunities at
-                top companies.</p>
-            <p>Get certified and stand out in the competitive job market!</p>
-
+            <div class="text-box-heading-all">
+                <p>Your dream career is just one step away!</p>
+                <p>Try our qualifying exam, prove your skills, and unlock exclusive internships and job opportunities at
+                    top companies.</p>
+                <p>Get certified and stand out in the competitive job market!</p>
+            </div>
             <div class="button-container">
-                <a href="{% url 'exam_register' %}" class="register-btn">
-                    <span>Register Now</span>
-                </a>
-               
+                <button id="openPopupBtn" class="register-btn">
+                    Register Now
+                </button>
             </div>
             <div class="button-container">
                 <a href="{% url 'instructions' %}" class="register-btn">
                     <span>Start Exam</span>
                 </a>
-               
             </div>
         </div>
-
         <div class="image-box">
             <img src="{% static 'images/vector1.jpg' %}"
                 alt="Illustration of a person standing with a large pencil next to a checklist labeled TEST on a laptop screen.">
         </div>
     </div>
+
+    <!-- Popup -->
+    <div id="popupContainer" class="popup-container">
+        <div class="popup">
+            <form action="{% url 'exam_register' %}" method="POST">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
+                
+                <label for="fullName">Full Name</label>
+                <input type="text" id="full_name" name="full_name" value="{{ user.full_name }}" readonly>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
+                
+                <label for="referralCode">Referral Code</label>
+                <input type="text" id="referralCode" name="referral_code" placeholder="Enter referral code (optional)">
+                
+                <label for="exam">Select Exam</label>
+                <select name="exam_domain" id="exam_domain" required onchange="updateExamPrice()">
+                    <option value="">Select</option>
+                    {% for exam in exams %}
+                    <option value="{{ exam.id }}" data-price="{{ exam.price }}">{{ exam.name }}</option>
+                    {% endfor %}
+                </select>
+                
+                <label for="payment">Payment</label>
+                <input type="text" class="form-form-payment" id="payment_amount" name="payment" value="INR 99.00" readonly>
+
+                <button type="submit">Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to toggle popup
+        document.addEventListener("DOMContentLoaded", () => {
+            const openPopupBtn = document.getElementById("openPopupBtn");
+            const popupContainer = document.getElementById("popupContainer");
+
+            openPopupBtn.addEventListener("click", () => {
+                popupContainer.style.display = "flex";
+            });
+
+            popupContainer.addEventListener("click", (e) => {
+                if (e.target === popupContainer) {
+                    popupContainer.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
 {% endblock %}
