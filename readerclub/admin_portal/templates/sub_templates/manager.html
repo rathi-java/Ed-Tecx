@@ -21,14 +21,14 @@
                     <th class="manager-email">Email</th>
                     <th>Phone No.</th>
                     <th>Alt. Phone No.</th>
-                    <th>Password</th>
+                    {% comment %} <th>Password</th> {% endcomment %}
                     <th>Aadhar No.</th>
-                    <th>Admin</th>
+                    {% comment %} <th>Admin</th> {% endcomment %}
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- { for manager in managers %} -->
+                {% for manager in managers %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ manager.username }}</td>
@@ -36,16 +36,22 @@
                     <td class="manager-email">{{ manager.email }}</td>
                     <td>{{ manager.phone_number }}</td>
                     <td>{{ manager.alt_phone_number }}</td>
-                    <td>{{ manager.password }}</td>
+                    {% comment %} <td>{{ manager.password }}</td> {% endcomment %}
                     <td>{{ manager.aadhar_number }}</td>
-                    <td>
-                        <select onchange="transferManager('{{ manager.id }}', this.value)">
-                            <option value="">Select Admin</option>
-                            <!-- { for admin in admins %} -->
-                            <option value="{{ admin.id }}" {% if manager.admin == admin %}selected{% endif %}>{{ admin.username }}</option>
-                            <!-- { endfor %} -->
-                        </select>
-                    </td>
+                    {% comment %} <td>
+                        <!-- Form for updating manager's admin -->
+                        <form method="POST" action="{% url 'transfer_manager' manager.id 0 %}" onsubmit="return updateTransferUrl(this)">
+                            {% csrf_token %}
+                            <select name="new_admin_id">
+                                {% for admin in admins %}
+                                <option value="{{ admin.id }}" {% if admin.id == manager.admin.id %}selected{% endif %}>
+                                    {{ admin.full_name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td> {% endcomment %}
                     <td>
                         <button class="edit-btn" onclick="editManager('{{ manager.id }}', '{{ manager.full_name|escapejs }}', '{{ manager.email|escapejs }}', '{{ manager.phone_number|escapejs }}', '{{ manager.alt_phone_number|escapejs }}', '{{ manager.password|escapejs }}', '{{ manager.aadhar_number|escapejs }}')">Edit</button>
                         <form class="form-edit" method="POST" action="{% url 'manage_manager' %}">
@@ -56,16 +62,17 @@
                         </form>
                     </td>
                 </tr>
-                <!-- { empty %} -->
+                {% empty %}
                 <tr>
                     <td class="form-data" colspan="10">No managers found.</td>
                 </tr>
-                <!-- { endfor %} -->
+                {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
 {% endif %}
+
 {% if section == "add_manager_section" %}
 <!-- Add/Edit Manager Section -->
 <div class="content current_page_action" data-page-name="add_manager">

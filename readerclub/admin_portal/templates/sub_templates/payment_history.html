@@ -1,0 +1,50 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sections.css' %}" />
+
+<div class="content current_page_action" data-page-name="payment_history">
+    <h3>&nbsp;Payment History</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="search-transaction" placeholder="Search by User or Order ID..." onkeyup="filterTransactions()">
+        </div>
+        <table id="transaction-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>User</th>
+                    <th>Order ID</th>
+                    <th>Payment ID</th>
+                    {% comment %} <th>Payment Gateway</th> {% endcomment %}
+                    {% comment %} <th>Payment Mode</th> {% endcomment %}
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ transaction.user.username }}</td>
+                    <td>{{ transaction.order_id }}</td>
+                    <td>{{ transaction.payment_id }}</td>
+                    {% comment %} <td>{{ transaction.payment_gateway }}</td> {% endcomment %}
+                    {% comment %} <td>{{ transaction.payment_mode }}</td> {% endcomment %}
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.currency }}</td>
+                    <td>{{ transaction.status }}</td>
+                    <td>{{ transaction.created_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="10">No transactions found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="{% static 'js/dashboard.js' %}"></script>

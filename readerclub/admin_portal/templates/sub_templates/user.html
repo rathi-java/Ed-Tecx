@@ -9,7 +9,7 @@
     <h3>&nbsp;User / Manage Users</h3>
     <div class="container">
         <div class="header">
-            <input type="text" id="search-user" placeholder="Search by Name or Email..." onkeyup="filterUsers()">
+            <input type="text" id="search-user" placeholder="Search by Username, Name or Email..." onkeyup="filterUsers()">
             <button class="add-button" data-page-name="add_user" onclick="setActive(this)">Add +</button>
         </div>
         <table id="user-table">
@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- { for user in users %} -->
+                {% for user in users %} 
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ user.username }}</td>
@@ -63,11 +63,11 @@
                         </form>
                     </td>
                 </tr>
-                <!-- { empty %} -->
+                {% empty %} 
                 <tr>
                     <td colspan="10">No users found.</td>
                 </tr>
-                <!-- { endfor %} -->
+                {% endfor %} 
             </tbody>
         </table>
     </div>

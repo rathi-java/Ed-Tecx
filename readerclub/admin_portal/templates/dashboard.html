@@ -56,6 +56,15 @@
                     </a>
                 </li>
 
+                <!-- Payment History Dropdown -->
+                <li data-page-name="payment_history">
+                    <a class="section_items" 
+                        href="{% url 'dashboard' %}?section=payment_history_section">
+                        <span class="fas fa-receipt"></span>
+                        <p class="section_headings">&nbsp;&nbsp;&nbsp;Payment History</p>
+                    </a>
+                </li>
+
                 <!-- Request Dropdown -->
                 <li data-page-name="request_menu">
                     <a class="section_items" href="{% url 'certificate-req' %}?section=certificate_req">
@@ -140,7 +149,7 @@
                 <!-- Colleges Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('colleges-menu', this)"><span
                         class="fas fa-university"></span>
-                        <p class="section_headings">&nbsp;&nbsp;Colleges </p>
+                        <p class="section_headings">&nbsp;&nbsp;College List </p>
                     <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
                 </li>
                 <ul class="dropdown-menu" id="colleges-menu">
@@ -221,7 +230,6 @@
                         </a>
                     </li>
                 </ul>
-
             </ul>
         </div>
 
@@ -288,8 +296,10 @@
             {% include "sub_templates/placement_stories.html" %}
             {% elif section == "add_placement_story_section" %}
             {% include "sub_templates/placement_stories.html" %}
-            {% elif section == "manage_institutes_section" or section == "add_institutes_section" %}
-            {% include "sub_templates/institute.html" %}
+            {% elif section == "payment_history_section" %}
+            {% include "sub_templates/payment_history.html" %}
+            {% comment %} {% elif section == "manage_institutes_section" or section == "add_institutes_section" %}
+            {% include "sub_templates/institute.html" %} {% endcomment %}
             {% else %}
             {% include "sub_templates/dash.html" %}
             {% endif %}

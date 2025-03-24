@@ -53,8 +53,8 @@ urlpatterns = [
     path("payu_exam_success/", payu_exam_success, name="payu_exam_success"),
     path("payu_exam_failure/", payu_exam_failure, name="payu_exam_failure"),
     path('maintenence/', maintenance_view, name='maintenance_view'),
-    path('adm-dashboard/', adm_dashboard, name='adm_dashboard'),
-    path('mgr-dashboard/', mgr_dashboard, name='mgr_dashboard'),
-    path('emp-dashboard/', emp_dashboard, name='emp_dashboard'),
+    path('adm_dashboard/', adm_dashboard, name='adm_dashboard'),
+    path('mgr_dashboard/', mgr_dashboard, name='mgr_dashboard'),
+    path('emp_dashboard/', emp_dashboard, name='emp_dashboard'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
