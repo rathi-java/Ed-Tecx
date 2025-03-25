@@ -185,4 +185,71 @@
 </div>
 
 <script src="{% static 'js/examportol.js' %}" defer></script>
+<script>
+  // Tab switching detection and prevention
+  let tabSwitchAttempts = 0;
+  const MAX_TAB_SWITCH_ATTEMPTS = 2; // Allow 2 attempts before submission
+
+  // Function to block tab switching attempt with warning
+  function blockTabSwitchAttempt() {
+      tabSwitchAttempts++;
+      
+      if (tabSwitchAttempts <= MAX_TAB_SWITCH_ATTEMPTS) {
+          // Calculate remaining attempts
+          const attemptsLeft = MAX_TAB_SWITCH_ATTEMPTS - tabSwitchAttempts;
+          
+          // Force focus back to the window when they return
+          window.focus();
+          
+          // Show warning with remaining attempts
+          alert(`WARNING: Tab switching is not allowed during the exam!\n\nThis is attempt ${tabSwitchAttempts} of ${MAX_TAB_SWITCH_ATTEMPTS + 1}.\nYour exam will be automatically submitted after ${attemptsLeft + 1} more attempt(s).`);
+          
+      } else {
+          // On third attempt, submit the exam
+          alert("You have attempted to switch tabs 3 times.\nYour exam is being submitted automatically as per exam rules.");
+          document.getElementById('examForm').submit();
+      }
+  }
+
+  // Monitor tab visibility
+  document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') {
+          // When user switches away from tab
+          setTimeout(() => {
+              if (document.visibilityState === 'visible') {
+                  // When user returns to tab
+                  blockTabSwitchAttempt();
+              }
+          }, 100);
+      }
+  });
+
+  // Attempt to keep focus on the window
+  window.addEventListener('blur', function() {
+      // When window loses focus
+      setTimeout(() => {
+          window.focus(); // Try to bring focus back
+      }, 100);
+  });
+
+  // Create a more aggressive warning when user tries to leave
+  window.addEventListener('beforeunload', function(e) {
+      // Cancel the event
+      e.preventDefault();
+      // Chrome requires returnValue to be set
+      e.returnValue = 'Leaving this page will be counted as a tab switch and may result in automatic exam submission!';
+  });
+
+  // Periodically check if window has focus
+  setInterval(function() {
+      if (!document.hasFocus()) {
+          // If window doesn't have focus for a while, consider it a tab switch
+          setTimeout(() => {
+              if (document.visibilityState === 'visible' && document.hasFocus()) {
+                  blockTabSwitchAttempt();
+              }
+          }, 500);
+      }
+  }, 1000);
+</script>
 {% endblock %}

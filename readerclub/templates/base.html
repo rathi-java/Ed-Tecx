@@ -58,21 +58,29 @@
         <ul class="header-nav-links-ul">
           <li><a class="nav-link" href="/">Home</a></li>
           <li class="dropdown">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="">
               Solution <i class="fa-solid fa-caret-down"></i>
             </a>
             <div class="solution-dropdown-content">
               <a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a>
-              <a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a>
-              <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a>
-              <a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a>
               <a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a>
+              <a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a>
               <a href="https://library.readerclub.in/">Library</a>
             </div>
           </li>
-          <li>
-            <a class="nav-link" href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a>
+          <li class="dropdown">
+            <a class="nav-link" href="">
+              Test Room <i class="fa-solid fa-caret-down"></i>
+            </a>
+            <div class="solution-dropdown-content">
+              <a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Demo Test</a>
+              <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">College Test</a>
+              <a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Olympiad</a>
+            </div>
           </li>
+          {% comment %} <li>
+            <a class="nav-link" href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')"></a>
+          </li> {% endcomment %}
           <li>
             <a class="nav-link" href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a>
           </li>
@@ -143,16 +151,17 @@
     <ul class="mobile-sidebar-ul">
       <li><a href="/">Home</a></li>
           <li><a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a></li>
-          <li><a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a></li>
-          <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a></li>
           <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a></li>
-          <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a></li>
+          <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a></li>
           <li><a href="https://library.readerclub.in/">Library</a></li>
+          <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Demo Test</a></li>
+          <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">College Test</a></li>
+          <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Olympiad</a></li>
       </li>
-      <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li>
+      <li><a href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
       <li><a href="{{CAREER_URL}}">Job</a></li>
       <li><a href="https://library.readerclub.in/">Library</a></li>
-      <li><a href="{% url 'roadmap' %}" onclick="handleAuthCheck(event, '#')">Roadmap</a></li>
+      <li><a href="{% url 'price' %}">Pricing</a></li>
       
       {% if request.session.user_id %}
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
