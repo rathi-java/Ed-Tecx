@@ -1,9 +1,59 @@
 <!-- Exam Section -->
 {% load static %} 
 
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+{% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" /> {% endcomment %}
+{% block extra_css %}
+<style>
+  /* Container */
+  .exam-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  .exam-heading {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  /* Form Card Styles */
+  .exam-card {
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .exam-card__header {
+    background-color: #f7f7f7;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .exam-card__body {
+    padding: 1rem;
+  }
+  /* List group styling */
+  .list-group__item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  /* Button Overrides */
+  .btn--select-all {
+    margin-right: 0.5rem;
+  }
 
-{% if section == "add_exam_section" %}
+
+.form-check{
+    display:flex;
+    gap:3%;
+}
+.question-checkbox{
+    width: 1.57%;
+}
+
+</style>
+{% endblock %}
+{% comment %} {% if section == "add_exam_section" %}
 <!-- Create Exam Section -->
 <div class="content current_page_action" data-page-name="create_exam">
     <h3>&nbsp;Exam / Create Exam</h3>
@@ -52,7 +102,8 @@
         </form>
     </div>
 </div>
-{% endif %}
+{% endif %} {% endcomment %}
+
 {% if section == "manage_exam_section" %}
 <!-- Manage Exams -->
 <div class="content current_page_action" data-page-name="manage_exam">
@@ -106,4 +157,156 @@
         </table>
     </div>
 </div>
+{% endif %}
+
+
+{% comment %} ----------------------------------------------------------------------------------------------------------------------- {% endcomment %}
+{% if section == "add_exam_section" %}
+{% block content %}
+<div class="exam-container">
+  <h1 class="exam-heading">Create New Exam</h1>
+  
+  <form method="POST" action="{% url 'create_exam' %}" id="examForm">
+    {% csrf_token %}
+    
+    <!-- Exam Details Card -->
+    <div class="exam-card">
+      <div class="exam-card__header">
+        <h5>Exam Details</h5>
+      </div>
+      <div class="exam-card__body">
+        <div class="mb-3">
+          <label for="name" class="form-label">Exam Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="duration" class="form-label">Duration (minutes)</label>
+          <input type="number" class="form-control" id="duration" name="duration" min="1" required>
+        </div>
+        <!-- Multi-select for Categories -->
+        <div class="mb-3">
+          <label for="categories" class="form-label">Category</label>
+          <select class="form-select" id="categories" name="categories" multiple>
+            {% for category in categories %}
+              <option value="{{ category.id }}" {% if category.id|stringformat:"s" in selected_category_ids %}selected{% endif %}>
+                {{ category.category_name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <!-- Multi-select for Subjects -->
+        <div class="mb-3">
+          <label for="subjects" class="form-label">Subject</label>
+          <select class="form-select" id="subjects" name="subjects" multiple>
+            {% for subject in subjects %}
+              <option value="{{ subject.id }}" {% if subject.id|stringformat:"s" in selected_subject_ids %}selected{% endif %}>
+                {{ subject.subject_name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Questions Selection Card -->
+    <div class="exam-card">
+      <div class="exam-card__header">
+        <h5>Select Questions</h5>
+        <div>
+          <button type="button" class="btn btn-sm btn-outline-primary btn--select-all" id="btnSelectAll">Select All</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="btnDeselectAll">Deselect All</button>
+        </div>
+      </div>
+      <div class="exam-card__body">
+        <div id="questionsList" class="list-group">
+          {% if questions|length > 0 %}
+            {% for question in questions %}
+              <div class="list-group__item">
+                <div class="form-check">
+                  <input class="form-check-input question-checkbox" type="checkbox" name="questions" value="{{ question.id }}" id="question{{ question.id }}"
+                    {% if question.id|stringformat:"s" in selected_question_ids %}checked{% endif %}>
+                  <label class="form-check-label" for="question{{ question.id }}">
+                    {{ question.question_text }}
+                  </label>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="text-center p-4">No questions found with current filters</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <a href="{% url 'list_exams' %}" class="btn btn-secondary me-md-2">Cancel</a>
+      <button type="submit" class="btn btn-primary">Create Exam</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+<script>
+  // Function to gather currently selected question IDs and append them as hidden inputs
+  function preserveSelectionsAndSubmit() {
+    // Remove any existing hidden inputs for selected questions
+    document.querySelectorAll('input[name="questions"][type="hidden"]').forEach(function(input) {
+      input.remove();
+    });
+    
+    // Collect values of currently checked question checkboxes
+    const selected = [];
+    document.querySelectorAll('.question-checkbox:checked').forEach(function(checkbox) {
+      selected.push(checkbox.value);
+    });
+    
+    // For each selected question, create a hidden input with name "questions"
+    selected.forEach(function(id) {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = "questions";
+      input.value = id;
+      document.getElementById('examForm').appendChild(input);
+    });
+    
+    // Change the form method to GET for filtering and submit the form
+    document.getElementById('examForm').method = 'GET';
+    document.getElementById('examForm').submit();
+  }
+  
+  // Attach event listeners on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('categories').addEventListener('change', preserveSelectionsAndSubmit);
+    document.getElementById('subjects').addEventListener('change', preserveSelectionsAndSubmit);
+    
+    document.getElementById('btnSelectAll').addEventListener('click', function() {
+      document.querySelectorAll('.question-checkbox').forEach(function(checkbox) {
+        checkbox.checked = true;
+      });
+    });
+    
+    document.getElementById('btnDeselectAll').addEventListener('click', function() {
+      document.querySelectorAll('.question-checkbox').forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endif %}

@@ -6,6 +6,7 @@ from django.shortcuts import render ,redirect ,get_object_or_404
 from django.urls import reverse
 from admin_portal.models import *
 from exam_registration.models import *
+from price.models import *
 from oauth.models import *
 from examportol.models import *
 from django.contrib import messages
@@ -15,6 +16,7 @@ from certificate_management.models import *
 from placement_stories.models import *
 from django.core.paginator import Paginator
 from admin_portal.decorators import role_required
+import json
 
 def update_certificate_status(request):
     if request.method == "POST":
@@ -66,6 +68,9 @@ def dashboard(request):
     total_categories = Category.objects.count()
     certificates = Certificate.objects.all().order_by('-created_at')
     transactions = PaymentTransaction.objects.all().order_by('-created_at')  # Fetch transactions
+    exam_results = ExamResult.objects.all().order_by('-submitted_at')  # Fetch exam results
+    subscription_plans = SubscriptionPlan.objects.all()  # Fetch subscription plans
+    plan_types = PlanType.objects.all()  # Fetch plan types
 
     # Active users (users who logged in within the last 30 days)
     active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
@@ -91,6 +96,9 @@ def dashboard(request):
         "certificates": certificates,
         "stories": PlacementStories.objects.all(),
         "transactions": transactions,  # Add transactions to context
+        "exam_results": exam_results,  # Add exam results to context
+        "subscription_plans": subscription_plans,  # Add subscription plans to context
+        "plan_types": plan_types,  # Add plan types to context
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -860,92 +868,223 @@ def delete_placement_story(request, story_id):
         messages.success(request, "Placement story deleted successfully!")
     return redirect(reverse('dashboard') + "?page=manage_placement_stories")
 
-def create_exam(request):
-    categories = Category.objects.all()
-    subjects = Subject.objects.all()
-    questions = Question.objects.all()
-    
-    selected_category_ids = []
-    selected_subject_ids = []
-    selected_question_ids = request.GET.getlist('questions')
-
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        duration = request.POST.get('duration')
-        question_ids = request.POST.getlist('questions')
-        category_ids = request.POST.getlist('categories')
-        subject_ids = request.POST.getlist('subjects')
-
-        if not name or not duration or not question_ids:
-            messages.error(request, "Please fill all required fields")
-            return redirect('create_exam')
-
-        exam = Exam.objects.create(name=name, duration=duration)
-        
-        # Assign selected questions, categories, and subjects
-        exam.questions.add(*Question.objects.filter(id__in=question_ids))
-        exam.categories.add(*Category.objects.filter(id__in=category_ids))
-        exam.subjects.add(*Subject.objects.filter(id__in=subject_ids))
-
-        messages.success(request, f"Exam '{name}' created successfully!")
-        return redirect('list_exams')
-
-    else:
-        # Apply filters if selected
-        if 'categories' in request.GET:
-            selected_category_ids = request.GET.getlist('categories')
-            questions = questions.filter(question_subject__subject_category_id__in=selected_category_ids)
-            subjects = Subject.objects.filter(subject_category_id__in=selected_category_ids)
-
-        if 'subjects' in request.GET:
-            selected_subject_ids = request.GET.getlist('subjects')
-            questions = questions.filter(question_subject_id__in=selected_subject_ids)
-
-        # Include previously selected questions in the list
-        extra_questions = Question.objects.filter(id__in=selected_question_ids)
-        questions = list(set(questions) | set(extra_questions))
-
-    context = {
-        'categories': categories,
-        'subjects': subjects,
-        'questions': questions,
-        'selected_category_ids': selected_category_ids,
-        'selected_subject_ids': selected_subject_ids,
-        'selected_question_ids': selected_question_ids,
-    }
-    
-    return render(request, 'dashboard.html', context)
-
-def list_exams(request):
-    user_id = request.session.get('user_id')
-    user = None
-
-    if user_id:
-        try:
-            user = UsersDB.objects.get(id=user_id)
-        except UsersDB.DoesNotExist:
-            request.session.flush()
-            messages.error(request, "Session expired. Please login again.")
-            return redirect('/login/')
-    
-    if user and StudentsDB.objects.filter(email=user.email, exam_domain__isnull=False).exists():
-        registered_exam_ids = StudentsDB.objects.filter(email=user.email).values_list('exam_domain_id', flat=True)
-        exams = Exam.objects.filter(id__in=registered_exam_ids)
-    else:
-        exams = Exam.objects.all()
-    
-    return render(request, 'dashboard.html', {'exams': exams, 'user': user})
-        # return render(request, 'dashboard.html')
-
-def delete_exam(request, exam_id):
+def manage_subscription(request):
     if request.method == "POST":
-        try:
-            exam = Exam.objects.get(id=exam_id)
-            exam.delete()
-            messages.success(request, "Exam deleted successfully.")
-        except Exam.DoesNotExist:
-            messages.error(request, "Exam not found.")
-    return redirect('list_exams')
+        action = request.POST.get("action")
+
+        if action == "add_subscription":
+            plan_type_id = request.POST.get("plan_type_id")
+            price = request.POST.get("price")
+            duration_in_months = request.POST.get("duration_in_months")
+            features = request.POST.get("features", "{}")  # Default to '{}'
+            discount = request.POST.get("discount", "0")
+
+            # Ensure features is a valid JSON object
+            try:
+                features = json.loads(features)  # Convert string to JSON
+            except json.JSONDecodeError:
+                features = {}  # Default to empty JSON if invalid
+
+            SubscriptionPlan.objects.create(
+                plan_type_id=plan_type_id,
+                price=price,
+                duration_in_months=duration_in_months,
+                features=features,
+                discount=discount,
+            )
+            messages.success(request, "Subscription plan added successfully!")
+            return redirect("manage_subscription")
+
+    plans = SubscriptionPlan.objects.all()
+    plan_types = PlanType.objects.all()
+    return render(request, "admin_portal/manage_subscription.html", {"plans": plans, "plan_types": plan_types})
+
+def delete_subscription_plan(request, plan_id):
+    """Handles deleting a subscription plan."""
+    plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+    plan.delete()
+    messages.success(request, "Subscription plan deleted successfully!")
+    return redirect("manage_subscription")
+
+def subscription_management(request):
+    """Handles managing subscription plans (not user subscriptions)."""
+    
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        if action == "add_subscription":
+            plan_type_id = request.POST.get("plan_type_id")
+            price = request.POST.get("price")
+            duration = request.POST.get("duration_in_months")
+            features = request.POST.get("features")
+            discount = request.POST.get("discount")
+
+            if plan_type_id and price and duration:
+                SubscriptionPlan.objects.create(
+                    plan_type_id=plan_type_id,
+                    price=price,
+                    duration_in_months=duration,
+                    features=features,
+                    discount=discount
+                )
+                messages.success(request, "Subscription plan added successfully!")
+
+        elif action == "edit_subscription":
+            plan_id = request.POST.get("plan_id")
+            plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+            plan.price = request.POST.get("price")
+            plan.duration_in_months = request.POST.get("duration_in_months")
+            plan.features = request.POST.get("features")
+            plan.discount = request.POST.get("discount")
+            plan.save()
+            messages.success(request, "Subscription plan updated successfully!")
+
+        elif action == "delete_subscription":
+            plan_id = request.POST.get("plan_id")
+            plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+            plan.delete()
+            messages.success(request, "Subscription plan deleted successfully!")
+
+        return redirect("manage_subscription")
+
+    plans = SubscriptionPlan.objects.all()
+    return render(request, "sub_templates/subscription_management.html", {"plans": plans})
+
+
+def price_management(request):
+    """Handles managing Subscription Plans."""
+    
+    if request.method == "POST":
+        action = request.POST.get("action")
+        
+        if action == "add_price":
+            plan_type_id = request.POST.get("plan_type")
+            price = request.POST.get("price")
+            duration_in_months = request.POST.get("duration_in_months")
+            features = request.POST.get("features")  # Assuming JSON input
+            discount = request.POST.get("discount")
+
+            if plan_type_id and price:
+                plan_type = get_object_or_404(PlanType, id=plan_type_id)
+                SubscriptionPlan.objects.create(
+                    plan_type=plan_type,
+                    price=price,
+                    duration_in_months=duration_in_months,
+                    features=features,
+                    discount=discount
+                )
+                messages.success(request, "Subscription Plan added successfully!")
+
+        elif action == "edit_price":
+            plan_id = request.POST.get("plan_id")
+            plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+            plan.price = request.POST.get("price")
+            plan.duration_in_months = request.POST.get("duration_in_months")
+            plan.features = request.POST.get("features")
+            plan.discount = request.POST.get("discount")
+            plan.save()
+            messages.success(request, "Subscription Plan updated successfully!")
+
+        elif action == "delete_price":
+            plan_id = request.POST.get("plan_id")
+            plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+            plan.delete()
+            messages.success(request, "Subscription Plan deleted successfully!")
+
+        return redirect("manage_price")
+
+    plans = SubscriptionPlan.objects.all()
+    plan_types = PlanType.objects.all()
+    return render(request, "sub_templates/price_management.html", {
+        "plans": plans,
+        "plan_types": plan_types
+    })
+# def create_exam(request):
+#     categories = Category.objects.all()
+#     subjects = Subject.objects.all()
+#     questions = Question.objects.all()
+    
+#     selected_category_ids = []
+#     selected_subject_ids = []
+#     selected_question_ids = request.GET.getlist('questions')
+
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         duration = request.POST.get('duration')
+#         question_ids = request.POST.getlist('questions')
+#         category_ids = request.POST.getlist('categories')
+#         subject_ids = request.POST.getlist('subjects')
+
+#         if not name or not duration or not question_ids:
+#             messages.error(request, "Please fill all required fields")
+#             return redirect('create_exam')
+
+#         exam = Exam.objects.create(name=name, duration=duration)
+        
+#         # Assign selected questions, categories, and subjects
+#         exam.questions.add(*Question.objects.filter(id__in=question_ids))
+#         exam.categories.add(*Category.objects.filter(id__in=category_ids))
+#         exam.subjects.add(*Subject.objects.filter(id__in=subject_ids))
+
+#         messages.success(request, f"Exam '{name}' created successfully!")
+#         return redirect('list_exams')
+
+#     else:
+#         # Apply filters if selected
+#         if 'categories' in request.GET:
+#             selected_category_ids = request.GET.getlist('categories')
+#             questions = questions.filter(question_subject__subject_category_id__in=selected_category_ids)
+#             subjects = Subject.objects.filter(subject_category_id__in=selected_category_ids)
+
+#         if 'subjects' in request.GET:
+#             selected_subject_ids = request.GET.getlist('subjects')
+#             questions = questions.filter(question_subject_id__in=selected_subject_ids)
+
+#         # Include previously selected questions in the list
+#         extra_questions = Question.objects.filter(id__in=selected_question_ids)
+#         questions = list(set(questions) | set(extra_questions))
+
+#     context = {
+#         'categories': categories,
+#         'subjects': subjects,
+#         'questions': questions,
+#         'selected_category_ids': selected_category_ids,
+#         'selected_subject_ids': selected_subject_ids,
+#         'selected_question_ids': selected_question_ids,
+#     }
+    
+#     return render(request, 'dashboard.html', context)
+
+# def list_exams(request):
+#     user_id = request.session.get('user_id')
+#     user = None
+
+#     if user_id:
+#         try:
+#             user = UsersDB.objects.get(id=user_id)
+#         except UsersDB.DoesNotExist:
+#             request.session.flush()
+#             messages.error(request, "Session expired. Please login again.")
+#             return redirect('/login/')
+    
+#     if user and StudentsDB.objects.filter(email=user.email, exam_domain__isnull=False).exists():
+#         registered_exam_ids = StudentsDB.objects.filter(email=user.email).values_list('exam_domain_id', flat=True)
+#         exams = Exam.objects.filter(id__in=registered_exam_ids)
+#     else:
+#         exams = Exam.objects.all()
+    
+#     return render(request, 'dashboard.html', {'exams': exams, 'user': user})
+#         # return render(request, 'dashboard.html')
+
+# def delete_exam(request, exam_id):
+#     if request.method == "POST":
+#         try:
+#             exam = Exam.objects.get(id=exam_id)
+#             exam.delete()
+#             messages.success(request, "Exam deleted successfully.")
+#         except Exam.DoesNotExist:
+#             messages.error(request, "Exam not found.")
+#     return redirect('list_exams')
 
 # import logging
 

@@ -18,13 +18,13 @@
 
 <section class="pricing-section" id="pricing">
   <div class="pricing-container">
-    {% comment %} ============ {% endcomment %}
+    
     <section class="sec1-pricing-section">
         <div class="container1"> 
             <img class="arrow1" src="{% static 'images/arrow.png' %}" alt="Arrow">
             <div class="text-content1">
                 <h2>Get Hired Faster with <br> the Right Plan!</h2>
-                <p><a href="#">Choose Your Plan & Start Your Journey Today!</a></p>
+                <p>Choose Your Plan & Start Your Journey Today!</p>
             </div>
             <div class="illustration-container">
                 <img class="bell1" src="{% static 'images/bell.png' %}" alt="Bell Icon">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </section>
-    {% comment %} ============ {% endcomment %}
+   
      
       <div class="plans">
           {% for plan in subscription_plans %}
@@ -94,6 +94,22 @@
             </div>
         </button>
         <p>OR</p>
+        <!-- PayU -->
+        <form action="{% url 'initiate_payment' %}" method="POST" class="payment-pay-btn-form">
+            {% csrf_token %}
+            <input type="hidden" name="plan_id" value="{{ plan.id }}">
+            <input type="hidden" name="amount" value="{{ plan.discounted_price }}">
+            <button type="submit" class="payment-pay-btn">
+                <div class="payment-payment-img">
+                    <img src="{% static 'images/payu.png' %}" alt="PayU">
+                </div>
+                <div class="payment-payment-text">
+                    <span>Pay via PayU</span>
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </button>
+        </form>
+        <p>OR</p>
         <button class="payment-pay-btn" id="payment-payment-box-3" onclick="startPaymentCashfree('{{ plan.discounted_price }}')">
             <div class="payment-payment-img">
                 <img src="{% static 'images/cashfree.png' %}" alt="✔">
@@ -103,22 +119,7 @@
                 <i class="fa-solid fa-circle-check"></i>
             </div>
         </button>
-        <p>OR</p>
-            <!-- PayU -->
-            <form action="{% url 'initiate_payment' %}" method="POST" class="payment-pay-btn-form">
-                {% csrf_token %}
-                <input type="hidden" name="plan_id" value="{{ plan.id }}">
-                <input type="hidden" name="amount" value="{{ plan.discounted_price }}">
-                <button type="submit" class="payment-pay-btn">
-                    <div class="payment-payment-img">
-                        <img src="{% static 'images/payu.png' %}" alt="PayU">
-                    </div>
-                    <div class="payment-payment-text">
-                        <span>Pay via PayU (Credit/Debit card, UPI)</span>
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                </button>
-            </form>
+
         </div>
     </div>
   </div>
@@ -130,17 +131,17 @@
     <h2 class="sec3-pricing-header">Choose the Right Plan for<br> your Journey</h2>
     <div class="sec3-pricing-container">
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/free 1.svg' %}" alt="Free Plan">
+            <img src="{% static 'images/basic.svg' %}" alt="Free Plan">
             <h3 class="sec3-pricing-title">Basic</h3>
             <p class="sec3-pricing-desc">Perfect for students who want to explore without any commitments. Get access to essential features, and see how it fits your learning style. </p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/calendar 1.svg' %}" alt="Monthly Plan">
+            <img src="{% static 'images/monthly.svg' %}" alt="Monthly Plan">
             <h3 class="sec3-pricing-title">Monthly</h3>
             <p class="sec3-pricing-desc">Ideal for students who want full access without a long-term commitment. Pay as you go and enjoy exclusive content, premium tools, and priority support.</p>
         </div>
         <div class="sec3-pricing-card">
-            <img src="{% static 'images/year.png' %}" alt="Yearly Plan">
+            <img src="{% static 'images/yearly.svg' %}" alt="Yearly Plan">
             <h3 class="sec3-pricing-title">Yearly</h3>
             <p class="sec3-pricing-desc">For students who are dedicated to upskilling and securing better opportunities. Get a full year of premium benefits at the lowest cost per month!</p>
         </div>

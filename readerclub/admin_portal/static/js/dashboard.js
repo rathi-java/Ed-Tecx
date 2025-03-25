@@ -427,6 +427,37 @@ function filterTransactions() {
     }
 }
 
+function filterExamResults() {
+    const input = document.getElementById("searchExamResult").value.toLowerCase();
+    const rows = document.querySelectorAll("#examResultTable tbody tr");
+
+    rows.forEach(row => {
+        const userName = row.querySelector(".user-name")?.textContent.toLowerCase() || "";
+        row.style.display = userName.includes(input) ? "" : "none";
+    });
+}
+
+
+
+function editPlan(id, price, duration, discount) {
+    document.getElementById("plan_id").value = id;
+    document.getElementsByName("price")[0].value = price;
+    document.getElementsByName("duration_in_months")[0].value = duration;
+    document.getElementsByName("discount")[0].value = discount;
+    document.getElementsByName("action")[0].value = "edit_price";
+}
+
+function filterPrices() {
+    const input = document.getElementById("search-price").value.toLowerCase();
+    const rows = document.querySelectorAll("#price-table tbody tr");
+
+    rows.forEach(row => {
+        const planType = row.cells[1]?.textContent.toLowerCase() || "";
+        const price = row.cells[2]?.textContent.toLowerCase() || "";
+        row.style.display = (planType.includes(input) || price.includes(input)) ? "" : "none";
+    });
+}
+
 // function transferAdmin(adminId, newSuperadminId) {
 //     fetch(`/transfer_admin/${adminId}/${newSuperadminId}/`, {
 //         method: 'POST',

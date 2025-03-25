@@ -73,6 +73,47 @@
                     </a>
                 </li>
 
+                <!-- Price Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('price-menu', this)">
+                    <span class="fas fa-tag"></span>
+                    <p class="section_headings">&nbsp;&nbsp;&nbsp;Price</p>
+                    <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
+                </li>
+                <ul class="dropdown-menu" id="price-menu">
+                    <li data-page-name="manage_price">
+                        <a class="section_items" 
+                        href="{% url 'dashboard' %}?section=manage_price_section"
+                        onclick="showSection('manage_price_section')">
+                        <span class="fas fa-cog"></span>
+                        <p class="section_subheadings">Manage Subscription</p>
+                        </a>
+                    </li>
+                    <li data-page-name="add_price">
+                        <a class="section_items" 
+                        href="{% url 'dashboard' %}?section=add_price_section"
+                        onclick="showSection('add_price_section')">
+                        <span class="fas fa-plus-circle"></span>
+                        <p class="section_subheadings">Add/Edit Subscription</p>
+                        </a>
+                    </li>
+                    <li data-page-name="manage_subscription">
+                        <a class="section_items" 
+                        href="{% url 'dashboard' %}?section=manage_subscription_section"
+                        onclick="showSection('manage_subscription_section')">
+                        <span class="fas fa-user-tag"></span>
+                        <p class="section_subheadings">Manage PlanType</p>
+                        </a>
+                    </li>
+                    <li data-page-name="add_subscription">
+                        <a class="section_items" 
+                        href="{% url 'dashboard' %}?section=add_subscription_section"
+                        onclick="showSection('add_subscription_section')">
+                        <span class="fas fa-plus-circle"></span>
+                        <p class="section_subheadings">Add Subscription</p>
+                        </a>
+                    </li>
+                </ul>
+
 
                 <!-- Admin Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('admin-menu', this)"><span
@@ -169,10 +210,13 @@
                 </ul>
                 <!-- Result Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('Result-menu', this)"><span
-                        class="fas fa-graduation-cap"></span>
-                        <p class="section_headings">&nbsp;&nbsp;Result </p>
-                    <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
+                    class="fas fa-graduation-cap"></span>
+                    <p class="section_headings">&nbsp;&nbsp;Result </p>
+                <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
                 </li>
+                <ul class="dropdown-menu" id="Result-menu">
+                    <li data-page-name="exam_result"><a class="section_items" href="{% url 'dashboard' %}?section=exam_result_section"><span class="fas fa-clipboard-list"></span><p class="section_subheadings"> Exam Results</p></a></li>
+                </ul>
 
                 <!-- placement_stories Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('placement_stories-menu', this)">
@@ -300,6 +344,12 @@
             {% include "sub_templates/payment_history.html" %}
             {% comment %} {% elif section == "manage_institutes_section" or section == "add_institutes_section" %}
             {% include "sub_templates/institute.html" %} {% endcomment %}
+            {% elif section == "manage_price_section" or section == "add_price_section"  or section == "add_subscription_section" %}
+            {% include "sub_templates/price_management.html" %}
+            {% elif section == "manage_subscription_section" %}
+            {% include "sub_templates/subscription_management.html" %}
+            {% elif section == "exam_result_section" %}
+            {% include "sub_templates/exam_result.html" %}
             {% else %}
             {% include "sub_templates/dash.html" %}
             {% endif %}
