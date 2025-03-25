@@ -1,0 +1,999 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University - {{ university.university_name }}</title>
+    <link rel="stylesheet" href="{% static 'university.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <!-- Add jQuery for AJAX operations -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div class="dashh_main_sec">
+    <div class="dashh_mainsidebar">
+        <div class="dashh_mainlogo">
+            <img src="{% static 'images/universitylogo.svg' %}" alt="{{ university.university_name }} Logo">
+            <h2>{{ university.university_name }}<br><span>{{ university.university_location }}</span></h2>
+        </div>
+        <hr class="dashh_logo_line">
+        <ul>
+            <li><a href="{% url 'university' %}" class="{% if active_page == 'university' %}active{% endif %}">
+                <img src="{% static 'images/dash_mainicon.svg' %}" alt=""> University
+            </a></li>
+            <li><a href="{% url 'referral_code' %}" class="{% if active_page == 'referral' %}active{% endif %}">
+                <img src="{% static 'images/chain.svg' %}" alt="refcode" class="sidelogo"> Referral Code
+            </a></li>
+            <li><a href="{% url 'registered_students' %}" class="{% if active_page == 'students' %}active{% endif %}">
+                <img src="{% static 'images/candidateprofile.svg' %}" alt="regstudent" class="sidelogo"> Registered Students
+            </a></li>
+            <li><a href="{% url 'professor_list' %}" class="{% if active_page == 'professors' %}active{% endif %}">
+                <img src="{% static 'images/professoruser.svg' %}" alt="professor" class="sidelogo"> Professor
+            </a></li>
+            <li><a href="{% url 'course_list' %}" class="{% if active_page == 'courses' %}active{% endif %}">
+                <img src="{% static 'images/course-icon.svg' %}" alt="course" class="sidelogo"> Course
+            </a></li>
+            <li><a href="{% url 'difficulty_list' %}" class="{% if active_page == 'difficulty' %}active{% endif %}">
+                <img src="{% static 'images/difficulty.svg' %}" alt="difficulty" class="sidelogo"> Difficulty
+            </a></li>
+            <li><a href="{% url 'exam_list' %}" class="{% if active_page == 'exams' %}active{% endif %}">
+                <img src="{% static 'images/examm.svg' %}" alt="exam" class="sidelogo"> Exam
+            </a></li>
+            <li><a href="{% url 'result_list' %}" class="{% if active_page == 'results' %}active{% endif %}">
+                <img src="{% static 'images/clipboard.svg' %}" alt="exam" class="sidelogo"> Result
+            </a></li>
+        </ul>
+    </div>
+    
+    <div class="dashh_mainmain-content">
+        <!-- Messages section for displaying feedback -->
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- UNIVERSITY SECTION -->
+        {% if active_page == 'university' %}
+        <div id="dashh_maindashboard" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">University</h2>
+            
+            <div class="dashh_mainstats">
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Total Students</p>
+                    <p class="dashh_mainnum">{{ stats.total_students }}</p>
+                </div>
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Approved Students</p>
+                    <p class="dashh_mainnum">{{ stats.approved_students }}</p>
+                </div>
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Rejected Students</p>
+                    <p class="dashh_mainnum">{{ stats.rejected_students }}</p>
+                </div>
+                <div class="dashh_maincard">
+                    <p class="dashh_mainrd1">Pending Students</p>
+                    <p class="dashh_mainnum">{{ stats.pending_students }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- REFERRAL CODE SECTION -->
+        {% if active_page == 'referral' %}
+        <div id="dashh_mainreferral" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Referral Code</h2>
+            <div class="dashh_mainreferral-container">
+                <img src="{% static 'images/highlightchain.svg' %}" alt="">
+                <div>
+                    <p class="dashh_mainreferral-code">{{ referral_code }}</p>
+                    <p class="dashh_mainreferral-note"><span>*</span>This referral code is generated only once by the platform and should be filled at the time of registration by students.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- REGISTERED STUDENTS SECTION -->
+        {% if active_page == 'students' %}
+        <div id="dashh_mainstudents" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Registered Students</h2>
+            <p class="dashh_mainreferral-note"><span>*</span>This is the list of students who are registered using the respective Referral Code.</p>
+            <div class="dashh_mainregistered-container">
+                <table class="dashh_mainstudents-table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone no.</th>
+                        <th>College Name</th>
+                        <th>Referral Code</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.college }}</td>
+                        <td>{{ student.referral_code }}</td>
+                        <td>
+                            {% if student.status == 'Pending' %}
+                            <span class="dashh_mainstatus-badge dashh_mainstatus-pending">Pending <img src="{% static 'images/wall-clock 1.svg' %}" alt=""></span>
+                            {% elif student.status == 'Approved' %}
+                            <span class="dashh_mainstatus-badge dashh_mainstatus-approved">Approved <img src="{% static 'images/approve 2.svg' %}" alt=""></span>
+                            {% elif student.status == 'Rejected' %}
+                            <span class="dashh_mainstatus-badge dashh_mainstatus-rejected">Rejected <img src="{% static 'images/close 1.svg' %}" alt=""></span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="no-data">No students registered yet.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- PROFESSORS LIST SECTION -->
+        {% if active_page == 'professors' %}
+        <div id="dashh_mainprofessors" class="dashh_mainpage">
+           <div class="headinggg_dash_professor">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Professor list</h2>
+            <a href="{% url 'add_professor' %}" class="add-professor-btn">
+                + Add Professor
+            </a>
+           </div>
+            <p class="dashh_mainreferral-note"><span>*</span>This is the list of professors already listed on the dashboard.</p>
+            
+            <div class="dashh_mainregistered-container">
+                <table class="dashh_mainstudents-table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Professor id</th>
+                        <th>Professor Name</th>
+                        <th>Email</th>
+                        <th>Phone no.</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for professor in professors %}
+                    <tr id="professor-row-{{ professor.id }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ professor.professor_code }}</td>
+                        <td>{{ professor.name }}</td>
+                        <td>{{ professor.email }}</td>
+                        <td>9876543210</td>
+                        <td>
+                            <a href="#" onclick="editProfessor({{ professor.id }})" class="edit-btn">
+                                <img src="{% static 'images/editbutton.svg' %}" alt="edit" class="editt">
+                            </a>
+                            <a href="#" onclick="deleteProfessor({{ professor.id }})" class="delete-btn">
+                                <img src="{% static 'images/deletebutton.svg' %}" alt="delete" class="editt">
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="no-data">No professors added yet.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ADD PROFESSOR SECTION -->
+        {% if active_page == 'add_professor' %}
+        <div id="dashh_mainprofessor" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Professor</h2>
+        
+            <div class="dashh_mainprofessor-container">
+                <form id="professorForm" method="post" action="{% url 'add_professor' %}">
+                    {% csrf_token %}
+                    <div class="dashh_mainprofessor-form">
+                        <label>Professor name</label>
+                        <div class="input-container">
+                            <img src="{% static 'images/userproff.svg' %}" alt="user">
+                            <input type="text" name="professor_name" placeholder="Enter Professor name" required>
+                        </div>
+                    </div>
+                   
+                    <div class="dashh_mainprofessor-form">
+                        <label>Email id</label>
+                        <div class="input-container">
+                            <input type="email" name="email" placeholder="Enter Email id" required>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>Password</label>
+                        <div class="input-container">
+                            <img src="{% static 'images/lock.svg' %}" alt="lock">
+                            <input type="password" name="password" placeholder="Enter password" required>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="add-professor-btn">Add Professor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- EDIT PROFESSOR SECTION -->
+        {% if active_page == 'edit_professor' %}
+        <div id="edit_professor" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Edit Professor</h2>
+        
+            <div class="dashh_mainprofessor-container">
+                <form id="editProfessorForm" method="post" action="{% url 'edit_professor' professor.id %}">
+                    {% csrf_token %}
+                    <div class="dashh_mainprofessor-form">
+                        <label>Professor name</label>
+                        <div class="input-container">
+                            <img src="{% static 'images/userproff.svg' %}" alt="user">
+                            <input type="text" name="professor_name" value="{{ professor.name }}" required>
+                        </div>
+                    </div>
+                   
+                    <div class="dashh_mainprofessor-form">
+                        <label>Email id</label>
+                        <div class="input-container">
+                            <input type="email" name="email" value="{{ professor.email }}" required>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>Password</label>
+                        <div class="input-container">
+                            <img src="{% static 'images/lock.svg' %}" alt="lock">
+                            <input type="password" name="password" placeholder="Enter new password to change">
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="add-professor-btn">Update Professor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- COURSES LIST SECTION -->
+        {% if active_page == 'courses' %}
+        <div id="dashh_maindashh_list" class="dashh_mainpage">
+            <div class="headinggg_dash_professor">
+                <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Course list</h2>
+                <a href="{% url 'add_course' %}" class="add-professor-btn">
+                    + Add Course
+                </a>
+            </div>
+            <p class="dashh_mainreferral-note"><span>*</span>This is the list Courses already listed on the dashboard.</p>
+            
+            <div class="dashh_maindashh_list">
+                <table class="dashh_mainstudents-table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Course id</th>
+                        <th>Course Name</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for course in courses %}
+                    <tr id="course-row-{{ course.id }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ course.course_code }}</td>
+                        <td>{{ course.name }}</td>
+                        <td>
+                            <a href="#" onclick="editCourse({{ course.id }})" class="edit-btn">
+                                <img src="{% static 'images/editbutton.svg' %}" alt="edit" class="editt">
+                            </a>
+                            <a href="#" onclick="deleteCourse({{ course.id }})" class="delete-btn">
+                                <img src="{% static 'images/deletebutton.svg' %}" alt="delete" class="editt">
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="no-data">No courses added yet.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ADD COURSE SECTION -->
+        {% if active_page == 'add_course' %}
+        <div id="dashh_course" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Course</h2>
+        
+            <div class="dashh_mainprofessor-container">
+                <form id="courseForm" method="post" action="{% url 'add_course' %}">
+                    {% csrf_token %}
+                    <div class="dashh_mainprofessor-form">
+                        <label>Course name</label>
+                        <div class="input-container">
+                            <img src="{% static 'images/userproff.svg' %}" alt="user">
+                            <input type="text" name="course_name" placeholder="Enter Course name" required>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="add-professor-btn">Add Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- EDIT COURSE SECTION -->
+        {% if active_page == 'edit_course' %}
+        <div id="edit_course" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Edit Course</h2>
+        
+            <div class="dashh_mainprofessor-container">
+                <form id="editCourseForm" method="post" action="{% url 'edit_course' course.id %}">
+                    {% csrf_token %}
+                    <div class="dashh_mainprofessor-form">
+                        <label>Course name</label>
+                        <div class="input-container">
+                            <img src="{% static 'images/userproff.svg' %}" alt="user">
+                            <input type="text" name="course_name" value="{{ course.name }}" required>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="add-professor-btn">Update Course</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- DIFFICULTY SECTION -->
+        {% if active_page == 'difficulty' %}
+        <div id="dashh_diff" class="dashh_mainpage">
+            <div class="headinggg_dash_professor">
+                <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Difficulty Level</h2>
+            </div>
+            <p class="dashh_mainreferral-note"><span>*</span>Add an appropriate difficulty level for the exam to tailor the questions to match the desired challenge.</p>
+
+            <!-- Add Difficulty Form -->
+            <div class="dashh_mainprofessor-container difficulty-form-container">
+                <div class="dashh_mainprofessor-form difficulty-form">
+                    <label>Difficulty name</label>
+                    <div class="input-container">
+                        <input type="text" id="difficultyInput" placeholder="+ Add Difficulty name">
+                    </div>
+                </div>
+                <div class="diffdiv">
+                    <button class="add-diff-btn add-professor-btn" id="addDifficultyBtn">
+                        + Add Difficulty
+                    </button>
+                </div>
+            </div>
+
+            <!-- Difficulty Table -->
+            <div class="difficulty-table-container">
+                <table class="dashh_mainstudents-table">
+                    <thead>
+                        <tr>
+                            <th>S.no.</th>
+                            <th>Difficulty name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="difficultyTableBody">
+                        {% for difficulty in difficulties %}
+                        <tr id="difficulty-row-{{ difficulty.id }}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ difficulty.difficulty_name }}</td>
+                            <td>
+                                <button class="edit-btn" onclick="editDifficulty({{ difficulty.id }})">Edit</button>
+                                <button class="delete-btn" onclick="deleteDifficulty({{ difficulty.id }})">Delete</button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr id="no-difficulties">
+                            <td colspan="3" class="no-data">No difficulty levels added yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- EXAMS SECTION -->
+        {% if active_page == 'exams' %}
+        <div id="dashh_exam" class="dashh_mainpage">
+            <div class="headinggg_dash_professor">
+                <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Exam</h2>
+                <a href="{% url 'add_exam' %}" class="add-professor-btn">
+                    + Add Exam
+                </a>
+            </div>
+            <p class="dashh_mainreferral-note"><span>*</span>This is the list of exams already listed on the dashboard.</p>
+            
+            <div class="dashh_mainregistered-container">
+                <table class="dashh_mainstudents-table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Exam code</th>
+                        <th>Professor</th>
+                        <th>Course</th>
+                        <th>Difficulty</th>
+                        <th>No. of ques.</th>
+                        <th>Duration</th>
+                        <th>Start time</th>
+                        <th>End time</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for exam in exams %}
+                    <tr id="exam-row-{{ exam.id }}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ exam.exam_code }}</td>
+                        <td>{{ exam.professor.name }}</td>
+                        <td>{{ exam.course.name }}</td>
+                        <td>{{ exam.difficulty.difficulty_name }}</td>
+                        <td>{{ exam.num_questions }}</td>
+                        <td>{{ exam.duration }} min</td>
+                        <td>{{ exam.start_time|date:"d/m/Y H:i" }}</td>
+                        <td>{{ exam.end_time|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <div class="action_btn">
+                                <a href="#" onclick="openEditExamModal({{ exam.id }})" class="edit-btn">
+                                    <img src="{% static 'images/edittexm.svg' %}" alt="edit" class="editt">
+                                </a>
+                                <a href="#" onclick="updateQuestions({{ exam.id }})" class="update-btn">
+                                    <img src="{% static 'images/updateexam.svg' %}" alt="update" class="editt">
+                                </a>
+                                <a href="{% url 'start_exam' exam.id %}" class="start-btn">Start</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="10" class="no-data">No exams created yet.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- ADD EXAM SECTION -->
+        {% if active_page == 'add_exam' %}
+        <div id="dashh_mainexam" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Exam</h2>
+
+            <div class="dashh_mainprofessor-container">
+                <form id="examForm" method="post" action="{% url 'add_exam' %}">
+                    {% csrf_token %}
+                    <div class="dashh_mainprofessor-form">
+                        <label>Select Professor</label>
+                        <div class="input-container">
+                            <select name="professor" required>
+                                <option value="">Select Professor</option>
+                                {% for professor in professors %}
+                                <option value="{{ professor.id }}">{{ professor.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>Select Course</label>
+                        <div class="input-container">
+                            <select name="course" required>
+                                <option value="">Select Course</option>
+                                {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>Select Difficulty Level</label>
+                        <div class="input-container">
+                            <select name="difficulty" required>
+                                <option value="">Select Difficulty</option>
+                                {% for difficulty in difficulties %}
+                                <option value="{{ difficulty.id }}">{{ difficulty.difficulty_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>No. of Ques.</label>
+                        <div class="input-container">
+                            <input type="number" name="num_questions" min="1" placeholder="Enter no of questions" required>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>Exam Duration (minutes)</label>
+                        <div class="input-container">
+                            <input type="number" name="duration" min="5" placeholder="Enter exam duration in minutes" required>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>Start Time</label>
+                        <div class="input-container">
+                            <input type="datetime-local" name="start_time" required>
+                        </div>
+                    </div>
+                    <div class="dashh_mainprofessor-form">
+                        <label>End Time</label>
+                        <div class="input-container">
+                            <input type="datetime-local" name="end_time" required>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="add-professor-btn">Add Exam</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- RESULTS SECTION -->
+        {% if active_page == 'results' %}
+        <div id="dashh_result" class="dashh_mainpage">
+            <div class="headinggg_dash_professor">
+                <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Result</h2>
+            </div>
+            
+            <div class="results-job-listings-grid">
+                {% for exam in exams %}
+                <div class="results-job-card-box">
+                    <span class="results-job-category">{{ exam.course }}</span>
+                    <span class="results-job-posted-time">{{ exam.result_count }} results</span>
+                    <h3 class="results-job-title">{{ exam.code }}<br>{{ exam.professor }}</h3>
+                    <a href="{% url 'exam_results' exam.id %}" class="results-job-view-link">View Result</a>
+                </div>
+                {% empty %}
+                <div class="no-results">
+                    <p>No exam results available.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- EXAM RESULTS SECTION -->
+        {% if active_page == 'exam_results' %}
+        <div id="dashh_e" class="dashh_mainpage">
+            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Results for Exam {{ exam.exam_code }}</h2>
+            
+            <div class="dashh_mainregistered-container">
+                <table class="dashh_mainstudents-table">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Username</th>
+                        <th>Email id</th>
+                        <th>Score</th>
+                        <th>Correct Answers</th>
+                        <th>Total Questions</th>
+                        <th>Submitted At</th>
+                    </tr>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ result.student_name }}</td>
+                        <td>{{ result.student_name|lower|cut:" " }}@example.com</td>
+                        <td>{{ result.score }}%</td>
+                        <td>{{ result.correct_answers }}</td>
+                        <td>{{ result.total_questions }}</td>
+                        <td>{{ result.submitted_at|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="no-data">No results for this exam yet.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Edit Exam Modal -->
+<div id="editExamModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditExamModal()">&times;</span>
+        <h2>Edit Exam</h2>
+        <div class="modal-body">
+            <form id="editExamForm" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="professor">Select Professor</label>
+                    <select name="professor" id="professor" required>
+                        {% for professor in professors %}
+                        <option value="{{ professor.id }}">{{ professor.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="course">Select Course</label>
+                    <select name="course" id="course" required>
+                        {% for course in courses %}
+                        <option value="{{ course.id }}">{{ course.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="difficulty">Select Difficulty</label>
+                    <select name="difficulty" id="difficulty" required>
+                        {% for difficulty in difficulties %}
+                        <option value="{{ difficulty.id }}">{{ difficulty.difficulty_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="num_questions">Number of Questions</label>
+                    <input type="number" name="num_questions" id="num_questions" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration (minutes)</label>
+                    <input type="number" name="duration" id="duration" min="5" required>
+                </div>
+                <div class="form-group">
+                    <label for="start_time">Start Time</label>
+                    <input type="datetime-local" name="start_time" id="start_time" required>
+                </div>
+                <div class="form-group">
+                    <label for="end_time">End Time</label>
+                    <input type="datetime-local" name="end_time" id="end_time" required>
+                </div>
+                <button type="submit" class="save-btn">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Manual Question Form Modal -->
+<!-- Manual Question Form Modal -->
+<div id="manualQuestionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeManualQuestionModal()">&times;</span>
+        <h2>Add Questions Manually</h2>
+        <div class="question-form-container">
+            <form id="manualQuestionForm">
+                {% csrf_token %}
+                <input type="hidden" id="examId" name="exam_id">
+                
+                <div class="question-block">
+                    <div class="form-group">
+                        <label for="questionText">Question:</label>
+                        <textarea id="questionText" name="question_text" rows="3" required placeholder="Enter your question text here"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Options:</label>
+                        <div class="option-input">
+                            <input type="radio" name="correct_option" id="optionA" value="A" required>
+                            <label for="optionA">A:</label>
+                            <input type="text" name="option_a" required placeholder="Option A">
+                        </div>
+                        <div class="option-input">
+                            <input type="radio" name="correct_option" id="optionB" value="B">
+                            <label for="optionB">B:</label>
+                            <input type="text" name="option_b" required placeholder="Option B">
+                        </div>
+                        <div class="option-input">
+                            <input type="radio" name="correct_option" id="optionC" value="C">
+                            <label for="optionC">C:</label>
+                            <input type="text" name="option_c" required placeholder="Option C">
+                        </div>
+                        <div class="option-input">
+                            <input type="radio" name="correct_option" id="optionD" value="D">
+                            <label for="optionD">D:</label>
+                            <input type="text" name="option_d" required placeholder="Option D">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" id="addAnotherQuestion" class="add-question-btn">Add Another Question</button>
+                    <button type="submit" id="saveQuestionsBtn" class="save-btn">Save All Questions</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add some CSS for better form handling -->
+
+</body>
+<script>// Create a simpler version of the "Add Another Question" functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // ======= ADD ANOTHER QUESTION FUNCTIONALITY =======
+    const addQuestionBtn = document.getElementById('addAnotherQuestion');
+    if (addQuestionBtn) {
+        addQuestionBtn.addEventListener('click', function() {
+            // Get the first question block
+            const originalBlock = document.querySelector('.question-block');
+            
+            // Clone it
+            const newBlock = originalBlock.cloneNode(true);
+            
+            // Clear all input values in the clone
+            newBlock.querySelectorAll('input[type="text"], textarea').forEach(function(input) {
+                input.value = '';
+            });
+            
+            // Uncheck radio buttons
+            newBlock.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                radio.checked = false;
+            });
+            
+            // Create a unique identifier for the new question block
+            const uniqueId = Date.now();
+            
+            // Update radio button names to make them a new group
+            newBlock.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                const oldId = radio.id;
+                const newId = oldId + '_' + uniqueId;
+                radio.id = newId;
+                radio.name = 'correct_option_' + uniqueId;
+                
+                // Update the corresponding label
+                const label = newBlock.querySelector(`label[for="${oldId}"]`);
+                if (label) {
+                    label.setAttribute('for', newId);
+                }
+            });
+            
+            // Create a separator
+            const separator = document.createElement('hr');
+            separator.className = 'question-separator';
+            
+            // Add separator and new block before the button group
+            const buttonGroup = document.querySelector('.button-group');
+            buttonGroup.parentNode.insertBefore(separator, buttonGroup);
+            buttonGroup.parentNode.insertBefore(newBlock, buttonGroup);
+        });
+    }
+    
+    // ======= FORM SUBMISSION HANDLER =======
+    const questionForm = document.getElementById('manualQuestionForm');
+    if (questionForm) {
+        questionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const examId = document.getElementById('examId').value;
+            const questions = [];
+            
+            // Process each question block
+            document.querySelectorAll('.question-block').forEach(function(block) {
+                const questionText = block.querySelector('textarea[name="question_text"]').value.trim();
+                
+                // Skip empty questions
+                if (!questionText) return;
+                
+                const optionA = block.querySelector('input[name="option_a"]').value.trim();
+                const optionB = block.querySelector('input[name="option_b"]').value.trim();
+                const optionC = block.querySelector('input[name="option_c"]').value.trim();
+                const optionD = block.querySelector('input[name="option_d"]').value.trim();
+                
+                // Find the selected radio button in this block
+                let correctOption = '';
+                block.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                    if (radio.checked) {
+                        correctOption = radio.value;
+                    }
+                });
+                
+                // Add question if all required fields are filled
+                if (questionText && correctOption && optionA && optionB && optionC && optionD) {
+                    questions.push({
+                        question_text: questionText,
+                        options: {
+                            'A': optionA,
+                            'B': optionB,
+                            'C': optionC,
+                            'D': optionD
+                        },
+                        correct_option: correctOption
+                    });
+                }
+            });
+            
+            // Submit if we have questions
+            if (questions.length > 0) {
+                // Get CSRF token
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                
+                // Show loading message
+                alert("Saving questions... Please wait.");
+                
+                // Use relative URL with proper base path
+                const apiUrl = `/university/exam/${examId}/add-questions-manually/`;
+                
+                // Send the request
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify(questions)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert(`${data.count} questions added successfully!`);
+                        // Close the modal
+                        document.getElementById('manualQuestionModal').style.display = 'none';
+                        // Reload the page
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting questions:', error);
+                    alert('Error submitting questions: ' + error.message);
+                });
+            } else {
+                alert('Please add at least one complete question with a correct option selected.');
+            }
+        });
+    }
+    
+    // ======= MODAL CLOSE BUTTON =======
+    const closeBtn = document.querySelector('#manualQuestionModal .close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            document.getElementById('manualQuestionModal').style.display = 'none';
+        });
+    }
+    
+    // ======= MAIN UPDATE QUESTIONS FUNCTION =======
+    // This function is called from the HTML onclick="updateQuestions(examId)"
+    window.updateQuestions = function(examId) {
+        const choice = confirm("Do you want to upload questions via CSV? Click OK for CSV upload, Cancel for manual entry.");
+
+        if (choice) {
+            // CSV upload flow
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.csv';
+
+            fileInput.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('questions_csv', file);
+                    
+                    // Get CSRF token
+                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    
+                    // Show loading message
+                    alert("Uploading CSV file... Please wait.");
+                    
+                    // Use relative URL with proper base path
+                    const apiUrl = `/university/upload_questions/${examId}/`;
+                    
+                    console.log("Sending request to:", apiUrl);
+                    
+                    // Make fetch request to upload CSV
+                    fetch(apiUrl, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-CSRFToken': csrfToken
+                            // Don't set Content-Type header for FormData
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(`${data.count} questions uploaded successfully!`);
+                            location.reload();
+                        } else {
+                            alert('Error: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error uploading questions:', error);
+                        alert(`Error uploading questions: ${error.message}\n\nPlease check the console for details.`);
+                    });
+                }
+            };
+
+            fileInput.click();
+        } else {
+            // Manual entry flow
+            document.getElementById('examId').value = examId;
+            
+            // Clear existing questions
+            const questionBlocks = document.querySelectorAll('.question-block');
+            if (questionBlocks.length > 1) {
+                // Remove all but the first question block
+                for (let i = 1; i < questionBlocks.length; i++) {
+                    questionBlocks[i].remove();
+                }
+            }
+            
+            // Clear all separators
+            document.querySelectorAll('.question-separator').forEach(function(sep) {
+                sep.remove();
+            });
+            
+            // Clear inputs in the first block
+            const firstBlock = document.querySelector('.question-block');
+            firstBlock.querySelectorAll('input[type="text"], textarea').forEach(function(input) {
+                input.value = '';
+            });
+            firstBlock.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+                radio.checked = false;
+            });
+            
+            // Show the modal
+            document.getElementById('manualQuestionModal').style.display = 'block';
+        }
+    };
+    
+    // ======= HELPER FUNCTION TO CLOSE THE MODAL =======
+    window.closeManualQuestionModal = function() {
+        document.getElementById('manualQuestionModal').style.display = 'none';
+    };
+    
+    // Add some basic CSS for the question form
+    const style = document.createElement('style');
+    style.textContent = `
+        .question-block {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        .option-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .option-input input[type="radio"] {
+            margin-right: 8px;
+        }
+        
+        .option-input label {
+            margin-right: 8px;
+            min-width: 20px;
+        }
+        
+        .option-input input[type="text"] {
+            flex-grow: 1;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .question-separator {
+            margin: 20px 0;
+            border: 0;
+            border-top: 1px dashed #999;
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>
+</html>

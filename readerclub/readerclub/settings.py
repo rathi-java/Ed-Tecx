@@ -28,7 +28,7 @@ CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("READERCLUB_DEBUG", "False").lower() == "true"
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'dbtools',
     'policies',  
     'blog',  
+    'university',
 ]
 
 # for Google auth

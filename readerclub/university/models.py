@@ -40,7 +40,7 @@ class UniversityCourse(models.Model):
     course_code = models.CharField(max_length=55, unique=True, blank=True)
 
     def save(self, *args, **kwargs):
-        self.name = self.name.strip().upper()
+        self.name = self.name.strip().upper()  # Normalize to uppercase
         if not self.course_code:
             last_course = UniversityCourse.objects.order_by('course_code').last()
             if last_course:
@@ -95,23 +95,31 @@ class UniversityExam(models.Model):
     duration = models.IntegerField()  # Duration in minutes
     num_questions = models.IntegerField()
     def save(self, *args, **kwargs):
-
+    # Generate the exam_code if it doesn't exist
         if not self.exam_code:
-            last_exam = UniversityExam.objects.order_by('exam_code').last()
+            last_exam = UniversityExam.objects.order_by('id').last()
             if last_exam:
-                # Extract the number from the code (ignoring 'D' part)
-                last_code_number = int(last_exam.difficulty_code[1:])
+                # Try to extract a numeric part from the last exam code
+                try:
+                    # Find digits in the exam_code
+                    digits = ''.join(filter(str.isdigit, last_exam.exam_code))
+                    last_code_number = int(digits) if digits else 0
+                except (ValueError, AttributeError):
+                    last_code_number = 0
                 new_code_number = last_code_number + 1
             else:
                 new_code_number = 1
-
-            # Format the new difficulty code, ensuring two digits for the number
-            self.exam_code = f'E{new_code_number:02}'
-
-        # Call the parent class's save method to store the object in the database
-        super(UniversityExam, self).save(*args, **kwargs)
-    def __str__(self):
-        return f"Exam {self.exam_code}"
+                
+            # Format the new exam code
+            self.exam_code = f'E{new_code_number:03d}'
+            
+        # Call the parent class's save method
+        super().save(*args, **kwargs)    
+        def __str__(self):
+            return f"Exam {self.exam_code}"
+    def can_edit_questions(self, professor):
+        """Check if the given professor can edit and add questions to this exam."""
+        return self.professor == professor
     class Meta:
         db_table = "university_exam"
 
@@ -141,3 +149,36 @@ class UniversityExamResult(models.Model):
 
     class Meta:
         db_table = "university_examresult"
+
+class ExamLink(models.Model):
+    """
+    Model to store unique links for exams that professors can share with students.
+    Each link has a unique code that students can use to access the exam.
+    """
+    exam = models.ForeignKey('UniversityExam', on_delete=models.CASCADE, related_name='links')
+    unique_code = models.CharField(max_length=50, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        db_table = 'exam_link'
+        verbose_name = "Exam Link"
+        verbose_name_plural = "Exam Links"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"Link for {self.exam.exam_code} ({self.unique_code})"
+    
+    def is_valid(self):
+        """Check if this link is still valid (active and exam hasn't ended)"""
+        current_time = timezone.now()
+        return self.is_active and current_time <= self.exam.end_time
+    
+    def time_until_start(self):
+        """Get time remaining until exam starts, in minutes"""
+        current_time = timezone.now()
+        if current_time >= self.exam.start_time:
+            return 0
+        
+        time_delta = self.exam.start_time - current_time
+        return int(time_delta.total_seconds() / 60)

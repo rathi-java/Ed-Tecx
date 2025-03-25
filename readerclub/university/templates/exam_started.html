@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="exam-started-container">
+    <div class="exam-started-card">
+        <div class="exam-header">
+            <h2>Exam {{ exam.exam_code }} Started</h2>
+            <p class="course-name">{{ exam.course.name }}</p>
+        </div>
+        
+        <div class="exam-details">
+            <div class="detail-row">
+                <span class="detail-label">Professor:</span>
+                <span class="detail-value">{{ exam.professor.name }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Difficulty:</span>
+                <span class="detail-value">{{ exam.difficulty.difficulty_name }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Duration:</span>
+                <span class="detail-value">{{ exam.duration }} minutes</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Questions:</span>
+                <span class="detail-value">{{ exam.num_questions }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Start Time:</span>
+                <span class="detail-value">{{ exam.start_time|date:"d/m/Y H:i" }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">End Time:</span>
+                <span class="detail-value">{{ exam.end_time|date:"d/m/Y H:i" }}</span>
+            </div>
+        </div>
+        
+        <div class="exam-link-section">
+            <h3>Exam Access Link</h3>
+            <p>Share this link with students to allow them to access the exam:</p>
+            
+            <div class="link-container">
+                <input type="text" id="examLink" value="{{ exam_url }}" readonly>
+                <button onclick="copyExamLink()" class="copy-btn">
+                    <img src="{% static 'images/copy-icon.svg' %}" alt="Copy">
+                </button>
+            </div>
+            
+            <div class="qr-code-container">
+                <h4>Or scan this QR code:</h4>
+                <img src="data:image/png;base64,{{ qr_code }}" alt="Exam QR Code" class="qr-code">
+            </div>
+            
+            <div class="unique-code-container">
+                <p>Unique Code: <strong>{{ exam_link.unique_code }}</strong></p>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{% url 'exam_list' %}" class="back-btn">Return to Exam List</a>
+            <a href="{% url 'exam_results' exam.id %}" class="results-btn">View Results</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyExamLink() {
+    var linkInput = document.getElementById("examLink");
+    linkInput.select();
+    linkInput.setSelectionRange(0, 99999); /* For mobile devices */
+    document.execCommand("copy");
+    
+    // Show a temporary "Copied" tooltip
+    var copyBtn = document.querySelector(".copy-btn");
+    copyBtn.innerHTML = "Copied!";
+    setTimeout(function() {
+        copyBtn.innerHTML = '<img src="{% static "images/copy-icon.svg" %}" alt="Copy">';
+    }, 2000);
+}
+</script>
+
+<style>
+.exam-started-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.exam-started-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.exam-header {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.exam-header h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 24px;
+}
+
+.course-name {
+    font-size: 18px;
+    color: #666;
+    margin: 0;
+}
+
+.exam-details {
+    margin-bottom: 30px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    flex: 0 0 120px;
+    font-weight: bold;
+    color: #555;
+}
+
+.detail-value {
+    flex: 1;
+    color: #333;
+}
+
+.exam-link-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.exam-link-section h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.link-container {
+    display: flex;
+    margin: 15px 0;
+}
+
+#examLink {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+}
+
+.copy-btn {
+    background-color: #4285f4;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+.qr-code-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.qr-code-container h4 {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.qr-code {
+    max-width: 200px;
+    border: 1px solid #eee;
+}
+
+.unique-code-container {
+    text-align: center;
+    margin: 20px 0 10px;
+    font-size: 16px;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.back-btn, .results-btn {
+    padding: 12px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-btn {
+    background-color: #f5f5f5;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+.results-btn {
+    background-color: #4285f4;
+    color: white;
+    border: 1px solid #4285f4;
+}
+
+@media (max-width: 768px) {
+    .detail-row {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .detail-label {
+        margin-bottom: 5px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .back-btn, .results-btn {
+        text-align: center;
+    }
+}
+</style>
+{% endblock %}
