@@ -20,7 +20,7 @@ services:
     volumes:
       - ./career:/app
     ports:
-      - "8001:81"
+      - "8001:80"
     env_file:
       - .env
     depends_on:

@@ -20,7 +20,7 @@ COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
 # Expose the port for Gunicorn
-EXPOSE 8000
+EXPOSE 80
 CMD ["sh", "entrypoint.sh"]
 # Set the entrypoint. No CMD is needed now since entrypoint.sh runs gunicorn.
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "readerclub.wsgi:application"]
