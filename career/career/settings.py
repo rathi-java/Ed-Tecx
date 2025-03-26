@@ -21,13 +21,13 @@ dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001') 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("CAREER_DEBUG", "False").lower() == "true"
-ALLOWED_HOSTS = ['career.readerclub.in', '127.0.0.1', 'localhost', 'readerclub.in']
+ALLOWED_HOSTS = ['career.readerclub.in', '127.0.0.1', 'localhost', 'readerclub.in', 'www.readerclub.in']
 
 
 # Application definition
@@ -196,12 +196,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_COOKIE_NAME = 'sessionid'     # same name
+
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-SESSION_COOKIE_DOMAIN = os.getenv("CAREER_SESSION_COOKIE_DOMAIN")
+
 
 
 AUTH_USER_MODEL = 'oauth.UsersDB'
@@ -225,14 +224,24 @@ RESTRICTED_SUBPATHS = [
 SOCIALACCOUNT_LOGIN_ON_GET = True
 LOGIN_REDIRECT_URL = '/'
 
+
+SESSION_COOKIE_DOMAIN = os.getenv("CAREER_SESSION_COOKIE_DOMAIN", ".readerclub.in")
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_NAME = 'sessionid'     # same name
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True
+CSRF_USE_SESSIONS = True
 csrf_origins = os.getenv("CAREER_CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(",") if origin.strip()]
-CSRF_COOKIE_DOMAIN = os.getenv("CAREER_CSRF_COOKIE_DOMAIN")
+CSRF_COOKIE_DOMAIN = os.getenv("CAREER_CSRF_COOKIE_DOMAIN", ".readerclub.in")
 
 LOGOUT_REDIRECT_URL = "/"
 CAREER_URL=os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'None'
