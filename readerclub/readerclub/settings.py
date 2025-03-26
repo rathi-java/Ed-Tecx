@@ -31,7 +31,7 @@ CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 DEBUG = os.getenv("READERCLUB_DEBUG", "False").lower() == "true"
 
 
-ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost', 'career.readerclub.in']
+ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost', 'career.readerclub.in', 'www.readerclub.in']
 AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 
@@ -207,15 +207,12 @@ SOCIALACCOUNT_ADAPTER = 'oauth.adapters.CustomSocialAccountAdapter'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "profile"
 SOCIALACCOUNT_LOGIN_ON_GET =True
-SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-SESSION_SAVE_EVERY_REQUEST = True
 # Session settings
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'  # Use cached DB for better performance
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_COOKIE_NAME = 'sessionid'
 SESSION_COOKIE_SECURE = True  # Ensure cookies are sent over HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to cookies
-SESSION_COOKIE_SAMESITE = 'Lax'  # Adjust to 'Lax' for compatibility with AWS load balancers
+SESSION_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_DOMAIN = os.getenv("READERCLUB_SESSION_COOKIE_DOMAIN", ".readerclub.in")
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
@@ -224,7 +221,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 # CSRF settings
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = 'Lax'  # Adjust to 'Lax' for compatibility with AWS load balancers
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_USE_SESSIONS = True
 csrf_origins = os.getenv("READERCLUB_CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(",") if origin.strip()]
 CSRF_COOKIE_DOMAIN = os.getenv("READERCLUB_CSRF_COOKIE_DOMAIN", ".readerclub.in")
@@ -301,12 +299,3 @@ PUBLIC_PATHS = [
 ]
 
 LOGIN_URL = '/login/'
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
-SESSION_COOKIE_NAME = 'sessionid'
-SESSION_COOKIE_DOMAIN = os.getenv("READERCLUB_SESSION_COOKIE_DOMAIN", ".readerclub.in")
-SESSION_COOKIE_AGE = 1209600  # etc.
-SESSION_SAVE_EVERY_REQUEST = True
-
-SESSION_COOKIE_HTTPONLY = True 
-SESSION_COOKIE_SAMESITE = 'None'
