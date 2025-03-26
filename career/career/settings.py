@@ -27,7 +27,7 @@ CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("CAREER_DEBUG", "False").lower() == "true"
-ALLOWED_HOSTS = ['career.readerclub.in', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['career.readerclub.in', '127.0.0.1', 'localhost', 'readerclub.in']
 
 
 # Application definition

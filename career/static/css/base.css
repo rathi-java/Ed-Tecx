@@ -595,14 +595,15 @@ p.footer-bottom-text {
   padding: 12px 19.5px;
 }
 
-.mobile-sidebar ul {
+.mobile-sidebar .mobile-sidebar-ul {
   list-style: none;
   padding: 0;
 }
 
-.mobile-sidebar ul li {
+.mobile-sidebar .mobile-sidebar-ul li {
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
 .mobile-sidebar .close-btn {
@@ -657,6 +658,19 @@ p.footer-bottom-text {
   .footer-container,
   .footer-base {
     max-width: 100%;
+  }
+
+  .signup,
+  .login {
+    display: none;
+  }
+  
+  .nav-links {
+    display: none;
+  }
+  
+  .hamburger {
+    display: block;
   }
 
   .footer-container {
