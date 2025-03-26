@@ -18,20 +18,20 @@
   }
 
   /* Headings: use Poppins for a bold, modern look */
-  h1, h2 {
+  .about_us_container-h1, .about_us_container-h2 {
     font-family: 'Poppins', sans-serif;
     margin-bottom: 0.5rem;
     text-decoration: none;
     text-align: left;
   }
 
-  h1 {
+  .about_us_container-h1 {
     color: #077BC2;
     font-size: 2rem; /* Using rem instead of pt for responsive sizing */
     margin-top: 1rem;
   }
 
-  h2 {
+  .about_us_container-h2 {
     color: #FE7800;
     font-size: 1.5rem;
     margin-top: 1.5rem;
@@ -69,7 +69,7 @@
 
 {% block content %}
 <div class="about_us_container">
-    <h1>About Us</h1>
+    <h1 class="about_us_container-h1">About Us</h1>
     
     <p class="about-us-para">ReaderClub is one of the world’s largest and fastest-growing cross-platform digital hubs <b>for e-papers,
         e-books, educational content, job listings, and global opportunities.</b></p>
@@ -86,7 +86,7 @@
         learning materials. With age-based recommendations and curated stores for classics like Alice in
         Wonderland, it’s the ultimate one-stop shop for kids, students, and lifelong learners.</p>
 
-    <h2>Your favorite local bookshop, perfected — and expanded</h2>
+    <h2> class="about_us_container-h2"Your favorite local bookshop, perfected — and expanded</h2>
     
     <p class="about-us-para">At ReaderClub, we embody everything you love about your favorite local bookshop, enhanced for your
         modern life. Our mission is to bring the power of reading, learning, career growth, and global
@@ -112,4 +112,5 @@
 {% endblock content %}
 {% block extra_js %}
 <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/faq.js' %}"></script>
 {% endblock %}

@@ -31,7 +31,7 @@ CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 DEBUG = os.getenv("READERCLUB_DEBUG", "False").lower() == "true"
 
 
-ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
+ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost', 'career.readerclub.in']
 AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 
