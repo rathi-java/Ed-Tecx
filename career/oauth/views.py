@@ -30,32 +30,36 @@ def home(request):
 
 def profile(request):
     """
-    Display user profile info.
+    Display user profile info based on role (user/company/abroad_studies).
     """
     user_id = request.session.get('user_id')
-    role = request.session.get('role')  # Get the role from the session
+    role = request.session.get('role')
     user = None
     company_details = None
+    abroad_studies_details = None
 
     if user_id:
         try:
             if role == "company":
                 from recruitment_portal.models import Company
-                company_details = Company.objects.get(id=user_id)  # Fetch all company details
+                company_details = Company.objects.get(id=user_id)
+            elif role == "abroad_studies":
+                from abroad_studies.models import AbroadStudiesBtoB
+                abroad_studies_details = AbroadStudiesBtoB.objects.get(id=user_id)
             else:
-                user = UsersDB.objects.get(id=user_id)  # Fetch normal user details
-        except (UsersDB.DoesNotExist, Company.DoesNotExist):
-            request.session.flush()  # Clear session if user not found
+                from oauth.models import UsersDB
+                user = UsersDB.objects.get(id=user_id)
+        except (UsersDB.DoesNotExist, Company.DoesNotExist, AbroadStudiesBtoB.DoesNotExist):
+            request.session.flush()
             messages.error(request, "Session expired. Please login again.")
             return redirect('/')
     
-    # Pass company details if the role is "company", otherwise pass user details
     return render(request, 'profile.html', {
         'user': user,
         'company': company_details,
+        'abroad_studies': abroad_studies_details,
         'role': role
     })
-
 
 def update_profile(request):
     """
