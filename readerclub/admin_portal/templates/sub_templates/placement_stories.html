@@ -2,7 +2,7 @@
 {% load static %} 
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
-
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_placement_story_section" %}
 <!-- Manage Placement Stories -->
 <div class="content current_page_action" data-page-name="manage_placement_stories">
@@ -67,12 +67,12 @@
                                 '{% if story.user_profile_pic %}{{ story.user_profile_pic.url|escapejs }}{% else %}{% endif %}',
                                 '{% if story.hand_written_review %}{{ story.hand_written_review.url|escapejs }}{% else %}{% endif %}',
                             )">
-                            Edit
+                            <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         <form class ="form-edit" method="POST" action="{% url 'delete_story' story.id %}">
                             {% csrf_token %}
                             <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ story.name|escapejs }}?')">
-                                Delete
+                                <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
                             </button>
                         </form>
                     </td>

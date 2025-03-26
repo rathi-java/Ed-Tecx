@@ -2,7 +2,7 @@
 {% load static %} 
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
-
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_user_section" %}
 <!-- Manage User -->
 <div class="content current_page_action" data-page-name="manage_user">
@@ -50,7 +50,7 @@
                                 '{{ user.dob }}', 
                                 '{{ user.referral_code|escapejs }}'
                             )">
-                            Edit
+                            <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         <form method="POST" action="{% url 'manage_users' %}">
                             {% csrf_token %}
@@ -58,7 +58,7 @@
                             <input type="hidden" name="user_id" value="{{ user.id }}">
                             <button type="submit" class="delete-btn" 
                                 onclick="return confirm('Are you sure you want to delete {{ user.full_name }}?')">
-                                Delete
+                                <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
                             </button>
                         </form>
                     </td>

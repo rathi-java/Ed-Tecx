@@ -29,6 +29,8 @@ urlpatterns = [
     path("manage-student/", dashboard, name="manage-student-section"), 
     path('manage-placement-stories/', dashboard, name='manage-placement-story-section'),
     path("manage-exam/", dashboard, name="manage-exam-section"), 
+    path("manage-plan-types/", manage_plan_types, name="manage_plan_types"),
+    path("manage-subscription-plans/", manage_subscription_plans, name="manage_subscription_plans"),
 
     path('certificate-req/', dashboard, name='certificate-req'),
     path("add-student/", add_student, name="add_student"), 

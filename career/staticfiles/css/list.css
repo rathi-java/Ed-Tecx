@@ -1,0 +1,123 @@
+body {
+    font-family: 'Poppins', sans-serif;
+  
+}
+.candidate-container {
+    max-width: 1100px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+   
+}
+.candidate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+th {
+color: #077bc3;
+background-color: #e3f2fd;
+}
+tr {
+    border: 1px solid #acaeb0;
+}
+.candidate-chat-btn {
+    background: #e3f2fd;
+    color: #007bff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+.candidate-view-btn {
+    background: #e0e0e0;
+    color: black;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+}
+.candidate-progress-box {
+    display: flex;
+    gap: 5px;
+}
+.candidate-progress-box span {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.candidate-shortlist { background: #ffecb3; }
+.candidate-reject { background: #ffcdd2; }
+.candidate-select { background: #c8e6c9; }
+.candidate-legend {
+    display: flex;
+    gap: 15px;
+}
+.candidate-legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.candidate-legend div {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+}
+.back-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.back-button:hover {
+    background-color: #0056b3;
+}
+@media (max-width: 768px) {
+    .candidate-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        display: none;
+    }
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        background: white;
+    }
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px;
+        border-bottom: none;
+    }
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #007bff;
+    }
+}

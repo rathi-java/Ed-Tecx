@@ -2,7 +2,7 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}" />
-
+<script src="{% static 'js/dashboard.js' %}"></script>
 <div class="content current_page_action" data-page-name="dashboard">
     {% if section == "profile" %}
         <!-- Profile Section -->
@@ -107,6 +107,42 @@
         <div class="card" data-page-name="categories">
             <h6>Total Categories</h6>
             <p>{{ total_categories }}</p>
+        </div>
+
+        <!-- Exams -->
+        <div class="card" data-page-name="exams">
+            <h6>Total Exams</h6>
+            <p>{{ total_exams }}</p>
+        </div>
+
+        <!-- Certificate Requests -->
+        <div class="card" data-page-name="certificate_requests">
+            <h6>Certificate Requests</h6>
+            <p>{{ certificate_requests }}</p>
+        </div>
+
+        <!-- Certificate Issued -->
+        <div class="card" data-page-name="certificate_issued">
+            <h6>Certificate Issued</h6>
+            <p>{{ certificate_issued }}</p>
+        </div>
+
+        <!-- Certificate Pending -->
+        <div class="card" data-page-name="certificate_pending">
+            <h6>Certificate Pending</h6>
+            <p>{{ certificate_pending }}</p>
+        </div>
+
+        <!-- Certificate Rejected -->
+        <div class="card" data-page-name="certificate_rejected">
+            <h6>Certificate Rejected</h6>
+            <p>{{ certificate_rejected }}</p>
+        </div>
+
+        <!-- Certificate Approved -->
+        <div class="card" data-page-name="certificate_approved">
+            <h6>Certificate Approved</h6>
+            <p>{{ certificate_approved }}</p> 
         </div>
 
         <!-- Sales -->

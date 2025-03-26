@@ -5,176 +5,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ blog.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/oracle.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <style>
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .author-section {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .author-section img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .author-section h3 {
-            margin-top: 10px;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .author-section p {
-            font-size: 1rem;
-            color: #555;
-        }
-
-        .tags {
-            margin-top: 20px;
-        }
-
-        .tags span {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            margin-right: 10px;
-            font-size: 0.9rem;
-        }
-
-        .toc {
-            position: fixed;
-            top: 200px; /* Adjusted to place below the blue area */
-            left: 20px;
-            width: 250px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-
-        .toc h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .toc ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .toc ul li {
-            margin-bottom: 10px;
-        }
-
-        .toc ul li a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: 600;
-        }
-
-        .toc ul li a:hover {
-            text-decoration: underline;
-        }
-
-        .reader-club {
-            background-color: #f0f0f0;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .reader-club h2 {
-            font-size: 1.5rem;
-            color: #333;
-        }
-    </style>
 </head>
 <body>
-    <!-- Table of Contents -->
-    <div class="toc">
-        <h3>Table of Contents</h3>
-        <ul>
-            {% for section in blog.sections.all %}
-                <li><a href="#{{ section.slug }}">{{ section.title }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">ReaderClub Blogs</a>
+        </div>
     </div>
 
-    <!-- Blog Content -->
-    <div class="oracle-body">
-        <div class="oracle-mid1">
-            <div class="one">
-                <p class="see">{{ blog.short_description }}</p>
-                <div class="obttns">
-                    <div class="obttn1">
-                        <p>{{ blog.author }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="two">
-                <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-image">
+    <div class="container main-content">
+        <div class="sidebar">
+            <div class="table-of-contents">
+                <h3>Table of Blogs</h3>
+                <ul class="contents-list">
+                    {% for section in blog.sections.all %}
+                    <li><a href="#{{ section.slug }}">{{ section.title }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
 
-        <div class="oracle-middle">
-            <!-- Blog Sections -->
-            <div class="oracle-middle-part2">
-                <section class="part2-section1">
-                    <div class="ERP">
-                        <h2 class="rw-ptitle">{{ blog.title }}</h2>
-                        <p>{{ blog.content|safe }}</p> <!-- Use |safe to render HTML -->
-                    </div>
-                </section>
-
-                <!-- Dynamic Sections -->
-                {% for section in blog.sections.all %}
-                    <section id="{{ section.slug }}" class="part2-section1">
-                        <div class="ERP">
-                            <h2>{{ section.title }}</h2>
-                            <p>{{ section.content|safe }}</p> <!-- Use |safe to render HTML -->
+        <div class="blog-section">
+            <section class="top-blogs-section">
+                <div class="container top-blogs-content">
+                    <div class="top-blogs-text">
+                        <h2>{{ blog.short_description }}</h2>
+                        <div class="autor_btn">
+                            {{ blog.author }}
                         </div>
-                    </section>
+                    </div>
+                    <div class="top-blogs-image">
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" />
+                    </div>
+                </div>
+            </section>
+            
+            <section class="blog-intro-section">
+                <h1 class="blog-intro-title">{{ blog.title }}</h1>
+                <p class="blog-intro-description">
+                    {{ blog.content|safe }}
+                </p>
+                {% if blog.featured_image %}
+                <img src="{{ blog.featured_image.url }}" alt="{{ blog.title }}" class="blog-intro-image">
+                {% endif %}
+            </section>
+
+            <div class="blog-posts-section">
+                {% for section in blog.sections.all %}
+                <div id="{{ section.slug }}" class="blog-post">
+                    {% if section.image %}
+                    <img src="{{ section.image.url }}" alt="{{ section.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default_section.jpg' %}" alt="{{ section.title }}">
+                    {% endif %}
+                    <div class="blog-post-content">
+                        <div class="blog-post-header">
+                            <span class="blog-category">{{ blog.category }}</span>
+                            <div class="blog-meta">{{ section.created_at|date:"F j, Y" }}</div>
+                        </div>
+                        <h2 class="blog-post-title">{{ section.title }}</h2>
+                        <p class="blog-excerpt">{{ section.content|truncatewords:30|safe }}</p>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
+    </div>
 
-        <!-- Author Details -->
-        <div class="author-section">
-            <div class="author-info">
-                {% if blog.author_image %}
-                    <img src="{{ blog.author_image.url }}" alt="{{ blog.author }}">
-                {% else %}
-                    <img src="{% static 'images/author_images/default_author_image.png' %}" alt="{{ blog.author }}">
-                {% endif %}
-                <h3>{{ blog.author }}</h3>
-                <p>{{ blog.author_description }}</p>
+    <section class="blog-list-section">
+        <div class="container">
+            <div class="blog-header">
+                <span class="blog-badge">Recent Blogs</span>
+                <h1 class="heading">Resources and Insights</h1>
+                <p class="blog-description">Discover our latest blogs with newest insights, technology, expert tips and trends shaping the industry.</p>
             </div>
-            <div class="meta-info">
-                <p><strong>Category:</strong> {{ blog.category }}</p>
-                <p><strong>Published Date:</strong> {{ blog.published_date|date:"F j, Y" }}</p>
-                <div class="tags">
-                    <strong>Tags:</strong>
-                    {% for tag in blog.tags.all %}
-                        <span>{{ tag.name }}</span>
-                    {% endfor %}
+
+            <div class="blog-container">
+                {% for recent_blog in recent_blogs %}
+                <div class="blog-card">
+                    <div class="image-container">
+                        {% if recent_blog.image %}
+                        <img src="{{ recent_blog.image.url }}" alt="{{ recent_blog.title }}">
+                        {% else %}
+                        <img src="{% static 'images/default_blog.jpg' %}" alt="{{ recent_blog.title }}">
+                        {% endif %}
+                        <a href="{% url recent_blog.blog_type|add:'_blog_detail' recent_blog.slug %}" class="read-more">Read More</a>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">{{ recent_blog.title }}</h3>
+                        <p class="blog-text">{{ recent_blog.short_description|truncatewords:15 }}</p>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
+    </section>
+
+    <div class="footer">
+        <p>&copy; {% now "Y" %} ReaderClub Blogs. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
     </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

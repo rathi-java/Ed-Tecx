@@ -2,6 +2,7 @@
 {% load static %} 
 
 {% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" /> {% endcomment %}
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% block extra_css %}
 <style>
   /* Container */
@@ -141,10 +142,14 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editExam('{{ exam.id }}', '{{ exam.name|escapejs }}', '{{ exam.duration }}')">Edit</button>
+                        <button class="edit-btn" onclick="editExam('{{ exam.id }}', '{{ exam.name|escapejs }}', '{{ exam.duration }}')">
+                          <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
+                        </button>
                         <form class="form-edit" method="POST" action="{% url 'delete_exam' exam.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ exam.name }}?')">Delete</button>
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ exam.name }}?')">
+                              <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
+                            </button>
                         </form>
                     </td>
                 </tr>

@@ -76,7 +76,8 @@ def dashboard(request):
     active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
 
     # Other metrics as in your original code
-    premium_users = 0
+    premium_users = StudentsDB.objects.count()  # Placeholder value for premium users
+    total_exams = Exam.objects.count()  # Placeholder value for total exams
     total_sales = 0
     yearly_sales = 0
     monthly_sales = 0
@@ -113,6 +114,7 @@ def dashboard(request):
         "total_categories": total_categories,
         "active_users": active_users,
         "premium_users": premium_users,
+        "total_exams": total_exams,
         "total_sales": total_sales,
         "yearly_sales": yearly_sales,
         "monthly_sales": monthly_sales,
@@ -156,8 +158,8 @@ def adm_dashboard(request):
 
     # Premium users (assuming premium users have a specific field or condition)
     # Example: If premium users have a field `is_premium=True`
-    # premium_users = UsersDB.objects.filter(is_premium=True).count()
-    premium_users = 0  # Replace with actual logic if applicable
+    premium_users = StudentsDB.objects.count()  # Placeholder value for premium users
+    # premium_users = 0  # Replace with actual logic if applicable
 
     # Sales data (assuming you have a Sales model)
     # Example: If you have a Sales model with an `amount` field
@@ -242,8 +244,7 @@ def mgr_dashboard(request):
 
     # Premium users (assuming premium users have a specific field or condition)
     # Example: If premium users have a field `is_premium=True`
-    # premium_users = UsersDB.objects.filter(is_premium=True).count()
-    premium_users = 0  # Replace with actual logic if applicable
+    premium_users = StudentsDB.objects.count()  # Placeholder value for premium users
 
     # Sales data (assuming you have a Sales model)
     # Example: If you have a Sales model with an `amount` field
@@ -328,8 +329,7 @@ def emp_dashboard(request):
 
     # Premium users (assuming premium users have a specific field or condition)
     # Example: If premium users have a field `is_premium=True`
-    # premium_users = UsersDB.objects.filter(is_premium=True).count()
-    premium_users = 0  # Replace with actual logic if applicable
+    premium_users = StudentsDB.objects.count()  # Placeholder value for premium users
 
     # Sales data (assuming you have a Sales model)
     # Example: If you have a Sales model with an `amount` field
@@ -999,6 +999,85 @@ def price_management(request):
         "plans": plans,
         "plan_types": plan_types
     })
+
+
+
+
+
+
+
+def manage_plan_types(request):
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        if action == "add_or_edit":
+            plan_id = request.POST.get("plan_id")
+            code = request.POST.get("code")
+            display_name = request.POST.get("display_name")
+
+            if plan_id:  # Update Existing Plan
+                plan = get_object_or_404(PlanType, id=plan_id)
+                plan.code = code
+                plan.display_name = display_name
+                plan.save()
+            else:  # Create New Plan
+                PlanType.objects.create(code=code, display_name=display_name)
+
+            return redirect("manage_plan_types")
+
+        elif action == "delete":
+            plan_id = request.POST.get("plan_id")
+            plan = get_object_or_404(PlanType, id=plan_id)
+            plan.delete()
+            return redirect("manage_plan_types")
+
+    plan_types = PlanType.objects.all()
+    return render(request, "sub_templates/manage_plan_types.html", {"plan_types": plan_types})
+
+def manage_subscription_plans(request):
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        if action == "add_or_edit":
+            plan_id = request.POST.get("plan_id")
+            plan_type_id = request.POST.get("plan_type_id")
+            price = request.POST.get("price")
+            duration_in_months = request.POST.get("duration_in_months")
+            discount = request.POST.get("discount")
+            features = request.POST.get("features")
+
+            plan_type = get_object_or_404(PlanType, id=plan_type_id)
+
+            if plan_id:  # Update Existing Plan
+                plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+                plan.plan_type = plan_type
+                plan.price = price
+                plan.duration_in_months = duration_in_months
+                plan.discount = discount
+                plan.features = json.loads(features)  # Convert JSON string to Python dict
+                plan.save()
+            else:  # Create New Plan
+                SubscriptionPlan.objects.create(
+                    plan_type=plan_type,
+                    price=price,
+                    duration_in_months=duration_in_months,
+                    discount=discount,
+                    features=json.loads(features)  # Convert JSON string to dict
+                )
+
+            return redirect("manage_subscription_plans")
+
+        elif action == "delete":
+            plan_id = request.POST.get("plan_id")
+            plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+            plan.delete()
+            return redirect("manage_subscription_plans")
+
+    subscription_plans = SubscriptionPlan.objects.select_related("plan_type").all()
+    plan_types = PlanType.objects.all()
+    
+    return render(request, "sub_templates/manage_subscription_plan.html", {"subscription_plans": subscription_plans, "plan_types": plan_types})
+
 # def create_exam(request):
 #     categories = Category.objects.all()
 #     subjects = Subject.objects.all()

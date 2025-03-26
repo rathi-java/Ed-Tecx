@@ -1,7 +1,7 @@
 {% load static %} 
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
-
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_institute_section" %}
 <!-- Manage Institute Section -->
 <div class="content current_page_action" data-page-name="manage_institute">
@@ -40,12 +40,16 @@
                         </select>
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editInstitute('{{ institute.id }}', '{{ institute.name|escapejs }}', '{{ institute.email|escapejs }}', '{{ institute.phone_number|escapejs }}', '{{ institute.address|escapejs }}')">Edit</button>
+                        <button class="edit-btn" onclick="editInstitute('{{ institute.id }}', '{{ institute.name|escapejs }}', '{{ institute.email|escapejs }}', '{{ institute.phone_number|escapejs }}', '{{ institute.address|escapejs }}')">
+                            <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
+                        </button>
                         <form class="form-edit" method="POST" action="{% url 'manage_institute' %}">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="institute_id" value="{{ institute.id }}">
-                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this institute?')">Delete</button>
+                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this institute?')">
+                                <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
+                            </button>
                         </form>
                     </td>
                 </tr>

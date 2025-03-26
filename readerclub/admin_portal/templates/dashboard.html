@@ -85,33 +85,33 @@
                         href="{% url 'dashboard' %}?section=manage_price_section"
                         onclick="showSection('manage_price_section')">
                         <span class="fas fa-cog"></span>
-                        <p class="section_subheadings">Manage Subscription</p>
+                        <p class="section_subheadings">Manage PlanType</p>
                         </a>
                     </li>
-                    <li data-page-name="add_price">
+                    {% comment %} <li data-page-name="add_price">
                         <a class="section_items" 
                         href="{% url 'dashboard' %}?section=add_price_section"
                         onclick="showSection('add_price_section')">
                         <span class="fas fa-plus-circle"></span>
                         <p class="section_subheadings">Add/Edit Subscription</p>
                         </a>
-                    </li>
+                    </li> {% endcomment %}
                     <li data-page-name="manage_subscription">
                         <a class="section_items" 
                         href="{% url 'dashboard' %}?section=manage_subscription_section"
                         onclick="showSection('manage_subscription_section')">
                         <span class="fas fa-user-tag"></span>
-                        <p class="section_subheadings">Manage PlanType</p>
+                        <p class="section_subheadings">Manage Subs. Plan</p>
                         </a>
                     </li>
-                    <li data-page-name="add_subscription">
+                    {% comment %} <li data-page-name="add_subscription">
                         <a class="section_items" 
                         href="{% url 'dashboard' %}?section=add_subscription_section"
                         onclick="showSection('add_subscription_section')">
                         <span class="fas fa-plus-circle"></span>
                         <p class="section_subheadings">Add Subscription</p>
                         </a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
 
 
@@ -344,10 +344,12 @@
             {% include "sub_templates/payment_history.html" %}
             {% comment %} {% elif section == "manage_institutes_section" or section == "add_institutes_section" %}
             {% include "sub_templates/institute.html" %} {% endcomment %}
-            {% elif section == "manage_price_section" or section == "add_price_section"  or section == "add_subscription_section" %}
-            {% include "sub_templates/price_management.html" %}
+            {% comment %} {% elif section == "manage_price_section" or section == "add_price_section"  or section == "add_subscription_section" %}
+            {% include "sub_templates/price_management.html" %} {% endcomment %}
+            {% elif section == "manage_price_section" %}
+            {% include "sub_templates/manage_plan_types.html" %}
             {% elif section == "manage_subscription_section" %}
-            {% include "sub_templates/subscription_management.html" %}
+            {% include "sub_templates/manage_subscription_plan.html" %}
             {% elif section == "exam_result_section" %}
             {% include "sub_templates/exam_result.html" %}
             {% else %}

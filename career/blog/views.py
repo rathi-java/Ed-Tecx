@@ -14,10 +14,22 @@ def blog_list(request, blog_type=None):
 
 def blog_detail(request, slug, blog_type=None):
     """
-    View to display the details of a specific blog post.
+    View to display the details of a specific blog post with recent issues.
     """
     blog = get_object_or_404(Blog, slug=slug, blog_type=blog_type)
-    return render(request, f'{blog_type}_blog_detail.html', {'blog': blog})
+    recent_blogs = Blog.objects.filter(
+        active=True, 
+        blog_type=blog_type
+    ).exclude(
+        id=blog.id
+    ).order_by(
+        "-published_date"
+    )[:4]  # Get 4 most recent blogs of the same type
+    
+    return render(request, f'{blog_type}_blog_detail.html', {
+        'blog': blog,
+        'recent_blogs': recent_blogs
+    })
 
 def form(request):
     """
@@ -77,7 +89,7 @@ def form(request):
                 )
 
         messages.success(request, 'Blog created successfully!')
-        return redirect(reverse(f'{blog_type}_blog_list')) if blog_type in ['readerclub', 'career'] else redirect('readerclub_blog_list') if blog_type in ['readerclub', 'career'] else redirect('readerclub_blog_list') if blog_type in ['readerclub', 'career'] else redirect('readerclub_blog_list')  # Ensure this matches the URL name
+        return redirect(reverse(f'{blog_type}_blog_list'))  # Ensure this matches the URL name
 
     # Render the form template for GET requests
     blogs = Blog.objects.all()
@@ -157,4 +169,4 @@ def delete_blog(request, blog_id):
         messages.success(request, 'Blog deleted successfully!')
     except Blog.DoesNotExist:
         messages.error(request, 'Blog not found!')
-    return redirect(reverse(f'{blog_type}_blog_list')) if blog_type in ['readerclub', 'career'] else redirect('readerclub_blog_list') if blog_type in ['readerclub', 'career'] else redirect('readerclub_blog_list') if blog_type in ['readerclub', 'career'] else redirect('readerclub_blog_list')
+    return redirect(reverse(f'{blog_type}_blog_list'))

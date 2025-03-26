@@ -79,7 +79,7 @@ input[readonly] {
     left: 0;
     width: 100%;
     background: rgba(93, 91, 91, 0.3);
-     backdrop-filter: blur(5px); 
+    backdrop-filter: blur(5px);
     /* display: none; */
     align-items: center;
     justify-content: center;
@@ -208,3 +208,4 @@ color: gray;
         font-size: 14px;
     }
 }
+

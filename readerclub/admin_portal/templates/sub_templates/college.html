@@ -1,6 +1,6 @@
 <!-- College Section -->
 {% load static %} 
-
+<script src="{% static 'js/dashboard.js' %}"></script>
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
 
 {% if section == "manage_college_section" %}
@@ -37,13 +37,13 @@
                                 '{{ college.college_name|escapejs }}', 
                                 '{{ college.college_location|escapejs }}'
                             )">
-                            Edit
+                            <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         <form class ="form-edit" method="POST" action="{% url 'delete_college' college.id %}">
                             {% csrf_token %}
                             <button type="submit" class="delete-btn" 
                                 onclick="return confirm('Are you sure you want to delete {{ college.college_name|escapejs }}?')">
-                                Delete
+                                <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
                             </button>
                         </form>
                     </td>

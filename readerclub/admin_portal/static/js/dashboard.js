@@ -439,12 +439,14 @@ function filterExamResults() {
 
 
 
-function editPlan(id, price, duration, discount) {
-    document.getElementById("plan_id").value = id;
-    document.getElementsByName("price")[0].value = price;
-    document.getElementsByName("duration_in_months")[0].value = duration;
-    document.getElementsByName("discount")[0].value = discount;
-    document.getElementsByName("action")[0].value = "edit_price";
+function editPlanType(planId, code, displayName) {
+    // Set values in the form
+    document.getElementById("plan_id").value = planId;
+    document.getElementById("code").value = code;
+    document.getElementById("display_name").value = displayName;
+    
+    // Change button text
+    document.getElementById("form-submit-button").textContent = "Update Plan Type";
 }
 
 function filterPrices() {

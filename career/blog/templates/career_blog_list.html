@@ -4,35 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Blog List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Blog List</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="page-title">Career Blog List</h1>
-        <div class="blog-grid">
-            {% comment %} {% for blog in blogs %}
-            <div class="blog-card">
-                <div class="blog-image">
-                    {% if blog.image %}
-                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" class="blog-img">
-                    {% else %}
-                        <img src="{% static 'images/default_blog_image.jpg' %}" alt="{{ blog.title }}" class="blog-img">
-                    {% endif %}
-                    <div class="blog-title">{{ blog.title }}</div>
-                    <div class="blog-overlay"></div>
-                </div>
-                <div class="blog-content">
-                    <p class="blog-text">{{ blog.short_description|default:blog.content|truncatewords:30|safe }}</p>
-                    <a href="{% url 'career_blog_detail' blog.slug %}" class="read-more" aria-label="Read more about {{ blog.title }}">Read More</a>
-                </div>
+
+    <div class="blog-header">
+        <span class="blog-badge">Career Blog List</span>
+        <h1 class="heading">Resources and Insights</h1>
+        <p class="blog-description">Discover our blogs for newest insights, technology, expert tips and trends
+            shaping the industry.</p>
+    </div>
+    
+    <div class="blog-container">
+        {% for blog in blogs %}
+        <div class="blog-card">
+            {% if blog.image %}
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+            {% endif %}
+            <div class="blog-content">
+                <h2 class="blog-title">{{ blog.title }}</h2>
+                <p class="blog-text">{{ blog.short_description }}</p>
+
+                <!-- Dynamic link to blog details -->
+                <a href="{% url blog.blog_type|add:'_blog_detail' blog.slug %}" class="read-more">Read More</a>
             </div>
-            {% endfor %} {% endcomment %}
         </div>
+        {% empty %}
+        <p>No blogs available.</p>
+        {% endfor %}
     </div>
 
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
