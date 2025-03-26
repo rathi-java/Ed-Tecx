@@ -79,14 +79,17 @@
             <li>
               <a class="nav-link" href="https://www.readerclub.in/" target="_blank">Skill Development</a>
             </li>
-            {% if request.session.user_id %}
             <li>
-              <a class="nav-link" href="{% url 'maintenance_view' %}" >Hire Talent</a>
+              <a class="nav-link" href="{% url 'freelancing_landing_page' %}">Freelancing</a>
+            </li>
+            {% comment %} {% if request.session.user_id %} {% endcomment %}
+            <li>
+              <a class="nav-link" href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Hire Talent</a>
             </li>
             <li>
-              <a class="nav-link" href="{% url 'job_page' %}" >Find Jobs</a>
+              <a class="nav-link" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')" >Find Jobs</a>
             </li>
-            {% endif %}
+            {% comment %} {% endif %} {% endcomment %}
             {% if request.session.user_id %}
             <!-- Profile Dropdown -->
             <li>
@@ -155,35 +158,36 @@
       <i class="fas fa-times"></i>
     </div>
     <ul class="mobile-sidebar-ul">
-      <li><a href="/">Home</a></li>
-      {% comment %} <li class="dropdown">
-        <a href="#">Solution <i class="fa-solid fa-caret-down"></i></a>
-        <ul>
-          <li><a href="{% url 'compile_code' %}" onclick="handleAuthCheck(event, '{% url 'compile_code' %}')">Compiler</a></li>
-          <li><a href="{% url 'demo_test' %}" onclick="handleAuthCheck(event, '{% url 'demo_test' %}')">Demo Test</a></li>
-          <li><a href="{% url 'practice_questions' %}" onclick="handleAuthCheck(event, '{% url 'practice_questions' %}')">Practice Questions</a></li>
-          <li><a href="{% url 'placement_stories' %}" onclick="handleAuthCheck(event, '{% url 'placement_stories' %}')">Placement Stories</a></li>
-          <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Exam Registration</a></li>
-          <li><a href="https://library.readerclub.in/">Library</a></li>
-        </ul>
-      </li> {% endcomment %}
-      {% comment %} <li><a href="{% url 'exam_home' %}" onclick="handleAuthCheck(event, '{% url 'exam_home' %}')">Test Room</a></li> {% endcomment %}
-      {% comment %} <li>
-        <a class="nav-link" href="https://career.readerclub.in/" >Job</a>
-      </li> {% endcomment %}
+      <li>
+        <a href="/">Home</a>
+      </li>
       <li>
         <a class="nav-link" href="https://library.readerclub.in/">Library</a>
       </li>
       <li>
-        <a class="nav-link" href="https://readerclub.in/">Skill Development</a>
+        <a class="nav-link" href="{{CAREER_URL}}/internship-portal">Internship</a>
       </li>
+      <li>
+        <a class="nav-link" href="https://www.readerclub.in/" target="_blank">Skill Development</a>
+      </li>
+      <li>
+        <a class="nav-link" href="{% url 'freelancing_landing_page' %}">Freelancing</a>
+      </li>
+      {% comment %} {% if request.session.user_id %} {% endcomment %}
+      <li>
+        <a class="nav-link" href="{% url 'maintenance_view' %}" onclick="handleAuthCheck(event, '{% url 'maintenance_view' %}')">Hire Talent</a>
+      </li>
+      <li>
+        <a class="nav-link" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')" >Find Jobs</a>
+      </li>
+
       {% if request.session.user_id %}
-   
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
       {% else %}
       <li><button class="signup-button-ham" onclick="openModal('signup')">Sign Up</button></li>
       <li><button class="login-button-ham" onclick="openModal('login')">Log In</button></li>
       {% endif %}
+      
     </ul>
 </div>
 
@@ -248,7 +252,7 @@
               <a href="{% url 'internship_search' %}" onclick="handleAuthCheck(event, '{% url 'internship_search' %}')" class="job-footer-link">Internships</a>
             </li>
             <li>
-              <a href="{% url 'freelancing_landing_page' %}" onclick="handleAuthCheck(event, '{% url 'freelancing_landing_page' %}')">Freelancing</a>
+              <a href="{% url 'freelancing_landing_page' %}">Freelancing</a>
             </li>
           </ul>          
         </div>

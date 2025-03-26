@@ -31,7 +31,7 @@ CAREER_URL = os.getenv('CAREER_URL', 'http://127.0.0.1:8001')
 DEBUG = os.getenv("READERCLUB_DEBUG", "False").lower() == "true"
 
 
-ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost']
+ALLOWED_HOSTS = ['readerclub.in' , '127.0.0.1',  'localhost', 'career.readerclub.in']
 AUTH_USER_MODEL = 'oauth.UsersDB'
 # Application definition
 
@@ -218,7 +218,7 @@ SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session 
 SESSION_COOKIE_SAMESITE = 'None'  # Adjust as needed ('Lax', 'Strict', 'None')
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
 SESSION_COOKIE_AGE = 1209600  # Session expiry in seconds (2 weeks)
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True # Set to True if using HTTPS
 csrf_origins = os.getenv("READERCLUB_CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(",") if origin.strip()]
 CSRF_COOKIE_DOMAIN = os.getenv("READERCLUB_CSRF_COOKIE_DOMAIN")
