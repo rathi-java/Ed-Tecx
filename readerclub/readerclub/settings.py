@@ -211,17 +211,23 @@ SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
 # Session settings
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Use database-backed sessions
-SESSION_COOKIE_NAME = 'sessionid'  # Name of the session cookie
-SESSION_COOKIE_SECURE = True  # Set to True if using HTTPS
-SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript from accessing the session cookie
-SESSION_COOKIE_SAMESITE = 'None'  # Adjust as needed ('Lax', 'Strict', 'None')
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Keep session after browser is closed
-SESSION_COOKIE_AGE = 1209600  # Session expiry in seconds (2 weeks)
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'  # Use cached DB for better performance
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_SECURE = True  # Ensure cookies are sent over HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access to cookies
+SESSION_COOKIE_SAMESITE = 'Lax'  # Adjust to 'Lax' for compatibility with AWS load balancers
+SESSION_COOKIE_DOMAIN = os.getenv("READERCLUB_SESSION_COOKIE_DOMAIN", ".readerclub.in")
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 1209600  # Two weeks in seconds
+SESSION_SAVE_EVERY_REQUEST = True
+
+# CSRF settings
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Lax'  # Adjust to 'Lax' for compatibility with AWS load balancers
 csrf_origins = os.getenv("READERCLUB_CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in csrf_origins.split(",") if origin.strip()]
-CSRF_COOKIE_DOMAIN = os.getenv("READERCLUB_CSRF_COOKIE_DOMAIN")
+CSRF_COOKIE_DOMAIN = os.getenv("READERCLUB_CSRF_COOKIE_DOMAIN", ".readerclub.in")
 
 # settings.py
 LOGGING = {
@@ -296,9 +302,9 @@ PUBLIC_PATHS = [
 
 LOGIN_URL = '/login/'
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 SESSION_COOKIE_NAME = 'sessionid'
-SESSION_COOKIE_DOMAIN = os.getenv("READERCLUB_SESSION_COOKIE_DOMAIN")
+SESSION_COOKIE_DOMAIN = os.getenv("READERCLUB_SESSION_COOKIE_DOMAIN", ".readerclub.in")
 SESSION_COOKIE_AGE = 1209600  # etc.
 SESSION_SAVE_EVERY_REQUEST = True
 

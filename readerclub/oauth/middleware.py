@@ -6,43 +6,21 @@ from django.urls import reverse
 class LoginRequiredMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        
-        public_paths = getattr(settings, 'PUBLIC_PATHS', [])
-        # For the home page '/', we leave it as '/'.
-        # For other paths, we strip trailing slash for consistent comparison.
-        self.allowed_paths = [
-            path if path == '/' else path.rstrip('/')
-            for path in public_paths
-        ] + [
-            reverse('login').rstrip('/'),
-            reverse('signup').rstrip('/'),
-            settings.STATIC_URL.rstrip('/'),
-            settings.MEDIA_URL.rstrip('/'),
-            # Add social auth paths
-            '/accounts/google',
-            '/accounts/github',
-            '/accounts/social-auth',
-            '/complete'  # For OAuth callback URLs
-        ]
 
     def __call__(self, request):
-        # Add specific check for social auth paths
-        if request.path.startswith('/accounts/') or request.path.startswith('/social-auth/'):
-            return self.get_response(request)
-            
-        current_path = request.path if request.path == '/' else request.path.rstrip('/')
-        is_custom_logged_in = bool(request.session.get('user_id'))
+        # Ensure session ID is valid and user is logged in
+        user_id = request.session.get('user_id')
+        if not user_id:
+            # Redirect to login if session is missing or expired
+            if not any(request.path.startswith(path) for path in settings.PUBLIC_PATHS):
+                return redirect('/login/?next=' + request.path)
 
-        if not is_custom_logged_in:
-            if not any(
-                current_path == path or current_path.startswith(path + '/')
-                for path in self.allowed_paths
-            ):
-                return redirect("/?form_type=login")
+        # Ensure session is not flushed unless explicitly logged out
+        if not request.session.session_key:
+            request.session.create()
 
         return self.get_response(request)
 
-    
 class EnsureUserIdMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

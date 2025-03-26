@@ -36,17 +36,15 @@ def enquiry_view(request):
 def dashboard(request):
     username = request.session.get('username', "Guest")
     
-    # Get AbroadStudiesBtoB information
+    # Check if the user is authorized
     try:
         abroad_studies_b2b = AbroadStudiesBtoB.objects.get(username=username)
     except AbroadStudiesBtoB.DoesNotExist:
-        abroad_studies_b2b = None
-    
+        # Redirect unauthorized users to the home page
+        return redirect('home')
+
     # Filter enquiries by the referral code
-    if abroad_studies_b2b:
-        enquiries = CounsellingEnquiry.objects.filter(referral_code=abroad_studies_b2b.referral_code)
-    else:
-        enquiries = []
+    enquiries = CounsellingEnquiry.objects.filter(referral_code=abroad_studies_b2b.referral_code)
     
     # Prepare data for stats
     total_students = len(enquiries)
