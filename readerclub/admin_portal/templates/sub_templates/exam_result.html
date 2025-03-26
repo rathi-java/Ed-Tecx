@@ -1,0 +1,44 @@
+<div class="content current_page_action" data-page-name="exam_result">
+    <h3>&nbsp;Results / Exam Results</h3>
+    <div class="container">
+        <div class="header">
+            <input type="text" id="searchExamResult" placeholder="Search by User..." onkeyup="filterExamResults()">
+        </div>
+        <table id="examResultTable">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>User</th>
+                    <th>Session ID</th>
+                    <th>Total Questions</th>
+                    <th>Correct Answers</th>
+                    <th>Score (%)</th>
+                    <th>Submitted At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in exam_results %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="user-name">
+                        {% if result.user %} 
+                            {{ result.user.full_name }} 
+                        {% else %} 
+                            Guest 
+                        {% endif %}
+                    </td>
+                    <td>{{ result.session_id }}</td>
+                    <td>{{ result.total_questions }}</td>
+                    <td>{{ result.correct_answers }}</td>
+                    <td>{{ result.score }}</td>
+                    <td>{{ result.submitted_at }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No exam results found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

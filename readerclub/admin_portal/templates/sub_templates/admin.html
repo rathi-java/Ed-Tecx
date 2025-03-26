@@ -22,9 +22,9 @@
                     <th class="admin-email">Email</th>
                     <th>Phone No.</th>
                     <th>Alt. Phone No.</th>
-                    <th>Password</th>
+                    {% comment %} <th>Password</th> {% endcomment %}
                     <th>Aadhar No.</th>
-                    <th>SuperAdmin</th>
+                    {% comment %} <th>SuperAdmin</th> {% endcomment %}
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,16 +37,16 @@
                     <td class="admin-email">{{ admin.email }}</td>
                     <td>{{ admin.phone_number }}</td>
                     <td>{{ admin.alt_phone_number }}</td>
-                    <td>{{ admin.password }}</td>
+                    {% comment %} <td>{{ admin.password }}</td> {% endcomment %}
                     <td>{{ admin.aadhar_number }}</td>
-                    <td>
+                    {% comment %} <td>
                         <select onchange="transferAdmin('{{ admin.id }}', this.value)">
                             <option value="">Select SuperAdmin</option>
                             {% for superadmin in superadmins %}
                             <option value="{{ superadmin.id }}" {% if admin.superadmin == superadmin %}selected{% endif %}>{{ superadmin.username }}</option>
                             {% endfor %}
                         </select>
-                    </td>
+                    </td> {% endcomment %}
                     <td>
                         <button class="edit-btn" onclick="editAdmin('{{ admin.id }}', '{{ admin.full_name|escapejs }}', '{{ admin.email|escapejs }}', '{{ admin.phone_number|escapejs }}', '{{ admin.alt_phone_number|escapejs }}', '{{ admin.password|escapejs }}', '{{ admin.aadhar_number|escapejs }}')">Edit</button>
                         <form class="form-edit" method="POST" action="{% url 'manage_admin' %}">
@@ -57,11 +57,11 @@
                         </form>
                     </td>
                 </tr>
-                {% empty %}  <!-- Corrected the empty block syntax -->
+                {% empty %}  
                 <tr>
-                    <td class="form-data" colspan="10">No admins found.</td>
+                    <td class = "form-data" colspan="10" >No admins found.</td>
                 </tr>
-                {% endfor %}  <!-- Corrected the endfor syntax -->
+                {% endfor %}  
             </tbody>
         </table>
     </div>

@@ -18,13 +18,17 @@ class DashboardAccessMiddleware:
 
             
             if not user_id or not user_role:
-                messages.error(request, "Please log in to access this page")
-                return redirect('login')  # Redirect to your login URL
+                messages.error(request, "Please log in to access this page.")
+                return redirect('/login/?next=' + request.path)
             
             allowed_roles = ['superadmin', 'admin', 'manager', 'employee']
             if user_role not in allowed_roles:
-                messages.error(request, "You don't have permission to access this page")
-                return redirect('home')  # Redirect to home
+                messages.error(request, "You don't have permission to access this page.")
+                return redirect('/')
+
+        # Ensure session is not flushed unless explicitly logged out
+        if not request.session.session_key:
+            request.session.create()
         
         response = self.get_response(request)
         return response

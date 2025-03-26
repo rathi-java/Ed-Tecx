@@ -25,6 +25,7 @@ from price.views import *
 from exam_registration.views import *
 from admin_portal.views import adm_dashboard, mgr_dashboard, emp_dashboard
 from .views import maintenance_view
+from university import views as university_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
@@ -53,8 +54,11 @@ urlpatterns = [
     path("payu_exam_success/", payu_exam_success, name="payu_exam_success"),
     path("payu_exam_failure/", payu_exam_failure, name="payu_exam_failure"),
     path('maintenence/', maintenance_view, name='maintenance_view'),
-    path('adm-dashboard/', adm_dashboard, name='adm_dashboard'),
-    path('mgr-dashboard/', mgr_dashboard, name='mgr_dashboard'),
-    path('emp-dashboard/', emp_dashboard, name='emp_dashboard'),
+    path('adm_dashboard/', adm_dashboard, name='adm_dashboard'),
+    path('mgr_dashboard/', mgr_dashboard, name='mgr_dashboard'),
+    path('emp_dashboard/', emp_dashboard, name='emp_dashboard'),
+    path('university/',include('university.urls')),
+    path('upload_questions/<int:exam_id>/', university_views.upload_questions, name='upload_questions_direct'),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -19,8 +19,6 @@
                     <th>S.No</th>
                     <th class="student-name">Username</th>
                     <th class="student-email">Email</th>
-                    <th>Domain</th>
-                    <th>Subject</th>
                     <th>Payment</th>
                     <th>Actions</th>
                 </tr>
@@ -31,8 +29,6 @@
                     <td>{{ forloop.counter }}</td>
                     <td class="student-name">{{ student.username }}</td>
                     <td class="student-email">{{ student.email }}</td>
-                    <td>{{ student.domain.category_name }}</td>
-                    <td>{{ student.subject.subject_name }}</td>
                     <td>{{ student.payment }}</td>
                     <td>
                         <button class="edit-btn" 

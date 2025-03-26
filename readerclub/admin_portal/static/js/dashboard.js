@@ -315,10 +315,11 @@ function filterUsers() {
     let rows = table.getElementsByTagName("tr");
 
     for (let i = 1; i < rows.length; i++) {
+        let username = rows[i].getElementsByTagName("td")[1]?.textContent.toLowerCase() || "";
         let name = rows[i].getElementsByClassName("user-name")[0]?.textContent.toLowerCase() || "";
         let email = rows[i].getElementsByClassName("user-email")[0]?.textContent.toLowerCase() || "";
 
-        rows[i].style.display = (name.includes(input) || email.includes(input)) ? "" : "none";
+        rows[i].style.display = (username.includes(input) || name.includes(input) || email.includes(input)) ? "" : "none";
     }
 }
 
@@ -377,16 +378,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     let checkboxes = document.querySelectorAll(".question-checkbox");
-    let btnSelectAll = document.getElementById("btnSelectAll");
-    let btnDeselectAll = document.getElementById("btnDeselectAll");
-
-    if (btnSelectAll) {
-        btnSelectAll.addEventListener("click", () => checkboxes.forEach(c => c.checked = true));
-    }
-
-    if (btnDeselectAll) {
-        btnDeselectAll.addEventListener("click", () => checkboxes.forEach(c => c.checked = false));
-    }
+    document.getElementById("btnSelectAll").addEventListener("click", () => checkboxes.forEach(c => c.checked = true));
+    document.getElementById("btnDeselectAll").addEventListener("click", () => checkboxes.forEach(c => c.checked = false));
 });
 
 function openStoryForm() {
@@ -412,49 +405,107 @@ function filterStories() {
     }
 }
 
-function transferAdmin(adminId, newSuperadminId) {
-    fetch(`/transfer_admin/${adminId}/${newSuperadminId}/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json'
+function filterTransactions() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("search-transaction");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("transaction-table");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        for (var j = 0; j < td.length; j++) {
+            if (td[j]) {
+                txtValue = td[j].textContent || td[j].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                }
+            }
         }
-    }).then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              location.reload();
-          }
-      });
+    }
 }
 
-function transferManager(managerId, newAdminId) {
-    fetch(`/transfer_manager/${managerId}/${newAdminId}/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json'
-        }
-    }).then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              location.reload();
-          }
-      });
+function filterExamResults() {
+    const input = document.getElementById("searchExamResult").value.toLowerCase();
+    const rows = document.querySelectorAll("#examResultTable tbody tr");
+
+    rows.forEach(row => {
+        const userName = row.querySelector(".user-name")?.textContent.toLowerCase() || "";
+        row.style.display = userName.includes(input) ? "" : "none";
+    });
 }
 
-function transferEmployee(employeeId, newManagerId) {
-    fetch(`/transfer_employee/${employeeId}/${newManagerId}/`, {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'Content-Type': 'application/json'
-        }
-    }).then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              location.reload();
-          }
-      });
+
+
+function editPlan(id, price, duration, discount) {
+    document.getElementById("plan_id").value = id;
+    document.getElementsByName("price")[0].value = price;
+    document.getElementsByName("duration_in_months")[0].value = duration;
+    document.getElementsByName("discount")[0].value = discount;
+    document.getElementsByName("action")[0].value = "edit_price";
 }
 
+function filterPrices() {
+    const input = document.getElementById("search-price").value.toLowerCase();
+    const rows = document.querySelectorAll("#price-table tbody tr");
+
+    rows.forEach(row => {
+        const planType = row.cells[1]?.textContent.toLowerCase() || "";
+        const price = row.cells[2]?.textContent.toLowerCase() || "";
+        row.style.display = (planType.includes(input) || price.includes(input)) ? "" : "none";
+    });
+}
+
+// function transferAdmin(adminId, newSuperadminId) {
+//     fetch(`/transfer_admin/${adminId}/${newSuperadminId}/`, {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRFToken': '{{ csrf_token }}',
+//             'Content-Type': 'application/json'
+//         }
+//     }).then(response => response.json())
+//       .then(data => {
+//           if (data.success) {
+//               location.reload();
+//           }
+//       });
+// }
+
+// function transferManager(managerId, newAdminId) {
+//     if (newAdminId) {
+//         window.location.href = `/dashboard/transfer_manager/${managerId}/${newAdminId}/`;
+//     } else {
+//         alert("Please select an admin.");
+//     }
+// }
+
+// function transferEmployee(employeeId, newManagerId) {
+//     fetch(`/transfer_employee/${employeeId}/${newManagerId}/`, {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRFToken': '{{ csrf_token }}',
+//             'Content-Type': 'application/json'
+//         }
+//     }).then(response => response.json())
+//       .then(data => {
+//           if (data.success) {
+//               location.reload();
+//           }
+//       });
+// }
+
+// function updateTransferUrl(form) {
+//     let managerId = form.action.split("/").slice(-2, -1)[0]; // Extract manager ID
+//     let newAdminId = form.querySelector("select[name='new_admin_id']").value;
+    
+//     if (!newAdminId) {
+//         alert("Please select an admin.");
+//         return false;
+//     }
+
+//     form.action = `/dashboard/transfer_manager/${managerId}/${newAdminId}/`;
+//     return true;
+// }
 

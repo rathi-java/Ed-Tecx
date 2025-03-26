@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="exam-wait-container">
+    <div class="exam-wait-card">
+        <div class="exam-header">
+            <h2>{{ exam.course.name }} Exam</h2>
+            <p class="exam-code">Exam Code: {{ exam.exam_code }}</p>
+        </div>
+        
+        {% if status == 'waiting' %}
+        <div class="exam-status waiting">
+            <img src="{% static 'images/clock-icon.svg' %}" alt="Waiting" class="status-icon">
+            <h3>Exam Not Started Yet</h3>
+            <p>{{ message }}</p>
+            <div class="countdown-container">
+                <p>The page will automatically refresh when the exam begins.</p>
+                <div id="countdown"></div>
+            </div>
+        </div>
+        {% elif status == 'ended' %}
+        <div class="exam-status ended">
+            <img src="{% static 'images/ended-icon.svg' %}" alt="Ended" class="status-icon">
+            <h3>Exam Has Ended</h3>
+            <p>{{ message }}</p>
+            <p>Please contact your professor if you believe this is an error.</p>
+        </div>
+        {% endif %}
+        
+        <div class="exam-details">
+            <div class="detail-row">
+                <span class="detail-label">Professor:</span>
+                <span class="detail-value">{{ exam.professor.name }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Duration:</span>
+                <span class="detail-value">{{ exam.duration }} minutes</span>
+            </div>
+            {% if status == 'waiting' %}
+            <div class="detail-row">
+                <span class="detail-label">Starts At:</span>
+                <span class="detail-value">{{ exam.start_time|date:"d/m/Y H:i" }}</span>
+            </div>
+            {% endif %}
+            <div class="detail-row">
+                <span class="detail-label">Ends At:</span>
+                <span class="detail-value">{{ exam.end_time|date:"d/m/Y H:i" }}</span>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/" class="home-btn">Return to Home</a>
+            {% if status == 'waiting' %}
+            <button onclick="checkExamStatus()" class="refresh-btn">Refresh Status</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% if status == 'waiting' %}
+<script>
+// Set the exam start time
+var examStartTime = new Date("{{ exam.start_time|date:'Y-m-d H:i:s' }}").getTime();
+
+// Update the countdown every second
+var countdownTimer = setInterval(function() {
+    // Get current date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now and the exam start time
+    var distance = examStartTime - now;
+    
+    // Time calculations for hours, minutes and seconds
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Display the result in the element with id="countdown"
+    document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+    
+    // If the countdown is finished, refresh the page
+    if (distance < 0) {
+        clearInterval(countdownTimer);
+        document.getElementById("countdown").innerHTML = "Starting exam...";
+        location.reload();
+    }
+}, 1000);
+
+// Function to manually check exam status
+function checkExamStatus() {
+    location.reload();
+}
+
+// Auto refresh the page every minute
+setTimeout(function() {
+    location.reload();
+}, 60000);
+</script>
+{% endif %}
+
+<style>
+.exam-wait-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.exam-wait-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.exam-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.exam-header h2 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 24px;
+}
+
+.exam-code {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.exam-status {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.exam-status.waiting {
+    background-color: #fff8e1;
+    border: 1px solid #ffe082;
+}
+
+.exam-status.ended {
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+}
+
+.status-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+.exam-status h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.countdown-container {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#countdown {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: #ff6d00;
+}
+
+.exam-details {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    flex: 0 0 100px;
+    font-weight: bold;
+    color: #555;
+}
+
+.detail-value {
+    flex: 1;
+    color: #333;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.home-btn, .refresh-btn {
+    padding: 12px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    text-align: center;
+}
+
+.home-btn {
+    background-color: #f5f5f5;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+.refresh-btn {
+    background-color: #4285f4;
+    color: white;
+    border: 1px solid #4285f4;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .detail-row {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .detail-label {
+        margin-bottom: 5px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .home-btn, .refresh-btn {
+        width: 100%;
+    }
+}
+</style>
+{% endblock %}

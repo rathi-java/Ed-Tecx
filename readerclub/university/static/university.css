@@ -1,0 +1,912 @@
+/* General Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    background-color: #f1f3f9;
+    display: flex;
+    overflow-x: clip; /* Hide horizontal scrollbar */
+}
+
+/* Main Section */
+.dashh_main_sec {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: #f1f3f9;
+}
+
+/* Sidebar */
+.dashh_mainsidebar {
+    width: 240px;
+    background: #fff;
+    padding: 20px;
+    height: auto;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    border-radius: 20px;
+    padding-inline: 0px;
+}
+.dashh_logo_line {
+    width: 100%;  /* Perfect fit without overflow */
+    height: 2px;  /* Slightly thicker for better visibility */
+    background: #f1f3f9; /* Soft light gray */
+    border: none;
+    margin-top: 10px; /* Increase gap for a more spacious feel */
+    margin-left: 0; /* Center align */
+    box-shadow: 0px 4px 8px rgba(151, 151, 151, 0.15); /* More blurred shadow for a softer, deeper look */
+}
+
+
+.dashh_mainlogo {
+    text-align: center;
+    display: flex;
+    width: 88%;
+    margin-inline: 5%;
+    align-items: center;
+}
+
+.dashh_mainlogo img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.dashh_mainlogo h2 {
+    color: #485157;
+    font-size: 18px;
+    font-weight: 600;
+    margin-inline: 5%;
+    text-align: justify;
+}
+
+.dashh_mainlogo span {
+    color: #66737C;
+    font-size: 12px;
+}
+
+.dashh_mainlogo hr {
+    color: skyblue;
+    width: 115%;
+    margin-inline: -8%;
+}
+
+.dashh_mainsidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dashh_mainsidebar ul li {
+    padding: 5px;
+}
+
+.dashh_mainsidebar ul li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 15px;
+    color: #485157;
+    padding: 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+    gap: 15px;
+    font-weight: 600;
+}
+
+.dashh_mainsidebar ul li a:hover,
+.dashh_mainsidebar ul li a.active {
+    background-color: #077BC3;
+    color: #fff;
+}
+
+.dashh_mainsidebar ul li a:hover img {
+    filter: brightness(0) invert(1); /* Change image to white */
+}
+
+img.sidelogo {
+    width: 20px;
+    height: 20px;
+}
+
+/* Main Content */
+.dashh_mainmain-content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    margin: 9px;
+    border-radius: 20px;
+    margin-inline: 0px;
+}
+
+/* Dashboard */
+#dashh_maindashboard h2 {
+    color: #485157;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#dashh_maindashboard h2 img {
+    margin-inline: 2%;
+}
+
+.dashh_mainstats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.dashh_maincard {
+    background: #fff;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    position: relative;
+    height: 68px;
+    padding: 20px;
+}
+
+.dashh_maincard:nth-child(1), .dashh_maincard:nth-child(5), .dashh_maincard:nth-child(9) { border-bottom: 5px solid #82caff; }
+.dashh_maincard:nth-child(2), .dashh_maincard:nth-child(6), .dashh_maincard:nth-child(10) { border-bottom: 5px solid #ffe599; }
+.dashh_maincard:nth-child(3), .dashh_maincard:nth-child(7), .dashh_maincard:nth-child(11) { border-bottom: 5px solid #f8a2c5; }
+.dashh_maincard:nth-child(4), .dashh_maincard:nth-child(8), .dashh_maincard:nth-child(12) { border-bottom: 5px solid #9ff5d5; }
+
+.dashh_mainrd1 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #5A6369;
+    margin-block: 0px;
+}
+
+p.dashh_mainnum {
+    font-weight: 500;
+    font-size: 26px;
+    margin-block: 7px;
+}
+
+/* Referral Code */
+.dashh_mainpage img{
+    margin-inline: 2%;
+}
+.dashh_mainpage h2{
+    color: #485157;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    width: 40%;
+}
+.dashh_mainreferral-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 7.6px 1px #D0DAE0;
+}
+
+.dashh_mainreferral-code {
+    color: #485157;
+    margin-block: 0px;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 1.5;
+}
+
+.dashh_mainreferral-note {
+    font-size: 13px;
+    color: #5C6265;
+    margin-top: 5px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.dashh_mainreferral-note span {
+    color: rgb(220, 6, 6);
+}
+
+/* Registered Students */
+.dashh_mainregistered-container {
+    background: #fff;
+    width: 95%;
+    margin: 20px auto;
+    overflow-x: auto;
+    margin-left: 0px;
+}
+
+.dashh_mainstudents-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border: 2px solid #077BC3;
+    border-radius: 10px; /* Add border-radius */
+    overflow: hidden; /* Ensure border-radius is applied */
+}
+
+.dashh_mainstudents-table th, .dashh_mainstudents-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: gray;
+    border: none; /* Remove gray lines */
+    border-bottom: 1px solid #ddd; /* Add line dividing rows */
+}
+
+.dashh_mainstudents-table th {
+    background: #F8FCFF;
+    color: #077BC3;
+}
+
+.dashh_mainstudents-table th:last-child, .dashh_mainstudents-table td:last-child {
+    border-right: none; /* Remove right border for the last column */
+}
+
+.dashh_mainstudents-table tr:last-child td {
+    border-bottom: none; /* Remove bottom border for the last row */
+}
+
+.dashh_mainstatus-badge {
+    padding: 6px 0px;
+    border-radius: 5px;
+    font-weight: bold;
+    min-width: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.dashh_mainstatus-pending {
+    background-color: #F6F6F6;
+    color: #74797E;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dashh_mainstatus-approved {
+    background-color: #EFFAF4;
+    color: #0D8F4C;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 5%;
+}
+
+.dashh_mainstatus-rejected {
+    background-color: #f8d7da;
+    color: rgb(220, 6, 6);
+    border: 1px solid #f5c6cb;
+}
+
+/* Professors */
+.headinggg_dash_professor {
+    display: flex;
+    align-items: center;
+    width: 97%;
+    justify-content: space-between;
+}
+
+.dashh_mainprofessor-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px 0px #00000040;
+    border: 1px solid #ddd;
+    max-width: 800px;
+    padding-bottom: 1%;
+    position: absolute;
+}
+
+.dashh_mainprofessor-form {
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.dashh_mainprofessor-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #485157;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #9ECFEC;
+    border-radius: 5px;
+    padding: 10px;
+    background: white;
+    margin-top: 2%;
+}
+
+.input-container img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    opacity: 0.6;
+}
+
+.input-container input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+    color: #A6A5A5;
+}
+
+.input-container input:focus {
+    border: none;
+    box-shadow: none;
+}
+
+.input-container select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    font-size: 14px;
+    color: #A6A5A5;
+    outline: none;
+}
+
+.input-container select, .input-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    font-size: 14px;
+    color: #A6A5A5;
+    outline: none;
+}
+
+
+
+.input-container select, .input-container input[type="text"], .input-container input[type="number"], .input-container input[type="datetime-local"], .input-container input[type="password"], .input-container input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    font-size: 14px;
+    color: #A6A5A5;
+    outline: none;
+    border: none;
+}
+
+
+
+.add-professor-btn {
+    background-color: #0CA63A;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-professor-btn:hover {
+    background-color: #0056b3;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* Courses */
+.dashh_maindashh_list {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 10px; /* Add border-radius */
+    overflow: hidden; /* Ensure border-radius is applied */
+}
+
+.dashh_maindashh_list th, .dashh_maindashh_list td {
+    padding: 12px;
+    border: none; /* Remove gray lines */
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: gray;
+    border-bottom: 1px solid #ddd; /* Add line dividing rows */
+}
+
+.dashh_maindashh_list th {
+    background: #F8FCFF;
+    color: #077BC3;
+}
+
+.dashh_maindashh_list th:last-child, .dashh_maindashh_list td:last-child {
+    border-right: none; /* Remove right border for the last column */
+}
+
+.dashh_maindashh_list tr:last-child td {
+    border-bottom: none; /* Remove bottom border for the last row */
+}
+
+/* Difficulty */
+.difficulty-form-container {
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 2%;
+}
+
+.difficulty-table-container {
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: block;
+    position: absolute;
+    top: 55%;
+    width: 50%;
+}
+
+.difficulty-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+    border: 2px solid #077BC3; /* Add blue border color */
+    border-radius: 10px; /* Add border-radius */
+    overflow: hidden; /* Ensure border-radius is applied */
+}
+
+.difficulty-table th, .difficulty-table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: gray;
+    border: none; /* Remove gray lines */
+    border-bottom: 1px solid #ddd; /* Add line dividing rows */
+}
+
+.difficulty-table th {
+    background-color: #F8FCFF;
+    color: #077BC3;
+}
+
+.difficulty-table th:last-child, .difficulty-table td:last-child {
+    border-right: none; /* Remove right border for the last column */
+}
+
+.difficulty-table tr:last-child td {
+    border-bottom: none; /* Remove bottom border for the last row */
+}
+
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+img.editt {
+    cursor: pointer;
+}
+
+.add-diff-btn {
+    background-color: #077BC3;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 26%;
+    margin-block: 3%;
+}
+
+.diffdiv {
+    display: flex;
+    justify-content: right;
+}
+
+/* Exams */
+.action_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8%;
+}
+
+.action_btn button {
+    width: 52px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: #077BC3;
+    color: white;
+    font-size: 12px;
+    border: none;
+    padding: 5% 10%;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Results */
+.results-job-listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+}
+
+.results-job-card-box {
+    background: #fff;
+    padding: 10px 0px 10px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border: 1px solid #ddd;
+    position: relative;
+    text-align: center;
+    height: 160px;
+    border: 2px solid #b8d4e6;
+}
+
+.results-job-category {
+    font-size: 12px;
+    color: #666;
+    display: block;
+    margin-bottom: 5px;
+    float: left;
+}
+
+.results-job-posted-time {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    background: #d4edda;
+    color: #155724;
+    padding: 5px 10px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.results-job-title {
+    margin-top: 45px;
+    font-size: 18px;
+    color: #485157;
+}
+
+.results-job-view-link {
+    color: #077bc3;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.results-job-listings-grid table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border: 2px solid #077BC3;
+    border-radius: 10px; /* Add border-radius */
+    overflow: hidden; /* Ensure border-radius is applied */
+}
+
+.results-job-listings-grid table th, .results-job-listings-grid table td {
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: gray;
+    border: none; /* Remove gray lines */
+    border-bottom: 1px solid #ddd; /* Add line dividing rows */
+}
+
+.results-job-listings-grid table th {
+    background: #F8FCFF;
+    color: #077BC3;
+}
+
+.results-job-listings-grid table th:last-child, .results-job-listings-grid table td:last-child {
+    border-right: none; /* Remove right border for the last column */
+}
+
+.results-job-listings-grid table tr:last-child td {
+    border-bottom: none; /* Remove bottom border for the last row */
+}
+
+.diss {
+    display: none;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .dashh_mainsidebar {
+        width: 200px;
+    }
+    .dashh_mainstats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .dashh_mainstats {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 426px) {
+    .dashh_main_sec {
+        flex-direction: column;
+    }
+    .dashh_mainsidebar {
+        width: 45%;
+        height: 15%;
+        display: none;
+    }
+}
+
+@media (max-width: 1440px) {
+    .difficulty-table-container {
+        top: 40%;
+    }
+    .difficulty-form-container {
+        width: 54%;
+    }
+}
+
+@media (max-width: 769px) {
+    .difficulty-table-container {
+        top: 58%;
+    }
+}
+
+@media (max-width: 426px) {
+    .difficulty-form-container {
+        width: 72%;
+        margin-top: 6%;
+    }
+    .difficulty-table-container {
+        top: 62%;
+        width: 81%;
+    }
+}
+
+@media (max-width: 375px) {
+    .difficulty-table-container {
+        top: 60%;
+        width: 81%;
+    }
+    .difficulty-form-container {
+        width: 63%;
+        margin-top: 6%;
+    }
+    .headinggg_dash_professor {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px) {
+    .results-job-listings-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .dashh_mainlogo h2 {
+        font-size: 13px;
+    }
+    .dashh_mainlogo span {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 600px) {
+    .results-job-listings-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .dashh_mainreferral-code {
+        font-size: 16px;
+    }
+    .dashh_mainpage h2 {
+        width: 80%;
+    }
+    .dashh_mainreferral-container {
+        gap: 4px;
+    }
+}
+
+/* Modal Popup */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Disable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    backdrop-filter: blur(5px); /* Add blur effect */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* Centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px; /* Maximum width */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    border: 2px solid #077BC3; /* Add blue border */
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the modal */
+}
+
+.modal-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #077BC3;
+    margin-bottom: 20px;
+}
+
+.modal-content .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-btn, .manual-btn {
+    background-color: #f8f9fa;
+    color: #485157;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: background-color 0.3s, transform 0.3s; /* Add transition for smooth effect */
+    font-family: 'Inter', sans-serif;
+    display: flex
+    ;
+        justify-content: center;
+        align-items: center;
+}
+
+.upload-btn img {
+    margin-left: 10px;
+}
+
+.upload-btn:hover, .manual-btn:hover {
+    background-color: #e2e6ea;
+    transform: scale(1.05); /* Slightly increase size on hover */
+    cursor: pointer; /* Ensure cursor is a pointer */
+    width: 79%;
+}
+
+.modal-content p {
+    font-size: 16px;
+    color: #777;
+    margin: 20px 0;
+    position: relative;
+    width: 80%;
+}
+
+.modal-content p::before, .modal-content p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.modal-content p::before {
+    left: 0;
+}
+
+.modal-content p::after {
+    right: 0;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+    .question-block {
+        margin-bottom: 15px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    
+    .option-input {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .option-input input[type="radio"] {
+        margin-right: 8px;
+    }
+    
+    .option-input label {
+        margin-right: 8px;
+        min-width: 20px;
+    }
+    
+    .option-input input[type="text"] {
+        flex-grow: 1;
+    }
+    
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    
+    .question-separator {
+        margin: 20px 0;
+        border: 0;
+        border-top: 1px dashed #999;
+    }
+    
+    /* Make the modal bigger for better usability */
+    .modal-content {
+        width: 80%;
+        max-width: 800px;
+    }

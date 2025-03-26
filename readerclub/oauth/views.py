@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import UsersDB, CollegesDb
@@ -84,7 +83,7 @@ def profile(request):
         try:
             user = UsersDB.objects.get(id=user_id)
         except UsersDB.DoesNotExist:
-            request.session.flush()  # Clear session if user not found
+            # Do not flush the session; instead, redirect to login
             messages.error(request, "Session expired. Please login again.")
             return redirect('/')
 

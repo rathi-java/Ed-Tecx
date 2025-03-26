@@ -21,14 +21,14 @@
                     <th class="employee-email">Email</th>
                     <th>Phone No.</th>
                     <th>Alt. Phone No.</th>
-                    <th>Password</th>
+                    {% comment %} <th>Password</th> {% endcomment %}
                     <th>Aadhar No.</th>
-                    <th>Manager</th>
+                    {% comment %} <th>Manager</th> {% endcomment %}
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- { for employee in employees %} -->
+                {% for employee in employees %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ employee.username }}</td>
@@ -36,16 +36,16 @@
                     <td class="employee-email">{{ employee.email }}</td>
                     <td>{{ employee.phone_number }}</td>
                     <td>{{ employee.alt_phone_number }}</td>
-                    <td>{{ employee.password }}</td>
+                    {% comment %} <td>{{ employee.password }}</td> {% endcomment %}
                     <td>{{ employee.aadhar_number }}</td>
-                    <td>
+                    {% comment %} <td>
                         <select onchange="transferEmployee('{{ employee.id }}', this.value)">
                             <option value="">Select Manager</option>
-                            <!-- { for manager in managers %} -->
+                            {% for manager in managers %} 
                             <option value="{{ manager.id }}" {% if employee.manager == manager %}selected{% endif %}>{{ manager.username }}</option>
-                            <!-- { endfor %} -->
+                            {% endfor %} 
                         </select>
-                    </td>
+                    </td> {% endcomment %}
                     <td>
                         <button class="edit-btn" onclick="editEmployee('{{ employee.id }}', '{{ employee.full_name|escapejs }}', '{{ employee.email|escapejs }}', '{{ employee.phone_number|escapejs }}', '{{ employee.alt_phone_number|escapejs }}', '{{ employee.password|escapejs }}', '{{ employee.aadhar_number|escapejs }}')">Edit</button>
                         <form class="form-edit" method="POST" action="{% url 'manage_employee' %}">
@@ -56,11 +56,11 @@
                         </form>
                     </td>
                 </tr>
-                <!-- { empty %} -->
+                {% empty %}
                 <tr>
                     <td class="form-data" colspan="10">No employees found.</td>
                 </tr>
-                <!-- { endfor %} -->
+                {% endfor %}
             </tbody>
         </table>
     </div>

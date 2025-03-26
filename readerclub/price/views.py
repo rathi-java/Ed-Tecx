@@ -440,7 +440,7 @@ def payu_success(request):
                 logger.warning(f"Hash verification failed for transaction: {request.POST.get('txnid')}")
                 if request.POST.get('status', '').lower() != 'success':
                     messages.error(request, "Payment verification failed.")
-                    return HttpResponse("Bhai hash to sahi krle")
+                    return HttpResponse("Hash verification failed.")
 
             # Process the payment
             try:
@@ -489,18 +489,18 @@ def payu_success(request):
                         return render(request, "payment_success.html")
                     else:
                         messages.error(request, "User session not found.")
-                        return HttpResponse("Login krle phle")
+                        return HttpResponse("Login Session not found.")
                 else:
                     messages.error(request, f"Payment status: {status}")
-                    return HttpResponse("Status mai dikkat aagye bhai")
+                    return HttpResponse("Status is not success.")
             except Exception as e:
                 logger.error(f"Error processing payment: {str(e)}", exc_info=True)
                 messages.error(request, "Error processing payment. Please contact support.")
-                return HttpResponse(f"Kuch toh gadbad hai processing mai: {str(e)}")
+                return HttpResponse(f"Payment Not Processed: {str(e)}")
         else:
             logger.warning("Missing hash in PayU callback")
             messages.error(request, "Incomplete payment data received.")
-            return HttpResponse("Hash nahi hai bhai kuch missing hai isme")
+            return HttpResponse("hash is missing")
     else:
         return redirect("price")
     
