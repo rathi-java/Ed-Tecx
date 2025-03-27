@@ -1,4 +1,3 @@
-
 {% load static %}
 
 {% block extra_css %}
@@ -15,16 +14,17 @@
   
 </div>
  </nav>
- <div class="header">
-  {% if user %}
-  <div id="greetings">Hi {{user.full_name}}, Best of Luck!</div>
-  {% else %}
-  <div id="greetings">Hi User, Best of Luck!</div>
+{% if exam_type == 'university' %}
+  <div class="header">
+    <div id="greetings">Welcome to the University Exam!</div>
+    <div>Exam Code: {{ exam.exam_code }}</div>
+  </div>
+{% elif exam_type == 'examportol' %}
+  <div class="header">
+    <div id="greetings">Welcome to the ExamPortol Exam!</div>
+    <div>Exam Name: {{ exam.name }}</div>
+  </div>
 {% endif %}
-<button type="button" class="btn" onclick="toggleCalculator()" id="btn">Calculator</button>
-<div id="timerDisplay">60m: 00s</div>
-</div>
-
 
 <!-- Main Content -->
 <form id="examForm" method="POST" action="{% url 'submit_exam' %}" class="main-container">
@@ -35,7 +35,7 @@
     <!-- Question Section -->
     <div class="question-section">
       {% for question in questions %}
-      <div class="question-container {% if not forloop.first %}hidden{% endif %}"
+      <div class="question-container {% if forloop.first %}active{% else %}hidden{% endif %}"
            data-question-id="{{ question.id }}">
 
         <!-- Top row: "Question X" and "Options" -->
@@ -58,15 +58,14 @@
           <!-- Right: Options -->
           <div class="question-options-section">
             <div class="options-container" data-question-id="{{ question.id }}">
-              {% for key, option in question.answers.items %}
+              {% for key, value in question.options.items %}
               <div class="option-item">
                 <input type="radio"
                        name="question{{ question.id }}"
                        value="{{ key }}"
                        data-question-id="{{ question.id }}"
-                       data-question-index="{{ forloop.parentloop.counter0 }}"
                        onchange="updateQuestionStatus(this)">
-                <span class="option-text">{{ option.text }}</span>
+                <span class="option-text">{{ value }}</span>
               </div>
               {% endfor %}
             </div>
@@ -234,10 +233,18 @@
 
   // Create a more aggressive warning when user tries to leave
   window.addEventListener('beforeunload', function(e) {
-      // Cancel the event
-      e.preventDefault();
-      // Chrome requires returnValue to be set
-      e.returnValue = 'Leaving this page will be counted as a tab switch and may result in automatic exam submission!';
+      // Check if the form is being submitted
+      if (!document.getElementById('examForm').dataset.submitting) {
+          // Cancel the event
+          e.preventDefault();
+          // Chrome requires returnValue to be set
+          e.returnValue = 'Leaving this page will be counted as a tab switch and may result in automatic exam submission!';
+      }
+  });
+
+  // Add a flag to indicate form submission
+  document.getElementById('examForm').addEventListener('submit', function() {
+      this.dataset.submitting = true;
   });
 
   // Periodically check if window has focus

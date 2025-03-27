@@ -129,24 +129,36 @@ document.addEventListener('DOMContentLoaded', function() {
     window.saveAndNext = saveAndNext;
 
     function confirmSubmit() {
-        return totalQuestions - answeredQuestions.size === 0 ||
-            confirm(`You have ${totalQuestions - answeredQuestions.size} unanswered questions. Submit anyway?`);
+        if (confirm("You are about to submit your test. Are you sure?")) {
+            storeExamResult(); // Store the result before submission
+            return true;
+        }
+        return false;
     }
     window.confirmSubmit = confirmSubmit;
 
     // Timer functionality
     let timeLeft = 3600; // 60 minutes in seconds
     function updateTimer() {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        document.getElementById("timerDisplay").textContent = `${minutes}m:${seconds.toString().padStart(2, '0')}s`;
+        const timerDisplay = document.getElementById("timerDisplay");
+        if (timerDisplay) {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes}m:${seconds.toString().padStart(2, '0')}s`;
+        }
         if (timeLeft > 0) {
             timeLeft--;
             setTimeout(updateTimer, 1000);
         } else {
-            alert("Time's up! Submitting your exam...");
+            alert("Time's up! Your exam will now be submitted.");
+            storeExamResult(); // Store the result before submission
             document.getElementById("examForm").submit();
         }
+    }
+
+    function storeExamResult() {
+        // Logic to store the exam result (e.g., save answers to a database or local storage)
+        console.log("Exam result stored successfully.");
     }
 
     // Calculator functionality

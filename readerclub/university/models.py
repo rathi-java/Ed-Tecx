@@ -94,6 +94,15 @@ class UniversityExam(models.Model):
     exam_code = models.CharField(max_length=55, unique=True,blank=True)
     duration = models.IntegerField()  # Duration in minutes
     num_questions = models.IntegerField()
+    EXAM_TYPE_CHOICES = [
+        ('university', 'University'),
+        ('examportol', 'ExamPortol'),
+    ]
+    exam_type = models.CharField(
+        max_length=20,
+        choices=EXAM_TYPE_CHOICES,
+        default='university'
+    )
     def save(self, *args, **kwargs):
     # Generate the exam_code if it doesn't exist
         if not self.exam_code:
@@ -127,11 +136,11 @@ class UniversityQuestion(models.Model):
     exam = models.ForeignKey(UniversityExam, on_delete=models.CASCADE, related_name='questions')
     question_code = models.CharField(max_length=50)
     question_text = models.TextField()
-    options = models.JSONField()
-    correct_option = models.CharField(max_length=1)
-    
+    answers = models.JSONField(blank=True, null=True)  # {"options": {"A": "Option A text", "B": "Option B text", ...}, "is_correct": "A"}
+
     def __str__(self):
         return f"{self.question_code} - {self.question_text}"
+
     class Meta:
         db_table = "university_question"    
 
@@ -155,17 +164,17 @@ class ExamLink(models.Model):
     Model to store unique links for exams that professors can share with students.
     Each link has a unique code that students can use to access the exam.
     """
-    exam = models.ForeignKey('UniversityExam', on_delete=models.CASCADE, related_name='links')
+    exam = models.ForeignKey('UniversityExam', on_delete=models.CASCADE, related_name='links')  # Ensure this references UniversityExam
     unique_code = models.CharField(max_length=50, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
-    
+
     class Meta:
-        db_table = 'exam_link'
+        db_table = 'exam_link'  # Ensure this matches the database table name
         verbose_name = "Exam Link"
         verbose_name_plural = "Exam Links"
         ordering = ['-created_at']
-    
+
     def __str__(self):
         return f"Link for {self.exam.exam_code} ({self.unique_code})"
     

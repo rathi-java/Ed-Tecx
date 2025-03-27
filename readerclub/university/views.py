@@ -14,8 +14,10 @@ from django.urls import reverse
 import qrcode
 import base64
 import uuid  # Added missing import
-
-
+from django.utils.timezone import make_aware
+from datetime import datetime
+from oauth.models import UsersDB
+from exam_registration.models import StudentsDB
 from .models import (
     University, 
     UniversityProfessor, 
@@ -487,6 +489,10 @@ def add_exam(request):
                 course = UniversityCourse.objects.get(id=course_id)
                 difficulty = UniversityExamDifficulty.objects.get(id=difficulty_id)
                 
+                # Convert start_time and end_time to timezone-aware datetime objects
+                start_time = make_aware(datetime.strptime(start_time, '%Y-%m-%dT%H:%M'))
+                end_time = make_aware(datetime.strptime(end_time, '%Y-%m-%dT%H:%M'))
+
                 exam = UniversityExam.objects.create(
                     professor=professor,
                     course=course,
@@ -539,6 +545,10 @@ def edit_exam(request, exam_id):
                     messages.error(request, "You are not authorized to edit this exam.")
                     return redirect('exam_list')
                 
+                # Convert start_time and end_time to timezone-aware datetime objects
+                start_time = make_aware(datetime.strptime(start_time, '%Y-%m-%dT%H:%M'))
+                end_time = make_aware(datetime.strptime(end_time, '%Y-%m-%dT%H:%M'))
+
                 exam.professor = professor
                 exam.course = UniversityCourse.objects.get(id=course_id)
                 exam.difficulty = UniversityExamDifficulty.objects.get(id=difficulty_id)
@@ -599,131 +609,118 @@ def upload_questions(request, exam_id):
     """
     try:
         exam = get_object_or_404(UniversityExam, id=exam_id)
-        
+
         if request.method != 'POST':
             return JsonResponse({'status': 'error', 'message': 'Only POST method is allowed'}, status=405)
-        
+
         if 'questions_csv' not in request.FILES:
-            return JsonResponse({
-                'status': 'error', 
-                'message': 'No CSV file found. Please upload a file named "questions_csv".'
-            }, status=400)
-            
+            return JsonResponse({'status': 'error', 'message': 'No CSV file found. Please upload a file named "questions_csv".'}, status=400)
+
         csv_file = request.FILES['questions_csv']
-        
-        # Check that the file has a .csv extension
+
+        # Ensure file is a CSV
         if not csv_file.name.lower().endswith('.csv'):
             return JsonResponse({'status': 'error', 'message': 'File must be a CSV'}, status=400)
-        
-        try:
-            # Read and decode CSV file content
-            csv_data = csv_file.read().decode('utf-8')
-            io_string = io.StringIO(csv_data)
-            reader = csv.reader(io_string)
-            
-            # Read header row and validate its length
-            header = next(reader, None)
-            if not header or len(header) < 6:
-                return JsonResponse({
-                    'status': 'error', 
-                    'message': 'CSV file must have at least 6 columns: Question Text, Option A, Option B, Option C, Option D, Correct Answer'
-                }, status=400)
-            
-            question_count = 0
-            for row in reader:
-                if len(row) >= 6:
-                    try:
-                        # Extract values and strip extra whitespace
-                        question_text = row[0].strip()
-                        option_a = row[1].strip()
-                        option_b = row[2].strip()
-                        option_c = row[3].strip()
-                        option_d = row[4].strip()
-                        correct_option = row[5].strip().upper()
-                        
-                        # Validate that none of the required fields are empty
-                        if not (question_text and option_a and option_b and option_c and option_d):
-                            continue
-                        # Validate the correct option
-                        if correct_option not in ['A', 'B', 'C', 'D']:
-                            continue
-                        
-                        # Auto-generate a question code
-                        last_question = UniversityQuestion.objects.filter(exam=exam).order_by('id').last()
-                        if last_question:
-                            try:
-                                last_code_number = int(''.join(filter(str.isdigit, last_question.question_code)))
-                            except Exception:
-                                last_code_number = 0
-                            new_code_number = last_code_number + 1
-                        else:
-                            new_code_number = 1
-                        question_code = f"Q{new_code_number:03d}"
-                        
-                        # Prepare options as a dictionary to store in the JSONField
-                        options = {
-                            "A": option_a,
-                            "B": option_b,
-                            "C": option_c,
-                            "D": option_d
-                        }
-                        
-                        # Create and save the question instance
-                        question = UniversityQuestion(
-                            exam=exam,
-                            question_code=question_code,
-                            question_text=question_text,
-                            options=options,
-                            correct_option=correct_option
-                        )
-                        question.save()
-                        question_count += 1
-                    except Exception as e:
-                        continue
-            
-            return JsonResponse({'status': 'success', 'count': question_count})
-            
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': f'Error processing CSV: {str(e)}'}, status=400)
-    
+
+        # Read CSV data
+        csv_data = csv_file.read().decode('utf-8')
+        io_string = io.StringIO(csv_data)
+        reader = csv.reader(io_string)
+
+        # Validate CSV header
+        header = next(reader, None)
+        if not header or len(header) < 6:
+            return JsonResponse({'status': 'error', 'message': 'CSV must have at least 6 columns: Question Text, Option A, Option B, Option C, Option D, Correct Answer'}, status=400)
+
+        existing_questions = UniversityQuestion.objects.filter(exam=exam).count()
+        questions_to_create = []
+        question_count = 0
+
+        for row in reader:
+            if len(row) < 6:
+                continue
+
+            try:
+                # Extract values
+                question_text = row[0].strip()
+                option_a = row[1].strip()
+                option_b = row[2].strip()
+                option_c = row[3].strip()
+                option_d = row[4].strip()
+                correct_option = row[5].strip().upper()
+
+                # Validate that required fields are not empty
+                if not (question_text and option_a and option_b and option_c and option_d and correct_option):
+                    continue
+
+                # Validate the correct option
+                if correct_option not in ['A', 'B', 'C', 'D']:
+                    continue
+
+                # Generate a unique question code
+                existing_questions += 1
+                question_code = f"Q{existing_questions:03d}"
+
+                # Store answers in the desired format
+                answers = {
+                    "option_A": {"text": option_a, "is_correct": correct_option == "A"},
+                    "option_B": {"text": option_b, "is_correct": correct_option == "B"},
+                    "option_C": {"text": option_c, "is_correct": correct_option == "C"},
+                    "option_D": {"text": option_d, "is_correct": correct_option == "D"},
+                }
+
+                # Prepare question instance for bulk creation
+                questions_to_create.append(UniversityQuestion(
+                    exam=exam,
+                    question_code=question_code,
+                    question_text=question_text,
+                    answers=answers
+                ))
+                question_count += 1
+
+            except Exception:
+                continue
+
+        # Bulk create all valid questions
+        if questions_to_create:
+            UniversityQuestion.objects.bulk_create(questions_to_create)
+
+        return JsonResponse({'status': 'success', 'count': question_count})
+
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
 
 @csrf_exempt
 def add_questions_manually(request, exam_id):
     """Add exam questions manually"""
     try:
         exam = get_object_or_404(UniversityExam, id=exam_id)
-        
+
         if request.method == 'POST':
             try:
                 # Parse the JSON data
                 questions_data = json.loads(request.body)
                 question_count = 0
-                
+
                 for q_data in questions_data:
                     # Extract data from the request
                     question_text = q_data.get('question_text', '').strip()
                     options = q_data.get('options', {})
                     correct_option = q_data.get('correct_option', '').strip().upper()
-                    
+
                     # Basic validation
-                    if not question_text:
+                    if not question_text or not options:
                         continue
-                    
-                    if not options:
-                        # If options are not in the expected format, try to extract them directly
-                        options = {
-                            'A': q_data.get('option_a', '').strip(),
-                            'B': q_data.get('option_b', '').strip(),
-                            'C': q_data.get('option_c', '').strip(),
-                            'D': q_data.get('option_d', '').strip()
-                        }
-                    
-                    # Validate correct_option
-                    if correct_option not in ['A', 'B', 'C', 'D']:
-                        continue
-                    
+
+                    # Store answers in the desired format
+                    answers = {
+                        "option_A": {"text": options.get('A', ''), "is_correct": correct_option == "A"},
+                        "option_B": {"text": options.get('B', ''), "is_correct": correct_option == "B"},
+                        "option_C": {"text": options.get('C', ''), "is_correct": correct_option == "C"},
+                        "option_D": {"text": options.get('D', ''), "is_correct": correct_option == "D"},
+                    }
+
                     # Generate question code
                     last_question = UniversityQuestion.objects.filter(exam=exam).order_by('id').last()
                     if last_question:
@@ -735,28 +732,27 @@ def add_questions_manually(request, exam_id):
                     else:
                         new_code_number = 1
                     question_code = f"Q{new_code_number:03d}"
-                    
+
                     # Create the question
                     UniversityQuestion.objects.create(
                         exam=exam,
                         question_code=question_code,
                         question_text=question_text,
-                        options=options,
-                        correct_option=correct_option
+                        answers=answers
                     )
-                    
+
                     question_count += 1
-                
+
                 if question_count > 0:
                     return JsonResponse({'status': 'success', 'count': question_count})
                 else:
                     return JsonResponse({'status': 'error', 'message': 'No valid questions were added'}, status=400)
-                
+
             except json.JSONDecodeError:
                 return JsonResponse({'status': 'error', 'message': 'Invalid JSON format'}, status=400)
-        
+
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-        
+
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 
@@ -802,89 +798,130 @@ def exam_results(request, exam_id):
 
 def start_exam(request, exam_id):
     """Start an exam and generate a shareable link"""
-    exam = get_object_or_404(UniversityExam, id=exam_id)
-    
-    # Check if exam is already started
-    current_time = timezone.now()
-    
-    # Validate that we're not trying to start an exam that's already ended
-    if current_time > exam.end_time:
-        messages.error(request, f"Cannot start exam {exam.exam_code}. The end time has already passed.")
-        return redirect('exam_list')
-    
-    # Check if a link already exists
-    exam_link = ExamLink.objects.filter(exam=exam, is_active=True).first()
-    
-    if not exam_link:
-        # Create a new unique code for this exam
-        unique_code = str(uuid.uuid4())[:8]
-        
-        # Create the exam link
-        exam_link = ExamLink.objects.create(
-            exam=exam,
-            unique_code=unique_code,
-            is_active=True
+    try:
+        # Fetch the exam using the correct model
+        exam = get_object_or_404(UniversityExam, id=exam_id)
+
+        # Check if exam is already started
+        current_time = timezone.now()
+
+        # Validate that we're not trying to start an exam that's already ended
+        if current_time > exam.end_time:
+            messages.error(request, f"Cannot start exam {exam.exam_code}. The end time has already passed.")
+            return redirect('exam_list')
+
+        # Check if a link already exists
+        exam_link = ExamLink.objects.filter(exam=exam, is_active=True).first()
+
+        if not exam_link:
+            # Create a new unique code for this exam
+            unique_code = str(uuid.uuid4())[:8]
+
+            # Create the exam link
+            exam_link = ExamLink.objects.create(
+                exam=exam,
+                unique_code=unique_code,
+                is_active=True
+            )
+
+        # Generate the full URL for students to access
+        exam_url = request.build_absolute_uri(
+            reverse('student_exam_access', kwargs={'unique_code': exam_link.unique_code})
         )
-    
-    # Generate the full URL for students to access
-    exam_url = request.build_absolute_uri(
-        reverse('student_exam_access', kwargs={'unique_code': exam_link.unique_code})
-    )
-    
-    # Generate QR code for the link
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(exam_url)
-    qr.make(fit=True)
-    
-    img = qr.make_image(fill_color="black", back_color="white")
-    buffer = io.BytesIO()
-    img.save(buffer)
-    img_str = base64.b64encode(buffer.getvalue()).decode()
-    
-    context = {
-        'exam': exam,
-        'exam_link': exam_link,
-        'exam_url': exam_url,
-        'qr_code': img_str,
-    }
-    
-    # Mark exam as started if not already
-    if current_time < exam.start_time:
-        # If the exam wasn't scheduled to start yet, update the start time
-        exam.start_time = current_time
-        exam.save()
-        messages.success(request, f"Exam {exam.exam_code} started early!")
-    else:
-        messages.success(request, f"Exam {exam.exam_code} link generated!")
-    
-    return render(request, 'exam_started.html', context)
+
+        # Generate QR code for the link
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(exam_url)
+        qr.make(fit=True)
+
+        img = qr.make_image(fill_color="black", back_color="white")
+        buffer = io.BytesIO()
+        img.save(buffer)
+        img_str = base64.b64encode(buffer.getvalue()).decode()
+
+        # Create placeholder entries in UniversityExamResult for all students
+        students = StudentsDB.objects.filter(exam_domain_id=exam.id)  # Ensure correct filtering
+        for student in students:
+            UniversityExamResult.objects.get_or_create(
+                exam=exam,
+                student_name=student.name,  # Assuming `name` is a field in StudentsDB
+                defaults={
+                    'total_questions': exam.num_questions,
+                    'correct_answers': 0,
+                    'score': 0.0,
+                    'submitted_answers': {}
+                }
+            )
+
+        context = {
+            'exam': exam,
+            'exam_link': exam_link,
+            'exam_url': exam_url,
+            'qr_code': img_str,
+        }
+
+        # Mark exam as started if not already
+        if current_time < exam.start_time:
+            # If the exam wasn't scheduled to start yet, update the start time
+            exam.start_time = current_time
+            exam.save()
+            messages.success(request, f"Exam {exam.exam_code} started early!")
+        else:
+            messages.success(request, f"Exam {exam.exam_code} link generated!")
+
+        return render(request, 'exam_started.html', context)
+
+    except UniversityExam.DoesNotExist:
+        messages.error(request, "The specified exam does not exist.")
+        return redirect('exam_list')
+
+    except Exception as e:
+        # Log the error for debugging
+        traceback.print_exc()
+        messages.error(request, f"An unexpected error occurred: {str(e)}")
+        return redirect('exam_list')
 
 def student_exam_access(request, unique_code):
-    """Allow students to access exam via unique code"""
-    # Find the exam link
+    """Allow students to access an exam via a unique code, ensuring consistent question and option order."""
+    # Fetch the exam via the exam link using the unique code
     exam_link = get_object_or_404(ExamLink, unique_code=unique_code, is_active=True)
     exam = exam_link.exam
-    
-    # Check if exam is within its time window
+
+    # Retrieve the custom user from session
+    user_id = request.session.get('user_id')
+    if not user_id:
+        messages.error(request, "You must be logged in to access the exam.")
+        return redirect('/login/')
+
+    try:
+        user = UsersDB.objects.get(id=user_id)
+    except UsersDB.DoesNotExist:
+        request.session.flush()
+        messages.error(request, "Session expired. Please log in again.")
+        return redirect('/login/')
+
+    # Check if the user has already submitted the exam
+    if UniversityExamResult.objects.filter(exam=exam, student_name=user.full_name).exists():
+        messages.error(request, "You have already submitted this exam. You cannot access it again.")
+        return render(request, 'exam_already_submitted.html', {'exam': exam})
+
     current_time = timezone.now()
-    
     if current_time < exam.start_time:
         # Exam hasn't started yet
         time_until_start = exam.start_time - current_time
         minutes_until_start = int(time_until_start.total_seconds() / 60)
-        
         context = {
             'exam': exam,
             'message': f"This exam will start in {minutes_until_start} minutes.",
             'status': 'waiting',
         }
         return render(request, 'exam_wait.html', context)
-    
+
     if current_time > exam.end_time:
         # Exam has ended
         context = {
@@ -893,17 +930,154 @@ def student_exam_access(request, unique_code):
             'status': 'ended',
         }
         return render(request, 'exam_wait.html', context)
-    
-    # Check if user is logged in
-    user_id = request.session.get('user_id')
-    if not user_id:
-        # Save the exam code in session so we can redirect back after login
-        request.session['pending_exam_code'] = unique_code
-        messages.info(request, "Please log in to start the exam.")
-        return redirect('login')
-    
-    # Redirect to the take_exam view in your student app
-    return redirect('take_exam', exam_id=exam.id)
+
+    # Retrieve or establish a consistent order of exam questions
+    exam_session_key = f'exam_questions_order_{exam.id}'
+    exam_questions_order = request.session.get(exam_session_key)
+
+    if exam_questions_order is None:
+        # Fetch all exam questions
+        questions = list(UniversityQuestion.objects.filter(exam=exam))
+
+        # Use a seeded random generator based on the unique code for consistent but randomized order
+        random.seed(unique_code)
+        random.shuffle(questions)
+        random.seed()  # Reset the random seed to maintain Python's default behavior
+        
+        # Save the order (list of question IDs) in session
+        exam_questions_order = [q.id for q in questions]
+        request.session[exam_session_key] = exam_questions_order
+    else:
+        # Retrieve questions in the previously stored order
+        question_ids = exam_questions_order
+        questions_queryset = UniversityQuestion.objects.filter(exam=exam, id__in=question_ids)
+
+        # Create a mapping to enforce the saved order
+        questions_dict = {q.id: q for q in questions_queryset}
+        questions = [questions_dict[qid] for qid in question_ids if qid in questions_dict]
+
+    # Prepare structured data for rendering in the template
+    structured_questions = []
+    for question in questions:
+        if question.answers:  # Ensure the answers field is not empty
+            # Extract options dictionary
+            options = {
+                key[-1]: value['text']  # Extract the last character of the key (e.g., "A", "B", "C", "D")
+                for key, value in question.answers.items()
+            }
+            structured_questions.append({
+                'id': question.id,
+                'question_text': question.question_text,
+                'options': options  # Pass options in the expected format
+            })
+
+    # Store exam details in session
+    request.session['exam_total_questions'] = len(questions)
+    request.session['exam_id'] = exam.id
+    request.session['exam_duration'] = exam.duration
+
+    # Save the exam start time if not already recorded
+    if 'exam_start_time' not in request.session:
+        request.session['exam_start_time'] = timezone.now().isoformat()
+
+    context = {
+        'exam': exam,
+        'questions': structured_questions,
+        'user': user,
+        'exam_type': exam.exam_type,  # Pass the exam type to the template
+    }
+    return render(request, 'questions_display.html', context)
+
+@csrf_exempt
+def submit_exam(request):
+    """Submit the exam and store the result."""
+    if request.method == 'POST':
+        # Retrieve custom user from session
+        user_id = request.session.get('user_id')
+        if not user_id:
+            messages.error(request, "You must be logged in to submit the exam.")
+            return redirect('/login/')
+
+        try:
+            user = UsersDB.objects.get(id=user_id)
+        except UsersDB.DoesNotExist:
+            messages.error(request, "User not found. Please log in again.")
+            return redirect('/login/')
+
+        # Retrieve exam information from session
+        exam_id = request.session.get('exam_id')
+        total_questions = request.session.get('exam_total_questions', 0)
+
+        try:
+            exam = UniversityExam.objects.get(id=exam_id)
+        except UniversityExam.DoesNotExist:
+            messages.error(request, "Exam not found.")
+            return redirect('exam_list')
+
+        # Debugging: Log exam and user details
+        print(f"DEBUG: Exam ID: {exam_id}, User: {user.full_name}, Total Questions: {total_questions}")
+
+        # Check if the user has already submitted the exam
+        if UniversityExamResult.objects.filter(exam=exam, student_name=user.full_name).exists():
+            messages.error(request, "You have already submitted this exam.")
+            return redirect('exam_results', exam_id=exam.id)
+
+        correct_answers = 0
+        submitted_answers = {}
+
+        # Process each POST key that starts with "question"
+        for key, selected_option in request.POST.items():
+            if key.startswith('question'):
+                try:
+                    question_id = int(key.replace('question', ''))
+                    question = UniversityQuestion.objects.get(id=question_id)
+                except (ValueError, UniversityQuestion.DoesNotExist):
+                    print(f"DEBUG: Invalid question ID: {key}")
+                    continue
+
+                # Determine the correct answer key
+                correct_key = None
+                for option_key, option_value in question.answers.items():
+                    if option_value.get('is_correct'):
+                        correct_key = option_key
+                        break
+
+                submitted_answers[str(question_id)] = {
+                    'selected': selected_option,
+                    'correct': correct_key
+                }
+                if selected_option == correct_key:
+                    correct_answers += 1
+
+        # Debugging: Log submitted answers and correct answers
+        print(f"DEBUG: Submitted Answers: {submitted_answers}")
+        print(f"DEBUG: Correct Answers: {correct_answers}")
+
+        score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
+
+        try:
+            # Save the exam result
+            result = UniversityExamResult.objects.create(
+                exam=exam,
+                student_name=user.full_name,
+                total_questions=total_questions,
+                correct_answers=correct_answers,
+                score=score,
+                submitted_answers=submitted_answers,
+                submitted_at=timezone.now()
+            )
+            # Debugging: Log successful result creation
+            print(f"DEBUG: Exam Result Created: {result}")
+        except Exception as e:
+            print(f"DEBUG: Error saving exam result: {e}")
+            messages.error(request, f"Error saving exam result: {e}")
+            return redirect('exam_list')
+
+        messages.success(request, f'Exam submitted successfully! Your score is {score:.2f}%')
+        return redirect('exam_results', exam_id=exam.id)
+
+    # For GET requests, redirect to exam list
+    return redirect('exam_list')
 
 def get_exam_data(request, exam_id):
     """Fetch exam data for editing"""
