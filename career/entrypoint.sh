@@ -20,8 +20,8 @@ touch /app/logs/gunicorn-access.log
 exec gunicorn \
     --name career \
     --workers 4 \
-    --timeout 120 \
-    --bind 0.0.0.0:8001 \
+    --timeout 30 \
+    --bind 0.0.0.0:80 \
     --log-level info \
     --log-file /app/logs/gunicorn.log \
     --access-logfile /app/logs/gunicorn-access.log \

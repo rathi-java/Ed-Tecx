@@ -6,7 +6,7 @@ class Enquirystatus(models.Model):
     def __str__(self):
         return self.status
     class Meta:
-        db_table = "EnquiryStatus"
+        db_table = "enquirystatus"
 
 class CounsellingEnquiry(models.Model):
     name = models.CharField(max_length=200)
@@ -20,7 +20,7 @@ class CounsellingEnquiry(models.Model):
     def __str__(self):
         return f"{self.name} - {self.email}"
     class Meta:
-        db_table = "CounsellingEnquiries"
+        db_table = "counsellingenquiries"
 
 class AbroadStudiesBtoB(models.Model):
     username = models.CharField(max_length=200)
@@ -36,7 +36,7 @@ class AbroadStudiesBtoB(models.Model):
     def __str__(self):
         return f"{self.name} - {self.email}"
     class Meta:
-        db_table = "AbroadStudiesBtoB"
+        db_table = "abroadstudiesbtob"
     def save(self, *args, **kwargs):
         if self.password and not self.password.startswith('pbkdf2_'):  # Check if password is already hashed
             self.password = make_password(self.password)  # Hash the password

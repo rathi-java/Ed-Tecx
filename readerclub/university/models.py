@@ -182,3 +182,9 @@ class ExamLink(models.Model):
         
         time_delta = self.exam.start_time - current_time
         return int(time_delta.total_seconds() / 60)
+
+    def get_exam(self):
+        """Fetch the associated exam if the link is valid."""
+        if self.is_valid():
+            return self.exam
+        return None

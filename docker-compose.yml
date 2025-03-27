@@ -17,12 +17,13 @@ services:
   career:
     build:
       context: ./career
+      dockerfile: Dockerfile.dev
     volumes:
       - ./career:/app
     ports:
       - "8001:8001"
     env_file:
-      - .env
+      - .env.dev
     depends_on:
       - elasticsearch
     # extra_hosts:
@@ -35,11 +36,12 @@ services:
 
   readerclub:
     build:
-      context: ./readerclub
+      context: ./readerclub  
+      dockerfile: Dockerfile.dev
     volumes:
       - ./readerclub:/app
       - ./readerclub/staticfiles:/app/staticfiles
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - .env.dev
