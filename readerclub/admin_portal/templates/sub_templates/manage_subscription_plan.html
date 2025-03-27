@@ -43,23 +43,34 @@
                     <th>Price</th>
                     <th>Duration (Months)</th>
                     <th>Discount (%)</th>
+                    <th>Status</th>
                     <th>Actions</th>
+                    <th>Reorder</th>
                 </tr>
             </thead>
             <tbody>
                 {% for plan in subscription_plans %}
                 <tr>
-                    <td>{{ forloop.counter }}</td>
+                    <td>{{ plan.order }}</td>
                     <td>{{ plan.plan_type.display_name }}</td>
                     <td>₹{{ plan.price }}</td>
                     <td>{{ plan.duration_in_months }}</td>
                     <td>{{ plan.discount }}%</td>
                     <td>
-                        <button type="button" onclick="editSubscription('{{ plan.id }}', '{{ plan.plan_type.id }}', '{{ plan.price }}', '{{ plan.duration_in_months }}', '{{ plan.discount }}', {{ plan.features|safe }})">
-                            <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
-                        </button>
-                        
-                        <!-- Delete Form -->
+                        <form method="POST" action="{% url 'toggle_subscription_status' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="plan_id" value="{{ plan.id }}">
+                            <input type="hidden" name="current_status" value="{{ plan.is_active }}">
+                            <button type="submit" class="{% if plan.is_active %}active{% else %}inactive{% endif %}">
+                                {% if plan.is_active %}
+                                    Active
+                                {% else %}
+                                    Inactive
+                                {% endif %}
+                            </button>
+                        </form>
+                    </td>
+                    <td>
                         <form method="POST" action="{% url 'manage_subscription_plans' %}" style="display:inline;">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete">
@@ -69,9 +80,17 @@
                             </button>
                         </form>
                     </td>
+                    <td>
+                        <form method="POST" action="{% url 'reorder_subscription_plans' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="plan_id" value="{{ plan.id }}">
+                            <button type="submit" name="direction" value="up">⬆️</button>
+                            <button type="submit" name="direction" value="down">⬇️</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="6">No subscription plans found.</td></tr>
+                <tr><td colspan="8">No subscription plans found.</td></tr>
                 {% endfor %}
             </tbody>
         </table>
