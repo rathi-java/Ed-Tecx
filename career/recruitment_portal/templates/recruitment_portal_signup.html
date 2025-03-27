@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <style>
         * {
             margin: 0;
-           
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
@@ -16,19 +15,27 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             background-color: #f4f4f4;
-            padding: 20px;
         }
         .container {
             display: flex;
-            max-width: 100%;
-            width: 100%;
-            background: white;
-            border-radius: 25px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 3px solid #077bc3;
-            font-family: 'Poppins';
+    max-width: 1155px;
+    width: 100%;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid #077bc3;
+    font-family: 'Poppins';
+    height: 96%;
+    margin-block: 0.5%;
+    margin-bottom: -37%;
+        
+        }
+        .right form {
+            display: flex
+        ;
+            flex-direction: column;
+            flex-wrap: wrap;
         }
         .left {
             width: 50%;
@@ -56,25 +63,33 @@
         .right {
             width: 50%;
             padding: 30px;
+            overflow-y: auto;
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+        .right::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, and Edge */
         }
         .right h2 {
             margin-bottom: 20px;
             color: #095f95;
             font-size: 20px;
+            text-align: center;
         }
         .input-group, .input-row {
             margin-bottom: 10px;
         }
         .input-group label, .input-row label {
             display: flex;
-          color: #4b4b4b;
             margin-bottom: 3px;
+            margin-bottom: 5px;
+    font-size: 18px;
+    color: #353535;
             
         }
         .input-group input, .input-row input {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #c4cfdd;
             border-radius: 5px;
         }
         .input-row {
@@ -172,6 +187,14 @@
             .left, .right {
                 width: 100%;
             }
+            .left img {
+                width: 71%;}
+
+        }
+        @media (max-width: 400px) {
+            .input-group label {
+                font-size: 10px;
+            }
         }
     </style>
 {% endblock %}
@@ -183,6 +206,7 @@
         </div>
         <div class="right">
             <h2>Sign Up & Hire Top Candidates Today!</h2>
+         <div class="form-box">
             <form method="POST" action="{% url 'company_signup' %}">
                 {% csrf_token %}
                 <div class="input-group">
@@ -257,6 +281,7 @@
                 </div>
                 <p class="terms">By signing in, you agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
             </form>
+         </div>
         </div>
     </div>
 {% endblock %}
