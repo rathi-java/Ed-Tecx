@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'policies',  
     'blog',  
     'university',
+    'corsheaders',
 ]
 
 # for Google auth
@@ -105,7 +106,7 @@ MIDDLEWARE = [
     'oauth.middleware.EnsureUserIdMiddleware',
     'admin_portal.middleware.DashboardAccessMiddleware', 
     'oauth.middleware.LoginRequiredMiddleware', 
-    
+    'corsheaders.middleware.CorsMiddleware',
 
        
 ]
@@ -284,6 +285,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8001",  # Allow Career project to access images from Readerclub
+]
 # Add to PUBLIC_PATHS in settings
 PUBLIC_PATHS = [
     '/',

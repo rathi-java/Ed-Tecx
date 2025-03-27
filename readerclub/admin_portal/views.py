@@ -1054,29 +1054,73 @@ def manage_subscription_plans(request):
                 plan.price = price
                 plan.duration_in_months = duration_in_months
                 plan.discount = discount
-                plan.features = json.loads(features)  # Convert JSON string to Python dict
+                plan.features = json.loads(features)  
                 plan.save()
             else:  # Create New Plan
+                # Find the highest order number
+                max_order = SubscriptionPlan.objects.aggregate(max_order=models.Max("order"))["max_order"] or 0
                 SubscriptionPlan.objects.create(
                     plan_type=plan_type,
                     price=price,
                     duration_in_months=duration_in_months,
                     discount=discount,
-                    features=json.loads(features)  # Convert JSON string to dict
+                    features=json.loads(features),
+                    order=max_order + 1  # New plan gets the highest order
                 )
 
-            return redirect("manage_subscription_plans")
+            return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
         elif action == "delete":
             plan_id = request.POST.get("plan_id")
             plan = get_object_or_404(SubscriptionPlan, id=plan_id)
             plan.delete()
-            return redirect("manage_subscription_plans")
+            return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
-    subscription_plans = SubscriptionPlan.objects.select_related("plan_type").all()
+    subscription_plans = SubscriptionPlan.objects.select_related("plan_type").order_by("order")
     plan_types = PlanType.objects.all()
-    
+
     return render(request, "sub_templates/manage_subscription_plan.html", {"subscription_plans": subscription_plans, "plan_types": plan_types})
+
+def reorder_subscription_plans(request):
+    if request.method == "POST":
+        plan_id = request.POST.get("plan_id")
+        direction = request.POST.get("direction")
+        plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+
+        # Get all plans ordered by current order
+        all_plans = list(SubscriptionPlan.objects.order_by("order"))
+
+        # Find the index of the current plan
+        index = all_plans.index(plan)
+
+        if direction == "up" and index > 0:
+            # Swap with the one above
+            above_plan = all_plans[index - 1]
+            plan.order, above_plan.order = above_plan.order, plan.order
+            plan.save()
+            above_plan.save()
+
+        elif direction == "down" and index < len(all_plans) - 1:
+            # Swap with the one below
+            below_plan = all_plans[index + 1]
+            plan.order, below_plan.order = below_plan.order, plan.order
+            plan.save()
+            below_plan.save()
+
+        messages.success(request, "Subscription plan order updated successfully.")
+    
+    return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
+
+def toggle_subscription_status(request):
+    if request.method == "POST":
+        plan_id = request.POST.get("plan_id")
+        current_status = request.POST.get("current_status") == "True"  # Convert to boolean
+        plan = get_object_or_404(SubscriptionPlan, id=plan_id)
+        plan.is_active = not current_status  # Toggle the status
+        plan.save()
+        messages.success(request, "Subscription plan status updated successfully.")
+    # return redirect("manage_subscription_plans")  # Redirect to the same page
+    return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
 # def create_exam(request):
 #     categories = Category.objects.all()

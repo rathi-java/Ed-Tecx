@@ -6,11 +6,25 @@ from django.utils.text import slugify
 
 def blog_list(request, blog_type=None):
     """
-    View to display a list of all active blogs, ordered by published date.
+    View to display a list of all blogs, filtered by type if specified
     """
-    blogs = Blog.objects.filter(active=True, blog_type=blog_type).order_by("-published_date")
-    template_name = f'{blog_type}_blog_list.html' if blog_type else 'blog_list.html'
-    return render(request, template_name, {"blogs": blogs})
+    blogs = Blog.objects.all().order_by("-published_date")
+    
+    if blog_type:
+        blogs = blogs.filter(blog_type=blog_type)
+    
+    # Determine which template to use based on blog_type
+    if blog_type == 'readerclub':
+        template = 'readerclub_blog_list.html'
+    elif blog_type == 'career':
+        template = 'career_blog_list.html'
+    else:
+        template = 'form.html'  # Default template for form view
+    
+    return render(request, template, {
+        "blogs": blogs,
+        "blog_type": blog_type
+    })
 
 def blog_detail(request, slug, blog_type=None):
     """
@@ -26,15 +40,24 @@ def blog_detail(request, slug, blog_type=None):
         "-published_date"
     )[:4]  # Get 4 most recent blogs of the same type
     
-    return render(request, f'{blog_type}_blog_detail.html', {
+    # Determine which template to use based on blog_type
+    if blog_type == 'readerclub':
+        template = 'readerclub_blog_detail.html'
+    elif blog_type == 'career':
+        template = 'career_blog_detail.html'
+    else:
+        template = 'blog_detail.html'  # Default template
+    
+    return render(request, template, {
         'blog': blog,
         'recent_blogs': recent_blogs
     })
 
 def form(request):
     """
-    View to handle the creation of a new blog post.
+    View to handle blog creation and display with filtering
     """
+    # Handle form submission
     if request.method == "POST":
         data = request.POST
         title = data.get('title')
@@ -48,13 +71,13 @@ def form(request):
         author_description = data.get('author_description')
         author_image = request.FILES.get('author_image')
         tags_input = data.get('tags', '').strip()
-        blog_type = data.get('blog_type', 'readerclub')  # Ensure this matches the form value
+        blog_type = data.get('blog_type', 'readerclub')
 
-        # Generate slug from title if not provided
+        # Generate slug if not provided
         if not slug:
             slug = slugify(title)
 
-        # Create the blog post
+        # Create blog post
         blog = Blog.objects.create(
             title=title,
             slug=slug,
@@ -69,14 +92,14 @@ def form(request):
             blog_type=blog_type
         )
 
-        # Add tags to the blog post
+        # Add tags
         if tags_input:
             tags = [tag.strip() for tag in tags_input.split(',')]
             for tag_name in tags:
                 tag, created = Tag.objects.get_or_create(name=tag_name)
                 blog.tags.add(tag)
 
-        # Handle sections for the blog post
+        # Add sections
         sections_data = data.getlist('section_title')
         sections_content = data.getlist('section_content')
         for title, content in zip(sections_data, sections_content):
@@ -89,16 +112,22 @@ def form(request):
                 )
 
         messages.success(request, 'Blog created successfully!')
-        return redirect(reverse(f'{blog_type}_blog_list'))  # Ensure this matches the URL name
+        return redirect('form')
 
-    # Render the form template for GET requests
-    blogs = Blog.objects.all()
-    return render(request, 'form.html', {'blogs': blogs})
+    # Handle blog listing with filters
+    blog_type = request.GET.get('type', 'all')
+    blogs = Blog.objects.all().order_by("-published_date")
+    
+    if blog_type and blog_type != 'all':
+        blogs = blogs.filter(blog_type=blog_type)
+
+    return render(request, 'form.html', {
+        'blogs': blogs,
+        'current_filter': blog_type
+    })
 
 def toggle_blog_status(request, blog_id):
-    """
-    View to toggle the active status of a blog post.
-    """
+    """Toggle blog active status"""
     blog = get_object_or_404(Blog, id=blog_id)
     blog.active = not blog.active
     blog.save()
@@ -106,14 +135,8 @@ def toggle_blog_status(request, blog_id):
     return redirect('form')
 
 def edit_blog(request, blog_id):
-    """
-    View to handle editing an existing blog post.
-    """
-    try:
-        blog = Blog.objects.get(id=blog_id)
-    except Blog.DoesNotExist:
-        messages.error(request, 'Blog not found!')
-        return redirect('form')
+    """Edit existing blog post"""
+    blog = get_object_or_404(Blog, id=blog_id)
 
     if request.method == "POST":
         data = request.POST
@@ -127,9 +150,9 @@ def edit_blog(request, blog_id):
         blog.author = data.get('author')
         blog.author_description = data.get('author_description')
         blog.author_image = request.FILES.get('author_image') or blog.author_image
-        blog.blog_type = data.get('blog_type', 'readerclub')  # Ensure this matches the form value
+        blog.blog_type = data.get('blog_type', 'readerclub')
 
-        # Update tags for the blog post
+        # Update tags
         tags_input = data.get('tags', '').strip()
         if tags_input:
             tags = [tag.strip() for tag in tags_input.split(',')]
@@ -138,7 +161,7 @@ def edit_blog(request, blog_id):
                 tag, created = Tag.objects.get_or_create(name=tag_name)
                 blog.tags.add(tag)
 
-        # Update sections for the blog post
+        # Update sections
         blog.sections.all().delete()
         sections_data = data.getlist('section_title')
         sections_content = data.getlist('section_content')
@@ -153,20 +176,13 @@ def edit_blog(request, blog_id):
 
         blog.save()
         messages.success(request, 'Blog updated successfully!')
-        return redirect(reverse(f'{blog.blog_type}_blog_list'))  # Ensure this matches the URL name
+        return redirect('form')
 
-    # Render the edit template for GET requests
     return render(request, 'edit_blog.html', {'blog': blog})
 
 def delete_blog(request, blog_id):
-    """
-    View to delete a blog post.
-    """
-    try:
-        blog = Blog.objects.get(id=blog_id)
-        blog_type = blog.blog_type
-        blog.delete()
-        messages.success(request, 'Blog deleted successfully!')
-    except Blog.DoesNotExist:
-        messages.error(request, 'Blog not found!')
-    return redirect(reverse(f'{blog_type}_blog_list'))
+    """Delete blog post"""
+    blog = get_object_or_404(Blog, id=blog_id)
+    blog.delete()
+    messages.success(request, 'Blog deleted successfully!')
+    return redirect('form')
