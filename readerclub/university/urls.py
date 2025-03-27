@@ -34,24 +34,21 @@ urlpatterns = [
     path('exam/add/', views.add_exam, name='add_exam'),
     path('exam/<int:exam_id>/edit/', views.edit_exam, name='edit_exam'),
     path('exam/<int:exam_id>/delete/', views.delete_exam, name='delete_exam'),
-    path('exam/<int:exam_id>/get/', views.get_exam_data, name='get_exam_data'),
     path('exam/<int:exam_id>/start/', views.start_exam, name='start_exam'),
     
     # Questions
+    path('exam/<int:exam_id>/questions/', views.get_exam_questions, name='get_exam_questions'),
     path('upload_questions/<int:exam_id>/', views.upload_questions, name='upload_questions'),
     path('exam/<int:exam_id>/add-questions-manually/', views.add_questions_manually, name='add_questions_manually'),
+    path('delete-question/<int:question_id>/', views.delete_question, name='delete_question'),
     
     # Results
     path('results/', views.result_list, name='result_list'),
     path('exam/<int:exam_id>/results/', views.exam_results, name='exam_results'),
-    path('exam-results/<int:exam_id>/', views.exam_results, name='exam_results'),
     
-    # New paths for exam links
-    path('start-exam/<int:exam_id>/', views.start_exam, name='start_exam'),
+    # Exam Links and Access
     path('exam/access/<str:unique_code>/', views.student_exam_access, name='student_exam_access'),
     
     # API endpoints
     path('get-exam-data/<int:exam_id>/', views.get_exam_data, name='get_exam_data'),
-    path('get-exam-questions/<int:exam_id>/', views.get_exam_questions, name='get_exam_questions'),
-    path('delete-question/<int:question_id>/', views.delete_question, name='delete_question'),
 ]
