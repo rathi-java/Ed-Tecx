@@ -9,12 +9,13 @@ class PlanType(models.Model):
         return self.display_name
 
 class SubscriptionPlan(models.Model):
-    plan_type = models.ForeignKey(PlanType, on_delete=models.CASCADE, related_name='subscriptions',null = True, blank = True)
+    plan_type = models.ForeignKey(PlanType, on_delete=models.CASCADE, related_name='subscriptions', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    duration_in_months = models.IntegerField(default=1)  # 1 for monthly, 12 for yearly, 0 for free
-    features = models.JSONField(default=dict)  # Store features as a dictionary
+    duration_in_months = models.IntegerField(default=1)  
+    features = models.JSONField(default=dict)  
     is_active = models.BooleanField(default=True)
-    discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)  # In percentage
+    discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)  
+    order = models.PositiveIntegerField(default=0)  # Order field
 
     def discounted_price(self):
         """Calculates the discounted price if a discount exists"""

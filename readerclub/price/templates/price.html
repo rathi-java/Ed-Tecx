@@ -32,46 +32,46 @@
             </div>
         </div>
     </section>
-   
      
-      <div class="plans">
-          {% for plan in subscription_plans %}
-          <div class="plan">
-              <div class="plan-header">
-                  <div class="plan-title">
-                      <h2>{{ plan.plan_type.display_name }}</h2>
-                      <br>
-                      {% if plan.plan_type.code == 'basic' %}
-                      <div class="badge"><b>Free Plan</b></div>
-                      <div class="pricing-amountt">&#8377; {{ plan.price }}</div>
-                      {% else %}
-                      <div class="second-heading">
-                          <span class="old-price">&#8377; {{ plan.price }}</span>
-                          <span class="discount"><b>Save {{ plan.discount }}%</b></span>
-                      </div>
-                      <div class="pricing-amount">
-                        &#8377; {% widthratio plan.discounted_price plan.duration_in_months 1 %} 
-                        <span>/m</span>
-                      </div>
-                      {% endif %}
-                  </div>
-              </div>
-              <div class="divider"></div>
-              <ul>
-                  {% for feature in plan.features.items %}
-                  <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> {{ feature.1 }}</li>
-                  {% endfor %}
-              </ul>
-              {% if plan.plan_type.code == 'basic' %}
-              <button>Start for Free</button>
-              {% else %}
-              <!-- Add data-plan-id attribute -->
-              <button class="purchase-btn" data-plan-id="{{ plan.id }}" id="{{ plan.plan_type.code }}-btn">Purchase Plan</button>
-              {% endif %}
-          </div>
-          {% endfor %}
-      </div>
-  </div>
+    <div class="plans">
+        {% for plan in subscription_plans %}
+            {% if plan.is_active %}  <!-- Hide inactive plans -->
+            <div class="plan">
+                <div class="plan-header">
+                    <div class="plan-title">
+                        <h2>{{ plan.plan_type.display_name }}</h2>
+                        <br>
+                        {% if plan.plan_type.code == 'basic' %}
+                            <div class="badge"><b>Free Plan</b></div>
+                            <div class="pricing-amountt">&#8377; {{ plan.price }}</div>
+                        {% else %}
+                            <div class="second-heading">
+                                <span class="old-price">&#8377; {{ plan.price }}</span>
+                                <span class="discount"><b>Save {{ plan.discount }}%</b></span>
+                            </div>
+                            <div class="pricing-amount">
+                                &#8377; {% widthratio plan.discounted_price plan.duration_in_months 1 %} 
+                                <span>/m</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <ul>
+                    {% for feature in plan.features.items %}
+                        <li><img src="{% static 'images/check.jpeg' %}" alt="✔"> {{ feature.1 }}</li>
+                    {% endfor %}
+                </ul>
+                {% if plan.plan_type.code == 'basic' %}
+                    <button>Start for Free</button>
+                {% else %}
+                    <!-- Add data-plan-id attribute -->
+                    <button class="purchase-btn" data-plan-id="{{ plan.id }}" id="{{ plan.plan_type.code }}-btn">Purchase Plan</button>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 
   <!-- Modals for Payments -->
   {% for plan in subscription_plans %}
