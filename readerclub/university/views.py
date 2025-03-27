@@ -13,6 +13,7 @@ import traceback
 from django.urls import reverse
 import qrcode
 import base64
+import uuid  # Added missing import
 
 
 from .models import (
@@ -452,11 +453,14 @@ def exam_list(request):
     for professor in professors:
         exams.extend(UniversityExam.objects.filter(professor=professor))
     
+    # Add all related data for template display
     context = {
         'exams': exams,
         'university': university,
         'active_page': 'exams',
-        # Don't pass a specific exam here, we'll fetch the correct one via AJAX
+        'professors': professors,
+        'courses': UniversityCourse.objects.filter(university=university) if university else [],
+        'difficulties': UniversityExamDifficulty.objects.filter(university=university) if university else []
     }
     return render(request, 'university.html', context)
 
@@ -531,7 +535,7 @@ def edit_exam(request, exam_id):
         if all([professor_id, course_id, difficulty_id, num_questions, duration, start_time, end_time]):
             try:
                 professor = UniversityProfessor.objects.get(id=professor_id)
-                if not exam.can_edit_questions(professor):
+                if hasattr(exam, 'can_edit_questions') and not exam.can_edit_questions(professor):
                     messages.error(request, "You are not authorized to edit this exam.")
                     return redirect('exam_list')
                 
@@ -575,6 +579,7 @@ def edit_exam(request, exam_id):
         'active_page': 'edit_exam'
     }
     return render(request, 'university.html', context)
+
 @csrf_exempt
 def delete_exam(request, exam_id):
     """Delete an exam"""
@@ -587,40 +592,24 @@ def delete_exam(request, exam_id):
     
     return redirect('exam_list')
 
-# Improved upload_questions view for CSV uploads
-
-import csv
-import io
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import get_object_or_404
-from .models import UniversityExam, UniversityQuestion  # adjust the import if necessary
-
 @csrf_exempt
 def upload_questions(request, exam_id):
     """
     Upload questions via CSV file for a given exam.
-    Expects the CSV file to be sent in the POST request under the key 'questions_csv'.
     """
     try:
         exam = get_object_or_404(UniversityExam, id=exam_id)
-
-        # Debug information
-        print(f"Request method: {request.method}")
-        print(f"Content type: {request.content_type}")
-        print(f"Files in request: {list(request.FILES.keys())}")
         
         if request.method != 'POST':
             return JsonResponse({'status': 'error', 'message': 'Only POST method is allowed'}, status=405)
         
         if 'questions_csv' not in request.FILES:
-            files_in_request = list(request.FILES.keys())
-            error_msg = f"No 'questions_csv' file found in request. Files found: {files_in_request}"
-            print(error_msg)
-            return JsonResponse({'status': 'error', 'message': error_msg}, status=400)
+            return JsonResponse({
+                'status': 'error', 
+                'message': 'No CSV file found. Please upload a file named "questions_csv".'
+            }, status=400)
             
         csv_file = request.FILES['questions_csv']
-        print(f"File received: {csv_file.name}, size: {csv_file.size} bytes")
         
         # Check that the file has a .csv extension
         if not csv_file.name.lower().endswith('.csv'):
@@ -634,7 +623,6 @@ def upload_questions(request, exam_id):
             
             # Read header row and validate its length
             header = next(reader, None)
-            print(f"CSV header: {header}")
             if not header or len(header) < 6:
                 return JsonResponse({
                     'status': 'error', 
@@ -655,18 +643,14 @@ def upload_questions(request, exam_id):
                         
                         # Validate that none of the required fields are empty
                         if not (question_text and option_a and option_b and option_c and option_d):
-                            print(f"Skipping row due to missing data: {row}")
                             continue
                         # Validate the correct option
                         if correct_option not in ['A', 'B', 'C', 'D']:
-                            print(f"Skipping row due to invalid correct option: {row}")
                             continue
                         
-                        # Auto-generate a question code.
-                        # We look for the last question added to this exam and increment its numeric part.
+                        # Auto-generate a question code
                         last_question = UniversityQuestion.objects.filter(exam=exam).order_by('id').last()
                         if last_question:
-                            # Try to extract a numeric part from question_code, stripping any non-digit characters
                             try:
                                 last_code_number = int(''.join(filter(str.isdigit, last_question.question_code)))
                             except Exception:
@@ -674,7 +658,7 @@ def upload_questions(request, exam_id):
                             new_code_number = last_code_number + 1
                         else:
                             new_code_number = 1
-                        question_code = f"Q{new_code_number:03d}"  # e.g., Q001, Q002,...
+                        question_code = f"Q{new_code_number:03d}"
                         
                         # Prepare options as a dictionary to store in the JSONField
                         options = {
@@ -695,20 +679,16 @@ def upload_questions(request, exam_id):
                         question.save()
                         question_count += 1
                     except Exception as e:
-                        print(f"Error processing row {row}: {str(e)}")
                         continue
             
             return JsonResponse({'status': 'success', 'count': question_count})
             
         except Exception as e:
-            print(f"Error processing CSV: {str(e)}")
             return JsonResponse({'status': 'error', 'message': f'Error processing CSV: {str(e)}'}, status=400)
     
     except Exception as e:
-        import traceback
-        error_trace = traceback.format_exc()
-        print(f"Unexpected error in upload_questions: {str(e)}\n{error_trace}")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
 @csrf_exempt
 def add_questions_manually(request, exam_id):
     """Add exam questions manually"""
@@ -745,7 +725,16 @@ def add_questions_manually(request, exam_id):
                         continue
                     
                     # Generate question code
-                    question_code = f"Q{exam.id}{question_count+1:03d}"
+                    last_question = UniversityQuestion.objects.filter(exam=exam).order_by('id').last()
+                    if last_question:
+                        try:
+                            last_code_number = int(''.join(filter(str.isdigit, last_question.question_code)))
+                        except Exception:
+                            last_code_number = 0
+                        new_code_number = last_code_number + 1
+                    else:
+                        new_code_number = 1
+                    question_code = f"Q{new_code_number:03d}"
                     
                     # Create the question
                     UniversityQuestion.objects.create(
@@ -769,9 +758,8 @@ def add_questions_manually(request, exam_id):
         return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
         
     except Exception as e:
-        error_trace = traceback.format_exc()
-        print(f"Unexpected error in add_questions_manually: {str(e)}\n{error_trace}")
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
 def result_list(request):
     """Display list of results by exam"""
     university = University.objects.first()
@@ -811,65 +799,6 @@ def exam_results(request, exam_id):
         'active_page': 'exam_results'
     }
     return render(request, 'university.html', context)
-
-def start_exam(request, exam_id):
-    """Start an exam"""
-    exam = get_object_or_404(UniversityExam, id=exam_id)
-    
-    # Update exam status or perform actions needed to start the exam
-    # For example, you might set a status field to 'active'
-    
-    messages.success(request, f"Exam {exam.exam_code} started successfully!")
-    return redirect('exam_list')
-    
-def get_exam_questions(request, exam_id):
-    """Get all questions for a specific exam"""
-    exam = get_object_or_404(UniversityExam, id=exam_id)
-    questions = UniversityQuestion.objects.filter(exam=exam)
-    
-    questions_list = []
-    for question in questions:
-        questions_list.append({
-            'id': question.id,
-            'question_code': question.question_code,
-            'question_text': question.question_text,
-            'options': question.options,
-            'correct_option': question.correct_option
-        })
-    
-    return JsonResponse({'status': 'success', 'questions': questions_list})
-
-@csrf_exempt
-def delete_question(request, question_id):
-    """Delete a specific question"""
-    question = get_object_or_404(UniversityQuestion, id=question_id)
-    
-    if request.method == 'POST':
-        exam_id = question.exam.id
-        question.delete()
-        return JsonResponse({'status': 'success'})
-    
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
-
-from django.http import JsonResponse
-
-@csrf_exempt
-def get_exam_data(request, exam_id):
-    """Fetch exam data for editing"""
-    exam = get_object_or_404(UniversityExam, id=exam_id)
-    if request.method == 'GET':
-        return JsonResponse({
-            'id': exam.id,
-            'exam_code': exam.exam_code,
-            'professor_id': exam.professor.id,
-            'course_id': exam.course.id,
-            'difficulty_id': exam.difficulty.id,
-            'num_questions': exam.num_questions,
-            'duration': exam.duration,
-            'start_time': exam.start_time.strftime('%Y-%m-%dT%H:%M'),
-            'end_time': exam.end_time.strftime('%Y-%m-%dT%H:%M'),
-        })
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
 
 def start_exam(request, exam_id):
     """Start an exam and generate a shareable link"""
@@ -975,3 +904,48 @@ def student_exam_access(request, unique_code):
     
     # Redirect to the take_exam view in your student app
     return redirect('take_exam', exam_id=exam.id)
+
+def get_exam_data(request, exam_id):
+    """Fetch exam data for editing"""
+    exam = get_object_or_404(UniversityExam, id=exam_id)
+    if request.method == 'GET':
+        return JsonResponse({
+            'id': exam.id,
+            'exam_code': exam.exam_code,
+            'professor_id': exam.professor.id,
+            'course_id': exam.course.id,
+            'difficulty_id': exam.difficulty.id,
+            'num_questions': exam.num_questions,
+            'duration': exam.duration,
+            'start_time': exam.start_time.strftime('%Y-%m-%dT%H:%M'),
+            'end_time': exam.end_time.strftime('%Y-%m-%dT%H:%M'),
+        })
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
+
+def get_exam_questions(request, exam_id):
+    """Get all questions for a specific exam"""
+    exam = get_object_or_404(UniversityExam, id=exam_id)
+    questions = UniversityQuestion.objects.filter(exam=exam)
+    
+    questions_list = []
+    for question in questions:
+        questions_list.append({
+            'id': question.id,
+            'question_code': question.question_code,
+            'question_text': question.question_text,
+            'options': question.options,
+            'correct_option': question.correct_option
+        })
+    
+    return JsonResponse({'status': 'success', 'questions': questions_list})
+
+@csrf_exempt
+def delete_question(request, question_id):
+    """Delete a specific question"""
+    question = get_object_or_404(UniversityQuestion, id=question_id)
+    
+    if request.method == 'POST':
+        question.delete()
+        return JsonResponse({'status': 'success'})
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

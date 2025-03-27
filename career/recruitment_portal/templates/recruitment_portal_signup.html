@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+           
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            max-width: 100%;
+            width: 100%;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid #077bc3;
+            font-family: 'Poppins';
+        }
+        .left {
+            width: 50%;
+            padding: 30px;
+            text-align: center;
+           
+        }
+        .left img {
+            width: 100%;
+            /* margin-bottom: 20px; */
+            margin-block: -17px;
+    margin-left: 3%;
+        }
+        .left span {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #808385;
+}
+
+.brand {
+    color: #077bc3;
+    /* font-weight: bold; */
+    font-size:30px;
+}
+        .right {
+            width: 50%;
+            padding: 30px;
+        }
+        .right h2 {
+            margin-bottom: 20px;
+            color: #095f95;
+            font-size: 20px;
+        }
+        .input-group, .input-row {
+            margin-bottom: 10px;
+        }
+        .input-group label, .input-row label {
+            display: flex;
+          color: #4b4b4b;
+            margin-bottom: 3px;
+            
+        }
+        .input-group input, .input-row input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        button {
+            width: 50%;
+            padding: 10px;
+            border: none;
+            background-color: #077bc3;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00358a;
+        }
+        
+        .login-text {
+    font-size: 16px;
+    text-align: center;
+    margin: 10px 0;
+    color: #797979;
+}
+
+.login-text a {
+    color: #077bc3;
+    
+}
+
+.terms {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
+    color: #777;
+}
+
+.terms a {
+    color: #f6991e;
+    text-decoration: none;
+}
+.input-group  img {
+                        position: absolute;
+                        left: 10px;
+                        top: 68%;
+                        transform: translateY(-50%);
+                        width: 15px;
+                        height: 15px;
+                    }
+                    /* .input-row img{
+                        width: 20px;
+                        height: 20px;
+                        position: absolute;
+                        left: 10px;
+                        top: 71%;
+                        transform: translateY(-50%);
+                        width: 15px;
+                        height: 15px;
+                    } */
+                    .input-group  input {
+                        width: 100%;
+                        padding: 10px 0px 10px 35px; 
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        font-size: 14px;
+                    }
+                    .input-group  {
+                        position: relative;
+                        width: 100%;
+                        /* margin-bottom: 15px; */
+                    }
+                    .input-group label {
+                        display: left;
+                        margin-bottom: 5px;
+                        font-size: 14px;
+                        
+                    }
+                    .right input:focus,.right input:hover {
+            border: 1px solid #077bc3;
+            outline: none;
+        }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+                width: 100%;
+            }
+            .left, .right {
+                width: 100%;
+            }
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="left">
+            <span>Welcome to </br><strong class="brand">ReaderClub</strong></span>
+            <img src="{% static 'images/star-person.svg' %}" alt="Signup Illustration">
+        </div>
+        <div class="right">
+            <h2>Sign Up & Hire Top Candidates Today!</h2>
+            <form method="POST" action="{% url 'company_signup' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <label for="email">Official Email</label>
+                    <img src="{% static 'images/mail.svg' %}" alt="Email Icon">
+                    <input type="email" id="email" name="email" placeholder="Eg: name@company.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="first-name">Full Name</label>
+                    <img src="{% static 'images/person.svg' %}" alt="User Icon">
+                    <input type="text" id="first-name" name="first_name" placeholder="Enter First name" required>
+                </div>
+                <div class="input-group">
+                    <label for="position">Position</label>
+                    <img src="{% static 'images/person.svg' %}" alt="User Icon">
+                    <input type="text" id="position" name="position" placeholder="Enter your position" required>
+                </div> 
+                <div class="input-group">
+                    <label for="phone">Phone no.</label>
+                    <img src="{% static 'images/phone.svg' %}" alt="Phone Icon">
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your Phone no." required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <img src="{% static 'images/password.svg' %}" alt="Password Icon">
+                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <img src="{% static 'images/password.svg' %}" alt="Password Icon">
+                    <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm a password" required>
+                </div>
+                <div class="input-group">
+                    <label for="company-name">Company Name</label>
+                    <img src="{% static 'images/building.svg' %}" alt="Company Icon">
+                    <input type="text" id="company-name" name="name" placeholder="Enter company name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="address">Company Address</label>
+                    <img src="{% static 'images/location.svg' %}" alt="Location Icon">
+                    <input type="text" id="address" name="address" placeholder="Enter company address" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="about">About Company</label>
+                    <img src="{% static 'images/info.svg' %}" alt="Info Icon">
+                    <input type="text" id="about" name="about" placeholder="Brief description about company" maxlength="200" required>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="working-employees">Number of Employees</label>
+                        <img src="{% static 'images/users.svg' %}" alt="Users Icon">
+                        <input type="number" id="working-employees" name="working_employees" placeholder="Total employees" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="established-year">Established Year</label>
+                        <img src="{% static 'images/calendar.svg' %}" alt="Calendar Icon">
+                        <input type="number" id="established-year" name="established_year" placeholder="YYYY" min="1800" max="2025" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="industry-type">Industry Type</label>
+                    <img src="{% static 'images/industry.svg' %}" alt="Industry Icon">
+                    <input type="text" id="industry-type" name="industry_type" placeholder="Enter industry type" required>
+                </div>
+                <p class="login-text">Already have an account? <a href="/?form_type=login">Login</a></p>
+                <div class="button-container">
+                    <button type="submit">Signup</button>
+                </div>
+                <p class="terms">By signing in, you agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></p>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_js %}
+{% endblock %}

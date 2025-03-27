@@ -53,3 +53,47 @@ def company_view(request):
 
     return render(request, 'recruitment_portal.html', {'company': company_details})
 
+def recruitment_portol_signup(request):
+    return render(request, 'recruitment_portal_signup.html')
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Company
+
+def company_signup(request):
+    if request.method == 'POST':
+        try:
+            # Check if password and confirm_password match
+            password = request.POST.get('password')
+            confirm_password = request.POST.get('confirm_password')
+            
+            if password != confirm_password:
+                messages.error(request, 'Passwords do not match!')
+                return render(request, 'recruitment_portal_signup.html')
+            
+            # Extract data from form
+            company_data = {
+                'name': request.POST.get('name'),
+                'email': request.POST.get('email'),
+                'contact_number': request.POST.get('phone'),  # Map 'phone' from form to 'contact_number' in model
+                'address': request.POST.get('address'),
+                'about': request.POST.get('about'),
+                'working_employees': request.POST.get('working_employees'),
+                'established_year': request.POST.get('established_year'),
+                'industry_type': request.POST.get('industry_type'),
+                'password': request.POST.get('password'),
+            }
+            
+            # Create and save company instance
+            company = Company(**company_data)
+            company.save()
+            
+            messages.success(request, 'Company registered successfully!')
+            return redirect('/?form_type=login')  # Redirect to login page after successful registration
+            
+        except Exception as e:
+            messages.error(request, f'Error during registration: {str(e)}')
+            return render(request, 'recruitment_portal_signup.html')
+    
+    # If GET request, just show the form
+    return render(request, 'recruitment_portal_signup.html')
