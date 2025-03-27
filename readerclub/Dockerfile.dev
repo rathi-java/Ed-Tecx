@@ -16,11 +16,11 @@ RUN pip install --no-cache-dir -r requirements.txt --timeout=1000 --index-url ht
 
 # Copy the application code and entrypoint script
 COPY . .
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
+COPY entrypoint.sh /app/deventrypoint.sh
+RUN chmod +x /app/deventrypoint.sh
 
 # Expose the port for Gunicorn
 EXPOSE 80
-CMD ["sh", "entrypoint.sh"]
+CMD ["sh", "deventrypoint.sh"]
 # Set the entrypoint. No CMD is needed now since entrypoint.sh runs gunicorn.
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "readerclub.wsgi:application"]
