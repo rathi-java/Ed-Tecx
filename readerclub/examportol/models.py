@@ -88,7 +88,8 @@ class Exam(models.Model):
     duration = models.PositiveIntegerField(help_text="Duration in minutes")
     exam_code = models.CharField(max_length=10, unique=True, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)  # New field
-
+    start_time = models.DateTimeField(null=True, blank=True)  # Add this field
+    end_time = models.DateTimeField(null=True, blank=True)  # <-- Added field
     def save(self, *args, **kwargs):
         if not self.exam_code:
             last_exam = Exam.objects.order_by('-id').first()
