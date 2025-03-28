@@ -1,262 +1,1030 @@
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Interface</title>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter';
+        }
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/examportol.css' %}">
-{% endblock %}
+        body {
+            background-color: #f5f7fa;
+        }
 
-{% block content %}
-<!-- Header Section -->
- <nav>
-<div class="nav">
-  Examination {{ exam.name }} 
-  
- 
-  
-</div>
- </nav>
-{% if exam_type == 'university' %}
-  <div class="header">
-    <div id="greetings">Welcome to the University Exam!</div>
-    <div>Exam Code: {{ exam.exam_code }}</div>
-  </div>
-{% elif exam_type == 'examportol' %}
-  <div class="header">
-    <div id="greetings">Welcome to the ExamPortol Exam!</div>
-    <div>Exam Name: {{ exam.name }}</div>
-  </div>
-{% endif %}
+        .container {
+            width: 100%;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Inter';
+        }
 
-<!-- Main Content -->
-<form id="examForm" method="POST" action="{% url 'submit_exam' %}" class="main-container">
-  {% csrf_token %}
-  <input type="hidden" id="totalQuestions" value="{{ questions|length }}">
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            padding-inline: 4%;
+        }
 
-  <div class="content-wrapper">
-    <!-- Question Section -->
-    <div class="question-section">
-      {% for question in questions %}
-      <div class="question-container {% if forloop.first %}active{% else %}hidden{% endif %}"
-           data-question-id="{{ question.id }}">
+        .timerr {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        <!-- Top row: "Question X" and "Options" -->
+        .timerr select, #timerDisplay {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background: #f0f0f0;
+            background-color: #0CA63A;
+            color: white;
+        }
         
-          <div class="question-header" id="question-header">
-            <h2 class="question-title">Question {{ forloop.counter }}</h2>
-          </div>
-          <div class="question-header" id ="options-header">
-            <h2 class="question-title">Options</h2>
-          </div>
+        .calculator-btn {
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            background: white;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0%;
+            color: #077BC3; 
+            border: 1px solid #077BC3;
+            cursor: pointer;
+        }
         
+        /* Navigation Steps */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
 
-        <!-- Question Content -->
-    
-          <!-- Left: Question text (and code snippet if any) -->
-          <div class="question-text-section">
-            <p class="question-text">{{ question.question_text }}</p>
-          </div>
+        .nav {
+            display: flex;
+            margin-top: 0px;
+            background-color: #f5f7fa;
+            width: 100%;
+            overflow: hidden; /* Disable scrollbar */
+            margin-bottom: 3%;
+            padding-inline: 3%;
+            scroll-behavior: smooth;
+        }
 
-          <!-- Right: Options -->
-          <div class="question-options-section">
-            <div class="options-container" data-question-id="{{ question.id }}">
-              {% for key, value in question.options.items %}
-              <div class="option-item">
-                <input type="radio"
-                       name="question{{ question.id }}"
-                       value="{{ key }}"
-                       data-question-id="{{ question.id }}"
-                       onchange="updateQuestionStatus(this)">
-                <span class="option-text">{{ value }}</span>
-              </div>
-              {% endfor %}
+        .nav-button {
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .nav-button.left {
+            left: 0;
+        }
+
+        .nav-button.right {
+            right: 0;
+        }
+
+        .nav-button:hover {
+            background: #0056b3;
+        }
+
+        .step {
+            height: 50px;
+            background: #b0b0b0;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-transform: uppercase;
+            margin-right: -11px;
+            clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%);
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            width: 330px;
+            padding-inline: 4%;
+            flex: 0 0 33.33%; /* Ensure only 3 steps are visible */
+        }
+
+        .step span {
+            font-weight: normal;
+            margin-left: 5px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            font-size: 12px;
+        }
+
+        .step.active {
+            background: linear-gradient(90deg, #077BC3 0%, #3E9BD5 100%);
+        }
+
+        /* Main Layout */
+        .main-content {
+            display: flex;
+            margin-top: 15px;
+            flex-direction: column;
+        }
+
+        /* Question Section */
+        .question-section {
+            width: 65%;
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            position: relative;
+            padding-bottom: 60px; /* Ensures enough space for buttons */
+        }
+        
+        .question-container {
+            display: none;
+            flex-direction: column;
+            padding: 15px;
+        }
+        
+        .question-container:first-child {
+            display: flex;
+        }
+
+        .option-container {
+            display: none;
+            width: 100%;
+            padding: 15px;
+        }
+
+        .options {
+            margin-top: 10px;
+        }
+
+        .options input[type="radio"] {
+            display: none;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 16px;
+            margin-block: 3%;
+            cursor: pointer;
+            position: relative;
+            padding-left: 35px; /* Add padding to make space for the custom radio button */
+        }
+
+        .options label::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            left: 0;
+            border-radius: 50%;
+            border: 2px solid #077bc3;
+            background-color: white;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .options input[type="radio"]:checked + label::before {
+            background-color: #077bc3;
+            border-color: #077bc3;
+        }
+
+        .options input[type="radio"]:checked + label::after {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: white;
+        }
+
+        .btn-normal, .btn-orange, .btn-blue {
+            padding: 8px 15px;
+            border: none;
+            background: #077bc3;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .btn-orange {
+            background: #FF9500;
+        }
+
+        .btn-blue {
+            background: #077bc3;
+        }
+
+        .btn-normal:hover, .btn-orange:hover, .btn-blue:hover {
+            opacity: 0.9;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 30%;
+            background: white;
+            padding: 15px;
+            margin-left: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .question-info {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 2;
+            letter-spacing: 0%;
+        }
+        
+        .question-info span {
+            color: #077bc3;
+        }
+
+        hr {
+            margin: 10px 0;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .status-box {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            border-radius: 3px;
+        }
+
+        .question-indicator {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .question-indicator.current {
+            border: 2px solid #077bc3;
+            background-color: #e6f2ff;
+        }
+
+        .question-indicator.answered {
+            background-color: #0CA63A;
+            color: white;
+        }
+
+        .question-indicator.not-answered {
+            background-color: white;
+        }
+
+        .question-indicator.marked-review {
+            background-color: #FF9500;
+            color: white;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+            margin-bottom: 10%;
+        }
+
+        .ansredblu {
+            display: flex;
+            align-items: center;
+            gap: 2%;
+            flex-wrap: wrap;
+            color: #485157;
+            margin-bottom: 7%;
+        }
+        
+        .cirgre {
+            display: flex;
+            align-items: center;
+            margin-block: 2%;
+        }
+
+        .webcam {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .webcam video {
+            width: 53%;
+            border-radius: 5px;
+            transform: scaleX(-1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            background: #077bc3;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Calculator Modal */
+        #calculatorModal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 85%;
+            top: 35%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+        }
+
+        .modal-content {
+            position: relative;
+            padding: 10px;
+        }
+
+        h3 {
+            margin-bottom: 5px;
+        }
+
+        #calc-display {
+            width: 100%;
+            height: 50px;
+            font-size: 1.5em;
+            text-align: right;
+            padding: 10px;
+            border: 1px solid #ccc;
+            color: black;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #f8f8f8;
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .calc-buttons button {
+            background: #f0f0f0;
+            color: black;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .calc-buttons button:hover {
+            background: #ddd;
+        }
+
+        button.operator {
+            background: #ff9500;
+            color: white;
+        }
+
+        button.operator:hover {
+            background: #e08900;
+        }
+
+        button.equal-btn {
+            background: #0CA63A;
+            grid-column: span 4;
+            color: white;
+        }
+
+        button.equal-btn:hover {
+            background: darkgreen;
+        }
+
+        button.zero {
+            grid-column: span 2;
+        }
+
+        .close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: red;
+        }
+
+        @media (max-width: 1024px) {
+            .step {
+                font-size: 11px;
+            }
+            .step span {
+                font-size: 8px;
+            }
+        }
+
+        .below-container {
+            display: flex;
+            width: 100%;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .questioning-content {
+            padding: 20px;
+            width: 100%;
+        }
+        
+        /* Fix for layout shifting */
+        .navigation-buttons {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: calc(65% - 20px);
+            background: white;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
+            padding: 15px;
+            border-radius: 0 0 5px 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="examForm" method="POST" action="{% url 'submit_exam' %}" onsubmit="return confirmSubmit()">
+        {% csrf_token %}
+        <input type="hidden" id="totalQuestions" value="{{ questions|length }}">
+        
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <span>
+                    {% if user.is_authenticated %}
+                        Hi {{ user.full_name }}, Best of luck!
+                    {% else %}
+                        Hi Guest, Best of luck!
+                    {% endif %}
+                </span>
+                <div class="timerr">
+                    <button type="button" class="calculator-btn" onclick="toggleCalculator()">Calculator</button>
+                    <div id="timerDisplay">{{ exam.duration }}m:00s</div>
+                </div>
             </div>
-          </div>
-       
+            
+            <!-- Calculator Modal -->
+            <div id="calculatorModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeCalculator()">&times;</span>
+                    <h3>Calculator</h3>
+                    <input type="text" id="calc-display" value="0" disabled>
+                    <div class="calc-buttons">
+                        <button onclick="appendFunction('sin')">sin</button>
+                        <button onclick="appendFunction('cos')">cos</button>
+                        <button onclick="appendFunction('tan')">tan</button>
+                        <button onclick="appendFunction('sqrt')">√</button>
+                        <button onclick="appendFunction('log')">log</button>
+                        <button onclick="appendFunction('ln')">ln</button>
+                        <button onclick="appendFunction('exp')">exp</button>
+                        <button onclick="appendFunction('^')">xʸ</button>
+                        <button onclick="appendToDisplay('(')">(</button>
+                        <button onclick="appendToDisplay(')')">)</button>
+                        <button onclick="appendFunction('1/x')">1/x</button>
+                        <button onclick="appendFunction('^2')">x²</button>
+                        <button onclick="appendToDisplay('7')">7</button>
+                        <button onclick="appendToDisplay('8')">8</button>
+                        <button onclick="appendToDisplay('9')">9</button>
+                        <button onclick="appendToDisplay('/')">÷</button>
+                        <button onclick="appendToDisplay('4')">4</button>
+                        <button onclick="appendToDisplay('5')">5</button>
+                        <button onclick="appendToDisplay('6')">6</button>
+                        <button onclick="appendToDisplay('*')">×</button>
+                        <button onclick="appendToDisplay('1')">1</button>
+                        <button onclick="appendToDisplay('2')">2</button>
+                        <button onclick="appendToDisplay('3')">3</button>
+                        <button onclick="appendToDisplay('-')">-</button>
+                        <button onclick="appendToDisplay('0')">0</button>
+                        <button onclick="appendToDisplay('.')">.</button>
+                        <button onclick="clearDisplay()">AC</button>
+                        <button onclick="appendToDisplay('+')">+</button>
+                        <button class="equal-btn" onclick="calculateResult()">=</button>
+                    </div>
+                </div>
+            </div>
 
-        <!-- Bottom Nav Buttons -->
-        <div class="nav-buttons">
-          <button type="button" class="btn" id="prevButton" onclick="navigateQuestion('prev')">← Previous</button>
-          <button type="button" class="btn btn-orange" id="markReviewButton" onclick="markForReview()">Mark for Review</button>
-          <button type="button" class="btn btn-orange" id="saveNextButton" onclick="saveAndNext()">Save & Next →</button>
+            <div class="main-content">
+                <div class="below-container">
+                    <!-- Question Section -->
+                    <div class="question-section">
+                        <!-- Navigation Steps -->
+                        <div class="nav-container">
+                            <button type="button" class="nav-button left" onclick="scrollNav(-100)">←</button>
+                            <div class="nav">
+                                {% for subject in subjects %}
+                                    <div class="step {% if forloop.first %}active{% endif %}">
+                                        {{ subject|upper }} <span>{{ questions|length }} QUES</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <button type="button" class="nav-button right" onclick="scrollNav(100)">→</button>
+                        </div>
+                        
+                        <!-- Main question content area -->
+                        <div class="questioning-content">
+                            {% for question in questions %}
+                                <div class="question-container" style="{% if forloop.first %}display: flex;{% else %}display: none;{% endif %}">
+                                    <p><strong>{{ forloop.counter }}. {{ question.text }}</strong></p>
+                                    <div class="options">
+                                        {% for option in question.options %}
+                                            <input type="radio" id="q{{ question.id }}{{ option.key }}" name="question{{ question.id }}" value="{{ option.key }}" onchange="updateQuestionStatus(this)">
+                                            <label for="q{{ question.id }}{{ option.key }}">{{ option.text }}</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="navigation-buttons">
+                            <button type="button" id="prevButton" class="btn-blue" onclick="navigateQuestion('prev')" style="display: none;">← Previous</button>
+                            <button type="button" id="markReviewButton" class="btn-orange" onclick="markForReview()">Mark for Review</button>
+                            <button type="button" id="saveNextButton" class="btn-blue" onclick="saveAndNext()">Save & Next →</button>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="sidebar">
+                        <div class="question-info">
+                            <p><strong>Total questions:</strong> <span>{{ questions|length }}</span></p>
+                            <p><strong>Answered questions:</strong> <span id="answeredCount">0</span></p>
+                            <p><strong>Remaining questions:</strong> <span id="remainingCount">{{ questions|length }}</span></p>
+                        </div>
+                        <hr>
+                        <div class="question-status">
+                            <div class="question-grid">
+                                {% for question in questions %}
+                                    <div class="question-indicator not-answered" data-question-index="{{ forloop.counter0 }}" onclick="showQuestion(this)">{{ forloop.counter }}</div>
+                                {% endfor %}
+                            </div>
+                            
+                            <div class="ansredblu">
+                                <div class="cirgre">
+                                    <div class="question-indicator answered"></div>
+                                    <p>Answered</p>
+                                </div>
+                                <div class="cirgre">
+                                    <div class="question-indicator not-answered"></div>
+                                    <p>Not Answered</p>
+                                </div>
+                                <div class="cirgre">
+                                    <div class="question-indicator marked-review"></div>
+                                    <p>Marked for Review</p>
+                                </div>
+                                <div class="cirgre">
+                                    <div class="question-indicator current"></div>
+                                    <p>Current Question</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="webcam">
+                            <video id="video" autoplay playsinline></video>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Submit Test</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-      </div>
-      {% endfor %}
-    </div>
+    </form>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="stats-box">
-        <p class="stats-item">Total questions:
-          <span class="stats-value">{{ questions|length }}</span>
-        </p>
-        <p class="stats-item">Answered questions:
-          <span id="answeredCount" class="stats-value">0</span>
-        </p>
-        <p class="stats-item">Remaining questions:
-          <span id="remainingCount" class="stats-value">{{ questions|length }}</span>
-        </p>
-      </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables for exam functionality
+            window.currentQuestionIndex = 0;
+            window.totalQuestions = parseInt(document.getElementById('totalQuestions').value, 10);
+            window.answeredQuestions = new Set();
+            window.reviewedQuestions = new Set();
 
-      <div class="question-grid">
-        {% for question in questions %}
-        <button type="button" class="question-indicator"
-                data-question-index="{{ forloop.counter0 }}"
-                onclick="showQuestion(this)">
-          {{ forloop.counter }}
-        </button>
-        {% endfor %}
-      </div>
+            function showQuestion(index) {
+                if (typeof index === 'object') {
+                    index = parseInt(index.getAttribute('data-question-index'), 10);
+                }
+                if (index < 0 || index >= totalQuestions) {
+                    console.error(Invalid index: ${index});
+                    return;
+                }
+                
+                document.querySelectorAll('.question-container').forEach((q, i) => {
+                    q.style.display = (i === index) ? 'flex' : 'none';
+                });
+                
+                // Scroll to top of question when changing
+                const questionContent = document.querySelector('.questioning-content');
+                if (questionContent) {
+                    questionContent.scrollTop = 0;
+                }
+                
+                currentQuestionIndex = index;
+                updateQuestionIndicators();
+                updateNavigationButtons();
+                updateMarkForReviewButton();
+            }
+            
+            function updateNavigationButtons() {
+                const prevButton = document.getElementById('prevButton');
+                const saveNextButton = document.getElementById('saveNextButton');
+                
+                // Handle Previous button visibility
+                if (currentQuestionIndex === 0) {
+                    prevButton.style.display = 'none';
+                } else {
+                    prevButton.style.display = 'block';
+                }
+                
+                // Handle Save & Next button text
+                if (currentQuestionIndex === totalQuestions - 1) {
+                    saveNextButton.textContent = 'Save';
+                } else {
+                    saveNextButton.textContent = 'Save & Next →';
+                }
+            }
 
-      <div class="legend">
-        <div class="legend-item">
-          <div class="legend-dot answered"></div>
-          <span>Answered</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot not-answered"></div>
-          <span>Not Answered</span>
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot current"></div>
-          <span>Current</span>
-        </div>
-      </div>
+            function updateMarkForReviewButton() {
+                const markReviewButton = document.getElementById('markReviewButton');
+                if (reviewedQuestions.has(currentQuestionIndex)) {
+                    markReviewButton.textContent = 'Unmark Review';
+                    markReviewButton.classList.remove('btn-orange');
+                    markReviewButton.classList.add('btn-normal');
+                } else {
+                    markReviewButton.textContent = 'Mark for Review';
+                    markReviewButton.classList.remove('btn-normal');
+                    markReviewButton.classList.add('btn-orange');
+                }
+            }
 
-      <!-- Optional: User photo at the bottom + Submit -->
-      <div class="video-section">
-        <video id="video" autoplay></video>
-       
-    </div>
-      <button type="submit" class="btn submit-btn" onclick="return confirmSubmit()">
-        Submit Test
-      </button>
-    </div>
-  </div>
-</form>
+            window.showQuestion = showQuestion;
 
-<!-- Calculator Modal -->
-<div id="calculatorModal" class="sidebar-overlay">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 class="modal-title">Calculator</h2>
-      <button onclick="closeCalculator()" class="close-btn">&times;</button>
-    </div>
-    <hr class="modal-divider">
-    <div id="calculator" class="calculator">
-      <div class="display-container">
-        <input type="text" id="display" class="display" placeholder="0" >
-      </div>
-      <div class="buttons">
-        <!-- Calculator buttons -->
-        <button class="button" data-value="sin">sin</button>
-        <button class="button" data-value="cos">cos</button>
-        <button class="button" data-value="tan">tan</button>
-        <button class="button" data-value="sqrt">√</button>
-        <button class="button" data-value="log">log</button>
-        <button class="button" data-value="ln">ln</button>
-        <button class="button" data-value="exp">exp</button>
-        <button class="button" data-value="^">x^y</button>
-        <button class="button" data-value="(">(</button>
-        <button class="button" data-value=")">)</button>
-        <button class="button" data-value="1/x">1/x</button>
-        <button class="button" data-value="x^2">x²</button>
-        <button class="button" data-value="7">7</button>
-        <button class="button" data-value="8">8</button>
-        <button class="button" data-value="9">9</button>
-        <button class="button" data-value="/">÷</button>
-        <button class="button" data-value="*">×</button>
-        <button class="button" data-value="4">4</button>
-        <button class="button" data-value="5">5</button>
-        <button class="button" data-value="6">6</button>
-        <button class="button" data-value="-">-</button>
-        <button class="button" data-value="1">1</button>
-        <button class="button" data-value="2">2</button>
-        <button class="button" data-value="3">3</button>
-        <button class="button" data-value="+">+</button>
-        <button class="button" data-value="0">0</button>
-        <button class="button" data-value=".">.</button>
-        <button class="button" data-value="AC">AC</button>
-        <button class="button" data-value="⌫" id="backspace">⌫</button>
-        <button class="button equal" data-value="=">=</button>
-      </div>
-    </div>
-  </div>
-</div>
+            function navigateQuestion(direction) {
+                const newIndex = direction === 'next' ? currentQuestionIndex + 1 : currentQuestionIndex - 1;
+                if (newIndex >= 0 && newIndex < totalQuestions) {
+                    showQuestion(newIndex);
+                }
+            }
+            window.navigateQuestion = navigateQuestion;
 
-<script src="{% static 'js/examportol.js' %}" defer></script>
-<script>
-  // Tab switching detection and prevention
-  let tabSwitchAttempts = 0;
-  const MAX_TAB_SWITCH_ATTEMPTS = 2; // Allow 2 attempts before submission
+            // Updated function: Do not store the radio selection on change.
+            // The radio response will only be stored when the Save & Next button is clicked.
+            function updateQuestionStatus(input) {
+                // Intentionally left empty.
+            }
+            window.updateQuestionStatus = updateQuestionStatus;
 
-  // Function to block tab switching attempt with warning
-  function blockTabSwitchAttempt() {
-      tabSwitchAttempts++;
-      
-      if (tabSwitchAttempts <= MAX_TAB_SWITCH_ATTEMPTS) {
-          // Calculate remaining attempts
-          const attemptsLeft = MAX_TAB_SWITCH_ATTEMPTS - tabSwitchAttempts;
-          
-          // Force focus back to the window when they return
-          window.focus();
-          
-          // Show warning with remaining attempts
-          alert(`WARNING: Tab switching is not allowed during the exam!\n\nThis is attempt ${tabSwitchAttempts} of ${MAX_TAB_SWITCH_ATTEMPTS + 1}.\nYour exam will be automatically submitted after ${attemptsLeft + 1} more attempt(s).`);
-          
-      } else {
-          // On third attempt, submit the exam
-          alert("You have attempted to switch tabs 3 times.\nYour exam is being submitted automatically as per exam rules.");
-          document.getElementById('examForm').submit();
-      }
-  }
+            function updateQuestionIndicators() {
+                document.querySelectorAll('.question-indicator').forEach((indicator, index) => {
+                    indicator.className = 'question-indicator';
+                    if (index === currentQuestionIndex) {
+                        indicator.classList.add('current');
+                    } else if (reviewedQuestions.has(index)) {
+                        indicator.classList.add('marked-review');
+                    } else if (answeredQuestions.has(index)) {
+                        indicator.classList.add('answered');
+                    } else {
+                        indicator.classList.add('not-answered');
+                    }
+                });
+            }
 
-  // Monitor tab visibility
-  document.addEventListener('visibilitychange', function() {
-      if (document.visibilityState === 'hidden') {
-          // When user switches away from tab
-          setTimeout(() => {
-              if (document.visibilityState === 'visible') {
-                  // When user returns to tab
-                  blockTabSwitchAttempt();
-              }
-          }, 100);
-      }
-  });
+            function updateCounts() {
+                document.getElementById('answeredCount').textContent = answeredQuestions.size;
+                document.getElementById('remainingCount').textContent = totalQuestions - answeredQuestions.size;
+            }
 
-  // Attempt to keep focus on the window
-  window.addEventListener('blur', function() {
-      // When window loses focus
-      setTimeout(() => {
-          window.focus(); // Try to bring focus back
-      }, 100);
-  });
+            function markForReview() {
+                if (reviewedQuestions.has(currentQuestionIndex)) {
+                    reviewedQuestions.delete(currentQuestionIndex);
+                } else {
+                    reviewedQuestions.add(currentQuestionIndex);
+                }
+                updateQuestionIndicators();
+                updateMarkForReviewButton();
+                // After marking for review, move to next question if not on the last question
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    navigateQuestion('next');
+                }
+            }
+            window.markForReview = markForReview;
 
-  // Create a more aggressive warning when user tries to leave
-  window.addEventListener('beforeunload', function(e) {
-      // Check if the form is being submitted
-      if (!document.getElementById('examForm').dataset.submitting) {
-          // Cancel the event
-          e.preventDefault();
-          // Chrome requires returnValue to be set
-          e.returnValue = 'Leaving this page will be counted as a tab switch and may result in automatic exam submission!';
-      }
-  });
+            // Updated saveAndNext function: The radio button response is stored only when Save & Next is clicked.
+            function saveAndNext() {
+                // Find the current visible question container
+                const currentContainer = document.querySelector('.question-container[style*="display: flex"]');
+                const selectedInput = currentContainer ? currentContainer.querySelector('input[type=radio]:checked') : null;
+                
+                if (selectedInput) {
+                    answeredQuestions.add(currentQuestionIndex);
+                    updateCounts();
+                    updateQuestionIndicators();
+                }
+                
+                // Only navigate to next question if not on the last question
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    navigateQuestion('next');
+                }
+                
+                // Prevent layout shifts by ensuring consistent height
+                document.querySelectorAll('.question-container').forEach(container => {
+                    container.style.minHeight = '300px';
+                });
+            }
+            window.saveAndNext = saveAndNext;
 
-  // Add a flag to indicate form submission
-  document.getElementById('examForm').addEventListener('submit', function() {
-      this.dataset.submitting = true;
-  });
+            function confirmSubmit() {
+                return totalQuestions - answeredQuestions.size === 0 ||
+                    confirm(You have ${totalQuestions - answeredQuestions.size} unanswered questions. Submit anyway?);
+            }
+            window.confirmSubmit = confirmSubmit;
 
-  // Periodically check if window has focus
-  setInterval(function() {
-      if (!document.hasFocus()) {
-          // If window doesn't have focus for a while, consider it a tab switch
-          setTimeout(() => {
-              if (document.visibilityState === 'visible' && document.hasFocus()) {
-                  blockTabSwitchAttempt();
-              }
-          }, 500);
-      }
-  }, 1000);
-</script>
-{% endblock %}
+            // Timer functionality
+            let timeLeft = 3600; // 60 minutes in seconds
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                document.getElementById("timerDisplay").textContent = ${minutes}m:${seconds.toString().padStart(2, '0')}s;
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    setTimeout(updateTimer, 1000);
+                } else {
+                    alert("Time's up! Submitting your exam...");
+                    document.getElementById("examForm").submit();
+                }
+            }
+
+            // Calculator functionality
+            function toggleCalculator() {
+                const calcModal = document.getElementById("calculatorModal");
+                calcModal.style.display = calcModal.style.display === "flex" ? "none" : "flex";
+            }
+            window.toggleCalculator = toggleCalculator;
+
+            function closeCalculator() {
+                document.getElementById("calculatorModal").style.display = "none";
+            }
+            window.closeCalculator = closeCalculator;
+
+            function appendToDisplay(value) {
+                let display = document.getElementById("calc-display");
+                if (display.value === "0") {
+                    display.value = value;
+                } else {
+                    display.value += value;
+                }
+            }
+
+            function appendFunction(func) {
+                let display = document.getElementById("calc-display");
+                let currentValue = display.value;
+
+                if (func === "sqrt") {
+                    display.value = Math.sqrt(eval(currentValue));
+                } else if (func === "log") {
+                    display.value = Math.log10(eval(currentValue));
+                } else if (func === "ln") {
+                    display.value = Math.log(eval(currentValue));
+                } else if (func === "exp") {
+                    display.value = Math.exp(eval(currentValue));
+                } else if (func === "1/x") {
+                    display.value = 1 / eval(currentValue);
+                } else if (func === "^2") {
+                    display.value = Math.pow(eval(currentValue), 2);
+                } else if (func === "^") {
+                    display.value += "";
+                }
+            }
+
+            function clearDisplay() {
+                document.getElementById("calc-display").value = "0";
+            }
+
+            function calculateResult() {
+                let display = document.getElementById("calc-display");
+                try {
+                    display.value = eval(display.value);
+                } catch (e) {
+                    display.value = "Error";
+                }
+            }
+
+            // Initialize video stream for webcam
+            if (navigator.mediaDevices?.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+                    .then(stream => {
+                        const video = document.getElementById('video');
+                        if (video) {
+                            video.srcObject = stream;
+                            video.style.transform = "scaleX(-1)";
+                        }
+                    })
+                    .catch(() => alert("Camera access denied. Please enable permissions."));
+            }
+
+            // Calculator implementation
+            const display = document.getElementById('display');
+            const buttons = document.querySelectorAll('.button');
+            let currentExpression = '';
+
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const value = button.getAttribute('data-value');
+                    handleButton(value);
+                });
+            });
+
+            function handleButton(value) {
+                switch (value) {
+                    case 'AC':
+                        clearDisplay();
+                        break;
+                    case '⌫':
+                        backspace();
+                        break;
+                    case '=':
+                        calculate();
+                        break;
+                    case 'sin':
+                    case 'cos':
+                    case 'tan':
+                    case 'log':
+                    case 'ln':
+                    case 'exp':
+                        appendValue(value + '(');
+                        break;
+                    case 'sqrt':
+                        appendValue('√(');
+                        break;
+                    case '^':
+                        appendValue('');
+                        break;
+                    case '1/x':
+                        computeReciprocal();
+                        break;
+                    case 'x^2':
+                        computeSquare();
+                        break;
+                    default:
+                        appendValue(value);
+                }
+            }
+
+            function clearDisplay() {
+                currentExpression = '';
+                display.value = '0';
+            }
+
+            function backspace() {
+                currentExpression = currentExpression.slice(0, -1);
+                display.value = currentExpression || '0';
+            }
+
+            function appendValue(val) {
+                if (display.value === '0' && val !== '.') {
+                    currentExpression = val;
+                } else {
+                    currentExpression += val;
+                }
+                display.value = currentExpression;
+            }
+
+            function degreesToRadians(degrees) {
+            }
+
+            function processTrigFunction(func, angle) {
+                return Math[func](degreesToRadians(angle));
+            }
+
+            function calculate() {
+                try {
+                    let processedExpression = currentExpression;
+                    // Handle trigonometric functions
+                    processedExpression = processedExpression.replace(/sin\(([^)]+)\)/g, (match, angle) =>
+                        processTrigFunction('sin', eval(angle))
+                    );
+                    processedExpression = processedExpression.replace(/cos\(([^)]+)\)/g, (match, angle) =>
+                        processTrigFunction('cos', eval(angle))
+                    );
+                    processedExpression = processedExpression.replace(/tan\(([^)]+)\)/g, (match, angle) =>
+                        processTrigFunction('tan', eval(angle))
+                    );
+                    // Replace mathematical functions
+                    processedExpression = processedExpression.replace(/log\(/g, 'Math.log10(');
+                    processedExpression = processedExpression.replace(/ln\(/g, 'Math.log(');
+                    processedExpression = processedExpression.replace(/exp\(/g, 'Math.exp(');
+                    processedExpression = processedExpression.replace(/√\(/g, 'Math.sqrt(');
+                    
+                    const result = eval(processedExpression);
+                    display.value = Number.isInteger(result) ? result : result.toFixed(4);
+                    currentExpression = display.value.toString();
+                } catch (error) {
+                    display.value = 'Error';
+                    currentExpression = '';
+                }
+            }
+
+            function computeReciprocal() {
+                try {
+                    const value = eval(currentExpression);
+                    if (value === 0) {
+                        display.value = 'Error';
+                        currentExpression = '';
+                    } else {
+                        const result = 1 / value;
+                        display.value = Number.isInteger(result) ? result : result.toFixed(4);
+                        currentExpression = display.value.toString();
+                    }
+                } catch (error) {
+                    display.value = 'Error';
+                    currentExpression = '';
+                }
+            }
+
+            function computeSquare() {
+                try {
+                    const value = eval(currentExpression);
+                    const result = value * value;
+                    display.value = Number.isInteger(result) ? result : result.toFixed(4);
+                    currentExpression = display.value.toString();
+                } catch (error) {
+                    display.value = 'Error';
+                    currentExpression = '';
+                }
+            }
+
+            function scrollNav(amount) {
+                document.querySelector('.nav').scrollBy({
+                    left: amount,
+                    behavior: 'smooth'
+                });
+            }
+            window.scrollNav = scrollNav;
+
+            // Initialize the exam
+            showQuestion(0);
+            updateTimer();
+        });
+    </script>
+</body>
+</html>
