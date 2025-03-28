@@ -55,17 +55,25 @@ def compile_code(request):
         else:
             output = "Unsupported language."
 
-        # Save output to database and return result
+        # Save output to database
         submission.output = output
         submission.save()
 
-        return render(request, 'compile_result.html', {
-            'output': output,
-            'needs_input': False,
-            'code': code,
-            'input_data': input_data,
-            'language': language
-        })
+        # Check if this is an AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # Return only the output fragment for AJAX requests
+            return render(request, 'compile_result_ajax.html', {
+                'output': output
+            })
+        else:
+            # Return the full page for regular requests
+            return render(request, 'compile_result.html', {
+                'output': output,
+                'needs_input': False,
+                'code': code,
+                'input_data': input_data,
+                'language': language
+            })
 
     # Default render for GET requests
     return render(request, 'compile_result.html', {'language': 'java'})
