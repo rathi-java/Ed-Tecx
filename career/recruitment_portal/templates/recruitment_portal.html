@@ -6,6 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Job B-B Dashboard</title>
         <link rel="stylesheet" href="{% static 'css/recruitment_portal.css' %}">
+        <link rel="stylesheet" href="{% static 'css/jobdashboard.css' %}">
+        <link rel="stylesheet" href="{% static 'css/job.css' %}">
+        <link rel="stylesheet" href="{% static 'css/list.css' %}">
+        <link rel="stylesheet" href="{% static 'css/internship.css' %}">
+        <link rel="stylesheet" href="{% static 'css/company.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     </head>
     <body>
         <div class="dashboard-container">
@@ -32,8 +38,12 @@
             <div class="content-area">
                 <nav class="sidebar" id="sidebar">
                     <div class="company-logo">
-                        <img src="{% static 'img/google-logo.svg' %}" alt="Company Logo">
-                        <span>Company Name</span>
+                        {% if company.logo %}
+                            <img src="{{ company.logo.url }}" alt="{{ company.name }}">
+                        {% else %}
+                            <img src="{% static 'img/google-logo.svg' %}" alt="Company Logo">
+                        {% endif %}
+                        <span>{{ company.name }}</span>
                     </div>
                     <ul>
                         <li onclick="showSection('dashboard')">
@@ -55,23 +65,401 @@
                     </ul>
                 </nav>
 
-                <!-- Content Sections (Initially Hidden) -->
+                <!-- Content Sections -->
                 <main class="main-content">
+                    <!-- Dashboard Section -->
                     <div id="dashboard" class="content-section active">
-                        {% include 'dashboardSection/jobdashboard.html' %}
+                        <div class="dashboard-wrapper">
+                            <div class="dashboard-title">Welcome to Jobs Dashboard</div>
+                            <div class="dashboard-cards">
+                                <div class="dashboard-card post-jobs-card">
+                                    <div class="card-top">
+                                        <img src="{% static 'img/post-jobs.svg' %}" alt="Post Jobs">
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Post Jobs</h4>
+                                        <p>Post your job openings across multiple categories</p>
+                                    </div>
+                                </div>
+                                <div class="dashboard-card quality-candidates-card">
+                                    <div class="card-top">
+                                        <img src="{% static 'img/quality-candidates.svg' %}" alt="Quality Candidates">
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Quality Candidates</h4>
+                                        <p>Quality candidates from freshers to professionals</p>
+                                    </div>
+                                </div>
+                                <div class="dashboard-card recruit-faster-card">
+                                    <div class="card-top">
+                                        <img src="{% static 'img/recruit-faster.svg' %}" alt="Recruit Faster">
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Recruit Faster</h4>
+                                        <p>Get the right talent quickly and build strong teams</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="add-internship-btn" onclick="toggleInternshipForm()">Add Internship </button>
+                            <button class="add-jobs-btn" onclick="toggleJobForm()">Add Job </button>
+
+                            <h3 class="job-post">Jobs & Internships Posted</h3>
+                            <div class="posted-jobs-section">  
+                                <p>{{ total_posts }} posted!</p>
+                            </div>
+
+                            <!-- Job Form (Initially Hidden) -->
+                            <div class="job-form-container" id="jobForm" style="display: none;">
+                                <h3>Add Job Details</h3>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="job_form" value="1">
+                                    <div class="form-group">
+                                        <label>Enter a Category</label>
+                                        <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                                        <select name="category" required>
+                                            <option value="">Select a category</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Job Profile</label>
+                                            <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                                            <input type="text" name="job_profile" placeholder="Enter job profile" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Location</label>
+                                            <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                                            <input type="text" name="location" placeholder="Enter location" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Job Type</label>
+                                            <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                                            <select name="job_type" required>
+                                                <option value="Full-time">Full-time</option>
+                                                <option value="Part-time">Part-time</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Experience Required</label>
+                                            <img src="{% static '/img/jobs-icon.svg' %}" alt="Company Icon">
+                                            <input type="text" name="experience_required" placeholder="Enter experience required" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>CTC/Package</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="number" name="ctc_package" placeholder="Enter CTC/Package" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Responsibility</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="text" name="responsibility" placeholder="Enter responsibilities" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Eligibility</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="text" name="eligibility" placeholder="Enter eligibility" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>No. of Openings</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="number" name="openings" placeholder="Enter number of openings" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Skills Required</label>
+                                        <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                        <input type="text" name="skills_required" placeholder="Enter required skills" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Job Description</label>
+                                        <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                                        <textarea name="job_description" placeholder="Enter job description (100-200 words)" required></textarea>
+                                    </div>
+                                    <button type="submit">Add Job</button>
+                                </form>
+                            </div>
+
+                            <!-- Internship Form (Initially Hidden) -->
+                            <div class="job-form-container" id="internshipForm" style="display: none;">
+                                <h3>Add Internship Details</h3>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="internship_form" value="1">
+                                    <div class="form-group">
+                                        <label>Enter a Category</label>
+                                        <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                                        <select name="category" required>
+                                            <option value="">Select a category</option>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Internship Role</label>
+                                            <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                                            <input type="text" name="internship_role" placeholder="Enter internship role" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Location</label>
+                                            <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                                            <input type="text" name="location" placeholder="Enter location" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Internship Type</label>
+                                            <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
+                                            <input type="text" name="internship_type" placeholder="Enter internship type (e.g. 3 months)" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Stipend</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="number" name="stipend" placeholder="Enter Stipend" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Responsibility</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="text" name="responsibility" placeholder="Enter responsibilities" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label>Eligibility</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="text" name="eligibility" placeholder="Enter eligibility" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>No. of Openings</label>
+                                            <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                            <input type="number" name="openings" placeholder="Enter number of openings" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Skills Required</label>
+                                        <img src="{% static '/img/person.svg' %}" alt="Company Icon">
+                                        <input type="text" name="skills_required" placeholder="Enter required skills" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label>Internship Description</label>
+                                        <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
+                                        <textarea name="internship_description" placeholder="Enter internship description (100-200 words)" required></textarea>
+                                    </div>
+                                    <button type="submit">Add Internship</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Jobs Section -->
                     <div id="jobs" class="content-section">
-                        {% include 'dashboardSection/jobss.html' %}
+                        <div class="job-listings-container" id="job-main-content">
+                            <div class="job-listings-header">
+                                <h2 class="job-listings-title">Jobs Posted</h2>
+                            </div>
+                            
+                            <div class="job-listings-grid">
+                                {% if jobs %}
+                                    {% for job in jobs %}
+                                        <div class="job-card-box">
+                                            <span class="job-category">{{ job.category.name }}</span>
+                                            <span class="job-posted-time">{{ job.created_at|timesince }} ago</span>
+                                            <h3 class="job-title">{{ job.role }}</h3>
+                                            <a href="javascript:void(0);" class="job-view-link" onclick="showJobList({{ job.job_id }})">View Candidates</a>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="no-jobs-message">No jobs posted yet. Add your first job from the Dashboard.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Job List Content (Hidden) -->
+                        <div id="joblist-content" style="display: none;">
+                            <div class="candidate-container">
+                                <div class="candidate-header">
+                                    <h2>Job Candidates List</h2>
+                                    <div class="candidate-legend">
+                                        <span><div class="candidate-shortlist"></div> Shortlist</span>
+                                        <span><div class="candidate-reject"></div> Reject</span>
+                                        <span><div class="candidate-select"></div> Select</span>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>S.no.</th>
+                                            <th>Name</th>
+                                            <th>Qualification</th>
+                                            <th>Contact</th>
+                                            <th>Resume</th>
+                                            <th>Progress</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="job-candidates-list">
+                                        <!-- Candidates will be loaded dynamically -->
+                                    </tbody>
+                                </table>
+                                <button class="back-button" onclick="showJobsGrid()">Back to Jobs</button>
+                            </div>
+                        </div>
                     </div>
-                    <div id="company" class="content-section">
-                        {% include 'dashboardSection/company.html' %}
-                    </div>
+
+                    <!-- Internship Section -->
                     <div id="internship" class="content-section">
-                        {% include 'dashboardSection/internship.html' %}
+                        <div class="internshipp-listings-container" id="internship-main-content">
+                            <div class="internshipp-listings-header">
+                                <h2 class="internshipp-listings-title">Internships Posted</h2>
+                            </div>
+                            
+                            <div class="internshipp-listings-grid">
+                                {% if internships %}
+                                    {% for internship in internships %}
+                                        <div class="internshipp-card-box">
+                                            <span class="internshipp-category">{{ internship.category.name }}</span>
+                                            <span class="internshipp-posted-time">{{ internship.created_at|timesince }} ago</span>
+                                            <h3 class="internshipp-title">{{ internship.role }}</h3>
+                                            <a href="javascript:void(0);" class="internshipp-view-link" onclick="showInternshipList({{ internship.internship_id }})">View Candidates</a>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="no-internships-message">No internships posted yet. Add your first internship from the Dashboard.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Internship List Content (Hidden) -->
+                        <div id="internshiplist-content" style="display: none;">
+                            <div class="candidate-container">
+                                <div class="candidate-header">
+                                    <h2>Internship Candidates List</h2>
+                                    <div class="candidate-legend">
+                                        <span><div class="candidate-shortlist"></div> Shortlist</span>
+                                        <span><div class="candidate-reject"></div> Reject</span>
+                                        <span><div class="candidate-select"></div> Select</span>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>S.no.</th>
+                                            <th>Name</th>
+                                            <th>Qualification</th>
+                                            <th>Contact</th>
+                                            <th>Resume</th>
+                                            <th>Progress</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="internship-candidates-list">
+                                        <!-- Candidates will be loaded dynamically -->
+                                    </tbody>
+                                </table>
+                                <button class="back-button" onclick="showInternshipsGrid()">Back to Internships</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Section -->
+                    <div id="company" class="content-section">
+                        <div class="company-form-container">
+                            <h2 class="form-title">Company Details</h2>
+                            <form method="POST" enctype="multipart/form-data" action="{% url 'company_view' %}">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="company-name">Company Name</label>
+                                        <img src="{% static 'img/company-icon.svg' %}" alt="Company Icon">
+                                        <input type="text" id="company-name" name="name" value="{{ company.name }}" placeholder="Enter Company Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company-email">Company Email</label>
+                                        <img src="{% static 'img/Mail.svg' %}" alt="Email Icon">
+                                        <input type="email" id="company-email" name="email" value="{{ company.email }}" placeholder="Enter Company Email" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="company-contact">Company Contact No.</label>
+                                        <img src="{% static 'img/phone.svg' %}" alt="Phone Icon">
+                                        <input type="tel" id="company-contact" name="contact_number" value="{{ company.contact_number }}" placeholder="Enter Company Contact No." required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="working-employees">Working Employees</label>
+                                        <img src="{% static 'img/person.svg' %}" alt="Employee Icon">
+                                        <input type="number" id="working-employees" name="working_employees" value="{{ company.working_employees }}" placeholder="Enter No. of Employees" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="industry-type">Industry Type</label>
+                                        <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Industry Icon">
+                                        <input type="text" id="industry-type" name="industry_type" value="{{ company.industry_type }}" placeholder="Select Industry Type" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="established-date">Established Date</label>
+                                        <img src="{% static 'img/calendar.svg' %}" alt="Calendar Icon">
+                                        <input type="number" id="established-date" name="established_year" value="{{ company.established_year }}" placeholder="Enter Established Year" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="company-logo">Company Logo</label>
+                                        {% if company.logo %}
+                                            <img src="{{ company.logo.url }}" alt="{{ company.name }}" class="company-logo-preview">
+                                        {% endif %}
+                                        <input type="file" id="company-logo" name="logo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Address Icon">
+                                        <textarea id="address" name="address" placeholder="Enter Address" rows="3" required>{{ company.address }}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="about-company">About Company</label>
+                                    <img src="{% static 'img/sidebar-dashboard.svg' %}" alt="Info Icon" class="about-company-description">
+                                    <textarea id="about-company" name="about" placeholder="Add a brief description (100-200 words)" rows="3" required>{{ company.about }}</textarea>
+                                </div>
+
+                                <div class="submit-container">
+                                    <button class="submit-button" type="submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </main>
             </div>
         </div>
+
+        <!-- Display messages -->
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                    <span class="close-message" onclick="this.parentElement.style.display='none'">×</span>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <script>
             function showSection(sectionId) {
@@ -82,33 +470,74 @@
 
                 // Show selected section
                 document.getElementById(sectionId).classList.add('active');
+                
+                // Reset job and internship views to their default state
+                if(sectionId === 'jobs') {
+                    document.getElementById('job-main-content').style.display = 'block';
+                    document.getElementById('joblist-content').style.display = 'none';
+                }
+                
+                if(sectionId === 'internship') {
+                    document.getElementById('internship-main-content').style.display = 'block';
+                    document.getElementById('internshiplist-content').style.display = 'none';
+                }
             }
 
             function toggleSidebar() {
                 document.getElementById('sidebar').classList.toggle('active');
             }
+            
+            function toggleJobForm() {
+                var jobForm = document.getElementById("jobForm");
+                var internshipForm = document.getElementById("internshipForm");
+                var postedJobs = document.querySelector(".posted-jobs-section");
+
+                if (jobForm.style.display === "none" || jobForm.style.display === "") {
+                    jobForm.style.display = "block";
+                    internshipForm.style.display = "none"; 
+                    postedJobs.style.display = "none"; 
+                } else {
+                    jobForm.style.display = "none";
+                    postedJobs.style.display = "block"; 
+                }
+            }
+
+            function toggleInternshipForm() {
+                var internshipForm = document.getElementById("internshipForm");
+                var jobForm = document.getElementById("jobForm");
+                var postedJobs = document.querySelector(".posted-jobs-section");
+
+                if (internshipForm.style.display === "none" || internshipForm.style.display === "") {
+                    internshipForm.style.display = "block";
+                    jobForm.style.display = "none"; 
+                    postedJobs.style.display = "none"; 
+                } else {
+                    internshipForm.style.display = "none";
+                    postedJobs.style.display = "block"; 
+                }
+            }
+            
+            function showJobList(jobId) {
+                document.getElementById('job-main-content').style.display = 'none';
+                document.getElementById('joblist-content').style.display = 'block';
+                // Load candidates dynamically based on jobId
+            }
+            
+            function showInternshipList(internshipId) {
+                document.getElementById('internship-main-content').style.display = 'none';
+                document.getElementById('internshiplist-content').style.display = 'block';
+                // Load candidates dynamically based on internshipId
+            }
+
+            function showJobsGrid() {
+                document.getElementById('job-main-content').style.display = 'block';
+                document.getElementById('joblist-content').style.display = 'none';
+            }
+
+            function showInternshipsGrid() {
+                document.getElementById('internship-main-content').style.display = 'block';
+                document.getElementById('internshiplist-content').style.display = 'none';
+            }
         </script>
     </body>
 </html>
-
-<!-- /project_root/
-│── /recruitment_portal/
-│   ├── /static/
-│   │   ├── /css/
-│   │   │   ├── recruitment_portal.css
-│   │   ├── /image/
-│   │   ├── /js/
-│   │   │   ├── recruitment_portal.js
-│   ├── /templates/
-|   │   ├── /dashboardSection/
-|   │   │   ├── jobdashboard.html
-|   |   |   ├── jobs.html
-|   |   |   ├── company.html
-|   |   |   ├── internship.html
-│   │   |   ├── joblist.html
-│   │   |   ├── internshiplist.html
-│   │   ├── recruitment_portal.html
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── views.py
-│   ├── urls.py -->
