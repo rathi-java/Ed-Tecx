@@ -284,6 +284,9 @@ position: relative;
     .exam-title {
         font-size: 22px;
     }
+    .exam-right-section h3 {
+        padding-top: 78px;
+    }
 }
 
 

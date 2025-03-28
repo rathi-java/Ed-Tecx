@@ -1,71 +1,112 @@
 {% load static %}
-<!-- FAQ Section -->
-<section class="faq-section">
-    <div class="faqq-container">
-        <h1 class="faq-title">Do You Have Questions?</h1>
-        <div class="faq-image-section">
-            <img src="{% static 'images/faqs.jpeg' %}" alt="FAQ Illustration" class="faq-image">
-        </div>
-        <div class="faq-content">
-            <div class="faq-category">
-                <h2 class="faq-category-title">Information & Technology FAQs</h2>
-                <ul class="faq-list">
-                    <li>
-                        <a href="#">What is Information Technology (IT)?</a>
-                        <div class="dropdown-content">
-                            <p>IT is the use of computers, networking, storage, and other technologies to process and store data.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">What are the main branches of IT?</a>
-                        <div class="dropdown-content">
-                            <p>Major branches include software development, cybersecurity, networking, data science, and IT support.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">What is the difference between hardware and software?</a>
-                        <div class="dropdown-content">
-                            <p>Hardware is the physical components of a computer, while software is the set of instructions that tell the hardware what to do.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">What is an operating system (OS)?</a>
-                        <div class="dropdown-content">
-                            <p>An OS is system software that manages computer hardware, software resources, and provides common services for applications.</p>
-                        </div>
-                    </li>
-                </ul>
+<section class="ffaq">
+
+    <div class="new-faq-container">
+        <h2 class="new-faq-h2">Frequently Asked <span class="new-highlight">Questions</span></h2>
+        
+           
+       <div class="new-faq-box-head">
+        <div class="new-faq-box-mnn">
+          <div class="new-new-faq-box">
+            <div class="new-faq-box">
+                <p class="new-what">What is Reader Club, and how does it work?</p>
+                <span class="new-plus">+</span>
             </div>
-            
-            <div class="faq-category">
-                <h2 class="faq-category-title">Management FAQs</h2>
-                <ul class="faq-list">
-                    <li>
-                        <a href="#">What is management?</a>
-                        <div class="dropdown-content">
-                            <p>Management is the process of planning, organizing, leading, and controlling resources to achieve specific goals.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">What are the main functions of management?</a>
-                        <div class="dropdown-content">
-                            <p>Planning, organizing, leading, and controlling are the core functions of management.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">What are the different levels of management?</a>
-                        <div class="dropdown-content">
-                            <p>There are three levels: top-level, middle-level, and operational-level management.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">What is project management?</a>
-                        <div class="dropdown-content">
-                            <p>Project management involves planning, executing, and monitoring a project to meet specific goals within a given timeframe.</p>
-                        </div>
-                    </li>
-                </ul>
+            <div class="new-answer">
+                <div class="box-contentt">
+                    <p class="new-ans">ReaderClub is an online skill development platform that offers study materials related to every field, certification, internship and job opportunities.</p>
+
+                    </div>
             </div>
+          </div>
+    
+            <div class="new-new-faq-box">
+                <div class="new-faq-box">
+                    <p class="new-what">How can I apply for internships and jobs through this platform?</p>
+                    <span class="new-plus">+</span>
+                </div>
+                <div class="new-answer">
+                    <div class="box-contentt">
+                    <p class="new-ans">You can browse job listings, find oportunities that match your skills and preferences and submit application through job dashboard.</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="new-new-faq-box">
+                
+            <div class="new-faq-box">
+                <p class="new-what">Do I need a membership for access to study materials and practice questions?</p>
+                <span class="new-plus">+</span>
+            </div>
+            <div class="new-answer">
+                <div class="box-contentt">
+                    <p class="new-ans">Basic content is free, but premium materials and practice tests may require a subscription. </p>
+
+                    </div>
+            </div>
+
+          </div>
+    
+            <div class="new-new-faq-box">
+                <div class="new-faq-box">
+                    <p class="new-what">What courses and skills does this platform offer?</p>
+                    <span class="new-plus">+</span>
+                </div>
+                <div class="new-answer">
+                    <div class="box-contentt">
+                        <p class="new-ans">The platform covers technology, business, soft skills, and industry specific courses to help students with career development.</p>
+    
+                        </div>
+                </div>
+            </div>
+    
+            <div class="new-new-faq-box">
+                <div class="new-faq-box">
+                    <p class="new-what">Are the internships on the platform paid or unpaid?</p>
+                    <span class="new-plus">+</span>
+                </div>
+                <div class="new-answer">
+                    <div class="box-contentt">
+                        <p class="new-ans">We offer a mix of paid and unpaid internships. Each listing clearly mentions the details, including stipend, roles and requirement.</p>
+    
+                        </div>
+                </div>
+            </div>
+    
+           </div>
+           <div class="new-faq-image">
+            <img src=" {% static 'images/faq_image.svg' %}" alt="FAQ Illustration">
+          
         </div>
-    </div>
+       </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const faqs = document.querySelectorAll(".new-faq-box");
+        
+            faqs.forEach((faq, index) => {
+                faq.addEventListener("click", function () {
+                    const answer = this.nextElementSibling;
+        
+                    if (answer.classList.contains("open")) {
+                        answer.style.display = "none";
+                        answer.classList.remove("open");
+                        this.classList.remove("active");
+                    } else {
+                        document.querySelectorAll(".new-answer").forEach(ans => {
+                            ans.style.display = "none";
+                            ans.classList.remove("open");
+                        });
+        
+                        document.querySelectorAll(".new-faq-box").forEach(faq => {
+                            faq.classList.remove("active");
+                        });
+        
+                        answer.style.display = "block";
+                        answer.classList.add("open");
+                        this.classList.add("active");
+                    }
+                });
+            });
+        });
+    </script>  
 </section>

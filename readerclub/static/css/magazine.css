@@ -27,7 +27,8 @@ section.pamper-section {
 .pamper-pamplet {
     margin-top: 0.5rem;
     overflow: hidden;
-    width: 100%;
+    width: 97%;
+    margin-left:2%;
 }
 
 .pamper-book-container {

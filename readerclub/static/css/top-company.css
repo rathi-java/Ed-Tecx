@@ -181,12 +181,11 @@ section.top-company-section {
 
   img.hire {
  
-      width: 44px;
-      height: 44px;
-      left: 10%;
-      position: absolute;
-      margin-block: 30px;
-      margin-left: -1%;
+    width: 52px;
+    height: 49px;
+    left: 117px;
+    position: absolute;
+    margin-block: 23px;
       font-weight: bold;
       color:#768f93;
   
@@ -201,27 +200,27 @@ section.top-company-section {
     margin-block: 4%;
     }
 
-@media (max-width: 2560px) {
+/* @media (max-width: 2560px) {
   img.hire {
     left: 5.5%;
     margin-top: 45px;
     width: 50px;
     height: 50px;
   }
-}
+} */
 
-@media (min-width:1440px) and (max-width: 2559px) {
+/* @media (min-width:1440px) and (max-width: 2559px) {
   img.hire {
     left: 7%;
     margin-top: 32px;
   }
-}
+} */
 
 @media (max-width: 1440px) and (min-width: 1023px){
   .campus-image-container img {
     width: 122%;
   }
-  img.hire{
+  /* img.hire{
   width: 44px;
     height: 44px;
     left: 9%;
@@ -230,19 +229,27 @@ section.top-company-section {
     margin-left: -1%;
     font-weight: bold;
     color: #768f93;
-}
+} */
+ }
+ @media (max-width: 1024px){
+  img.hire {
+    margin-top: 10px;
+    width: 52px;
+    height: 49px;
+    left: 106px;
+  }
  }
 
 @media (max-width: 1200px) {
 
-  img.hire {
+  /* img.hire {
     width: 40px;
     height: 40px;
     left: 13%;
     position: absolute;
     margin-block: 2%;
     color:#768f93;
-  }
+  } */
   .top-company-header-mn img {
     width: 40px;
     height: 43px;
@@ -288,7 +295,7 @@ section.top-company-section {
     display: none; /* Hide on smaller screens, if desired */
   }
   .top-company-header-mn img {
-    margin-right: -77%;
+    margin-left: 55px;
 }
 .top {
   margin-left: -28%;
@@ -403,13 +410,13 @@ section.top-company-section {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 110%;
+    width: 100%;
   }
   .top-company-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 110%;
+    width: 100%;
   }
   /* .top-company-header-mn img {
     margin-right: -101%;
@@ -419,14 +426,17 @@ section.top-company-section {
   font-size: 78%;
   margin-left: 1%;
   margin-top: 15px;
+  
 }
 .top-company-header {
-  margin-top: -1%;
-  top: 20%;
-  margin-inline: 27%;
-  font-size: 25px;
-  font-weight: bold;
-  text-align: left;
+  margin-left: 27%;
+        /* width: 100%; */
+        margin-top: -1%;
+        /* top: 20%; */
+        /* margin-inline: 27%; */
+        font-size: 25px;
+        font-weight: bold;
+        text-align: left;
 }
 img.hire {
   width: 40px;
@@ -440,8 +450,14 @@ img.hire {
   margin-left: 5%;
   margin-top: -4px;
 }
+.images-abroad {
+  flex-direction: row;
+  justify-content: center;
+  width: 586px;
+  margin-left: 7%;
+}
 .top-company-header-mn img {
-  margin-inline: -400px;
+  margin-inline: -384px;
   
 }
 }
