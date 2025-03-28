@@ -849,7 +849,7 @@ def start_exam(request, exam_id):
         for student in students:
             UniversityExamResult.objects.get_or_create(
                 exam=exam,
-                student_name=student.name,  # Assuming `name` is a field in StudentsDB
+                student_name=student.full_name,  # Changed from `student.name` to `student.full_name`
                 defaults={
                     'total_questions': exam.num_questions,
                     'correct_answers': 0,
