@@ -1,15 +1,12 @@
-<!-- {% extends 'base.html' %} -->
+{% extends 'base.html' %}
 {% load static %}
-
-{% block extra_css %}
-  <!-- Your custom styles -->
-  <link rel="stylesheet" href="{% static 'css/compiler.css' %}">
+{% block extra_css%}
+<link rel="stylesheet" href="{% static 'css/compiler.css' %}">
 {% endblock %}
-
 {% block content %}
 <div class="compiler-app">
   <div class="container">
-    <form method="POST" id="code-form">
+    <form method="POST" id="code-form" action="/compiler/compiler/">
       {% csrf_token %}
       <div class="toolbar">
         <div class="header">
@@ -67,7 +64,6 @@
   </div>
 </div>
 {% endblock %}
-
 {% block extra_js %}
 <script src="{% static 'js/compile_result.js' %}"></script>
 {% endblock %}
