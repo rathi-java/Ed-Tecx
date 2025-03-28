@@ -109,56 +109,40 @@
       const pamplet = document.querySelector('.pamper-pamplet');
       const cards = Array.from(container.querySelectorAll('.pamper-book-card'));
       const cardWidth = cards[0].offsetWidth + 20; // Card width + gap
-      
+
       // Clone cards and add to container for seamless loop
       cards.forEach(card => {
           const clone = card.cloneNode(true);
           container.appendChild(clone);
       });
-      
-      // Set up animation
+
       let scrollPosition = 0;
-      const totalWidth = cardWidth * cards.length;
-      
+      let animationFrame;
+
       function scrollCards() {
           scrollPosition -= 2.5; // Speed of scroll
-          
-          // Reset position when we've scrolled one set of cards
-          if (Math.abs(scrollPosition) >= totalWidth) {
+          if (Math.abs(scrollPosition) >= cardWidth * cards.length) {
               scrollPosition = 0;
           }
-          
           container.style.transform = `translateX(${scrollPosition}px)`;
-          requestAnimationFrame(scrollCards);
+          animationFrame = requestAnimationFrame(scrollCards);
       }
-      
-      // Start animation
-      scrollCards();
-      
-      // Pause animation on hover
-      pamplet.addEventListener('mouseenter', () => {
-          container.style.animationPlayState = 'paused';
-      });
-      
-      pamplet.addEventListener('mouseleave', () => {
-          container.style.animationPlayState = 'running';
-      });
-      
-      // Check if cards need to be added
-      function checkAndAddCards() {
-          const lastCardRight = container.lastElementChild.getBoundingClientRect().right;
-          const containerRight = pamplet.getBoundingClientRect().right;
-          
-          // If the last card is about to enter the viewport, add more cards
-          if (lastCardRight - containerRight < totalWidth) {
-              cards.forEach(card => {
-                  const clone = card.cloneNode(true);
-                  container.appendChild(clone);
-              });
+
+      function startScroll() {
+          if (!animationFrame) {
+              scrollCards();
           }
       }
-      
-      // Check periodically if we need to add more cards
-      setInterval(checkAndAddCards, 2000);
-  });
-</script>
+
+      function stopScroll() {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+      }
+
+      // Pause animation on hover
+      pamplet.addEventListener('mouseenter', stopScroll);
+      pamplet.addEventListener('mouseleave', startScroll);
+
+      startScroll();
+    });
+  </script>
