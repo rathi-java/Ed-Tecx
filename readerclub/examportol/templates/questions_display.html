@@ -2,6 +2,9 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/examportol.css' %}">
+<link rel="stylesheet" href="{% static 'css/exam_compiler.css' %}">
+<!-- Add CodeMirror CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
 {% endblock %}
 
 {% block content %}
@@ -135,6 +138,8 @@
   </div>
 </form>
 
+{% include 'exam_compiler.html' %}
+
 <!-- Calculator Modal -->
 <div id="calculatorModal" class="sidebar-overlay">
   <div class="modal-content">
@@ -184,8 +189,16 @@
   </div>
 </div>
 
+<!-- Add CodeMirror JS libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+
 <script src="{% static 'js/examportol.js' %}" defer></script>
-<script src="{% static 'js/ai_invigilator.js' %}" defer></script>
+{% comment %} <script src="{% static 'js/ai_invigilator.js' %}" defer></script> {% endcomment %}
+<script src="{% static 'js/exam_compiler.js' %}"></script>
+
 <script>
   // Tab switching detection and prevention
   let tabSwitchAttempts = 0;
