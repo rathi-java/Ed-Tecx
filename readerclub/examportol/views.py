@@ -458,6 +458,21 @@ def take_exam(request, exam_id):
         questions_dict = {q.id: q for q in questions_queryset}
         questions = [questions_dict[qid] for qid in question_ids if qid in questions_dict]
 
+    # Dynamically fetch subjects and options for the questions
+    subjects = {q.question_subject.subject_name for q in questions}
+    dynamic_questions = [
+        {
+            'id': question.id,
+            'text': question.question_text,
+            'subject': question.question_subject.subject_name,
+            'options': [
+                {'key': key, 'text': value['text']}
+                for key, value in question.answers.items()
+            ]
+        }
+        for question in questions
+    ]
+
     # Store exam details in session
     request.session['exam_total_questions'] = len(questions)
     request.session['exam_id'] = exam.id
@@ -465,11 +480,13 @@ def take_exam(request, exam_id):
 
     context = {
         'exam': exam,
-        'questions': questions,
+        'subjects': list(subjects),
+        'questions': dynamic_questions,
         'user': user,
     }
     
     return render(request, 'questions_display.html', context)
+
 def submit_custom_exam(request):
     if request.method == 'POST':
         # Retrieve custom user from session
