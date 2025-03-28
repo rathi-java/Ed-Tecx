@@ -9,6 +9,6 @@ RUN apk add --no-cache curl && \
 # Copy the rest of your application code
 COPY . .
 
-EXPOSE 80
+EXPOSE 8001
 
-CMD ["sh", "entrypoint.sh"]
+CMD ["sh", "deventrypoint.sh"]

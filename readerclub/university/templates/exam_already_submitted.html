@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="exam-submitted-container">
+    <h2>{{ exam.course.name }} Exam</h2>
+    <p>You have already submitted this exam. You cannot access it again.</p>
+    <a href="{% url 'exam_results' exam.id %}" class="btn btn-primary">View Results</a>
+</div>
+{% endblock %}

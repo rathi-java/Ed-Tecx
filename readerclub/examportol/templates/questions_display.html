@@ -665,7 +665,7 @@
                     index = parseInt(index.getAttribute('data-question-index'), 10);
                 }
                 if (index < 0 || index >= totalQuestions) {
-                    console.error(`Invalid index: ${index}`);
+                    console.error(Invalid index: ${index});
                     return;
                 }
                 
@@ -795,7 +795,7 @@
 
             function confirmSubmit() {
                 return totalQuestions - answeredQuestions.size === 0 ||
-                    confirm(`You have ${totalQuestions - answeredQuestions.size} unanswered questions. Submit anyway?`);
+                    confirm(You have ${totalQuestions - answeredQuestions.size} unanswered questions. Submit anyway?);
             }
             window.confirmSubmit = confirmSubmit;
 
@@ -804,7 +804,7 @@
             function updateTimer() {
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
-                document.getElementById("timerDisplay").textContent = `${minutes}m:${seconds.toString().padStart(2, '0')}s`;
+                document.getElementById("timerDisplay").textContent = ${minutes}m:${seconds.toString().padStart(2, '0')}s;
                 if (timeLeft > 0) {
                     timeLeft--;
                     setTimeout(updateTimer, 1000);
@@ -852,7 +852,7 @@
                 } else if (func === "^2") {
                     display.value = Math.pow(eval(currentValue), 2);
                 } else if (func === "^") {
-                    display.value += "**";
+                    display.value += "";
                 }
             }
 
@@ -917,7 +917,7 @@
                         appendValue('√(');
                         break;
                     case '^':
-                        appendValue('**');
+                        appendValue('');
                         break;
                     case '1/x':
                         computeReciprocal();

@@ -8,6 +8,7 @@ from exam_registration.models import StudentsDB
 from examportol.forms import QuestionUploadForm
 import csv
 import random
+from university.models import UniversityExam, UniversityQuestion, UniversityExamResult
 def upload_questions(request):
     if request.method == 'POST':
         form = QuestionUploadForm(request.POST, request.FILES)
@@ -403,6 +404,9 @@ def list_exams(request):
         'exams': exams,
         'user': user,
     })
+# from django.utils.timezone import make_aware
+# from datetime import datetime
+
 def take_exam(request, exam_id):
     # Retrieve the custom user from session
     user_id = request.session.get('user_id')
@@ -430,6 +434,10 @@ def take_exam(request, exam_id):
     except StudentsDB.DoesNotExist:
         messages.error(request, "You are not registered for this exam. Please register first.")
         return redirect('exam_register')
+
+    # Ensure exam start_time and end_time are timezone-aware
+    exam.start_time = make_aware(exam.start_time)
+    exam.end_time = make_aware(exam.end_time)
 
     # More robust randomization logic
     exam_session_key = f'exam_questions_order_{exam_id}'
@@ -483,8 +491,8 @@ def take_exam(request, exam_id):
         'subjects': list(subjects),
         'questions': dynamic_questions,
         'user': user,
+        'exam_type': 'examportol',  # Explicitly set the exam type for ExamPortol
     }
-    
     return render(request, 'questions_display.html', context)
 
 def submit_custom_exam(request):
@@ -505,11 +513,14 @@ def submit_custom_exam(request):
         total_questions = request.session.get('exam_total_questions', 0)
         
         try:
-            exam = Exam.objects.get(id=exam_id)
-        except Exam.DoesNotExist:
+            exam = UniversityExam.objects.get(id=exam_id)
+        except UniversityExam.DoesNotExist:
             messages.error(request, "Exam not found.")
             return redirect('list_exams')
         
+        # Debugging: Log exam and user details
+        print(f"DEBUG: Exam ID: {exam_id}, User: {custom_user.full_name}, Total Questions: {total_questions}")
+
         correct_answers = 0
         submitted_answers = {}
 
@@ -518,15 +529,16 @@ def submit_custom_exam(request):
             if key.startswith('question'):
                 try:
                     question_id = int(key.replace('question', ''))
-                    question = Question.objects.get(id=question_id)
-                except (ValueError, Question.DoesNotExist):
+                    question = UniversityQuestion.objects.get(id=question_id)
+                except (ValueError, UniversityQuestion.DoesNotExist):
+                    print(f"DEBUG: Invalid question ID: {key}")
                     continue
 
                 # Determine the correct answer key
                 correct_key = None
                 for option_key, option_value in question.answers.items():
                     if option_value.get('is_correct'):
-                        correct_key = option_key
+                        correct_key = option_key[-1]  # Extract the last character (e.g., "option_B" → "B")
                         break
 
                 submitted_answers[str(question_id)] = {
@@ -536,30 +548,39 @@ def submit_custom_exam(request):
                 if selected_option == correct_key:
                     correct_answers += 1
 
+        # Debugging: Log submitted answers and correct answers
+        print(f"DEBUG: Submitted Answers: {submitted_answers}")
+        print(f"DEBUG: Correct Answers: {correct_answers}")
+
         score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
 
         try:
-            exam_result = ExamResult.objects.create(
-                user=custom_user,
+            # Save the exam result
+            exam_result = UniversityExamResult.objects.create(
+                exam=exam,
+                student_name=custom_user.full_name,
                 total_questions=total_questions,
                 correct_answers=correct_answers,
                 score=score,
                 submitted_answers=submitted_answers,
                 submitted_at=timezone.now()
             )
+            # Debugging: Log successful result creation
+            print(f"DEBUG: Exam Result Created: {exam_result}")
         except Exception as e:
+            print(f"DEBUG: Error saving exam result: {e}")
             messages.error(request, f"Error saving exam result: {e}")
             return redirect('list_exams')
 
         messages.success(request, f'Exam submitted successfully! Your score is {score:.2f}%')
-        return redirect('exam_results')
+        return redirect('exam_results', exam_id=exam.id)
     
     # For GET requests, redirect to exam list
     return redirect('list_exams')
 
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import Exam
+# from django.shortcuts import render, redirect
+# from django.contrib import messages
+# from .models import Exam
 
 def manage_exams(request):
     if request.method == 'POST':

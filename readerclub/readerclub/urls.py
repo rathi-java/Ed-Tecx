@@ -61,4 +61,5 @@ urlpatterns = [
     path('upload_questions/<int:exam_id>/', university_views.upload_questions, name='upload_questions_direct'),
 
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

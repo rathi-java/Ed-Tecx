@@ -188,6 +188,9 @@ iframe {
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 60px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #353535;
 }
 
 .content-area {
