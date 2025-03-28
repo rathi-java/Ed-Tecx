@@ -7,6 +7,7 @@ from oauth.models import UsersDB
 from exam_registration.models import StudentsDB
 from examportol.forms import QuestionUploadForm
 import csv
+from django.utils.timezone import make_aware
 import random
 from university.models import UniversityExam, UniversityQuestion, UniversityExamResult
 def upload_questions(request):
@@ -436,8 +437,10 @@ def take_exam(request, exam_id):
         return redirect('exam_register')
 
     # Ensure exam start_time and end_time are timezone-aware
-    exam.start_time = make_aware(exam.start_time)
-    exam.end_time = make_aware(exam.end_time)
+    if exam.start_time and timezone.is_naive(exam.start_time):
+        exam.start_time = make_aware(exam.start_time)
+    if exam.end_time and timezone.is_naive(exam.end_time):
+        exam.end_time = make_aware(exam.end_time)
 
     # More robust randomization logic
     exam_session_key = f'exam_questions_order_{exam_id}'
