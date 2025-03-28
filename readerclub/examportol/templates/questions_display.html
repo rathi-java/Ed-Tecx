@@ -124,9 +124,10 @@
 
       <!-- Optional: User photo at the bottom + Submit -->
       <div class="video-section">
-        <video id="video" autoplay></video>
-       
-    </div>
+        <video id="video" autoplay muted></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <p id="ai-alert" style="color: red; font-weight: bold; display: none;">Suspicious behavior detected!</p>
+      </div>
       <button type="submit" class="btn submit-btn" onclick="return confirmSubmit()">
         Submit Test
       </button>
@@ -184,6 +185,7 @@
 </div>
 
 <script src="{% static 'js/examportol.js' %}" defer></script>
+<script src="{% static 'js/ai_invigilator.js' %}" defer></script>
 <script>
   // Tab switching detection and prevention
   let tabSwitchAttempts = 0;
