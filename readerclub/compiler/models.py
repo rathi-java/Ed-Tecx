@@ -13,3 +13,10 @@ class CodeSubmission(models.Model):
 
     def __str__(self):
         return f"Submission {self.id} - {self.language}"
+
+class CompilerUsage(models.Model):
+    user = models.ForeignKey('oauth.UsersDB', on_delete=models.CASCADE)
+    hit = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.hit} uses"

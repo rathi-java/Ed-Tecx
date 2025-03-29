@@ -6,7 +6,14 @@
 {% block content %}
 <div class="compiler-app">
   <div class="container">
-    <form method="POST" id="code-form" action="/compiler/compiler/">
+    {% if error %}
+    <div class="alert alert-warning">
+      {{ output }}
+    </div>
+    {% endif %}
+    
+    <!-- Using regular form submission, no AJAX -->
+    <form method="POST" id="code-form" action="{% url 'compile_code' %}">
       {% csrf_token %}
       <div class="toolbar">
         <div class="header">
@@ -65,5 +72,6 @@
 </div>
 {% endblock %}
 {% block extra_js %}
+<!-- Modified JS that doesn't use AJAX -->
 <script src="{% static 'js/compile_result.js' %}"></script>
 {% endblock %}

@@ -1,87 +1,44 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Ensure CodeMirror is loaded before using it
   if (typeof CodeMirror !== 'undefined') {
-      // Initialize CodeMirror on the code textarea
-      const codeTextarea = document.getElementById("code");
-      if (codeTextarea) {
-          const editor = CodeMirror.fromTextArea(codeTextarea, {
-              lineNumbers: true,
-              mode: "text/x-c++src",  // Adjust the mode depending on the language
-              theme: "default",
-              autoRefresh: true, // Add this to help with hidden elements
-          });
-          
-          // Update CodeMirror when language changes
-          document.getElementById("language").addEventListener("change", function() {
-              const language = this.value;
-              let mode = "text/x-c++src";
-              
-              if (language === "python") {
-                  mode = "text/x-python";
-              } else if (language === "javascript") {
-                  mode = "text/javascript";
-              } else if (language === "java") {
-                  mode = "text/x-java";
-              }
-              
-              editor.setOption("mode", mode);
-          });
+    // Initialize CodeMirror on the code textarea
+    const codeTextarea = document.getElementById("code");
+    if (codeTextarea) {
+      const editor = CodeMirror.fromTextArea(codeTextarea, {
+        lineNumbers: true,
+        mode: "text/x-c++src",
+        theme: "default",
+        autoRefresh: true
+      });
+      
+      // Update CodeMirror when language changes
+      document.getElementById("language").addEventListener("change", function() {
+        const language = this.value;
+        let mode = "text/x-c++src";
+        
+        if (language === "python") {
+          mode = "text/x-python";
+        } else if (language === "javascript") {
+          mode = "text/javascript";
+        } else if (language === "java") {
+          mode = "text/x-java";
+        }
+        
+        editor.setOption("mode", mode);
+      });
 
-          // Handle form submission with AJAX
-          const codeForm = document.getElementById("code-form");
-          if (codeForm) {
-              codeForm.addEventListener("submit", function(e) {
-                  e.preventDefault(); // Prevent traditional form submission
-                  
-                  // Make sure CodeMirror content is updated in the textarea
-                  editor.save();
-                  
-                  // Get the form data
-                  const formData = new FormData(this);
-                  
-                  // Show loading indicator
-                  const outputContainer = document.getElementById("output");
-                  if (outputContainer) {
-                      outputContainer.textContent = "Compiling...";
-                  }
-                  
-                  // Send AJAX request
-                  fetch('/compiler/compiler/', {
-                      method: 'POST',
-                      body: formData,
-                      headers: {
-                          'X-Requested-With': 'XMLHttpRequest',
-                      }
-                  })
-                  .then(response => response.text())
-                  .then(html => {
-                      // Extract output from the HTML response
-                      const parser = new DOMParser();
-                      const doc = parser.parseFromString(html, 'text/html');
-                      const outputContent = doc.querySelector('#output-content');
-                      
-                      if (outputContainer && outputContent) {
-                          outputContainer.innerHTML = outputContent.innerHTML;
-                      } else if (outputContainer) {
-                          outputContainer.textContent = "Execution completed.";
-                      }
-                  })
-                  .catch(error => {
-                      console.error('Error:', error);
-                      if (outputContainer) {
-                          outputContainer.textContent = "Error: " + error.message;
-                      }
-                  });
-              });
-          }
-      } else {
-          console.error("Code textarea not found");
+      // For regular form submission (no AJAX)
+      const codeForm = document.getElementById("code-form");
+      if (codeForm) {
+        codeForm.addEventListener("submit", function() {
+          // Make sure CodeMirror content is updated in the textarea before form submission
+          editor.save();
+        });
       }
-  } else {
-      console.error("CodeMirror is not loaded");
+    }
   }
 
-  // Handle Resizing
+  // Handle Resizing (keep this part from the original)
   const verticalDivider = document.querySelector("#vertical-divider");
   const horizontalDivider = document.querySelector("#horizontal-divider");
   const editorContainer = document.querySelector(".editor-container");

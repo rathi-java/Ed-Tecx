@@ -45,8 +45,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         outputContainer.textContent = "Compiling...";
                     }
                     
+                    // Get the URL from the data attribute
+                    const compileUrl = codeForm.getAttribute('data-compile-url');
+                    
                     // Send AJAX request
-                    fetch('/compiler/compiler/', {
+                    fetch(compileUrl, {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -56,14 +59,22 @@ document.addEventListener("DOMContentLoaded", function() {
                     .then(response => response.text())
                     .then(html => {
                         // Extract output from the HTML response
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const outputContent = doc.querySelector('#output-content');
-                        
-                        if (outputContainer && outputContent) {
-                            outputContainer.innerHTML = outputContent.innerHTML;
-                        } else if (outputContainer) {
-                            outputContainer.textContent = "Execution completed.";
+                        if (outputContainer) {
+                            // Directly set the content if it's plain text
+                            if (html.trim().startsWith('<div id="output-content">')) {
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+                                const outputContent = doc.querySelector('#output-content pre');
+                                
+                                if (outputContent) {
+                                    outputContainer.innerHTML = outputContent.innerHTML;
+                                } else {
+                                    outputContainer.textContent = "Error: Could not parse output";
+                                }
+                            } else {
+                                // Fallback if response format is unexpected
+                                outputContainer.textContent = html;
+                            }
                         }
                     })
                     .catch(error => {
