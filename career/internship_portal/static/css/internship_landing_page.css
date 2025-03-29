@@ -23,6 +23,10 @@ body {
     right: 0%;
     height: 487px;
   }
+
+  .start-your-search-ul-a{
+    text-decoration: none;
+  }
   
   .intern-container {
     display: flex;
@@ -122,6 +126,27 @@ body {
     content: attr(data-text);
     display: inline-block;
   }
+  .anchoo .styled-text {
+    display: inline-block;
+    color: #077bc3;
+    text-decoration: none;
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    font-weight: 600;
+    position: relative;
+    margin: 0 0px;
+    white-space: nowrap;
+    animation: fade-in-out 2s infinite;
+  }
+
+  @keyframes fade-in-out {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+  }
+
   @media (max-width: 2560px) {
     img.backk {
       position: absolute;
@@ -271,7 +296,7 @@ body {
         /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
         padding: 40px;
         /* margin-block: -3.4%; */
-        margin-top: 2px;
+        margin-top: 4px;
     }
     .fa-1:before {
       color: #2d7fc4;
@@ -478,9 +503,6 @@ body {
     .monitor-frame {
       width: 275px;
       height: 185px;
-  }
-  .intern2-section {
-    padding: 3px 11px;
   }
   }
   
@@ -729,12 +751,12 @@ body {
   }
   
   .inter3-benefit p {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 500;
     color: #077BC3;
     margin-bottom: 10px;
-    width: 243px;
-  }
+    /* width: 243px; */
+}
   }
   /* Button Styling */
   .inter3-btnn button {
@@ -921,7 +943,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin:0 auto;
-    /* margin-top: 2px; */
+    margin-top: 2px;
   }
   
   .intern-six-header-section h2 {
@@ -1019,10 +1041,12 @@ body {
   /* Responsive Design */
   @media (max-width: 1024px) {
     .intern-six-body {
-      gap:0px;
-        flex-direction: column;
-        text-align: center;
-    }
+      gap: 0px;
+      flex-direction: column;
+      text-align: center;
+      margin-inline: 0px;
+      padding-inline: 11%;
+  }
     .right-section {
       margin-left: -52px;
       margin-top: 31px;
@@ -1107,10 +1131,11 @@ body {
       flex: 1;
   }
   .intern-six-p {
-    margin-left: -12%;
+    /* margin-left: -12%; */
     margin-block: 7%;
     font-size: 13px;
-  }
+    text-align: center;
+}
   }
   
   
@@ -1479,7 +1504,6 @@ body {
   
   
   
-  
   .cta {
     background: linear-gradient(270.24deg, #a6ddff -12.4%, #077bc3 74.85%);
     color: #fff;
@@ -1754,6 +1778,12 @@ body {
     height: 78px;
     top: 9%;
   }
+  @media (max-width: 1440px) {
+    .curvee {
+      position: absolute;
+      right: -27%;
+    }  
+  }
   @media (max-width: 1024px) {
     .curvee {
       right: -33%;
@@ -1784,3 +1814,36 @@ body {
     
   }
   
+
+  /* inifinite scrolling */
+  .inter4job-flow{
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+  .inter4job-slider{
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 10s linear infinite;
+  }
+  .inter4job-cardd{
+    min-width: 260px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eaeaea;
+    transform: skew(-4deg, 0deg);
+    border: 3.5px solid #075687;
+    text-align: left; /* Align text to the left inside cards */
+  }
+
+  @keyframes scroll {
+    from{
+      transform: translateX(0);
+    }
+    to{
+      transform: translateX(-50%);
+    }
+  }
