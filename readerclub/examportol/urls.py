@@ -3,8 +3,6 @@ from .views import *
 
 urlpatterns = [
     path('manage/', manage_questions, name='manage_questions'),
-
-    # path('submit_exam/', submit_exam, name='submit_exam'),
     path('instructions/', instructions, name='instructions'),
     path('results/', user_exam_results, name='exam_results'),
     path('instructions/terms/', terms, name='terms'),
@@ -15,5 +13,6 @@ urlpatterns = [
     path('exams/create/', create_exam, name='create_exam'),
     path('exams/<int:exam_id>/take/', take_exam, name='take_exam'),
     path('submit-custom-exam/', submit_custom_exam, name='submit_exam'),
-     path('get-questions-by-subject/',get_questions_by_subject, name='get_questions_by_subject'),
+    path('get-questions-by-subject/', get_questions_by_subject, name='get_questions_by_subject'),
+    path('exam-compiler/', exam_compile_code, name='exam_compile_code'),
 ]

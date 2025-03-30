@@ -7,6 +7,7 @@
     gap: 20px;
     height: 900px;
     position: relative;
+    margin-top: 0.3%;
 }
 .easy-study-abroad-title {
     margin: 10px 338px 0 0;
@@ -194,9 +195,6 @@ p.congrats {
     padding: 12px 20px;
     font-size: 1.2em;
 }
-.abroad-studies{
-    margin-top: 0.5%;
-}
 @media (min-width:1440px) and (max-width: 2559px){
     .easy-study-abroad-title {
         margin-left: 200px;
@@ -209,11 +207,7 @@ p.congrats {
     }
 }
  @media(max-width:1440px){
-    .abroad-studies {
-        height: 600px;
-        padding-top: 0px;
-        margin-top: 0.5%;
-    }
+   
     .easy-study-abroad-title {
         margin-top: 0px;
     }
@@ -226,11 +220,18 @@ p.congrats {
     .secondary-image-abroad {
         width: 100%;
     }
+    .content-abroad {
+        margin-left: 59px;
+       
+      
+       
+    }
     .third-box {
         top: 61%;
         left: 5%;
     }
     .abroad-studies {
+        margin-top: 0.5%;
         height: 480px;
     }
     .easy-study-abroad-title {
@@ -267,7 +268,7 @@ p.congrats {
             flex-direction: row;
             justify-content: center;
             width: 586px;
-            margin-left: 6pc;
+           
         }
     
         .subheading-abroad {
@@ -322,32 +323,37 @@ p.congrats {
     }
 }    
     
-    @media (max-width: 425px) {
+    @media (max-width: 426px) {
         .secondary-image-abroad {
             width: 319px;
             margin-top: 47px;
         }
         .top-left {
-            font-size: 11px;
+            width: 7%; 
+            font-size: 12px;
             top: -85px;
             left: -159px;
-        }    .bottom-right {
+        }
+           .bottom-right {
             bottom: -118px;
             left: -418px;
             font-size: 11px;
         }
         .third-box {
-            width: 33px;
-            height: 82px;
-            left: -692px;
-            margin-top: 162px;
+            height: 56px;
+            left: -662px;
+            margin-top: 127px;
         }
         .images-abroad {
+            width:100%;
+            flex-direction: row;
+        }
+        /* .images-abroad {
             flex-direction: row;
             justify-content: center;
             width: 289px;
             margin-bottom: 3%;
-        }
+        } */
         .third-box img {
             width: 20px;
             height: 50px;
@@ -364,12 +370,10 @@ p.congrats {
         }
         .easy-study-abroad-title {
             position: absolute;
-            left: -33%;
-            top: -12%;
-            margin-top: 24px;
+           
         }
     }
-    @media (max-width: 375px) {
+    @media (max-width: 376px) {
         .secondary-image-abroad {
             width: 294px;
         }
@@ -393,15 +397,21 @@ p.congrats {
         .heading-abroad {
             margin-top: 0px;
         }
+        
         .third-box {
             width: auto;
             height: 70px;
         }
+        .secondary-image-abroad {
+          
+            width: 361px; 
+           margin-top: 47px;
+       }
     }
     @media (max-width: 320px) {
         .secondary-image-abroad {
             width: 243px;
-            margin-left: 369px;
+           
         }
         .images-abroad {
             flex-direction: row;
@@ -417,7 +427,8 @@ p.congrats {
         }
         img.primary-image-abroad {
             margin-left: 206px;
-            width: 36px;
+            width: 26px;
+        
         }
         .cta-button {
             margin-left: 35px;

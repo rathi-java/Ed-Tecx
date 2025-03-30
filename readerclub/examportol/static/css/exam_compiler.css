@@ -1,0 +1,292 @@
+/* All styles are scoped to .compiler-app so they won't interfere with other parts of your site */
+.compiler-app * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .main-content {
+    background-color: #f2f2f2;
+  }
+  .compiler-app {
+    background: #f2f2f2;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    overflow-y: auto;
+    /* max-width: 1200px; */
+    padding: 20px;
+    margin: 0 auto;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    margin-top: -600px; /* Add negative margin to reduce space */
+  }
+  
+  /* Horizontal Divider */
+  .compiler-app .horizontal-divider {
+    height: 5px;
+    background: linear-gradient(to right, #e0e0e0, #f7f7f7, #e0e0e0);
+    cursor: row-resize;
+    margin: -10px 13px;
+    border-radius: 2px;
+  }
+  .compiler-app .code-area textarea, .compiler-app .input-area textarea {
+    resize: none;
+    outline: none;
+    border: none;
+    height: 100%;
+    padding: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.5; /* Add this to make room for line numbers */
+  }
+  
+  .compiler-app .code-area textarea, .compiler-app .input-area textarea::before {
+    content: attr(line-number); /* This will display the line number */
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    color: #ccc;
+    pointer-events: none;
+  }
+  
+  .compiler-app .code-area textarea, .compiler-app .input-area textarea::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px; /* Make room for the line numbers */
+    height: 100%;
+    background-color: #f2f2f2;
+    border-right: 1px solid #ccc;
+    pointer-events: none;
+  }
+  
+  /* Vertical Divider */
+  .compiler-app .vertical-divider {
+    width: 5px;
+    background: linear-gradient(to bottom, #e0e0e0, #f7f7f7, #e0e0e0);
+    cursor: col-resize;
+    position: relative;
+    z-index: 2;
+    margin: 1px 2px;
+    margin-right: 8px;
+    border-radius: 2px;
+  }
+  
+  /* Header */
+  .compiler-app .header {
+    /* background: #fff; */
+    color: #077BC3;
+    margin: 5px 10px;
+    padding: 5px 15px;
+    font-size: 18px;
+    height: 60px;
+    display: flex
+  ;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  }
+  .compiler-app .header h1 {
+    font-weight: 500;
+  }
+  
+  .compiler-app .header img {
+    height: 30px;
+  }
+  
+  /* Toolbar */
+  .compiler-app .toolbar {
+    display: flex;
+    width: 100%;
+    margin: 10px;
+    /* margin-top: 37px; */
+    margin: 12px;
+    margin-top: 2px;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  /* Select Element */
+  .compiler-app .toolbar select {
+    padding: 8px 12px;
+    background: #fff;
+    color: #077BC3;
+    border: 1px solid #077BC3;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .compiler-app .toolbar select:hover {
+    border-color: #055a8c;
+  }
+  
+  /* Buttons */
+  .compiler-app button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    padding: 5px;
+  }
+  
+  .compiler-app button:hover {
+    transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+  
+  /* Button Group */
+  .compiler-app .button-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  /* Editor Container */
+  .compiler-app .editor-container {
+    display: flex
+  ;
+    flex: 1;
+    /* max-width: 1184px; */
+    gap: 10px;
+    margin: 10px;
+    width: 100%;
+    height: 400px;
+    overflow: auto;
+    margin-top: -9px;
+  }
+  
+  /* Code & Input Areas */
+  .compiler-app .code-area,
+  .compiler-app .input-area {
+    display: flex;
+    flex-direction: column;
+   
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Code Area Specific */
+  .compiler-app .code-area {
+    flex: 3;
+    margin-right: -10px;
+  }
+  
+  /* Input Area Specific */
+  .compiler-app .input-area {
+    flex: 1;
+    height: 100%;
+    border: 2px solid #efefef;
+    margin-left: -18px;
+    border-radius:0px;
+  }
+  
+  /* CodeMirror Editor Styling */
+  .compiler-app .CodeMirror {
+    height: 100% !important;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow-y: auto;
+  }
+  
+  /* Textareas within Code and Input Areas */
+  .compiler-app .code-area textarea,
+  .compiler-app .input-area textarea {
+    resize: none;
+    outline: none;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+  }
+  
+  .compiler-app .code-area textarea:focus,
+  .compiler-app .input-area textarea:focus {
+    border: 2px solid #077BC3;
+  }
+  
+  /* Output Container (Reduced height for a more relevant display) */
+  .compiler-app .output-container {
+    width:100%;
+    height: 143px;  /* Reduced height from previous 150px */
+    margin: 10px;
+    margin-bottom: 0px;
+    padding: 10px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Preformatted Text in Output */
+  .compiler-app .output-container pre {
+    background: transparent;
+    padding: 5px;
+    white-space: pre-wrap;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    margin: 0;
+  }
+  
+  /* Section Headings */
+  .compiler-app .code-area h3,
+  .compiler-app .input-area h3,
+  .compiler-app .output-container h3 {
+    padding: 8px;
+    background-color: #f9f9f9;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 16px;
+  }
+  .compiler-app .output-container h3 {
+    padding: 0px;
+  }
+   @media(max-width:1024px){
+    .compiler-app {
+      padding-top: 0px;}
+   }
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .compiler-app .editor-container {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .compiler-app .code-area,
+    .compiler-app .input-area {
+      margin: 0;
+    }
+  
+    .compiler-app .vertical-divider {
+      display: none;
+    }
+  }
+  /* Scrollbar Styles */
+  .compiler-app .output-container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  }
+  
+  .compiler-app .output-container::-webkit-scrollbar-thumb {
+  background-color: #077BC3;
+  border-radius: 10px;
+  }
+  
+  .compiler-app .output-container::-webkit-scrollbar-track {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  }

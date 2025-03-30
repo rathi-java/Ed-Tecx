@@ -1,19 +1,7 @@
-{% extends 'base.html' %}
 {% load static %}
-{% block extra_css%}
-<link rel="stylesheet" href="{% static 'css/compiler.css' %}">
-{% endblock %}
-{% block content %}
 <div class="compiler-app">
   <div class="container">
-    {% if error %}
-    <div class="alert alert-warning">
-      {{ output }}
-    </div>
-    {% endif %}
-    
-    <!-- Using regular form submission, no AJAX -->
-    <form method="POST" id="code-form" action="{% url 'compile_code' %}">
+    <form method="POST" id="code-form" action="{% url 'exam_compile_code' %}" data-compile-url="{% url 'exam_compile_code' %}">
       {% csrf_token %}
       <div class="toolbar">
         <div class="header">
@@ -50,15 +38,18 @@
         <div class="code-area" id="code-area">
           <h3>Write your code here</h3>
           <hr>
-          <textarea id="code" name="code">{{ code }}</textarea>
+          <!-- Add style to hide the original textarea -->
+          <textarea id="code" name="code" style="display: none;">{{ code }}</textarea>
+          <!-- CodeMirror will replace this -->
+          <div id="editor-container"></div>
         </div>
         <!-- Vertical Divider for resizing -->
         <div class="vertical-divider" id="vertical-divider"></div>
-        <!-- Input Area -->
-        <div class="input-area" id="input-area">
+        <!-- Input Area - Commented out as not needed -->
+        {% comment %} <div class="input-area" id="input-area">
           <h3>Input Arguments</h3>
           <textarea id="input" name="input_data">{{ input_data }}</textarea>
-        </div>
+        </div> {% endcomment %}
       </div>
       <!-- Horizontal Divider for resizing -->
       <div class="horizontal-divider" id="horizontal-divider"></div>
@@ -70,8 +61,3 @@
     </form>
   </div>
 </div>
-{% endblock %}
-{% block extra_js %}
-<!-- Modified JS that doesn't use AJAX -->
-<script src="{% static 'js/compile_result.js' %}"></script>
-{% endblock %}

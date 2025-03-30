@@ -95,9 +95,9 @@
                 <div class="domainn">
                     <div><span>Popular <br> Domains</span></div>
                 <div class="anchoo">
-                   <div><a href="#" data-text="Fullstack Development,"> &nbsp;</a></div> 
-                    <div><a href="#" data-text="Digital Marketing,"> &nbsp;</a></div>
-                   <div><a href="#" data-text="Cyber Security,"> &nbsp;</a></div> 
+                    <div><span class="styled-text" data-text="Fullstack Development,">Fullstack Development</span></div>
+                    <div><span class="styled-text" data-text="Digital Marketing,">Digital Marketing</span></div>
+                    <div><span class="styled-text" data-text="Cyber Security,">Cyber Security</span></div>
                 </div>
                 </div>
             </div>
@@ -132,6 +132,27 @@
         }
 
         setInterval(changeText, 2000); // Change text every 2 seconds
+    </script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const texts = ["Fullstack Development,", "Digital Marketing,", "Cyber Security,"];
+        const spans = document.querySelectorAll('.anchoo .styled-text');
+
+        function changeText() {
+            let usedIndexes = new Set();
+            spans.forEach(span => {
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * texts.length);
+                } while (usedIndexes.has(newIndex));
+                usedIndexes.add(newIndex);
+                span.setAttribute('data-text', texts[newIndex]);
+                span.textContent = texts[newIndex];
+            });
+        }
+
+        setInterval(changeText, 2000); // Change text every 2 seconds
+    });
     </script>
 </section>
 
@@ -270,38 +291,7 @@
     <div class="inter4partt2-container">
        <div class="inter4part2-left-sec">
            <div class="inter4job-flow">
-              <div class="inter4job-slider">
-               <div class="inter4job-cardd">
-                   <h3>Data Scientist</h3>
-                   <p>Microsoft <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
-                   <div class="inter4line-with-dots"></div>
-                   <p class="inter4info">
-                       <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
-                   </p>
-                   <p class="inter4info">
-                       <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
-                   </p>
-                   <p class="inter4info">
-                       <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
-                   </p>
-                   <p class="inter4key-skills">Key Skills: <span>Python, Machine Learning</span></p>
-               </div>
-       
-               <div class="inter4job-cardd">
-                   <h3>Frontend Developer</h3>
-                   <p>Google <img class="inter4company-logo" src="{% static 'images/google.png' %}" alt="logo"></p>
-                   <div class="inter4line-with-dots"></div>
-                   <p class="inter4info">
-                       <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
-                   </p>
-                   <p class="inter4info">
-                       <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
-                   </p>
-                   <p class="inter4info">
-                       <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
-                   </p>
-                   <p class="inter4key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
-               </div>
+              <div class="inter4job-slider" id="inter4job-slider">
        
                <div class="inter4job-cardd">
                    <h3>Backend Developer</h3>
@@ -333,7 +323,6 @@
                 </p>
                 <p class="inter4key-skills">Key Skills: <span>Python, Machine Learning</span></p>
             </div>
-    
             <div class="inter4job-cardd">
                 <h3>Frontend Developer</h3>
                 <p>Google <img class="inter4company-logo" src="{% static 'images/google.png' %}" alt="logo"></p>
@@ -349,118 +338,89 @@
                 </p>
                 <p class="inter4key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
             </div>
-    
-            <div class="inter4job-cardd">
-                <h3>Backend Developer</h3>
-                <p>Amazon <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
-                <div class="inter4line-with-dots"></div>
-                <p class="inter4info">
-                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
-                </p>
-                <p class="inter4key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
-            </div>
-            <div class="inter4job-cardd">
-                <h3>Data Scientist</h3>
-                <p>Microsoft <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
-                <div class="inter4line-with-dots"></div>
-                <p class="inter4info">
-                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
-                </p>
-                <p class="inter4key-skills">Key Skills: <span>Python, Machine Learning</span></p>
-            </div>
-    
-            <div class="inter4job-cardd">
-                <h3>Frontend Developer</h3>
-                <p>Google <img class="inter4company-logo" src="{% static 'images/google.png' %}" alt="logo"></p>
-                <div class="inter4line-with-dots"></div>
-                <p class="inter4info">
-                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
-                </p>
-                <p class="inter4key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
-            </div>
-    
-            <div class="inter4job-cardd">
-                <h3>Backend Developer</h3>
-                <p>Amazon <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
-                <div class="inter4line-with-dots"></div>
-                <p class="inter4info">
-                    <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
-                </p>
-                <p class="inter4info">
-                    <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
-                </p>
-                <p class="inter4key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
-            </div>
-       
-              
+         <div class="inter4job-cardd">
+             <h3>Frontend Developer</h3>
+             <p>Google <img class="inter4company-logo" src="{% static 'images/google.png' %}" alt="logo"></p>
+             <div class="inter4line-with-dots"></div>
+             <p class="inter4info">
+                 <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+             </p>
+             <p class="inter4info">
+                 <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+             </p>
+             <p class="inter4info">
+                 <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+             </p>
+             <p class="inter4key-skills">Key Skills: <span>React, JavaScript, CSS</span></p>
+         </div>
+ 
+         <div class="inter4job-cardd">
+             <h3>Backend Developer</h3>
+             <p>Amazon <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
+             <div class="inter4line-with-dots"></div>
+             <p class="inter4info">
+                 <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+             </p>
+             <p class="inter4info">
+                 <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+             </p>
+             <p class="inter4info">
+                 <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+             </p>
+             <p class="inter4key-skills">Key Skills: <span>Node.js, MongoDB, AWS</span></p>
+         </div>
+         <div class="inter4job-cardd">
+            <h3>Data Scientist</h3>
+            <p>Microsoft <img class="inter4company-logo" src="{% static 'images/micro.svg' %}" alt="logo"></p>
+            <div class="inter4line-with-dots"></div>
+            <p class="inter4info">
+                <img src="{% static 'images/location.svg' %}" alt="Location"> Hyderabad, Telangana
+            </p>
+            <p class="inter4info">
+                <img src="{% static 'images/carrybag.svg' %}" alt="Experience"> 3-5 years
+            </p>
+            <p class="inter4info">
+                <img src="{% static 'images/hand.svg' %}" alt="Salary"> 12 LPA - 18 LPA
+            </p>
+            <p class="inter4key-skills">Key Skills: <span>Python, Machine Learning</span></p>
+        </div>
               </div>
    
            </div>
        </div>
     </div>
-    <script>
+<script>
 document.addEventListener("DOMContentLoaded", function () {
-   const slider = document.querySelector(".inter4job-slider");
-   let cards = Array.from(document.querySelectorAll(".inter4job-cardd"));
-   let visibleCards = getVisibleCards();
-   
-   function getVisibleCards() {
-       if (window.innerWidth <= 768) return 1; // Mobile: 1 card
-       if (window.innerWidth <= 1024) return 2; // Tablet: 2 cards
-       return 3; // Desktop: 3 cards
-   }
+    const sliderTrack = document.querySelector('.inter4job-slider');
+    const slides = Array.from(sliderTrack.children);
+    let animationId;
 
-   function updateSlider() {
-       visibleCards = getVisibleCards();
-       slider.innerHTML = ""; // Remove old cards
-       let updatedCards = [...cards, ...cards, ...cards,...cards, ...cards, ...cards]; // Clone more cards for smooth looping
+    // Clone slides for infinite scrolling
+    function cloneSlides() {
+        slides.forEach(slide => {
+            const clone = slide.cloneNode(true);
+            sliderTrack.appendChild(clone);
+        });
+    }
 
-       updatedCards.forEach(card => {
-           let clone = card.cloneNode(true);
-           slider.appendChild(clone);
-       });
-   }
+    // Start sliding animation
+    function startSliding() {
+        sliderTrack.style.animationPlayState = 'running';
+    }
 
-   window.addEventListener("resize", updateSlider);
-   updateSlider(); // Run on page load
+    // Pause sliding animation
+    function pauseSliding() {
+        sliderTrack.style.animationPlayState = 'paused';
+    }
 
-   function slideNext() {
-       slider.style.transition = "transform 0.3s linear"; // Smooth and constant speed
-       slider.style.transform = translateX(-100%);
+    // Attach hover events to pause/resume sliding
+    sliderTrack.addEventListener('mouseenter', pauseSliding);
+    sliderTrack.addEventListener('mouseleave', startSliding);
 
-       setTimeout(() => {
-           slider.appendChild(slider.firstElementChild); // Move first card to the end
-           slider.style.transition = "none"; // Disable transition for instant reposition
-           slider.style.transform = "translateX(0)";
-       }, 300); // Sync with transition time
-   }
-
-//setInterval(slideNext, 3000); // Super fast auto-slide (1s)
+    // Initialize
+    cloneSlides();
+    startSliding();
 });
-
- 
-
 </script>
 </section>
 
@@ -608,14 +568,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 </ul>
             </div>
 
-            <div>
+            <div class="start-your-search">
                 <h3>Browse by Type</h3>
-                <ul>
-                    <li>Part-time internship</li>
-                    <li>Full-time internship</li>
-                    <li>Work-from-home internship</li>
-                    <li>Hybrid internship</li>
-                    <li>Paid internship</li>
+                <ul class="start-your-search-ul">
+                    <li>
+                        <a class="start-your-search-ul-a" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Part-time internship</a>
+                    </li>
+                    <li>
+                        <a class="start-your-search-ul-a" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Full-time internship</a>
+                    </li>
+                    <li>
+                        <a class="start-your-search-ul-a" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Work-from-home internship</a>
+                    </li>
+                    <li>
+                        <a class="start-your-search-ul-a" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Hybrid internship</a>
+                    </li>
+                    <li>
+                        <a class="start-your-search-ul-a" href="{% url 'job_page' %}" onclick="handleAuthCheck(event, '{% url 'job_page' %}')">Paid internship</a>
+                    </li>
                 </ul>
             </div>
 
