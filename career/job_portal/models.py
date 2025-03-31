@@ -47,7 +47,7 @@ class JobApplication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.applicantdetails.first_name} {self.job_seeker.last_name} - {self.job.role}"
+        return f"{self.applicantdetails.first_name} {self.applicantdetails.last_name} - {self.job.role}"
 
     class Meta:
         db_table = 'jobportal_jobapplication'
