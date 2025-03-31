@@ -217,7 +217,7 @@
       
   }
   .new-faq-container {
-    height: 974px;
+    height: 950px;
   }
   .new-faq-box-head {
       display: flex;
@@ -263,9 +263,7 @@
       width: 247px;
       font-size: 10px;
   }
-  .new-faq-container {
-    height: 1050px;
-  }
+  
   .new-what {
     font-size: 15px;
   }

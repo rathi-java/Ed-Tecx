@@ -372,6 +372,10 @@ p.congrats {
             position: absolute;
            
         }
+        .content-abroad {
+             margin-left: 0px; 
+        }
+    
     }
     @media (max-width: 376px) {
         .secondary-image-abroad {
@@ -431,7 +435,7 @@ p.congrats {
         
         }
         .cta-button {
-            margin-left: 35px;
+            margin-left: 58px;
         }
         .third-box {
             left: -573px;
@@ -447,4 +451,8 @@ p.congrats {
             width: auto;
             height: 55px;
         }
+        .content-abroad {
+            margin-left: 0px;
+        }
+    
     }
