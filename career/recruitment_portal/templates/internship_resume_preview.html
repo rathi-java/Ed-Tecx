@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
+    <title>Resume - {{ applicant.first_name }} {{ applicant.last_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+            line-height: 1.5;
+        }
+        h1 {
+            color: #2a5885;
+            border-bottom: 2px solid #2a5885;
+            padding-bottom: 5px;
+        }
+        h2 {
+            color: #2a5885;
+            margin-top: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .contact-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .internship-details {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .education-item, .experience-item {
+            margin-bottom: 15px;
+        }
+        .date {
+            color: #666;
+            font-style: italic;
+        }
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .action-buttons a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2a5885;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 10px;
+        }
+        .action-buttons a:hover {
+            background-color: #1c3f5f;
+        }
+        .action-buttons .back-btn {
+            background-color: #6c757d;
+        }
+        .action-buttons .back-btn:hover {
+            background-color: #5a6268;
+        }
+        .resume-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <div class="header">
+            <h1>{{ applicant.first_name }} {{ applicant.last_name }}</h1>
+        </div>
+        
+        <div class="contact-info">
+            <p>Email: {{ application.user.email }} | Phone: {{ applicant.phone }}</p>
+        </div>
+        
+        <div class="section">
+            <h2>Applied Internship</h2>
+            <div class="internship-details">
+                <p><strong>Role:</strong> {{ internship.role }}</p>
+                <p><strong>Company:</strong> {{ internship.company.name }}</p>
+                <p><strong>Duration:</strong> {{ internship.duration }}</p>
+                <p><strong>Application Date:</strong> {{ application.created_at|date:"F d, Y" }}</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Skills</h2>
+            <p>{{ application.skills }}</p>
+        </div>
+        
+        {% if application.cover_letter %}
+        <div class="section">
+            <h2>Cover Letter</h2>
+            <p>{{ application.cover_letter }}</p>
+        </div>
+        {% endif %}
+        
+        {% if educations %}
+        <div class="section">
+            <h2>Education</h2>
+            {% for education in educations %}
+            <div class="education-item">
+                <p><strong>{{ education.degree }}{% if education.specialization %} in {{ education.specialization }}{% endif %}</strong></p>
+                <p>{{ education.institution }} | <span class="date">{{ education.passing_year }}</span></p>
+                {% if education.score %}
+                <p>Score: {{ education.score }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% if experiences %}
+        <div class="section">
+            <h2>Work Experience</h2>
+            {% for experience in experiences %}
+            <div class="experience-item">
+                <p><strong>{{ experience.role }}</strong> at {{ experience.company }}</p>
+                <p class="date">
+                    {{ experience.start_date|date:"F Y" }} - 
+                    {% if experience.end_date %}
+                        {{ experience.end_date|date:"F Y" }}
+                    {% else %}
+                        Present
+                    {% endif %}
+                </p>
+                {% if experience.description %}
+                <p>{{ experience.description }}</p>
+                {% endif %}
+                {% if experience.achievements %}
+                <p><strong>Achievements:</strong> {{ experience.achievements }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="section">
+            <p style="text-align: center; font-style: italic; color: #666;">
+                This resume was generated on {{ current_date }}
+            </p>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ download_url }}" class="download-btn">Download Resume</a>
+            <a href="{{ back_url }}" class="back-btn">Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

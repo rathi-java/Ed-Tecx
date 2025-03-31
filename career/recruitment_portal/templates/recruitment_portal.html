@@ -5,6 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Job B-B Dashboard</title>
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}">
         <link rel="stylesheet" href="{% static 'css/recruitment_portal.css' %}">
         <link rel="stylesheet" href="{% static 'css/jobdashboard.css' %}">
         <link rel="stylesheet" href="{% static 'css/job.css' %}">
@@ -12,6 +14,77 @@
         <link rel="stylesheet" href="{% static 'css/internship.css' %}">
         <link rel="stylesheet" href="{% static 'css/company.css' %}">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <style>
+            /* Progress status styles */
+            .status-form {
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+            }
+            
+            .radio-container {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0;
+                margin-right: 5px;
+            }
+            
+            .status-radio {
+                display: none; /* Hide the actual radio button */
+            }
+            
+            .checkmark {
+                display: inline-block;
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                cursor: pointer;
+                position: relative;
+                border: 2px solid #ddd;
+            }
+            
+            .shortlist-mark {
+                background-color: #f0ad4e;
+                border-color: #eea236;
+            }
+            
+            .reject-mark {
+                background-color: #d9534f;
+                border-color: #d43f3a;
+            }
+            
+            .select-mark {
+                background-color: #5cb85c;
+                border-color: #4cae4c;
+            }
+            
+            /* When the radio button is checked, add a check mark */
+            .status-radio:checked + .checkmark:after {
+                content: "✓";
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 4px;
+                color: white;
+                font-weight: bold;
+            }
+            
+            /* Hidden submit button that appears when radio changes */
+            .status-submit {
+                display: none;
+                margin-left: 5px;
+                padding: 2px 8px;
+                background-color: #4e73df;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            
+            .radio-container:hover .status-submit {
+                display: inline-block;
+            }
+        </style>
     </head>
     <body>
         <div class="dashboard-container">
@@ -112,9 +185,10 @@
                             <!-- Job Form (Initially Hidden) -->
                             <div class="job-form-container" id="jobForm" style="display: none;">
                                 <h3>Add Job Details</h3>
-                                <form method="POST">
+                                <form method="POST" id="job-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="job_form" value="1">
+                                    <input type="hidden" name="form_submission_id" value="{{ request.session.session_key }}_{{ now.timestamp|floatformat:0 }}">
                                     <div class="form-group">
                                         <label>Enter a Category</label>
                                         <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
@@ -186,16 +260,17 @@
                                         <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
                                         <textarea name="job_description" placeholder="Enter job description (100-200 words)" required></textarea>
                                     </div>
-                                    <button type="submit">Add Job</button>
+                                    <button type="submit" id="job-submit-btn" onclick="this.disabled=true; this.form.submit();">Add Job</button>
                                 </form>
                             </div>
 
                             <!-- Internship Form (Initially Hidden) -->
                             <div class="job-form-container" id="internshipForm" style="display: none;">
                                 <h3>Add Internship Details</h3>
-                                <form method="POST">
+                                <form method="POST" id="internship-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="internship_form" value="1">
+                                    <input type="hidden" name="form_submission_id" value="{{ request.session.session_key }}_{{ now.timestamp|floatformat:0 }}">
                                     <div class="form-group">
                                         <label>Enter a Category</label>
                                         <img src="{% static '/img/company-icon.svg' %}" alt="Company Icon">
@@ -259,7 +334,7 @@
                                         <img src="{% static '/img/sidebar-dashboard.svg' %}" alt="Company Icon">
                                         <textarea name="internship_description" placeholder="Enter internship description (100-200 words)" required></textarea>
                                     </div>
-                                    <button type="submit">Add Internship</button>
+                                    <button type="submit" id="internship-submit-btn" onclick="this.disabled=true; this.form.submit();">Add Internship</button>
                                 </form>
                             </div>
                         </div>
@@ -293,11 +368,6 @@
                             <div class="candidate-container">
                                 <div class="candidate-header">
                                     <h2>Job Candidates List</h2>
-                                    <div class="candidate-legend">
-                                        <span><div class="candidate-shortlist"></div> Shortlist</span>
-                                        <span><div class="candidate-reject"></div> Reject</span>
-                                        <span><div class="candidate-select"></div> Select</span>
-                                    </div>
                                 </div>
                                 <table>
                                     <thead>
@@ -307,7 +377,6 @@
                                             <th>Qualification</th>
                                             <th>Contact</th>
                                             <th>Resume</th>
-                                            <th>Progress</th>
                                         </tr>
                                     </thead>
                                     <tbody id="job-candidates-list">
@@ -347,11 +416,6 @@
                             <div class="candidate-container">
                                 <div class="candidate-header">
                                     <h2>Internship Candidates List</h2>
-                                    <div class="candidate-legend">
-                                        <span><div class="candidate-shortlist"></div> Shortlist</span>
-                                        <span><div class="candidate-reject"></div> Reject</span>
-                                        <span><div class="candidate-select"></div> Select</span>
-                                    </div>
                                 </div>
                                 <table>
                                     <thead>
@@ -361,7 +425,6 @@
                                             <th>Qualification</th>
                                             <th>Contact</th>
                                             <th>Resume</th>
-                                            <th>Progress</th>
                                         </tr>
                                     </thead>
                                     <tbody id="internship-candidates-list">
@@ -462,6 +525,39 @@
         {% endif %}
 
         <script>
+            // Store candidates data from server in JavaScript variables
+            const jobCandidates = {
+                {% for job_id, candidates in job_candidates.items %}
+                    {{ job_id }}: [
+                        {% for candidate in candidates %}
+                            {
+                                id: {{ candidate.id }},
+                                index: {{ candidate.index }},
+                                name: "{{ candidate.name }}",
+                                qualification: "{{ candidate.qualification }}",
+                                resumeUrl: "{{ candidate.resume_url }}"
+                            }{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ]{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            };
+            
+            const internshipCandidates = {
+                {% for internship_id, candidates in internship_candidates.items %}
+                    {{ internship_id }}: [
+                        {% for candidate in candidates %}
+                            {
+                                id: {{ candidate.id }},
+                                index: {{ candidate.index }},
+                                name: "{{ candidate.name }}",
+                                qualification: "{{ candidate.qualification }}",
+                                resumeUrl: "{{ candidate.resume_url }}"
+                            }{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    ]{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            };
+
             function showSection(sectionId) {
                 // Hide all sections
                 document.querySelectorAll('.content-section').forEach(section => {
@@ -520,13 +616,61 @@
             function showJobList(jobId) {
                 document.getElementById('job-main-content').style.display = 'none';
                 document.getElementById('joblist-content').style.display = 'block';
-                // Load candidates dynamically based on jobId
+                
+                const tableBody = document.getElementById('job-candidates-list');
+                tableBody.innerHTML = '';  // Clear existing content
+                
+                const candidates = jobCandidates[jobId] || [];
+                if (candidates.length > 0) {
+                    candidates.forEach(candidate => {
+                        const row = document.createElement('tr');
+                        
+                        // Create the HTML for this row
+                        row.innerHTML = `
+                            <td>${candidate.index}</td>
+                            <td>${candidate.name}</td>
+                            <td>${candidate.qualification}</td>
+                            <td><a href="#">Chat</a></td>
+                            <td><a href="${candidate.resumeUrl}" target="_blank">View</a></td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="5" class="no-candidates">No candidates have applied for this job yet.</td>';
+                    tableBody.appendChild(row);
+                }
             }
             
             function showInternshipList(internshipId) {
                 document.getElementById('internship-main-content').style.display = 'none';
                 document.getElementById('internshiplist-content').style.display = 'block';
-                // Load candidates dynamically based on internshipId
+                
+                const tableBody = document.getElementById('internship-candidates-list');
+                tableBody.innerHTML = '';  // Clear existing content
+                
+                const candidates = internshipCandidates[internshipId] || [];
+                if (candidates.length > 0) {
+                    candidates.forEach(candidate => {
+                        const row = document.createElement('tr');
+                        
+                        // Create the HTML for this row
+                        row.innerHTML = `
+                            <td>${candidate.index}</td>
+                            <td>${candidate.name}</td>
+                            <td>${candidate.qualification}</td>
+                            <td><a href="#">Chat</a></td>
+                            <td><a href="${candidate.resumeUrl}" target="_blank">View</a></td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="5" class="no-candidates">No candidates have applied for this internship yet.</td>';
+                    tableBody.appendChild(row);
+                }
             }
 
             function showJobsGrid() {
@@ -538,6 +682,32 @@
                 document.getElementById('internship-main-content').style.display = 'block';
                 document.getElementById('internshiplist-content').style.display = 'none';
             }
+
+            // Prevent form resubmission on page refresh
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+            
+            // Disable submit buttons on submit to prevent double-clicking
+            document.addEventListener('DOMContentLoaded', function() {
+                // For Job form
+                const jobForm = document.getElementById('job-form');
+                if (jobForm) {
+                    jobForm.addEventListener('submit', function() {
+                        const submitButton = document.getElementById('job-submit-btn');
+                        if (submitButton) submitButton.disabled = true;
+                    });
+                }
+                
+                // For Internship form
+                const internshipForm = document.getElementById('internship-form');
+                if (internshipForm) {
+                    internshipForm.addEventListener('submit', function() {
+                        const submitButton = document.getElementById('internship-submit-btn');
+                        if (submitButton) submitButton.disabled = true;
+                    });
+                }
+            });
         </script>
     </body>
 </html>
