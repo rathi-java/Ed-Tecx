@@ -42,7 +42,7 @@ class InternshipApplication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.applicantdetail.first_name} {self.seeker.last_name} - {self.internship.role}"
+        return f"{self.applicantdetail.first_name} {self.applicantdetail.last_name} - {self.internship.role}"
 
     class Meta:
         db_table = 'internship_portal_application'
