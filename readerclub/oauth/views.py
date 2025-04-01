@@ -12,6 +12,7 @@ from django.contrib.auth.hashers import make_password
 from django.utils.timezone import now
 import random, time, smtplib
 from oauth.models import UsersDB, Otpdb
+from university.models import University
 
 import os
 from django.conf import settings
@@ -158,6 +159,9 @@ def user_login(request):
         password = request.POST.get('password')
         next_url = request.GET.get('next', '/')
 
+        # Add debug logging
+        print(f"DEBUG - Login attempt: user_input={user_input}")
+
         user = None
         role = None
         valid_password = False
@@ -186,6 +190,24 @@ def user_login(request):
             if user:
                 valid_password = check_password(password, user.password)
                 role = "employee"
+
+        elif user_input.startswith("UNI"):
+            try:
+                user = University.objects.get(username=user_input)
+                valid_password = check_password(password, user.password)
+                
+                # Debug the password verification
+                print(f"DEBUG - University login: valid_password={valid_password}")
+                
+                if valid_password:
+                    role = "university"
+                    # Set university-specific session details
+                    request.session['university_id'] = user.id
+                    request.session['university_name'] = user.university_name
+                    request.session['university_email'] = user.university_email
+            except University.DoesNotExist:
+                print(f"DEBUG - University not found: {user_input}")
+                pass
             
         else:
             user = UsersDB.objects.filter(email=user_input).first() or \
@@ -199,13 +221,23 @@ def user_login(request):
             # Set session variables
             request.session['user_id'] = user.id
             request.session['role'] = role
+            request.session['username'] = user_input  # Store the actual username used to login
+            
+            # Debug session data after setting
+            print(f"DEBUG - Session after login: user_id={user.id}, role={role}")
             
             # Update last_login if the model has this field
             if hasattr(user, 'last_login'):
                 user.last_login = now()
                 user.save()
+            
+            # Set welcome message based on user type
+            if role == "university":
+                welcome_name = user.university_name
+            else:
+                welcome_name = getattr(user, 'full_name', user.username)
                 
-            messages.success(request, f"Welcome back, {user.full_name}!")
+            messages.success(request, f"Welcome back, {welcome_name}!")
 
             # Redirect based on role or next URL
             redirect_urls = {
@@ -213,12 +245,19 @@ def user_login(request):
                 "admin": "/adm_dashboard/",
                 "manager": "/mgr_dashboard/",
                 "employee": "/emp_dashboard/",
+                "university": "/university/", 
                 "user": next_url if next_url != '/' else 'home'
             }
             
-            # Force save session before redirect
+            # Ensure session is saved before redirect for university users
             request.session.save()
             
+            # Check specific redirection for university users
+            if role == "university":
+                print(f"DEBUG - Redirecting to /university/")
+                # Redirect without the query parameter
+                return redirect('/university/')
+                
             return redirect(redirect_urls.get(role, next_url))
         else:
             messages.error(request, "Invalid username or password. Please try again.")

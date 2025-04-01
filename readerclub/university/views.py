@@ -29,14 +29,29 @@ from .models import (
     ExamLink,
 )
 
+def get_current_university(request):
+    """Helper function to get the university from the session"""
+    university_id = request.session.get('university_id')
+    if not university_id:
+        return None
+    
+    try:
+        return University.objects.get(id=university_id)
+    except University.DoesNotExist:
+        return None
+
 def university(request):
     """Main university view with statistics"""
+    uni = get_current_university(request)
+    if not uni:
+        return redirect('/')
     # Get the university associated with the current user
-    # For simplicity, we'll assume there's only one university for now
-    university = University.objects.first()
+    university = get_current_university(request)
     
     # Get real counts or generate dummy data if needed
-    exam_results = UniversityExamResult.objects.all()
+    exam_results = UniversityExamResult.objects.filter(
+        exam__professor__university=university
+    )
     total_students = exam_results.values('student_name').distinct().count()
     
     # For demonstration - in real app you would have status fields
@@ -56,7 +71,7 @@ def university(request):
 
 def referral_code(request):
     """Display university referral code"""
-    university = University.objects.first()
+    university = get_current_university(request)
     
     # Generate a referral code if it doesn't exist
     if not university:
@@ -66,7 +81,7 @@ def referral_code(request):
         )
     
     context = {
-        'referral_code': university.university_code,
+        'referral_code': university.username,
         'university': university,
         'active_page': 'referral'
     }
@@ -74,10 +89,12 @@ def referral_code(request):
 
 def registered_students(request):
     """List registered students"""
-    university = University.objects.first()
+    university = get_current_university(request)
     
     # Get real students or generate dummy data
-    exam_results = UniversityExamResult.objects.all()
+    exam_results = UniversityExamResult.objects.filter(
+        exam__professor__university=university
+    )
     unique_students = exam_results.values('student_name').distinct()
     
     # If no students, create dummy data
@@ -89,7 +106,7 @@ def registered_students(request):
                 'email': 'john.smith@example.com',
                 'phone': '9876543210',
                 'college': 'Engineering College',
-                'referral_code': university.university_code if university else 'username100FF',
+                'referral_code': university.username if university else 'username100FF',
                 'status': 'Pending'
             },
             {
@@ -98,7 +115,7 @@ def registered_students(request):
                 'email': 'jane.doe@example.com',
                 'phone': '9876543211',
                 'college': 'Medical College',
-                'referral_code': university.university_code if university else 'username100FF',
+                'referral_code': university.username if university else 'username100FF',
                 'status': 'Approved'
             },
             {
@@ -107,7 +124,7 @@ def registered_students(request):
                 'email': 'robert.johnson@example.com',
                 'phone': '9876543212',
                 'college': 'Business School',
-                'referral_code': university.university_code if university else 'username100FF',
+                'referral_code': university.username if university else 'username100FF',
                 'status': 'Rejected'
             }
         ]
@@ -123,7 +140,7 @@ def registered_students(request):
                 'email': f"{student['student_name'].lower().replace(' ', '')}@example.com",
                 'phone': f"98765{i}3210",
                 'college': f"College {i+1}",
-                'referral_code': university.university_code if university else 'username100FF',
+                'referral_code': university.username if university else 'username100FF',
                 'status': statuses[i % 3]  # Cycle through statuses
             })
     
@@ -136,7 +153,7 @@ def registered_students(request):
 
 def professor_list(request):
     """Display list of professors"""
-    university = University.objects.first()
+    university = get_current_university(request)
     professors = UniversityProfessor.objects.filter(university=university) if university else []
     
     context = {
@@ -149,7 +166,7 @@ def professor_list(request):
 @csrf_exempt
 def add_professor(request):
     """Add a new professor"""
-    university = University.objects.first()
+    university = get_current_university(request)
     
     if request.method == 'POST':
         name = request.POST.get('professor_name')
@@ -182,6 +199,12 @@ def add_professor(request):
 def edit_professor(request, professor_id):
     """Edit an existing professor"""
     professor = get_object_or_404(UniversityProfessor, id=professor_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if professor.university.id != university.id:
+        messages.error(request, "You are not authorized to edit this professor.")
+        return redirect('professor_list')
     
     if request.method == 'POST':
         name = request.POST.get('professor_name')
@@ -221,6 +244,12 @@ def delete_professor(request, professor_id):
     """Delete a professor"""
     professor = get_object_or_404(UniversityProfessor, id=professor_id)
     
+    # Add authorization check
+    university = get_current_university(request)
+    if professor.university.id != university.id:
+        messages.error(request, "You are not authorized to delete this professor.")
+        return redirect('professor_list')
+    
     if request.method == 'POST':
         name = professor.name
         professor.delete()
@@ -234,7 +263,7 @@ def delete_professor(request, professor_id):
 
 def course_list(request):
     """Display list of courses"""
-    university = University.objects.first()
+    university = get_current_university(request)
     courses = UniversityCourse.objects.filter(university=university) if university else []
     
     context = {
@@ -247,7 +276,7 @@ def course_list(request):
 @csrf_exempt
 def add_course(request):
     """Add a new course"""
-    university = University.objects.first()
+    university = get_current_university(request)
     
     if request.method == 'POST':
         name = request.POST.get('course_name')
@@ -276,6 +305,12 @@ def add_course(request):
 def edit_course(request, course_id):
     """Edit an existing course"""
     course = get_object_or_404(UniversityCourse, id=course_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if course.university.id != university.id:
+        messages.error(request, "You are not authorized to edit this course.")
+        return redirect('course_list')
     
     if request.method == 'POST':
         name = request.POST.get('course_name')
@@ -308,6 +343,12 @@ def delete_course(request, course_id):
     """Delete a course"""
     course = get_object_or_404(UniversityCourse, id=course_id)
     
+    # Add authorization check
+    university = get_current_university(request)
+    if course.university.id != university.id:
+        messages.error(request, "You are not authorized to delete this course.")
+        return redirect('course_list')
+    
     if request.method == 'POST':
         name = course.name
         course.delete()
@@ -321,7 +362,7 @@ def delete_course(request, course_id):
 
 def difficulty_list(request):
     """Display list of difficulty levels"""
-    university = University.objects.first()
+    university = get_current_university(request)
     difficulties = UniversityExamDifficulty.objects.filter(university=university) if university else []
     
     context = {
@@ -334,7 +375,7 @@ def difficulty_list(request):
 @csrf_exempt
 def add_difficulty(request):
     """Add a new difficulty level"""
-    university = University.objects.first()
+    university = get_current_university(request)
     
     if request.method == 'POST':
         name = request.POST.get('difficulty_name')
@@ -382,6 +423,12 @@ def edit_difficulty(request, difficulty_id):
     """Edit an existing difficulty level"""
     difficulty = get_object_or_404(UniversityExamDifficulty, id=difficulty_id)
     
+    # Add authorization check
+    university = get_current_university(request)
+    if difficulty.university.id != university.id:
+        messages.error(request, "You are not authorized to edit this difficulty level.")
+        return redirect('difficulty_list')
+    
     if request.method == 'POST':
         name = request.POST.get('difficulty_name')
         
@@ -428,6 +475,12 @@ def delete_difficulty(request, difficulty_id):
     """Delete a difficulty level"""
     difficulty = get_object_or_404(UniversityExamDifficulty, id=difficulty_id)
     
+    # Add authorization check
+    university = get_current_university(request)
+    if difficulty.university.id != university.id:
+        messages.error(request, "You are not authorized to delete this difficulty level.")
+        return redirect('difficulty_list')
+    
     try:
         name = difficulty.difficulty_name
         difficulty.delete()
@@ -445,10 +498,9 @@ def delete_difficulty(request, difficulty_id):
     if not request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return redirect('difficulty_list')
 
-
 def exam_list(request):
     """Display list of exams"""
-    university = University.objects.first()
+    university = get_current_university(request)
     professors = UniversityProfessor.objects.filter(university=university) if university else []
     exams = []
     
@@ -469,7 +521,7 @@ def exam_list(request):
 @csrf_exempt
 def add_exam(request):
     """Add a new exam"""
-    university = University.objects.first()
+    university = get_current_university(request)
     professors = UniversityProfessor.objects.filter(university=university) if university else []
     courses = UniversityCourse.objects.filter(university=university) if university else []
     difficulties = UniversityExamDifficulty.objects.filter(university=university) if university else []
@@ -486,6 +538,11 @@ def add_exam(request):
         if all([professor_id, course_id, difficulty_id, num_questions, duration, start_time, end_time]):
             try:
                 professor = UniversityProfessor.objects.get(id=professor_id)
+                # Check if professor belongs to current university
+                if professor.university.id != university.id:
+                    messages.error(request, "You are not authorized to add exams for this professor.")
+                    return redirect('exam_list')
+                    
                 course = UniversityCourse.objects.get(id=course_id)
                 difficulty = UniversityExamDifficulty.objects.get(id=difficulty_id)
                 
@@ -519,12 +576,17 @@ def add_exam(request):
     }
     return render(request, 'university.html', context)
 
-
 @csrf_exempt
 def edit_exam(request, exam_id):
     """Edit an existing exam"""
     exam = get_object_or_404(UniversityExam, id=exam_id)
-    university = exam.professor.university
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if exam.professor.university.id != university.id:
+        messages.error(request, "You are not authorized to edit this exam.")
+        return redirect('exam_list')
+    
     professors = UniversityProfessor.objects.filter(university=university)
     courses = UniversityCourse.objects.filter(university=university)
     difficulties = UniversityExamDifficulty.objects.filter(university=university)
@@ -541,6 +603,10 @@ def edit_exam(request, exam_id):
         if all([professor_id, course_id, difficulty_id, num_questions, duration, start_time, end_time]):
             try:
                 professor = UniversityProfessor.objects.get(id=professor_id)
+                if professor.university.id != university.id:
+                    messages.error(request, "You are not authorized to assign this professor.")
+                    return redirect('exam_list')
+                    
                 if hasattr(exam, 'can_edit_questions') and not exam.can_edit_questions(professor):
                     messages.error(request, "You are not authorized to edit this exam.")
                     return redirect('exam_list')
@@ -595,6 +661,12 @@ def delete_exam(request, exam_id):
     """Delete an exam"""
     exam = get_object_or_404(UniversityExam, id=exam_id)
     
+    # Add authorization check
+    university = get_current_university(request)
+    if exam.professor.university.id != university.id:
+        messages.error(request, "You are not authorized to delete this exam.")
+        return redirect('exam_list')
+        
     if request.method == 'POST':
         exam_code = exam.exam_code
         exam.delete()
@@ -602,163 +674,9 @@ def delete_exam(request, exam_id):
     
     return redirect('exam_list')
 
-@csrf_exempt
-def upload_questions(request, exam_id):
-    """
-    Upload questions via CSV file for a given exam.
-    """
-    try:
-        exam = get_object_or_404(UniversityExam, id=exam_id)
-
-        if request.method != 'POST':
-            return JsonResponse({'status': 'error', 'message': 'Only POST method is allowed'}, status=405)
-
-        if 'questions_csv' not in request.FILES:
-            return JsonResponse({'status': 'error', 'message': 'No CSV file found. Please upload a file named "questions_csv".'}, status=400)
-
-        csv_file = request.FILES['questions_csv']
-
-        # Ensure file is a CSV
-        if not csv_file.name.lower().endswith('.csv'):
-            return JsonResponse({'status': 'error', 'message': 'File must be a CSV'}, status=400)
-
-        # Read CSV data
-        csv_data = csv_file.read().decode('utf-8')
-        io_string = io.StringIO(csv_data)
-        reader = csv.reader(io_string)
-
-        # Validate CSV header
-        header = next(reader, None)
-        if not header or len(header) < 6:
-            return JsonResponse({'status': 'error', 'message': 'CSV must have at least 6 columns: Question Text, Option A, Option B, Option C, Option D, Correct Answer'}, status=400)
-
-        existing_questions = UniversityQuestion.objects.filter(exam=exam).count()
-        questions_to_create = []
-        question_count = 0
-
-        for row in reader:
-            if len(row) < 6:
-                continue
-
-            try:
-                # Extract values
-                question_text = row[0].strip()
-                option_a = row[1].strip()
-                option_b = row[2].strip()
-                option_c = row[3].strip()
-                option_d = row[4].strip()
-                correct_option = row[5].strip().upper()
-
-                # Validate that required fields are not empty
-                if not (question_text and option_a and option_b and option_c and option_d and correct_option):
-                    continue
-
-                # Validate the correct option
-                if correct_option not in ['A', 'B', 'C', 'D']:
-                    continue
-
-                # Generate a unique question code
-                existing_questions += 1
-                question_code = f"Q{existing_questions:03d}"
-
-                # Store answers in the desired format
-                answers = {
-                    "option_A": {"text": option_a, "is_correct": correct_option == "A"},
-                    "option_B": {"text": option_b, "is_correct": correct_option == "B"},
-                    "option_C": {"text": option_c, "is_correct": correct_option == "C"},
-                    "option_D": {"text": option_d, "is_correct": correct_option == "D"},
-                }
-
-                # Prepare question instance for bulk creation
-                questions_to_create.append(UniversityQuestion(
-                    exam=exam,
-                    question_code=question_code,
-                    question_text=question_text,
-                    answers=answers
-                ))
-                question_count += 1
-
-            except Exception:
-                continue
-
-        # Bulk create all valid questions
-        if questions_to_create:
-            UniversityQuestion.objects.bulk_create(questions_to_create)
-
-        return JsonResponse({'status': 'success', 'count': question_count})
-
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-
-
-@csrf_exempt
-def add_questions_manually(request, exam_id):
-    """Add exam questions manually"""
-    try:
-        exam = get_object_or_404(UniversityExam, id=exam_id)
-
-        if request.method == 'POST':
-            try:
-                # Parse the JSON data
-                questions_data = json.loads(request.body)
-                question_count = 0
-
-                for q_data in questions_data:
-                    # Extract data from the request
-                    question_text = q_data.get('question_text', '').strip()
-                    options = q_data.get('options', {})
-                    correct_option = q_data.get('correct_option', '').strip().upper()
-
-                    # Basic validation
-                    if not question_text or not options:
-                        continue
-
-                    # Store answers in the desired format
-                    answers = {
-                        "option_A": {"text": options.get('A', ''), "is_correct": correct_option == "A"},
-                        "option_B": {"text": options.get('B', ''), "is_correct": correct_option == "B"},
-                        "option_C": {"text": options.get('C', ''), "is_correct": correct_option == "C"},
-                        "option_D": {"text": options.get('D', ''), "is_correct": correct_option == "D"},
-                    }
-
-                    # Generate question code
-                    last_question = UniversityQuestion.objects.filter(exam=exam).order_by('id').last()
-                    if last_question:
-                        try:
-                            last_code_number = int(''.join(filter(str.isdigit, last_question.question_code)))
-                        except Exception:
-                            last_code_number = 0
-                        new_code_number = last_code_number + 1
-                    else:
-                        new_code_number = 1
-                    question_code = f"Q{new_code_number:03d}"
-
-                    # Create the question
-                    UniversityQuestion.objects.create(
-                        exam=exam,
-                        question_code=question_code,
-                        question_text=question_text,
-                        answers=answers
-                    )
-
-                    question_count += 1
-
-                if question_count > 0:
-                    return JsonResponse({'status': 'success', 'count': question_count})
-                else:
-                    return JsonResponse({'status': 'error', 'message': 'No valid questions were added'}, status=400)
-
-            except json.JSONDecodeError:
-                return JsonResponse({'status': 'error', 'message': 'Invalid JSON format'}, status=400)
-
-        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-
 def result_list(request):
     """Display list of results by exam"""
-    university = University.objects.first()
+    university = get_current_university(request)
     professors = UniversityProfessor.objects.filter(university=university) if university else []
     
     # Get exams with results
@@ -786,12 +704,19 @@ def result_list(request):
 def exam_results(request, exam_id):
     """View results for a specific exam"""
     exam = get_object_or_404(UniversityExam, id=exam_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if exam.professor.university.id != university.id:
+        messages.error(request, "You are not authorized to view results for this exam.")
+        return redirect('result_list')
+        
     results = UniversityExamResult.objects.filter(exam=exam)
     
     context = {
         'exam': exam,
         'results': results,
-        'university': exam.professor.university,
+        'university': university,
         'active_page': 'exam_results'
     }
     return render(request, 'university.html', context)
@@ -801,6 +726,12 @@ def start_exam(request, exam_id):
     try:
         # Fetch the exam using the correct model
         exam = get_object_or_404(UniversityExam, id=exam_id)
+        
+        # Add authorization check
+        university = get_current_university(request)
+        if exam.professor.university.id != university.id:
+            messages.error(request, "You are not authorized to start this exam.")
+            return redirect('exam_list')
 
         # Check if exam is already started
         current_time = timezone.now()
@@ -845,11 +776,11 @@ def start_exam(request, exam_id):
         img_str = base64.b64encode(buffer.getvalue()).decode()
 
         # Create placeholder entries in UniversityExamResult for all students
-        students = StudentsDB.objects.filter(exam_domain_id=exam.id)  # Ensure correct filtering
+        students = StudentsDB.objects.filter(exam_domain_id=exam.id)
         for student in students:
             UniversityExamResult.objects.get_or_create(
                 exam=exam,
-                student_name=student.full_name,  # Changed from `student.name` to `student.full_name`
+                student_name=student.full_name,
                 defaults={
                     'total_questions': exam.num_questions,
                     'correct_answers': 0,
@@ -863,6 +794,7 @@ def start_exam(request, exam_id):
             'exam_link': exam_link,
             'exam_url': exam_url,
             'qr_code': img_str,
+            'university': university,
         }
 
         # Mark exam as started if not already
@@ -891,6 +823,8 @@ def student_exam_access(request, unique_code):
     # Fetch the exam via the exam link using the unique code
     exam_link = get_object_or_404(ExamLink, unique_code=unique_code, is_active=True)
     exam = exam_link.exam
+    
+    # No need for university authorization here since this is accessed by students with a unique code
 
     # Retrieve the custom user from session
     user_id = request.session.get('user_id')
@@ -1014,6 +948,8 @@ def submit_exam(request):
             messages.error(request, "Exam not found.")
             return redirect('exam_list')
 
+        # No university authorization check needed here as this is a student action
+
         # Debugging: Log exam and user details
         print(f"DEBUG: Exam ID: {exam_id}, User: {user.full_name}, Total Questions: {total_questions}")
 
@@ -1049,10 +985,7 @@ def submit_exam(request):
                 if selected_option == correct_key:
                     correct_answers += 1
 
-        # Debugging: Log submitted answers and correct answers
-        print(f"DEBUG: Submitted Answers: {submitted_answers}")
-        print(f"DEBUG: Correct Answers: {correct_answers}")
-
+        # Calculate score
         score = (correct_answers / total_questions) * 100 if total_questions > 0 else 0
 
         try:
@@ -1066,7 +999,6 @@ def submit_exam(request):
                 submitted_answers=submitted_answers,
                 submitted_at=timezone.now()
             )
-            # Debugging: Log successful result creation
             print(f"DEBUG: Exam Result Created: {result}")
         except Exception as e:
             print(f"DEBUG: Error saving exam result: {e}")
@@ -1079,9 +1011,178 @@ def submit_exam(request):
     # For GET requests, redirect to exam list
     return redirect('exam_list')
 
+@csrf_exempt
+def upload_questions(request, exam_id):
+    """
+    Upload questions via CSV file for a given exam.
+    """
+    try:
+        exam = get_object_or_404(UniversityExam, id=exam_id)
+
+        # Add authorization check
+        university = get_current_university(request)
+        if exam.professor.university.id != university.id:
+            return JsonResponse({'status': 'error', 'message': 'You are not authorized to upload questions for this exam'}, status=403)
+
+        if request.method != 'POST':
+            return JsonResponse({'status': 'error', 'message': 'Only POST method is allowed'}, status=405)
+
+        if 'questions_csv' not in request.FILES:
+            return JsonResponse({'status': 'error', 'message': 'No CSV file found. Please upload a file named "questions_csv".'}, status=400)
+
+        csv_file = request.FILES['questions_csv']
+
+        # Ensure file is a CSV
+        if not csv_file.name.lower().endswith('.csv'):
+            return JsonResponse({'status': 'error', 'message': 'File must be a CSV'}, status=400)
+
+        # Read CSV data
+        csv_data = csv_file.read().decode('utf-8')
+        io_string = io.StringIO(csv_data)
+        reader = csv.reader(io_string)
+
+        # Validate CSV header
+        header = next(reader, None)
+        if not header or len(header) < 6:
+            return JsonResponse({'status': 'error', 'message': 'CSV must have at least 6 columns: Question Text, Option A, Option B, Option C, Option D, Correct Answer'}, status=400)
+
+        existing_questions = UniversityQuestion.objects.filter(exam=exam).count()
+        questions_to_create = []
+        question_count = 0
+
+        for row in reader:
+            if len(row) < 6:
+                continue
+
+            try:
+                # Extract values
+                question_text = row[0].strip()
+                option_a = row[1].strip()
+                option_b = row[2].strip()
+                option_c = row[3].strip()
+                option_d = row[4].strip()
+                correct_option = row[5].strip().upper()
+
+                # Validate that required fields are not empty
+                if not (question_text and option_a and option_b and option_c and option_d and correct_option):
+                    continue
+
+                # Validate the correct option
+                if correct_option not in ['A', 'B', 'C', 'D']:
+                    continue
+
+                # Generate a unique question code
+                existing_questions += 1
+                question_code = f"Q{existing_questions:03d}"
+
+                # Store answers in the desired format
+                answers = {
+                    "option_A": {"text": option_a, "is_correct": correct_option == "A"},
+                    "option_B": {"text": option_b, "is_correct": correct_option == "B"},
+                    "option_C": {"text": option_c, "is_correct": correct_option == "C"},
+                    "option_D": {"text": option_d, "is_correct": correct_option == "D"},
+                }
+
+                # Prepare question instance for bulk creation
+                questions_to_create.append(UniversityQuestion(
+                    exam=exam,
+                    question_code=question_code,
+                    question_text=question_text,
+                    answers=answers
+                ))
+                question_count += 1
+
+            except Exception:
+                continue
+
+        # Bulk create all valid questions
+        if questions_to_create:
+            UniversityQuestion.objects.bulk_create(questions_to_create)
+
+        return JsonResponse({'status': 'success', 'count': question_count})
+
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
+@csrf_exempt
+def add_questions_manually(request, exam_id):
+    """Add exam questions manually"""
+    try:
+        exam = get_object_or_404(UniversityExam, id=exam_id)
+
+        # Add authorization check
+        university = get_current_university(request)
+        if exam.professor.university.id != university.id:
+            return JsonResponse({'status': 'error', 'message': 'You are not authorized to add questions for this exam'}, status=403)
+
+        if request.method == 'POST':
+            try:
+                # Parse the JSON data
+                questions_data = json.loads(request.body)
+                question_count = 0
+
+                for q_data in questions_data:
+                    # Extract data from the request
+                    question_text = q_data.get('question_text', '').strip()
+                    options = q_data.get('options', {})
+                    correct_option = q_data.get('correct_option', '').strip().upper()
+
+                    # Basic validation
+                    if not question_text or not options:
+                        continue
+
+                    # Store answers in the desired format
+                    answers = {
+                        "option_A": {"text": options.get('A', ''), "is_correct": correct_option == "A"},
+                        "option_B": {"text": options.get('B', ''), "is_correct": correct_option == "B"},
+                        "option_C": {"text": options.get('C', ''), "is_correct": correct_option == "C"},
+                        "option_D": {"text": options.get('D', ''), "is_correct": correct_option == "D"},
+                    }
+
+                    # Generate question code
+                    last_question = UniversityQuestion.objects.filter(exam=exam).order_by('id').last()
+                    if last_question:
+                        try:
+                            last_code_number = int(''.join(filter(str.isdigit, last_question.question_code)))
+                        except Exception:
+                            last_code_number = 0
+                        new_code_number = last_code_number + 1
+                    else:
+                        new_code_number = 1
+                    question_code = f"Q{new_code_number:03d}"
+
+                    # Create the question
+                    UniversityQuestion.objects.create(
+                        exam=exam,
+                        question_code=question_code,
+                        question_text=question_text,
+                        answers=answers
+                    )
+
+                    question_count += 1
+
+                if question_count > 0:
+                    return JsonResponse({'status': 'success', 'count': question_count})
+                else:
+                    return JsonResponse({'status': 'error', 'message': 'No valid questions were added'}, status=400)
+
+            except json.JSONDecodeError:
+                return JsonResponse({'status': 'error', 'message': 'Invalid JSON format'}, status=400)
+
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
 def get_exam_data(request, exam_id):
     """Fetch exam data for editing"""
     exam = get_object_or_404(UniversityExam, id=exam_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if exam.professor.university.id != university.id:
+        return JsonResponse({'status': 'error', 'message': 'You are not authorized to access this exam data'}, status=403)
+    
     if request.method == 'GET':
         return JsonResponse({
             'id': exam.id,
@@ -1099,6 +1200,12 @@ def get_exam_data(request, exam_id):
 def get_exam_questions(request, exam_id):
     """Get all questions for a specific exam"""
     exam = get_object_or_404(UniversityExam, id=exam_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if exam.professor.university.id != university.id:
+        return JsonResponse({'status': 'error', 'message': 'You are not authorized to access questions for this exam'}, status=403)
+    
     questions = UniversityQuestion.objects.filter(exam=exam)
     
     questions_list = []
@@ -1107,8 +1214,8 @@ def get_exam_questions(request, exam_id):
             'id': question.id,
             'question_code': question.question_code,
             'question_text': question.question_text,
-            'options': question.options,
-            'correct_option': question.correct_option
+            'options': question.answers,
+            'correct_option': next((key.replace('option_', '') for key, value in question.answers.items() if value.get('is_correct')), None)
         })
     
     return JsonResponse({'status': 'success', 'questions': questions_list})
@@ -1117,6 +1224,11 @@ def get_exam_questions(request, exam_id):
 def delete_question(request, question_id):
     """Delete a specific question"""
     question = get_object_or_404(UniversityQuestion, id=question_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if question.exam.professor.university.id != university.id:
+        return JsonResponse({'status': 'error', 'message': 'You are not authorized to delete this question'}, status=403)
     
     if request.method == 'POST':
         question.delete()
