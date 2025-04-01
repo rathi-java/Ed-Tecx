@@ -95,7 +95,8 @@
                      data-created="{{ internship.created_at|date:'Y-m-d' }}"
                      data-company-about="{{ internship.company.about }}"
                      data-company-established="{{ internship.company.established_year }}"
-                     data-internship-id="{{ internship.id }}">
+                     data-internship-id="{{ internship.id }}"
+                     data-internship-code="{{ internship.internship_code }}">
                     
                     {% if internship.company.logo %}
                      <img src="{{ internship.company.logo }}" alt="{{ internship.company.name }} Logo">
@@ -118,7 +119,7 @@
                             </span>
                         </div>
                         <div class="divider"></div>
-                        <p class="timee">{{ internship.created_at|timesince }} ago <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('{{ internship.id }}')">Apply Now →</a></p>
+                        <p class="timee">{{ internship.created_at|timesince }} ago <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('{% if internship.internship_code %}{{ internship.internship_code }}{% else %}{{ internship.id }}{% endif %}')">Apply Now →</a></p>
                       </div>
                 </div>
                 {% endfor %}
@@ -145,7 +146,7 @@
 
                 <div class="input-box">
                     <div class="form-container">
-                        <form method="POST" action="#" enctype="multipart/form-data">
+                        <form method="POST" action="{% url 'submit_application_internship' %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             <input type="hidden" id="internship_id" name="internship_id" value="">
                             
@@ -327,6 +328,8 @@
             const companyAbout = element.getAttribute('data-company-about');
             const companyEstablished = element.getAttribute('data-company-established');
             const internshipId = element.getAttribute('data-internship-id');
+            const internshipCode = element.getAttribute('data-internship-code');
+            const internshipIdentifier = internshipCode || internshipId;
         
             document.getElementById('internshipDetails').innerHTML = `
                 <div class="job-details-container">
@@ -336,7 +339,7 @@
                             <h2>${role}</h2>
                             <p>${company}</p>
                         </div>
-                        <button class="applyy-btn" onclick="openApplicationForm('${internshipId}')">Apply Now</button>
+                        <button class="applyy-btn" onclick="openApplicationForm('${internshipIdentifier}')">Apply Now</button>
                     </div>
                     <div class="job-meta">
                         <p class="detailll"><img src="{% static 'job_page/location.png' %}" alt="Location"> ${location}</p>
@@ -383,7 +386,7 @@
                     </div>
                 </div>
             `;
-            console.log("Internship ID for apply:", internshipId);
+            console.log("Internship identifier for apply:", internshipIdentifier);
 
             // Mobile View: Show/hide internship details without scrolling (only for max-width: 480px)
             if (window.innerWidth <= 480) {
@@ -541,6 +544,7 @@
                         jobCard.setAttribute('data-company-about', internship.company.about);
                         jobCard.setAttribute('data-company-established', internship.company.established_year);
                         jobCard.setAttribute('data-internship-id', internship.id);
+                        jobCard.setAttribute('data-internship-code', internship.internship_code);
                         
                         // Create the content for the job card
                         jobCard.innerHTML = `
@@ -556,7 +560,7 @@
                                 <div class="divider"></div>
                                 <p class="timee">
                                     ${typeof internship.created_at === 'string' ? internship.created_at + ' ago' : ''}
-                                    <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('${internship.id}')">
+                                    <a href="#" class="apply-btn" onclick="event.stopPropagation(); openApplicationForm('${internship.internship_code ? internship.internship_code : internship.id}')">
                                         Apply Now →
                                     </a>
                                 </p>

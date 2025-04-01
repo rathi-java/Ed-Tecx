@@ -5,15 +5,10 @@ from django.contrib import messages
 from django.db.models import Q
 from .forms import CategoryForm, CompanyForm, JobForm
 from .models import Category, Company, Job, JobApplication
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from .documents import JobDocument
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.http import JsonResponse
-from .models import  Job
-import json
-from recruitment_portal.models import ApplicantDetail
+from recruitment_portal.models import ApplicantDetail, ApplicantEducation, ApplicantExperience
 from datetime import datetime
 
 def submit_application_job(request):
@@ -56,8 +51,8 @@ def submit_application_job(request):
         phone = request.POST.get('phone')
         skills = request.POST.get('skills')
         
-        # Get or create JobSeeker
-        job_seeker, created = JobSeeker.objects.get_or_create(
+        # Get or create ApplicantDetail
+        applicant, created = ApplicantDetail.objects.get_or_create(
             user=request.user,
             defaults={
                 'first_name': first_name,
@@ -69,16 +64,16 @@ def submit_application_job(request):
         
         # Update if already exists
         if not created:
-            job_seeker.first_name = first_name
-            job_seeker.last_name = last_name
-            job_seeker.phone = phone
-            job_seeker.skills = skills
-            job_seeker.save()
+            applicant.first_name = first_name
+            applicant.last_name = last_name
+            applicant.phone = phone
+            applicant.skills = skills
+            applicant.save()
         
         # Process Education data
         # Clear existing education entries if updating
         if not created:
-            JobSeekerEducation.objects.filter(job_seeker=job_seeker).delete()
+            ApplicantEducation.objects.filter(applicant=applicant).delete()
         
         # Find all education entries from the form
         education_data = {}
@@ -96,8 +91,8 @@ def submit_application_job(request):
         # Create new education entries
         for edu_entry in education_data.values():
             if edu_entry.get('degree') and edu_entry.get('institution') and edu_entry.get('passing_year'):
-                JobSeekerEducation.objects.create(
-                    job_seeker=job_seeker,
+                ApplicantEducation.objects.create(
+                    applicant=applicant,
                     degree=edu_entry.get('degree'),
                     specialization=edu_entry.get('specialization', ''),
                     institution=edu_entry.get('institution'),
@@ -108,7 +103,7 @@ def submit_application_job(request):
         # Process Experience data
         # Clear existing experience entries if updating
         if not created:
-            JobSeekerExperience.objects.filter(job_seeker=job_seeker).delete()
+            ApplicantExperience.objects.filter(applicant=applicant).delete()
         
         # Find all experience entries from the form
         experience_data = {}
@@ -131,8 +126,8 @@ def submit_application_job(request):
                 if exp_entry.get('end_date'):
                     end_date = datetime.strptime(exp_entry.get('end_date'), '%Y-%m-%d').date()
                 
-                JobSeekerExperience.objects.create(
-                    job_seeker=job_seeker,
+                ApplicantExperience.objects.create(
+                    applicant=applicant,
                     company=exp_entry.get('company'),
                     role=exp_entry.get('role'),
                     start_date=start_date,
@@ -148,7 +143,7 @@ def submit_application_job(request):
         # Check if application for this job already exists
         existing_application = JobApplication.objects.filter(
             user=request.user,
-            job_seeker=job_seeker,
+            applicantdetails=applicant,
             job=job
         ).first()
         
@@ -160,7 +155,7 @@ def submit_application_job(request):
         else:
             JobApplication.objects.create(
                 user=request.user,
-                job_seeker=job_seeker,
+                applicantdetails=applicant,
                 job=job,
                 skills=application_skills,
                 expected_ctc=expected_ctc

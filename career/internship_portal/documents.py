@@ -16,6 +16,7 @@ class InternshipDocument(Document):
     company_about = fields.TextField(attr='company.about')           # Expose about text
     company_established_year = fields.IntegerField(attr='company.established_year')  # Expose established year
     openings = fields.IntegerField()                                 # Expose number of openings
+    internship_code = fields.TextField()                             # Include internship_code in search results
 
     class Index:
         name = 'internships'

@@ -43,6 +43,14 @@ CREATE TABLE `abroadstudiesbtob` (
 -- Dumping data for table `abroadstudiesbtob`
 --
 
+CREATE TABLE compiler_compilerusage (
+    id INT NOT NULL AUTO_INCREMENT,
+    hit INT NOT NULL DEFAULT 0,
+    user_id BIGINT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES oauth_usersdb (id) ON DELETE CASCADE
+);
+
 LOCK TABLES `abroadstudiesbtob` WRITE;
 /*!40000 ALTER TABLE `abroadstudiesbtob` DISABLE KEYS */;
 INSERT INTO `abroadstudiesbtob` VALUES (1,'ABS00001','sasa','sss@gmail.com','987654321','das saddsa','321323','789','456','2025-03-21 05:25:47','pbkdf2_sha256$870000$cKQ30MLEqGdqvD95zN1xy3$FwAKv1tf/d71kLa6hmnI/JVhhaC2fBLSSBjVthuZmWI='),(2,'ABS00002','sgt university','sgt@gmail.com','99899889898','chandu budhera','sgt123','0','0','2025-03-22 01:01:10','pbkdf2_sha256$870000$DRcUTNCiOf9rJay7DZTadD$yv/HcoerVFDSP34PbelbZq1fX7XmyXR/GLWZ+/8rhmg=');
