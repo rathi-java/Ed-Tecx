@@ -96,3 +96,46 @@ class EnsureUserIdMiddleware:
                 pass
 
         return response
+
+class RoleBasedRedirectMiddleware:
+    """
+    Middleware to ensure users are redirected based on their role.
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+        
+        # Define paths that should always be accessible regardless of role
+        self.common_paths = [
+            '/static/',
+            '/media/',
+            '/admin/',
+            '/profile/',
+            '/logout/',
+            '/accounts/',
+            '/oauth/',
+            '/practice-questions/',
+            '/examportol/',
+        ]
+
+    def __call__(self, request):
+        # Skip middleware processing for common paths all users should access
+        if any(request.path.startswith(path) for path in self.common_paths):
+            return self.get_response(request)
+            
+        # Skip processing if this is the university homepage itself
+        if request.path == '/university/':
+            return self.get_response(request)
+            
+        # Get session data
+        user_id = request.session.get('user_id')
+        role = request.session.get('role')
+        
+        # Only redirect on first access after login, which we'll detect with a session flag
+        # This requires setting a flag in the session after login
+        if user_id and role == 'university' and not request.session.get('visited_university_home', False):
+            # Mark that we've visited the university home
+            request.session['visited_university_home'] = True
+            request.session.save()
+            return redirect('/university/')
+
+        return self.get_response(request)

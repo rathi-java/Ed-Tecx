@@ -1,16 +1,17 @@
 from django.db import models
+from django.utils import timezone
 class University(models.Model):
-    university_code = models.CharField(max_length=10, unique=True, blank=True)
+    username = models.CharField(max_length=10, unique=True, blank=True)
     university_name = models.CharField(max_length=255)  
     university_location = models.CharField(max_length=255)
     university_email = models.EmailField(unique=True)
-    university_password = models.CharField(max_length=255)  # Renamed from 'password'
+    password = models.CharField(max_length=255)  # Renamed from 'password'
 
     def save(self, *args, **kwargs):
-        if not self.university_code:  # Assign university_code if not already set
+        if not self.username:  # Assign username if not already set
             last_university = University.objects.order_by('id').last()
             new_id = last_university.id + 1 if last_university else 1
-            self.university_code = f'UNI{new_id:05d}'
+            self.username = f'UNI{new_id:05d}'
         super().save(*args, **kwargs)
     def __str__(self):
         return self.university_name
@@ -28,7 +29,7 @@ class UniversityProfessor(models.Model):
         if not self.professor_code:  # Assign professor_code if not already set
             last_professor = UniversityProfessor.objects.filter(university=self.university).order_by('id').last()
             new_id = last_professor.id + 1 if last_professor else 1
-            self.professor_code = f'{self.university.university_code}-P{new_id:04d}'
+            self.professor_code = f'{self.university.username}-P{new_id:04d}'
         super().save(*args, **kwargs)
 
     def __str__(self):

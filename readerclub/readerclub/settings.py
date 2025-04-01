@@ -105,13 +105,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # for Google auth
     'oauth.middleware.EnsureUserIdMiddleware',
+    'oauth.middleware.RoleBasedRedirectMiddleware',  # Add the new middleware
     'admin_portal.middleware.DashboardAccessMiddleware', 
     'oauth.middleware.LoginRequiredMiddleware', 
     'corsheaders.middleware.CorsMiddleware',
-
-       
 ]
-
 
 ROOT_URLCONF = 'readerclub.urls'
 
@@ -301,7 +299,6 @@ PUBLIC_PATHS = [
     '/price/',
     '/policies/',
     '/maintenence/',
-
 ]
 
 # Add RESTRICTED_SUBPATHS
