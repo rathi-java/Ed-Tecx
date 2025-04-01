@@ -5,14 +5,14 @@
 
 {% if section == "manage_college_section" %}
 <!-- Manage College -->
-<div class="content current_page_action" data-page-name="manage_college">
+<div class="content current_page_action" data-page-name="manage_college" id="manage_college_section">
     <h3>&nbsp;College / Manage College</h3>
     
     <!-- Search Bar for College Name -->
     <div class="container">
         <div class="header">
             <input type="text" id="collegeSearch" placeholder="Search College by Name..." onkeyup="filterColleges()">
-            <button class="add-button" data-page-name="add_college" onclick="setActive(this)">Add +</button>
+            <a href="?section=add_college_section" class="add-button">Add +</a>
         </div>
 
         <table id="collegeTable">
@@ -60,7 +60,7 @@
 {% endif %}
 {% if section == "add_college_section" %}
 <!-- Add College Section -->
-<div class="content current_page_action" data-page-name="add_college">
+<div class="content current_page_action" data-page-name="add_college" id="add_college_section">
     <h3>&nbsp;College / Add College</h3>
     <div class="container">
         <div class="title">Manage Colleges</div>

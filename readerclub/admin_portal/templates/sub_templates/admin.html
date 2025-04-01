@@ -6,12 +6,12 @@
 {% if section == "manage_admin_section" %}
 
 <!-- Manage Admin Section -->
-<div class="content current_page_action" data-page-name="manage_admin">
+<div class="content" data-page-name="manage_admin" id="manage_admin_section">
     <h3>&nbsp;Admin / Manage Admin</h3>
     <div class="container">
         <div class="header">
             <input type="text" id="search-admin" placeholder="Search by Name or Email..." onkeyup="filterAdmins()">
-            <button class="add-button" data-page-name="add_admin" onclick="setActive(this)">Add +</button>
+            <a href="?section=add_admin_section" class="add-button">Add +</a>
         </div>
         <table id="admin-table">
             <thead>
@@ -22,14 +22,12 @@
                     <th class="admin-email">Email</th>
                     <th>Phone No.</th>
                     <th>Alt. Phone No.</th>
-                    {% comment %} <th>Password</th> {% endcomment %}
                     <th>Aadhar No.</th>
-                    {% comment %} <th>SuperAdmin</th> {% endcomment %}
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                {% for admin in admins %}  <!-- Corrected the for loop syntax -->
+                {% for admin in admins %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ admin.username }}</td>
@@ -37,16 +35,7 @@
                     <td class="admin-email">{{ admin.email }}</td>
                     <td>{{ admin.phone_number }}</td>
                     <td>{{ admin.alt_phone_number }}</td>
-                    {% comment %} <td>{{ admin.password }}</td> {% endcomment %}
                     <td>{{ admin.aadhar_number }}</td>
-                    {% comment %} <td>
-                        <select onchange="transferAdmin('{{ admin.id }}', this.value)">
-                            <option value="">Select SuperAdmin</option>
-                            {% for superadmin in superadmins %}
-                            <option value="{{ superadmin.id }}" {% if admin.superadmin == superadmin %}selected{% endif %}>{{ superadmin.username }}</option>
-                            {% endfor %}
-                        </select>
-                    </td> {% endcomment %}
                     <td>
                         <button class="edit-btn" onclick="editAdmin('{{ admin.id }}', '{{ admin.full_name|escapejs }}', '{{ admin.email|escapejs }}', '{{ admin.phone_number|escapejs }}', '{{ admin.alt_phone_number|escapejs }}', '{{ admin.password|escapejs }}', '{{ admin.aadhar_number|escapejs }}')">
                             <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
@@ -61,11 +50,11 @@
                         </form>
                     </td>
                 </tr>
-                {% empty %}  
+                {% empty %}
                 <tr>
-                    <td class = "form-data" colspan="10" >No admins found.</td>
+                    <td class="form-data" colspan="10">No admins found.</td>
                 </tr>
-                {% endfor %}  
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -75,7 +64,7 @@
 {% if section == "add_admin_section" %}
 
 <!-- Add/Edit Admin Section -->
-<div class="content current_page_action " data-page-name="add_admin">
+<div class="content" data-page-name="add_admin" id="add_admin_section">
     <h3>&nbsp;Admin/Add Admin</h3>
     <div class="container">
         <div class="title">Manage Admin</div>
@@ -117,4 +106,5 @@
         </form>
     </div>
 </div>
+
 {% endif %}

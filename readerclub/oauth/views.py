@@ -11,17 +11,22 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 from django.utils.timezone import now
 import random, time, smtplib
+from django.db.models.functions import Lower
 from oauth.models import UsersDB, Otpdb
 
 import os
 from django.conf import settings
 from admin_portal.models import *
 # Load environment variables from secrets.env
+from topachivers.models import TopAchiever
 
 def home(request):
-    
-    return render(request, 'index.html',{"CAREER_URL": settings.CAREER_URL})
-
+    achievers = TopAchiever.objects.all().order_by('name')  # Fetch achievers alphabetically
+    context = {
+        "CAREER_URL": settings.CAREER_URL,
+        "achievers": achievers,
+    }
+    return render(request, 'index.html', context)
 def update_profile(request):
     if request.method == "POST":
         user_id = request.session.get('user_id')
@@ -149,7 +154,8 @@ def signup(request):
         messages.success(request, f"Account created successfully for {new_user.full_name}. Please login.", extra_tags='login')
         return render(request, 'index.html', {'form_type': 'login'})
 
-    colleges = CollegesDb.objects.all()
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+    
     return render(request, 'signup.html', {'colleges': colleges})
 
 def user_login(request):

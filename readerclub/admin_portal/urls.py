@@ -55,7 +55,7 @@ urlpatterns = [
     path("add_question/", add_question, name="add_question"),
     path("delete_question/<int:question_id>/", delete_question, name="delete_question"),
     # path('manage-questions/', manage_questions, name='manage_questions'),
-    path('get-subjects/', get_subjects, name='get_subjects'),
+    path('get-subjects/', get_subjects, name='get-subjects'),
     path('get_superadmin_profile/', get_superadmin_profile, name='get_superadmin_profile'),
     path('update_superadmin_profile/', update_superadmin_profile, name='update_superadmin_profile'),
     # path('exams/', list_exams, name='list_exams'),
@@ -69,4 +69,6 @@ urlpatterns = [
     # path('adm_dashboard/', adm_dashboard, name='adm_dashboard'),
     # path('mgr_dashboard/', mgr_dashboard, name='mgr_dashboard'),
     # path('emp_dashboard/', emp_dashboard, name='emp_dashboard'),
+    path('view-top-achievers/', view_top_achievers, name='view-top-achievers'),
+    path('manage-top-achievers/', manage_top_achievers, name='manage-top-achievers'),
 ]

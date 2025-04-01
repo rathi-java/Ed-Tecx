@@ -59,93 +59,22 @@
   </h2>
   <div class="campus-achievers-wrapper">
     <div class="campus-achievers-container">
-      
+      {% for achiever in achievers %}
       <div class="campus-achiever-card">
         <div class="campus-image-placeholder">
-          <img src="{% static 'images/image copy.png' %}" />
+          <img src="{{ achiever.image.url }}" alt="{{ achiever.name }}">
         </div>
         <div class="campus-achiever-info">
-          <h3>Rishi Prakash</h3>
-          <p>Microsoft</p>
-          <p>Software Developer</p>
-          <p>12 LPA</p>
+          <h3>{{ achiever.name }}</h3>
+          <p>{{ achiever.company }}</p>
+          <p>{{ achiever.designation }}</p>
+          <p>{{ achiever.package }}</p>
         </div>
         <div class="campus-badge-placeholder">
           <img src="{% static 'images/badge.png' %}" />
         </div>
       </div>
-       
-      <div class="campus-achiever-card">
-        <div class="campus-image-placeholder">
-          <img src="{% static 'images/image copy.png' %}" />
-        </div>
-        <div class="campus-achiever-info">
-          <h3>Rishi Prakash</h3>
-          <p>Microsoft</p>
-          <p>Software Developer</p>
-          <p>12 LPA</p>
-        </div>
-        <div class="campus-badge-placeholder">
-          <img src="{% static 'images/badge.png' %}" />
-        </div>
-      </div>
-        <div class="campus-achiever-card">
-          <div class="campus-image-placeholder">
-            <img src="{% static 'images/image copy.png' %}" />
-          </div>
-          <div class="campus-achiever-info">
-            <h3>Rishi Prakash</h3>
-            <p>Microsoft</p>
-            <p>Software Developer</p>
-            <p>12 LPA</p>
-          </div>
-          <div class="campus-badge-placeholder">
-            <img src="{% static 'images/badge.png' %}" />
-          </div>
-        </div>
-        <div class="campus-achiever-card">
-          <div class="campus-image-placeholder">
-            <img src="{% static 'images/image copy.png' %}" />
-          </div>
-          <div class="campus-achiever-info">
-            <h3>Rishi Prakash</h3>
-            <p>Microsoft</p>
-            <p>Software Developer</p>
-            <p>12 LPA</p>
-          </div>
-          <div class="campus-badge-placeholder">
-            <img src="{% static 'images/badge.png' %}" />
-          </div>
-        </div>
-        <div class="campus-achiever-card">
-          <div class="campus-image-placeholder">
-            <img src="{% static 'images/image copy.png' %}" />
-          </div>
-          <div class="campus-achiever-info">
-            <h3>Rishi Prakash</h3>
-            <p>Microsoft</p>
-            <p>Software Developer</p>
-            <p>12 LPA</p>
-          </div>
-          <div class="campus-badge-placeholder">
-            <img src="{% static 'images/badge.png' %}" />
-          </div>
-        </div>
-        <div class="campus-achiever-card">
-          <div class="campus-image-placeholder">
-            <img src="{% static 'images/image copy.png' %}" />
-          </div>
-          <div class="campus-achiever-info">
-            <h3>Rishi Prakash</h3>
-            <p>Microsoft</p>
-            <p>Software Developer</p>
-            <p>12 LPA</p>
-          </div>
-          <div class="campus-badge-placeholder">
-            <img src="{% static 'images/badge.png' %}" />
-          </div>
-        </div>
-     
+      {% endfor %}
     </div>
   </div>
 </div>

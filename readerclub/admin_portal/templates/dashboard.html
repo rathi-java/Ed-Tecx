@@ -18,18 +18,12 @@
         <a href='/'><img src="{% static 'images/home.png' %}" class='home-image'></a>
         <div class="dropdown">
             <span class="fa fa-user-circle"></span>
-            <!-- <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M16 0C7.2 0 0 7.2 0 16C0 24.8 7.2 32 16 32C24.8 32 32 24.8 32 16C32 7.2 24.8 0 16 0ZM16 6.22222C17.9556 6.22222 19.5556 7.82222 19.5556 9.77778C19.5556 11.7333 17.9556 13.3333 16 13.3333C14.0444 13.3333 12.4444 11.7333 12.4444 9.77778C12.4444 7.82222 14.0444 6.22222 16 6.22222ZM7.11111 24.8889C7.11111 20 11.1111 16 16 16C20.8889 16 24.8889 20 24.8889 24.8889H7.11111Z"
-                    fill="#085889" />
-            </svg> -->
             <span>{{ request.user.username }}</span>
             <span class="dropdown-icon">
                 <i class="fas fa-chevron-down icon_toggle"></i>
             </span>
             <div class="dropdown-content">
                 <a href="{% url 'dashboard' %}?section=profile"><span class="fas fa-pen"></span> Edit</a>
-                <!-- <a href="{ url 'logout' %}"><span class="fas fa-sign-out-alt">logout</span> Logout</a> -->
             </div>
         </div>
     </div>
@@ -39,11 +33,6 @@
         <div class="sidebar">
             <div class="sidebar-header">
                 <span class="fa fa-user-circle"></span>
-                <!-- <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M16 0C7.2 0 0 7.2 0 16C0 24.8 7.2 32 16 32C24.8 32 32 24.8 32 16C32 7.2 24.8 0 16 0ZM16 6.22222C17.9556 6.22222 19.5556 7.82222 19.5556 9.77778C19.5556 11.7333 17.9556 13.3333 16 13.3333C14.0444 13.3333 12.4444 11.7333 12.4444 9.77778C12.4444 7.82222 14.0444 6.22222 16 6.22222ZM7.11111 24.8889C7.11111 20 11.1111 16 16 16C20.8889 16 24.8889 20 24.8889 24.8889H7.11111Z"
-                        fill="white" />
-                </svg> -->
                 <h3>Super Admin</h3>
             </div>
             <ul>
@@ -88,14 +77,6 @@
                         <p class="section_subheadings">Manage PlanType</p>
                         </a>
                     </li>
-                    {% comment %} <li data-page-name="add_price">
-                        <a class="section_items" 
-                        href="{% url 'dashboard' %}?section=add_price_section"
-                        onclick="showSection('add_price_section')">
-                        <span class="fas fa-plus-circle"></span>
-                        <p class="section_subheadings">Add/Edit Subscription</p>
-                        </a>
-                    </li> {% endcomment %}
                     <li data-page-name="manage_subscription">
                         <a class="section_items" 
                         href="{% url 'dashboard' %}?section=manage_subscription_section"
@@ -104,16 +85,7 @@
                         <p class="section_subheadings">Manage Subs. Plan</p>
                         </a>
                     </li>
-                    {% comment %} <li data-page-name="add_subscription">
-                        <a class="section_items" 
-                        href="{% url 'dashboard' %}?section=add_subscription_section"
-                        onclick="showSection('add_subscription_section')">
-                        <span class="fas fa-plus-circle"></span>
-                        <p class="section_subheadings">Add Subscription</p>
-                        </a>
-                    </li> {% endcomment %}
                 </ul>
-
 
                 <!-- Admin Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('admin-menu', this)"><span
@@ -228,26 +200,28 @@
                     <li data-page-name="manage_placement_stories"><a class="section_items"  href="{% url 'manage-placement-story-section' %}?section=manage_placement_story_section"><span class="fas fa-clipboard-list"></span><p class="section_subheadings"> Manage Stories</p></a></li>
                     <li data-page-name="add_placement_stories"><a class="section_items"  href="{% url 'add-placement-story-section' %}?section=add_placement_story_section"><span class="fas fa-plus"></span><p class="section_subheadings"> Add Story</p></a></li>
                 </ul>
-                {% comment %} <!-- Institutes Dropdown -->
-                <li class="dropdown-toggle" onclick="toggleDropdown('institutes-menu', this)">
-                    <span class="fas fa-university"></span>
-                    <p class="section_headings">&nbsp;&nbsp;&nbsp;Institutes</p>
+
+                <!-- Top Achievers Dropdown -->
+                <li class="dropdown-toggle" onclick="toggleDropdown('achievers-menu', this)">
+                    <span class="fas fa-trophy"></span>
+                    <p class="section_headings">&nbsp;&nbsp;&nbsp;Top Achievers</p>
                     <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
                 </li>
-                <ul class="dropdown-menu" id="institutes-menu">
-                    <li data-page-name="manage_institutes">
-                        <a class="section_items" href="{% url 'manage_institutes' %}?section=manage_institutes_section">
-                            <span class="fas fa-clipboard-list"></span>
-                            <p class="section_subheadings">Manage Institutes</p>
+                <ul class="dropdown-menu" id="achievers-menu">
+                    {% comment %} <li data-page-name="view_top_achievers_section">
+                        <a class="section_items" href="{% url 'dashboard' %}?section=view_top_achievers_section">
+                            <span class="fas fa-users"></span>
+                            <p class="section_subheadings">View Achievers</p>
+                        </a>
+                    </li> {% endcomment %}
+                    <li data-page-name="manage_top_achievers_section">
+                        <a class="section_items" href="{% url 'dashboard' %}?section=manage_top_achievers_section">
+                            <span class="fas fa-cogs"></span>
+                            <p class="section_subheadings">Manage Achievers</p>
                         </a>
                     </li>
-                    <li data-page-name="add_institute">
-                        <a class="section_items" href="{% url 'manage_institutes' %}?section=add_institutes_section">
-                            <span class="fas fa-user-plus"></span>
-                            <p class="section_subheadings"> Add Institute</p>
-                        </a>
-                    </li>
-                </ul> {% endcomment %}
+                </ul>
+
                 <!-- Blogs Dropdown -->
                 <li class="dropdown-toggle" onclick="toggleDropdown('blogs-menu', this)">
                     <span class="fas fa-blog"></span>
@@ -277,28 +251,6 @@
             </ul>
         </div>
 
-        <!--content current page of total employee-->
-        <!-- <div class="content current_page_action hidden"  data-page-name="total_employee">
-            <h3>&nbsp;Total Employee</h3>
-            <div class="container">
-                <div class="header">
-                      <button class="add-button">Add +</button>
-                </div>
-
-            </div>
-        </div> -->
-
-        <!--content current page of card sales-->
-        <!-- <div class="content current_page_action hidden"  data-page-name="sales">
-            <h3>&nbsp;Sales</h3>
-
-        </div> -->
-
-        <!--content current page of  card sales-->
-        <!-- <div class="content current_page_action hidden"  data-page-name="admin">
-            <h3>&nbsp;Admin</h3>
-
-        </div> -->
         <!-- MAIN CONTENT -->
         <main id="content">
             {% block content %}
@@ -342,16 +294,16 @@
             {% include "sub_templates/placement_stories.html" %}
             {% elif section == "payment_history_section" %}
             {% include "sub_templates/payment_history.html" %}
-            {% comment %} {% elif section == "manage_institutes_section" or section == "add_institutes_section" %}
-            {% include "sub_templates/institute.html" %} {% endcomment %}
-            {% comment %} {% elif section == "manage_price_section" or section == "add_price_section"  or section == "add_subscription_section" %}
-            {% include "sub_templates/price_management.html" %} {% endcomment %}
             {% elif section == "manage_price_section" %}
             {% include "sub_templates/manage_plan_types.html" %}
             {% elif section == "manage_subscription_section" %}
             {% include "sub_templates/manage_subscription_plan.html" %}
             {% elif section == "exam_result_section" %}
             {% include "sub_templates/exam_result.html" %}
+            {% elif section == "view_top_achievers_section" %}
+            {% include "sub_templates/topachievers.html" %}
+            {% elif section == "manage_top_achievers_section" %}
+            {% include "sub_templates/topachievers.html" %}
             {% else %}
             {% include "sub_templates/dash.html" %}
             {% endif %}

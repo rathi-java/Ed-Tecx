@@ -1,0 +1,101 @@
+{% if section == "view_top_achievers_section" or not section %}
+<div class="view-top-achievers-section">
+    <h2>Top Achievers</h2>
+    <div class="achievers-container">
+        {% if top_achievers %}
+        {% for achiever in top_achievers %}
+        <div class="achiever-card">
+            <div class="achiever-image">
+                <img src="{{ achiever.image.url }}" alt="{{ achiever.name }}">
+            </div>
+            <div class="achiever-info">
+                <h3>{{ achiever.name }}</h3>
+                <p>{{ achiever.company }}</p>
+                <p>{{ achiever.designation }}</p>
+                <p>{{ achiever.package }}</p>
+                <p>Rank: {{ achiever.rank }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No top achievers found.</p>
+        {% endif %}
+    </div>
+</div>
+{% elif section == "manage_top_achievers_section" %}
+<div class="manage-top-achievers-section">
+    <h2>Manage Top Achievers</h2>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'manage-top-achievers' %}">
+        {% csrf_token %}
+        <input type="hidden" name="achiever_id" id="achiever_id">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div>
+            <label for="company">Company:</label>
+            <input type="text" name="company" id="company" required>
+        </div>
+        <div>
+            <label for="designation">Designation:</label>
+            <input type="text" name="designation" id="designation" required>
+        </div>
+        <div>
+            <label for="package">Package:</label>
+            <input type="text" name="package" id="package" required>
+        </div>
+        <div>
+            <label for="rank">Rank:</label>
+            <input type="number" name="rank" id="rank" required>
+        </div>
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" name="image" id="image">
+        </div>
+        <button type="submit" name="action" value="add_or_update">Save</button>
+    </form>
+
+    <h3>Existing Achievers</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Designation</th>
+                <th>Package</th>
+                <th>Rank</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for achiever in top_achievers %}
+            <tr>
+                <td>{{ achiever.name }}</td>
+                <td>{{ achiever.company }}</td>
+                <td>{{ achiever.designation }}</td>
+                <td>{{ achiever.package }}</td>
+                <td>{{ achiever.rank }}</td>
+                <td>
+                    <button onclick="editAchiever('{{ achiever.id }}', '{{ achiever.name }}', '{{ achiever.company }}', '{{ achiever.designation }}', '{{ achiever.package }}', '{{ achiever.rank }}')">Edit</button>
+                    <form method="POST" action="{% url 'manage-top-achievers' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="achiever_id" value="{{ achiever.id }}">
+                        <button type="submit" name="action" value="delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script>
+    function editAchiever(id, name, company, designation, packageValue, rank) {
+        document.getElementById('achiever_id').value = id;
+        document.getElementById('name').value = name;
+        document.getElementById('company').value = company;
+        document.getElementById('designation').value = designation;
+        document.getElementById('package').value = packageValue;
+        document.getElementById('rank').value = rank;
+    }
+</script>
+{% endif %}
