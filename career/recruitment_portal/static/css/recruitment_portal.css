@@ -188,9 +188,6 @@ iframe {
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: 60px;
-    margin-bottom: 5px;
-    font-size: 18px;
-    color: #353535;
 }
 
 .content-area {
@@ -237,4 +234,28 @@ iframe {
     .sidebar.active {
         left: 0;
     }
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100; /* Ensure header stays on top */
+}
+.sidebar {
+    z-index: 1050; /* Sidebar should be below header but above content */
+}
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 60px; /* Fix under header */
+        left: -250px;
+        width: 250px;
+        height: calc(100vh - 60px);
+        transition: left 0.3s ease-in-out;
+        z-index: 1050; /* Ensure sidebar is above content */
+    }
+}
+.content-area {
+    padding-top: 60px; /* Ensure content does not overlap with header */
 }
