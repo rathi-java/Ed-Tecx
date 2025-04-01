@@ -1,16 +1,17 @@
 <!-- Manager Section -->
-{% load static %} 
+{% load static %}
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
 <script src="{% static 'js/dashboard.js' %}"></script>
+
 {% if section == "manage_manager_section" %}
 <!-- Manage Manager Section -->
-<div class="content current_page_action" data-page-name="manage_manager">
+<div class="content" data-page-name="manage_manager" id="manage_manager_section">
     <h3>&nbsp;Manager / Manage Manager</h3>
     <div class="container">
         <div class="header">
             <input type="text" id="search-manager" placeholder="Search by Name or Email..." onkeyup="filterManagers()">
-            <button class="add-button" data-page-name="add_manager" onclick="setActive(this)">Add +</button>
+            <a href="?section=add_manager_section" class="add-button">Add +</a>
         </div>
         <table id="manager-table">
             <thead>
@@ -21,9 +22,7 @@
                     <th class="manager-email">Email</th>
                     <th>Phone No.</th>
                     <th>Alt. Phone No.</th>
-                    {% comment %} <th>Password</th> {% endcomment %}
                     <th>Aadhar No.</th>
-                    {% comment %} <th>Admin</th> {% endcomment %}
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,22 +35,7 @@
                     <td class="manager-email">{{ manager.email }}</td>
                     <td>{{ manager.phone_number }}</td>
                     <td>{{ manager.alt_phone_number }}</td>
-                    {% comment %} <td>{{ manager.password }}</td> {% endcomment %}
                     <td>{{ manager.aadhar_number }}</td>
-                    {% comment %} <td>
-                        <!-- Form for updating manager's admin -->
-                        <form method="POST" action="{% url 'transfer_manager' manager.id 0 %}" onsubmit="return updateTransferUrl(this)">
-                            {% csrf_token %}
-                            <select name="new_admin_id">
-                                {% for admin in admins %}
-                                <option value="{{ admin.id }}" {% if admin.id == manager.admin.id %}selected{% endif %}>
-                                    {{ admin.full_name }}
-                                </option>
-                                {% endfor %}
-                            </select>
-                            <button type="submit">Update</button>
-                        </form>
-                    </td> {% endcomment %}
                     <td>
                         <button class="edit-btn" onclick="editManager('{{ manager.id }}', '{{ manager.full_name|escapejs }}', '{{ manager.email|escapejs }}', '{{ manager.phone_number|escapejs }}', '{{ manager.alt_phone_number|escapejs }}', '{{ manager.password|escapejs }}', '{{ manager.aadhar_number|escapejs }}')">
                             <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
@@ -79,7 +63,7 @@
 
 {% if section == "add_manager_section" %}
 <!-- Add/Edit Manager Section -->
-<div class="content current_page_action" data-page-name="add_manager">
+<div class="content" data-page-name="add_manager" id="add_manager_section">
     <h3>&nbsp;Manager/Add Manager</h3>
     <div class="container">
         <div class="title">Manage Manager</div>

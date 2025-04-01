@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 from django.utils.timezone import now
 import random, time, smtplib
+from django.db.models.functions import Lower
 from oauth.models import UsersDB, Otpdb
 from university.models import University
 from django.db.models.functions import Lower  # Add this import
@@ -19,14 +20,19 @@ import os
 from django.conf import settings
 from admin_portal.models import *
 # Load environment variables from secrets.env
+from topachivers.models import TopAchiever
 
 def home(request):
-    # Get colleges and sort them alphabetically for the index page
+
     colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
-    return render(request, 'index.html', {
+    achievers = TopAchiever.objects.all().order_by('name')  # Fetch achievers alphabetically
+    context = {
+      
         "CAREER_URL": settings.CAREER_URL,
-        "colleges": colleges  # Pass sorted colleges to index template
-    })
+        "achievers": achievers,
+        "colleges": colleges
+    }
+    return render(request, 'index.html', context)
 
 def update_profile(request):
     if request.method == "POST":
@@ -168,6 +174,7 @@ def signup(request):
 
     # Use case-insensitive sorting for colleges
     colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+
     return render(request, 'signup.html', {'colleges': colleges})
 
 def user_login(request):

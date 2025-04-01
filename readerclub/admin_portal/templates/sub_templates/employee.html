@@ -5,12 +5,12 @@
 <script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_employee_section" %}
 <!-- Manage Employee Section -->
-<div class="content current_page_action" data-page-name="manage_employee">
+<div class="content current_page_action" data-page-name="manage_employee" id="manage_employee_section">
     <h3>&nbsp;Employee / Manage Employee</h3>
     <div class="container">
         <div class="header">
             <input type="text" id="employeeSearch" placeholder="Search Employee by Name or Email..." onkeyup="filterEmployees()">
-            <button class="add-button" data-page-name="add_employee" onclick="setActive(this)">Add +</button>
+            <a href="?section=add_employee_section" class="add-button">Add +</a>
         </div>
         <table id="employeeTable">
             <thead>
@@ -74,7 +74,7 @@
 {% if section == "add_employee_section" %}
 
 <!-- Add/Edit Employee Section -->
-<div class="content current_page_action" data-page-name="add_employee">
+<div class="content current_page_action" data-page-name="add_employee" id="add_employee_section">
     <h3>&nbsp;Employee / Add Employee</h3>
     <div class="container">
         <div class="title">Manage Employees</div>

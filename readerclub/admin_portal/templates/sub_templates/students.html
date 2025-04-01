@@ -6,12 +6,12 @@
 <script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_student_section" %}
 <!-- Manage Students -->
-<div class="content current_page_action" data-page-name="manage_student">
+<div class="content current_page_action" data-page-name="manage_student" id="manage_student_section">
     <h3>&nbsp;Students / Manage Students</h3>
     <div class="container">
         <div class="header">
             <input type="text" id="search-student" placeholder="Search by Name or Email..." onkeyup="filterStudents()">
-            <button class="add-button" data-page-name="add_student" onclick="setActive(this)">Add +</button>
+            <a href="?section=add_student_section" class="add-button">Add +</a>
         </div>
         <table id="student-table">
             <thead>
@@ -65,7 +65,7 @@
 {% endif %}
 {% if section == "add_student_section" %}
 <!-- Add Student Section -->
-<div class="content current_page_action" data-page-name="add_student">
+<div class="content current_page_action" data-page-name="add_student"  id="add_student_section">
     <h3>&nbsp;Students / Add Student</h3>
     <div class="container">
         <div class="title">Manage Students</div>

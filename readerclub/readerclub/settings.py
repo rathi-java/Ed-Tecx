@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'blog',  
     'university',
     'corsheaders',
+    'topachivers',
 ]
 
 # for Google auth

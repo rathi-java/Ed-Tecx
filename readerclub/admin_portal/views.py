@@ -17,6 +17,7 @@ from placement_stories.models import *
 from django.core.paginator import Paginator
 from admin_portal.decorators import role_required
 import json
+from topachivers.models import TopAchiever
 
 def update_certificate_status(request):
     if request.method == "POST":
@@ -42,20 +43,18 @@ def update_certificate_status(request):
 
 @role_required(['superadmin'])
 def dashboard(request):
-    # Fetch data from the database
     section = request.GET.get('section', 'dashboard')  # Default to 'dashboard'
-
     user_id = request.session.get('user_id')
-    user_role = request.session.get('role')  # Use 'role' instead of 'user_role'
+    user_role = request.session.get('role')
     user = None
 
-    if user_id:
-        try:
-            if user_role == 'superadmin':
-                user = SuperAdminDB.objects.get(id=user_id)
-        except Exception:
-            user = None
-    
+    if user_id and user_role == 'superadmin':
+        user = SuperAdminDB.objects.filter(id=user_id).first()
+
+    top_achievers = None
+    if section == "manage_top_achievers_section":
+        top_achievers = TopAchiever.objects.all().order_by('rank')
+
     total_super_admins = SuperAdminDB.objects.count()
     total_admins = AdminDB.objects.count()
     total_managers = ManagerDB.objects.count()
@@ -100,6 +99,7 @@ def dashboard(request):
         "exam_results": exam_results,  # Add exam results to context
         "subscription_plans": subscription_plans,  # Add subscription plans to context
         "plan_types": plan_types,  # Add plan types to context
+        "top_achievers": top_achievers,  # Add top achievers to context
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -124,8 +124,7 @@ def dashboard(request):
         'user': user,
         'user_role': user_role,  # Add the user role to the context
     }
-    return render(request, 'dashboard.html', context)     # return to SuperAdmin Dashboard
-
+    return render(request, 'dashboard.html', context)  # Return to SuperAdmin Dashboard
 
 @role_required(['superadmin', 'admin'])
 def adm_dashboard(request):
@@ -151,8 +150,10 @@ def adm_dashboard(request):
     total_questions = Question.objects.count()
     total_subjects = Subject.objects.count()
     total_categories = Category.objects.count()
-    certificates = Certificate.objects.all().order_by('-created_at')  # Fetch certificates if required
-
+    certificates = Certificate.objects.all().order_by('-created_at')
+    
+      # Fetch certificates if required
+    top_achivers = TopAchiever.objects.all().order_by('rank')  # Order by rank instead of created_at
     # Active users (users who logged in within the last 30 days)
     active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
 
@@ -209,6 +210,7 @@ def adm_dashboard(request):
         "daily_sales": daily_sales,
         'section': section,
         'user': user,
+        'top_achivers': top_achivers,  # Add top achievers to context
      
     }
     return render(request, 'adm_dashboard.html', context)
@@ -432,7 +434,7 @@ def manage_admin(request):
             messages.success(request, "Admin deleted successfully!")
 
         # Redirect to dashboard and open Manage Admin section
-        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_admin")
+        return redirect(reverse("dashboard") + "?section=manage_admin")
 
     return redirect("dashboard")
 
@@ -487,7 +489,7 @@ def manage_manager(request):
                 messages.error(request, "Invalid manager ID!")
 
         # Redirect to dashboard and open Manage Manager section
-        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_manager")
+        return redirect(reverse("dashboard") + "?section=manage_manager")
 
     return redirect("dashboard")
 
@@ -528,7 +530,7 @@ def manage_employee(request):
                     messages.success(request, "Employee added successfully!")
             except IntegrityError as e:
                 messages.error(request, f"Error: {e}")
-                return HttpResponseRedirect(reverse("dashboard") + "?page=manage_employee")
+                return redirect(reverse("dashboard") + "?section=manage_employee")
 
         # Handling Delete Employee
         elif action == "delete":
@@ -538,7 +540,7 @@ def manage_employee(request):
             messages.success(request, "Employee deleted successfully!")
 
         # Redirect to dashboard and open Manage Employee section
-        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_employee")
+        return redirect(reverse("dashboard") + "?section=manage_employee")
     
     return redirect("dashboard")
 
@@ -556,7 +558,7 @@ def add_college(request):
 
             if existing_college:
                 messages.error(request, "College Already Exists!")
-                return redirect(reverse('dashboard') + "?page=manage_college")
+                return redirect(reverse('dashboard') + "?section=manage_college")
 
             if college_id:  # Update existing college
                 college = get_object_or_404(CollegesDb, id=college_id)
@@ -573,13 +575,13 @@ def add_college(request):
                 messages.success(request, "College added successfully!")
 
             # Redirect to dashboard and open Manage College section
-            return HttpResponseRedirect(reverse('dashboard') + "?page=manage_college")
+            return redirect(reverse('dashboard') + "?section=manage_college")
 
         except IntegrityError as e:
             messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?page=manage_college")
+            return redirect(reverse('dashboard') + "?section=manage_college")
 
-    return redirect('dashboard')
+    return redirect("dashboard")
 
 def delete_college(request, college_id):
     if request.method == "POST":
@@ -588,10 +590,9 @@ def delete_college(request, college_id):
         messages.success(request, "College deleted successfully!")
 
         # Redirect to dashboard and open Manage College section
-        url = reverse('dashboard') + "?page=manage_college"  # Using reverse to get the URL
-        return HttpResponseRedirect(url)  # Proper way to redirect with query params
+        return redirect(reverse('dashboard') + "?section=manage_college")
     
-    return redirect('dashboard')
+    return redirect("dashboard")
 
 def manage_users(request):
     if request.method == "POST":
@@ -643,7 +644,7 @@ def manage_users(request):
             user.delete()
             messages.success(request, "User deleted successfully!")
         
-    return redirect(reverse('dashboard') + "?page=manage_user")
+    return redirect(reverse('dashboard') + "?section=manage_user")
 
 def get_subjects(request):
     category_id = request.GET.get('category_id')
@@ -712,7 +713,7 @@ def add_student(request):
 
         if not full_name or not email:
             messages.error(request, "Full Name and Email are required.")
-            return redirect(reverse('dashboard') + "?page=manage_student")
+            return redirect(reverse('dashboard') + "?section=manage_student")
 
         domain = get_object_or_404(Category, id=domain_id) if domain_id else None
         subject = get_object_or_404(Subject, id=subject_id) if subject_id else None
@@ -721,7 +722,7 @@ def add_student(request):
             existing_student = StudentsDB.objects.filter(email__iexact=email).first()
             if existing_student and not student_id:
                 messages.error(request, "A student with this email already exists!")
-                return redirect(reverse('dashboard') + "?page=manage_student")
+                return redirect(reverse('dashboard') + "?section=manage_student")
 
             if student_id:
                 # Updating existing student
@@ -746,20 +747,20 @@ def add_student(request):
                 )
                 messages.success(request, f"Student {full_name} added successfully!")
 
-            return redirect(reverse('dashboard') + "?page=manage_student")
+            return redirect(reverse('dashboard') + "?section=manage_student")
 
         except IntegrityError as e:
             messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?page=manage_student")
+            return redirect(reverse('dashboard') + "?section=manage_student")
 
-    return redirect('dashboard')
+    return redirect("dashboard")
 
 def delete_student(request, student_id):
     if request.method == "POST":
         student = get_object_or_404(StudentsDB, id=student_id)
         student.delete()
         messages.success(request, "Student deleted successfully!")
-    return redirect(reverse('dashboard') + "?page=manage_student")
+    return redirect(reverse('dashboard') + "?section=manage_student")
 
 def update_superadmin_profile(request):
     if request.method == "POST":
@@ -814,7 +815,7 @@ def add_placement_story(request):
 
         if not name or not company_name:
             messages.error(request, "Name and Company are required.")
-            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+            return redirect(reverse('dashboard') + "?section=manage_placement_stories")
 
         try:
             if story_id:
@@ -853,20 +854,20 @@ def add_placement_story(request):
                 )
                 messages.success(request, f"Placement story for {name} added successfully!")
 
-            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+            return redirect(reverse('dashboard') + "?section=manage_placement_stories")
 
         except IntegrityError as e:
             messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+            return redirect(reverse('dashboard') + "?section=manage_placement_stories")
 
-    return redirect('dashboard')
+    return redirect("dashboard")
 
 def delete_placement_story(request, story_id):
     if request.method == "POST":
         story = get_object_or_404(PlacementStories, id=story_id)
         story.delete()
         messages.success(request, "Placement story deleted successfully!")
-    return redirect(reverse('dashboard') + "?page=manage_placement_stories")
+    return redirect(reverse('dashboard') + "?section=manage_placement_stories")
 
 def manage_subscription(request):
     if request.method == "POST":
@@ -1000,12 +1001,6 @@ def price_management(request):
         "plan_types": plan_types
     })
 
-
-
-
-
-
-
 def manage_plan_types(request):
     if request.method == "POST":
         action = request.POST.get("action")
@@ -1068,13 +1063,13 @@ def manage_subscription_plans(request):
                     order=max_order + 1  # New plan gets the highest order
                 )
 
-            return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
+            return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
 
         elif action == "delete":
             plan_id = request.POST.get("plan_id")
             plan = get_object_or_404(SubscriptionPlan, id=plan_id)
             plan.delete()
-            return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
+            return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
 
     subscription_plans = SubscriptionPlan.objects.select_related("plan_type").order_by("order")
     plan_types = PlanType.objects.all()
@@ -1109,7 +1104,7 @@ def reorder_subscription_plans(request):
 
         messages.success(request, "Subscription plan order updated successfully.")
     
-    return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
+    return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
 
 def toggle_subscription_status(request):
     if request.method == "POST":
@@ -1119,148 +1114,67 @@ def toggle_subscription_status(request):
         plan.is_active = not current_status  # Toggle the status
         plan.save()
         messages.success(request, "Subscription plan status updated successfully.")
-    # return redirect("manage_subscription_plans")  # Redirect to the same page
-    return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
+    return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
 
-# def create_exam(request):
-#     categories = Category.objects.all()
-#     subjects = Subject.objects.all()
-#     questions = Question.objects.all()
-    
-#     selected_category_ids = []
-#     selected_subject_ids = []
-#     selected_question_ids = request.GET.getlist('questions')
+@role_required(['superadmin', 'admin'])
+def view_top_achievers(request):
+    # Fetch all achievers for display
+    top_achievers = TopAchiever.objects.all().order_by('rank')
+    return render(request, "sub_templates/topachievers.html", {
+        "top_achievers": top_achievers,
+        "section": "view_top_achievers_section"
+    })
 
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         duration = request.POST.get('duration')
-#         question_ids = request.POST.getlist('questions')
-#         category_ids = request.POST.getlist('categories')
-#         subject_ids = request.POST.getlist('subjects')
+@role_required(['superadmin'])
+def manage_top_achievers(request):
+    if request.method == "POST":
+        action = request.POST.get("action")
+        achiever_id = request.POST.get("achiever_id")
+        name = request.POST.get("name", "").strip()
+        company = request.POST.get("company", "").strip()
+        designation = request.POST.get("designation", "").strip()
+        package = request.POST.get("package", "").strip()
+        rank = request.POST.get("rank", "").strip()
+        image = request.FILES.get("image")
 
-#         if not name or not duration or not question_ids:
-#             messages.error(request, "Please fill all required fields")
-#             return redirect('create_exam')
+        try:
+            if action == "add_or_update":
+                if achiever_id:
+                    # Update existing achiever
+                    achiever = get_object_or_404(TopAchiever, id=achiever_id)
+                    achiever.name = name
+                    achiever.company = company
+                    achiever.designation = designation
+                    achiever.package = package
+                    achiever.rank = rank
+                    if image:
+                        achiever.image = image
+                    achiever.save()
+                    messages.success(request, "Top Achiever updated successfully!")
+                else:
+                    # Add new achiever
+                    TopAchiever.objects.create(
+                        name=name,
+                        company=company,
+                        designation=designation,
+                        package=package,
+                        rank=rank,
+                        image=image
+                    )
+                    messages.success(request, "Top Achiever added successfully!")
+            elif action == "delete":
+                achiever = get_object_or_404(TopAchiever, id=achiever_id)
+                achiever.delete()
+                messages.success(request, "Top Achiever deleted successfully!")
+        except IntegrityError as e:
+            messages.error(request, f"Error: {e}")
 
-#         exam = Exam.objects.create(name=name, duration=duration)
-        
-#         # Assign selected questions, categories, and subjects
-#         exam.questions.add(*Question.objects.filter(id__in=question_ids))
-#         exam.categories.add(*Category.objects.filter(id__in=category_ids))
-#         exam.subjects.add(*Subject.objects.filter(id__in=subject_ids))
+        # Redirect to the dashboard with the appropriate section
+        return redirect(reverse('dashboard') + "?section=manage_top_achievers_section")
 
-#         messages.success(request, f"Exam '{name}' created successfully!")
-#         return redirect('list_exams')
-
-#     else:
-#         # Apply filters if selected
-#         if 'categories' in request.GET:
-#             selected_category_ids = request.GET.getlist('categories')
-#             questions = questions.filter(question_subject__subject_category_id__in=selected_category_ids)
-#             subjects = Subject.objects.filter(subject_category_id__in=selected_category_ids)
-
-#         if 'subjects' in request.GET:
-#             selected_subject_ids = request.GET.getlist('subjects')
-#             questions = questions.filter(question_subject_id__in=selected_subject_ids)
-
-#         # Include previously selected questions in the list
-#         extra_questions = Question.objects.filter(id__in=selected_question_ids)
-#         questions = list(set(questions) | set(extra_questions))
-
-#     context = {
-#         'categories': categories,
-#         'subjects': subjects,
-#         'questions': questions,
-#         'selected_category_ids': selected_category_ids,
-#         'selected_subject_ids': selected_subject_ids,
-#         'selected_question_ids': selected_question_ids,
-#     }
-    
-#     return render(request, 'dashboard.html', context)
-
-# def list_exams(request):
-#     user_id = request.session.get('user_id')
-#     user = None
-
-#     if user_id:
-#         try:
-#             user = UsersDB.objects.get(id=user_id)
-#         except UsersDB.DoesNotExist:
-#             request.session.flush()
-#             messages.error(request, "Session expired. Please login again.")
-#             return redirect('/login/')
-    
-#     if user and StudentsDB.objects.filter(email=user.email, exam_domain__isnull=False).exists():
-#         registered_exam_ids = StudentsDB.objects.filter(email=user.email).values_list('exam_domain_id', flat=True)
-#         exams = Exam.objects.filter(id__in=registered_exam_ids)
-#     else:
-#         exams = Exam.objects.all()
-    
-#     return render(request, 'dashboard.html', {'exams': exams, 'user': user})
-#         # return render(request, 'dashboard.html')
-
-# def delete_exam(request, exam_id):
-#     if request.method == "POST":
-#         try:
-#             exam = Exam.objects.get(id=exam_id)
-#             exam.delete()
-#             messages.success(request, "Exam deleted successfully.")
-#         except Exam.DoesNotExist:
-#             messages.error(request, "Exam not found.")
-#     return redirect('list_exams')
-
-# import logging
-
-# logger = logging.getLogger(__name__)
-
-# def transfer_manager(request, manager_id, new_admin_id):
-#     if request.method == "POST":
-#         logger.info(f"Received Manager Transfer Request: Manager ID={manager_id}, New Admin ID={new_admin_id}")
-#         manager = get_object_or_404(ManagerDB, id=manager_id)
-#         new_admin = get_object_or_404(AdminDB, id=new_admin_id)
-#         manager.admin = new_admin
-#         manager.save()
-#         logger.info(f"Manager {manager.username} successfully updated to Admin {new_admin.username}")
-#         messages.success(request, f"Manager {manager.username} transferred to Admin {new_admin.username} successfully!")
-#     return redirect(reverse('dashboard') + "?page=manage_manager")
-
-# def transfer_employee(request, employee_id, new_manager_id):
-#     if request.method == "POST":
-#         logger.info(f"Received Employee Transfer Request: Employee ID={employee_id}, New Manager ID={new_manager_id}")
-#         employee = get_object_or_404(EmployeeDB, id=employee_id)
-#         new_manager = get_object_or_404(ManagerDB, id=new_manager_id)
-#         employee.manager = new_manager
-#         employee.save()
-#         logger.info(f"Employee {employee.username} successfully updated to Manager {new_manager.username}")
-#         messages.success(request, f"Employee {employee.username} transferred to Manager {new_manager.username} successfully!")
-#     return redirect(reverse('dashboard') + "?page=manage_employee")
-
-# def transfer_admin(request, admin_id, new_superadmin_id):
-#     if request.method == "POST":
-#         logger.info(f"Received Admin Transfer Request: Admin ID={admin_id}, New SuperAdmin ID={new_superadmin_id}")
-#         admin = get_object_or_404(AdminDB, id=admin_id)
-#         new_superadmin = get_object_or_404(SuperAdminDB, id=new_superadmin_id)
-#         admin.superadmin = new_superadmin
-#         admin.save()
-#         logger.info(f"Admin {admin.username} successfully updated to SuperAdmin {new_superadmin.username}")
-#         messages.success(request, f"Admin {admin.username} transferred to SuperAdmin {new_superadmin.username} successfully!")
-#     return redirect(reverse('dashboard') + "?page=manage_admin")
-
-# def transfer_manager(request, manager_id, new_admin_id):
-#     # Check if the manager_id is valid
-#     if manager_id == 0:
-#         return HttpResponseBadRequest("Invalid Manager ID")
-    
-#     # Check if new_admin_id is valid
-#     if new_admin_id == 0:
-#         return HttpResponseBadRequest("Invalid Admin ID")
-
-#     # Fetch Manager and Admin objects safely
-#     manager = get_object_or_404(ManagerDB, id=manager_id)
-#     new_admin = get_object_or_404(AdminDB, id=new_admin_id)
-    
-#     # Transfer the manager to the new admin
-#     manager.admin = new_admin
-#     manager.save()
-
-#     return redirect('manage_manager')
+    # Fetch all achievers for display
+    top_achievers = TopAchiever.objects.all().order_by('rank')
+    return render(request, "sub_templates/topachievers.html", {
+        "top_achievers": top_achievers,
+        "section": "manage_top_achievers_section"
+    })
