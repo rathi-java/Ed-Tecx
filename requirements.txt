@@ -48,3 +48,4 @@ uritemplate==4.1.1
 urllib3==2.3.0
 whitenoise
 django-widget-tweaks
+xhtml2pdf==0.2.11

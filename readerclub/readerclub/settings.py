@@ -289,7 +289,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8001",  # Allow Career project to access images from Readerclub
 ]
-# Add to PUBLIC_PATHS in settings
+# PUBLIC_PATHS
 PUBLIC_PATHS = [
     '/',
     '/accounts/login',
@@ -301,6 +301,10 @@ PUBLIC_PATHS = [
     '/policies/',
     '/maintenence/',
 
+]
+
+# Add RESTRICTED_SUBPATHS
+RESTRICTED_SUBPATHS = [
 ]
 
 LOGIN_URL = '/login/'
