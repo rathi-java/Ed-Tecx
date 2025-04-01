@@ -1,7 +1,7 @@
 .internshipp-listings-container {
    
     font-family: 'Poppins';
-    padding: 20px;
+    /* padding: 20px; */
     
 }
 
@@ -26,7 +26,7 @@
 
 .internshipp-listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 20px;
 }
 
@@ -58,7 +58,7 @@
     background: #d4edda;
     color: #155724;
     padding: 5px 10px;
-    
+    /* border-radius: 15px; */
     border-bottom-left-radius: 15px;
 border-top-left-radius:15px; 
     font-size: 12px;
@@ -91,11 +91,15 @@ border-top-left-radius:15px;
     .internshipp-add-button {
         margin-top: 10px;
     }
-    
-.internshipp-listings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 40px;
+}
+@media (max-width: 1024px) {
+    .internshipp-listings-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tablet pe 2 cards */
+    }
 }
 
+@media (max-width: 600px) {
+    .internshipp-listings-grid {
+        grid-template-columns: repeat(1, 1fr); /* Mobile pe 1 card */
+    }
 }

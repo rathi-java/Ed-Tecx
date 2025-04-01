@@ -156,6 +156,7 @@ def user_login(request):
     if request.method == "POST":
         user_input = request.POST.get('username')
         password = request.POST.get('password')
+        next_url = request.GET.get('next', '/')
 
         user = None
         role = None
@@ -195,8 +196,9 @@ def user_login(request):
                 role = "user"
 
         if user and valid_password:
+            # Set session variables
             request.session['user_id'] = user.id
-            request.session['role'] = role  # Store role in session
+            request.session['role'] = role
             
             # Update last_login if the model has this field
             if hasattr(user, 'last_login'):
@@ -205,15 +207,19 @@ def user_login(request):
                 
             messages.success(request, f"Welcome back, {user.full_name}!")
 
-            # Redirect based on role
+            # Redirect based on role or next URL
             redirect_urls = {
                 "superadmin": "/dashboard/",
                 "admin": "/adm_dashboard/",
                 "manager": "/mgr_dashboard/",
                 "employee": "/emp_dashboard/",
-                "user": "home"  
+                "user": next_url if next_url != '/' else 'home'
             }
-            return redirect(redirect_urls.get(role, '/'))
+            
+            # Force save session before redirect
+            request.session.save()
+            
+            return redirect(redirect_urls.get(role, next_url))
         else:
             messages.error(request, "Invalid username or password. Please try again.")
             return render(request, 'index.html', {'form_type': 'login'})
