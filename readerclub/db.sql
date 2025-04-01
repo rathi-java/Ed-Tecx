@@ -1940,14 +1940,14 @@ DROP TABLE IF EXISTS `university_university`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `university_university` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `university_code` varchar(10) DEFAULT NULL,
+  `username` varchar(10) DEFAULT NULL,
   `university_name` varchar(255) NOT NULL,
   `university_location` varchar(255) NOT NULL,
-  `university_password` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `university_email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `university_email` (`university_email`),
-  UNIQUE KEY `university_code` (`university_code`)
+  UNIQUE KEY `university_code` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1969,4 +1969,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-01 17:58:23
+-- Dump completed on 2025-04-01 18:16:27

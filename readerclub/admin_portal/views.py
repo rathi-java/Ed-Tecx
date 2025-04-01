@@ -18,7 +18,6 @@ from django.core.paginator import Paginator
 from admin_portal.decorators import role_required
 import json
 from topachivers.models import TopAchiever
-
 def update_certificate_status(request):
     if request.method == "POST":
         selected_certificates = request.POST.getlist("selected_certificates")
@@ -43,18 +42,20 @@ def update_certificate_status(request):
 
 @role_required(['superadmin'])
 def dashboard(request):
+    # Fetch data from the database
     section = request.GET.get('section', 'dashboard')  # Default to 'dashboard'
+
     user_id = request.session.get('user_id')
-    user_role = request.session.get('role')
+    user_role = request.session.get('role')  # Use 'role' instead of 'user_role'
     user = None
 
-    if user_id and user_role == 'superadmin':
-        user = SuperAdminDB.objects.filter(id=user_id).first()
-
-    top_achievers = None
-    if section == "manage_top_achievers_section":
-        top_achievers = TopAchiever.objects.all().order_by('rank')
-
+    if user_id:
+        try:
+            if user_role == 'superadmin':
+                user = SuperAdminDB.objects.get(id=user_id)
+        except Exception:
+            user = None
+    
     total_super_admins = SuperAdminDB.objects.count()
     total_admins = AdminDB.objects.count()
     total_managers = ManagerDB.objects.count()
@@ -70,6 +71,7 @@ def dashboard(request):
     exam_results = ExamResult.objects.all().order_by('-submitted_at')  # Fetch exam results
     subscription_plans = SubscriptionPlan.objects.all()  # Fetch subscription plans
     plan_types = PlanType.objects.all()  # Fetch plan types
+    top_achivers = TopAchiever.objects.all().order_by('rank')  # Order by rank instead of created_at
 
     # Active users (users who logged in within the last 30 days)
     active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
@@ -99,7 +101,7 @@ def dashboard(request):
         "exam_results": exam_results,  # Add exam results to context
         "subscription_plans": subscription_plans,  # Add subscription plans to context
         "plan_types": plan_types,  # Add plan types to context
-        "top_achievers": top_achievers,  # Add top achievers to context
+        "top_achivers": top_achivers,  # Add top achievers to context
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -125,6 +127,7 @@ def dashboard(request):
         'user_role': user_role,  # Add the user role to the context
     }
     return render(request, 'dashboard.html', context)  # Return to SuperAdmin Dashboard
+
 
 @role_required(['superadmin', 'admin'])
 def adm_dashboard(request):
@@ -434,7 +437,7 @@ def manage_admin(request):
             messages.success(request, "Admin deleted successfully!")
 
         # Redirect to dashboard and open Manage Admin section
-        return redirect(reverse("dashboard") + "?section=manage_admin")
+        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_admin")
 
     return redirect("dashboard")
 
@@ -489,7 +492,7 @@ def manage_manager(request):
                 messages.error(request, "Invalid manager ID!")
 
         # Redirect to dashboard and open Manage Manager section
-        return redirect(reverse("dashboard") + "?section=manage_manager")
+        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_manager")
 
     return redirect("dashboard")
 
@@ -530,7 +533,7 @@ def manage_employee(request):
                     messages.success(request, "Employee added successfully!")
             except IntegrityError as e:
                 messages.error(request, f"Error: {e}")
-                return redirect(reverse("dashboard") + "?section=manage_employee")
+                return HttpResponseRedirect(reverse("dashboard") + "?page=manage_employee")
 
         # Handling Delete Employee
         elif action == "delete":
@@ -540,7 +543,7 @@ def manage_employee(request):
             messages.success(request, "Employee deleted successfully!")
 
         # Redirect to dashboard and open Manage Employee section
-        return redirect(reverse("dashboard") + "?section=manage_employee")
+        return HttpResponseRedirect(reverse("dashboard") + "?page=manage_employee")
     
     return redirect("dashboard")
 
@@ -558,7 +561,7 @@ def add_college(request):
 
             if existing_college:
                 messages.error(request, "College Already Exists!")
-                return redirect(reverse('dashboard') + "?section=manage_college")
+                return redirect(reverse('dashboard') + "?page=manage_college")
 
             if college_id:  # Update existing college
                 college = get_object_or_404(CollegesDb, id=college_id)
@@ -575,13 +578,13 @@ def add_college(request):
                 messages.success(request, "College added successfully!")
 
             # Redirect to dashboard and open Manage College section
-            return redirect(reverse('dashboard') + "?section=manage_college")
+            return HttpResponseRedirect(reverse('dashboard') + "?page=manage_college")
 
         except IntegrityError as e:
             messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?section=manage_college")
+            return redirect(reverse('dashboard') + "?page=manage_college")
 
-    return redirect("dashboard")
+    return redirect('dashboard')
 
 def delete_college(request, college_id):
     if request.method == "POST":
@@ -590,9 +593,10 @@ def delete_college(request, college_id):
         messages.success(request, "College deleted successfully!")
 
         # Redirect to dashboard and open Manage College section
-        return redirect(reverse('dashboard') + "?section=manage_college")
+        url = reverse('dashboard') + "?page=manage_college"  # Using reverse to get the URL
+        return HttpResponseRedirect(url)  # Proper way to redirect with query params
     
-    return redirect("dashboard")
+    return redirect('dashboard')
 
 def manage_users(request):
     if request.method == "POST":
@@ -644,7 +648,7 @@ def manage_users(request):
             user.delete()
             messages.success(request, "User deleted successfully!")
         
-    return redirect(reverse('dashboard') + "?section=manage_user")
+    return redirect(reverse('dashboard') + "?page=manage_user")
 
 def get_subjects(request):
     category_id = request.GET.get('category_id')
@@ -713,7 +717,7 @@ def add_student(request):
 
         if not full_name or not email:
             messages.error(request, "Full Name and Email are required.")
-            return redirect(reverse('dashboard') + "?section=manage_student")
+            return redirect(reverse('dashboard') + "?page=manage_student")
 
         domain = get_object_or_404(Category, id=domain_id) if domain_id else None
         subject = get_object_or_404(Subject, id=subject_id) if subject_id else None
@@ -722,7 +726,7 @@ def add_student(request):
             existing_student = StudentsDB.objects.filter(email__iexact=email).first()
             if existing_student and not student_id:
                 messages.error(request, "A student with this email already exists!")
-                return redirect(reverse('dashboard') + "?section=manage_student")
+                return redirect(reverse('dashboard') + "?page=manage_student")
 
             if student_id:
                 # Updating existing student
@@ -747,20 +751,20 @@ def add_student(request):
                 )
                 messages.success(request, f"Student {full_name} added successfully!")
 
-            return redirect(reverse('dashboard') + "?section=manage_student")
+            return redirect(reverse('dashboard') + "?page=manage_student")
 
         except IntegrityError as e:
             messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?section=manage_student")
+            return redirect(reverse('dashboard') + "?page=manage_student")
 
-    return redirect("dashboard")
+    return redirect('dashboard')
 
 def delete_student(request, student_id):
     if request.method == "POST":
         student = get_object_or_404(StudentsDB, id=student_id)
         student.delete()
         messages.success(request, "Student deleted successfully!")
-    return redirect(reverse('dashboard') + "?section=manage_student")
+    return redirect(reverse('dashboard') + "?page=manage_student")
 
 def update_superadmin_profile(request):
     if request.method == "POST":
@@ -815,7 +819,7 @@ def add_placement_story(request):
 
         if not name or not company_name:
             messages.error(request, "Name and Company are required.")
-            return redirect(reverse('dashboard') + "?section=manage_placement_stories")
+            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
 
         try:
             if story_id:
@@ -854,20 +858,20 @@ def add_placement_story(request):
                 )
                 messages.success(request, f"Placement story for {name} added successfully!")
 
-            return redirect(reverse('dashboard') + "?section=manage_placement_stories")
+            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
 
         except IntegrityError as e:
             messages.error(request, f"Error: {e}")
-            return redirect(reverse('dashboard') + "?section=manage_placement_stories")
+            return redirect(reverse('dashboard') + "?page=manage_placement_stories")
 
-    return redirect("dashboard")
+    return redirect('dashboard')
 
 def delete_placement_story(request, story_id):
     if request.method == "POST":
         story = get_object_or_404(PlacementStories, id=story_id)
         story.delete()
         messages.success(request, "Placement story deleted successfully!")
-    return redirect(reverse('dashboard') + "?section=manage_placement_stories")
+    return redirect(reverse('dashboard') + "?page=manage_placement_stories")
 
 def manage_subscription(request):
     if request.method == "POST":
@@ -1063,13 +1067,13 @@ def manage_subscription_plans(request):
                     order=max_order + 1  # New plan gets the highest order
                 )
 
-            return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
+            return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
         elif action == "delete":
             plan_id = request.POST.get("plan_id")
             plan = get_object_or_404(SubscriptionPlan, id=plan_id)
             plan.delete()
-            return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
+            return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
     subscription_plans = SubscriptionPlan.objects.select_related("plan_type").order_by("order")
     plan_types = PlanType.objects.all()
@@ -1104,7 +1108,7 @@ def reorder_subscription_plans(request):
 
         messages.success(request, "Subscription plan order updated successfully.")
     
-    return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
+    return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
 def toggle_subscription_status(request):
     if request.method == "POST":
@@ -1114,7 +1118,8 @@ def toggle_subscription_status(request):
         plan.is_active = not current_status  # Toggle the status
         plan.save()
         messages.success(request, "Subscription plan status updated successfully.")
-    return redirect(reverse('dashboard') + "?section=manage_subscription_plans")
+    # return redirect("manage_subscription_plans")  # Redirect to the same page
+    return redirect(reverse('dashboard') + "?page=manage_subscription_plans")
 
 @role_required(['superadmin', 'admin'])
 def view_top_achievers(request):
@@ -1125,20 +1130,22 @@ def view_top_achievers(request):
         "section": "view_top_achievers_section"
     })
 
+
 @role_required(['superadmin'])
 def manage_top_achievers(request):
     if request.method == "POST":
         action = request.POST.get("action")
-        achiever_id = request.POST.get("achiever_id")
-        name = request.POST.get("name", "").strip()
-        company = request.POST.get("company", "").strip()
-        designation = request.POST.get("designation", "").strip()
-        package = request.POST.get("package", "").strip()
-        rank = request.POST.get("rank", "").strip()
-        image = request.FILES.get("image")
 
-        try:
-            if action == "add_or_update":
+        if action == "add_or_update":
+            achiever_id = request.POST.get("achiever_id")
+            name = request.POST.get("name").strip()
+            company = request.POST.get("company").strip()
+            designation = request.POST.get("designation").strip()
+            package = request.POST.get("package").strip()
+            rank = request.POST.get("rank").strip()
+            image = request.FILES.get("image")
+
+            try:
                 if achiever_id:
                     # Update existing achiever
                     achiever = get_object_or_404(TopAchiever, id=achiever_id)
@@ -1162,15 +1169,17 @@ def manage_top_achievers(request):
                         image=image
                     )
                     messages.success(request, "Top Achiever added successfully!")
-            elif action == "delete":
-                achiever = get_object_or_404(TopAchiever, id=achiever_id)
-                achiever.delete()
-                messages.success(request, "Top Achiever deleted successfully!")
-        except IntegrityError as e:
-            messages.error(request, f"Error: {e}")
+            except IntegrityError as e:
+                messages.error(request, f"Error: {e}")
+                return redirect(reverse('manage-top-achievers'))
 
-        # Redirect to the dashboard with the appropriate section
-        return redirect(reverse('dashboard') + "?section=manage_top_achievers_section")
+        elif action == "delete":
+            achiever_id = request.POST.get("achiever_id")
+            achiever = get_object_or_404(TopAchiever, id=achiever_id)
+            achiever.delete()
+            messages.success(request, "Top Achiever deleted successfully!")
+
+        return redirect(reverse('manage-top-achievers'))
 
     # Fetch all achievers for display
     top_achievers = TopAchiever.objects.all().order_by('rank')
