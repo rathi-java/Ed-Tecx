@@ -1,4 +1,3 @@
-
 {% load socialaccount %}
 {% load static %}
 <div id="signupForm" class="form-content" style="display: none;">
@@ -45,8 +44,8 @@
 
     <div class="input-box">
       <i class="fa fa-university"></i>
-      <select name="college_name" required>
-        <option value="" disabled selected>College Name</option>
+      <select name="college_name">
+        <option value="" selected>Select College (Optional)</option>
         {% if colleges %}
           {% for college in colleges %}
             <option value="{{ college.college_name }}">{{ college.college_name }}</option>

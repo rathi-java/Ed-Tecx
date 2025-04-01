@@ -13,6 +13,7 @@ from django.utils.timezone import now
 import random, time, smtplib
 from oauth.models import UsersDB, Otpdb
 from university.models import University
+from django.db.models.functions import Lower  # Add this import
 
 import os
 from django.conf import settings
@@ -20,8 +21,12 @@ from admin_portal.models import *
 # Load environment variables from secrets.env
 
 def home(request):
-    
-    return render(request, 'index.html',{"CAREER_URL": settings.CAREER_URL})
+    # Get colleges and sort them alphabetically for the index page
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+    return render(request, 'index.html', {
+        "CAREER_URL": settings.CAREER_URL,
+        "colleges": colleges  # Pass sorted colleges to index template
+    })
 
 def update_profile(request):
     if request.method == "POST":
@@ -76,6 +81,7 @@ def update_profile(request):
     else:
         # Redirect to profile page if not a POST request
         return redirect('profile')
+
 def profile(request):
     user_id = request.session.get('user_id')
     user = None
@@ -88,9 +94,9 @@ def profile(request):
             messages.error(request, "Session expired. Please login again.")
             return redirect('/')
 
-    return render(request, 'profile.html', {'user': user})
-
-
+    # Use case-insensitive sorting for colleges
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+    return render(request, 'profile.html', {'user': user, 'colleges': colleges})
 
 def logout_page(request):
     logout(request)
@@ -110,27 +116,35 @@ def signup(request):
 
         # Check if the email is already registered
         if UsersDB.objects.filter(email=email).exists():
+            colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
             messages.error(request, "This email is already registered.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         # Check if the phone number is already registered
         if UsersDB.objects.filter(phone_number=phone_number).exists():
+            colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
             messages.error(request, "This phone number is already registered.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         if len(phone_number) < 10:
+            colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
             messages.error(request, "Phone number must be at least 10 digits.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         if password != re_password:
+            colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
             messages.error(request, "Passwords do not match.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
-        try:
-            college = CollegesDb.objects.get(college_name=college_name)
-        except CollegesDb.DoesNotExist:
-            messages.error(request, f"College '{college_name}' not found.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+        # Handle empty college_name
+        college = None
+        if college_name:
+            try:
+                college = CollegesDb.objects.get(college_name=college_name)
+            except CollegesDb.DoesNotExist:
+                colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+                messages.error(request, f"College '{college_name}' not found.", extra_tags='signup')
+                return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         hashed_password = make_password(password)
         try:
@@ -139,18 +153,21 @@ def signup(request):
                 email=email,
                 phone_number=phone_number,
                 password=hashed_password,
-                college_name=college,
+                college_name=college.college_name if college else "Not Specified",
                 dob=dob,
                 referral_code=referral_code
             )
         except Exception as e:
+            colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
             messages.error(request, f"Error creating account: {str(e)}", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
+        colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
         messages.success(request, f"Account created successfully for {new_user.full_name}. Please login.", extra_tags='login')
-        return render(request, 'index.html', {'form_type': 'login'})
+        return render(request, 'index.html', {'form_type': 'login', 'colleges': colleges})
 
-    colleges = CollegesDb.objects.all()
+    # Use case-insensitive sorting for colleges
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
     return render(request, 'signup.html', {'colleges': colleges})
 
 def user_login(request):
@@ -158,9 +175,6 @@ def user_login(request):
         user_input = request.POST.get('username')
         password = request.POST.get('password')
         next_url = request.GET.get('next', '/')
-
-        # Add debug logging
-        print(f"DEBUG - Login attempt: user_input={user_input}")
 
         user = None
         role = None
@@ -196,9 +210,6 @@ def user_login(request):
                 user = University.objects.get(username=user_input)
                 valid_password = check_password(password, user.password)
                 
-                # Debug the password verification
-                print(f"DEBUG - University login: valid_password={valid_password}")
-                
                 if valid_password:
                     role = "university"
                     # Set university-specific session details
@@ -206,7 +217,6 @@ def user_login(request):
                     request.session['university_name'] = user.university_name
                     request.session['university_email'] = user.university_email
             except University.DoesNotExist:
-                print(f"DEBUG - University not found: {user_input}")
                 pass
             
         else:
@@ -222,9 +232,6 @@ def user_login(request):
             request.session['user_id'] = user.id
             request.session['role'] = role
             request.session['username'] = user_input  # Store the actual username used to login
-            
-            # Debug session data after setting
-            print(f"DEBUG - Session after login: user_id={user.id}, role={role}")
             
             # Update last_login if the model has this field
             if hasattr(user, 'last_login'):
@@ -254,7 +261,6 @@ def user_login(request):
             
             # Check specific redirection for university users
             if role == "university":
-                print(f"DEBUG - Redirecting to /university/")
                 # Redirect without the query parameter
                 return redirect('/university/')
                 
@@ -264,6 +270,7 @@ def user_login(request):
             return render(request, 'index.html', {'form_type': 'login'})
 
     return render(request, 'index.html', {'form_type': 'login'})
+
 def generate_otp(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -353,9 +360,9 @@ def send_email(request):
             request.session.modified = True
             return JsonResponse({"message": f"OTP sent to {recipient_email} successfully!"})
         except Exception as e:
-            print("Error:", str(e))
             return JsonResponse({"error": "Failed to send email."}, status=500)
     return render(request, "forgot_password.html")
+
 def report_issue(request):
     return render(request, 'report_issue.html')
 
