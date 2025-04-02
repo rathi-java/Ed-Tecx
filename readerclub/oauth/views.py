@@ -106,8 +106,8 @@ def profile(request):
 
 def logout_page(request):
     logout(request)
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('/')
+    messages.success(request, "You have been logged out successfully.", extra_tags='login')
+    return redirect('/login/')
 
 def signup(request):
     if request.method == "POST":
@@ -282,7 +282,7 @@ def user_login(request):
             
             return redirect(redirect_urls.get(role, next_url))
         else:
-            messages.error(request, "Invalid username or password. Please try again.")
+            messages.error(request, "Invalid username or password. Please try again.", extra_tags='login')
             return render(request, 'index.html', {'form_type': 'login'})
 
     return render(request, 'index.html', {'form_type': 'login'})
