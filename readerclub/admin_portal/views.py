@@ -71,7 +71,7 @@ def dashboard(request):
     exam_results = ExamResult.objects.all().order_by('-submitted_at')  # Fetch exam results
     subscription_plans = SubscriptionPlan.objects.all()  # Fetch subscription plans
     plan_types = PlanType.objects.all()  # Fetch plan types
-    top_achivers = TopAchiever.objects.all().order_by('rank')  # Order by rank instead of created_at
+    top_achievers = TopAchiever.objects.all().order_by('rank')  # Make sure to get all top achievers
 
     # Active users (users who logged in within the last 30 days)
     active_users = UsersDB.objects.filter(last_login__gte=timezone.now() - timedelta(days=30)).count()
@@ -101,7 +101,7 @@ def dashboard(request):
         "exam_results": exam_results,  # Add exam results to context
         "subscription_plans": subscription_plans,  # Add subscription plans to context
         "plan_types": plan_types,  # Add plan types to context
-        "top_achivers": top_achivers,  # Add top achievers to context
+        "top_achievers": top_achievers,  # Ensure this line is present
 
         # Dashboard metrics
         "total_super_admins": total_super_admins,
@@ -1171,7 +1171,7 @@ def manage_top_achievers(request):
                     messages.success(request, "Top Achiever added successfully!")
             except IntegrityError as e:
                 messages.error(request, f"Error: {e}")
-                return redirect(reverse('manage-top-achievers'))
+                return redirect(reverse('dashboard') + "?section=manage_top_achievers_section")
 
         elif action == "delete":
             achiever_id = request.POST.get("achiever_id")
@@ -1179,7 +1179,8 @@ def manage_top_achievers(request):
             achiever.delete()
             messages.success(request, "Top Achiever deleted successfully!")
 
-        return redirect(reverse('manage-top-achievers'))
+        return redirect(reverse('dashboard') + "?section=manage_top_achievers_section")
+
 
     # Fetch all achievers for display
     top_achievers = TopAchiever.objects.all().order_by('rank')

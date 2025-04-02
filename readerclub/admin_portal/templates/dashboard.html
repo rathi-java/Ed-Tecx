@@ -208,12 +208,6 @@
                     <span class="dropdown-icon"><i class="fas fa-chevron-right icon_toggle"></i></span>
                 </li>
                 <ul class="dropdown-menu" id="achievers-menu">
-                    {% comment %} <li data-page-name="view_top_achievers_section">
-                        <a class="section_items" href="{% url 'dashboard' %}?section=view_top_achievers_section">
-                            <span class="fas fa-users"></span>
-                            <p class="section_subheadings">View Achievers</p>
-                        </a>
-                    </li> {% endcomment %}
                     <li data-page-name="manage_top_achievers_section">
                         <a class="section_items" href="{% url 'dashboard' %}?section=manage_top_achievers_section">
                             <span class="fas fa-cogs"></span>
@@ -303,7 +297,7 @@
             {% elif section == "view_top_achievers_section" %}
             {% include "sub_templates/topachievers.html" %}
             {% elif section == "manage_top_achievers_section" %}
-            {% include "sub_templates/topachievers.html" %}
+            {% include "sub_templates/topachievers.html" with section=section top_achievers=top_achievers %}
             {% else %}
             {% include "sub_templates/dash.html" %}
             {% endif %}

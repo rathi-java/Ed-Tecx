@@ -71,4 +71,5 @@ urlpatterns = [
     # path('emp_dashboard/', emp_dashboard, name='emp_dashboard'),
     path('view-top-achievers/', view_top_achievers, name='view-top-achievers'),
     path('manage-top-achievers/', manage_top_achievers, name='manage-top-achievers'),
+    path('dashboard/', dashboard, name='dashboard'),
 ]
