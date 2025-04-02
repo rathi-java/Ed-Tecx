@@ -32,6 +32,6 @@ COPY deventrypoint.sh /app/deventrypoint.sh
 RUN chmod +x /app/deventrypoint.sh
 
 # Expose the port for development
-EXPOSE 8000
+EXPOSE 80
 
 CMD ["sh", "deventrypoint.sh"]
