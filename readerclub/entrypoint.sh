@@ -16,7 +16,7 @@ exec gunicorn \
     --name readerclub \
     --workers 4 \
     --timeout 30 \
-    --bind 0.0.0.0:80 \
+    --bind 0.0.0.0:81 \
     --log-level info \
     --log-file /app/logs/gunicorn.log \
     --access-logfile /app/logs/gunicorn-access.log \

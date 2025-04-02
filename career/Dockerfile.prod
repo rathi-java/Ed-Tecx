@@ -20,8 +20,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of your application code
 COPY . .
 
-# Expose the application port for development
-EXPOSE 8001
+# Expose the application port for production
+EXPOSE 80
 
-# Set the development entrypoint
-CMD ["sh", "deventrypoint.sh"]
+# Set the production entrypoint
+CMD ["sh", "entrypoint.sh"]

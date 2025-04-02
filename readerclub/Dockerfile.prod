@@ -2,8 +2,19 @@ FROM python:3.12-alpine
 
 WORKDIR /app
 
-# Install dependencies (Java, Node.js, pip upgrade)
-RUN apk add --no-cache openjdk17-jre-headless nodejs npm \
+# Install dependencies: Java, Node.js, FreeType, and build tools
+RUN apk add --no-cache \
+        openjdk17-jre-headless \
+        nodejs \
+        npm \
+        freetype-dev \
+        libpng-dev \
+        libjpeg-turbo-dev \
+        gcc \
+        musl-dev \
+        python3-dev \
+        make \
+        g++ \
     && pip install --upgrade pip
 
 # Set Java environment variables for Alpine
@@ -19,8 +30,7 @@ COPY . .
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-# Expose the port for Gunicorn
-EXPOSE 80
+# Expose the port for production
+EXPOSE 81
+
 CMD ["sh", "entrypoint.sh"]
-# Set the entrypoint. No CMD is needed now since entrypoint.sh runs gunicorn.
-# CMD ["gunicorn", "--bind", "0.0.0.0:8000", "readerclub.wsgi:application"]

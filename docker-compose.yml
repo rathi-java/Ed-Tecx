@@ -7,41 +7,23 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-      
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f http://elasticsearch:9200 || exit 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
 
   career:
     build:
       context: ./career
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./career:/app
+      dockerfile: Dockerfile.${ENV}  # Use Dockerfile.prod or Dockerfile.dev based on ENV
     ports:
-      - "8001:8001"
+      - "${CAREER_PORT}:${CAREER_PORT}"  # Expose port 80 in production, 8001 in development
     env_file:
-      - dev.env
+      - ${ENV}.env  # Use prod.env or dev.env based on ENV
     depends_on:
       - elasticsearch
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"  
-    # depends_on:
-    #   elasticsearch:
-    #     condition: service_healthy
-
-
 
   readerclub:
     build:
-      context: ./readerclub  
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ./readerclub:/app
-      - ./readerclub/staticfiles:/app/staticfiles
+      context: ./readerclub
+      dockerfile: Dockerfile.${ENV}  # Use Dockerfile.prod or Dockerfile.dev based on ENV
     ports:
-      - "8000:8000"
+      - "${READERCLUB_PORT}:${READERCLUB_PORT}"  # Expose port 80 in production, 8000 in development
     env_file:
-      - dev.env
+      - ${ENV}.env  # Use prod.env or dev.env based on ENV
