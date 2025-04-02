@@ -215,15 +215,25 @@ def user_login(request):
         elif user_input.startswith("UNI"):
             try:
                 user = University.objects.get(username=user_input)
-                valid_password = check_password(password, user.password)
+                
+                # Use the model's check_password method
+                valid_password = user.check_password(password)
                 
                 if valid_password:
                     role = "university"
                     # Set university-specific session details
+                    request.session['user_id'] = user.id
                     request.session['university_id'] = user.id
                     request.session['university_name'] = user.university_name
                     request.session['university_email'] = user.university_email
+                    request.session['visited_university_home'] = False
+                    
+                    # Ensure the session data is saved immediately
+                    request.session.modified = True
+                    request.session.save()
             except University.DoesNotExist:
+                pass
+            except Exception:
                 pass
             
         else:
@@ -253,24 +263,23 @@ def user_login(request):
                 
             messages.success(request, f"Welcome back, {welcome_name}!")
 
-            # Redirect based on role or next URL
+            # Ensure session is saved before redirect
+            request.session.modified = True
+            request.session.save()
+            
+            # For university users, always redirect to university dashboard
+            if role == "university":
+                return redirect('/university/')
+                
+            # Redirect based on role or next URL for other users
             redirect_urls = {
                 "superadmin": "/dashboard/",
                 "admin": "/adm_dashboard/",
                 "manager": "/mgr_dashboard/",
                 "employee": "/emp_dashboard/",
-                "university": "/university/", 
                 "user": next_url if next_url != '/' else 'home'
             }
             
-            # Ensure session is saved before redirect for university users
-            request.session.save()
-            
-            # Check specific redirection for university users
-            if role == "university":
-                # Redirect without the query parameter
-                return redirect('/university/')
-                
             return redirect(redirect_urls.get(role, next_url))
         else:
             messages.error(request, "Invalid username or password. Please try again.")
