@@ -125,8 +125,8 @@ def logout_page(request):
     """
     logout(request)  # Clears the authenticated session
     request.session.flush()  # Clears all session data
-    messages.success(request, "You have been logged out successfully.")
-    return redirect('/')
+    messages.success(request, "You have been logged out successfully.", extra_tags='login')
+    return redirect('/login/')
 
 
 def report_issue(request):
@@ -274,7 +274,7 @@ def user_login(request):
             }
             return redirect(redirect_urls.get(role, '/'))
         else:
-            messages.error(request, "Invalid username or password. Please try again.")
+            messages.error(request, "Invalid username or password. Please try again.", extra_tags='login')
             return render(request, 'index.html', {'form_type': 'login'})
 
     # If GET, show the login form

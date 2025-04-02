@@ -23,6 +23,7 @@ class LoginRequiredMiddleware:
             '/accounts/social-auth',
             '/complete',
             '/admin',
+            '/university',  
         ]
         
         self.restricted_subpaths = [
@@ -35,16 +36,16 @@ class LoginRequiredMiddleware:
         if any(request.path.startswith(path) for path in auth_paths):
             return self.get_response(request)
 
+        # Allow university access if university_id is in session
+        if request.path.startswith('/university/') and request.session.get('university_id'):
+            return self.get_response(request)
+
         # Existing path checking logic
         if request.path.startswith('/accounts/') or request.path.startswith('/social-auth/'):
             return self.get_response(request)
 
         current_path = request.path if request.path == '/' else request.path.rstrip('/')
         is_custom_logged_in = bool(request.session.get('user_id'))
-
-        # Debug check - log the session data
-        if request.session.get('user_id'):
-            print(f"User ID in session: {request.session.get('user_id')}")
         
         # If user is already logged in, don't redirect to login
         if is_custom_logged_in:

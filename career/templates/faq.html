@@ -75,38 +75,43 @@
     
            </div>
            <div class="new-faq-image">
-            <img src=" {% static 'image/faq_image.svg' %}" alt="FAQ Illustration">
+            <img src=" {% static 'images/faq_image.svg' %}" alt="FAQ Illustration">
           
         </div>
        </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const faqs = document.querySelectorAll(".new-faq-box");
-        
-            faqs.forEach((faq, index) => {
-                faq.addEventListener("click", function () {
-                    const answer = this.nextElementSibling;
-        
-                    if (answer.classList.contains("open")) {
-                        answer.style.display = "none";
-                        answer.classList.remove("open");
-                        this.classList.remove("active");
-                    } else {
-                        document.querySelectorAll(".new-answer").forEach(ans => {
-                            ans.style.display = "none";
-                            ans.classList.remove("open");
-                        });
-        
-                        document.querySelectorAll(".new-faq-box").forEach(faq => {
-                            faq.classList.remove("active");
-                        });
-        
-                        answer.style.display = "block";
-                        answer.classList.add("open");
-                        this.classList.add("active");
-                    }
+       <script>
+       document.addEventListener("DOMContentLoaded", function () {
+        const faqs = document.querySelectorAll(".new-faq-box");
+    
+        faqs.forEach(faq => {
+            faq.addEventListener("click", function () {
+                const answer = this.nextElementSibling;
+                const plusIcon = this.querySelector(".new-plus");
+                const isOpen = answer.classList.contains("open");
+    
+                // Close all open answers and reset icons
+                document.querySelectorAll(".new-answer").forEach(ans => {
+                    ans.style.display = "none";
+                    ans.classList.remove("open");
                 });
+    
+                document.querySelectorAll(".new-faq-box").forEach(faq => {
+                    faq.classList.remove("active");
+                    faq.querySelector(".new-plus").textContent = "+";
+                });
+    
+                // Toggle the clicked one
+                if (!isOpen) {
+                    answer.style.display = "block";
+                    answer.classList.add("open");
+                    this.classList.add("active");
+                    plusIcon.textContent = "-"; // Change + to -
+                } else {
+                    plusIcon.textContent = "+"; // Change back to +
+                }
             });
         });
-    </script>  
+    });
+</script>
+    
 </section>
