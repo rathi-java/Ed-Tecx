@@ -21,13 +21,16 @@ from .views import maintenance_view
 from django.conf import settings
 from django.conf.urls.static import static
 from job_portal.views import autocomplete
+from oauth import views as oauth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('job-portal/', include('job_portal.urls')),
     path('internship-portal/', include('internship_portal.urls')),
     path('abroad-studies/', include('abroad_studies.urls')),
     path('', home, name='home'),
-    path('home/', home, name='home'),   
+    path('home/', home, name='home'),  
+    path('auth/login/', oauth_views.user_login, name='login'),
+    path('login/', oauth_views.user_login, name='login'), 
     path('maintenence/', maintenance_view, name='maintenance_view'),
     path('policies/',include('policies.urls')),
     path('auth/',include('oauth.urls')),

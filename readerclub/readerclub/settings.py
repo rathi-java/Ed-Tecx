@@ -299,6 +299,7 @@ PUBLIC_PATHS = [
     '/price/',
     '/policies/',
     '/maintenence/',
+    '/university/',  # Add university path to public paths
 ]
 
 # Add RESTRICTED_SUBPATHS

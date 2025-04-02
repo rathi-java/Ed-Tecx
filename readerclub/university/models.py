@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password, check_password
+
 class University(models.Model):
     username = models.CharField(max_length=10, unique=True, blank=True)
     university_name = models.CharField(max_length=255)  
@@ -12,9 +14,31 @@ class University(models.Model):
             last_university = University.objects.order_by('id').last()
             new_id = last_university.id + 1 if last_university else 1
             self.username = f'UNI{new_id:05d}'
+            
+        # Hash the password if it's not already hashed
+        # This checks if the password is not already hashed (doesn't start with algorithm identifier)
+        if self.password and not self.password.startswith(('pbkdf2_sha256$', 'bcrypt$', 'argon2')):
+            self.password = make_password(self.password)
+            
         super().save(*args, **kwargs)
+        
+    def set_password(self, raw_password):
+        """
+        Sets the user's password - handles hashing, etc.
+        Similar to Django's User.set_password
+        """
+        self.password = make_password(raw_password)
+        
+    def check_password(self, raw_password):
+        """
+        Returns True if the given raw string is the correct password for this user.
+        Similar to Django's User.check_password
+        """
+        return check_password(raw_password, self.password)
+        
     def __str__(self):
         return self.university_name
+    
     class Meta:
         db_table = "university_university"    
 

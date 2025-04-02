@@ -33,7 +33,7 @@ urlpatterns = [
     path('', home, name='home'),
     path("accounts/", include("allauth.urls")),
     path('auth/', include('oauth.urls')),
-    path('auth/login/', oauth_views.user_login, name='auth_login'),
+    path('auth/login/', oauth_views.user_login, name='login'),
     path('login/', oauth_views.user_login, name='login'),
     path('compiler/', include('compiler.urls')),
     path('examportol/', include('examportol.urls')),
