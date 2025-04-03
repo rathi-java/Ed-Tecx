@@ -1,7 +1,8 @@
 <!-- Exam Section -->
 {% load static %} 
 
-{% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" /> {% endcomment %}
+{% comment %} <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'> {% endcomment %}
 <script src="{% static 'js/dashboard.js' %}"></script>
 {% block extra_css %}
 <style>
@@ -112,7 +113,7 @@
     <div class="container">
         <div class="header">
             <input type="text" id="searchExam" placeholder="Search by Exam Name..." onkeyup="filterExams()">
-            <a href="?section=add_exam_section" class="add-button">Create +</a>
+            <a href="?section=add_exam_section" class="add-button">Create </a>
         </div>
         <table id="examTable">
             <thead>
@@ -142,12 +143,12 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editExam('{{ exam.id }}', '{{ exam.name|escapejs }}', '{{ exam.duration }}')">
+                        <button id="edit-btn" onclick="editExam('{{ exam.id }}', '{{ exam.name|escapejs }}', '{{ exam.duration }}')">
                           <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         <form class="form-edit" method="POST" action="{% url 'delete_exam' exam.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete {{ exam.name }}?')">
+                            <button type="submit" id="delete-btn" onclick="return confirm('Are you sure you want to delete {{ exam.name }}?')">
                               <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
                             </button>
                         </form>

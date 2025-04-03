@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/sections.css' %}" />
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_price_section" %}
 <!-- Manage Price Section -->
@@ -37,7 +38,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ plan.display_name }}</td>
                     <td>
-                        <button type="button" onclick="editPlanType('{{ plan.id }}', '{{ plan.code }}', '{{ plan.display_name }}')">
+                        <button type="button" onclick="editPlanType('{{ plan.id }}', '{{ plan.code }}', '{{ plan.display_name }}')" id="edit-btn">
                             <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         

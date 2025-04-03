@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/sections.css' %}" />
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_price_section" %}
 <!-- Manage Price Section -->
@@ -22,12 +23,12 @@
                     {% comment %} <td>{{ plan.code }}</td> {% endcomment %}
                     <td>{{ plan.display_name }}</td>
                     <td>
-                        <button class="edit-btn" onclick="editPlanType('{{ plan.id }}', '{{ plan.code }}', '{{ plan.display_name }}')">Edit</button>
+                        <button id="edit-btn" onclick="editPlanType('{{ plan.id }}', '{{ plan.code }}', '{{ plan.display_name }}')">Edit</button>
                         <form method="POST" action="{% url 'manage_price' %}">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="plan_id" value="{{ plan.id }}">
-                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure?')">Delete</button>
+                            <button type="submit" id="delete-btn" onclick="return confirm('Are you sure?')">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -67,14 +68,14 @@
                     <td>{{ plan.duration_in_months }}</td>
                     <td>{{ plan.discount }}%</td>
                     <td>
-                        <button onclick="editPlan('{{ plan.id }}', '{{ plan.price }}', '{{ plan.duration_in_months }}', '{{ plan.discount }}')">
+                        <button onclick="editPlan('{{ plan.id }}', '{{ plan.price }}', '{{ plan.duration_in_months }}', '{{ plan.discount }}')"id="edit-btn">
                             <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         <form method="POST" action="{% url 'manage_price' %}">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete_price">
                             <input type="hidden" name="plan_id" value="{{ plan.id }}">
-                            <button type="submit" onclick="return confirm('Are you sure?')">
+                            <button type="submit" onclick="return confirm('Are you sure?')" id="delete-btn">
                                 <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
                             </button>
                         </form>

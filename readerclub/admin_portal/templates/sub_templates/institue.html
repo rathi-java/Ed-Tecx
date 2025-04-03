@@ -1,6 +1,7 @@
 {% load static %} 
 
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 <script src="{% static 'js/dashboard.js' %}"></script>
 {% if section == "manage_institute_section" %}
 <!-- Manage Institute Section -->
@@ -9,7 +10,7 @@
     <div class="container">
         <div class="header">
             <input type="text" id="search-institute" placeholder="Search by Name or Email..." onkeyup="filterInstitutes()">
-            <button class="add-button" data-page-name="add_institute" onclick="setActive(this)">Add Institute +</button>
+            <button class="add-button" data-page-name="add_institute" onclick="setActive(this)">Add Institute </button>
         </div>
         <table id="institute-table">
             <thead>
@@ -40,14 +41,14 @@
                         </select>
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editInstitute('{{ institute.id }}', '{{ institute.name|escapejs }}', '{{ institute.email|escapejs }}', '{{ institute.phone_number|escapejs }}', '{{ institute.address|escapejs }}')">
+                        <button id="edit-btn" onclick="editInstitute('{{ institute.id }}', '{{ institute.name|escapejs }}', '{{ institute.email|escapejs }}', '{{ institute.phone_number|escapejs }}', '{{ institute.address|escapejs }}')">
                             <img src="{% static 'images/edit.png' %}" alt="Edit" class="icon">
                         </button>
                         <form class="form-edit" method="POST" action="{% url 'manage_institute' %}">
                             {% csrf_token %}
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="institute_id" value="{{ institute.id }}">
-                            <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this institute?')">
+                            <button type="submit" id="delete-btn" onclick="return confirm('Are you sure you want to delete this institute?')">
                                 <img src="{% static 'images/delete.png' %}" alt="Delete" class="icon">
                             </button>
                         </form>
