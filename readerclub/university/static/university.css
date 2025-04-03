@@ -656,6 +656,27 @@ img.editt {
     display: none;
 }
 
+.download-results-btn {
+    background-color: #077BC3;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 20px 0 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.download-results-btn:hover {
+    background-color: #0568a6;
+    text-decoration: none;
+    color: white;
+}
+
 /* Media Queries */
 @media (max-width: 1200px) {
     .dashh_mainsidebar {

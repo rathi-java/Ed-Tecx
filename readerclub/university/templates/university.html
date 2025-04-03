@@ -565,7 +565,10 @@
         <!-- EXAM RESULTS SECTION -->
         {% if active_page == 'exam_results' %}
         <div id="dashh_e" class="dashh_mainpage">
-            <h2><img src="{% static 'images/less_thenarrow.svg' %}" alt="">Results for Exam {{ exam.exam_code }}</h2>
+            <div class="headinggg_dash_professor">
+                <h2><a href="{% url 'result_list' %}"><img src="{% static 'images/less_thenarrow.svg' %}" alt=""></a>Results for Exam {{ exam.exam_code }}</h2>
+                <a href="{% url 'download_results' exam.id %}" class="download-results-btn">Download Results</a>
+            </div>
             
             <div class="dashh_mainregistered-container">
                 <table class="dashh_mainstudents-table">
