@@ -7,7 +7,7 @@ class SuperAdminDB(models.Model):
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=15, default="0000000000")
     alt_phone_number = models.CharField(max_length=15, default="0000000000")
-    password = models.CharField(max_length=128)  # Length changed to 128 to accommodate hashed passwords
+    password = models.CharField(max_length=128, editable=True)  # Length changed to 128 to accommodate hashed passwords
     aadhar_number = models.CharField(max_length=50, blank=True, null=True)
     last_login = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)

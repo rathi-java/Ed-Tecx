@@ -214,6 +214,7 @@ PUBLIC_PATHS = [
     '/abroad-studies/',
     '/internship-portal/',
     '/freelancing-portal/',
+    '/admin/'
     # Add any other unrestricted paths
 ]
 RESTRICTED_SUBPATHS = [
