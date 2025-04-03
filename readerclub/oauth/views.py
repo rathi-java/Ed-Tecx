@@ -21,6 +21,10 @@ from django.conf import settings
 from admin_portal.models import *
 # Load environment variables from secrets.env
 from topachivers.models import TopAchiever
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.middleware.csrf import get_token
+
+logger = logging.getLogger(__name__)
 
 def home(request):
 
@@ -360,41 +364,70 @@ def reset_password(request):
 
     return JsonResponse({"message": "Invalid request method."}, status=405)
 
+@ensure_csrf_cookie
 def send_email(request):
+    """
+    View to send OTP email for password reset.
+    The @ensure_csrf_cookie decorator ensures that the CSRF cookie is set in the response.
+    """
     if request.method == "POST":
         recipient_email = request.POST.get("email")
+        
+        # Check rate limiting
         suspended_emails = request.session.get("suspended_emails", {})
         current_time = time.time()
         if recipient_email in suspended_emails and current_time - suspended_emails[recipient_email] < 120:
             remaining_time = 120 - int(current_time - suspended_emails[recipient_email])
             return JsonResponse({"error": f"Wait {remaining_time} seconds before resending OTP."}, status=429)
-        sender_email = os.getenv("EMAIL_HOST_USER")
-        sender_password = os.getenv("EMAIL_HOST_PASSWORD")
+        
+        # Check if email environment variables are set
+        sender_email = os.getenv("READERCLUB_EMAIL_HOST_USER")
+        sender_password = os.getenv("READERCLUB_EMAIL_HOST_PASSWORD")
+        
+        if not sender_email or not sender_password:
+            return JsonResponse({"error": "Email service not configured properly."}, status=500)
+        
         sender_name = "Ed. Tech."
         smtp_server = "smtp.gmail.com"
         smtp_port = 587
         subject = "Your OTP Code"
         otp = random.randint(100000, 999999)
+        
+        # Check if user exists
         try:
             user = UsersDB.objects.get(email=recipient_email)
             otp_entry, created = Otpdb.objects.get_or_create(user=user)
             otp_entry.update_otp(otp)
         except UsersDB.DoesNotExist:
-            return JsonResponse({"message": "User not found"}, status=404)
+            return JsonResponse({"error": "User not found with this email address."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": f"Error processing OTP: {str(e)}"}, status=500)
+        
         body = f"Your OTP code is: {otp}"
         message = f"From: {sender_name} <{sender_email}>\nSubject: {subject}\n\n{body}"
+        
+        # Try to send email
         try:
             server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
             server.login(sender_email, sender_password)
             server.sendmail(sender_email, recipient_email, message)
             server.quit()
+            
+            # Update rate limiting
             suspended_emails[recipient_email] = current_time
             request.session["suspended_emails"] = suspended_emails
             request.session.modified = True
+            
             return JsonResponse({"message": f"OTP sent to {recipient_email} successfully!"})
+        except smtplib.SMTPAuthenticationError:
+            return JsonResponse({"error": "Email authentication failed."}, status=500)
+        except smtplib.SMTPException as e:
+            return JsonResponse({"error": f"SMTP Error: {str(e)}"}, status=500)
         except Exception as e:
-            return JsonResponse({"error": "Failed to send email."}, status=500)
+            return JsonResponse({"error": f"Failed to send email: {str(e)}"}, status=500)
+    
+    # For GET requests, return the form with a CSRF token
     return render(request, "forgot_password.html")
 
 def report_issue(request):
