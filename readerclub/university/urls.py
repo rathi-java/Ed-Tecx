@@ -51,4 +51,6 @@ urlpatterns = [
     
     # API endpoints
     path('get-exam-data/<int:exam_id>/', views.get_exam_data, name='get_exam_data'),
+
+    path('university/download-results/<int:exam_id>/', views.download_results, name='download_results'),
 ]

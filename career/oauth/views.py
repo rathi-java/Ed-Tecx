@@ -14,6 +14,7 @@ from django.db import IntegrityError
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import logout
 from django.utils.timezone import now
+from django.db.models.functions import Lower  # Add this import for case-insensitive sorting
 
 # If you need these (for role-based login) import them:
 # from admin_portal.models import SuperAdminDB, AdminDB, ManagerDB, EmployeeDB
@@ -25,7 +26,9 @@ load_dotenv("secrets.env")
 
 def home(request):
     """Basic homepage view."""
-    return render(request, 'index.html')
+    # Add colleges to the context for the college dropdown, sorted alphabetically
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+    return render(request, 'index.html', {'colleges': colleges})
 
 
 def profile(request):
@@ -54,12 +57,17 @@ def profile(request):
             messages.error(request, "Session expired. Please login again.")
             return redirect('/')
     
+    # Add colleges to the context, sorted alphabetically
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+    
     return render(request, 'profile.html', {
         'user': user,
         'company': company_details,
         'abroad_studies': abroad_studies_details,
-        'role': role
+        'role': role,
+        'colleges': colleges
     })
+
 
 def update_profile(request):
     """
@@ -157,30 +165,33 @@ def signup(request):
         dob = request.POST.get('dob')
         referral_code = request.POST.get('referral_code')
 
+        # Sort colleges for any error responses
+        colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+
         # Check if the email is already registered
         if UsersDB.objects.filter(email=email).exists():
             messages.error(request, "This email is already registered.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         # Check if the phone number is already registered
         if UsersDB.objects.filter(phone_number=phone_number).exists():
             messages.error(request, "This phone number is already registered.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         if len(phone_number) < 10:
             messages.error(request, "Phone number must be at least 10 digits.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         if password != re_password:
             messages.error(request, "Passwords do not match.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         # Ensure the college exists in CollegesDb
         try:
             college_obj = CollegesDb.objects.get(college_name=college_name)
         except CollegesDb.DoesNotExist:
             messages.error(request, f"College '{college_name}' not found.", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         # Hash the password
         hashed_password = make_password(password)
@@ -198,17 +209,17 @@ def signup(request):
             )
         except Exception as e:
             messages.error(request, f"Error creating account: {str(e)}", extra_tags='signup')
-            return render(request, 'index.html', {'form_type': 'signup'})
+            return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
         messages.success(
             request,
             f"Account created successfully for {new_user.full_name}. Please login.",
             extra_tags='login'
         )
-        return render(request, 'index.html', {'form_type': 'login'})
+        return render(request, 'index.html', {'form_type': 'login', 'colleges': colleges})
 
-    # If GET, show the signup page with a list of colleges
-    colleges = CollegesDb.objects.all()
+    # If GET, show the signup page with a list of colleges sorted alphabetically
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
     return render(request, 'signup.html', {'colleges': colleges})
 
 
@@ -274,11 +285,14 @@ def user_login(request):
             }
             return redirect(redirect_urls.get(role, '/'))
         else:
+            # Get colleges sorted alphabetically for the error response
+            colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
             messages.error(request, "Invalid username or password. Please try again.", extra_tags='login')
-            return render(request, 'index.html', {'form_type': 'login'})
+            return render(request, 'index.html', {'form_type': 'login', 'colleges': colleges})
 
-    # If GET, show the login form
-    return render(request, 'index.html', {'form_type': 'login'})
+    # If GET, show the login form with sorted colleges
+    colleges = CollegesDb.objects.all().order_by(Lower('college_name'))
+    return render(request, 'index.html', {'form_type': 'login', 'colleges': colleges})
 
 
 def generate_otp(request):

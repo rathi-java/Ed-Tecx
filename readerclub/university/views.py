@@ -707,6 +707,10 @@ def exam_results(request, exam_id):
     
     # Add authorization check
     university = get_current_university(request)
+    if university is None:
+        messages.error(request, "You must be logged in with a university account to view exam results.")
+        return redirect('result_list')
+        
     if exam.professor.university.id != university.id:
         messages.error(request, "You are not authorized to view results for this exam.")
         return redirect('result_list')
@@ -1235,3 +1239,67 @@ def delete_question(request, question_id):
         return JsonResponse({'status': 'success'})
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+def download_results(request, exam_id):
+    """Download results for a specific exam as an Excel file"""
+    # Get the exam
+    exam = get_object_or_404(UniversityExam, id=exam_id)
+    
+    # Add authorization check
+    university = get_current_university(request)
+    if exam.professor.university.id != university.id:
+        messages.error(request, "You are not authorized to download results for this exam.")
+        return redirect('result_list')
+    
+    # Import necessary libraries for Excel generation
+    import pandas as pd
+    from io import BytesIO
+    
+    # Get results for this specific exam
+    results = UniversityExamResult.objects.filter(exam=exam)
+    results_data = []
+    
+    for result in results:
+        results_data.append({
+            'Exam Code': exam.exam_code,
+            'Course': exam.course.name,
+            'Professor': exam.professor.name,
+            'Student Name': result.student_name,
+            'Email': f"{result.student_name.lower().replace(' ', '')}@example.com",
+            'Score (%)': result.score,
+            'Correct Answers': result.correct_answers,
+            'Total Questions': result.total_questions,
+            'Submitted At': result.submitted_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    
+    # If no results, add a sample row
+    if not results_data:
+        results_data.append({
+            'Exam Code': exam.exam_code,
+            'Course': exam.course.name,
+            'Professor': exam.professor.name,
+            'Student Name': 'No results yet',
+            'Email': '-',
+            'Score (%)': 0,
+            'Correct Answers': 0,
+            'Total Questions': exam.num_questions,
+            'Submitted At': '-'
+        })
+    
+    # Create DataFrame
+    df = pd.DataFrame(results_data)
+    
+    # Create Excel writer
+    buffer = BytesIO()
+    with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name='Exam Results', index=False)
+    
+    # Prepare response
+    buffer.seek(0)
+    response = HttpResponse(
+        buffer.read(),
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = f'attachment; filename=Exam_{exam.exam_code}_Results.xlsx'
+    
+    return response

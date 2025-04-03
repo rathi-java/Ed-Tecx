@@ -51,7 +51,7 @@ def update_profile(request):
         new_full_name = request.POST.get('full_name', user.full_name)
         new_course = request.POST.get('course', user.course)
         new_dob = request.POST.get('dob', user.dob)
-        new_college = request.POST.get('college_name', user.college_name)
+        new_college_name = request.POST.get('college_name')
         new_gender = request.POST.get('gender', user.gender)
         new_phone_number = request.POST.get('phone_number', user.phone_number)
         new_email = request.POST.get('email', user.email)
@@ -62,10 +62,22 @@ def update_profile(request):
                 messages.error(request, "This email is already registered.")
                 return redirect('profile')
         
+        if new_college_name:
+            try:
+                #get the college object based on the name
+                new_college = CollegesDb.objects.get(college_name=new_college_name)
+                user.college_name = new_college
+            except CollegesDb.DoesNotExist:
+                # If college doesn't exist, get or create "Not Specified"
+                new_college, created = CollegesDb.objects.get_or_create(
+                    college_name="Not Specified",
+                    defaults={'college_location': 'N/A'}
+                )
+                user.college_name = new_college
+
         # Update fields
         user.full_name = new_full_name
         user.course = new_course
-        user.college_name = new_college
         user.gender = new_gender
         user.phone_number = new_phone_number
         user.email = new_email
@@ -152,6 +164,12 @@ def signup(request):
                 messages.error(request, f"College '{college_name}' not found.", extra_tags='signup')
                 return render(request, 'index.html', {'form_type': 'signup', 'colleges': colleges})
 
+        else:
+            college, created = CollegesDb.objects.get_or_create(
+                college_name="Not Specified",
+                defaults={'college_location': 'N/A'}
+            )
+
         hashed_password = make_password(password)
         try:
             new_user = UsersDB.objects.create(
@@ -159,7 +177,7 @@ def signup(request):
                 email=email,
                 phone_number=phone_number,
                 password=hashed_password,
-                college_name=college.college_name if college else "Not Specified",
+                college_name=college,
                 dob=dob,
                 referral_code=referral_code
             )
