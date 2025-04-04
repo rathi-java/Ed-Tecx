@@ -137,6 +137,33 @@ def logout_page(request):
     messages.success(request, "You have been logged out successfully.", extra_tags='login')
     return redirect('/login/')
 
+def logout_all_devices(request):
+    user_id = request.session.get('user_id')
+    if user_id:
+        # Delete all sessions for this user
+        from django.contrib.sessions.models import Session
+        from django.utils import timezone
+        
+        # Get all valid sessions
+        sessions = Session.objects.filter(expire_date__gt=timezone.now())
+        
+        # Delete all sessions that belong to the user
+        for session in sessions:
+            try:
+                session_data = session.get_decoded()
+                if session_data.get('user_id') == user_id:
+                    session.delete()
+            except Exception:
+                pass
+        
+        # Clear the current session
+        logout(request)
+        
+        # Display success message
+        messages.success(request, "You have been logged out from all devices successfully.", extra_tags='login')
+    
+    # Redirect to login page
+    return redirect('/login/')
 
 def report_issue(request):
     """
