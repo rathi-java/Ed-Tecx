@@ -13,7 +13,7 @@ services:
       context: ./career
       dockerfile: Dockerfile.prod 
     ports:
-      - "8001:80" 
+      - "80:80" 
     depends_on:
       - elasticsearch
 
@@ -22,4 +22,4 @@ services:
       context: ./readerclub
       dockerfile: Dockerfile.prod 
     ports:
-      - "8000:80" 
+      - "80:80" 
