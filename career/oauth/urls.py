@@ -5,6 +5,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', user_login, name='login'),
     path('logout/', logout_page, name='logout'),
+    path('logout-all-devices/', logout_all_devices, name='logout_all_devices'),
     path('profile/', profile, name='profile'),
     path('profile/update/', update_profile, name='update_profile'),
     path("generate-otp/", generate_otp, name="generate_otp"),  # Generates OTP
