@@ -1,0 +1,81 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/practice.css' %}">
+{% block content %}
+<section class="prac-main">
+    <section class="practise-qst-header-section">
+        <div class="practise-qst-header-content">
+            <h1>Master Your Skills</h1>
+            <div class="practise-qst-subtitle">Comprehensive Practice Platform for All Subjects</div>
+            <p>Join thousands of students who have improved their knowledge and test-taking abilities through our carefully curated collection of practice questions. Whether you're preparing for competitive exams or just want to strengthen your understanding, we've got you covered.</p>
+            
+            <div class="practise-qst-stats-container">
+                <div class="practise-qst-stat-item">
+                    <div class="practise-qst-stat-number">10,000+</div>
+                    <div class="practise-qst-stat-label">Questions</div>
+                </div>
+                <div class="practise-qst-stat-item">
+                    <div class="practise-qst-stat-number">50+</div>
+                    <div class="practise-qst-stat-label">Topics</div>
+                </div>
+                <div class="practise-qst-stat-item">
+                    <div class="practise-qst-stat-number">100,000+</div>
+                    <div class="practise-qst-stat-label">Students</div>
+                </div>
+                <div class="practise-qst-stat-item">
+                    <div class="practise-qst-stat-number">24/7</div>
+                    <div class="practise-qst-stat-label">Access</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="practise-qst-cards-section">
+        <h2 class="practise-qst-section-title">Explore Our Subjects</h2>
+        <p class="practise-qst-section-subtitle">Choose from our wide range of subjects and start practicing today. Each subject contains hundreds of questions with varying difficulty levels.</p>
+        
+        <div class="practise-qst-cards">
+            <div class="practise-qst-card">
+                <h2>Mathematics</h2>
+                <p>Master algebra, geometry, calculus, and more with our comprehensive collection of math problems.</p>
+                <a href="#" class="practise-qst-button">Start Practicing →</a>
+            </div>
+            
+            <div class="practise-qst-card">
+                <h2>Science</h2>
+                <p>Explore physics, chemistry, and biology concepts through interactive questions and real-world applications.</p>
+                <a href="#" class="practise-qst-button">Begin Learning →</a>
+            </div>
+            
+            <div class="practise-qst-card">
+                <h2>Computer Science</h2>
+                <p>Enhance your programming skills with problems in Python, Java, algorithms, and data structures.</p>
+                <a href="#" class="practise-qst-button">Code Now →</a>
+            </div>
+            
+            <div class="practise-qst-card">
+                <h2>General Knowledge</h2>
+                <p>Test your knowledge of current affairs, history, geography, and important facts from around the world.</p>
+                <a href="#" class="practise-qst-button">Take Quiz →</a>
+            </div>
+            
+            <div class="practise-qst-card">
+                <h2>English</h2>
+                <p>Improve your grammar, vocabulary, reading comprehension, and writing skills with our language exercises.</p>
+                <a href="#" class="practise-qst-button">Practice Now →</a>
+            </div>
+            
+            <div class="practise-qst-card">
+                <h2>Logical Reasoning</h2>
+                <p>Develop critical thinking skills with puzzles, patterns, and analytical reasoning problems. Includes step-by-step solutions</p>
+                <a href="#" class="practise-qst-button">Solve Problems →</a>
+            </div>
+        </div>
+    </section>
+    <div class="certi-footer">
+        <div class="certi-footer-circles" id="footerCircles"></div>
+        <div class="certi-container">
+            <p>© 2018-25 Readerclub. All rights reserved</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

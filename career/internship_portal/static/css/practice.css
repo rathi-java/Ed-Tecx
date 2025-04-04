@@ -1,0 +1,303 @@
+.prac-main{
+  
+    font-family: 'Poppins', sans-serif;
+
+    line-height: 2;
+}
+body {
+    padding:
+  0px;
+    margin:
+  0px;
+  }
+
+/* Header Section */
+
+
+.practise-qst-header-section {
+    background: linear-gradient(135deg, #077bc3, #0a4d8c);
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+    position: relative;
+    overflow: hidden;
+    margin-top: -93px;
+}
+.practise-qst-header-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+    opacity: 0.6;
+}
+.practise-qst-header-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.practise-qst-header-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    animation: fadeInDown 1s ease-out;
+}
+.practise-qst-header-section .subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    animation: fadeIn 1.2s ease-out 0.2s both;
+}
+.practise-qst-header-section p {
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    color: rgba(255, 255, 255, 0.85);
+    animation: fadeIn 1.2s ease-out 0.4s both;
+}
+.practise-qst-stats-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 40px;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+.practise-qst-stat-item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    padding: 15px 25px;
+    border-radius: 8px;
+    min-width: 150px;
+    transition: transform 0.3s ease;
+}
+.practise-qst-stat-item:hover {
+    transform: translateY(-5px);
+}
+.practise-qst-stat-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+.practise-qst-stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+.certi-footer{
+    background-color: #077bc3;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow:
+hidden;
+margin-block: 0px;
+}
+
+/* Cards Section */
+.practise-qst-cards-section {
+    background: #f8f9fa;
+    padding: 70px 20px;
+    text-align: center;
+}
+.practise-qst-section-title {
+    font-size: 2rem;
+    color: #077bc3;
+    margin-bottom: 15px;
+    font-weight: 600;
+    animation: fadeIn 1s ease-out;
+}
+.practise-qst-section-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    animation: fadeIn 1s ease-out 0.2s both;
+}
+.practise-qst-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Uniform Card Style */
+.practise-qst-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-top: 4px solid #077bc3;
+    position: relative;
+    overflow: hidden;
+    animation: cardEntrance 0.6s ease-out;
+    animation-fill-mode: both;
+}
+.practise-qst-card:nth-child(1) { animation-delay: 0.1s; }
+.practise-qst-card:nth-child(2) { animation-delay: 0.2s; }
+.practise-qst-card:nth-child(3) { animation-delay: 0.3s; }
+.practise-qst-card:nth-child(4) { animation-delay: 0.4s; }
+.practise-qst-card:nth-child(5) { animation-delay: 0.5s; }
+.practise-qst-card:nth-child(6) { animation-delay: 0.6s; }
+
+.practise-qst-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(7, 123, 195, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.practise-qst-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+.practise-qst-card:hover::before {
+    opacity: 1;
+}
+.practise-qst-card:hover .card-icon {
+    animation: iconBounce 0.6s ease;
+}
+
+.practise-qst-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #077bc3;
+    position: relative;
+    display: inline-block;
+}
+.practise-qst-card h2::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #077bc3;
+    transition: width 0.3s ease;
+}
+.practise-qst-card:hover h2::after {
+    width: 80px;
+}
+.practise-qst-card p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+/* Button */
+.practise-qst-button {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    background: linear-gradient(45deg, #077bc3, #185a9d);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+.practise-qst-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+.practise-qst-button:hover {
+    background: linear-gradient(45deg, #055a8a, #0e3c56);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.practise-qst-button:hover::before {
+    left: 100%;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .practise-qst-header-section h1 {
+        font-size: 2.2rem;
+    }
+    .practise-qst-header-section .subtitle {
+        font-size: 1.2rem;
+    }
+    .practise-qst-header-section p {
+        font-size: 1rem;
+    }
+    .practise-qst-stat-item {
+        min-width: 120px;
+        padding: 10px 15px;
+    }
+    .practise-qst-stat-number {
+        font-size: 1.8rem;
+    }
+    .practise-qst-section-title {
+        font-size: 1.8rem;
+    }
+    .practise-qst-cards {
+        grid-template-columns: 1fr;
+    }
+}

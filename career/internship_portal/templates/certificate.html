@@ -1,0 +1,823 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Certifications{% endblock %}</title>
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" integrity="sha384-dyB6l5y8N6p6c8f8g8m5e8f5e8f5e8f5e8f5e8f5e8f5e8f5e8f5e8f5e8f5" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --primary: hwb(203 2% 49%); /* Updated primary color */
+            --secondary: #077bc3;
+            --accent: white;
+            --tertiary: #e71d36;
+            --light: #fdfffc;
+            --dark: hwb(203 1% 69%);
+            --card-shadow: 0 10px 30px rgba(1, 22, 39, 0.1);
+            --hover-shadow: 0 15px 35px rgba(1, 22, 39, 0.15);
+        }
+
+        .serti-bosy{
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .certi-bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(var(--primary) 2px, transparent 2px),
+                radial-gradient(var(--primary) 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.05;
+            z-index: -1;
+            animation: patternFloat 60s linear infinite;
+        }
+
+        @keyframes patternFloat {
+            0% {
+                background-position: 0 0, 20px 20px;
+            }
+            100% {
+                background-position: 40px 40px, 60px 60px;
+            }
+        }
+
+        .certi-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .certi-header {
+            background-color: var(--secondary);
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            margin-bottom: 60px;
+        }
+
+        .certi-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0;
+            animation: slideInFadeUp 1.2s ease forwards;
+        }
+
+        @keyframes slideInFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .certi-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .certi-header-shape {
+            position: absolute;
+            background: var(--primary);
+            opacity: 0.1;
+        }
+
+        .certi-shape-1 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: -100px;
+            right: -50px;
+            animation: floatBubble 20s ease-in-out infinite alternate;
+        }
+
+        .certi-shape-2 {
+            width: 200px;
+            height: 200px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            bottom: -80px;
+            left: 10%;
+            background: var(--accent);
+            animation: morphShape 15s ease-in-out infinite alternate;
+        }
+
+        .certi-shape-3 {
+            width: 150px;
+            height: 150px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 40px;
+            left: 20%;
+            background: var(--tertiary);
+            opacity: 0.08;
+            animation: morphShape 12s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes floatBubble {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(-20px, 20px);
+            }
+            100% {
+                transform: translate(20px, -20px);
+            }
+        }
+
+        @keyframes morphShape {
+            0% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            }
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+            }
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            }
+            100% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+            }
+        }
+
+        .certi-header h1 {
+            color: var(--light);
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+
+        .certi-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            animation: lineGrow 1.5s 0.5s forwards ease-out;
+        }
+
+        @keyframes lineGrow {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100px;
+            }
+        }
+
+        .certi-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+
+        .certi-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+            perspective: 1000px;
+        }
+
+        .certi-certification-card {
+            background: var(--light);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.6s ease, box-shadow 0.6s ease;
+            position: relative;
+            border: 1px solid rgba(46, 196, 182, 0.1);
+            height: 100%;
+            opacity: 0;
+            transform-style: preserve-3d;
+            transform: translateY(20px) rotateX(5deg);
+        }
+
+        .certi-certification-card:hover {
+            transform: translateY(-5px) rotateX(0deg) scale(1.03);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .certi-certification-card:hover .certi-card-header::after {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+        .certi-certification-card:hover .certi-card-header i {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        .certi-card-header {
+            background: var(--secondary);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .certi-card-header::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, rgba(46, 196, 182, 0.2), rgba(255, 159, 28, 0.2));
+            transform: scaleY(0);
+            transform-origin: top;
+            opacity: 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+
+        .certi-card-header::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: -100px;
+            right: -50px;
+            opacity: 0.1;
+            animation: pulseGlow 5s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.15;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+        }
+
+        .certi-card-header h2 {
+            color: var(--light);
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .certi-card-header h2 i {
+            font-size: 1.6rem;
+            margin-right: 15px;
+            color: var(--accent);
+            transition: transform 0.6s ease;
+        }
+
+        .certi-card-body {
+            padding: 30px;
+        }
+
+        .certi-certification-card p {
+            font-size: 1.05rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .certi-certification-card ul {
+            list-style-type: none;
+            margin-bottom: 20px;
+            padding-inline: 0px;
+        }
+
+        .certi-certification-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(1, 22, 39, 0.1);
+            display: flex;
+            align-items: center;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .certi-certification-card.fade-in ul li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .certi-certification-card ul li:nth-child(1) { transition-delay: 0.1s; }
+        .certi-certification-card ul li:nth-child(2) { transition-delay: 0.2s; }
+        .certi-certification-card ul li:nth-child(3) { transition-delay: 0.3s; }
+        .certi-certification-card ul li:nth-child(4) { transition-delay: 0.4s; }
+        .certi-certification-card ul li:nth-child(5) { transition-delay: 0.5s; }
+
+        .certi-certification-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .certi-certification-card ul li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--primary);
+            margin-right: 10px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .certi-certification-card ul li:hover::before {
+            transform: scale(1.2);
+            color: var(--accent);
+        }
+
+        .certi-btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .certi-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid ;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .certi-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease-in-out;
+            z-index: -1;
+        }
+
+        .certi-btn:hover::before {
+            left: 0;
+            width: 100%;
+        }
+
+        .certi-btn i {
+            margin-right: 8px;
+            transition: transform 0.4s ease;
+        }
+
+        .certi-btn:hover i {
+            transform: translateX(-3px) rotate(-10deg);
+        }
+
+        .certi-btn-primary {
+            background-color: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 4px 10px rgba(255, 159, 28, 0.2);
+        }
+
+        .certi-btn-primary:hover {
+            background-color: green;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 159, 28, 0.3);
+            color: var(--light); /* Ensure consistent text color */
+        }
+
+        .certi-btn-secondary {
+            background-color: var(--light);
+            color: var(--dark);
+            border: 1px solid var(--dark);
+        }
+
+        .certi-btn-secondary:hover {
+            background-color: var(--dark);
+            color: var(--light);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(1, 22, 39, 0.2);
+            color: white;
+        }
+
+        footer {
+            background-color: var(--secondary);
+            color: var(--light);
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer .certi-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: -150px;
+            right: -100px;
+            opacity: 0.05;
+            animation: floatBubble 20s ease-in-out infinite alternate;
+        }
+
+        .certi-footer-circles {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .certi-footer-circle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: bubbleRise linear infinite;
+        }
+
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(100%) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) rotateX(5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+
+        .fade-in {
+            animation: fadeUp 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Floating icons animation */
+        .certi-floating-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .certi-floating-icon {
+            position: absolute;
+            color: var(--primary);
+            opacity: 0.1;
+            font-size: 20px;
+            animation: floatIcon linear infinite;
+        }
+
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Cursor trail effect */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            mix-blend-mode: screen;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .certi-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .certi-cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .certi-btn {
+                width: 100%;
+            }
+        }
+        .serti-bosy {
+  margin:
+0;
+  padding:
+0;
+}
+.certi-footer{
+    background-color: var(--secondary);
+  color: var(--light);
+  text-align: center;
+  position: relative;
+  overflow:
+hidden;
+height: 100px;
+margin-block: 0px;
+}
+    </style>
+</head>
+<body class="serti-bosy">
+    <div class="certi-bg-pattern"></div>
+    <div class="certi-floating-icons" id="floatingIcons"></div>
+    <div id="cursorTrailContainer"></div>
+
+    <header class="certi-header">
+        <div class="certi-header-bg">
+            <div class="certi-header-shape certi-shape-1"></div>
+            <div class="certi-header-shape certi-shape-2"></div>
+            <div class="certi-header-shape certi-shape-3"></div>
+        </div>
+        <div class="certi-header-content certi-container">
+            <h1>{% block header %}Professional Certifications{% endblock %}</h1>
+            <p>{% block header_description %}Elevate your career with industry-recognized credentials that showcase your expertise and dedication.{% endblock %}</p>
+        </div>
+    </header>
+
+    <div class="certi-container">
+        <div class="certi-cards-container">
+            <div class="certi-certification-card" style="animation-delay: 0.1s;">
+                <div class="certi-card-header">
+                    <h2><i class="fas fa-trophy"></i> Why Get Certified?</h2>
+                </div>
+                <div class="certi-card-body">
+                    <p>Certifications validate your expertise, boost your resume, and significantly increase your earning potential in the job market.</p>
+                    <p>Stand out from the competition with credentials that showcase your commitment to professional excellence.</p>
+                </div>
+            </div>
+
+            <div class="certi-certification-card" style="animation-delay: 0.2s;">
+                <div class="certi-card-header">
+                    <h2><i class="fas fa-certificate"></i> Popular Certifications</h2>
+                </div>
+                <div class="certi-card-body">
+                    <ul>
+                        <li>Java SE Programmer Certification</li>
+                        <li>Spring Professional Certification</li>
+                        <li>Full-Stack Web Development Certificate</li>
+                        <li>Cloud & DevOps Certifications</li>
+                        <li>Cybersecurity Professional Certificates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="certi-certification-card" style="animation-delay: 0.3s;">
+                <div class="certi-card-header">
+                    <h2><i class="fas fa-graduation-cap"></i> Certification Process</h2>
+                </div>
+                <div class="certi-card-body">
+                    <ul>
+                        <li>Enroll in specialized training courses</li>
+                        <li>Complete hands-on practical assignments</li>
+                        <li>Pass practice assessments with mentoring</li>
+                        <li>Successfully complete certification exam</li>
+                        <li>Receive your digital credentials</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="certi-certification-card" style="animation-delay: 0.4s;">
+            <div class="certi-card-header">
+                <h2><i class="fas fa-rocket"></i> Start Your Journey</h2>
+            </div>
+            <div class="certi-card-body">
+                <p>Ready to enhance your professional profile? Our certification programs are designed to help you gain in-demand skills and credentials recognized by top employers worldwide.</p>
+                <div class="certi-btn-container">
+                    <a href="index.html" class="certi-btn certi-btn-secondary"><i class="fas fa-arrow-left"></i> Browse Courses</a>
+                    <a href="enroll.html" class="certi-btn certi-btn-primary"><i class="fas fa-check-circle"></i> Get Certified</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="certi-footer">
+        <div class="certi-footer-circles" id="footerCircles"></div>
+        <div class="certi-container">
+            <p>© 2018-25 Readerclub. All rights reserved</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Card animations
+            const elements = document.querySelectorAll(".certi-certification-card");
+            
+            // Observer for revealing cards when they enter viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("fade-in");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+            
+            elements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Create floating icons
+            const floatingIcons = document.getElementById('floatingIcons');
+            const icons = ['fa-code', 'fa-cloud', 'fa-shield-alt', 'fa-database', 'fa-cogs', 
+                          'fa-server', 'fa-laptop-code', 'fa-network-wired', 'fa-code-branch'];
+            
+            for (let i = 0; i < 15; i++) {
+                createFloatingIcon();
+            }
+            
+            function createFloatingIcon() {
+                const icon = document.createElement('i');
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                
+                icon.className = `fas ${randomIcon} certi-floating-icon`;
+                icon.style.left = `${Math.random() * 100}%`;
+                icon.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                icon.style.fontSize = `${Math.random() * 20 + 10}px`;
+                
+                floatingIcons.appendChild(icon);
+                
+                // Remove and recreate after animation ends
+                setTimeout(() => {
+                    icon.remove();
+                    createFloatingIcon();
+                }, (parseFloat(icon.style.animationDuration) * 1000));
+            }
+            
+            // Footer bubbles
+            const footerCircles = document.getElementById('footerCircles');
+            
+            for (let i = 0; i < 20; i++) {
+                createFooterBubble();
+            }
+            
+            function createFooterBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'certi-footer-circle';
+                
+                const size = Math.random() * 30 + 10;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                
+                footerCircles.appendChild(bubble);
+                
+                // Remove and recreate after animation ends
+                setTimeout(() => {
+                    bubble.remove();
+                    createFooterBubble();
+                }, (parseFloat(bubble.style.animationDuration) * 1000));
+            }
+            
+            // Cursor trail effect
+            const cursorTrailContainer = document.getElementById('cursorTrailContainer');
+            const trails = [];
+            const trailCount = 5;
+            
+            // Create trail elements
+            for (let i = 0; i < trailCount; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                cursorTrailContainer.appendChild(trail);
+                trails.push({
+                    element: trail,
+                    x: 0,
+                    y: 0,
+                    scale: 1 - (i * 0.2),
+                    alpha: 1 - (i * 0.2),
+                    delay: i * 2
+                });
+            }
+            
+            // Update cursor trail positions
+            let mouseX = 0, mouseY = 0;
+            let mouseVisible = false;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                mouseVisible = true;
+                
+                // Show trails when mouse moves
+                trails.forEach(trail => {
+                    trail.element.style.transition = 'opacity 0.3s ease';
+                    trail.element.style.opacity = trail.alpha;
+                });
+                
+                setTimeout(() => {
+                    if (!mouseVisible) return;
+                    
+                    // Update each trail with delay
+                    trails.forEach((trail, index) => {
+                        setTimeout(() => {
+                            trail.x = mouseX;
+                            trail.y = mouseY;
+                            trail.element.style.transform = `translate(${trail.x - 10}px, ${trail.y - 10}px) scale(${trail.scale})`;
+                        }, index * 50);
+                    });
+                }, 10);
+            });
+            
+            // Hide trails when mouse leaves window
+            document.addEventListener('mouseout', () => {
+                mouseVisible = false;
+                trails.forEach(trail => {
+                    trail.element.style.opacity = '0';
+                });
+            });
+            
+            // Apply different colors to trails
+            trails.forEach((trail, index) => {
+                const colors = ['#2ec4b6', '#ff9f1c', '#e71d36'];
+                trail.element.style.background = colors[index % colors.length];
+            });
+        });
+    </script>
+</body>
+</html>

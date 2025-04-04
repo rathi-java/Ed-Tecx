@@ -270,3 +270,25 @@ def submit_application_internship(request):
         print(traceback.format_exc())
         messages.error(request, f"Error submitting application: {str(e)}")
         return redirect('internship_search')
+
+
+def upskill_page(request):
+    return render(request, 'upskill.html')
+
+
+def certificate_page(request):
+    return render(request, 'certificate.html')
+
+def study_material_page(request):
+    study_materials = [
+        {'title': 'Mathematics', 'description': 'Master algebra, calculus, and more with expert notes.', 'link': '#'},
+        {'title': 'Science', 'description': 'Dive into physics, chemistry, and biology concepts.', 'link': '#'},
+        {'title': 'Computer Science', 'description': 'Learn programming, algorithms, and software development.', 'link': '#'},
+        {'title': 'General Knowledge', 'description': 'Expand your awareness with current affairs and quizzes.', 'link': '#'},
+        {'title': 'English', 'description': 'Improve grammar, vocabulary, and reading comprehension.', 'link': '#'},
+        {'title': 'Logical Reasoning', 'description': 'Sharpen your analytical and problem-solving skills.', 'link': '#'},
+    ]
+    return render(request, 'study_material.html', {'study_materials': study_materials})
+
+def practice_page(request):
+    return render(request, 'practice.html')
