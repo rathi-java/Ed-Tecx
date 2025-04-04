@@ -110,7 +110,7 @@
                   <a href="{% url 'report_issue' %}"><i class="fas fa-exclamation-circle"></i> Report an Issue</a>
                   <a href="{% url 'refer_friend' %}"><i class="fas fa-user-friends"></i> Refer a Friend</a>
                   <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-                  <a href="{% url 'logout_all_devices' %}"><i class="fas fa-sign-out-alt"></i> Sign Out of all devices</a>
+                  <a href="{% url 'logout_all_devices' %}"><i class="fas fa-sign-out-alt"></i> Sign Out of all Devices</a>
         
                   <div class="profile-info-links">
                     <a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a>
@@ -187,7 +187,7 @@
 
       {% if request.session.user_id %}
       <li><a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
-      <li><a href="{% url 'logout_all_devices' %}"><i class="fas fa-sign-out-alt"></i> Sign Out of all devices</a></li>
+      <li><a href="{% url 'logout_all_devices' %}"><i class="fas fa-sign-out-alt"></i> Sign Out of all Devices</a></li>
 
       {% else %}
       <li><button class="signup-button-ham" onclick="openModal('signup')">Sign Up</button></li>
