@@ -11,19 +11,19 @@ services:
   career:
     build:
       context: ./career
-      dockerfile: Dockerfile.${ENV}  # Use Dockerfile.prod or Dockerfile.dev based on ENV
+      dockerfile: Dockerfile.dev  # Use Dockerfile.prod or Dockerfile.dev based on ENV
     ports:
-      - "${CAREER_PORT}:${CAREER_PORT}"  # Expose port 80 in production, 8001 in development
+      - "8001:8001"  # Expose port 80 in production, 8001 in development
     env_file:
-      - ${ENV}.env  # Use prod.env or dev.env based on ENV
+      - .env  # Use prod.env or dev.env based on ENV
     depends_on:
       - elasticsearch
 
   readerclub:
     build:
       context: ./readerclub
-      dockerfile: Dockerfile.${ENV}  # Use Dockerfile.prod or Dockerfile.dev based on ENV
+      dockerfile: Dockerfile.dev  # Use Dockerfile.prod or Dockerfile.dev based on ENV
     ports:
-      - "${READERCLUB_PORT}:${READERCLUB_PORT}"  # Expose port 80 in production, 8000 in development
+      - "8000:8000"  # Expose port 80 in production, 8000 in development
     env_file:
-      - ${ENV}.env  # Use prod.env or dev.env based on ENV
+      - .env

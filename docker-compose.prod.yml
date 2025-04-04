@@ -1,0 +1,25 @@
+services:
+  elasticsearch:
+    image: elasticsearch:8.10.3
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  career:
+    build:
+      context: ./career
+      dockerfile: Dockerfile.prod 
+    ports:
+      - "8001:80" 
+    depends_on:
+      - elasticsearch
+
+  readerclub:
+    build:
+      context: ./readerclub
+      dockerfile: Dockerfile.prod 
+    ports:
+      - "8000:80" 
