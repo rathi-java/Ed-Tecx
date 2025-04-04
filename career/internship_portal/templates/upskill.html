@@ -1,0 +1,468 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Skill-Building Courses{% endblock %}</title>
+    <style>
+        :root {
+            --primary: #077bc3;
+            --secondary: #4942c4;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #007bc3;
+            --success: #4CAF50;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --hover-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .upsillss-body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            scroll-behavior: smooth;
+        }
+        
+        .skill-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .skill-head{
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .skill-head h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .skill-head p {
+            font-size: 1.2rem;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .skill-course-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .skill-course-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            width: 280px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+        
+        .skill-course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .skill-course-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .skill-course-card h2 {
+            color: var(--dark);
+            font-size: 1rem;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        
+        .skill-course-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            height: 60px;
+        }
+        
+        .skill-course-level {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-level-indicator {
+            display: flex;
+            margin-left: 8px;
+        }
+        
+        .skill-level-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 4px;
+        }
+        
+        .skill-active {
+            background-color: var(--primary);
+        }
+        
+        .skill-course-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+        }
+        
+        .skill-detail {
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+        
+        .skill-course-card button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 30px;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        .skill-course-card button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(67, 97, 238, 0.4);
+        }
+        
+        .skill-course-card.skill-special {
+            border: 2px solid rgba(67, 97, 238, 0.1);
+        }
+        
+        .skill-course-card.skill-special::after {
+            content: "Popular";
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.75rem;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-weight: bold;
+        }
+        
+        .skill-icon {
+            margin-right: 6px;
+            font-size: 1rem;
+        }
+        
+        .skill-enrolled-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 100;
+            animation: slideIn 0.3s ease-out forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        
+        .skill-footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .skill-course-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .skill-course-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .skill-head h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+   <div class="upsillss-body">
+    <header class="skill-head">
+        <div class="skill-container">
+            <h1>Discover Your Potential</h1>
+            <p>Elevate your career with our expert-led tech courses designed for today's digital landscape</p>
+        </div>
+    </header>
+    
+    <div class="skill-container">
+        <!-- Debugging: Display courses -->
+        <!-- <pre>{{ courses|default:"No courses available" }}</pre> -->
+        
+        <section class="skill-course-container">
+            {% if courses %}
+                {% for course in courses %}
+                <div class="skill-course-card">
+                    <h2>{{ course.name }}</h2>
+                    <p>{{ course.description }}</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            {% for i in "123"|slice:":course.difficulty"|make_list %}
+                            <div class="skill-level-dot skill-active"></div>
+                            {% endfor %}
+                            {% for i in "123"|slice:":3-course.difficulty"|make_list %}
+                            <div class="skill-level-dot"></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>{{ course.duration }}</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>{% if course.certificate %}Certificate{% else %}No Certificate{% endif %}</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('{{ course.name }}')">Enroll Now</button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Add sample courses if no courses are provided -->
+                <div class="skill-course-card">
+                    <h2>Java Programming</h2>
+                    <p>Master Java from basics to advanced concepts including OOP and design patterns.</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>12 weeks</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>Certificate</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('Java Programming')">Enroll Now</button>
+                </div>
+                
+                <div class="skill-course-card skill-special">
+                    <h2>Spring Boot & Microservices</h2>
+                    <p>Learn how to build scalable, resilient backend applications with Spring Boot.</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>10 weeks</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>Certificate</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('Spring Boot & Microservices')">Enroll Now</button>
+                </div>
+                
+                <div class="skill-course-card">
+                    <h2>Frontend Development</h2>
+                    <p>Master HTML, CSS, and JavaScript to create responsive and interactive UIs.</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot"></div>
+                            <div class="skill-level-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>8 weeks</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>Certificate</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('Frontend Development')">Enroll Now</button>
+                </div>
+                
+                <div class="skill-course-card">
+                    <h2>SQL & Databases</h2>
+                    <p>Master data storage, retrieval, and advanced database concepts.</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>6 weeks</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>Certificate</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('SQL & Databases')">Enroll Now</button>
+                </div>
+                <div class="skill-course-card">
+                    <h2>Backend Development</h2>
+                    <p>Learn server-side programming, APIs, and database integration to build robust applications.</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot"></div>
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>10 weeks</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>Certificate</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('Backend Development')">Enroll Now</button>
+                </div>
+                
+                <div class="skill-course-card">
+                    <h2>Cloud Computing</h2>
+                    <p>Master cloud platforms like AWS and Azure to deploy and manage scalable applications.</p>
+                    <div class="skill-course-level">
+                        <span>Difficulty:</span>
+                        <div class="skill-level-indicator">
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                            <div class="skill-level-dot skill-active"></div>
+                        </div>
+                    </div>
+                    <div class="skill-course-details">
+                        <div class="skill-detail">
+                            <span class="skill-icon">📅</span>
+                            <span>12 weeks</span>
+                        </div>
+                        <div class="skill-detail">
+                            <span class="skill-icon">🎓</span>
+                            <span>Certificate</span>
+                        </div>
+                    </div>
+                    <button onclick="enroll('Cloud Computing')">Enroll Now</button>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+    
+    <div id="skill-enrolledMessage" class="skill-enrolled-message">
+        <strong>Success!</strong> You've enrolled in the course.
+    </div>
+    
+    <footer class="skill-footer">
+        <div class="skill-container">
+            <p>© 2018-25 Readerclub. All rights reserved</p>
+        </div>
+    </footer>
+   </div>
+    {% endblock %}
+    
+    <script>
+        function enroll(courseName) {
+            const message = document.getElementById('skill-enrolledMessage');
+            message.innerHTML = `<strong>Success!</strong> You've enrolled in <strong>${courseName}</strong>`;
+            message.style.display = 'block';
+            
+            setTimeout(() => {
+                message.style.animation = 'fadeOut 0.5s ease-out forwards';
+                setTimeout(() => {
+                    message.style.display = 'none';
+                    message.style.animation = '';
+                }, 500);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
