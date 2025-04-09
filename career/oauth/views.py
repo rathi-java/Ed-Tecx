@@ -286,6 +286,7 @@ def user_login(request):
 
         # Check for normal user login
         else:
+            #first try to find a normal user by email, phone number or username
             user = (
                 UsersDB.objects.filter(email=user_input).first() or
                 UsersDB.objects.filter(phone_number=user_input).first() or
@@ -294,7 +295,19 @@ def user_login(request):
             if user:
                 valid_password = check_password(password, user.password)
                 role = "user"
-
+            else:
+                # if no normal user found, try to find a company by email
+                from recruitment_portal.models import Company
+                company = Company.objects.filter(email=user_input).first()
+                if company:
+                    valid_password = check_password(password, company.password)
+                    if valid_password:
+                        user = company
+                        role = "company"
+                        # Set company specific session details
+                        request.session['company_id'] = company.id
+                        request.session['company_name'] = company.name
+                        request.session['company_email'] = company.email
         if user and valid_password:
             # Set session variables
             request.session['user_id'] = user.id
