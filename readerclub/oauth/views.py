@@ -287,18 +287,44 @@ def user_login(request):
                 pass
             
         else:
+            # first try to find regular users
             user = UsersDB.objects.filter(email=user_input).first() or \
                    UsersDB.objects.filter(phone_number=user_input).first() or \
                    UsersDB.objects.filter(username=user_input).first()
             if user:
                 valid_password = check_password(password, user.password)
                 role = "user"
+            else:
+                # if no normal user found, try to find a university by email
+                try:
+                    university = University.objects.get(university_email=user_input)
+                    valid_password = university.check_password(password)
+                    if valid_password:
+                        user = university
+                        role = "university"
+                        request.session['user_id'] = university.id
+                        request.session['university_id'] = university.id
+                        request.session['university_name'] = university.university_name
+                        request.session['university_email'] = university.university_email
+                        request.session['visited_university_home'] = False
+                        
+                        # Ensure the session data is saved immediately
+                        request.session.modified = True
+                        request.session.save()
+                except University.DoesNotExist:
+                    pass
+                except Exception as e:
+                    print(f"Error authenticating university by email: {e}")
+                    pass
 
         if user and valid_password:
             # Set session variables
-            request.session['user_id'] = user.id
-            request.session['role'] = role
-            request.session['username'] = user_input  # Store the actual username used to login
+            if role != "university":  # For university users, we've already set these
+                request.session['user_id'] = user.id
+                request.session['role'] = role
+                request.session['username'] = user_input  # Store the actual username used to login
+            else:
+                request.session['role'] = role  # We still need to set the role for university users
             
             # Update last_login if the model has this field
             if hasattr(user, 'last_login'):
